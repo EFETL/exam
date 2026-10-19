@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國二自然段考闖關（康軒）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#17625d; --main-2:#2a9384; --accent:#f2a541; --accent-2:#e07a2f;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#0f4b47 0%,#2a9384 60%,#f2a541 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#0f3b38;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.chk{display:inline-flex;gap:6px;align-items:center;background:#eef6f4;border-radius:10px;padding:6px 12px}
+.chk input{width:20px;height:20px}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;font-size:20px}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+/* 自然科：快問快答題目是一句話，不是單字 */
+.qword{font-size:1.35rem;letter-spacing:0;line-height:1.6}
+.opt{font-size:1.1rem;padding:12px;word-break:break-word}
+@media(max-width:560px){.opts{gap:8px}.opt{padding:10px 8px;font-size:1.05rem}.qword{font-size:1.2rem}}
+.sortcard{font-size:1.15rem}
+.bk{font-size:1rem;word-break:break-word}
+.traps .tr{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--line);padding:6px 0}
+.traps .tr b{color:var(--accent-2);white-space:nowrap}
+.tbl{border-collapse:collapse;width:100%;margin:6px 0 10px;font-size:1rem}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:center}
+.tbl th{background:#eef6f4;font-weight:700}
+.mvwrap{max-width:420px;margin:0 auto}
+.mvwrap svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:20px;height:14px;border-radius:4px}
+h2+.sub-t{margin:0}
+@media(max-width:560px){.bars .b{grid-template-columns:120px 1fr 52px}.bars .b span{line-height:1.35}}
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回自然選單</a><span class="tag">康軒版 國二上自然（理化） ｜ 第一次段考</span>
+    <h1>自然段考闖關｜緒論～第2章</h1>
+    <p>先看照片動畫弄懂觀念，再用遊戲練熟名詞與器材，最後做段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<button class="bgm" id="bgmBtn"></button>
+<footer><div class="wrap"><details style="margin-top:8px"><summary>圖片來源與授權</summary>動畫照片 58 張皆來自 Wikimedia Commons（CC0、公有領域、CC BY 或 CC BY-SA），未使用 AI 生成圖：Sulphuric acid 96 percent extra pure／W. Oelen（CC BY-SA 3.0）；Alcohol burner／Trisawan（CC BY-SA 4.0）；Alcohol-burner flame, dark background／Marián Hubinský（CC BY-SA 4.0）；GHS HAZCOM Safety Labels／Mpelletier1（CC BY-SA 3.0）；Laboratorní sklo／Milda 444（CC BY-SA 4.0）；2023 Okulary ochronne (1)／Jacek Halicki（CC BY-SA 4.0）；Chemistry Laboratory of Contai Public School／Ramkrishna Advani（CC BY-SA 4.0）；Celery seedlings planted in recycled pots／Badak Ironman（CC BY-SA 4.0）；Meniskus／Milda 444（CC BY-SA 4.0）；A measuring cylinder／Jeremyida002（CC BY-SA 4.0）；Ruler on table／Douglas Perkins（CC0）；Closeup of sand／Ypiyush22（CC BY-SA 4.0）；Balance Roberval Zadar／Bachelot Pierre J-P（CC BY-SA 3.0）；Analytical balance mettler ae-260／US DEA（公有領域）；Gold Ingots on white background／Szaaman（公有領域）；Ice cubes on water／Cleiton Andrade Andrade from Alfenas, Br（CC0）；Iceberg in the Arctic with its underside exposed／AWeith（CC BY-SA 4.0）；Density and the liquid tower／Silviaelzi（CC BY 4.0）；Silver ring.,／DIVYALAKSHWIN（CC BY-SA 4.0）；Set-weights hg／Hannes Grobe（CC BY 3.0）；Melting Butter／DrCruse（CC BY-SA 3.0）；Candle flame - Macro photography／Maximilian Schönherr（CC BY-SA 3.0）；BlackInkChromatography／Oscar（CC BY-SA 3.0）；Cromatografia dell'inchiostro ／Unicorno rosa 9（CC BY-SA 4.0）；HK 煎蛋 pan fried egg October 2025 N13P 01／SZE XAIMMOOA HONGMIN（CC0）；Abdampfschalen verschiedene Groessen／Simon A. Eugster（CC BY-SA 3.0）；Cold Filtration (with stirring rod)／Suman6395（CC BY-SA 4.0）；Melting - Flickr - Trinity／Rebecca Partington from Seattle, Washing（CC BY-SA 2.0）；Rust screw／User:Paulnasca（CC BY 2.0）；Sparkler／Gabriel Pollard（CC BY-SA 2.5）；Boilingkettle／Plorpy2（CC BY-SA 4.0）；Diffusion with ink／Zvonimir Lončarić（CC BY-SA 4.0）；Temperature-dependent-diffusion／MikeRun（CC BY-SA 4.0）；Salt-crystals／Nate Steiner（CC0）；Hand sanitizer bottle／Wikibantu（CC BY-SA 4.0）；Organic-strawberries Canada／Marc-Lautenbacher（CC BY-SA 4.0）；Brown sugar (20240904)／Fumikas Sagisavas（CC0）；Tea bag in water／Panamitsu（CC BY-SA 4.0）；Toothpasteonbrush／Thegreenj（CC BY-SA 3.0）；ISS-51 Moon, Earth's limb and the thin blue atmosphere／NASA（公有領域）；Opened bag of Ruffles All Dressed potato chips／Ser Amantio di Nicolao（CC BY-SA 4.0）；Dry Ice in Water／Ghukill（CC BY-SA 4.0）；CO2 extinguisher (9544108309)／Newtown grafitti from Sydney, Australia（CC BY 2.0）；Incense stick／AntanO（CC BY-SA 4.0）；Liquid nitrogen out of tank ŚFN 2025／Adrian Tync（CC BY-SA 4.0）；Manganese-dioxide-sample／Benjah-bmm27（公有領域）；Thistle Funnel Boiling Flask Bunsen Burner Water Displacement／Milton Wend（公有領域）；TIG welding／Mak04 at Slovenian Wikipedia（公有領域）；Air Quality Monitoring Station Keene NH July 2025 01／Artaxerxes（CC BY 4.0）；Coffee Pour Over Setup／Cerebral726（CC BY-SA 4.0）；Haze in Kuala Lumpur／This image was originally posted to Flic（CC BY-SA 2.0）；N95mask／Hanabishi（CC0）；Rainwater harvesting tank (5981896147)／SuSanA Secretariat（CC BY 2.0）；Reclaimed water sign near landscaping.gk／Grendelkhan（CC BY-SA 3.0）；Jingzaijiao Salt Fields 井仔腳鹽田 - panoramio／lienyuan lee（CC BY 3.0）；AERATION TANKS AT THE BLUE PLAINS SEWAGE TREATMENT PLANT ON THE ANACOSTIA RIVER. MORE TANKS ARE BEING ADDED TO MEET... - NARA - 547681／Neubauer, John, Photographer (NARA recor（公有領域）；Spider (cooking)／Geoff（CC BY-SA 3.0）；Lifestraw - safe drinking water (2722820246)／Badri Seshadri from Chennai, India（CC BY 2.0）。</details>
+</div></footer>
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料（康軒八上 緒論～第2章；名詞、定義、單位、實驗編號與步驟依 115 學年版康軒課本） =================
+   quick：[題目, 正解, [3 個誘答], 幾校考過(≥2 才顯示★)]
+   words：[名詞/器材, 定義/功能]　sorts：分類挑戰　mcq：{q,o,a,src,ex}（全部原創改寫，只借各校命題方向與陷阱） */
+const QASK='選出正確答案';
+const L={
+/* ---------------- 緒論 進入實驗室（含科學方法、科學技能） ---------------- */
+k0:{no:'緒論',title:'進入實驗室',author:'實驗安全・器材・變因・圖表',code:1,color:'linear-gradient(135deg,#3d5a80,#6c8ebf)',desc:'酒精燈、酸入水、器材名稱、操縱／控制／應變變因、作圖',
+quickAsk:QASK,quickTitle:'實驗安全＋器材快問快答',
+quick:[
+['熄滅酒精燈的正確方法','用燈罩蓋熄',['用嘴吹熄','用水澆熄','用手掌拍熄'],12],
+['酒精燈內酒精的適當量','約 1/2～2/3',['裝到全滿','約 1/4 以下','越少越安全'],12],
+['點燃酒精燈要用','打火機或火柴',['另一盞點燃的酒精燈','加熱過的玻璃棒','打火石互敲'],12],
+['不慎打翻酒精燈而著火，應盡速','用溼抹布覆蓋火焰',['用嘴吹熄','打開電扇吹','倒水桶的水'],0],
+['稀釋濃酸或強酸的正確方法','將酸緩緩加入水中',['將水倒入濃酸中','酸和水同時倒入量筒','先加熱濃酸'],10],
+['只用來測量液體體積，不可配製溶液或進行反應的器材','量筒',['燒杯','試管','蒸發皿'],27],
+['墊在燒杯下使受熱均勻的器材','陶瓷纖維網',['秤量紙','錶玻璃','濾紙'],9],
+['可直接在火焰上加熱的容器','試管',['燒杯','蒸發皿','量筒'],10],
+['用來蒸發溶液的陶瓷器具','蒸發皿',['量筒','錐形瓶','漏斗'],10],
+['讀量筒刻度時視線太高，測量值會','大於實際值',['小於實際值','等於實際值','變成零'],8],
+['混合藥品時應使用','玻璃棒攪拌',['溫度計攪拌','手指攪拌','滴管攪拌'],0],
+['使用有毒或高揮發性藥品，應在','通風櫥內操作',['窗戶關緊的角落','走廊上','講桌前'],0],
+['身體或眼睛不小心沾到藥品，應','用大量清水沖洗並立即就醫',['用衛生紙擦掉就好','塗上乳液','等它自己乾'],0],
+['頂部有尖脣、便於傾倒液體的器材','燒杯',['量筒','試管','廣口瓶'],0],
+['瓶口有側管、可接橡皮管導出氣體的器材','吸濾瓶',['錐形瓶','廣口瓶','燒杯'],0],
+['常作為集氣瓶使用的器材','廣口瓶',['吸濾瓶','量筒','蒸發皿'],0],
+['用來攪拌、引流的器材','玻璃棒',['滴管','刮勺','砝碼夾'],0],
+['取用少量粉末藥品的器材','刮勺',['滴管','玻璃棒','漏斗'],0],
+['聞藥品氣味的正確方法','用手在瓶口搧聞',['鼻子貼近瓶口深吸','倒在手上聞','嚐一口再判斷'],0],
+['加熱試管時，試管夾要夾在','近管口處，從底部加熱',['試管正中央','試管底部','直接用手握'],0],
+['加熱試管時，試管口','不可對著人體',['要對著自己方便觀察','要對著同學','要垂直朝下'],0],
+['實驗中刻意改變的那一項','操縱變因',['控制變因','應變變因','實驗結論'],11],
+['實驗中要保持相同的條件','控制變因',['操縱變因','應變變因','實驗假設'],11],
+['隨操縱變因改變而測量到的結果','應變變因',['控制變因','操縱變因','實驗器材'],11],
+['廢棄物或未用完的藥品應該','分類集中處理',['倒回原試劑瓶','直接倒進水槽','帶回家保存'],0],
+['繪製實驗關係圖時，橫軸通常放','操縱變因',['應變變因','控制變因','實驗日期'],0],
+['繪製實驗關係圖時，縱軸通常放','應變變因',['操縱變因','控制變因','組別'],0],
+],
+words:[['量筒','測量液體體積（不可配製溶液或進行反應）'],['燒杯','頂部尖脣便於傾倒，外壁刻度可粗略估計體積'],['錐形瓶','反應或加熱的容器，可直接搖晃使內容物混合'],['吸濾瓶','瓶口有側管，可連接導管收集反應產生的氣體'],['試管','細長管狀，可盛放物體反應或直接加熱'],['試管夾','夾持試管（夾近管口處）'],['蒸發皿','用來蒸發溶液的陶瓷器具'],['研缽及杵','把物質磨碎'],['廣口瓶','口徑大，常作為集氣瓶'],['滴管','吸取或添加少量液體'],['刮勺','舀取藥品或刮下結晶'],['燃燒匙','盛裝反應物進行燃燒反應'],['漏斗','將液體倒入窄口容器；過濾時搭配濾紙'],['鐵架及鐵夾','架設、固定實驗器皿（鐵夾又稱廣用夾）'],['錶玻璃','盛裝少量物質觀察，或當燒杯、蒸發皿的蓋子'],['薊頭漏斗','添加液體到產生氣體的容器，長管末端須在液面下'],['陶瓷纖維網','燒杯、蒸發皿加熱時墊在下方'],['燈罩','蓋熄酒精燈']],
+sorts:[
+{title:'🎯 變因分類：水溫與砂糖溶解時間',tip:'課本例子：水加熱至 30℃、40℃、50℃，加入定量砂糖靜置，記錄完全溶解所需時間',buckets:['操縱變因','控制變因','應變變因'],items:[
+['水溫的高低',0,'刻意改變的只有它'],['砂糖完全溶解所需的時間',2,'隨水溫改變而測量的結果'],['砂糖的量',1],['水量',1],['砂糖的種類',1],['燒杯的規格',1]]},
+{title:'🌱 變因分類：光照與綠豆芽',tip:'實驗：「探討每天照光時間對綠豆芽長高的影響」',buckets:['操縱變因','控制變因','應變變因'],items:[
+['每天照光的時數',0],['綠豆芽長高的公分數',2,'測量到的結果'],['每天澆水量',1],['土壤種類',1],['綠豆的數量',1],['室溫',1]]},
+{title:'🧯 實驗安全：正確還是錯誤？',tip:'各校「實驗室安全」題（17 校）最愛考的做法',buckets:['✅ 正確做法','❌ 錯誤做法'],items:[
+['用燈罩蓋熄酒精燈',0],['用嘴吹熄酒精燈',1,'可能引燃燈內酒精蒸氣'],['用點燃的酒精燈去點另一盞',1,'酒精可能灑出起火'],
+['稀釋濃硫酸時，把酸沿玻璃棒倒入水中並攪拌',0],['稀釋濃硫酸時，把水倒入濃硫酸',1,'大量放熱會使液體噴濺'],['用量筒配製溶液',1,'量筒只能量體積'],
+['用手搧聞藥品氣味',0],['用剩的藥品倒回原瓶',1,'會汙染整瓶藥品'],['打翻酒精燈著火，用溼抹布覆蓋火焰',0],['加熱試管時管口朝向自己',1,'試管口不可對著人體'],['把滴管直接伸入試液瓶吸取藥品',1,'先倒少許到小燒杯或試管再吸，以免汙染藥品'],['用溫度計攪拌藥品',1,'應使用玻璃棒攪拌'],['燒杯放在陶瓷纖維網上加熱',0],['蒸發皿直接放在火焰上加熱',1,'課本：除試管外，燒杯、蒸發皿等應放在陶瓷纖維網上加熱']]},
+],
+mcq:[
+{q:'小明想探討「水溫高低與砂糖溶解時間的關係」，下列哪一項是本實驗的操縱變因？',o:['水溫的高低','砂糖完全溶解所需的時間','砂糖的量','水量'],a:0,src:'15 校考變因',ex:'操縱變因是刻意改變的那一項（水溫）；溶解所需時間是隨之改變而測量的應變變因；砂糖的量、水量要保持相同，是控制變因。'},
+{q:'承上題，為了讓實驗公平，下列哪一項必須保持相同？',o:['每杯水的體積','每杯水的溫度','測得的溶解時間','實驗的結論'],a:0,src:'15 校考變因',ex:'控制變因要保持相同（課本：水量、砂糖的量、砂糖的種類、燒杯的規格）；水溫是要改變的操縱變因。'},
+{q:'「探討每天照光時間對綠豆芽生長的影響」，本實驗的應變變因是？',o:['綠豆芽長高的長度','每天照光的時間','每天澆水的量','綠豆的品種'],a:0,src:'變因題型',ex:'應變變因是測量到的結果（長高多少）；照光時間是操縱變因；澆水量、品種是控制變因。'},
+{q:'實驗時一次只改變一個變因，主要目的是什麼？',o:['確認結果的改變是由這個變因造成','讓實驗更快完成','可以少用一些藥品','讓數據看起來比較整齊'],a:0,src:'科學方法',ex:'如果同時改變好幾個條件，就無法判斷結果是哪一個條件造成的。'},
+{q:'關於酒精燈的使用，下列何者正確？',o:['酒精應維持在 1/2～2/3 的含量間','用完後用嘴吹熄','可用點燃的酒精燈去點另一盞','酒精裝越滿越好，可以燒比較久'],a:0,src:'12 校考酒精燈',ex:'課本：酒精維持在 1/2～2/3，不足時以漏斗添加；以打火機或火柴點燃，不可以燈點燈；用燈罩蓋熄，不可用口吹熄。'},
+{q:'稀釋濃硫酸時，正確的做法是？',o:['將濃硫酸沿玻璃棒緩緩倒入水中並攪拌','將水快速倒入濃硫酸中','將濃硫酸和水同時倒入量筒中混合','先把濃硫酸加熱再加水'],a:0,src:'10 校考酸入水',ex:'課本：稀釋濃酸或強酸溶液時，須將其緩緩加入水中，避免燒杯破裂或酸液濺射；量筒不可配製溶液。'},
+{q:'下列哪一項是量筒「不適合」的用途？',o:['在量筒中配製溶液或進行反應','測量 30 mL 水的體積','用排水法測量石頭的體積','測量沙拉油的體積'],a:0,src:'8 校考量筒使用',ex:'課本：量筒的正確用法為測量液體體積，不可在量筒中配製溶液或進行反應。'},
+{q:'做實驗時不慎打翻酒精燈而著火，最適當的處理是？',o:['盡速用溼抹布覆蓋火焰滅火','用嘴用力吹熄','打開電扇把火吹散','往火上倒一大桶水'],a:0,src:'實驗室安全 17 校',ex:'課本：應盡速用溼抹布覆蓋火焰滅火；吹氣、吹風會助長火勢，倒水可能讓燃燒的酒精四處流散。'},
+{q:'要讓燒杯中的溶液均勻受熱，應在燒杯與三腳架之間墊上？',o:['陶瓷纖維網','秤量紙','錶玻璃','濾紙'],a:0,src:'9 校考陶瓷纖維網',ex:'課本：除試管可直接在火焰上加熱外，燒杯、蒸發皿等應放在陶瓷纖維網上，或使用隔水加熱法加熱。'},
+{q:'聞實驗藥品的氣味時，正確的方法是？',o:['用手在瓶口輕輕搧動，聞飄過來的氣味','把鼻子湊近瓶口深吸','倒一點在手上再聞','先嚐一點再判斷'],a:0,src:'實驗室安全',ex:'課本：觀察藥品時不可將眼鼻湊近，必要時以手搧聞氣味；有毒或高揮發性藥品要在通風櫥內操作。'},
+{q:'用試管加熱液體時，下列做法何者正確？',o:['以試管夾夾住近管口處，從底部加熱，試管口不可對著人','試管口對著自己方便觀察','用試管夾夾住試管底部加熱','用手直接握住試管加熱'],a:0,src:'實驗室安全',ex:'課本：試管夾夾住近管口處，再從底部加熱；可將試管微傾或輕移使均勻受熱，但試管口不可對著人體。'},
+{q:'實驗結束後，未用完的藥品應該如何處理？',o:['不可任意攜出實驗室，應分類集中處理','倒回原來的試劑瓶','直接倒進水槽用水沖掉','帶回家保存'],a:0,src:'實驗室安全',ex:'課本守則：廢棄物或未用完的藥品，不可任意攜出實驗室，應分類集中處理；倒回原瓶會汙染整瓶藥品。'},
+{q:'把「水溫與砂糖溶解時間」的數據畫成關係圖，下列做法何者正確？',o:['水溫放橫軸、溶解時間放縱軸，兩軸都註明單位','溶解時間放橫軸、水溫放縱軸，不必標單位','把數據點逐一用折線硬連起來就好','刻度越小越好，讓數據擠在圖的一角'],a:0,src:'課本科學方法（圖表繪製）',ex:'課本：通常將操縱變因放橫軸、應變變因放縱軸，兩軸皆需註明單位；選適當刻度讓數據分布在大部分版面，再畫線代表趨勢（直線或曲線），使線盡可能靠近數據點。'},
+{q:'讀取量筒內液體的刻度時，若視線比液面中央處高，讀到的數值會？',o:['大於實際值','小於實際值','等於實際值','無法讀數'],a:0,src:'課本器材使用',ex:'課本：視線必須和液面中央處等高；視線太高，測量數值大於實際值；視線太低，測量數值小於實際值。'},
+]},
+
+/* ---------------- 1-1 長度與體積的測量 ---------------- */
+k11:{no:'1-1',title:'長度與體積的測量',author:'估計位・誤差・排水法',code:2,color:'linear-gradient(135deg,#1b6f6a,#2fa58f)',desc:'mm 尺記錄、刪異常值、沙子空隙、塑膠球綁金屬',
+quickAsk:QASK,quickTitle:'測量名詞＋單位快問快答',
+quick:[
+['國際單位制（SI）長度的基本單位','米（公尺）',['公分','毫米','公里'],2],
+['1 奈米（nm）等於','10⁻⁹ 公尺',['10⁻⁶ 公尺','10⁻³ 公尺','10⁻¹² 公尺'],8],
+['1 微米（µm）等於','10⁻⁶ 公尺',['10⁻⁹ 公尺','10⁻³ 公尺','10⁻² 公尺'],8],
+['測量結果必須包含','數值和單位',['只要數值','只要單位','數值和誤差'],2],
+['測量數值由什麼組成','準確數值＋一位估計數值',['準確數值＋兩位估計數值','只有準確數值','只有估計數值'],25],
+['最小刻度 1 mm 的尺，以 cm 記錄要寫到','小數第 2 位',['小數第 1 位','整數','小數第 3 位'],25],
+['最小刻度 1 mm 的尺，以 m 記錄要寫到','小數第 4 位',['小數第 3 位','小數第 2 位','整數'],12],
+['測量值的最後一位稱為','估計數值',['準確數值','誤差值','平均值'],13],
+['減少誤差的方法','多次測量取平均值',['只量一次就好','請別人猜','四捨五入到整數'],14],
+['多次測量中明顯有誤的數據','先刪除再平均',['一起平均','改成平均值','保留最大的'],15],
+['1 公升（L）等於','1000 毫升',['100 毫升','10 毫升','10000 毫升'],7],
+['1 cc 等於','1 mL',['1 L','1 g','10 mL'],7],
+['1 立方公寸（dm³）等於','1 L',['1 mL','10 L','1 cm³'],7],
+['家用自來水 1「度」的體積','1 立方公尺',['1 公升','1 立方公分','100 公升'],0],
+['形狀不規則、不溶於水的固體，體積可用','排水法',['公式法','秤重法','目測法'],16],
+['讀量筒刻度時，視線要與','液面中央處等高',['液面邊緣最高處等高','量筒底部等高','量筒口等高'],8],
+['發現排水法的古希臘科學家','阿基米德',['牛頓','伽利略','愛因斯坦'],0],
+['容器內部空間的體積稱為','容積',['質量','密度','面積'],0],
+['測量單位為什麼需要經大家公認','每個人手掌張開的長度不同，易造成理解不同',['公認的單位比較好記','手掌太短量不到','可以不必寫單位'],0],
+['1 奈米是 1 公尺的','十億分之一',['百萬分之一','千分之一','兆分之一'],8],
+['積體電路（IC）中的晶片主要由什麼材料製成','半導體',['絕緣體','木材','玻璃'],0],
+],
+words:[['準確數值','記錄到測量工具最小刻度單位的數字'],['估計數值','最小刻度的下一位，估計而得'],['誤差','因估計或測量者不同造成的差異'],['平均值','合理測量值總和 ÷ 合理次數'],['國際單位制（SI）','國際共同制訂的標準度量單位'],['排水法','用排開水的體積求物體體積'],['公式法','形狀規則的物體用長×寬×高'],['容積','容器內部空間的體積'],['奈米 nm','10⁻⁹ m'],['微米 µm','10⁻⁶ m'],['毫升 mL','＝1 cm³＝1 cc'],['公升 L','＝1 dm³＝1000 mL'],['半導體','導電性介於導體和絕緣體之間，例如矽']],
+sorts:[
+{title:'📏 mm 尺的記錄合不合理？',tip:'最小刻度 1 mm 的直尺：mm 記到小數 1 位、cm 小數 2 位、m 小數 4 位（9 校考過）',buckets:['✅ 合理','❌ 不合理'],items:[
+['102.35 cm',0],['1.2500 m',0],['800.0 mm',0],['1.250 m',1,'以 m 為單位要寫到小數第 4 位：1.2500 m'],['95.0 cm',1,'少了估計位，應為 95.00 cm'],['800.0 cm',1,'cm 要寫到小數第 2 位'],['36.40 cm',0],['0.3640 m',0],['45 mm',1,'mm 要記到小數第 1 位，如 45.0 mm'],['12.3 mm',0]]},
+{title:'🧊 測體積：公式法還是排水法？',tip:'形狀規則 → 公式法；形狀不規則且不溶於水 → 排水法（溶於水或浮在水面的要另想辦法）',buckets:['公式法（長×寬×高）','排水法','不適合直接用排水法'],items:[
+['長方體木塊',0],['正方體積木',0],['形狀不規則的金屬零件',1],['石頭',1],['玻璃彈珠',1],['砂糖',2,'會溶於水'],['方糖',2,'會溶於水'],['浮在水面的桌球',2,'要綁重物使它完全沒入水中']]},
+{title:'📦 這是哪一種量的單位？',tip:'長度、體積、質量的單位不要混在一起',buckets:['長度','體積','質量'],items:[
+['µm（微米）',0],['nm（奈米）',0],['dm³',1],['mL',1],['cc',1],['mg',2],['公噸',2],['km',0],['L',1],['kg',2]]},
+],
+mcq:[
+{q:'小安拿刻度精細到毫米的捲尺量講臺，下列哪一筆紀錄符合「準確數值＋一位估計數值」的規則？',o:['136.48 cm','1.364 m','136.4 cm','1364.80 mm'],a:0,src:'9 校考過（mm 尺量書桌）',ex:'最小刻度 1 mm 要估計到 0.1 mm：cm 記到小數第 2 位（136.48 cm）、m 記到小數第 4 位（1.3648 m）、mm 記到小數第 1 位（1364.8 mm）。1.364 m、136.4 cm 少一位，1364.80 mm 多一位。'},
+{q:'五位同學量同一個書櫃的寬度：60.02、60.04、30.01、60.01、60.05 cm。最適當的測量結果是？',o:['60.03 cm','54.03 cm','60.030 cm','60.0 cm'],a:0,src:'20 校考刪異常值',ex:'30.01 明顯有誤要先刪除；(60.02＋60.04＋60.01＋60.05)÷4＝60.03 cm，位數和原數據相同。'},
+{q:'某生測得鉛筆長 13.72 cm，他使用的尺最小刻度是？',o:['1 mm','1 cm','0.1 mm','0.01 mm'],a:0,src:'11 校考由記錄推最小刻度',ex:'最後一位 0.02 cm 是估計數值，往前一位 0.1 cm＝1 mm 就是最小刻度。'},
+{q:'測得某物長 25.36 cm，其中的估計數值是？',o:['0.06 cm','0.36 cm','6 cm','25.3 cm'],a:0,src:'13 校考估計值',ex:'測量值的最後一位是估計數值，即 0.06 cm；25.3 cm 是準確數值。'},
+{q:'小雯量講桌長得 80.2 cm，沛沛量得 80.25 cm。兩人記錄的小數位數不同，最可能的原因是？',o:['兩人使用的尺最小刻度不同','沛沛估計得比較準','小雯少寫了一個 0','講桌長度變了'],a:0,src:'課本例題改寫',ex:'80.2 cm 的估計位在 0.1 cm → 尺的最小刻度 1 cm；80.25 cm → 最小刻度 1 mm。'},
+{q:'阿哲把乾燥細沙倒進量筒，沙面對齊 50.0 mL 刻度；接著加入 40.0 mL 水並輕敲量筒趕走氣泡，水面升到 72.0 mL（沙全在水面下）。細沙本身占的體積是？',o:['32.0 cm³','50.0 cm³','22.0 cm³','90.0 cm³'],a:0,src:'14 校都考（沙子空隙）',ex:'沙粒之間有空隙，原本的沙面讀數偏大。真正體積＝加水後水面－加入的水量＝72.0－40.0＝32.0 cm³。'},
+{q:'量筒中先放入綠豆，再加入 30.0 mL 水，水面到達 46.0 mL（綠豆全在水面下）。綠豆的總體積是？',o:['16.0 cm³','46.0 cm³','30.0 cm³','76.0 cm³'],a:0,src:'課本例題改寫',ex:'46.0－30.0＝16.0 mL＝16.0 cm³。'},
+{q:'量筒原有水 50.0 mL（X1）；放入塑膠球浮在水面，讀數 54.0 mL（X2）；把塑膠球綁上金屬塊一起沉入水中，讀數 68.0 mL（X3）；只放金屬塊，讀數 58.0 mL（X4）。塑膠球的體積是？',o:['10.0 cm³','4.0 cm³','8.0 cm³','18.0 cm³'],a:0,src:'9 校考過（塑膠球綁金屬）',ex:'塑膠球體積＝X3－X4＝10.0 cm³；金屬塊體積＝X4－X1＝8.0 cm³。浮在水面時只排開部分的水，X2－X1 不是球的體積。'},
+{q:'下列哪一種物體「不適合」直接用排水法測量體積？',o:['方糖','鐵螺帽','玻璃彈珠','石頭'],a:0,src:'課本動腦時間',ex:'課本動腦時間：可溶於水的物質（例如砂糖）不適合用排水法；排水法適用於不溶於水且能完全沒入水中的物體。'},
+{q:'下列單位換算何者錯誤？',o:['1 mL＝1 dm³','1 L＝1000 cm³','1 cc＝1 cm³','1 nm＝10⁻⁹ m'],a:0,src:'7 校考體積單位',ex:'1 dm³＝1 L＝1000 mL；1 mL＝1 cm³。'},
+{q:'依課本跨科主題圖 2-29：病毒約 80 奈米、細菌約 3 微米、PM2.5 約 2.5 微米、花粉約 30 微米。由小到大排列為？',o:['病毒＜PM2.5＜細菌＜花粉','PM2.5＜病毒＜細菌＜花粉','病毒＜細菌＜PM2.5＜花粉','花粉＜細菌＜PM2.5＜病毒'],a:0,src:'10 校考奈米微米比大小',ex:'80 nm＝0.08 µm，所以病毒最小；接著 PM2.5（2.5 µm）、細菌（3 µm）、花粉（30 µm）。'},
+{q:'關於誤差的敘述，何者正確？',o:['誤差無法完全消除，只能設法減小','只要夠細心就不會有誤差','用最小刻度越大的尺，誤差越小','誤差就是讀錯刻度'],a:0,src:'17 校考誤差',ex:'估計數值會因人、因次而不同，一定有誤差；可用最小刻度較小的工具、多次測量取平均來減小。'},
+{q:'讀取量筒內水的體積時，視線應該如何？',o:['與液面中央處等高','從量筒正上方往下看','與液面邊緣最高處等高','從量筒底部往上看'],a:0,src:'8 校考量筒讀數',ex:'課本：視線須和液面中央處等高（凹液面的最低處）。'},
+{q:'用最小刻度 1 公分的直尺量鉛筆，記為 13.7 公分；改用最小刻度 1 毫米的直尺，記為 137.5 毫米。下列敘述何者正確？',o:['用最小刻度單位較小的尺，測量結果比較精確','兩把尺的準確數值都到 1 毫米','13.7 公分中，0.7 是準確數值','137.5 毫米中，137.5 都是準確數值'],a:0,src:'課本圖 1-2',ex:'13.7 公分：13 是準確數值、0.7 是估計數值；137.5 毫米：137 是準確數值、0.5 是估計數值。最小刻度單位較小的工具，得到的結果比較精確。'},
+{q:'一奈米是多少公尺？',o:['10⁻⁹ 公尺','10⁻³ 公尺','10⁻⁶ 公尺','10⁻¹² 公尺'],a:0,src:'課本科普閱讀「半導體與奈米」',ex:'奈米是一公尺的十億分之一（10⁻⁹ m）；微米是 10⁻⁶ m。電子元件做到奈米尺度，晶片能放更多元件，讓電子產品更小、更快、更省電。'},
+]},
+
+/* ---------------- 1-2 質量與密度的測量 ---------------- */
+k12:{no:'1-2',title:'質量與密度的測量',author:'上皿天平・密度・M-V 圖',code:3,color:'linear-gradient(135deg,#8a4b2a,#d08a4c)',desc:'80.50 g、乙甲丁丙、等質量金屬水位、量筒＋液體',
+quickAsk:QASK,quickTitle:'天平＋密度快問快答',
+quick:[
+['組成物體的物質總量多少稱為','質量',['重量','體積','密度'],0],
+['質量的國際單位制基本單位','公斤',['公克','毫克','公噸'],2],
+['1 公噸等於','10⁶ 公克',['10³ 公克','10⁹ 公克','100 公斤'],0],
+['上皿天平：待測物放在','左盤',['右盤','中央','任一盤都可'],23],
+['取放砝碼要用','砝碼夾',['直接用手拿','刮勺','玻璃棒'],24],
+['放砝碼的順序','由大到小',['由小到大','隨便放','先放最小的'],24],
+['秤藥品時，秤量紙要','先放秤量紙再歸零',['先歸零再放秤量紙','不用秤量紙','秤完再放'],13],
+['天平歸零時旋轉的零件','校準螺絲',['砝碼夾','秤量紙','指針'],16],
+['天平平衡的判斷','指針停在中央或左右擺幅相等',['指針完全不動才算','指針偏左','指針偏右'],23],
+['密度的公式','D＝M／V',['D＝V／M','D＝M×V','D＝M＋V'],27],
+['1 g/cm³ 等於','1000 kg/m³',['1 kg/m³','100 kg/m³','10 kg/m³'],27],
+['常溫常壓下水的密度','1.00 g/cm³',['0.79 g/cm³','0.92 g/cm³','13.53 g/cm³'],27],
+['課本密度表中冰（0℃）的密度','0.92 g/cm³',['1.00 g/cm³','0.79 g/cm³','1.06 g/cm³'],10],
+['課本密度表中酒精的密度','0.79 g/cm³',['1.00 g/cm³','0.92 g/cm³','2.70 g/cm³'],0],
+['質量相同的鋁塊與木塊，體積較大的是','木塊（密度較小）',['鋁塊','一樣大','無法判斷'],0],
+['同一種物質切成一半，密度','不變',['變一半','變兩倍','變成零'],17],
+['質量-體積關係圖中，直線越陡表示','密度越大',['密度越小','質量一定越大','體積一定越大'],22],
+['同一種物質的質量與體積','成正比',['成反比','沒有關係','數值相等'],22],
+['把物體帶到月球，質量','不變',['變成 1/6','變大','變成零'],7],
+['電子天平上的氣泡水平儀，氣泡在哪裡代表放水平','中心點',['最左邊','最右邊','看不到氣泡'],8],
+['電子天平使用前要先','放水平並歸零',['先放砝碼','先加熱','先倒水'],8],
+['可以用來判斷物質種類的性質','密度',['質量','體積','形狀'],10],
+],
+words:[['質量','物體所含物質的總量，不隨地點改變'],['重量','物體所受的重力，會隨地點改變'],['密度','物質每單位體積所含的質量'],['校準螺絲','天平歸零時旋轉調整'],['砝碼夾','夾取砝碼，避免手汗使砝碼生鏽'],['秤量紙','秤藥品時墊在秤盤上（先放再歸零）'],['指針','判斷天平是否平衡'],['電子天平','放水平、歸零後直接讀數'],['氣泡水平儀','確認電子天平放置水平'],['上皿天平','等臂式天平，物左砝右'],['M-V 圖直線的傾斜度','越陡代表密度越大'],['g/cm³','密度單位，＝g/mL']],
+sorts:[
+{title:'⚖️ 秤取 4 g 小蘇打：步驟排序',tip:'每張卡片是第幾步？（9 校考過「乙甲丁丙」）',buckets:['第 1 步','第 2 步','第 3 步','第 4 步'],items:[
+['左盤放上秤量紙',0,'秤藥品要先放秤量紙'],['旋轉校準螺絲使指針在中央（歸零）',1,'放好秤量紙再歸零，就能扣除紙的質量'],['用砝碼夾在右盤放 4 g 砝碼',2,'秤取「定量」藥品時先放砝碼'],['在左盤慢慢加入小蘇打直到平衡',3,'指針停在中央或左右擺幅相等']]},
+{title:'🧊 密度會不會改變？',tip:'密度是物質的特性；只有三態變化或溫度改變才會變（17 校）',buckets:['密度不變','密度改變'],items:[
+['把鋁塊切成兩半',0],['把黏土捏成不同形狀',0],['把鐵塊帶到月球',0],['水結成冰',1,'質量不變、體積變大，密度變小（約 0.92）'],['把銅塊磨成粉',0],['金屬塊加熱膨脹',1,'質量不變、體積變大'],['把 100 mL 水倒掉一半',0]]},
+{title:'🪙 用密度辨識金屬',tip:'先算 D＝M／V，再對照課本表 1-4：金 19.30、銀 10.49、銅 8.96、鐵 7.87、鋁 2.70 g/cm³',buckets:['銀','鐵','鋁','金'],items:[
+['26.25 g、2.5 cm³ 的戒指',0,'26.25÷2.5＝10.5 → 銀'],['15.8 g、2.0 cm³ 的螺帽',1,'7.9 → 鐵'],['54 g、20 cm³ 的金屬塊',2,'2.7 → 鋁'],['96.5 g、5.0 cm³ 的墜子',3,'19.3 → 金'],['13.5 g、5.0 cm³ 的易開罐碎片',2,'2.7 → 鋁'],['39.35 g、5.0 cm³ 的小方塊',1,'7.87 → 鐵']]},
+],
+mcq:[
+{q:'上皿天平最小砝碼為 100 mg。右盤放 50 g、20 g、10 g 各一個及 200 mg 兩個、100 mg 一個時指針停在中央。物體質量應記錄為？',o:['80.50 g','80.5 g','80.05 g','84.10 g'],a:0,src:'12 校考過（補到估計位）',ex:'50＋20＋10＋0.2×2＋0.1＝80.5 g；最小刻度 0.1 g，要估計到下一位，記為 80.50 g。200 mg 是 0.2 g，不是 2 g。'},
+{q:'要用上皿天平秤出 4 g 小蘇打，有四個動作——甲：轉動校準螺絲讓指針回到中央；乙：在左盤鋪一張秤量紙；丙：用刮勺把小蘇打一點一點加到左盤直到平衡；丁：用砝碼夾把 4 g 砝碼放上右盤。合理的操作順序是？',o:['乙甲丁丙','甲乙丁丙','乙甲丙丁','丁乙甲丙'],a:0,src:'9 校考過',ex:'先放秤量紙再歸零（扣除紙的質量），秤取定量藥品時先放砝碼，再慢慢加藥品到平衡。'},
+{q:'天平歸零時發現指針偏向右邊（右邊較重），應如何調整？',o:['把校準螺絲往左（較輕的一側）調','把校準螺絲往右調','在右盤加上砝碼','在左盤放一張秤量紙'],a:0,src:'16 校考校準螺絲',ex:'指針偏右表示右邊重，要把校準螺絲往輕的一邊（左邊）移，直到指針在中央。'},
+{q:'將質量相同的銀塊、鐵塊、鋁塊分別放入三個裝等量水的相同量筒（都沉入水中），哪一杯水面上升最多？',o:['鋁塊那杯','銀塊那杯','鐵塊那杯','三杯一樣高'],a:0,src:'14 校考等質量金屬',ex:'質量相同時，密度越小體積越大。鋁密度最小（2.70），體積最大，水面上升最多；銀最少。若題目改成「體積相同」，三杯一樣高。'},
+{q:'在量筒中裝不同體積的某液體，測得「量筒＋液體」總質量：10.0 cm³→32 g、20.0 cm³→40 g、30.0 cm³→48 g。此液體密度為？',o:['0.8 g/cm³','3.2 g/cm³','1.6 g/cm³','2.0 g/cm³'],a:0,src:'15 校考量筒＋液體',ex:'密度要用「質量差÷體積差」：(40－32)÷(20.0－10.0)＝0.8 g/cm³。直接用 32÷10 會把量筒的質量也算進去。'},
+{q:'承上題，空量筒的質量是多少？',o:['24 g','32 g','8 g','0 g'],a:0,src:'15 校考量筒＋液體',ex:'10.0 cm³ 液體的質量＝0.8×10＝8 g，量筒＝32－8＝24 g，也就是圖形的截距。'},
+{q:'撿到一枚戒指，質量 26.25 g，用排水法測得體積 2.5 cm³。對照課本密度表（金 19.30、銀 10.49、銅 8.96、鐵 7.87 g/cm³），它最可能是？',o:['銀','金','銅','鐵'],a:0,src:'10 校考辨識金屬',ex:'26.25÷2.5＝10.5 g/cm³，最接近銀。密度是物質的特性，可用來判斷物質種類。'},
+{q:'100 g 的冰完全熔化成水後，質量是多少？',o:['100 g','92 g','109 g','無法判斷'],a:0,src:'10 校考冰水密度',ex:'熔化是三態變化，質量不變；但冰的密度較小，熔化後體積變小。'},
+{q:'一塊密度 2.7 g/cm³ 的鋁塊切成兩半，其中一半的密度為？',o:['2.7 g/cm³','1.35 g/cm³','5.4 g/cm³','0 g/cm³'],a:0,src:'17 校考切半密度不變',ex:'質量和體積都變一半，比值不變。密度是物質的特性，和大小、形狀無關。'},
+{q:'甲、乙兩物質的質量-體積關係圖都是通過原點的直線，甲線比乙線陡。下列敘述何者正確？',o:['甲的密度比乙大','甲的質量一定比乙大','體積相同時，乙的質量較大','質量相同時，甲的體積較大'],a:0,src:'23 校考 M-V 圖',ex:'直線越陡，同體積時質量越大，密度越大；但沒有給定體積時，不能說甲的質量一定比較大。'},
+{q:'兩瓶黑麻油標示：甲「260 cc（240 g）」、乙「275 mL（275 g）」。已知麻油的密度小於水，哪一瓶的標示不合理？',o:['乙','甲','兩瓶都合理','兩瓶都不合理'],a:0,src:'5 校考黑麻油標示',ex:'cc＝mL 是體積、g 是質量。密度小於 1，質量的數值應小於體積的數值；乙 275÷275＝1.0，不合理；甲 240÷260≒0.92，合理。'},
+{q:'把一顆蘋果從臺灣帶到月球，下列敘述何者正確？',o:['質量不變，重量變小','質量和重量都不變','質量變小，重量不變','質量和重量都變小'],a:0,src:'7 校考質量不隨地點變',ex:'質量是所含物質的總量，不隨地點改變；重量是所受的重力，月球重力較小。'},
+{q:'在幾乎沒有重力的太空站裡，下列哪一種儀器無法正常使用？',o:['上皿天平','直尺','碼錶','溫度計'],a:0,src:'7 校考天平',ex:'等臂天平靠重力比較兩盤物體，沒有重力時無法平衡比較。'},
+{q:'把一塊 54 g 的金屬放入裝滿水的燒杯，溢出 20 mL 的水。這塊金屬的密度是？',o:['2.7 g/cm³','0.37 g/cm³','1.08 g/cm³','74 g/cm³'],a:0,src:'10 校考溢出液體',ex:'溢出水的體積＝金屬體積＝20 cm³，密度＝54÷20＝2.7 g/cm³（可能是鋁）。'},
+{q:'體積相同的鋁塊與木塊，鋁塊的質量較大，可推知？',o:['鋁的密度比木頭大','木頭的密度比鋁大','兩者密度相同','無法比較'],a:0,src:'課本圖 1-10',ex:'體積相同時，質量越大者密度越大。'},
+{q:'實驗 1·2 測得未知金屬塊的質量與體積比值約為 7.9 g/cm³。對照課本附表（銅 8.96、鐵 7.87、鋁 2.70），它最可能是？',o:['鐵','銅','鋁','無法判斷'],a:0,src:'課本實驗 1·2',ex:'每種物質都有特定的密度，可作為判斷物質種類的依據；7.9 最接近鐵的 7.87。'},
+]},
+
+/* ---------------- 2-1 認識物質 ---------------- */
+k21:{no:'2-1',title:'認識物質',author:'三態・變化・性質・分離',code:4,color:'linear-gradient(135deg,#5b4b8a,#8f7cc4)',desc:'氣體可壓縮、物理 vs 化學、食鹽與沙分離、色層分析',
+quickAsk:QASK,quickTitle:'物質名詞快問快答',
+quick:[
+['凡占有空間、具有質量者稱為','物質',['物體','能量','元素'],0],
+['固態的體積與形狀','都固定',['體積固定、形狀隨容器','都隨容器改變','體積不固定、形狀固定'],15],
+['液態的體積與形狀','體積固定、形狀隨容器',['都固定','都隨容器改變','體積隨容器、形狀固定'],15],
+['氣態的體積與形狀','都隨容器改變，會充滿容器',['都固定','體積固定、形狀隨容器','體積隨容器、形狀固定'],15],
+['最容易被壓縮的狀態','氣態',['液態','固態','都不能壓縮'],15],
+['按住出口推注射筒，裝紅墨水時活塞','不易推動（液體不易壓縮）',['很容易推到底','會自己彈出','推一下就變成氣體'],15],
+['雲、霧、雨、雪的組成物質都是','水',['空氣','二氧化碳','鹽'],0],
+['剪刀、長尾夾、迴紋針都能被磁鐵吸引，因為主要成分都是','鐵',['鋁','銅','塑膠'],0],
+['冰淇淋熔化屬於','物理變化',['化學變化','燃燒','分解'],22],
+['沒有新物質產生的變化','物理變化',['化學變化','燃燒','生鏽'],22],
+['有新物質產生的變化','化學變化',['物理變化','三態變化','溶解'],26],
+['鐵生鏽屬於','化學變化',['物理變化','三態變化','溶解'],26],
+['剪紙屬於','物理變化',['化學變化','燃燒','分解'],22],
+['紙張燃燒後產生二氧化碳和灰燼，屬於','化學變化',['物理變化','三態變化','溶解'],26],
+['可燃性、助燃性、酸鹼性屬於','化學性質',['物理性質','三態','密度'],18],
+['質量、密度、熔點屬於','物理性質',['化學性質','可燃性','酸鹼性'],18],
+['只由一種物質組成的是','純物質',['混合物','溶液','合金'],23],
+['生理食鹽水屬於','混合物',['純物質','元素','單一物質'],23],
+['性質會隨混合比例不同而改變的是','混合物',['純物質','純水','銀'],21],
+['一大氣壓下純水的沸點','100℃',['102℃','90℃','0℃'],21],
+['過濾是利用物質的','顆粒大小不同',['沸點不同','密度不同','顏色不同'],25],
+['蒸發結晶是利用物質的','沸點不同',['顆粒大小不同','顏色不同','磁性不同'],19],
+['濾紙色層分析是利用色素的','與濾紙吸附能力及與水作用力不同',['沸點不同','顆粒大小不同','密度不同'],12],
+['用磁鐵分離鐵粉與細沙，是利用','磁性差異',['沸點差異','顆粒大小差異','顏色差異'],0],
+['實驗 2·1 用濾紙和紗布過濾，效果較好的是','濾紙',['紗布','兩者一樣','都濾不出沙子'],0],
+['蒸發皿中的濾液完全蒸乾後應','熄滅酒精燈，以免乾燒',['繼續加熱到變紅','立刻用手拿起','加冷水降溫'],0],
+['漏斗頸下端緊貼燒杯內壁是為了','防止濾液濺起',['加快過濾','增加濾液','讓濾紙不破'],7],
+['過濾時漏斗中的液面不要超過濾紙的','2/3 高度',['1/4 高度','邊緣以上','全部高度'],0],
+],
+words:[['物質','凡占有空間、具有質量者'],['物體','由物質所組成，例如剪刀、迴紋針'],['氣體的可壓縮性','注射筒內的氣體容易被壓縮'],['物理變化','本質不變、沒有新物質產生'],['化學變化','本質改變、產生新物質'],['物理性質','不改變物質組成就能察覺的性質（質量、密度、熔點）'],['化學性質','發生化學變化時表現的性質（可燃性、助燃性、酸鹼性）'],['純物質','只由一種物質組成，性質一定'],['混合物','兩種以上純物質混合，性質隨比例改變'],['溶解過濾','分離顆粒大小不同的物質'],['蒸發結晶','分離沸點不同的物質'],['濾紙色層分析','依色素與濾紙吸附能力、與水作用力不同而分離'],['紗布','孔隙較大，過濾效果不如濾紙'],['錶玻璃','可當蒸發皿的蓋子']],
+sorts:[
+{title:'🔥 物理變化還是化學變化？',tip:'關鍵：有沒有產生新物質（23 校都考）',buckets:['物理變化','化學變化'],items:[
+['冰塊熔化成水',0],['鐵釘生鏽',1],['蠟燭燃燒',1],['蠟受熱熔化',0],['冰淇淋熔化',0],['蛋白加熱變白',1,'產生白色的新物質'],['紙張燃燒成灰燼',1,'產生二氧化碳和灰燼'],['剪紙',0,'只改變形狀、大小'],['糖溶解在水中',0,'溶解沒有產生新物質'],['煮熟食物',1],['水的三態變化',0],['用針戳破氣球',0],['用點燃的線香燒破氣球',1,'線香和氣球燃燒產生新物質'],['過濾泥水',0]]},
+{title:'🧪 物理性質還是化學性質？',tip:'要發生化學變化才看得出來的，就是化學性質（20 校）',buckets:['物理性質','化學性質'],items:[
+['鐵可以被磁鐵吸引',0],['紙張具有可燃性',1],['氧氣具有助燃性',1],['純水沸點 100℃',0],['水的密度 1 g/cm³',0],['醋的酸鹼性',1],['物體的質量',0],['冰的熔點 0℃',0],['鐵在潮溼空氣中會生鏽',1],['食鹽容易溶於水',0]]},
+{title:'🥤 純物質還是混合物？',tip:'只由一種物質組成才是純物質；空氣再均勻也是混合物（21 校）',buckets:['純物質','混合物'],items:[
+['純水',0],['二氧化碳',0],['銀',0],['乾冰',0,'固態的二氧化碳，只有一種物質'],['氧氣',0],['生理食鹽水',1,'食鹽與水的混合物'],['柳橙汁',1],['空氣',1],['鮮奶',1],['棕色水性筆的顏料',1,'色層分析分出不同色素'],['食鹽水',1,'沸點隨食鹽與水的比例改變']]},
+{title:'🧊 固態、液態還是氣態？',tip:'看體積和形狀會不會隨容器改變、能不能被壓縮（15 校考三態特性）',buckets:['固態','液態','氣態'],items:[
+['體積固定，形狀不隨容器改變',0],['體積固定，形狀隨容器改變',1],['會充滿容器，體積和形狀都隨容器改變',2],['冰塊放進杯子，形狀不受杯子影響',0],['倒進不同杯子，形狀改變但體積不變',1],['注射筒中很容易被壓縮',2],['注射筒中的紅墨水，不易被壓縮',1],['水蒸氣',2],['鐵製迴紋針',0]]},
+],
+mcq:[
+{q:'按住注射筒出口推活塞：裝 15 mL 空氣時可推到 10 mL，裝 15 mL 紅墨水時幾乎推不動。由此可知？',o:['氣體容易被壓縮，液體不易被壓縮','液體比氣體容易被壓縮','氣體和液體都不能被壓縮','紅墨水的體積會隨容器改變'],a:0,src:'課本圖 2-3（15 校考三態）',ex:'課本：注射筒內為氣體時活塞可向內推動，表示氣體容易壓縮；液體體積不易被壓縮。'},
+{q:'雲、霧、雨、雪的形態不一樣，下列敘述何者正確？',o:['它們是不同物體，但都由同一種物質──水組成','它們是四種不同的物質','雪是固體，所以不是物質','冰熔化成水會產生新物質'],a:0,src:'課本 2-1 引言',ex:'凡占有空間、具有質量者稱為物質，物體由物質組成。冰熔化成水本質不變，是物理變化。'},
+{q:'蠟燭燃燒時：甲、固態蠟熔化成液態蠟；乙、液態蠟沿燭芯上升變成氣態蠟；丙、氣態蠟燃燒產生二氧化碳和水蒸氣。哪些是化學變化？',o:['只有丙','甲和乙','甲、乙、丙','只有甲'],a:0,src:'12 校考蠟燭燃燒（課本例題改寫）',ex:'課本例題：甲是固態變液態、乙是液態變氣態，都沒有產生新物質，屬於物理變化；丙氣態蠟燃燒產生二氧化碳和水蒸氣，發生物質的改變，才是化學變化。'},
+{q:'下列哪一項屬於化學變化？',o:['鐵製髮夾在浴室裡生鏽','冰塊熔化成水','剪紙','冰淇淋熔化'],a:0,src:'23 校考物理 vs 化學變化',ex:'銀白色的鐵生鏽成褐色鐵鏽，與原物質不同，是化學變化。其他只有狀態或形狀、大小改變。'},
+{q:'下列何者屬於物質的化學性質？',o:['酒精具有可燃性','酒精的密度約 0.79 g/cm³','酒精是無色液體','100 mL 酒精的質量約 79 g'],a:0,src:'20 校考物理 vs 化學性質',ex:'可燃性要發生化學變化（燃燒）才表現出來，是化學性質；質量、密度、顏色用觀察、測量就能察覺，是物理性質。'},
+{q:'下列何者是純物質？',o:['二氧化碳','空氣','生理食鹽水','柳橙汁'],a:0,src:'21 校考純物質 vs 混合物',ex:'二氧化碳只由一種物質組成；空氣、食鹽水、果汁都是混合物。'},
+{q:'一大氣壓下，在等量的水中溶解不同量的食鹽，測得沸點各不相同；純水的沸點則固定。下列推論何者正確？',o:['食鹽水是混合物，性質隨混合比例改變','食鹽水是純物質','純水的沸點會隨水量改變','沸點與物質種類無關'],a:0,src:'21 校考沸點判斷（課本圖 2-8、2-9）',ex:'純物質具有一定的特性（固定沸點）；混合物的性質會隨物質混合的比例不同而變化。'},
+{q:'關於物質三態的敘述，何者正確？',o:['氣體的體積和形狀都會隨容器改變','液體的形狀固定不變','固體很容易被壓縮','液體的體積會隨容器改變'],a:0,src:'15 校考三態',ex:'固體體積、形狀都固定；液體體積固定、形狀隨容器；氣體兩者都隨容器改變，而且容易壓縮。'},
+{q:'分離食鹽與沙子的混合物，正確步驟順序為？',o:['加水溶解 → 過濾 → 蒸發結晶','過濾 → 加水溶解 → 蒸發結晶','蒸發結晶 → 過濾 → 加水溶解','直接用濾紙過濾乾燥的混合物'],a:0,src:'21 校考食鹽與沙分離',ex:'食鹽易溶於水、沙子不溶：先溶解，再過濾留下沙子，最後把食鹽水蒸發得到食鹽。直接過濾乾的混合物兩者都留在濾紙上。'},
+{q:'在食鹽與沙的分離實驗中，沙子會留在濾紙上，是因為？',o:['沙子顆粒較大，無法通過濾紙孔隙','沙子的沸點較高','沙子的密度較小','沙子會和濾紙反應'],a:0,src:'17 校考分離原理',ex:'過濾是利用顆粒大小不同；食鹽水溶液是微小粒子，可以通過濾紙。'},
+{q:'把濾液加熱蒸乾，蒸發皿留下白色晶體。下列敘述何者正確？',o:['利用水和食鹽沸點不同，屬於物理變化','利用顆粒大小不同，屬於物理變化','食鹽和水反應產生新物質，屬於化學變化','留下的晶體是沙子'],a:0,src:'19 校考蒸發結晶',ex:'水的沸點較低先蒸發，沸點較高的食鹽晶體留在蒸發皿中，稱為蒸發結晶法；過程沒有產生新物質，是物理變化。'},
+{q:'實驗 2·1 把濾紙換成紗布過濾同樣的混合物，最可能的結果是？',o:['濾液較混濁，因為紗布孔隙較大，部分沙粒會通過','濾液比用濾紙更清澈','食鹽會被紗布擋住','紗布會溶解在水中'],a:0,src:'課本實驗 2·1 步驟 5',ex:'過濾是依顆粒大小分離；紗布的孔隙比濾紙大，較細的沙粒也可能通過，過濾效果較差。'},
+{q:'下列哪一種分離方法利用的原理和「用濾布分離豆漿與豆渣」不同？',o:['用磁鐵分離鐵粉與細沙','冷氣加裝濾網減少灰塵','用水槽濾網攔住食物殘渣','用濾紙分離沙子與食鹽水'],a:0,src:'課本例題改寫',ex:'濾布、濾網、濾紙都依顆粒大小分離（過濾）；磁鐵是利用鐵粉可被磁鐵吸引的磁性差異。'},
+{q:'過濾時把漏斗頸下端緊貼燒杯內壁，主要目的是？',o:['防止濾液濺起','讓過濾速度變慢','讓濾紙更容易破','增加濾液的濃度'],a:0,src:'7 校考漏斗頸',ex:'課本：漏斗頸下端緊貼燒杯內壁，以免過濾中濾液濺起。'},
+{q:'用水做濾紙色層分析，棕色水性筆的墨跡分出好幾種顏色。下列推論何者正確？',o:['棕色墨水是混合物','棕色墨水是純物質','分出的每一種顏色一定是純物質','原理是各色素的沸點不同'],a:0,src:'12 校考色層分析（課本探索活動）',ex:'能分出多種顏色，表示顏料是不同色素組成的混合物；課本：原理是不同色素與濾紙吸附能力的差異，以及與水的作用力不同。分出來的色帶不一定是純物質。'},
+{q:'跨科主題「彩虹糖色素色層分析」的操作，何者正確？',o:['用鉛筆在濾紙下端畫線，色點位置不可沒入水面下','用原子筆畫線比較清楚','色點要整個泡進水裡','牙籤點色素時要停留越久越好'],a:0,src:'課本跨科探索活動',ex:'課本：以鉛筆畫線；牙籤輕點時不可停留太久；濾紙放入時避免標示顏色的位置沒入水面下，否則色素直接溶進水裡。'},
+{q:'用針戳破氣球和用點燃的線香燒破氣球，各屬於何種變化？',o:['前者物理變化，後者化學變化','兩者都是物理變化','兩者都是化學變化','前者化學變化，後者物理變化'],a:0,src:'課本動腦時間',ex:'戳破只是形狀改變；用火燒破時氣球燃燒產生新物質，是化學變化。'},
+{q:'剪刀、長尾夾、迴紋針都可以被磁鐵吸引，原因是？',o:['它們都是由鐵這種物質製成的','它們是同一個物體','它們的形狀相同','它們的質量相同'],a:0,src:'課本圖 2-1',ex:'物體是由物質組成的；由同一種物質組成的不同物體，具有相似的性質。'},
+]},
+
+/* ---------------- 2-2 水溶液 ---------------- */
+k22:{no:'2-2',title:'水溶液',author:'溶質溶劑・擴散・溶解度・濃度',code:5,color:'linear-gradient(135deg,#1d5f8c,#3d9bd1)',desc:'未溶不算溶質、75% 酒精、0.03 ppm、飽和加水',
+quickAsk:QASK,quickTitle:'溶液名詞＋濃度快問快答',
+quick:[
+['被溶解的物質稱為','溶質',['溶劑','溶液','沉澱'],23],
+['用來溶解溶質的物質稱為','溶劑',['溶質','溶液','濾液'],17],
+['溶液的質量等於','溶質質量＋溶劑質量',['只有溶劑質量','溶質質量－溶劑質量','只有溶質質量'],27],
+['一般溶液中，量多者稱為','溶劑',['溶質','沉澱','濾液'],17],
+['水溶液中，不論水多少，溶劑都是','水',['量少的物質','溶質','固體'],17],
+['油性化妝品不易溶於水，卻可以溶在','卸妝油',['水','食鹽水','糖水'],0],
+['溶劑不是水的溶液，可以稱為水溶液嗎','不可以',['可以','看顏色決定','看溫度決定'],0],
+['粒子由高濃度往低濃度運動而均勻分布','擴散現象',['沉澱','過濾','蒸發'],17],
+['擴散達到均勻後，粒子','仍不停運動',['停止運動','沉到杯底','消失'],17],
+['擴散時，粒子的運動方向是','由高濃度往低濃度',['由低濃度往高濃度','只往下沉','固定不動'],17],
+['定溫下定量溶劑能溶解溶質的最大量','溶解度',['濃度','密度','飽和度'],25],
+['課本：25℃ 時食鹽的溶解度','36 g／100 g 水',['100 g／100 g 水','3.6 g／100 g 水','360 g／100 g 水'],25],
+['無法再溶解溶質的溶液','飽和溶液',['未飽和溶液','純物質','稀溶液'],24],
+['杯底有未溶解的溶質，這杯溶液','一定是飽和溶液',['一定未飽和','無法判斷','是純物質'],24],
+['重量百分率濃度＝','溶質質量÷溶液質量×100%',['溶質質量÷溶劑質量×100%','溶劑質量÷溶液質量×100%','溶液質量÷溶質質量×100%'],25],
+['酒精度 19.5 度屬於','體積百分率濃度',['重量百分率濃度','ppm','溶解度'],22],
+['1 ppm 代表','每 1 公斤含 1 毫克',['每 1 公克含 1 毫克','每 1 公斤含 1 公克','每 100 公克含 1 公克'],25],
+['1% 等於幾 ppm','10000 ppm',['100 ppm','1000 ppm','1000000 ppm'],23],
+['攪拌、磨碎溶質會使','溶解變快，溶解度不變',['溶解度變大','溶解度變小','濃度一定變大'],11],
+['倒掉一半的 10% 糖水，剩下的濃度','仍為 10%',['變成 5%','變成 20%','變成 0%'],7],
+['課本：100℃ 時食鹽的溶解度約','39 g／100 g 水',['36 g／100 g 水','100 g／100 g 水','3.9 g／100 g 水'],12],
+['定量溶液裡所含溶質的量稱為','濃度',['溶解度','密度','質量'],25],
+['紅酒體積百分率濃度 11%、共 500 mL，含酒精','55 mL',['11 mL','45 mL','550 mL'],22],
+['瘦肉精殘留容許量 0.01 ppm，代表每 1 公斤豬肉最多含','0.01 毫克',['0.01 公克','1 毫克','10 毫克'],25],
+],
+words:[['溶質','被溶解的物質（可為固、液、氣體）'],['溶劑','用來溶解溶質的物質'],['溶液','溶質均勻分散在溶劑中的混合物'],['擴散現象','粒子由高濃度往低濃度運動而均勻分布'],['溶解度','定溫下定量溶劑能溶解的最大溶質量'],['飽和溶液','無法再繼續溶解溶質'],['未飽和溶液','還能繼續溶解溶質'],['濃度','定量溶液裡所含溶質的量'],['重量百分率濃度','每 100 g 溶液所含溶質的公克數'],['體積百分率濃度','每 100 mL 溶液所含溶質的毫升數'],['ppm（百萬分點）','每 1,000,000 毫克（1 公斤）所含的毫克數'],['w/w','重量百分率濃度的縮寫'],['卸妝油','可溶解油性化妝品，但形成的不是水溶液']],
+sorts:[
+{title:'🧪 溶質還是溶劑？',tip:'量多的是溶劑；但水溶液不論水量多少，水都是溶劑',buckets:['溶質','溶劑'],items:[
+['黑糖水中的黑糖',0],['黑糖水中的水',1],['油性彩妝溶在卸妝油時的卸妝油',1,'量多、用來溶解的是溶劑'],['溶在卸妝油裡的油性彩妝',0],['汽水中的二氧化碳',0,'氣體也可以當溶質'],['汽水中的糖',0],['75% 消毒酒精中的水',1,'水溶液一律以水為溶劑'],['75% 消毒酒精中的酒精',0],['米酒中的酒精',0]]},
+{title:'📊 哪一種濃度表示法？',tip:'%（w/w）＝重量百分率；酒精度、75% 酒精＝體積百分率；ppm＝每公斤含幾毫克',buckets:['重量百分率','體積百分率','ppm'],items:[
+['糖漿標示糖分 75%（w/w）',0],['米酒標示酒精度 19.5 度',1],['牙膏標示含氟 1000 ppm',2],['硫酸 98%（每 100 g 含 98 g）',0],['紅酒標示 11%（每 100 mL 含 11 mL 酒精）',1],['萊克多巴胺殘留 0.01 ppm',2],['75% 防疫酒精',1],['草莓農藥殘留 0.03 ppm',2],['鮮奶乳脂肪 3.0%（每 100 g 含 3.0 g）',0]]},
+{title:'🧂 飽和食鹽水加水攪拌後，杯底仍有食鹽（定溫）',tip:'仍然飽和 → 濃度＝飽和濃度；溶解度只受溫度（與物質種類）影響（13 校）',buckets:['變大','變小','不變'],items:[
+['溶液中溶解的食鹽量',0,'水變多，能溶的食鹽也變多'],['溶液的濃度',2,'仍飽和，濃度不變'],['食鹽的溶解度',2,'溫度沒變，溶解度不變'],['杯底沒溶解的食鹽量',1],['溶液的總質量',0,'水和溶解的食鹽都增加']]},
+],
+mcq:[
+{q:'定溫下把 7 g 某物質加入 20 g 水中充分攪拌，杯底仍有 2 g 沒溶解。此溶液的重量百分率濃度算式為？',o:['5÷(5＋20)×100%','7÷(7＋20)×100%','5÷(7＋20)×100%','7÷20×100%'],a:0,src:'23 校都考（未溶不算溶質）',ex:'沒溶解的 2 g 不是溶質，也不算在溶液裡：溶質 5 g、溶液 5＋20＝25 g，濃度 20%。'},
+{q:'將 50 g 黑糖加入 20 g 水，充分攪拌後仍有 10 g 沒有溶解。此糖水溶液的質量為？',o:['60 g','70 g','40 g','20 g'],a:0,src:'課本例題改寫',ex:'溶質＝50－10＝40 g；溶液＝溶質＋溶劑＝40＋20＝60 g。'},
+{q:'要配製重量百分率濃度 20% 的糖水，下列哪一種配法正確？（糖全部溶解）',o:['80 g 水＋20 g 糖','100 g 水＋20 g 糖','20 g 水＋80 g 糖','120 g 水＋20 g 糖'],a:0,src:'課本例題改寫',ex:'20÷(80＋20)×100%＝20%。100 g 水＋20 g 糖是 20÷120≒16.7%，分母要用「溶液」質量。'},
+{q:'一瓶 500 mL、75% 的防疫酒精，含有純酒精多少毫升？',o:['375 mL','75 mL','125 mL','500 mL'],a:0,src:'13 校考 75% 酒精',ex:'75% 酒精是體積百分率濃度：500×75%＝375 mL。若問公克，還要再乘上酒精的密度。'},
+{q:'高粱酒標示「酒精度 58 度」，表示？',o:['每 100 mL 酒中含 58 mL 酒精','每 100 g 酒中含 58 g 酒精','100 mL 水中加入 58 mL 酒精','酒的密度是 0.58 g/cm³'],a:0,src:'11 校考酒精度',ex:'酒精度是體積百分率濃度，分母是「溶液」體積 100 mL，不是水 100 mL。'},
+{q:'草莓檢出農藥「氟尼胺」殘留 0.03 ppm，代表？',o:['每 1 公斤草莓含 0.03 毫克','每 1 公克草莓含 0.03 毫克','每 1 公斤草莓含 0.03 公克','每 100 公克草莓含 0.03 公克'],a:0,src:'9 校考過（氟尼胺）',ex:'ppm 表示每 1,000,000 毫克（1 公斤）中所含的毫克數。'},
+{q:'500 g 的消毒水中含二氧化氯 0.035 g，此消毒水的濃度為多少 ppm？',o:['70 ppm','35 ppm','7 ppm','700 ppm'],a:0,src:'題型改寫',ex:'0.035 g＝35 mg；500 g＝0.5 kg。35 mg÷0.5 kg＝每公斤 70 mg＝70 ppm。'},
+{q:'把冬瓜茶磚放入一鍋水中不攪拌，一段時間後整鍋都有甜味。下列敘述何者錯誤？',o:['糖粒子均勻分布後就停止運動','糖粒子由濃度高處往濃度低處移動','最後各處的濃度相同','糖粒子和水分子都會不停的運動'],a:0,src:'8 校考過（冬瓜茶磚）',ex:'課本：溶解後的微小粒子跟水分子都會不停的運動，由高粒子濃度往低粒子濃度的區域運動，最後均勻分布。均勻後粒子仍在運動，只是各處濃度相同、看不出變化。'},
+{q:'室溫不變，一杯底部還沉著黑糖的黑糖水，再倒入一點水攪拌，杯底依然有黑糖沒溶。這杯黑糖水有什麼變化？',o:['溶解的黑糖變多，甜度不變','溶解的黑糖變多，甜度變淡','黑糖的溶解度變大','濃度變小，溶解度不變'],a:0,src:'13 校考飽和溶液加水',ex:'仍是飽和溶液，濃度（甜度、顏色）等於飽和濃度不變；溶解度只受溫度影響。'},
+{q:'課本：25℃ 時食鹽溶解度為 36 g／100 g 水。25℃ 時在 50 g 水中加入 25 g 食鹽充分攪拌，結果為？',o:['溶解 18 g，杯底剩 7 g','25 g 全部溶解','溶解 36 g','溶解 12.5 g'],a:0,src:'11 校考溶解度計算',ex:'50 g 水最多溶 36×50/100＝18 g，剩 25－18＝7 g 沉在杯底，成為飽和溶液。'},
+{q:'某溫度下某物質的溶解度為 60 g／100 g 水，此溫度下該物質飽和溶液的重量百分率濃度為？',o:['37.5%','60%','40%','62.5%'],a:0,src:'12 校考溶解度曲線',ex:'飽和濃度＝S÷(100＋S)＝60÷160＝37.5%；直接用 60÷100 是常見錯誤。'},
+{q:'一瓶 10% 的食鹽水倒出一半，剩下的食鹽水濃度為？',o:['10%','5%','20%','無法判斷'],a:0,src:'7 校考倒出部分溶液',ex:'溶液是均勻的，倒出一部分，剩下的濃度不變。'},
+{q:'課本：25℃ 時食鹽溶解度 36 g／100 g 水，100℃ 時約 39 g／100 g 水。下列哪一個方法可以改變食鹽在水中的溶解度？',o:['改變水溫','用力攪拌','把食鹽磨成粉','加入更多的水'],a:0,src:'11 校考溶解度影響因素',ex:'課本：溶解度會受溫度影響。攪拌、磨細只會讓溶解變快；加水只會讓溶得更多，但「每 100 g 水」能溶的最大量不變。'},
+{q:'關於溶液的敘述，何者正確？',o:['溶液不一定無色，溶劑也不一定是水','溶液一定是無色透明','溶液的溶劑一定是水','溶液是純物質'],a:0,src:'27 校考溶液',ex:'黑糖水有顏色；油性彩妝溶在卸妝油中，溶劑不是水；溶液包含溶質與溶劑，是混合物。'},
+{q:'用 95% 酒精和 80% 酒精混合，能得到 75% 的酒精嗎？',o:['不能，要加水稀釋才能降到 75%','可以，混合後一定是 75%','可以，只要 1:1 混合','混合後濃度會變成 175%'],a:0,src:'3 校考過',ex:'兩種濃度混合後，濃度會介於 80%～95% 之間，不可能低於 80%；要加水才行。'},
+{q:'油性化妝品可以溶解在卸妝油中形成溶液。這種溶液為什麼不能稱為「水溶液」？',o:['因為溶劑是卸妝油，不是水','因為油性化妝品是溶劑','因為它是純物質','因為它沒有溶質'],a:0,src:'課本圖 2-13',ex:'課本：油不易溶於水；油性化妝品可溶在卸妝油中形成溶液，但溶劑不是水，所以不能稱為水溶液。'},
+{q:'一瓶白酒標示體積百分率濃度 12%，體積 750 mL，含有酒精多少毫升？',o:['90 mL','12 mL','660 mL','62.5 mL'],a:0,src:'課本例題改寫',ex:'酒精體積＝12%×750 mL＝90 mL。體積百分率濃度是每 100 mL 溶液所含溶質的毫升數。'},
+]},
+
+/* ---------------- 2-3 空氣的組成 ---------------- */
+k23:{no:'2-3',title:'空氣的組成',author:'氮氧氬・製氧・二氧化碳',code:6,color:'linear-gradient(135deg,#2a6b3f,#57a865)',desc:'二氧化錳加速分解、噴出就把橡皮管拉出水面',
+quickAsk:QASK,quickTitle:'空氣成分＋製氧快問快答',
+quick:[
+['乾燥空氣中含量最多的氣體','氮氣',['氧氣','氬氣','二氧化碳'],18],
+['乾燥空氣中氮氣約占','78%',['21%','0.9%','50%'],18],
+['乾燥空氣中氧氣約占','21%',['78%','0.9%','1%'],26],
+['乾燥空氣中含量第三多的氣體','氬氣',['二氧化碳','氫氣','水蒸氣'],12],
+['空氣屬於','混合物',['純物質','單一氣體','元素'],23],
+['充填在食品包裝防止變質的氣體','氮氣',['氧氣','氫氣','二氧化碳'],18],
+['液態氮（約 －196℃ 以下）可作為','冷凍劑',['助燃劑','燃料','檢驗二氧化碳的試劑'],18],
+['焊接金屬時用來隔絕金屬與氧氣反應的氣體','氬氣',['氧氣','氫氣','二氧化碳'],12],
+['氬氣的性質','不可燃、不助燃，極不易發生反應',['具有助燃性','可以燃燒','易溶於水'],12],
+['潛水氣瓶中供人呼吸的氣體','氧氣',['氮氣','氬氣','二氧化碳'],0],
+['氧氣具有','助燃性（本身不可燃）',['可燃性','腐蝕性','毒性'],15],
+['能用排水集氣法收集氧氣，是因為氧氣','不易溶於水',['易溶於水','比空氣輕','有顏色'],20],
+['製氧時加快雙氧水分解的黑色固體','二氧化錳',['大理岩','石灰','食鹽'],22],
+['製氧實驗中，氧氣來自','雙氧水所含的溶質分解',['二氧化錳分解','水槽中的水','空氣'],22],
+['製氧時，由薊頭漏斗先加入約 2 mL 的是','純水',['雙氧水','稀鹽酸','酒精'],0],
+['製氧實驗中，水槽裝水約','2/3 滿',['1/4 滿','全滿','不用裝水'],0],
+['製氧時，薊頭漏斗的長管要','沒入液面下',['高於液面','插入水槽','接上橡皮管'],19],
+['製氧時氣泡生成太快，應將','水槽中的橡皮管拉出水面',['薊頭漏斗塞住','二氧化錳再加多','瓶口用手壓住'],14],
+['剛開始冒出的氣泡不收集，因為那是','裝置內原有的空氣',['純氧氣','水蒸氣','二氧化碳'],20],
+['點燃的線香放入氧氣瓶中會','燃燒得比在空氣中更激烈',['立刻熄滅','冒出白霧','沒有變化'],20],
+['課本製備二氧化碳的藥品','大理岩＋稀鹽酸',['雙氧水＋二氧化錳','食鹽＋水','鐵＋水'],11],
+['使澄清石灰水產生白色沉澱的氣體','二氧化碳',['氧氣','氮氣','氬氣'],10],
+['固態的二氧化碳俗稱','乾冰',['冰','液態氮','石灰'],12],
+['二氧化碳的密度比空氣','大',['小','相同','無法比較'],24],
+['乾燥空氣中約 0.04%、含量隨時間地點改變的是','二氧化碳',['氮氣','氧氣','氬氣'],5],
+['跳跳糖中的小氣泡是','二氧化碳',['氧氣','氮氣','氬氣'],0],
+],
+words:[['氮氣','約 78%，不可燃不助燃，填充食品包裝'],['液態氮','約 －196℃ 以下，可作為冷凍劑'],['氧氣','約 21%，不可燃、有助燃性，供生物呼吸'],['氬氣','約 0.9%，極不易反應，焊接時隔絕氧氣'],['二氧化碳','約 0.04%，比空氣重、可滅火，使石灰水產生白色沉澱'],['大理岩','加稀鹽酸可製備二氧化碳'],['二氧化錳','加入少量可加速雙氧水分解'],['雙氧水','所含的溶質分解產生氧氣和水'],['薊頭漏斗','加入雙氧水，長管沒入液面下'],['吸濾瓶','盛裝二氧化錳的反應容器，側管接橡皮管'],['廣口瓶','裝滿水倒立在水槽中收集氧氣'],['排水集氣法','收集不易溶於水的氣體'],['乾冰','固態二氧化碳，低溫保存食物或疫苗']],
+sorts:[
+{title:'🎈 這是哪一種氣體？',tip:'性質 → 用途一起記（23 校考空氣成分與用途）',buckets:['氮氣','氧氣','氬氣','二氧化碳'],items:[
+['空氣中含量最多',0],['食品包裝中充填以保鮮',0],['液態時可作為冷凍劑',0],['使線香燃燒更旺',1],['潛水氣瓶中供人呼吸',1],['約占乾燥空氣 21%',1],['焊接金屬時隔絕氧氣的保護氣',2],['乾燥空氣中含量第三多',2],['極不易發生反應',2],['使石灰水產生白色沉澱',3],['比空氣重，可用來滅火',3],['固態時稱為乾冰',3],['跳跳糖中的小氣泡',3]]},
+{title:'🧪 製氧實驗：步驟排序',tip:'依課本實驗 2·3 的順序',buckets:['第 1 步','第 2 步','第 3 步','第 4 步','第 5 步'],items:[
+['廣口瓶裝滿水，蓋玻璃片倒立放入水槽',0],['吸濾瓶放入二氧化錳和少許水，薊頭漏斗長管沒入液面',1],['由薊頭漏斗先加約 2 mL 純水，再慢慢加入雙氧水',2],['冒泡一段時間後，再把橡皮管移入廣口瓶',3,'剛冒出的是裝置內的空氣'],['水快排完時，在水中用玻璃片蓋好瓶口再取出',4]]},
+{title:'🔍 點燃的線香放進去會怎樣？',tip:'線香熄滅只能說「不助燃」，無法確定是哪一種氣體（4 校）',buckets:['燃燒更旺','熄滅'],items:[
+['氧氣瓶',0],['二氧化碳瓶',1],['氮氣瓶',1],['氬氣瓶',1],['雙氧水加二氧化錳產生的氣體',0],['大理岩加稀鹽酸產生的氣體',1]]},
+],
+mcq:[
+{q:'乾燥空氣的成分：甲約 78%、乙約 21%、丙約 0.9%、丁約 0.1%。下列敘述何者正確？',o:['甲可以填充在食品包裝中','乙具有可燃性','丙是二氧化碳','丁是一種純物質'],a:0,src:'14 校考空氣圓餅圖',ex:'甲氮氣（食品包裝）、乙氧氣（助燃，不可燃）、丙氬氣（極不易反應）、丁是二氧化碳等其他多種氣體的混合物。'},
+{q:'用雙氧水和二氧化錳製造氧氣，下列敘述何者正確？',o:['氧氣來自雙氧水所含的溶質分解，二氧化錳只是加速分解','加入越多二氧化錳，產生的氧氣總量越多','氧氣是由二氧化錳分解產生的','沒有二氧化錳，雙氧水完全不會分解'],a:0,src:'17 校考二氧化錳',ex:'課本：雙氧水所含的溶質在室溫下會緩慢的自行分解，產生氧氣和水；加入少量二氧化錳可以加速分解。二氧化錳不會增加氧氣總量。'},
+{q:'若想得到更多的氧氣（總量），應該怎麼做？',o:['加入更多雙氧水','加入更多二氧化錳','把水槽裡的水換成熱水','把橡皮管換長一點'],a:0,src:'製氧題型',ex:'氧氣的總量由雙氧水所含的溶質決定；二氧化錳只影響產生的快慢。'},
+{q:'製氧時氣泡產生太快，液體快要從薊頭漏斗上方噴出，最適當的處理是？',o:['把水槽中的橡皮管拉出水面','用橡皮塞塞住薊頭漏斗','再加入更多二氧化錳','把薊頭漏斗拔掉'],a:0,src:'14 校都考',ex:'課本：氣泡生成速率過快時，將水槽中的橡皮管拉出水面，避免雙氧水從薊頭漏斗上方溢出。'},
+{q:'薊頭漏斗的長管要沒入液面下，目的是？',o:['防止產生的氣體從漏斗逸出','讓氧氣的產量增加','讓雙氧水溫度升高','方便加入二氧化錳'],a:0,src:'19 校考薊頭漏斗',ex:'長管末端在液面下形成液封，氣體才不會從漏斗跑掉，而是由側管導出。'},
+{q:'能用排水集氣法收集氧氣，是利用氧氣的哪一種性質？',o:['不易溶於水','具有助燃性','密度比空氣小','無色無味'],a:0,src:'22 校考排水集氣法',ex:'氧氣進入裝滿水的瓶中會把水排出，表示它不易溶於水。'},
+{q:'製氧時，剛開始從橡皮管冒出的氣泡先不收集，原因是？',o:['那是裝置內原有的空氣','那是水蒸氣','那是二氧化錳粉末','那是有毒的氣體'],a:0,src:'課本實驗 2·3 步驟 Q',ex:'課本：待水槽內產生氣泡一段時間後，才將橡皮管移入廣口瓶。一開始被推出來的是吸濾瓶和橡皮管裡的空氣，收集了會讓氧氣不純。'},
+{q:'檢驗氧氣性質時，另取一瓶「瓶底留少許水、內部裝空氣」的廣口瓶，主要目的是？',o:['作為對照，比較線香在空氣瓶與氧氣瓶中的燃燒情形','收集更多氧氣','製造二氧化碳','讓線香一放入就熄滅'],a:0,src:'課本實驗 2·3',ex:'空氣瓶與氧氣瓶條件相同（瓶底都留少許水），只差瓶內氣體，才能比較出氧氣具有助燃性。'},
+{q:'關於氧氣的敘述，何者正確？',o:['有助燃性，但本身不可燃','有可燃性，可以當燃料','是空氣中含量最多的氣體','很容易溶於水'],a:0,src:'11 校考助燃非可燃',ex:'課本：氧氣不可燃、有助燃性，可使燃燒更旺盛；空氣中最多的是氮氣。'},
+{q:'人吐出的氣體中，含量最多的是？',o:['氮氣','二氧化碳','氧氣','水蒸氣'],a:0,src:'易錯陷阱',ex:'呼吸只用掉部分氧氣、增加一些二氧化碳，呼出氣體中含量最多的仍是氮氣。'},
+{q:'關於二氧化碳，何者正確？',o:['密度比空氣大，不可燃也不助燃','密度比空氣小，可以燃燒','能使點燃的線香燒得更旺','是一種混合物'],a:0,src:'20 校考二氧化碳',ex:'二氧化碳不可燃、不助燃、密度比空氣大，可用來滅火；它只由一種物質組成，是純物質。'},
+{q:'把燃燒的線香放入某瓶氣體中，線香熄滅了。關於這瓶氣體？',o:['可能是二氧化碳、氮氣或氬氣，無法確定','一定是二氧化碳','一定是氧氣','一定是氮氣'],a:0,src:'4 校考線香熄滅',ex:'不助燃的氣體都會讓線香熄滅；要確定是二氧化碳，要再用澄清石灰水檢驗。'},
+{q:'焊接金屬時常用氬氣作為保護氣體，主要原因是？',o:['氬氣極不易發生反應，可隔絕金屬與氧氣','氬氣具有助燃性','氬氣可以燃燒放熱','氬氣易溶於水'],a:0,src:'12 校考氬氣',ex:'課本：氬氣不可燃、不助燃，極不易發生反應，可用在焊接金屬時隔絕金屬與氧氣反應。'},
+{q:'乾燥空氣中，哪一種氣體約占 0.04%，而且含量會隨時間、地點改變？',o:['二氧化碳','氮氣','氧氣','氬氣'],a:0,src:'課本 2-3',ex:'課本：氮氣約 78%、氧氣約 21%、氬氣約 0.9%；二氧化碳約 0.04%，隨時間、地點改變。'},
+{q:'課本中常用哪兩種藥品製備二氧化碳？',o:['大理岩和稀鹽酸','雙氧水和二氧化錳','食鹽和水','石灰水和醋'],a:0,src:'11 校考製二氧化碳',ex:'課本：二氧化碳常以大理岩與稀鹽酸反應來製備，也可用排水集氣法收集；石灰水用來檢驗二氧化碳。'},
+{q:'關於乾冰的敘述，何者正確？',o:['乾冰是固態二氧化碳，可用來低溫保存食物','乾冰是固態的水','乾冰是固態氮，用來充填食品包裝','乾冰具有助燃性'],a:0,src:'12 校考乾冰',ex:'課本：乾冰其實就是固態的二氧化碳，可低溫冷凍保存食物或疫苗、在舞臺表演製造白色煙霧。'},
+]},
+
+/* ---------------- 跨科主題 物質的分離 ---------------- */
+kx:{no:'跨科',title:'物質的分離',author:'AQI・PM2.5・水資源・食用色素',code:7,color:'linear-gradient(135deg,#7a5a12,#c9a227)',desc:'撈網撈水餃＝過濾、晒鹽＝蒸發結晶、再生水不能喝、天然 vs 人工色素',
+quickAsk:QASK,quickTitle:'跨科主題快問快答',
+quick:[
+['AQI 的中文名稱','空氣品質指標',['紫外線指數','降雨機率','體感溫度'],8],
+['AQI 數值越大代表','空氣汙染越嚴重',['空氣越乾淨','溫度越高','風越大'],8],
+['PM2.5 是指粒徑多少以下的細懸浮微粒','2.5 微米',['2.5 奈米','2.5 毫米','25 微米'],8],
+['PM2.5 屬於','混合物',['純物質','元素','單一氣體'],8],
+['戴口罩阻擋微粒，主要利用','過濾',['蒸發結晶','色層分析','擴散'],17],
+['用撈網撈水餃，原理是','過濾',['蒸發','沉澱','擴散'],10],
+['鹽田晒鹽主要利用','蒸發結晶',['過濾','色層分析','磁鐵吸引'],17],
+['汙水處理的沉澱步驟利用','密度差異',['沸點差異','顏色差異','磁性'],3],
+['汙水處理中分解汙染物的是','微生物',['沙子','氮氣','食鹽'],3],
+['再生水「不適合」用來','飲用',['沖廁','澆花','洗車'],4],
+['收集雨水再利用的設施','雨撲滿',['濾水壺','抽水馬桶','蓄電池'],4],
+['生命吸管讓髒水變乾淨的主要原理','過濾',['蒸發','燃燒','擴散'],0],
+['生命吸管中去除殘留物質、改善氣味的','活性碳',['濾網','纖維濾膜','棉花'],0],
+['病毒（約 80 nm）與細菌（約 3 µm）哪個小','病毒',['細菌','一樣大','無法比較'],10],
+['醫療口罩中層過濾細菌的方式','靜電吸附',['防潑水','親膚吸溼','磁力'],0],
+['分析食用色素的組成可用','色層分析',['過濾','蒸發','排水法'],12],
+['發布空氣品質指標 AQI 資訊的機關','環境部',['衛生福利部','交通部','經濟部'],0],
+['薑黃色素、β-胡蘿蔔素屬於','天然色素',['人工合成色素','防腐劑','甜味劑'],0],
+['食用藍色一號屬於','人工合成色素',['天然色素','葉綠素','香料'],0],
+['臺灣核准的人工食用色素有幾種','8 種',['3 種','20 種','上百種'],0],
+['薑黃色素取自薑黃的','莖',['花','果實','種子'],0],
+],
+words:[['過濾','依顆粒大小分離（口罩、撈網、濾網）'],['蒸發結晶','依沸點不同分離（晒鹽）'],['色層分析','依吸附能力不同分離色素'],['沉澱','依密度差異分離（汙水沉澱池）'],['AQI','空氣品質指標，數值越大汙染越重'],['PM2.5','粒徑 2.5 微米以下的細懸浮微粒'],['PM10','粒徑 10 微米以下的懸浮微粒'],['活性碳','去除殘留物質、改善氣味'],['再生水','放流水再過濾製成，不可飲用'],['雨撲滿','收集雨水，用於沖廁、澆花'],['生物處理','微生物分解水中汙染物'],['N95 口罩','能阻擋 PM2.5 等細小微粒'],['天然色素','取自生物體，例如薑黃色素'],['人工合成色素','化學合成，色澤鮮艷、穩定、便宜，須遵守規範']],
+sorts:[
+{title:'🧲 這是哪一種分離原理？',tip:'先問：靠什麼不同而分開？（17 校考分離原理類比）',buckets:['過濾','蒸發結晶','色層分析','沉澱','磁鐵吸引'],items:[
+['小吃店用撈網撈水餃',0,'顆粒大小不同'],['戴口罩阻擋飛沫',0],['冷氣濾網減少灰塵',0],['用濾布分離豆漿與豆渣',0],['海水在鹽田晒出粗鹽',1,'水的沸點較低先蒸發'],['加熱食鹽水得到食鹽晶體',1],['分析彩虹糖的色素組成',2],['用濾紙分出黑色墨水的各種顏色',2],['汙水處理廠的沉澱池',3,'利用密度差異'],['泥水靜置後泥沙沉到底部',3],['用磁鐵從沙中吸出鐵粉',4]]},
+{title:'💧 這種水可以這樣用嗎？',tip:'再生水、雨水可以沖廁、澆花，但不能飲用',buckets:['可以','不可以'],items:[
+['再生水 → 沖馬桶',0],['再生水 → 澆花',0],['再生水 → 直接飲用',1],['雨撲滿的水 → 澆灌花圃',0],['洗澡水 → 沖廁所',0],['再生水 → 洗車',0],['用生命吸管過濾海水 → 飲用',1,'生命吸管無法把海水變成飲用水'],['自製簡易濾水器濾出的水 → 直接喝',1,'只能去除部分雜質，不能保證可飲用']]},
+{title:'🍬 天然色素還是人工合成色素？',tip:'取自生物體的是天然色素；化學合成的是人工色素（臺灣核准 8 種）',buckets:['天然色素','人工合成色素'],items:[
+['薑黃色素',0],['β-胡蘿蔔素',0],['葉綠素',0],['紅甜菜色素',0],['藍莓色素',0],['食用藍色一號',1],['黃色 4 號',1],['紅色 6 號',1],['綠色 3 號',1]]},
+],
+mcq:[
+{q:'小吃店用撈網撈起煮熟的水餃，應用的分離原理與下列何者相同？',o:['用濾紙分離咖啡渣','鹽田晒鹽','泥水靜置沉澱','濾紙色層分析'],a:0,src:'10 校都考（撈網撈水餃）',ex:'撈網和濾紙都是依顆粒大小分離，屬於過濾。晒鹽是蒸發結晶，靜置沉澱利用密度。'},
+{q:'戴口罩阻擋空氣中的微粒，主要是利用哪一種分離原理？',o:['過濾','蒸發結晶','色層分析','擴散'],a:0,src:'17 校考分離原理',ex:'口罩的纖維孔隙讓氣體通過、擋住較大的微粒，是過濾；醫療口罩中層還有靜電吸附。'},
+{q:'關於 AQI（空氣品質指標）的敘述，何者正確？',o:['數值越大，對人體健康的危害可能越大','數值越小，空氣汙染越嚴重','只計算氧氣的含量','AQI 超過 100 代表空氣良好'],a:0,src:'9 校考 AQI／PM2.5',ex:'課本：環境部利用空氣品質指標（AQI）提供空氣品質資訊，數值越大代表空氣汙染狀況越嚴重，對人體健康的危害可能越大。'},
+{q:'關於細懸浮微粒 PM2.5，何者正確？',o:['粒徑 2.5 微米以下，吸入後能穿透肺泡進入血液','粒徑 2.5 毫米以下，肉眼就看得到','是一種純物質','戴海綿口罩就能完全擋住'],a:0,src:'8 校考 PM2.5',ex:'PM2.5 是由多種物質組成的微粒（混合物），太小看不到；要用 N95 等口罩才擋得住。'},
+{q:'依課本：飛沫約 5 微米、細菌約 3 微米、病毒約 80 奈米、花粉約 30 微米。若某口罩只能擋下 10 微米以上的微粒，它能擋住哪一種？',o:['花粉','飛沫','細菌','病毒'],a:0,src:'課本探索活動',ex:'只有花粉（30 µm）大於 10 µm；飛沫、細菌、病毒都比較小，會穿過。'},
+{q:'臺南 井仔腳鹽田把海水引入鹽田晒成鹽，利用的原理是？',o:['水的沸點比鹽低，水蒸發後鹽結晶析出','鹽的顆粒比水大，用濾網濾出','鹽的密度比水小，浮在水面','鹽被陽光分解出來'],a:0,src:'課本達人專欄',ex:'晒鹽就是蒸發結晶：水蒸發、鹽水濃度提高，達到飽和後鹽結晶析出。'},
+{q:'汙水處理流程中的「沉澱」步驟，可去除漂浮性和沉澱性的固體，是利用？',o:['密度差異','沸點差異','顏色差異','磁性差異'],a:0,src:'3 校考水資源',ex:'課本圖 2-34：沉澱是利用密度差異去除漂浮與沉澱的固體。'},
+{q:'關於再生水的用途，下列何者「不適當」？',o:['直接當作飲用水','沖洗廁所','澆灌花木','工業用水'],a:0,src:'4 校考再生水',ex:'再生水不適合飲用，可供工業使用或做為不接觸人體的民生用水，例如澆花、洗車。'},
+{q:'生命吸管能讓髒水變得可以喝，但哪一種水它無法處理成飲用水？',o:['海水','混濁的河水','有泥沙的池水','雨水'],a:0,src:'課本閱讀',ex:'生命吸管靠過濾，鹽分是溶在水中的微小粒子，濾不掉，所以海水不行。'},
+{q:'生命吸管第四層的活性碳，主要功能是？',o:['去除殘留物質、改善氣味','過濾泥沙和灰塵','把海水變成淡水','過濾 99% 的寄生蟲'],a:0,src:'課本閱讀',ex:'第一、二層濾網過濾泥沙與較大細菌，第三層纖維濾膜過濾寄生蟲與細菌，第四層活性碳去除殘留物質、改善氣味。'},
+{q:'下列哪一項「不是」利用過濾原理？',o:['鹽田晒鹽','冷氣加裝濾網','用濾布分離豆漿與豆渣','水槽濾網攔住食物殘渣'],a:0,src:'課本例題改寫',ex:'晒鹽是蒸發結晶（沸點不同），其餘都是依顆粒大小分離的過濾。'},
+{q:'空氣品質不佳（AQI 偏高）時，下列哪一個做法最能保護自己？',o:['減少戶外活動，並適時佩戴口罩','到戶外慢跑增加肺活量','打開所有窗戶讓空氣流通','在路邊多停留一會兒'],a:0,src:'課本',ex:'兒童、老年人等敏感族群更要注意空氣品質通報，減少戶外活動、適時戴口罩。'},
+{q:'學校設置「雨撲滿」收集雨水，經初步過濾後最適合用來？',o:['沖廁所、澆花圃','煮飯','泡茶飲用','做成冰塊食用'],a:0,src:'課本圖 2-35',ex:'雨撲滿的水只經初步過濾，用在廁所、花圃等不需飲用的地方。'},
+{q:'用色層分析檢驗彩虹糖色素，紅色糖分出紅、橘兩種顏色，表示？',o:['紅色糖的色素是由不同色素混合而成','紅色糖的色素是純物質','色素被加熱分解了','濾紙本身帶有橘色'],a:0,src:'課本探索活動',ex:'分得出不同顏色，代表原本的色素是混合物。'},
+{q:'關於人工合成的食用色素，下列敘述何者正確？',o:['色澤鮮艷、穩定性高、價格低廉，使用時須遵守食品添加物規範','取自生物體，例如薑黃的莖','臺灣核准的人工食用色素多達上百種','只要顏色好看就可以大量添加'],a:0,src:'課本跨科主題「繽紛的色素與食品安全」',ex:'課本：人工合成色素是化學合成的著色劑，比天然色素鮮艷、穩定、易上色、耐高溫、便宜；臺灣核准的僅有 8 種，須遵守規範且不過量食用。'},
+{q:'把彩虹糖放在白色淺盤上倒入水，色素溶出後不攪拌也會逐漸布滿整盤水，主要是因為？',o:['擴散現象：色素粒子由高濃度往低濃度運動','色素發生化學變化產生新物質','水被色素過濾','色素的沸點比水低'],a:0,src:'課本跨科主題',ex:'色素溶解是物理變化；溶出的粒子不停運動，由高濃度往低濃度分散，就是 2-2 學過的擴散現象。'},
+]},
+};
+
+/* ================= 綜合頁：圖表判讀與實驗題（code 8） ================= */
+const CHART={
+mv:[
+{q:'A 物質 54 g、20 cm³，它的密度是多少？',o:['2.7 g/cm³','0.37 g/cm³','1.08 g/cm³','74 g/cm³'],a:0,src:'12 校考甲乙線分區',ex:'D＝M／V＝54÷20＝2.7 g/cm³，所以 A 在較陡的甲線上。'},
+{q:'B 物質 24 g、30 cm³。下列敘述何者正確？',o:['B 的密度 0.8 g/cm³，在乙線上','B 的質量比較小，所以在甲線上','B 的體積比較大，所以密度比較大','B 的密度和 A 相同'],a:0,src:'12 校考甲乙線分區',ex:'24÷30＝0.8 g/cm³，比 A 小，在較平的乙線上。比的是「質量÷體積」，不是只看質量或體積。'},
+{q:'把 A 物質切成一半，它的數據點會落在哪裡？',o:['仍在甲線上','移到乙線上','移到第 II 區','移到第 III 區'],a:0,src:'12 校考過',ex:'切半後質量、體積都變一半，密度不變，仍在甲線上（只是位置往原點移近）。'},
+{q:'純水（密度 1.00 g/cm³）的數據會落在哪一區？',o:['第 II 區（甲、乙兩線之間）','第 I 區（甲線上方）','第 III 區（乙線下方）','甲線上'],a:0,src:'12 校考過',ex:'1.00 介於乙線 0.8 與甲線 2.7 之間，所以在兩線之間的第 II 區。'},
+{q:'水銀（課本表：汞 13.53 g/cm³）的數據會落在哪一區？',o:['第 I 區（比甲線更陡）','第 II 區','第 III 區','乙線上'],a:0,src:'12 校考過',ex:'密度比 2.7 大很多，直線更陡，落在甲線上方的第 I 區。'},
+],
+cyl:[
+{q:'依上表，此液體的密度是多少？',o:['0.9 g/cm³','5.9 g/cm³','1.0 g/cm³','2.95 g/cm³'],a:0,src:'15 校考量筒＋液體',ex:'每增加 10 cm³，總質量增加 9 g：9÷10＝0.9 g/cm³。不能用 59÷10。'},
+{q:'依上表，空量筒的質量是多少？',o:['50 g','59 g','9 g','0 g'],a:0,src:'15 校考量筒＋液體',ex:'59－0.9×10＝50 g，就是「量筒＋液體」直線與縱軸的截距（直線不通過原點）。'},
+{q:'若在同一量筒中裝入 50 cm³ 此液體，總質量應為多少？',o:['95 g','45 g','104 g','100 g'],a:0,src:'量筒＋液體延伸',ex:'50＋0.9×50＝95 g。'},
+],
+sol:[
+{q:'40℃ 時，50 g 水最多可以溶解多少硝酸鉀？',o:['32 g','64 g','16 g','50 g'],a:0,src:'12 校考硝酸鉀溶解度',ex:'溶解度 64 g／100 g 水，50 g 水只能溶一半：32 g。'},
+{q:'40℃ 時硝酸鉀飽和溶液的重量百分率濃度約為？',o:['39%','64%','36%','50%'],a:0,src:'12 校考飽和濃度',ex:'64÷(100＋64)×100%≒39%。分母是溶液，不是 100 g 水。'},
+{q:'60℃ 時，100 g 水溶入 110 g 硝酸鉀成為飽和溶液。降溫到 20℃ 時，會析出多少硝酸鉀？',o:['78 g','32 g','110 g','46 g'],a:0,src:'溶解度曲線題型',ex:'20℃ 時 100 g 水只能溶 32 g，析出 110－32＝78 g。'},
+{q:'承上題，降溫到 20℃ 析出晶體後，杯中的溶液是？',o:['仍為飽和溶液，濃度比 60℃ 時小','變成未飽和溶液','仍為飽和溶液，濃度和 60℃ 時相同','變成純水'],a:0,src:'12 校考溶解度曲線',ex:'杯底有晶體，仍飽和；但 20℃ 溶解度較小，飽和濃度也較小。'},
+],
+gas:[
+{q:'甲氣體能使線香燃燒更旺、不能使石灰水產生白色沉澱。甲最可能是？',o:['氧氣','二氧化碳','氮氣','氬氣'],a:0,src:'氣體檢驗表題型',ex:'有助燃性的是氧氣。'},
+{q:'乙氣體使線香熄滅，通入澄清石灰水產生白色沉澱。乙是？',o:['二氧化碳','氧氣','氮氣','氫氣'],a:0,src:'氣體檢驗表題型',ex:'石灰水與二氧化碳反應產生白色沉澱，可用來檢驗二氧化碳。'},
+{q:'丙氣體使線香熄滅，石灰水沒有變化，而且是空氣中含量最多的氣體。丙是？',o:['氮氣','二氧化碳','氧氣','氬氣'],a:0,src:'氣體檢驗表題型',ex:'氮氣不可燃、不助燃，約占空氣 78%。'},
+],
+lab:[
+{q:'製氧裝置中，盛裝二氧化錳、有側管可接橡皮管的容器叫做？',o:['吸濾瓶','廣口瓶','燒杯','量筒'],a:0,src:'非選題常考器材名稱',ex:'吸濾瓶（有側管的錐形瓶）放二氧化錳；廣口瓶用來收集氧氣。'},
+{q:'收集好的氧氣瓶，取出水面後應如何放置？',o:['用玻璃片蓋好，瓶口向上放在桌上','瓶口向下放在桌上','打開瓶口放置','放回水槽中'],a:0,src:'課本實驗 2·3',ex:'課本：在水中以玻璃片蓋好瓶口後移出水面，瓶口向上置於桌面，以保存氧氣。'},
+{q:'實驗 1·2 繪製「水與酒精的質量與體積關係圖」前，要先扣除空量筒的質量，原因是？',o:['要畫的是液體本身的質量與體積關係','讓數字變比較小','量筒質量會一直改變','扣除後圖形才會是曲線'],a:0,src:'課本實驗 1·2',ex:'扣除量筒後才是液體本身的質量，畫出來是通過原點的直線，斜率就是密度。'},
+{q:'實驗 2·1 蒸發濾液時，在蒸發皿上蓋漏斗或錶玻璃的目的最可能是？',o:['防止晶體析出時噴濺','讓水蒸發得更快','讓食鹽溶解得更多','防止沙子跑進去'],a:0,src:'課本實驗 2·1',ex:'加熱到快乾時，晶體會彈跳噴濺，蓋住可以避免危險與損失。'},
+],
+};
+const RADAR={n:27,
+schools:'',
+topics:[['重量百分率濃度（未溶不算）',23],['M-V 關係圖判讀',23],['物理 vs 化學變化',23],['空氣成分與用途',23],['ppm 意義與計算',23],['體積百分率（酒精度）',22],['排水集氣法',22],['食鹽與沙的分離',21],['純物質 vs 混合物',21],['三態特性（白霧 115 版移到第 5 章）',20],['飽和溶液加水／加熱',20],['物理 vs 化學性質',20],['二氧化碳製備與檢驗',20],['多次測量刪異常值',20],['最小刻度＋估計一位',19],['密度計算',18],['溶質／溶劑／溶液',18],['製氧裝置（二氧化錳）',17],['上皿天平操作',17],['實驗室安全',17]],
+basics:[['量筒',27],['密度',27],['溶液',27],['化學變化',26],['氧氣',26],['最小刻度',25],['重量百分率濃度',25],['ppm',25],['溶解度',25],['過濾',25],['砝碼',24],['飽和溶液',24],['二氧化碳',24],['上皿天平',23],['純物質',23],['混合物',23],['溶質',23],['M-V 圖',22],['物理變化',22],['體積百分率濃度',22],['二氧化錳',22],['雙氧水',20],['排水集氣法',20],['薊頭漏斗',19]],
+mother:['mm 尺量書桌（1.250 m 少一位）','書櫃寬度刪異常值再平均','秤 4 g 小蘇打：乙甲丁丙','砝碼讀數補到 80.50 g','等質量銀鐵鋁的水位','甲乙線分區（54 g／20 cm³）','氟尼胺 0.03 ppm','冬瓜茶磚擴散','黑麻油 cc 與 g','塑膠球綁金屬（X3－X4）','撈網撈水餃＝過濾','量筒＋液體：截距是量筒'],
+traps:[['未溶解的不算溶質',23],['ppm＝每公斤含幾毫克',23],['酒精度、75% 是體積百分率',22],['沸點呈一範圍 → 混合物',21],['可燃、助燃是化學性質',20],['天平先放秤量紙再歸零',17],['80.50 g 不是 80.5 g',17],['切半密度不變',17],['擴散均勻後粒子仍在動',17],['二氧化錳只是加快反應',17],['量筒＋液體直線不過原點',15],['沙子真正體積＝水面－加入水量',14],['等質量時鋁塊水位升最多',14],['白霧是液態小水滴（115 版移到第 5 章）',12],['1.250 m 少寫一位',12],['氧氣助燃不可燃；呼出氣體氮最多',11]],
+other:{n:30,list:[['密度計算／比較',30],['純物質／混合物',30],['重量百分率濃度',30],['上皿天平讀數／操作',29],['食鹽與沙分離',29],['溶解度／飽和',29],['物理／化學變化',28],['量筒＋液體求量筒質量',27],['物理／化學性質',26],['ppm',26],['三態／白煙凝結',24],['體積百分率（酒精）',24],['空氣成分',24],['製氧',24],['排水法測體積',23],['二氧化碳製備檢驗',23]]}
+};
+
+const PORTRAIT=["k0_acid", "k0_burner", "k0_glass", "k11_cyl", "k12_balance", "k12_ebal", "k12_ice", "k21_chrom2", "k21_filter", "k21_steam", "k22_sanit", "k22_strawberry", "k22_tea", "k23_ext", "k23_incense", "kx_aqi"];
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、sci8-kangxuan-1（例 chinese8-1）、自然 國二上第一次段考（康軒）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'sci8-kangxuan-1',
+  site:'自然 國二上第一次段考（康軒）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('sci8-kangxuan-1_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('sci8-kangxuan-1_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${(d&&d.quickTitle)||(d&&d.quickAsk?'快問快答':'字音字形快問快答')}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};BGM.btn();
+/* ================= 導覽 ================= */
+const UNITS=['k0','k11','k12','k21','k22','k23','kx'];
+const TABS=[['home','🏠 考點雷達'],['k0','🧪 緒論'],['k11','📏 1-1'],['k12','⚖️ 1-2'],['k21','🧊 2-1'],['k22','💧 2-2'],['k23','🎈 2-3'],['kx','😷 跨科'],['mix','📈 圖表＋實驗'],['final','📝 總測驗']];
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+/* 照片：直式圖自動改成完整顯示（PORTRAIT 由 build.py 依實際尺寸產生） */
+const ph=(img,tag)=>PORTRAIT.includes(img)?{img,tag,fit:'contain',bg:'#1a1a1a'}:{img,tag};
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  if(cur==='final') return renderFinal(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 名詞快問快答'],['match','🔗 名詞↔功能配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2><p class="muted sub-t">${d.author}</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel'),title=`${d.no} ${d.title}`;
+  if(s==='anim') ({k0:animK0,k11:animK11,k12:animK12,k21:animK21,k22:animK22,k23:animK23,kx:animKX})[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">共 ${d.mcq.length} 題，全部依各校段考命題方向原創改寫；點選答案後才會出現解析。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const R=RADAR,N=R.n;
+  const bar=(arr,n)=>`<div class="bars">${arr.map(([t,v])=>`<div class="b"><span>${t}</span><div class="track"><div class="fill" data-w="${v/n*100}"></div></div><b>${v}/${n}</b></div>`).join('')}</div>`;
+  app.innerHTML=`
+  <h2>📡 第一次段考考點雷達</h2>
+  <p class="muted">整理 ${N} 所學校康軒版第一次段考卷（多數為 114 學年）：${R.schools}。看哪些東西「每校都考」。</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${UNITS.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].title}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（${N} 校中幾校考過）</h3>${bar(R.topics,N)}
+    <p class="muted" style="margin-top:10px">校數由逐題人工貼標再以關鍵詞比對合併，可能有 ±1～2 校誤差。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>⭐ 基本分名詞（幾校考過）</h3><div class="chips">${R.basics.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div></div>
+    <div class="card"><h3>🔁 多校重複出現的母題</h3><div class="chips">${R.mother.map(w=>`<span>${w}</span>`).join('')}</div>
+      <p class="muted" style="margin-top:10px">這些題目在不同學校換數字一再出現，各單元的模擬題都有改寫版。</p></div>
+  </div>
+  <div class="card"><h3>⚠️ 最常錯的陷阱（幾校出現）</h3>
+    <div class="traps">${R.traps.map(([t,n])=>`<div class="tr"><span>${t}</span><b>${n} 校</b></div>`).join('')}</div></div>
+  <div class="card"><h3>🔭 他版共通考點（翰林、南一等 ${R.other.n} 校）</h3>
+    <p class="muted">他版卷只做關鍵詞統計，不拿來出題；可以看出「不管哪一版都考」的核心觀念。</p>${bar(R.other.list,R.other.n)}</div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每個單元先看 <b>🎬 動畫導覽</b> → ② <b>⚡ 快問快答</b>、<b>🔗 配對</b>，練熟名詞與器材 → ③ <b>🎯 分類挑戰</b>，練判斷 → ④ <b>📝 段考模擬題</b>，做完按 <b>📤 交卷給老師</b>。</p>
+  <p>再到 <b>📈 圖表＋實驗</b> 練 M-V 圖、量筒＋液體、溶解度表，最後用 <b>📝 總測驗</b> 抽題檢查。</p>
+  <p class="muted">範圍：康軒八上（115 學年版）緒論「進入實驗室」（含科學方法、科學技能）～第2章（含跨科主題「物質的分離」）。少數學校另考第3章波動與聲音，本站不納入。名詞、定義、單位、實驗編號與步驟以 115 學年版康軒課本為準；115 版把三態變化名稱（熔化、汽化、凝結…）與白霧移到第5章，本站不再當第一次段考考點。各校統計來自 114 學年考卷（使用舊版課本）。</p></div>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 綜合頁：圖表判讀與實驗題 ================= */
+function renderMix(app){
+  app.innerHTML=`<h2>📈 圖表判讀＋實驗題</h2><p class="muted">各校最愛的圖表題：M-V 圖分區、量筒＋液體、溶解度、氣體檢驗、實驗器材。每一組做完都可以交卷。</p>
+  <div class="card"><h3>① M-V 圖：甲線與乙線分區（12 校）</h3>
+    <div class="mvwrap">${mvSVG()}</div>
+    <div class="legend"><span><i style="background:#c0392b"></i>甲線：A 物質（54 g、20 cm³）</span><span><i style="background:#2471a3"></i>乙線：B 物質（24 g、30 cm³）</span>
+    <span><i style="background:#f9d9d3"></i>第 I 區：甲線上方</span><span><i style="background:#fdf1c7"></i>第 II 區：兩線之間</span><span><i style="background:#d6eaf8"></i>第 III 區：乙線下方</span></div>
+    <p class="muted">橫軸是體積（cm³），縱軸是質量（g），兩條直線都通過原點。直線越陡，密度越大。</p>
+    <div id="cm0"></div></div>
+  <div class="card"><h3>② 量筒＋液體：截距是空量筒（15 校）</h3>
+    <table class="tbl"><tr><th>液體體積（cm³）</th><td>10.0</td><td>20.0</td><td>30.0</td><td>40.0</td></tr><tr><th>量筒＋液體（g）</th><td>59</td><td>68</td><td>77</td><td>86</td></tr></table>
+    <p class="muted">畫成圖是一條「不通過原點」的直線：斜率＝液體密度，截距＝空量筒質量。</p><div id="cm1"></div></div>
+  <div class="card"><h3>③ 硝酸鉀溶解度（12 校考溶解度曲線）</h3>
+    <table class="tbl"><tr><th>水溫（℃）</th><td>20</td><td>40</td><td>60</td></tr><tr><th>溶解度（g／100 g 水）</th><td>32</td><td>64</td><td>110</td></tr></table>
+    <p class="muted">表中為約略數值。115 版課本只舉食鹽（25℃ 36 g、100℃ 約 39 g），硝酸鉀數據由此表提供，屬圖表判讀練習。飽和濃度＝S÷(100＋S)。</p><div id="cm2"></div></div>
+  <div class="card"><h3>④ 氣體檢驗表</h3>
+    <table class="tbl"><tr><th>檢驗</th><th>氧氣</th><th>二氧化碳</th><th>氮氣</th></tr>
+    <tr><th>點燃的線香</th><td>更旺</td><td>熄滅</td><td>熄滅</td></tr>
+    <tr><th>澄清石灰水</th><td>不變</td><td>白色沉澱</td><td>不變</td></tr>
+    <tr><th>水中溶解</th><td>不易溶</td><td>微溶</td><td>不易溶</td></tr></table><div id="cm3"></div></div>
+  <div class="card"><h3>⑤ 課本實驗細節</h3><div id="cm4"></div></div>`;
+  renderMCQ($('#cm0'),CHART.mv,8,'圖表｜M-V 圖分區');
+  renderMCQ($('#cm1'),CHART.cyl,8,'圖表｜量筒＋液體');
+  renderMCQ($('#cm2'),CHART.sol,8,'圖表｜硝酸鉀溶解度');
+  renderMCQ($('#cm3'),CHART.gas,8,'圖表｜氣體檢驗');
+  renderMCQ($('#cm4'),CHART.lab,8,'實驗｜課本實驗細節');
+}
+function mvSVG(){
+  /* 純圖形，不放文字（手機上 SVG 文字會縮得太小）；說明放在下方 HTML */
+  const O=[30,200],W=270,H=180;      // 原點、可畫範圍
+  const X=v=>O[0]+v/40*W, Y=m=>O[1]-m/108*H;   // 體積 0～40 cm³、質量 0～108 g
+  const top=Y(108),right=X(40);
+  const A=[X(40),Y(108)], B=[X(40),Y(32)];
+  return `<svg viewBox="0 0 310 215" role="img" aria-label="質量與體積關係圖：甲線較陡、乙線較平，分成三區">
+    <polygon points="${O[0]},${O[1]} ${A[0]},${A[1]} ${O[0]},${top}" fill="#f9d9d3"/>
+    <polygon points="${O[0]},${O[1]} ${A[0]},${A[1]} ${B[0]},${B[1]}" fill="#fdf1c7"/>
+    <polygon points="${O[0]},${O[1]} ${B[0]},${B[1]} ${right},${O[1]}" fill="#d6eaf8"/>
+    <line x1="${O[0]}" y1="${O[1]}" x2="${right+6}" y2="${O[1]}" stroke="#333" stroke-width="2"/>
+    <line x1="${O[0]}" y1="${O[1]}" x2="${O[0]}" y2="${top-6}" stroke="#333" stroke-width="2"/>
+    <line x1="${O[0]}" y1="${O[1]}" x2="${A[0]}" y2="${A[1]}" stroke="#c0392b" stroke-width="4"/>
+    <line x1="${O[0]}" y1="${O[1]}" x2="${B[0]}" y2="${B[1]}" stroke="#2471a3" stroke-width="4"/>
+    <circle cx="${X(20)}" cy="${Y(54)}" r="6" fill="#c0392b"/><circle cx="${X(30)}" cy="${Y(24)}" r="6" fill="#2471a3"/>
+  </svg>`;
+}
+
+/* ================= 總測驗：各單元抽題 ================= */
+function renderFinal(app){
+  app.innerHTML=`<h2>📝 第一次段考總測驗</h2>
+  <div class="card"><p>從各單元的段考模擬題隨機抽題，模擬真正段考。做完按 <b>📤 交卷給老師</b>，老師就能看到你的分數和錯題。</p>
+  <p class="muted">選擇範圍（可多選）：</p>
+  <div class="row" id="fu">${UNITS.map(k=>`<label class="chk"><input type="checkbox" value="${k}" checked> ${L[k].no} ${L[k].title}</label>`).join('')}</div>
+  <div class="row" style="margin-top:12px"><span>題數：</span>${[20,30,40].map(n=>`<button class="btn ${n===30?'':'ghost'}" data-n="${n}">${n} 題</button>`).join('')}</div></div>
+  <div id="fq"></div>`;
+  app.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{
+    const us=[...app.querySelectorAll('#fu input:checked')].map(x=>x.value);
+    if(!us.length)return alert('至少選一個單元喔！');
+    const pool=shuf(us.flatMap(k=>L[k].mcq.map(q=>({...q,src:L[k].no+' '+L[k].title,unit:L[k].no}))));
+    renderMCQ($('#fq'),pool.slice(0,+b.dataset.n),9,'總測驗');
+    $('#fq').scrollIntoView({behavior:'smooth'});
+  });
+}
+
+/* ================= 動畫導覽（Wikimedia Commons 真實照片） ================= */
+function stage(p,steps,map){
+  p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${map}`;
+  stepper(p,steps,i=>showPhoto(steps[i]),7000);
+}
+function animK0(p){
+  stage(p,[
+    {label:'① 實驗室守則',imgs:[ph('k0_lab','學生在化學實驗室做實驗'),ph('k0_goggles','護目鏡：保護眼睛')],poem:'進實驗室先<b>開窗</b>保持通風，確認逃生路線與消防設施；禁止飲食、追逐嬉戲；老師解說完才可動用藥品器材。穿實驗衣、戴<b>手套與護目鏡</b>，長髮紮起。',key:'未用完的藥品<b>不可任意攜出實驗室，應分類集中處理</b>；聞氣味要<b>用手搧聞</b>；沾到藥品用大量清水沖洗並就醫。'},
+    {label:'② 酒精燈',imgs:[ph('k0_burner','酒精燈加熱燒杯'),ph('k0_flame','酒精燈的火焰')],poem:'酒精維持在 <b>1/2～2/3</b>，不足時以漏斗添加；用<b>打火機或火柴</b>點燃，<b>不可以燈點燈</b>；用<b>燈罩蓋熄</b>，不可用口吹熄。',key:'12 校考酒精燈。打翻著火 → 盡速用<b>溼抹布</b>覆蓋火焰。另有電子點火式本生燈（瓦斯，可達 1000℃ 以上）、加熱板。'},
+    {label:'③ 酸入水',imgs:[ph('k0_acid','濃硫酸試劑瓶')],poem:'稀釋濃酸或強酸：須將酸<b>緩緩加入水中</b>，避免燒杯破裂或酸液濺射。傾倒液體從尖脣處沿玻璃棒流下；混合藥品用<b>玻璃棒</b>攪拌，不可用溫度計攪拌。',key:'10 校考。量筒<b>不可</b>配製溶液或進行反應；不可把滴管直接伸入試液瓶吸取藥品。'},
+    {label:'④ 危險標示',imgs:[ph('k0_ghs','化學品危險圖示（易燃、腐蝕、有毒……）')],poem:'藥品瓶上的危險圖示提醒：易燃、具腐蝕性、有毒、對環境有害……使用前先看清楚。',key:'可燃性、腐蝕性要發生化學變化才看得出來，屬於<b>化學性質</b>（2-1 會再學）。'},
+    {label:'⑤ 常用器材與加熱',imgs:[ph('k0_glass','實驗室的玻璃器材')],poem:'燒杯（尖脣、刻度粗估）、錐形瓶、吸濾瓶（有側管）、試管、蒸發皿、廣口瓶（集氣瓶）、薊頭漏斗、錶玻璃……<b>只有試管</b>可直接在火焰上加熱，燒杯、蒸發皿要放在<b>陶瓷纖維網</b>上。',key:'試管夾夾<b>近管口處</b>、從底部加熱，管口不可對著人。讀量筒視線與<b>液面中央處</b>等高：太高讀數偏大、太低偏小（8 校）。'},
+    {label:'⑥ 變因',imgs:[ph('k0_seedling','種植幼苗：可設計植物生長的變因實驗')],poem:'一次只改變一個因素（<b>操縱變因</b>），其他條件都保持相同（<b>控制變因</b>），測量到的結果是<b>應變變因</b>。',key:'15 校考變因。課本例子「水溫與砂糖溶解時間」：水溫是操縱、溶解時間是應變，水量、砂糖的量與種類、燒杯規格是控制。作圖：<b>操縱變因放橫軸、應變變因放縱軸</b>，兩軸註明單位。'},
+  ],`<div class="card"><h3>🗺️ 本章一張圖</h3>
+    <p><span class="pill">安全</span>護目鏡、搧聞、酸入水、燈罩蓋熄、溼抹布滅火</p>
+    <p><span class="pill">器材</span>量筒（只量體積）、燒杯、錐形瓶、吸濾瓶、試管、蒸發皿、廣口瓶、薊頭漏斗、陶瓷纖維網、玻璃棒</p>
+    <p><span class="pill">方法</span>控制變因法（操縱／控制／應變）→ 紀錄表格 → 關係圖（橫軸操縱、縱軸應變）</p>
+    <p><span class="pill">技能</span>觀察及提出問題、分類與比較、製作及使用圖表、測量、推理</p>
+    <p class="muted">依 115 學年版康軒課本「緒論 進入實驗室、科學方法、科學技能」整理。</p></div>`);
+}
+function animK11(p){
+  stage(p,[
+    {label:'① 單位要公認',imgs:[ph('k11_ruler','直尺：公分與毫米刻度')],poem:'國際間共同制訂了一套標準的度量單位：<b>國際單位制（SI）</b>，其中長度以<b>米（公尺）</b>作為基本單位。',key:'手掌張開的長度因人而異（桌長約 3 倍），所以單位需經大家公認。km、m、dm、cm、mm、µm（10⁻⁶ m）、nm（10⁻⁹ m）要會換算。'},
+    {label:'② 數值＋單位',imgs:[ph('k11_ruler','最小刻度 1 mm 的直尺')],poem:'測量結果由一組<b>準確數值</b>和<b>一位估計數值</b>所組成。最小刻度 1 毫米的直尺量鉛筆，記為 <b>137.5 毫米</b>：137 是準確數值、0.5 是估計數值。',key:'mm 尺：mm 記到小數 1 位、cm 小數 2 位、m 小數 4 位。<b>1.250 m、95.0 cm 都少一位</b>（25 校考最小刻度）。'},
+    {label:'③ 誤差與平均',imgs:[ph('k0_lab','分組實驗：多人、多次測量')],poem:'估計數值會因測量者不同而有差異，所以有<b>誤差</b>。明顯有誤的測量值應<b>先予以刪除</b>，平均值＝各次合理測量結果的總和÷合理測量的次數。',key:'書櫃寬度刪異常值再平均（20 校）；平均值的位數和原數據相同。課本例題：80.2、80.3、80.25、31.57 cm → 先刪 31.57。'},
+    {label:'④ 量筒讀數',imgs:[ph('k11_cyl','量筒裡的液面'),ph('k11_cyl2','量筒')],poem:'讀取量筒刻度時，視線須和<b>液面中央處</b>等高。1 mL＝1 cm³＝1 cc；1 L＝1 dm³＝1000 mL；自來水 1 度＝1 m³。',key:'視線太高讀數偏大、太低偏小；量筒只能量液體體積，<b>不可配製溶液或進行反應</b>。'},
+    {label:'⑤ 排水法',imgs:[ph('k11_cyl2','排水法：讀放入前後的水位差')],poem:'不溶於水的物體完全沒入水中，會排開與本身體積相同的水：零件體積＝23.0 mL－20.0 mL＝<b>3.0 cm³</b>。',key:'浮在水面的塑膠球要綁金屬一起沉入：體積＝<b>X3－X4</b>（9 校）。砂糖會溶於水，不適合排水法。'},
+    {label:'⑥ 沙子有空隙',imgs:[ph('k11_sand','沙粒之間有許多空隙')],poem:'綠豆、沙子之間有空隙。加水後的水面讀數<b>減去加入的水量</b>，才是它們真正的體積。',key:'14 校都考：不能用原本的沙面讀數當體積（偏大）。'},
+    {label:'⑦ 半導體與奈米',imgs:[ph('k11_ruler','從公尺、毫米到奈米：越來越小的尺度')],poem:'奈米是一公尺的<b>十億分之一</b>。<b>半導體</b>（例如矽）導電性介於導體和絕緣體之間；IC 晶片裡的電子元件做到奈米尺度，晶片就能放更多元件，電子產品更小、更快、更省電。',key:'病毒約 80 nm＜PM2.5 約 2.5 µm＜細菌約 3 µm＜花粉約 30 µm（10 校考比大小）。'},
+  ],`<div class="card"><h3>🗺️ 1-1 一張圖</h3>
+    <p><span class="pill">結果</span>測量結果＝數值＋單位；數值＝準確數值＋一位估計數值</p>
+    <p><span class="pill">誤差</span>一定存在 → 用最小刻度較小的工具、多次測量刪異常值取平均</p>
+    <p><span class="pill">體積</span>規則形狀用公式；不規則且不溶於水 → 排水法；有空隙 → 水面－加入水量</p></div>`);
+}
+function animK12(p){
+  stage(p,[
+    {label:'① 質量與重量',imgs:[ph('k12_balance','等臂天平秤蔬果')],poem:'物體由物質組成，這些物質的總量多少稱為<b>質量</b>，基本單位是公斤。用手感覺較主觀、不精確，要用天平測量。質量不會隨地點而變；<b>重量</b>是物體所受的重力，會隨地點改變。',key:'帶到月球：質量不變、重量變小。無重力的太空站上皿天平不能用（7 校）。'},
+    {label:'② 上皿天平',imgs:[ph('k12_balance','等臂天平：左右兩盤'),ph('k12_weights','一組砝碼')],poem:'待測物放在<b>左盤</b>，以<b>砝碼夾由大到小</b>夾取砝碼放在右盤；指針停在正中央或<b>左右擺動幅度相等</b>時，物體質量＝砝碼總質量。',key:'秤藥品要<b>先放秤量紙再歸零</b>（17 校）；秤 4 g 小蘇打：<b>乙甲丁丙</b>（9 校）。'},
+    {label:'③ 砝碼讀數',imgs:[ph('k12_weights','由大到小的砝碼')],poem:'常見砝碼：100 mg、200 mg、500 mg、1 g、2 g、5 g、10 g、20 g、50 g、100 g。',key:'最小 100 mg → 要記到 0.01 g：50＋20＋10＋0.2×2＋0.1＝<b>80.50 g</b>（不是 80.5 g；200 mg 不是 2 g）。'},
+    {label:'④ 電子天平',imgs:[ph('k12_ebal','電子天平')],poem:'放置水平（氣泡水平儀的氣泡在中心）→ 放上秤量紙或容器後按<b>歸零</b>鈕扣除其質量 → 放入待測物讀數。',key:'電子天平使用前要放水平並歸零（8 校）。'},
+    {label:'⑤ 密度',imgs:[ph('k12_gold','金條：密度 19.30 g/cm³'),ph('k12_ring','戒指：用密度判斷材質')],poem:'物質的質量與體積的比值稱為<b>密度</b>：D＝M／V，單位 g/cm³ 或 kg/m³（1 g/cm³＝1000 kg/m³）。',key:'金 19.30、銀 10.49、鐵 7.87、鋁 2.70。戒指 26.25 g÷2.5 cm³＝10.5 → 銀（10 校）。'},
+    {label:'⑥ 冰浮在水上',imgs:[ph('k12_ice','冰塊浮在水面'),ph('k12_iceberg','冰山大部分在水面下')],poem:'常溫常壓下：水 1.00、冰 0.92、酒精 0.79 g/cm³。',key:'水結冰：<b>質量不變</b>、體積變大、密度變小。切半、捏扁密度都不變（17 校）。'},
+    {label:'⑦ 液體分層',imgs:[ph('k12_layers','密度不同的液體分層')],poem:'同種物質的質量與體積<b>成正比</b>；質量與體積關係圖中，斜直線<b>越陡，密度越大</b>。',key:'實驗 1·2：水與酒精的 M-V 圖都是過原點直線，水的較陡。等質量銀鐵鋁：鋁的體積最大、水位升最多（14 校）。量筒＋液體的直線不過原點，截距＝量筒質量（15 校）。'},
+  ],`<div class="card"><h3>🗺️ 1-2 一張圖</h3>
+    <p><span class="pill">天平</span>歸零（校準螺絲）→ 物左砝右、砝碼夾由大到小 → 指針在中央＝平衡</p>
+    <p><span class="pill">密度</span>D＝M／V；體積相同質量大者密度大；質量相同體積大者密度小</p>
+    <p><span class="pill">M-V 圖</span>過原點直線、越陡越密；同物質在同一條線上</p></div>`);
+}
+function animK21(p){
+  stage(p,[
+    {label:'① 物質與物體',imgs:[ph('k21_steam','水沸騰：液態水變成水蒸氣，物質仍然是水')],poem:'凡<b>占有空間、具有質量</b>者稱為物質，物體則由物質組成。雲、霧、雨、雪形態不同，卻都由同一種物質──<b>水</b>組成；剪刀、長尾夾、迴紋針主要成分都是鐵，所以都能被磁鐵吸引。',key:'同一種物質組成的不同物體，具有相似的性質。'},
+    {label:'② 物質三態',imgs:[ph('k21_ice','冰塊（固體）的形狀不受杯子影響')],poem:'固態體積固定、形狀不隨容器改變；液態體積固定、形狀隨容器改變；氣態會充滿容器，體積及形狀都隨容器改變。',key:'注射筒：空氣柱 15 mL 可壓到 10 mL，紅墨水不易壓縮 → <b>氣體具有可壓縮性</b>（15 校）。三態變化的名稱（熔化、汽化、凝結…）115 版放在第 5 章。'},
+    {label:'③ 物理變化',imgs:[ph('k21_butter','奶油受熱熔化')],poem:'<b>物理變化</b>只有狀態改變，本質沒有改變且<b>無新物質</b>產生：例如水的三態變化、冰淇淋熔化、剪紙。',key:'溶解、過濾、蒸發結晶、色層分析也都沒有產生新物質，是物理變化。'},
+    {label:'④ 化學變化',imgs:[ph('k21_rust','鐵生鏽：褐色鐵鏽是新物質'),ph('k21_egg','蛋白加熱變成白色'),ph('k21_sparkler','仙女棒燃燒')],poem:'<b>化學變化</b>本質改變、<b>產生新物質</b>：透明蛋白加熱變白、銀白色螺栓生鏽成褐色鐵鏽、紙張燃燒產生二氧化碳和灰燼。',key:'23 校考物理 vs 化學變化。用針戳破氣球是物理變化；用線香燒破是化學變化。'},
+    {label:'⑤ 蠟燭燃燒',imgs:[ph('k21_candle','蠟燭的火焰')],poem:'甲：固態蠟熔化成液態蠟 → 乙：液態蠟再變成氣態蠟 → 丙：氣態蠟<b>燃燒</b>產生二氧化碳和水蒸氣。',key:'課本例題：甲、乙沒有新物質，是物理變化；丙才是化學變化（12 校）。'},
+    {label:'⑥ 純物質與混合物',imgs:[ph('k22_salt','食鹽晶體')],poem:'只由一種物質組成的是<b>純物質</b>（二氧化碳、純水、銀），具有一定的特性；兩種以上純物質混合的是<b>混合物</b>（生理食鹽水、柳橙汁），性質隨混合比例改變。',key:'一大氣壓下純水沸點固定 100℃；食鹽水的沸點因食鹽與水的比例而不同（21 校）。'},
+    {label:'⑦ 過濾',imgs:[ph('k21_filter','用漏斗和濾紙過濾')],poem:'架設過濾裝置，將<b>漏斗頸下端緊貼燒杯內壁</b>，以免濾液濺起；漏斗中的液面不要超過濾紙 <b>2/3</b> 高度。',key:'濾紙依步驟摺好放入漏斗，用少量蒸餾水潤溼使其附著在漏斗內壁。沙子顆粒大留在濾紙上；紗布孔隙較大，過濾效果較差。'},
+    {label:'⑧ 蒸發結晶',imgs:[ph('k21_evap','蒸發皿')],poem:'利用兩者<b>沸點不同</b>，加熱將沸點較低的水蒸發，蒸發皿中留下沸點較高的<b>食鹽晶體</b>。蒸發皿上蓋漏斗或錶玻璃，水分完全蒸乾就熄滅酒精燈。',key:'食鹽與沙：<b>溶解 → 過濾 → 蒸發結晶</b>，全部是物理變化（21 校）。用磁鐵分離鐵粉與細沙則是利用磁性差異。'},
+    {label:'⑨ 色層分析',imgs:[ph('k21_chrom','墨水在濾紙上分出不同顏色'),ph('k21_chrom2','色層分析進行中')],poem:'濾紙色層分析法是利用不同色素<b>與濾紙吸附能力的差異</b>，以及<b>與水的作用力不同</b>，來進行分離。',key:'棕色水性筆分出多種顏色 → 顏料是混合物（12 校）；科學家也用它分析葉綠素中的多種色素。'},
+  ],`<div class="card"><h3>🗺️ 2-1 一張圖</h3>
+    <p><span class="pill">變化</span>物理變化：沒有新物質　／　化學變化：產生新物質</p>
+    <p><span class="pill">三態</span>固態、液態體積固定；氣體會充滿容器、容易壓縮</p>
+    <p><span class="pill">性質</span>物理性質：質量、密度、熔點　／　化學性質：可燃性、助燃性、酸鹼性</p>
+    <p><span class="pill">分離</span>過濾（顆粒大小）、蒸發結晶（沸點）、色層分析（吸附能力）、磁鐵（磁性）</p></div>`);
+}
+function animK22(p){
+  stage(p,[
+    {label:'① 溶質與溶劑',imgs:[ph('k22_sugar','黑糖')],poem:'黑糖溶解成肉眼看不見的微小粒子，均勻分布於水中：糖是<b>溶質</b>、水是<b>溶劑</b>，溶液的質量等於溶質與溶劑的質量和。',key:'<b>未溶解的不算溶質</b>（23 校最常考）。量多者為溶劑，但水溶液一律以水為溶劑；油性彩妝溶在卸妝油中，不能叫水溶液。'},
+    {label:'② 擴散現象',imgs:[ph('k22_diff','墨水在水中慢慢散開'),ph('k22_diff2','粒子由濃處往淡處散開')],poem:'溶解後的微小粒子跟水分子都會不停運動，由<b>高粒子濃度</b>的區域往<b>低粒子濃度</b>的區域運動，最後均勻分布於整杯水中，稱為擴散現象。',key:'均勻後粒子<b>仍在運動</b>（17 校，冬瓜茶磚題）。'},
+    {label:'③ 溶解度與飽和',imgs:[ph('k22_salt','食鹽晶體')],poem:'定溫下，定量溶劑所能溶解的最大量溶質稱為<b>溶解度</b>。例如 25℃ 時食鹽的溶解度為 36 公克／100 公克水；溶解度會受溫度影響，100℃ 時約 39 公克。',key:'飽和溶液加水後仍有固體：溶解量增加、<b>濃度不變</b>、溶解度不變（13 校）。'},
+    {label:'④ 重量百分率',imgs:[ph('k22_tea','茶包的成分溶進熱水')],poem:'重量百分率濃度＝溶質的質量÷（溶質的質量＋溶劑的質量）×100%。標示糖分 75%，表示每 100 公克糖漿含有 75 公克糖。',key:'分母是<b>溶液</b>，不是溶劑：20 g 糖＋80 g 水＝20%。'},
+    {label:'⑤ 體積百分率',imgs:[ph('k22_sanit','酒精消毒液')],poem:'體積百分率濃度＝溶質的體積÷溶液的體積×100%。酒精度 19.5 度＝每 100 毫升米酒含有 19.5 毫升純酒精。',key:'課本例題：紅酒 11%、1000 mL → 酒精 110 mL；75% 防疫酒精也是體積百分率（13 校）。'},
+    {label:'⑥ 百萬分點 ppm',imgs:[ph('k22_strawberry','草莓：農藥殘留以 ppm 表示'),ph('k22_tooth','牙膏常以 ppm 標示含氟量')],poem:'ppm 稱為百萬分點，可表示 1,000,000 毫克（<b>1 公斤</b>）中所含的<b>毫克</b>數，常用來表示稀薄溶液的濃度。',key:'牙膏含氟、萊克多巴胺 0.01 ppm＝每公斤豬肉最多 0.01 毫克；氟尼胺 0.03 ppm（9 校）；1%＝10000 ppm。'},
+  ],`<div class="card"><h3>🗺️ 2-2 一張圖</h3>
+    <p><span class="pill">組成</span>溶液＝溶質＋溶劑（未溶解的不算）</p>
+    <p><span class="pill">飽和</span>溶解度會受溫度影響；飽和溶液攪拌也無法再溶解</p>
+    <p><span class="pill">濃度</span>重量百分率（%）、體積百分率（酒精度）、ppm（每公斤幾毫克）</p></div>`);
+}
+function animK23(p){
+  stage(p,[
+    {label:'① 空氣是混合物',imgs:[ph('k23_atmos','從太空看地球薄薄的大氣層')],poem:'乾燥空氣：<b>氮氣約 78%、氧氣約 21%、氬氣約 0.9%</b>、其他約 0.1%；其中<b>二氧化碳約 0.04%</b>，含量隨時間、地點改變。',key:'空氣含多種氣體，是混合物（14 校考圓餅圖）。'},
+    {label:'② 氮氣',imgs:[ph('k23_chips','食品包裝中充填氮氣可保鮮'),ph('k23_ln2','液態氮溫度極低，可作冷凍劑')],poem:'氮氣是空氣中含量最多的氣體，不可燃、不助燃，室溫下幾乎不與其他物質反應，可<b>充填在食品包裝</b>內防止變質；液態氮溫度極低（約 －196℃ 以下），可作為<b>冷凍劑</b>。',key:'人呼出的氣體中，含量最多的仍是<b>氮氣</b>。'},
+    {label:'③ 氬氣',imgs:[ph('k23_weld','焊接時用氬氣保護')],poem:'氬氣是空氣中含量第三多的氣體，不可燃、不助燃，<b>極不易發生反應</b>，可用在焊接金屬時隔絕金屬與氧氣反應。',key:'115 版課本 2-3 只介紹氮、氧、氬、二氧化碳四種氣體。'},
+    {label:'④ 製備氧氣',imgs:[ph('k23_mno2','二氧化錳：黑色粉末'),ph('k23_setup','排水集氣法裝置（舊式教科書插圖）')],poem:'吸濾瓶中放約 0.5 g <b>二氧化錳</b>及少許水，<b>薊頭漏斗長管沒入液面下</b>；由薊頭漏斗慢慢加入雙氧水，二氧化錳可加速雙氧水分解。',key:'先加約 2 mL 純水再加雙氧水（10%）；氧氣來自雙氧水，二氧化錳只加速分解。剛冒出的氣體是空氣不收集；冒太快就<b>把水槽中的橡皮管拉出水面</b>（14 校）。'},
+    {label:'⑤ 氧氣助燃',imgs:[ph('k23_incense','點燃的線香')],poem:'將點燃的線香放入氧氣瓶中，會燃燒得比在空氣瓶中更激烈，表示氧氣具有<b>助燃性</b>。氧氣不易溶於水，可用<b>排水集氣法</b>收集。',key:'氧氣<b>助燃但不可燃</b>（11 校）；檢驗時另取瓶底留少許水的空氣瓶作對照。'},
+    {label:'⑥ 二氧化碳',imgs:[ph('k23_ext','二氧化碳可用來滅火'),ph('k23_dryice','乾冰：固態的二氧化碳')],poem:'二氧化碳無色無味、<b>微溶於水</b>，常以<b>大理岩與稀鹽酸</b>製備，也可用排水集氣法收集；不可燃、不助燃且比空氣重，可用來滅火；<b>石灰水</b>與二氧化碳反應產生白色沉澱。',key:'點燃的線香放入二氧化碳中會熄滅；<b>乾冰</b>是固態二氧化碳，可低溫保存食物、疫苗；跳跳糖裡的小氣泡也是二氧化碳。'},
+  ],`<div class="card"><h3>🗺️ 2-3 一張圖</h3>
+    <p><span class="pill">氮 78%</span>不可燃不助燃 → 食品包裝、液態氮作冷凍劑</p>
+    <p><span class="pill">氧 21%</span>助燃、不易溶於水 → 雙氧水＋二氧化錳、排水集氣法</p>
+    <p><span class="pill">氬 0.9%</span>極不易反應 → 焊接時隔絕氧氣</p>
+    <p><span class="pill">CO₂ 0.04%</span>大理岩＋稀鹽酸；石灰水白色沉澱；滅火、乾冰</p></div>`);
+}
+function animKX(p){
+  stage(p,[
+    {label:'① 空氣品質',imgs:[ph('kx_haze','霾害：城市被懸浮微粒籠罩'),ph('kx_aqi','空氣品質監測站')],poem:'<b>空氣品質指標（AQI）</b>數值越大，代表空氣汙染狀況越嚴重，對人體健康的危害也可能越大。',key:'環境部發布 AQI（9 校出 AQI／PM2.5 長文題）；兒童、老年人、慢性呼吸道疾病患者要減少戶外活動、適時戴口罩。'},
+    {label:'② PM2.5 與口罩',imgs:[ph('kx_mask','N95 口罩')],poem:'顆粒直徑 <b>2.5 微米以下</b>的細懸浮微粒（PM2.5），吸入後能穿透肺泡，隨著血液循環至全身。',key:'口罩靠<b>過濾</b>：海綿口罩擋大顆粒、醫療口罩（外層防潑水、中層<b>靜電吸附</b>過濾細菌、內層親膚）、N95 擋 PM2.5。'},
+    {label:'③ 生命吸管',imgs:[ph('kx_straw','生命吸管')],poem:'生命吸管層層過濾：100 微米濾網 → 15 微米濾網 → 纖維濾膜 → <b>活性碳</b>；但它<b>無法把海水轉化為飲用水</b>。',key:'生活中的濾水器、空氣清淨機也用類似原理。'},
+    {label:'④ 汙水處理',imgs:[ph('kx_sewage','汙水處理廠')],poem:'阻截垃圾（過濾）→ <b>沉澱（密度差異）</b> → 生物處理（<b>微生物</b>分解）→ 二次沉澱 → 消毒後排放。',key:'家庭汙水要經汙水下水道送到處理廠，處理後的放流水才能排入河川。'},
+    {label:'⑤ 再生水與雨撲滿',imgs:[ph('kx_reclaim','再生水用於澆灌（標示不可飲用）'),ph('kx_rain','收集雨水的儲水桶')],poem:'<b>再生水不適合飲用</b>，但可供工業使用，或澆花、洗車；<b>雨撲滿</b>收集雨水，初步過濾後用於廁所、花圃。',key:'落實「1 滴水至少使用 2 次」。'},
+    {label:'⑥ 晒鹽',imgs:[ph('kx_saltpan','臺南 井仔腳鹽田')],poem:'海水從水門流入，經大、小蒸發池曝晒、提高鹽水濃度，最後引入結晶池，約三週得到結晶鹽。',key:'晒鹽＝<b>蒸發結晶</b>（水的沸點較低先蒸發）。'},
+    {label:'⑦ 生活中的過濾',imgs:[ph('kx_spider','撈網'),ph('kx_coffee','濾紙手沖咖啡')],poem:'撈網撈水餃、濾紙沖咖啡、冷氣濾網、濾布分離豆漿與豆渣，都是利用<b>顆粒大小不同</b>的過濾。',key:'10 校考「撈網撈水餃」；晒鹽、色層分析不是過濾。'},
+    {label:'⑧ 色素與食品安全',imgs:[ph('k21_chrom','色層分析：看出色素由哪些顏色組成')],poem:'彩虹糖的顏色由不同食用色素混合而成，可用<b>色層分析</b>觀察。<b>天然色素</b>取自生物體（薑黃色素來自薑黃的莖、β-胡蘿蔔素）；<b>人工合成色素</b>色澤鮮艷、穩定、便宜（食用藍色一號）。',key:'臺灣核准的人工食用色素僅 <b>8 種</b>；使用須遵守食品添加物規範、不過量食用。'},
+  ],`<div class="card"><h3>🗺️ 跨科一張圖</h3>
+    <p><span class="pill">過濾</span>口罩、撈網、濾網、生命吸管（顆粒大小）</p>
+    <p><span class="pill">蒸發結晶</span>晒鹽（沸點）　<span class="pill">沉澱</span>汙水處理（密度）</p>
+    <p><span class="pill">水資源</span>再生水、雨撲滿：可沖廁澆花，不能喝</p>
+    <p><span class="pill">色素</span>天然（薑黃、β-胡蘿蔔素）vs 人工合成（核准 8 種）；色層分析看組成</p></div>`);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+
+<!-- AK:answer-key -->
+<style id="ak-style">#ak-btn{position:fixed;left:14px;bottom:14px;z-index:9990;font:600 16px/1 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:#1f4e79;color:#fff;border:0;border-radius:999px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer}#ak-btn:hover{background:#163a5c}#ak-box{display:none;position:fixed;inset:0;z-index:9995;background:rgba(15,25,40,.45);padding:16px;overflow:auto}#ak-box.show{display:block}#ak-box .ak-card{max-width:960px;margin:20px auto;background:#fff;color:#1d2733;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:16px/1.6 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;text-align:left}#ak-box .ak-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #e3e8ef;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}#ak-box .ak-head b{font-size:18px;color:#1f4e79}#ak-box .ak-head button{font:inherit;font-size:16px;margin-left:8px;border:1px solid #c9d3df;background:#f4f7fb;color:#1d2733;border-radius:8px;padding:6px 12px;cursor:pointer}#ak-box .ak-body{padding:6px 18px 18px}#ak-box h3{font-size:17px;margin:16px 0 6px;color:#1f4e79}#ak-box .ak-t{border-collapse:collapse;width:100%;margin:6px 0;table-layout:fixed}#ak-box .ak-t th,#ak-box .ak-t td{border:1px solid #cfd8e3;padding:5px 2px;text-align:center;font-size:16px;word-break:break-all}#ak-box .ak-t th{background:#eef3f9;color:#1f4e79;font-weight:600}#ak-box .ak-t th:first-child{width:3.6em}#ak-box .ak-t td{font-weight:700}#ak-box .ak-list{columns:2 300px;margin:6px 0;padding-left:0;list-style:none}#ak-box .ak-list li{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e3e8ef}@media print{#ak-btn{display:none!important}html:not(.ak-on) #ak-box{display:none!important}html.ak-on body>*:not(#ak-box){display:none!important}html.ak-on #ak-box{position:static;background:none;padding:0;display:block!important;overflow:visible}html.ak-on #ak-box .ak-card{box-shadow:none;margin:0;max-width:none}html.ak-on #ak-box .ak-head button{display:none}html.ak-on #ak-box .ak-head{position:static}}</style>
+<script id="ak-core">(function(){
+if(window.AK)return;
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function norm(secs){
+ if(!secs)return[];
+ if(!Array.isArray(secs[0]&&secs[0].items)&&Array.isArray(secs))secs=[{title:'',items:secs}];
+ return secs.map(function(s){return{title:s.title||'',items:(s.items||[]).map(function(x,i){return Array.isArray(x)?[x[0],x[1]]:[i+1,x]})}}).filter(function(s){return s.items.length});
+}
+function table(s){
+ var long=s.items.some(function(x){return String(x[1]).length>3});
+ var h=s.title?'<h3>'+esc(s.title)+'</h3>':'';
+ if(long){
+  return h+'<ol class="ak-list">'+s.items.map(function(x){return'<li><b>'+esc(x[0])+'.</b> '+esc(x[1])+'</li>'}).join('')+'</ol>';
+ }
+ var out=h;
+ for(var i=0;i<s.items.length;i+=10){
+  var r=s.items.slice(i,i+10);
+  out+='<table class="ak-t"><tr><th>題號</th>'+r.map(function(x){return'<th>'+esc(x[0])+'</th>'}).join('')+'</tr><tr><th>答案</th>'+r.map(function(x){return'<td>'+esc(x[1])+'</td>'}).join('')+'</tr></table>';
+ }
+ return out;
+}
+window.AK=function(fn){
+ function run(){
+  var secs;
+  try{secs=norm(typeof fn==='function'?fn():fn)}catch(e){console.warn('AK',e);return}
+  window.__AK_DATA=secs;
+  if(!secs.length)return;
+  var n=secs.reduce(function(a,s){return a+s.items.length},0);
+  var btn=document.createElement('button');btn.id='ak-btn';btn.type='button';btn.textContent='📋 答案總表';if(window.AK_BTN_STYLE)btn.style.cssText=window.AK_BTN_STYLE;
+  var box=document.createElement('div');box.id='ak-box';
+  box.innerHTML='<div class="ak-card" role="dialog" aria-label="答案總表"><div class="ak-head"><b>📋 答案總表（教師用，共 '+n+' 題）</b><span><button type="button" class="ak-p">🖨 列印答案</button><button type="button" class="ak-x" aria-label="關閉">✕</button></span></div><div class="ak-body">'+secs.map(table).join('')+'</div></div>';
+  document.body.appendChild(btn);document.body.appendChild(box);
+  function close(){box.classList.remove('show');document.documentElement.classList.remove('ak-on')}
+  btn.onclick=function(){box.classList.add('show');document.documentElement.classList.add('ak-on')};
+  box.querySelector('.ak-x').onclick=close;
+  box.onclick=function(e){if(e.target===box)close()};
+  box.querySelector('.ak-p').onclick=function(){window.print()};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+ }
+ if(document.readyState==='complete')setTimeout(run,0);else window.addEventListener('load',function(){setTimeout(run,0)});
+};
+})();</script>
+<script>AK(function(){
+if(!/[?&]teacher\b/.test(location.search))return [];
+/* 段考闖關站（chinese/civics/geography/history/science-site 的 volX_ 的 index.html）共用 adapter。
+   資料：頂層 const（L 各課 .mcq/.ext、RIDDLE/EXT/SCEN/CHART…）裡的選擇題物件 {q,o,a}。
+   renderMCQ 題序固定、但「選項每次洗牌」，所以答案列「正解選項文字」而非字母。
+   快問快答／配對／分類挑戰（題目隨機抽）與總測驗（pool/pick 隨機抽題）都不是頂層 {q,o,a} 陣列，不會被列入。 */
+window.AK_BTN_STYLE='left:14px;bottom:76px;font-size:20px;padding:12px 18px';
+(function(){
+  if(document.getElementById('ak-big'))return;
+  var s=document.createElement('style');s.id='ak-big';
+  s.textContent='html body #ak-box .ak-card{font-size:20px}html body #ak-box .ak-head b{font-size:22px}html body #ak-box .ak-head button{font-size:20px}html body #ak-box h3{font-size:21px}html body #ak-box .ak-list li{font-size:20px}html body #ak-box .ak-t th,html body #ak-box .ak-t td{font-size:20px}html body #ak-box .ak-note{font-size:20px;color:#5a6878;margin:10px 0 0}@media(max-width:600px){html body #ak-box{padding:6px}html body #ak-box .ak-card{margin:6px auto}html body #ak-box .ak-body{padding:6px 12px 14px}html body #ak-box .ak-list{columns:1}}';
+  document.head.appendChild(s);
+  setTimeout(function(){var b=document.querySelector('html body #ak-box .ak-body');if(b&&!b.querySelector('.ak-note')){var p=document.createElement('p');p.className='ak-note';p.textContent='※ 題號＝各練習頁上的題號；選項每次會重新洗牌，故列「正確選項的內容」。快問快答、配對、分類挑戰、總測驗為隨機出題，不列。';b.insertBefore(p,b.firstChild)}},50);
+})();
+var src=[].slice.call(document.querySelectorAll('script:not([src])')).filter(function(x){return x.id!=='ak-core'&&x.textContent.indexOf('AK(function')<0}).map(function(x){return x.textContent}).join('\n');
+var names=[];src.replace(/^(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=/gm,function(_,n){if(names.indexOf(n)<0)names.push(n)});
+var isQ=function(x){return x&&typeof x==='object'&&typeof x.q==='string'&&Array.isArray(x.o)};
+var clean=function(t){t=String(t).replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();return t.length>60?t.slice(0,60)+'…':t};
+var lit=function(expr){var re=new RegExp('renderMCQ\\([^,]+,\\s*'+expr.replace(/[.$[\]]/g,'\\$&')+'\\s*,\\s*[^,]+,\\s*([\'"`])([^\'"`$]*)\\1');var m=src.match(re);return m?m[2]:''};
+var KEY={mcq:'📝 段考模擬題',ext:'延伸題',graph:'綜合 圖表判讀',calc:'綜合 計算練習'};
+var secs=[];
+function add(title,arr,pri){for(var j=0;j<secs.length;j++)if(secs[j].arr===arr){if(pri>secs[j].pri){secs[j].title=title;secs[j].pri=pri}return}secs.push({arr:arr,pri:pri,title:title,items:arr.map(function(q,i){return[i+1,clean(q.o[q.a==null?0:q.a])]})})}
+function walk(v,path,parents){
+  if(!v||typeof v!=='object'||path.length>6||v instanceof Node||v===window)return;
+  if(Array.isArray(v)){
+    if(v.length&&v.every(isQ)){
+      var root=path[0],last=path[path.length-1],par=parents[parents.length-1],t;
+      if(root==='L'&&path.length===3){var d=parents[1];t=[d.no,d.title||d.name].filter(Boolean).join(' ')+'｜'+(KEY[last]||last)}
+      else if(path.length===1)t=lit(root)||root;
+      else if(par&&!Array.isArray(par)&&par.title){var gi=path[path.length-2];t=(/^[①-⑳]/.test(par.title)?'':(typeof gi==='number'?(gi+1)+'. ':''))+String(par.title).replace(/<[^>]*>/g,'')}
+      else t=lit(path.join('.'))||KEY[last]||path.join('.');
+      add(t,v,root==='L'?1:0);return;
+    }
+    v.forEach(function(x,i){walk(x,path.concat(i),parents.concat([v]))});return;
+  }
+  if(Object.getPrototypeOf(v)!==Object.prototype)return;
+  Object.keys(v).forEach(function(k){walk(v[k],path.concat(k),parents.concat([v]))});
+}
+names.forEach(function(n){var v;try{v=(0,eval)(n)}catch(e){return}walk(v,[n],[])});
+/* 同一陣列被兩處引用（如 L.ex.mcq＝EXT）只列一次，以課別標題為準；依 L 的課序排在前面 */
+secs.sort(function(a,b){return b.pri-a.pri});
+return secs.map(function(s){return{title:s.title,items:s.items}});
+});</script>
+<!-- /AK -->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+</body>
+</html>

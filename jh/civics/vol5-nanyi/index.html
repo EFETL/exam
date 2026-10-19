@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國三公民段考闖關</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#1f4e8c; --main-2:#3a72c0; --accent:#f0a03c; --accent-2:#e07a2f;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#17396a 0%,#3a72c0 60%,#f0a03c 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#17396a;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+.qword{font-size:1.4rem;letter-spacing:0;line-height:1.5;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word}
+@media(max-width:560px){.opts{grid-template-columns:1fr}.qword{font-size:1.25rem}}
+.bars .b span{line-height:1.35}
+@media(max-width:560px){.bars .b{grid-template-columns:128px 1fr 52px}}
+details.card summary{cursor:pointer}
+@media(max-width:560px){.lessoncards{grid-template-columns:1fr}.lc{min-height:0;gap:8px}}
+/* 表格（文字放在 HTML，不畫在圖上） */
+.tbl{width:100%;border-collapse:collapse;font-size:1rem;margin:6px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.tbl th{background:#eaf1fb;color:var(--main)}
+.figbox{overflow-x:auto;margin-bottom:6px}
+.passage{background:#f2f6fc;border-radius:12px;padding:14px 16px;line-height:1.9}
+.quad{display:grid;grid-template-columns:auto 1fr 1fr;gap:6px;margin:8px 0}
+.quad div{border-radius:12px;padding:8px 10px;line-height:1.5}
+.quad .h{background:var(--main);color:#fff;font-weight:700;text-align:center}
+.quad .c{background:#f2f6fc}
+.quad .c.neg{background:#fff4e5}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 12px}
+.flow span{background:var(--main);color:#fff;border-radius:12px;padding:6px 12px;font-weight:700;text-align:center}
+.flow span.an{background:var(--accent);color:#3b2600}
+/* 機會成本計算機 */
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.calc label{font-weight:500}
+.calc input{display:block;width:100%;font-size:1.1rem;padding:8px 10px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回公民選單</a><span class="tag">南一版 國三上公民 ｜ 第一次段考</span>
+    <h1>公民段考闖關｜第1章 選擇與機會成本～第2章 價格與資源分配</h1>
+    <p>先看真實照片動畫弄懂課本，再用遊戲練熟機會成本、誘因與資源分配，最後做段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap"><details style="margin-top:8px"><summary>圖片來源與授權</summary>
+  照片皆來自 Wikimedia Commons（CC0／公有領域／CC BY／CC BY-SA），未使用 AI 生成圖：Residential buildings in Tamsui, New Taipei 20221231：迷惘的人生（CC BY-SA 2.0）；Crowd at the regular season opening game of 2021 Chinese Professional Baseball League season 20210313：中華民國總統府（CC BY 2.0）；Sweet 16 birthday party candle lighting 2010-04-19：pseudoplacebo（CC BY 2.0）；Eslite Bookstore Dunnan Interior 201507：Wpcpey（CC BY 3.0）；Happy Breakfast Shop 20210214：WC-QHS（CC BY-SA 4.0）；Mayan Theater (Denver), Main Screen, 2025：Chevsapher（CC0）；Hourglasses：Aaaatu（CC BY-SA 4.0）；Water Pollution with Trash Disposal of Waste at the Garbage Beach：epSos.de（CC BY 2.0）；Adam Smith The Muir portrait：作者不詳（公有領域）；Smog over Almaty：Igors Jefimovs（CC BY 3.0）；Pangboche, Mountain stream, Nepal：Vyacheslav Argenberg（CC BY 4.0）；LED traffic light on red：Kevin Payravi（CC BY-SA 4.0）；Penn State Women's Volleyball warming up prior to the 2014 Women's Volleyball National Championship：Offonvictory（CC BY-SA 4.0）；Certificate and award recieved by the school for the school with the best environment (6809834268)：SuSanA Secretariat（CC BY 2.0）；Family cooking activity with kids preparing homemade fries in a cozy kitchen setting：Shixart1985（CC BY 2.0）；TaiwanCoin5dollars197020230304000：OnionBulb（CC BY-SA 4.0）；Fine for litter：Sheila1988（CC BY-SA 4.0）；Google data center：Lambtron（CC BY-SA 4.0）；Bed in hotel room 2：Kurt Kaiser（CC0）；7-Eleven New Keelung 1st Store 20180211：Solomon203（CC BY-SA 4.0）；Many parking fine tickets on van windscreen：Tim Sheerman-Chase（CC BY 2.0）；Machine working in a factory while cutting material on a production line in the workshop：Shixart1985（CC BY 2.0）；20250228 新北大都會公園樂活農園 位於新北市五股區：Junyu-K（CC BY-SA 4.0）；Water spinach：Fumikas Sagisavas（CC0）；Milk at supermarket：ProjectManhattan（CC0）；Brassica rapa var. chinensis (leaf)：おむこさん志望（CC BY 2.5）；Open kitchen with young chef and two waitress at Hong Kong style restaurant：Peachyeung316（CC BY-SA 4.0）；Typhoon Koinu nears Landfall in Taiwan (CIRA 2023-10-04 - nolabels)：Himawari imagery: CSU/CIRA & JMA/JAX（公有領域）；Huai Sheng Junior High School students playing basketball 20110520：li-penny（CC BY 2.0）；03.06 總統訪視予志藥局 (49626020666)：總統府（CC BY 2.0）；7-Eleven Chaofu Store surgical masks sold-out notice 20200204：玄史生（CC0）；Acer Smart Parking at Tainan：卡達（CC BY 4.0）；Line at pharmacy in Austin during the 2021 Texas power crisis：Jno.skinner（CC BY-SA 4.0）；Smangus DSC08983：JianEn Yu（CC BY 2.0）；Smangus 司馬庫斯 - panoramio (14)：lienyuan lee（CC BY 3.0）；桃園市蘆竹二號社會住宅：Heeheemalu（CC BY-SA 4.0）；YouBike bicycle parking in Taipei 20120916：Muhammad Riza（CC BY-SA 2.0）。</details>
+</div></footer>
+
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料（南一 國三上公民 第一次段考：第1章、第2章） =================
+   名詞、定義、年代、例子一律依南一版第五冊公民課本第1章〈選擇與機會成本〉、第2章〈價格與資源分配〉。
+   校數＝56 校（同版南一 1 校＋他版 55 校）中考過該考點的學校數，來自 stats.json。
+   快問快答：[題目, 正解, [3 個誘答], 幾校考過(0＝不標★)]
+   模擬題：{q, o:[正解, 誘答…], a:0, src, ex}（選項每次洗牌；全部原創改寫，只借各校命題方向與陷阱） */
+const L = {
+/* ---------- 第1章 1-1、1-2 稀少性與機會成本 ---------- */
+c1:{
+  no:'1-1・1-2', code:1, title:'稀少性與機會成本', short:'稀少性與機會成本', color:'linear-gradient(135deg,#17396a,#3a72c0)',
+  desc:'資源有限、欲望無窮｜經濟財 vs 自由財｜機會成本＝放棄選項中價值最高者',
+  quickAsk:'選出正確的答案', quickTitle:'稀少性＋機會成本快問快答',
+  quick:[
+    ['相較於人們的欲望，資源無法滿足欲望的特性','稀少性',['多種用途','自由財','機會成本'],46],
+    ['稀少性又可以稱為','有限性',['無限性','公共性','多樣性'],0],
+    ['稀少性是相對概念，指的是','資源相對於欲望不足',['資源總數量很少','只有窮人才會遇到','東西價格很高'],46],
+    ['必須付出代價才能取用的資源','經濟財',['自由財','公共財','共享財'],17],
+    ['不必付出代價即可取用的資源（如陽光）','自由財',['經濟財','稀少財','私有財'],17],
+    ['工業發展快速的現代，「乾淨的空氣」屬於','經濟財',['自由財','不具稀少性的資源','公共財'],17],
+    ['水資源充沛地區，取得便利的乾淨水屬於','自由財',['經濟財','稀少資源','必須付費的資源'],17],
+    ['資源具有稀少性，又具有什麼特性，才「得以」做選擇','多種用途',['價格便宜','總量很多','不必付費'],4],
+    ['經濟學假設人們做選擇時會','理性思考、計較得失',['完全憑感覺','只考慮別人的利益','隨便選一個'],15],
+    ['做選擇時被放棄的選項中「價值最高者」','機會成本',['稀少性','誘因','總成本'],56],
+    ['人們通常會選擇哪一個選項','機會成本最低者',['機會成本最高者','價格最高者','別人都選的'],47],
+    ['機會成本是否只能用金錢衡量','否，也可用喜好或滿足程度',['是，只能用金錢','是，只能用時間','否，只能用心情'],21],
+    ['表姐打工：早餐店時薪200元、書局176元，她會選','早餐店',['書局','兩個都去','兩個都不去'],39],
+    ['承上，表姐選早餐店的機會成本','書局時薪176元',['早餐店時薪200元','376元','0元'],39],
+    ['Andy一家選南南大廈，放棄的是','One大廈的喜好程度',['南南大廈的喜好程度','兩棟的價格總和','通勤時間'],21],
+    ['南南大廈的優點是','室內空間大',['離學校步行5分鐘','價格最便宜','有游泳池'],0],
+    ['「天下沒有白吃的午餐」說明','任何選擇都要付出代價',['吃飯一定要付錢','免費最划算','資源沒有限制'],12],
+    ['下列哪一句話和機會成本「無關」','三人行，必有我師',['魚與熊掌不可兼得','有得必有失','天下沒有白吃的午餐'],12],
+    ['趕時間遇紅燈仍選擇遵守，因為','遵守法規的機會成本較低',['闖紅燈的機會成本較低','紅燈沒有罰鍰','時間不具稀少性'],0],
+    ['小南週日想參加派對又想練排球，面臨哪種資源的稀少性','時間',['金錢','空氣','陽光'],46],
+    ['經濟學家亞當．斯密認為人們追求自利','不等於自私自利',['就是自私自利','一定傷害他人','違反法律'],0],
+    ['滿足食衣住行育樂等欲望的行為','消費行為',['生產行為','分配行為','交換行為'],0],
+    ['請假3小時（時薪190元）去看展，門票加車資共450元，機會成本','1,020元',['190元','570元','450元'],39],
+    ['機會成本「不是」','放棄選項的價值總和',['放棄選項中價值最高者','選擇的代價','可用滿足程度衡量'],10],
+  ],
+  words:[
+    ['稀少性','資源相對於欲望無法滿足'],['經濟財','須付出代價才能取用'],['自由財','不必付出代價即可取用'],
+    ['機會成本','被放棄選項中價值最高者'],['多種用途','資源得以做選擇的原因'],['理性選擇','計較得失，把資源用在最高價值'],
+    ['欲望','想要追求的各種事物'],['金錢衡量','表姐打工時薪比較'],['非金錢衡量','南南大廈與One大廈的喜好程度'],
+    ['亞當．斯密','追求自利也可能有利於他人'],['消費者','從事消費行為的人'],['天下沒有白吃的午餐','任何選擇都要付出代價'],
+  ],
+  sorts:[
+    {title:'經濟財還是自由財？',tip:'看「要不要付出代價才能取用」；同一種東西換了地點或情境，答案可能不同。',buckets:['經濟財','自由財'],items:[
+      ['海邊的陽光',1],['山上隨意呼吸的空氣',1],['空汙嚴重城市裡的空氣清淨機淨化後的空氣',0,'乾淨空氣要付出代價才能享有'],
+      ['水資源受汙染地區的乾淨飲用水',0,'稀少、要付出代價'],['水資源充沛山區的溪水',1],['便利商店賣的礦泉水',0],
+      ['電影院的座位',0],['晚上抬頭就能看見的月光',1]]},
+    {title:'這一句話對還是錯？（稀少性與機會成本）',tip:'稀少性是「相對」概念；機會成本只取「一個」價值最高的被放棄選項。',buckets:['✅ 正確','❌ 錯誤'],items:[
+      ['富翁也可能覺得金錢具有稀少性',0,'只要欲望無法被滿足，就有稀少性'],['東西數量很多，就一定沒有稀少性',1,'稀少性看的是相對於欲望'],
+      ['每個人每天都有24小時，所以時間不稀少',1,'時間無法滿足所有想做的事，仍具稀少性'],['自由財不須付出代價就能取用',0],
+      ['機會成本是所有被放棄選項的價值加總',1,'只取價值最高的那一個'],['被選中的那一項就是機會成本',1,'機會成本是「被放棄」的'],
+      ['人們通常選擇機會成本最低的選項',0],['機會成本也可以用喜好程度來衡量',0]]},
+    {title:'機會成本要怎麼算？（金錢）',tip:'機會成本＝放棄的收入＋為了這個選擇額外付出的花費。',buckets:['要算進機會成本','不算進機會成本'],items:[
+      ['為了去聚餐而請假，少賺的打工薪水',0],['去看電影買的電影票錢',0],['為了準備考試辭職，放棄的月薪',0],
+      ['報名補習班繳的學費',0],['選了之後才會拿到的收入',1,'那是選擇的收益，不是代價'],['本來就要付、不管選哪個都一樣的房租',1,'不因選擇改變的花費不是代價']]},
+  ],
+  mcq:[
+    {q:'「資源有限，欲望無窮」。下列關於稀少性的敘述，何者正確？',o:['稀少性是相對於人們的欲望而言，與資源總量多寡無關','只要資源總量很多，就不具有稀少性','有錢人可以買到任何東西，所以不會面臨稀少性','稀少性只發生在金錢上，時間不會稀少'],a:0,src:'46 校考稀少性',ex:'課本：稀少性是相對的概念，並非指資源總數量的多寡，而是指相較於人們的欲望，資源無法滿足時就具有稀少性。'},
+    {q:'阿哲週六想去看演唱會，又想參加籃球隊練習，兩件事時間重疊，只能擇一。阿哲需要做選擇的根本原因是什麼？',o:['時間具有稀少性','時間是自由財','演唱會門票太貴','籃球隊規定很嚴格'],a:0,src:'課本單元頁情境改寫',ex:'時間無法同時滿足兩項活動的欲望，所以時間對他具有稀少性，必須做選擇。'},
+    {q:'下列關於經濟財與自由財的敘述，何者「錯誤」？',o:['自由財同樣具有稀少性，取用時要付出代價','空氣、陽光通常屬於自由財','在空氣汙染嚴重的地區，乾淨的空氣可能成為經濟財','經濟財與自由財的區分並不是絕對的'],a:0,src:'同版稀少性題型',ex:'自由財不必付出代價就能取用、不具稀少性。乾淨的水、乾淨的空氣在受汙染地區會變成經濟財，所以兩者區分不是絕對。'},
+    {q:'同樣是乾淨的水，在山區水源充沛的部落可以直接取用，在河川嚴重汙染的工業區卻要花錢買。這說明了什麼？',o:['經濟財與自由財會因情境改變','乾淨的水永遠是經濟財','乾淨的水永遠是自由財','水不具有多種用途'],a:0,src:'課本圖3-1-2 改寫',ex:'水資源充沛區，乾淨的水屬於自由財；受汙染地區乾淨水變稀少，必須付出代價取得，成為經濟財。'},
+    {q:'課本說「正因為資源具有稀少性且具有多種用途，我們才需要並得以做選擇」。下列哪個例子最能說明「多種用途」？',o:['500元零用錢可以買禮物，也可以看電影','空氣到處都有，不用付錢','教室的燈只能用來照明','颱風天停課在家'],a:0,src:'課本1-1',ex:'同一筆錢能用在不同地方，才有選擇的可能；若資源只有一種用途，就沒有選擇的問題。'},
+    {q:'關於「機會成本」的意義，下列何者正確？',o:['做選擇時，被放棄的選項中價值最高者','所有被放棄選項的價值總和','被選中的那個選項的價格','只能用金錢計算的成本'],a:0,src:'10 校考定義；陷阱',ex:'機會成本＝被放棄的選項中價值「最高」的那一個，不是加總，也不是被選的那一項；也可以用喜好、滿足程度衡量。'},
+    {q:'小凱週日只能選一項活動，他對各活動的滿足程度為：打球 80、看電影 95、睡覺 60。若小凱依機會成本做出最佳選擇，他的機會成本是多少？',o:['80（打球）','95（看電影）','60（睡覺）','140（打球＋睡覺）'],a:0,src:'滿足程度題型',ex:'最佳選擇是滿足程度最高的看電影，放棄的選項中最高的是打球 80，所以機會成本是 80；不是把 80＋60 加起來。'},
+    {q:'承上題，若小凱選擇睡覺，他的機會成本是多少？',o:['95','80','60','175'],a:0,src:'表格推理題型',ex:'選睡覺時，放棄的選項是打球 80 與看電影 95，取最高者 95。只要不選最好的那一項，機會成本都等於最高者。'},
+    {q:'大學生小瑜寒假可以去：甲 補習班櫃檯（時薪 190 元）、乙 飲料店（時薪 205 元）、丙 速食店（時薪 183 元），每份工作時數相同、其他條件不變。下列敘述何者正確？',o:['選乙的機會成本最低，是甲的時薪 190 元','選丙的機會成本最低，因為時薪最少','選甲的機會成本是乙＋丙的時薪','選乙的機會成本是 205 元'],a:0,src:'課本表姐打工改寫；39 校考金錢機會成本',ex:'選時薪最高的乙，放棄的選項中最高者是甲 190 元，機會成本最低。選甲或選丙的機會成本都是乙的 205 元。'},
+    {q:'阿志每週六在書局打工 3 小時，時薪 200 元。這週他請假去看球賽，花了門票 450 元和交通費 50 元。阿志看球賽的機會成本是多少元？',o:['1,100 元','600 元','500 元','650 元'],a:0,src:'同版、 計算題型',ex:'放棄的打工收入 200×3＝600 元，加上為看球賽額外花的 450＋50＝500 元，共 1,100 元。只算薪水或只算門票都是陷阱。'},
+    {q:'美琪辭去月薪 40,000 元的工作，花 6 個月專心準備研究所考試，這段期間另外繳了補習費 25,000 元。美琪準備考試的機會成本是多少元？',o:['265,000 元','240,000 元','65,000 元','25,000 元'],a:0,src:'同版月薪題型改寫',ex:'放棄的薪水 40,000×6＝240,000 元，再加補習費 25,000 元，共 265,000 元。'},
+    {q:'Andy 一家預算相同，可以買「空間大、通勤遠」的甲屋或「空間小、通勤近」的乙屋。全家對甲屋喜好程度 5 顆星、乙屋 3 顆星。下列推論何者正確？',o:['選甲屋的機會成本是乙屋的 3 顆星，所以會選甲屋','選甲屋的機會成本是甲屋的 5 顆星','選乙屋的機會成本較低','兩屋價格相同，所以沒有機會成本'],a:0,src:'課本南南大廈 vs One大廈改寫',ex:'選甲屋放棄乙屋（3 顆星），選乙屋放棄甲屋（5 顆星）；選甲屋機會成本較低。價格相同時，仍可用喜好程度衡量非金錢的機會成本。'},
+    {q:'下列哪一句俗語「無法」用來說明機會成本的概念？',o:['船到橋頭自然直','魚與熊掌不可兼得','有得必有失','天下沒有白吃的午餐'],a:0,src:'同版',ex:'機會成本的俗語強調「選了一樣就得放棄另一樣」。「船到橋頭自然直」是說事情到時候自然有辦法，與取捨無關。'},
+    {q:'行政院要補助中小學教室裝冷氣，有民意代表擔心會排擠營養午餐、獎助學金、校舍更新的經費。這種擔心背後是哪一個經濟概念？',o:['政府預算有限，選了一項就要放棄其他用途的機會成本','冷氣是自由財，不需要預算','營養午餐不具稀少性','補助越多，經費就越多'],a:0,src:'課本1-2 想一想改寫',ex:'政府經費也具有稀少性，用在冷氣就不能用在其他項目，放棄的用途中價值最高者就是機會成本。'},
+    {q:'經濟學家亞當．斯密說：「我們每天有得吃、有得喝，並非由於肉商、酒商或麵包商的仁心善行，而是由於他們關心自己的利益。」下列解讀何者最恰當？',o:['人們追求自身利益，同時也可能有利於他人','商人都是自私自利、不顧他人的','人們應該完全放棄自己的利益','做生意一定會傷害消費者'],a:0,src:'南一課本1-2 想一想（南一特有）',ex:'學者認為在人們追求自利的狀況下，不僅有利於自己，也有利於他人；「追求自利」不等於生活中說的「自私自利」。'},
+    {q:'經濟學假設人們會透過理性思考來做選擇。下列哪一位同學的做法最符合「理性選擇」？',o:['小玲比較各選項的好處與代價，把零用錢花在對自己最有價值的地方','小傑看到同學買什麼就跟著買','小美閉上眼睛隨便抽一個','小強每次都選最貴的，覺得越貴越好'],a:0,src:'15 校考理性選擇',ex:'理性選擇＝為了自我利益計較得失，把有限資源用在能產生最高價值的用途上。'},
+    {q:'週末小南想打工（時薪 180 元，可做 4 小時），也想去參加社區志工（沒有收入）。最後他選擇當志工。下列敘述何者正確？',o:['當志工的機會成本至少包含放棄的 720 元打工收入','當志工沒有收入，所以沒有機會成本','打工才有機會成本，當志工沒有','當志工的機會成本是 180 元'],a:0,src:'打工×時數 陷阱',ex:'選擇當志工就放棄打工 4 小時，180×4＝720 元。任何選擇都有代價；只算時薪 180 元是常見錯誤。'},
+    {q:'有關「選擇」與「機會成本」的關係，下列何者正確？',o:['當選擇的機會成本改變時，人們的選擇也可能跟著改變','機會成本固定不變','只有買東西時才有機會成本','做選擇時一定沒有任何代價'],a:0,src:'跨節概念',ex:'機會成本是選擇的代價，代價改變（例如加薪、出現誘因），人們的選擇也會改變，這正是下一節「誘因」的重點。'},
+  ]
+},
+/* ---------- 第1章 1-3 誘因 ---------- */
+c2:{
+  no:'1-3', code:2, title:'誘因如何影響機會成本', short:'誘因四格', color:'linear-gradient(135deg,#a85a12,#f0a03c)',
+  desc:'正向／負向 × 金錢／非金錢｜同一誘因不同反應｜免費的代價',
+  quickAsk:'選出正確的答案', quickTitle:'誘因快問快答',
+  quick:[
+    ['能誘使人們改變其行為的因素','誘因',['機會成本','稀少性','欲望'],54],
+    ['提高報酬或減少懲罰','正向誘因',['負向誘因','金錢誘因','非金錢誘因'],38],
+    ['降低報酬或提高懲罰','負向誘因',['正向誘因','非金錢誘因','自由財'],25],
+    ['以金錢當做報酬或懲罰','金錢誘因',['非金錢誘因','正向誘因','負向誘因'],49],
+    ['以金錢以外的方式當做報酬或懲罰','非金錢誘因',['金錢誘因','經濟財','機會成本'],41],
+    ['校園競賽優勝獲得獎金','正向金錢誘因',['正向非金錢誘因','負向金錢誘因','負向非金錢誘因'],52],
+    ['協助整理家務得到家人稱讚','正向非金錢誘因',['正向金錢誘因','負向非金錢誘因','負向金錢誘因'],52],
+    ['在學校弄壞公用設施而賠錢','負向金錢誘因',['負向非金錢誘因','正向金錢誘因','正向非金錢誘因'],52],
+    ['學校對違規學生處記過處分','負向非金錢誘因',['負向金錢誘因','正向非金錢誘因','正向金錢誘因'],52],
+    ['借書滿20本，圖書館送200元文具禮券','正向金錢誘因',['正向非金錢誘因','負向金錢誘因','不是誘因'],52],
+    ['考試進步，老師公開表揚並頒獎狀','正向非金錢誘因',['正向金錢誘因','負向非金錢誘因','負向金錢誘因'],52],
+    ['房間沒整理，週末不准出門找朋友','負向非金錢誘因',['負向金錢誘因','正向非金錢誘因','正向金錢誘因'],52],
+    ['亂丟垃圾被罰款','負向金錢誘因',['負向非金錢誘因','正向金錢誘因','正向非金錢誘因'],52],
+    ['表現良好可以減免一次值日生','正向誘因（減少懲罰）',['負向誘因','不是誘因','提高懲罰'],38],
+    ['媽媽說考好帶全家去吃大餐，屬於','非金錢誘因',['金錢誘因','負向誘因','不是誘因'],41],
+    ['考試舞弊會被記過，目的是','防止投機取巧的行為',['鼓勵作弊','增加收入','降低考試難度'],0],
+    ['同一誘因，不同人反應不同的原因','個人喜好與需求不同',['誘因都一樣大','法律規定','人都不理性'],2],
+    ['超商「消費滿額換公仔」，最可能增加消費的是','喜歡收集公仔的人',['對公仔沒興趣的人','不常逛超商的人','不買東西的人'],2],
+    ['使用Google免費服務，使用者付出的代價','自己的行為資料',['每月月費','完全沒有代價','電費'],5],
+    ['Google使用蒐集資料的兩大用途','優化服務產品與廣告投放',['販賣個人姓名','印成書出版','給學校打分數'],5],
+    ['環保署綠色旅遊住宿抵用金200元，屬於','正向金錢誘因',['負向金錢誘因','正向非金錢誘因','負向非金錢誘因'],0],
+    ['綠色旅遊推動「入住環保標章旅館」，訴求重點','生態環境的保護',['提升旅遊質感','增加旅遊樂趣','提高旅館房價'],0],
+    ['誘因出現時，會改變人們選擇的','機會成本',['欲望總量','資源總量','法律'],24],
+    ['垃圾隨袋徵收，多丟垃圾就多付錢，屬於','負向金錢誘因',['正向金錢誘因','負向非金錢誘因','正向非金錢誘因'],52],
+  ],
+  words:[
+    ['誘因','誘使人改變行為的因素'],['正向誘因','提高報酬或減少懲罰'],['負向誘因','降低報酬或提高懲罰'],
+    ['金錢誘因','用金錢當報酬或懲罰'],['非金錢誘因','用金錢以外方式當報酬或懲罰'],['獎學金','正向金錢誘因'],
+    ['公開表揚','正向非金錢誘因'],['罰款','負向金錢誘因'],['記過','負向非金錢誘因'],
+    ['消費滿額換公仔','同一誘因不同人反應不同'],['Google免費服務','以行為資料換取服務'],['綠點住宿抵用金','鼓勵入住環保標章旅館'],
+  ],
+  sorts:[
+    {title:'誘因四格：放進正確的格子',tip:'先判方向（報酬增加或懲罰減少＝正向），再判形式（有沒有用到錢）。禮券、折扣、補助都算「錢」。',buckets:['正向金錢','正向非金錢','負向金錢','負向非金錢'],items:[
+      ['成績進步領獎學金',0],['集點兌換100元禮券',0,'禮券有金額，是金錢誘因'],['第二件5折',0],
+      ['老師在全班面前稱讚',1],['比賽得名拿到獎狀',1],['考好全家去露營',1],
+      ['違規停車被開罰單',2],['弄壞公物要賠償',2],['逾期還書要繳罰金',2],
+      ['上課吵鬧罰勞動服務',3],['遲到被記警告',3],['沒寫完作業取消下課時間',3]]},
+    {title:'這是正向還是負向誘因？',tip:'正向＝提高報酬或減少懲罰；負向＝降低報酬或提高懲罰。「免除處罰」是正向！',buckets:['正向誘因','負向誘因'],items:[
+      ['全勤可以免掃廁所一週',0,'減少懲罰＝正向'],['準時繳稅享有折扣',0],['抽菸者健保費提高',1],
+      ['作弊者成績以零分計算',1],['熱心服務記嘉獎',0],['遲到扣平時分數',1],['買電動機車政府補助',0],['酒駕吊銷駕照',1]]},
+    {title:'誘因與機會成本：會不會改變選擇？',tip:'同一誘因對不同人的機會成本不同，反應也不同。',buckets:['較可能被吸引','較不會被吸引'],items:[
+      ['超愛收集公仔的阿明，遇到超商滿額送公仔',0],['對公仔完全沒興趣的阿華，遇到超商滿額送公仔',1],
+      ['熱愛戶外活動的弟弟，聽到「進步就去露營」',0],['只喜歡在家打電動的哥哥，聽到「進步就去露營」',1],
+      ['打算國內旅遊的家庭，看到環保旅館抵用金',0],['這幾個月沒有旅遊計畫的人，看到環保旅館抵用金',1]]},
+  ],
+  mcq:[
+    {q:'下列關於「誘因」的敘述，何者正確？',o:['誘因會改變選擇的機會成本，進而改變人們的行為','誘因只能用金錢的形式出現','同一種誘因對每個人的效果都一樣','負向誘因的目的是鼓勵行為'],a:0,src:'54 校考誘因',ex:'誘因是誘使人們改變行為的因素，會改變機會成本；有金錢與非金錢形式；負向誘因是用來抑制行為。'},
+    {q:'某國中規定：「每學期全勤的同學，可免除一次打掃外掃區的工作。」這項規定屬於哪一種誘因？',o:['正向非金錢誘因','負向非金錢誘因','正向金錢誘因','負向金錢誘因'],a:0,src:'「減少懲罰」陷阱',ex:'減少懲罰（免掃外掃區）屬於正向誘因；沒有用到金錢，是非金錢誘因。'},
+    {q:'班導師宣布：「這次段考班排進步 5 名以上，就能拿到 200 元書店禮券。」這屬於哪一種誘因？',o:['正向金錢誘因','正向非金錢誘因','負向金錢誘因','負向非金錢誘因'],a:0,src:'同版禮券題型',ex:'禮券有明確的金額，屬於金錢誘因；提高報酬，屬於正向。把禮券當成「非金錢」是常見陷阱。'},
+    {q:'把誘因依「正向／負向」與「金錢／非金錢」分成四格。下列哪一個例子應該放在「負向非金錢誘因」那一格？',o:['上課使用手機，被取消當週的下課自由活動','弄壞同學的計算機，賠償 500 元','比賽冠軍獲得獎金 3,000 元','熱心公益獲得市長公開表揚'],a:0,src:'同版四格題型',ex:'取消自由活動＝降低報酬、沒有用錢→負向非金錢。賠錢是負向金錢；獎金是正向金錢；表揚是正向非金錢。'},
+    {q:'小莉幫忙照顧生病的鄰居奶奶，奶奶的家人特地寫了一張感謝卡並在社區公布欄表揚她。小莉得到的屬於哪一種誘因？',o:['正向非金錢誘因','正向金錢誘因','負向非金錢誘因','不屬於任何誘因'],a:0,src:'同版表揚題型',ex:'公開表揚、感謝卡提高報酬→正向；沒有金錢→非金錢誘因。'},
+    {q:'政府對「垃圾隨袋徵收」：民眾必須購買專用垃圾袋才能丟垃圾，丟越多付越多。這項政策是利用哪一種誘因來減少垃圾量？',o:['負向金錢誘因','正向金錢誘因','負向非金錢誘因','正向非金錢誘因'],a:0,src:'他版常考政策誘因',ex:'多丟垃圾就要多付錢＝提高懲罰、使用金錢→負向金錢誘因。'},
+    {q:'超商推出「消費滿 77 元送一張貼紙，集滿 10 張換公仔」。熱愛收集公仔的阿德常常多買東西湊滿額，對公仔沒興趣的小玉則照常消費。下列解釋何者最恰當？',o:['個人喜好不同，同一誘因產生的機會成本不同','小玉不理性，所以不受誘因影響','阿德不理性，所以受誘因影響','誘因對每個人的效果都相同'],a:0,src:'南一課本1-3 超商公仔',ex:'由於個人喜好與需求不同，同一誘因對每個人產生的機會成本也不同，所以選擇會有差異。兩人都是理性的。'},
+    {q:'爸爸想讓兩兄弟成績不退步：哥哥喜歡在家玩線上遊戲，弟弟熱衷戶外活動。下列哪一種安排最能發揮誘因的效果？',o:['對哥哥說進步就送遊戲寶物，對弟弟說進步就去露營','兩人都說進步就去露營','兩人都說進步就送遊戲寶物','兩人都不給任何獎勵，效果最好'],a:0,src:'南一課本1-3 想一想改寫',ex:'先了解每個人的需求和偏好，才能運用誘因達到期望的效果。'},
+    {q:'行政院環境保護署曾推出綠色旅遊：入住具「環保標章」的旅館並現場付款，除了國旅補助外，還可另外獲得綠點住宿抵用金。這項政策主要想達成什麼目的？',o:['鼓勵民眾選擇對環境衝擊較小的住宿','提高旅館的房價','減少國人出遊的次數','增加旅館的一次性用品使用量'],a:0,src:'南一課本1-3 閱讀素養',ex:'以抵用金（正向金錢誘因）鼓勵入住可回收、低汙染、省資源的環保標章旅館，訴求重點是生態環境的保護。'},
+    {q:'承上題，「另外獲得綠點住宿抵用金 200 元」屬於哪一種誘因？',o:['正向金錢誘因','負向金錢誘因','正向非金錢誘因','負向非金錢誘因'],a:0,src:'南一課本1-3 閱讀素養',ex:'抵用金可以折抵金額＝金錢；提供好處＝正向。'},
+    {q:'許多網路公司提供免費的搜尋、地圖、信箱服務。根據課本專欄，使用者真正付出的代價是什麼？',o:['自己的行為資料，例如搜尋紀錄與位置資訊','每個月要付的月費','完全沒有任何代價','必須替公司打工'],a:0,src:'南一課本1-3 專欄「免費」真的不用付出代價嗎？',ex:'天下沒有白吃的午餐：Google 蒐集裝置資訊、紀錄資訊、位置資訊，用來優化服務與產品、投放廣告。'},
+    {q:'網路上常有「填問卷就送免費贈品」的活動，卻要求輸入身分證字號與住址。根據課本，下列態度何者最適當？',o:['想一想免費背後的成本，避免個資被不當利用','免費的東西不拿白不拿','填越多資料贈品越好','只要是免費就一定安全'],a:0,src:'南一課本圖3-1-9 網路安全',ex:'網路犯罪常利用「免費」的誘餌釣取個資；有時只看到表面利益，忽略背後的成本。'},
+    {q:'某市為了減少違規停車，把違規停車的罰鍰從 600 元提高到 1,200 元，並加強拖吊。下列分析何者正確？',o:['提高違規的機會成本，屬於負向金錢誘因','降低違規的機會成本，鼓勵違規','屬於正向誘因','屬於非金錢誘因，因為拖吊不是錢'],a:0,src:'他版誘因政策題',ex:'提高罰鍰＝提高懲罰、用金錢→負向金錢誘因；違規的代價（機會成本）變高，人們較不願意違規。'},
+    {q:'學校為防止考場舞弊，規定作弊者會被記過處分。這項規定屬於哪一種誘因？',o:['負向非金錢誘因','負向金錢誘因','正向非金錢誘因','正向金錢誘因'],a:0,src:'南一課本圖3-1-6',ex:'記過＝提高懲罰、沒有金錢→負向非金錢誘因。'},
+    {q:'下列哪一組誘因的分類完全正確？',o:['獎學金：正向金錢；公開表揚：正向非金錢','罰款：負向非金錢；記過：負向金錢','禮券：正向非金錢；獎狀：正向金錢','取消玩手機：負向金錢；賠償：負向非金錢'],a:0,src:'52 校考誘因四格',ex:'有沒有用錢決定金錢或非金錢：獎學金、禮券、罰款、賠償是金錢；表揚、獎狀、記過、取消玩手機是非金錢。'},
+    {q:'小安原本週末都去打工（時薪 190 元）。這週補習班宣布「週末來自習就送 100 元餐券」，小安仍然選擇去打工。下列推論何者最合理？',o:['對小安來說，自習加餐券的價值仍低於打工的機會成本','餐券不是誘因','小安不理性','誘因一定會改變每個人的選擇'],a:0,src:'誘因影響機會成本',ex:'誘因會改變機會成本，但人們如何選擇取決於誘因帶來的利益和機會成本的大小；餐券不足以讓小安放棄打工收入。'},
+  ]
+},
+/* ---------- 第2章 2-1 價格如何影響資源分配 ---------- */
+c3:{
+  no:'2-1', code:3, title:'價格如何影響資源分配', short:'價格與生產、消費', color:'linear-gradient(135deg,#1d6b5a,#36a184)',
+  desc:'價高→生產者多種｜價漲量減、價跌量增｜生產什麼・如何生產・為誰生產',
+  quickAsk:'選出正確的答案', quickTitle:'價格與資源分配快問快答',
+  quick:[
+    ['分配資源時最常被考慮的因素','價格',['抽籤','天氣','排隊'],44],
+    ['空心菜價格比青江菜高時，農夫會改種','空心菜',['青江菜','都不種','種最便宜的'],42],
+    ['對生產者而言，商品價格高低常會決定','生產的意願',['消費的欲望','政府的稅率','天氣好壞'],42],
+    ['其他條件不變，商品價格上漲，消費者會','減少購買數量',['增加購買數量','購買數量不變','一定不買'],44],
+    ['其他條件不變，商品價格下跌，消費者會','增加購買數量',['減少購買數量','購買數量不變','只買貴的'],44],
+    ['喜好相同下，空心菜比青江菜貴，消費者會買','青江菜',['空心菜','兩種都買更多','都不買'],44],
+    ['麵包店「買二送一」，消費者通常會','買更多',['買更少','不受影響','改去別家'],44],
+    ['颱風前預期菜價上漲，消費者會','提前大量購買',['延後購買','完全不買','只買水果'],44],
+    ['課本說價格也是一種','誘因',['自由財','稀少性','欲望'],24],
+    ['運用資源生產商品的行為','生產行為',['消費行為','分配行為','選擇行為'],0],
+    ['能決定生產行為的人','生產者',['消費者','使用者','分配者'],0],
+    ['生產者三課題：決定產品品項（賣什麼）','生產什麼',['如何生產','為誰生產','何時生產'],44],
+    ['生產者三課題：決定生產方式、機器、人力','如何生產',['生產什麼','為誰生產','何處生產'],44],
+    ['生產者三課題：鎖定主要消費客群','為誰生產',['生產什麼','如何生產','為何生產'],44],
+    ['下列何者「不是」生產者三課題','何時生產',['生產什麼','如何生產','為誰生產'],44],
+    ['生產者考慮三課題的目的','獲取最大利潤',['讓產品最便宜','讓員工最多','讓產品最少'],44],
+    ['餐廳改用自動點餐機與中央廚房','如何生產',['生產什麼','為誰生產','生產多少'],44],
+    ['飲料店決定主打「學生族群」','為誰生產',['如何生產','生產什麼','生產多少'],44],
+    ['麵包店決定新推出芋頭麵包','生產什麼',['如何生產','為誰生產','何時生產'],44],
+    ['誘餌效應中加入「較差又便宜」選項的作用','讓目標商品看起來較划算',['讓目標商品變貴','降低所有銷量','讓店家虧錢'],0],
+    ['高級鮮奶150元、普通鮮奶90元，加入60元非鮮乳飲品後，銷量上升的是','普通鮮奶',['非鮮乳飲品','高級鮮奶','全部都下降'],0],
+    ['買了不需要的促銷商品，事後付出的可能是','更多金錢與時間',['完全沒有代價','更多稀少性','更少欲望'],0],
+  ],
+  words:[
+    ['價格影響生產者','空心菜價高就改種空心菜'],['價格影響消費者','價漲量減、價跌量增'],['其他條件不變','只看價格一個因素'],
+    ['生產行為','運用資源生產商品的行為'],['生產者','能決定生產行為的人'],['生產什麼','決定產品品項'],
+    ['如何生產','決定生產方式、技術'],['為誰生產','鎖定消費客群'],['誘餌效應','較差選項讓目標商品看起來划算'],
+    ['颱風前搶購蔬菜','預期菜價上漲'],['價格是一種誘因','依價格考量機會成本'],
+  ],
+  sorts:[
+    {title:'生產者三課題：這是哪一題？',tip:'品項＝生產什麼；方法、機器、人力＝如何生產；客群＝為誰生產。',buckets:['生產什麼','如何生產','為誰生產'],items:[
+      ['手搖飲店決定推出冬季限定熱可可',0],['早餐店問卷調查顧客最想吃的餐點',0,'調查要賣什麼品項'],['工廠改用機器手臂組裝',1],
+      ['麵店改成中央廚房統一備料',1],['補習班鎖定國三會考生',2],['服飾店主打 25～45 歲上班族',2],
+      ['農場改用溫室水耕栽種',1],['文具店決定多進貨開學用品',0]]},
+    {title:'價格影響誰？生產者還是消費者？',tip:'生產者看價格決定「種／做什麼、做多少」；消費者看價格決定「買多少」。',buckets:['價格影響生產者','價格影響消費者'],items:[
+      ['青蔥價格大漲，農民紛紛改種青蔥',0],['高麗菜價格崩跌，菜農改種其他作物',0],['飯店推出平日住房優惠，住房率上升',1],
+      ['雞蛋漲價，媽媽少買一盒',1],['咖啡第二杯半價，買的人變多',1],['某種多肉植物售價高，花農擴大栽種',0]]},
+    {title:'這是不是「價格」造成的？',tip:'課本：其他條件不變下，價格影響購買數量。天氣、偏好、所得改變是其他因素（他版延伸）。',buckets:['價格因素','不是價格因素'],items:[
+      ['冰品降價促銷，銷量增加',0],['電影票漲價，看電影的人變少',0],['天氣變熱，大家想吃冰',1,'這是需要／偏好改變'],
+      ['加薪後改買比較貴的牛奶',1,'這是所得改變'],['偶像代言後，粉絲搶購',1,'這是偏好'],['機票打折，出國人數增加',0]]},
+  ],
+  mcq:[
+    {q:'農夫阿土有一塊地，可以種空心菜或青江菜。今年空心菜的價格明顯比青江菜高，其他條件不變下，阿土最可能怎麼做？',o:['把土地拿去種空心菜','把土地拿去種青江菜','土地休耕','一半種空心菜、一半種青江菜，價格不影響'],a:0,src:'南一課本圖3-1 改寫；42 校考價格影響生產者',ex:'對生產者而言，商品價格高低常會決定生產的意願：哪一種價格高，就把資源拿去生產哪一種。'},
+    {q:'媽媽到市場買菜，對空心菜和青江菜一樣喜歡。今天空心菜一把 60 元、青江菜一把 35 元，其他條件不變下，媽媽最可能買哪一種？',o:['青江菜','空心菜','兩種都不買','兩種各買一半'],a:0,src:'南一課本圖3-3 改寫',ex:'喜好程度相同時，消費者會依價格做選擇，買較便宜的青江菜，機會成本較低。'},
+    {q:'藥妝店推出「洗髮精第二瓶 6 折」，在其他條件不變的情況下，消費者的購買行為最可能出現什麼變化？',o:['購買洗髮精的數量增加','購買洗髮精的數量減少','完全不受影響','改買沐浴乳'],a:0,src:'同版價格題型改寫',ex:'其他條件不變，價格下跌，購買數量增加（價跌量增）。'},
+    {q:'某飯店把平日房價從 3,000 元調降為 2,200 元，結果平日住房率從四成提高到七成。這個現象最能說明下列哪一個概念？',o:['價格會影響消費者的購買數量','價格會影響生產者的生產意願','消費者偏好突然改變','飯店採取抽籤分配客房'],a:0,src:'6 校考飯店優惠反推住房率',ex:'房價下跌、住房數量增加，屬於「價格影響消費者」。'},
+    {q:'下列哪一個現象屬於「價格影響生產者」？',o:['鳳梨收購價大漲，許多農民隔年擴大種植鳳梨','手搖飲漲價，學生改喝白開水','電影票打折，看電影的人變多','火鍋店漲價，客人變少'],a:0,src:'生產者 vs 消費者 判斷',ex:'只有鳳梨的例子是生產者依價格改變生產；其他三項都是消費者依價格改變購買數量。'},
+    {q:'每次颱風來臨前，許多民眾預期菜價會上漲，便趕在颱風前到市場大量購買蔬菜。這個現象說明了什麼？',o:['對未來價格的預期，也會影響消費者的購買行為','颱風讓蔬菜變成自由財','蔬菜價格與購買數量無關','颱風前蔬菜一定比較便宜'],a:0,src:'南一課本圖說；他版「預期心理」44 校',ex:'消費者預期菜價可能上漲，所以趕在上漲前大量購買；價格（包括預期的價格）會影響資源分配。'},
+    {q:'「其他條件不變下，商品價格上漲，消費者會減少購買該商品的數量。」這句話中的「其他條件不變」是什麼意思？',o:['只讓價格改變，排除喜好、所得等其他因素的影響','價格不能改變','消費者不能改變心意','商品數量不能改變'],a:0,src:'忽略「其他條件不變」陷阱',ex:'經濟學分析某一因素時，會先假設其他因素都不變，才能看出價格本身的影響。'},
+    {q:'課本說「價格是一種誘因」。下列哪一個例子最能說明這句話？',o:['高鐵推出早鳥票，許多人提早訂票','颱風天學校停課','下雨天大家都帶傘','畢業典禮全班合照'],a:0,src:'南一課本2-1 結語',ex:'早鳥優惠讓提早訂票的機會成本降低，人們因價格而改變行為，價格就是誘因。'},
+    {q:'陳老闆接手一家文具店，決定改用自助結帳機減少人力，並把主要客群鎖定為附近的國中生。在生產者的三個課題中，陳老闆「沒有」提到哪一個？',o:['生產什麼','如何生產','為誰生產','三個都已經提到'],a:0,src:'同版生產課題題型改寫',ex:'改用自助結帳機＝如何生產；鎖定國中生＝為誰生產；沒有提到要賣哪些商品＝生產什麼。「何時生產」不是三課題之一。'},
+    {q:'某手機殼工廠為了降低成本，把原本人工手繪改成機器自動印刷。這屬於生產者三課題中的哪一個？',o:['如何生產','生產什麼','為誰生產','何處生產'],a:0,src:'44 校考生產課題',ex:'改變生產的方法、技術、設備＝如何生產。'},
+    {q:'童裝品牌決定把目標顧客從「0～6 歲幼兒」擴大到「7～12 歲兒童」。這屬於哪一個生產課題？',o:['為誰生產','如何生產','生產什麼','何時生產'],a:0,src:'生產課題判斷',ex:'改變目標顧客（客群）＝為誰生產。'},
+    {q:'下列關於生產者的敘述，何者正確？',o:['生產者需考慮生產什麼、如何生產、為誰生產，以獲取最大利潤','生產者不需要考慮資源是否有限','只有大工廠才叫生產者','生產者只需要考慮價格最便宜'],a:0,src:'南一課本2-1 旁欄',ex:'生產者運用有限資源生產商品，做決策時必須考慮三個課題，才能以有限資源生產最多又最好的產品、獲取最大利潤。'},
+    {q:'某商店販售：高級鮮奶 150 元（品質 90 分）、普通鮮奶 90 元（品質 50 分）。後來店家在旁邊擺上 60 元的非鮮乳飲品（品質 10 分），結果普通鮮奶銷量大增。這種現象稱為什麼？',o:['誘餌效應','稀少性','使用者付費','先占先贏'],a:0,src:'南一課本2-1 專欄「便宜」真的省荷包了嗎？',ex:'品質較差的非鮮乳飲品是「誘餌」，讓普通鮮奶看起來「還不錯」，拉抬它的銷量，這叫誘餌效應。'},
+    {q:'承上題，根據課本，消費者要怎麼做才不容易被誘餌效應影響？',o:['評估自己的真實需要再購買','看到促銷就先買再說','只買最便宜的商品','只買最貴的商品'],a:0,src:'南一課本2-1 專欄',ex:'用優惠價格買了不需要的商品，事後可能花更多金錢或時間去彌補；要時刻評估自己的真實需要。'},
+    {q:'阿明說：「青蔥價格大漲時，農民會減少種青蔥，因為太貴了沒人買。」這句話錯在哪裡？',o:['價格上漲時，生產者通常會增加生產','價格上漲時，消費者會增加購買','青蔥不是商品','價格不會影響生產者'],a:0,src:'把生產者與消費者行為弄反（陷阱）',ex:'價格上漲對消費者是「少買」，對生產者卻是「多產」；不要把兩者的反應弄反。'},
+    {q:'某地區雞蛋供應不足、價格上漲。下列哪一項反應最符合課本「價格影響資源分配」的說明？',o:['消費者少買雞蛋，養雞戶增加飼養','消費者多買雞蛋，養雞戶減少飼養','消費者與養雞戶都不受影響','政府一定要用抽籤分配雞蛋'],a:0,src:'跨生產者與消費者',ex:'價格上漲：消費者購買數量減少；生產者生產意願提高。價格同時影響雙方的資源分配。'},
+  ]
+},
+/* ---------- 第2章 2-2、2-3 資源分配方式與公平正義 ---------- */
+c4:{
+  no:'2-2・2-3', code:4, title:'資源分配方式與公平正義', short:'分配方式與公平正義', color:'linear-gradient(135deg,#5a3d8c,#8c6cc8)',
+  desc:'先占先贏・抽籤・輪流・使用者付費｜口罩、YouBike、社會住宅、司馬庫斯',
+  quickAsk:'選出正確的答案', quickTitle:'資源分配快問快答',
+  quick:[
+    ['資源分配四種方式：先占先贏、抽籤決定、輪流使用與','使用者付費',['政府沒收','平均分配','價高者免費'],43],
+    ['學校籃球場大多採用哪種分配方式','先占先贏',['抽籤決定','輪流使用','使用者付費'],15],
+    ['優點「簡單且最直接」的分配方式','先占先贏',['抽籤決定','輪流使用','使用者付費'],15],
+    ['缺點「速度慢的人搶不到、可能分配不均」','先占先贏',['抽籤決定','輪流使用','使用者付費'],15],
+    ['優點「每個人都有機會使用到」','抽籤決定',['先占先贏','使用者付費','自由買賣'],25],
+    ['缺點「全憑運氣，可能一直抽不到」','抽籤決定',['輪流使用','先占先贏','使用者付費'],25],
+    ['優點「每個人都能夠使用到」','輪流使用',['先占先贏','抽籤決定','使用者付費'],14],
+    ['缺點「不需要的人也分到，造成浪費」','輪流使用',['使用者付費','先占先贏','抽籤決定'],14],
+    ['優點「有需求者付費使用，提高效率」','使用者付費',['輪流使用','抽籤決定','先占先贏'],24],
+    ['缺點「弱勢民眾難以享有資源」','使用者付費',['輪流使用','抽籤決定','先占先贏'],24],
+    ['生活中分配資源時最常見的方式','使用者付費',['抽籤決定','輪流使用','先占先贏'],24],
+    ['買演唱會門票、搭車買車票屬於','使用者付費',['先占先贏','抽籤決定','輪流使用'],24],
+    ['路邊停車格開始收費，屬於','使用者付費',['先占先贏','抽籤決定','輪流使用'],24],
+    ['YouBike第一個系統從臺北市啟用的年代','民國101年',['民國98年','民國104年','民國106年'],2],
+    ['YouBike取消前30分鐘免費、回歸使用者付費的年代','民國104年',['民國101年','民國106年','民國109年'],2],
+    ['YouBike前30分鐘免費造成什麼困境','先騎先贏、無車可用',['車子太多沒人騎','騎乘費太貴','禁止觀光客使用'],5],
+    ['政府為照顧弱勢而介入資源分配，是要實現','公平正義',['自由競爭','使用者付費','先占先贏'],35],
+    ['疫情期間自由買賣口罩的缺點','經濟弱勢可能買不到',['消費者選擇較少','市場缺乏競爭','價格太便宜'],9],
+    ['政府限制口罩價格與數量的缺點','市場缺乏競爭，選擇較少',['弱勢買不到','價格水漲船高','短時間搶購一空'],9],
+    ['國人自發把口罩留給需求較高者的運動','我OK，你先領',['口罩國家隊','全民搶口罩','先搶先贏'],4],
+    ['行政院核定「社會住宅興辦計畫」的年代','民國106年',['民國101年','民國104年','民國111年'],5],
+    ['社會住宅採取的模式','只租不賣',['只賣不租','免費贈送','拍賣給最高價者'],5],
+    ['桃園市社會住宅資格審查後，用什麼方式分配','公開抽籤',['先占先贏','輪流使用','價高者得'],5],
+    ['社會住宅先進行資格審查的目的','追求公平正義',['平均分配資源','符合市場機制','營造社區意識'],5],
+    ['政府補助偏鄉公車業者，維護的是','交通正義（公平正義）',['使用者付費','先占先贏','市場競爭'],35],
+    ['司馬庫斯位於哪裡','新竹縣尖石鄉',['南投縣仁愛鄉','宜蘭縣大同鄉','苗栗縣泰安鄉'],0],
+    ['司馬庫斯居民主要是哪一族','泰雅族',['布農族','阿美族','排灣族'],0],
+    ['司馬庫斯過去被稱為','黑暗部落',['黃金部落','神木部落','天空部落'],0],
+    ['司馬庫斯因利益衝突，最後採取','共同經營、土地共有',['土地全部賣掉','先占先贏','停止觀光'],5],
+  ],
+  words:[
+    ['先占先贏','簡單直接；速度慢的人搶不到'],['抽籤決定','人人有機會；全憑運氣'],['輪流使用','每人都用得到；可能浪費'],
+    ['使用者付費','提高效率；弱勢難以享有'],['公平正義','政府介入照顧弱勢'],['口罩實名制','政府限制價格與購買數量'],
+    ['我OK，你先領','禮讓口罩給需求較高的人'],['YouBike（民國104年）','取消免費、回歸使用者付費'],['社會住宅（民國106年）','只租不賣、資格審查＋抽籤'],
+    ['司馬庫斯','共享共營的泰雅族部落'],['偏鄉公車補助','維護當地居民交通權益'],['共享經濟','公共自行車等資源共用'],
+  ],
+  sorts:[
+    {title:'這是哪一種資源分配方式？',tip:'看「誰能用到」是怎麼決定的：先到、運氣、排班、還是付錢。',buckets:['先占先贏','抽籤決定','輪流使用','使用者付費'],items:[
+      ['下課鐘響，先跑到籃球場的班級先打',0],['百貨公司週年慶，前 100 名排隊者送贈品',0],['國中新生用電腦亂數分班',1],
+      ['熱門演唱會門票太搶手，改用登記後抽選',1],['各班依星期一到五排班使用操場',2],['家裡兄弟姊妹每天輪流洗碗',2],
+      ['高速公路依里程收費',3],['路邊停車格按時計費',3],['搭捷運刷卡付車資',3],['社會住宅資格審查後公開抽籤',1]]},
+    {title:'口罩：自由買賣還是政府限制價格與數量？',tip:'課本表格：兩種方式的優缺點正好相反。',buckets:['民眾可自由買賣','政府限制價格與數量'],items:[
+      ['市場競爭力較高，消費者有較多選擇',0],['經濟弱勢的民眾可能買不到',0],['價格水漲船高，短時間搶購一空',0],['廠商會有較多的利潤',0],
+      ['每個人都能買到，獲得基本保障',1],['市場缺乏競爭力，消費者選擇較少',1],['實名制購買',1]]},
+    {title:'這項做法是在追求「效率」還是「公平正義」？',tip:'使用者付費講效率；政府為照顧弱勢介入，講公平正義。',buckets:['提高效率（使用者付費）','照顧弱勢（公平正義）'],items:[
+      ['YouBike 取消免費、改按時計費',0],['停車格收費，提高車位流動率',0],['政府補助偏鄉公車路線',1],
+      ['疫苗先給醫護人員與長者施打',1],['社會住宅只租給經濟或社會弱勢',1],['捷運依搭乘距離收費',0],['公共建築設置無障礙電梯',1]]},
+  ],
+  mcq:[
+    {q:'下課鐘一響，教室離球場近的班級總是先占到籃球場，小南和 Andy 每次都搶不到。學校目前的分配方式及其缺點為何？',o:['先占先贏；速度慢的人搶不到，可能分配不均','抽籤決定；全憑運氣','輪流使用；造成資源浪費','使用者付費；弱勢難以享有'],a:0,src:'南一課本2-2 單元頁',ex:'學校籃球場大多以先占先贏分配：優點是簡單直接，缺點是速度慢的人搶不到、可能分配不均。'},
+    {q:'學校改成「各班依課表輪流使用籃球場」。下列何者是這種方式可能產生的問題？',o:['輪到的班級可能根本不想打球，造成球場閒置浪費','速度慢的班級永遠搶不到','只有付錢的班級能使用','全憑運氣，可能一直抽不到'],a:0,src:'43 校考分配方式優缺點',ex:'輪流使用：優點是每個人都能用到；缺點是使用者可能不需要而造成浪費，有需求的人也無法獲得足夠資源。'},
+    {q:'熱門展覽一天只開放 500 個名額，主辦單位改為「網路登記後電腦抽選」。這種方式最主要的缺點是什麼？',o:['資源不一定分給真正最需要的人','速度慢的人一定搶不到','每個人都能參觀到','付不起錢的人不能參加'],a:0,src:'陷阱（抽籤缺點不是耗時）',ex:'抽籤決定：每個人都有機會，但全憑運氣，可能有人一直抽不到，未必分給真正需要的人。'},
+    {q:'某風景區假日停車場常被整天占用，管理處決定從原本免費改為按小時收費。這是採用哪一種資源分配方式？主要好處為何？',o:['使用者付費；有需求的人付費使用，提高資源使用效率','先占先贏；簡單直接','輪流使用；每人都能用到','抽籤決定；人人有機會'],a:0,src:'同版停車收費',ex:'停車收費＝使用者付費：願意付費的人才使用，可減少長時間占用、提高車位流動率。'},
+    {q:'承上題，有遊客擔心：「收費後，經濟較弱勢的人更難使用這個停車場。」這是在指出使用者付費的哪一項缺點？',o:['弱勢民眾難以享有資源','全憑運氣','速度慢的人搶不到','造成資源浪費'],a:0,src:'使用者付費缺點',ex:'使用者付費的缺點：負擔不起價格的弱勢民眾難以享有資源。'},
+    {q:'YouBike 微笑單車初期提供「前 30 分鐘免費騎乘」，後來取消。下列敘述何者正確？',o:['免費時期造成「先騎先贏」，民國 104 年取消免費後回歸使用者付費，無車可借的情形獲得改善','民國 101 年取消免費，改用抽籤決定','免費期間沒有任何問題','取消免費後改為輪流使用'],a:0,src:'南一課本2-2 共享經濟',ex:'民國 101 年第一個系統在臺北市啟用，前 30 分鐘免費導致先騎先贏；民國 104 年取消免費優惠、回歸使用者付費。'},
+    {q:'某縣市讓所有居民免費搭公車，近年有人主張應限縮免費搭乘的資格。這些人最可能的理由是什麼？',o:['讓有限的資源更能妥當使用，照顧真正需要的人','公車太多沒人搭','免費搭乘可以提高業者利潤','限縮資格才符合先占先贏'],a:0,src:'南一課本圖3-5 使用者付費爭議',ex:'完全免費可能造成資源被大量使用；限縮資格是希望資源分配更妥當。'},
+    {q:'疫情期間口罩短缺，若讓民眾「自由買賣口罩」，可能出現什麼情形？',o:['價格水漲船高，經濟弱勢的民眾可能買不到','每個人都一定買得到','市場缺乏競爭，選擇很少','政府決定每個人買幾片'],a:0,src:'同版口罩題',ex:'自由買賣：市場競爭力較高、選擇多、廠商利潤多，但價格上漲、短時間搶購一空，弱勢可能買不到。'},
+    {q:'承上題，政府改為實施口罩實名制，限制價格與每人購買數量。下列敘述何者正確？',o:['每個人都能買到口罩，但消費者的選擇較少','消費者的選擇變得更多','市場競爭力因此提高','只有付得起高價的人才買得到'],a:0,src:'同版陷阱「控管時選擇較多」',ex:'政府控管價格與數量：優點是人人都能買到、獲得基本保障；缺點是市場缺乏競爭力、消費者選擇較少。'},
+    {q:'口罩實名制期間，網路上發起「我OK，你先領」運動。這個運動展現了哪一種公民素養？',o:['發揮同理心，把資源讓給需求程度較高的人','先搶先贏，保護自己最重要','使用者付費，價高者得','抽籤決定，靠運氣分配'],a:0,src:'南一課本2-3',ex:'國人自發把口罩留給需求較高的群體，展現同理心及互利共好的公民素養。'},
+    {q:'某市熱門的暑期科學營採自由報名、費用高昂，名額很快被付得起的家庭報滿，經濟弱勢的孩子只能放棄。若只用這種方式分配營隊名額，可能忽略了下列哪一項？',o:['公平正義','資源使用效率','市場競爭','生產者利潤'],a:0,src:'同版公平正義題',ex:'自由買賣、使用者付費講效率，但可能讓弱勢難以享有資源，忽略公平正義。'},
+    {q:'部分公車路線行駛偏鄉地區而連年虧損，政府選擇補助業者，避免路線被裁撤。政府這樣做的主要目的是什麼？',o:['維護偏鄉居民的交通權益，實現公平正義','讓公車業者賺更多錢','提高公車票價','讓偏鄉居民改騎YouBike'],a:0,src:'南一課本圖3-6 偏鄉交通正義',ex:'社會資源分配不只追求效益，也要兼顧弱勢民眾權益，政府因此適時介入。'},
+    {q:'民國 106 年 3 月行政院核定「社會住宅興辦計畫」。下列關於社會住宅的敘述，何者正確？',o:['採只租不賣，租金約為市場行情五折至八五折','採只賣不租，賣給出價最高者','任何人都可以申請，不須審查','租約沒有年限'],a:0,src:'南一課本2-3 閱讀素養',ex:'社會住宅只租不賣，可重複利用照顧更多人；以市場行情五折至八五折收租，提供 6 至 12 年居住年限。'},
+    {q:'桃園市社會住宅的申請流程是「資格審查→公開抽籤→選屋簽約入住」。下列分析何者正確？',o:['資格審查是為了追求公平正義，抽籤是分配方式','資格審查是為了符合市場機制','抽籤是為了讓付最多錢的人入住','這是先占先贏的分配方式'],a:0,src:'南一課本2-3 閱讀題改寫；5 校考社會住宅',ex:'先審查申請者是否屬經濟或社會弱勢（公平正義），通過者再以抽籤決定（每個人都有機會）。'},
+    {q:'疫苗剛開始供應時，各國多半排定優先順序，例如醫護人員、高齡長者先施打。這種做法的主要考量是什麼？',o:['將有限資源優先分配給更需要的人，兼顧公平正義','先占先贏最有效率','讓付錢最多的人先打','用抽籤決定最公平'],a:0,src:'南一課本2-3 想一想',ex:'面對生存、醫療等基本人權或緊急狀況，資源分配需考量合理與公平，避免侵害弱勢權益。'},
+    {q:'司馬庫斯發現神木群、開通道路後觀光客大增，居民卻常因「大家都想分一杯羹」而起衝突。後來部落怎麼解決？',o:['頭目提議共同經營，後來更實踐土地共有、均分所得','把土地全部賣給財團','採先占先贏，誰先接到客人就歸誰','關閉部落，不再發展觀光'],a:0,src:'南一課本2-3 專題（南一特有）',ex:'司馬庫斯共同經營觀光事業、成立各部會、每天晨會分配工作，落實「互助共生」，並讓土地成為共有資源。'},
+    {q:'下列關於司馬庫斯的敘述，何者「錯誤」？',o:['位於南投縣，居民多為布農族','過去因交通不便、晚期才有電力而被稱為「黑暗部落」','居民分擔工作、共用土地、均分所得','是臺灣最深山的部落之一'],a:0,src:'南一課本2-3 專題',ex:'司馬庫斯位於新竹縣尖石鄉，居民幾乎都是泰雅族原住民。'},
+  ]
+},
+};
+
+/* ================= 綜合：圖表判讀題組（code 7） ================= */
+const CHART=[
+  {title:'① 機會成本表：園遊會攤位',src:'同版表格題型改寫；23 校考表格推理',
+   fig:'<table class="tbl"><tr><th>可選的攤位</th><th>預估收入</th></tr><tr><td>甲 炒麵</td><td>5,200 元</td></tr><tr><td>乙 雞蛋糕</td><td>8,600 元</td></tr><tr><td>丙 套圈圈</td><td>1,300 元</td></tr></table><p class="muted">班級只能擺其中一種攤位，其他條件相同。</p>',
+   qs:[
+    {q:'依機會成本的概念，班級應選哪一種攤位？',o:['乙 雞蛋糕','甲 炒麵','丙 套圈圈','都可以，機會成本相同'],a:0,ex:'選收入最高的乙，放棄的最高者是甲 5,200 元，機會成本最低。'},
+    {q:'若選甲，機會成本是多少？',o:['8,600 元','5,200 元','1,300 元','9,900 元'],a:0,ex:'選甲時放棄乙、丙，取最高的乙 8,600 元。'},
+    {q:'若選丙，機會成本是多少？',o:['8,600 元','6,500 元','13,800 元','5,200 元'],a:0,ex:'放棄甲 5,200 元、乙 8,600 元，取最高 8,600 元，不是加總 13,800 元。'}]},
+  {title:'② 甲乙丙丁打工推理',src:'6 校（會考改編）',
+   fig:'<div class="passage">小涵寒假只能從甲、乙、丙、丁四份打工中選一份，四份工作時數相同、其他條件不變。已知：<br>（1）她選了乙，機會成本是丁的薪資 2 萬元。<br>（2）甲的薪資比丙高。<br>（3）丙的薪資是 1.5 萬元。</div>',
+   qs:[
+    {q:'依機會成本做最佳選擇，四份工作中薪資最高的是哪一份？',o:['乙','丁','甲','丙'],a:0,ex:'人們會選機會成本最低者，也就是價值最高的選項，所以乙薪資最高。'},
+    {q:'四份工作薪資第二高的是哪一份？',o:['丁','甲','丙','無法判斷'],a:0,ex:'選乙的機會成本＝被放棄選項中最高者＝丁，所以丁第二高。'},
+    {q:'若小涵改選甲，機會成本是多少？',o:['乙的薪資','丁的薪資 2 萬元','丙的薪資 1.5 萬元','甲的薪資'],a:0,ex:'只要不選最高的乙，機會成本都等於乙的薪資。'}]},
+  {title:'③ 誘因四格表',src:'52 校考誘因分類',
+   fig:'<div class="quad"><div class="h"></div><div class="h">金錢誘因</div><div class="h">非金錢誘因</div><div class="h">正向</div><div class="c">甲</div><div class="c">乙</div><div class="h">負向</div><div class="c neg">丙</div><div class="c neg">丁</div></div>',
+   qs:[
+    {q:'「全勤獎金 1,000 元」應放在哪一格？',o:['甲','乙','丙','丁'],a:0,ex:'提高報酬、用金錢＝正向金錢。'},
+    {q:'「在公車上霸占博愛座被網友公開批評」最接近哪一格？',o:['丁','丙','乙','甲'],a:0,ex:'名譽受損＝提高懲罰、沒有用錢＝負向非金錢。'},
+    {q:'「延遲繳交水費要加收滯納金」應放在哪一格？',o:['丙','丁','甲','乙'],a:0,ex:'多付錢＝提高懲罰、用金錢＝負向金錢。'},
+    {q:'「段考進步可以免寫一次週記」應放在哪一格？',o:['乙','丁','甲','丙'],a:0,ex:'減少懲罰＝正向；沒有用錢＝非金錢。'}]},
+  {title:'④ 價格與購買數量',src:'42 校考價格—數量圖表',
+   fig:'<table class="tbl"><tr><th>月份</th><th>高麗菜每顆價格</th><th>家庭平均每月購買顆數</th><th>菜農平均種植面積</th></tr><tr><td>3 月</td><td>30 元</td><td>6 顆</td><td>5 公頃</td></tr><tr><td>8 月（颱風後）</td><td>120 元</td><td>2 顆</td><td>8 公頃（隔季）</td></tr></table><p class="muted">假設其他條件不變。</p>',
+   qs:[
+    {q:'從家庭購買顆數的變化，可以看出什麼？',o:['價格上漲，消費者購買數量減少','價格上漲，消費者購買數量增加','價格與購買數量無關','颱風後大家更愛吃高麗菜'],a:0,ex:'30→120 元，購買量 6→2 顆：價漲量減。'},
+    {q:'從菜農種植面積的變化，可以看出什麼？',o:['價格上漲，生產者增加生產','價格上漲，生產者減少生產','生產者不受價格影響','菜農改用抽籤分配土地'],a:0,ex:'價格高時，生產者生產意願提高，擴大種植。'}]},
+  {title:'⑤ 資源分配方式優缺點表',src:'43 校考分配方式',
+   fig:'<table class="tbl"><tr><th>方式</th><th>優點</th><th>缺點</th></tr><tr><td>A</td><td>簡單且最直接</td><td>速度慢的人搶不到</td></tr><tr><td>B</td><td>每個人都有機會使用到</td><td>全憑運氣</td></tr><tr><td>C</td><td>每個人都能使用到</td><td>不需要的人也分到，造成浪費</td></tr><tr><td>D</td><td>提高資源使用的效率</td><td>弱勢民眾難以享有</td></tr></table>',
+   qs:[
+    {q:'表中 B 是哪一種分配方式？',o:['抽籤決定','先占先贏','輪流使用','使用者付費'],a:0,ex:'人人有機會、但全憑運氣＝抽籤決定。'},
+    {q:'「銀行抽號碼牌、依號碼順序叫號」最接近哪一種？',o:['A 先占先贏','B 抽籤決定','C 輪流使用','D 使用者付費'],a:0,ex:'號碼牌依先來後到的順序服務，屬先占先贏（先來先服務）性質，不是靠運氣的抽籤（段考陷阱）。'},
+    {q:'政府常在 D 方式之外另行補助弱勢，主要是為了彌補 D 的哪一項不足？',o:['弱勢民眾難以享有資源','速度慢的人搶不到','全憑運氣','造成資源浪費'],a:0,ex:'使用者付費的缺點是弱勢難以享有，政府介入以實現公平正義。'}]},
+  {title:'⑥ 閱讀題組：共享共營的部落',src:'南一課本2-3 專題（南一特有）',
+   fig:'<div class="passage">某山區部落過去交通不便，很晚才有電力。發現神木群後，道路開通、觀光客湧入，民宿與餐廳一家家開，居民卻因搶客人而失和。頭目提議大家共同經營觀光事業，成立經濟、人事、環境資源等部門，每天早上開會分配工作；後來更讓土地成為部落的共有資源，居民分擔工作、均分所得，並共享醫療與教育福利。</div>',
+   qs:[
+    {q:'這段文字描述的是哪一個部落？',o:['新竹縣尖石鄉的司馬庫斯','臺東縣的蘭嶼','南投縣的日月潭','屏東縣的霧臺'],a:0,ex:'課本專題：司馬庫斯，位於新竹縣尖石鄉，居民幾乎都是泰雅族。'},
+    {q:'部落改採共同經營之前，居民之間的衝突最接近哪一種資源分配方式的問題？',o:['先占先贏：誰先搶到客人就歸誰，造成分配不均','輪流使用：造成浪費','使用者付費：弱勢難以享有','抽籤決定：全憑運氣'],a:0,ex:'大家都想分一杯羹、搶客人，屬先占先贏，容易分配不均、傷害情誼。'},
+    {q:'這個部落能維持永續發展，最主要的原因是什麼？',o:['透過制度與規則的建立，互助共生','完全靠政府補助','把土地賣給財團開發','禁止所有觀光客進入'],a:0,ex:'課本：透過制度與規則的建立，維繫部落的永續發展。'}]},
+];
+
+/* 綜合：時間軸／流程排序（分類引擎，code 7） */
+const STEPS=[
+  {title:'YouBike 怎麼變成使用者付費？',tip:'課本 2-2：免費優惠→先騎先贏→取消免費。',buckets:['第1步','第2步','第3步','第4步'],items:[
+    ['民國 101 年，第一個系統在臺北市啟用',0],['前 30 分鐘免費騎乘，鼓勵短程騎車',1],['出現「先騎先贏」，居民無車可用',2],['民國 104 年取消免費，回歸使用者付費',3]]},
+  {title:'疫情期間的口罩怎麼分配？',tip:'自由購買→政府控管→恢復自由購買。',buckets:['第1步','第2步','第3步','第4步'],items:[
+    ['疫情爆發，口罩價格上漲、搶購一空',0],['政府限制價格與數量，實施實名制',1],['國人發起「我OK，你先領」禮讓運動',2],['疫情趨緩，恢復自由購買',3]]},
+  {title:'桃園市社會住宅怎麼申請？',tip:'課本 2-3 閱讀：資格→審查→抽籤→入住。',buckets:['第1步','第2步','第3步','第4步'],items:[
+    ['年滿 18 歲、在桃園有戶籍或就業就學需求、符合弱勢條件',0],['備妥文件，由市政府進行資格審查',1],['通過者參加公開抽籤',2],['抽中者選屋並簽約入住',3]]},
+  {title:'司馬庫斯怎麼走向共享共營？',tip:'黑暗部落→神木群觀光→衝突→共同經營→土地共有。',buckets:['第1步','第2步','第3步','第4步','第5步'],items:[
+    ['交通不便、晚期才有電，被稱為「黑暗部落」',0],['發現神木群，開通道路發展觀光',1],['居民搶客人，產生利益衝突',2],['頭目提議共同經營觀光事業',3],['規劃土地成為部落共有資源',4]]},
+  {title:'從稀少性到選擇（第1章因果鏈）',tip:'資源有限＋欲望無窮→稀少性→做選擇→機會成本→誘因改變選擇。',buckets:['第1步','第2步','第3步','第4步','第5步'],items:[
+    ['資源有限、欲望無窮',0],['資源具有稀少性（且有多種用途）',1],['必須做選擇',2],['被放棄的選項中價值最高者成為機會成本',3],['誘因出現，改變機會成本與行為',4]]},
+];
+
+/* 跨課混合：情境歸到哪一個概念（code 7） */
+const MIXSORT=[
+  {title:'這個情境在考哪一個概念？',tip:'第1章：稀少性、機會成本、誘因；第2章：價格、分配方式、公平正義。',buckets:['稀少性','機會成本','誘因','價格影響行為','公平正義'],items:[
+    ['富翁仍覺得錢不夠用',0],['只有一個週日，想去的地方太多',0],['為了補習放棄打工 2 萬元',1],['選了早餐店就放棄書局的 176 元',1],
+    ['集點送公仔，喜歡的人多買',2],['違規停車罰款提高',2],['鳳梨價高，農民擴大種植',3],['第二件 5 折，買的人變多',3],
+    ['政府補助偏鄉公車',4],['社會住宅先審查弱勢資格',4]]},
+];
+
+/* ================= 延伸：他版常考、南一第1～2章正文沒有（code 8） ================= */
+const EXT=[
+  {q:'影響消費者購買行為的因素，除了價格以外，下列何者也是他版課本常提到的？',o:['偏好、所得、預期心理','只有天氣','只有廣告','只有法律'],a:0,src:'他版 50 校考消費行為影響因素',ex:'他版課本把偏好、所得、預期心理列為影響消費的因素；南一第2章正文以「價格」為主，颱風前搶購蔬菜可連結預期心理。'},
+  {q:'新聞報導衛生紙下個月起將調漲兩成，這週各大賣場的衛生紙就被一箱一箱搬空。這主要是哪一個因素造成的？',o:['預期心理','偏好改變','所得增加','先占先贏'],a:0,src:'預期漲價題型改寫',ex:'消費者預期之後會變貴，所以提前購買；不是因為收入增加或突然更喜歡衛生紙。'},
+  {q:'小婷升上高中後打工收入增加，週末從吃路邊攤改去吃餐廳。影響她消費行為改變的主要因素是什麼？',o:['所得','預期心理','誘餌效應','抽籤'],a:0,src:'他版消費因素',ex:'收入（所得）增加，消費的能力與選擇跟著改變。'},
+  {q:'某偶像代言一款運動鞋後，粉絲紛紛購買。這最主要反映哪一個因素？',o:['偏好','所得','預期心理','價格下跌'],a:0,src:'他版消費因素',ex:'喜好改變帶動購買，屬於偏好；鞋子價格並沒有改變。'},
+  {q:'他版課本常考「利潤＝銷貨收入－生產成本」。某攤販賣出 200 杯飲料，每杯 50 元，生產成本共 6,000 元，利潤是多少？',o:['4,000 元','10,000 元','6,000 元','16,000 元'],a:0,src:'他版 55 校考利潤（南一第1～2章正文未教，請依自己學校範圍準備）',ex:'銷貨收入 200×50＝10,000 元，減去成本 6,000 元，利潤 4,000 元。'},
+  {q:'生產者想提高利潤，下列哪一種做法「不」符合原則？',o:['在銷貨收入不變下，大幅提高生產成本','改良技術以降低生產成本','在成本不變下提高銷售量','開發顧客更喜歡的新產品'],a:0,src:'他版 33 校考增加利潤策略',ex:'利潤＝收入－成本；成本提高而收入不變，利潤會減少。'},
+  {q:'下列哪一個「不是」生產者三課題之一？',o:['為何生產','生產什麼','如何生產','為誰生產'],a:0,src:'44 校考生產課題（南一列在旁欄）',ex:'三課題是生產什麼、如何生產、為誰生產；「為何生產」「何時生產」「何處生產」都是陷阱。'},
+  {q:'南一課本1-3 延伸思考提到：做選擇的成本除了看得見的「外顯成本」，還有因選擇而放棄其他價值的「隱藏成本」。小明向打工處請假去看電影，下列何者屬於隱藏成本？',o:['少賺的打工收入','買電影票的錢','搭公車的車資','買爆米花的錢'],a:0,src:'南一課本1-3 延伸思考（外顯成本／隱藏成本）',ex:'課本延伸思考：看得見的實際付出（票、車資）之外，還有因選擇而放棄的其他價值，例如打工收入。'},
+];
+
+/* ================= 考點雷達（56 校：同版南一 1 校＋他版 55 校） ================= */
+const RADAR={
+  n:56,
+  same:'',
+  others:'',
+  topics:[['誘因分類（正負×金錢）',52],['機會成本應用',47],['稀少性',46],['價格影響消費者',44],['生產者三課題',44],['資源分配方式優缺點',43],
+    ['價格影響生產者',42],['機會成本金錢計算',39],['公平正義與政府介入',35],['誘因影響行為',24],['機會成本表格推理',23],['非金錢機會成本（喜好）',21],
+    ['經濟財與自由財',17],['理性選擇',15],['機會成本俗語',12],['機會成本定義',10],['口罩：自由買賣 vs 控管',9],['免費的代價（專欄）',5],['共享經濟（YouBike、司馬庫斯）',5],['同一誘因不同反應',2]],
+  basics:[['機會成本',56],['誘因',54],['金錢誘因',49],['非金錢誘因',41],['為誰生產',39],['正向誘因',38],['生產什麼',37],['如何生產',37],['稀少性',36],
+    ['負向誘因',25],['抽籤',25],['公平正義',25],['使用者付費',24],['欲望',20],['喜好程度',15],['先占先贏',15],['輪流使用',14],['經濟財',13],['自由財',10]],
+  ext:[['利潤＝收入－成本',55],['消費行為影響因素',50],['預期心理',44],['偏好',42],['生產要素與成本',35],['增加利潤策略',33],['所得',27]],
+};
+
+const TABS=[['home','🏠 考點雷達'],['c1','⏳ 1-1・1-2 機會成本'],['c2','🎁 1-3 誘因'],['c3','🥬 2-1 價格'],['c4','🚲 2-2・2-3 分配'],['mix','📊 綜合＋總測驗']];
+
+/* ================= 注釋配對 ================= */
+function renderMatch(el,pairs){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0,miss=0;
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 注釋配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${miss<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3><p>配錯 ${miss} 次</p><button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div>`;$('#ag',el).onclick=()=>renderMatch(el,pairs)}
+  draw();
+}
+
+/* ================= 分類 ================= */
+function renderSort(el,so){
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w[0])}」→ <b>${so.buckets[w[1]]}</b>${w[2]?'：'+esc(w[2]):''}`).join('<br>')}</div>`:''}
+      <button class="btn" style="margin-top:12px">再玩一次</button></div>`;
+      el.querySelector('.btn').onclick=()=>renderSort(el,so);return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push(it)}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+/* ================= 選擇題 ================= */
+function renderMCQ(el,qs){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}<span class="src">${q.src}</span></div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(+b.dataset.k===q.a){got++;sOK()}else{b.classList.add('bad');sBAD()}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderMCQ(el,qs);
+}
+
+/* ================= 翻卡 ================= */
+function renderCards(el,cards){
+  el.innerHTML=`<div class="card"><h3>🃏 十五種標點翻卡</h3><p class="muted">點卡片翻面看用法。重點：分號、破折號、引號、書名號、刪節號。</p>
+  <div class="flips">${cards.map(c=>`<div class="flip"><div class="in"><div class="f"><div class="sym">${esc(c[1])}</div><b>${c[0]}</b></div><div class="bk2">${esc(c[2])}</div></div></div>`).join('')}</div></div>`;
+  el.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('on'));
+}
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、civ9-nanyi-1（例 chinese8-1）、公民 國三上第一次段考（南一）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'civ9-nanyi-1',
+  site:'公民 國三上第一次段考（南一）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('civ9-nanyi-1_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('civ9-nanyi-1_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${(d&&d.quickTitle)||'名詞快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽（公民 國三上 第一次段考 南一） ================= */
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+document.body.insertAdjacentHTML('beforeend','<button class="bgm" id="bgmBtn"></button>');
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};
+
+const ANIM={c1:animC1,c2:animC2,c3:animC3,c4:animC4};
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 名詞快問快答'],['match','🔗 名詞↔定義配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel');
+  const title=`${d.no} ${d.short}`;
+  if(s==='anim') ANIM[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">本單元 ${d.mcq.length} 題，全部依各校命題方向原創改寫。點選答案後才會出現解析；做完可以交卷給老師。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const N=RADAR.n;
+  const bar=arr=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  const cards=['c1','c2','c3','c4'];
+  app.innerHTML=`
+  <h2>📡 第一次段考考點雷達</h2>
+  <p class="muted">範圍：南一版國三上（第五冊）公民 <b>第1章 選擇與機會成本</b>、<b>第2章 價格與資源分配</b>。同版卷。同版只有 1 校，所以另外統計他版 55 校卷中與南一相同的考點（共 56 校）。</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${cards.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].short}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+    <div class="lc" style="background:linear-gradient(135deg,#2c3e66,#5d78b0)" data-k="mix"><div><div class="n">綜合</div><div class="t">圖表＋總測驗</div></div><div class="d">機會成本表｜誘因四格｜時間軸排序｜跨課歸類｜延伸｜總測驗</div></div>
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（${N} 校中幾校考過）</h3>${bar(RADAR.topics)}
+  <p class="muted" style="margin-top:10px">⚠️ <b>誘因四格</b>幾乎每校必考（52 校，約 123 題）；<b>機會成本</b>是所有學校都考的名詞。<br>⚠️ 同版桃子腳 16 題中：機會成本 4 題、誘因 4 題、計算與表格判讀比例很高。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>基本分必拿（幾校考過）</h3><div class="chips">${RADAR.basics.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">最穩的分數：<b>機會成本＝放棄選項中價值最高者</b>、<b>誘因四格</b>、<b>價漲量減</b>、<b>四種分配方式優缺點</b>、<b>生產什麼／如何生產／為誰生產</b>。</p></div>
+    <div class="card"><h3>📖 南一特有、課本要讀熟</h3>
+    <p>🧑‍🏫 <b>亞當．斯密</b>：追求自利≠自私自利。</p>
+    <p>🏠 <b>南南大廈 vs One大廈</b>（喜好程度）、<b>表姐打工 200 元 vs 176 元</b>。</p>
+    <p>🚲 <b>YouBike</b>：民國 101 年臺北啟用 → 104 年取消免費。</p>
+    <p>🏢 <b>社會住宅</b>：民國 106 年核定，只租不賣、資格審查＋抽籤。</p>
+    <p>⛰️ <b>司馬庫斯</b>：新竹縣尖石鄉、泰雅族、共享共營。</p>
+    <p>🥛 <b>誘餌效應</b>：150／90／60 元的鮮奶。</p></div>
+  </div>
+  <div class="card"><h3>🪤 最常錯的 8 個陷阱</h3>
+    <p><span class="pill">1</span>機會成本只取<b>一個</b>「價值最高」的被放棄選項，<b>不是加總</b>，也<b>不是被選的那一項</b>。</p>
+    <p><span class="pill">2</span>金錢計算：放棄的收入要<b>乘時數／月數</b>，還要<b>加上額外花費</b>（190×3＋450＝1,020）。</p>
+    <p><span class="pill">3</span>選最佳者的機會成本＝<b>第二高</b>；其他選項的機會成本都＝<b>最高者</b>。</p>
+    <p><span class="pill">4</span><b>禮券、折扣、補助</b>都是金錢誘因；<b>請吃大餐、獎狀</b>是非金錢。</p>
+    <p><span class="pill">5</span><b>減免處罰</b>（免當值日生）是<b>正向</b>誘因。</p>
+    <p><span class="pill">6</span>稀少性是<b>相對</b>概念：富人也會稀少；自由財<b>不須</b>付代價。</p>
+    <p><span class="pill">7</span>政府控管口罩時，消費者選擇<b>較少</b>（不是較多）。</p>
+    <p><span class="pill">8</span>抽號碼牌<b>依序叫號</b>是先來先服務（先占先贏），<b>不是抽籤</b>。</p></div>
+  <div class="card"><h3>🌏 他版常考、南一第1～2章正文沒有（延伸）</h3><div class="chips">${RADAR.ext.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+  <p class="muted" style="margin-top:12px">翰林、康軒的第一次段考普遍再考<b>利潤計算</b>與<b>消費行為影響因素</b>，南一放在後面或只在圖說出現。放在「📊 綜合 → 🚀 延伸」做少量練習，請依自己學校卷頭範圍準備。</p></div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每單元先看 <b>🎬 動畫導覽</b>，用真實照片弄懂課本 → ② <b>⚡ 快問快答</b>、<b>🔗 配對</b>練熟名詞 → ③ <b>🎯 分類挑戰</b>破解誘因四格與分配方式 → ④ <b>📝 段考模擬題</b>、<b>📊 綜合</b>表格題與<b>總測驗</b>檢查程度，做完按「📤 交卷給老師」。</p></div>
+  <details class="card"><summary><b>統計限制與考點來源</b>（給老師看）</summary>
+  <p class="muted">他版 55 校。他版卷以文字抽取／OCR 切題後依關鍵詞自動貼主題標籤，校數是相對頻率參考；他版第一次段考多含「生產與利潤」「消費行為影響因素」，不在南一第1～2章正文。</p></details>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,c.dataset.k==='mix'?undefined:'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 綜合：圖表判讀＋排序＋延伸＋總測驗 ================= */
+function renderMix(app){
+  const s=curSub.mix||'chart';
+  const subs=[['chart','📊 圖表判讀題組'],['steps','🧭 時間軸與跨課歸類'],['ext','🚀 延伸（他版）'],['exam','🏁 總測驗']];
+  app.innerHTML=`<h2>📊 綜合：圖表判讀＋跨課＋總測驗</h2>
+  <p class="muted">把各校最常考的表格題（機會成本表、甲乙丙丁推理、誘因四格、價格與數量、分配方式優缺點）與閱讀題組改寫成 6 組；另有時間軸排序、跨課歸類與 20 題總測驗。</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div><div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub.mix=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='chart'){
+    p.innerHTML=CHART.map((c,k)=>`<div class="card"><h3>${c.title}</h3><div class="figbox">${c.fig}</div><div id="cq${k}"></div></div>`).join('');
+    CHART.forEach((c,k)=>renderMCQ($('#cq'+k),c.qs.map(q=>({...q,src:c.src})),7,`綜合 ${c.title.replace(/^[①-⑨]\s*/,'')}`));
+    return;
+  }
+  if(s==='steps'){
+    const all=[...STEPS,...MIXSORT];
+    p.innerHTML=all.map((_,i)=>`<div class="card" id="st${i}"></div>`).join('');
+    all.forEach((so,i)=>{SORTCTX={code:7,title:i<STEPS.length?'綜合 時間軸排序':'綜合 跨課歸類'};renderSort($('#st'+i),so)});SORTCTX=null;
+    return;
+  }
+  if(s==='ext'){
+    p.innerHTML=`<div class="card"><h3>🚀 延伸：他版常考的消費與生產</h3>
+    <p><span class="pill">消費因素</span>除了<b>價格</b>，他版課本還列出<b>偏好</b>（喜好、代言）、<b>所得</b>（收入多寡）、<b>預期心理</b>（預期漲價先買）。南一課本的「颱風前搶購蔬菜」就是預期心理的例子。</p>
+    <p><span class="pill">利潤</span>利潤＝銷貨收入－生產成本；降低成本或增加收入可以提高利潤。</p>
+    <p><span class="pill">生產者</span>三課題：生產什麼、如何生產、為誰生產（南一放在第2章旁欄）。</p>
+    <p class="muted">南一第1～2章正文沒有利潤計算；學校卷頭若寫到第3章或含「生產與利潤」，這裡要練。</p></div><div id="eq"></div>`;
+    renderMCQ($('#eq'),EXT,8,'延伸 消費行為與生產');
+    return;
+  }
+  const pool=[];
+  ['c1','c2','c3','c4'].forEach(k=>L[k].mcq.forEach(q=>pool.push({...q,unit:`${L[k].no} ${L[k].short}`})));
+  const pick=shuf(pool.filter(q=>!/^承上/.test(q.q))).slice(0,20);
+  p.innerHTML=`<div class="card"><h3>🏁 總測驗（20 題，從各單元隨機抽）</h3><p class="muted">每次進來題目都不一樣。做完按「📤 交卷給老師」，老師端會看到你錯在哪一單元。</p><button class="btn ghost" id="again">🔄 換一組題目</button></div><div id="xq"></div>`;
+  $('#again').onclick=()=>render();
+  renderMCQ($('#xq'),pick,9,'總測驗');
+}
+
+/* ================= 共用：動畫外框 ================= */
+function stage(p,extra){p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${extra||''}`}
+
+/* ================= 1-1、1-2 稀少性與機會成本 ================= */
+function animC1(p){
+  stage(p,`<div class="card"><h3>🧮 機會成本計算機（金錢）</h3><p class="muted">輸入放棄的打工時薪、時數，以及為了這個選擇額外花的錢。</p>
+  <div class="calc"><label>放棄的時薪（元）<input id="ow" type="number" min="0" value="190"></label><label>放棄的時數<input id="oh" type="number" min="0" step="0.5" value="3"></label><label>額外花費（元）<input id="oe" type="number" min="0" value="450"></label></div>
+  <div class="meaning" id="oout"></div></div>
+  <div class="card"><h3>🗺️ 第1章一張圖</h3>
+  <div class="flow"><span>資源有限</span><b>＋</b><span>欲望無窮</span><b>→</b><span>稀少性</span><b>→</b><span>做選擇</span><b>→</b><span class="an">機會成本</span></div>
+  <table class="tbl"><tr><th>選項</th><th>滿足程度</th><th>放棄的選項</th><th>機會成本</th></tr>
+  <tr><td>參加生日派對</td><td>90 單位</td><td>練習排球</td><td>80 單位</td></tr>
+  <tr><td>練習排球</td><td>80 單位</td><td>生日派對</td><td>90 單位</td></tr></table>
+  <p class="muted" style="margin-top:8px">課本練習：小南選<b>參加生日派對</b>（機會成本較低）。面臨的是<b>時間</b>的稀少性。</p></div>`);
+  const oc=()=>{const w=+$('#ow').value||0,h=+$('#oh').value||0,e=+$('#oe').value||0;
+    $('#oout').innerHTML=`放棄的收入 ${w}×${h} ＝ ${w*h} 元 ＋ 額外花費 ${e} 元 ＝ <b>機會成本 ${w*h+e} 元</b>`};
+  ['ow','oh','oe'].forEach(id=>$('#'+id).oninput=oc);oc();
+  const steps=[
+    {label:'① 資源有限',imgs:[{img:'u1_hourglass',tag:'時間就像沙漏，一天只有 24 小時'},{img:'u1_birthday',tag:'週日想參加 Andy 的生日派對……'},{img:'u1_volley',tag:'……又想和隊友練習排球'}],poem:'「資源有限，欲望無窮」。當週日的時間無法滿足小南兩項活動都參加的欲望時，「時間」對小南來說就具有<b>稀少性</b>（有限性），因此必須做<b>選擇</b>。',key:'46 校考稀少性。稀少性是<b>相對</b>概念：不是看資源總量多寡，而是相較於欲望無法滿足。<b>富人也會覺得錢不夠</b>。'},
+    {label:'② 經濟財 vs 自由財',split:[{img:'u1_stream',tag:'水源充沛：乾淨的水＝自由財'},{img:'u1_polluted',tag:'受汙染地區：乾淨的水＝經濟財'}],poem:'必須付出代價才能取用的稱為<b>經濟財</b>；不必付出代價即可取用（空氣、陽光）的稱為<b>自由財</b>。兩者的區分<b>並非絕對</b>。',key:'自由財<b>不具稀少性、不須付代價</b>（段考陷阱）。同一種水，換了地點就可能從自由財變經濟財。'},
+    {label:'③ 乾淨的空氣',imgs:[{img:'u1_smog',tag:'空氣汙染下，乾淨的空氣也要付出代價'}],poem:'「空氣」雖是自由財，可是在工業發展快速的現代，「<b>乾淨的空氣</b>」卻是經濟財，人們必須付出一定的代價，才能夠享有。',key:'正因為資源具有<b>稀少性</b>且具有<b>多種用途</b>，我們才需要並得以做選擇。'},
+    {label:'④ 機會成本',split:[{img:'u1_cinema',tag:'選擇看一場電影'},{img:'u1_baseball',tag:'就放棄看一場球賽'}],poem:'做選擇時必須放棄其他「機會」，<b>被放棄的選項中價值最高者</b>，即為該選擇的<b>機會成本</b>。機會成本是選擇的代價，通常人們會選擇「<b>機會成本最低者</b>」。',key:'不是加總、不是被選的那一項（56 校都考機會成本）。俗語：<b>有得必有失、天下沒有白吃的午餐</b>。'},
+    {label:'⑤ 用金錢衡量',split:[{img:'u1_breakfast',tag:'早餐店：時薪 200 元'},{img:'u1_bookstore',tag:'書局：時薪 176 元'}],poem:'表姐選早餐店，放棄的機會成本是書局時薪 <b>176 元</b>；選書局，機會成本是早餐店時薪 <b>200 元</b>。去早餐店的機會成本較低，所以選早餐店。',key:'計算題（39 校）：放棄的收入要<b>乘時數</b>，還要<b>加上額外花費</b>。上面的計算機可以練。'},
+    {label:'⑥ 用喜好衡量',imgs:[{img:'u1_apartment',tag:'買房子：空間大小 vs 通勤時間'}],poem:'南南大廈室內空間大、離學校步行約 30 分鐘；One大廈步行僅需 5 分鐘、室內空間小巧。Andy 一家比較<b>喜好程度</b>，選南南大廈的機會成本較低，所以選<b>南南大廈</b>。',key:'非金錢的機會成本用<b>喜好、滿足程度</b>衡量（21 校）。同一個人比較：放棄那一項的喜好就是機會成本。'},
+    {label:'⑦ 理性與自利',imgs:[{img:'u1_traffic',tag:'趕時間遇到紅燈，要不要等？'},{img:'u1_smith',tag:'經濟學家亞當．斯密（1723～1790）',fit:'contain',bg:'#1b1b1b'}],poem:'經濟學假設人們透過<b>理性思考</b>做選擇，為了自我利益而計較得失。趕時間仍遵守紅燈，因為<b>遵守法規的機會成本較低</b>，也較安全。<br>亞當．斯密：人們<b>追求自利</b>，不僅有利於自己，也有利於他人。',key:'追求自利 ≠ 自私自利（南一特有考點）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 1-3 誘因 ================= */
+function animC2(p){
+  stage(p,`<div class="card"><h3>🎁 誘因四格（課本圖3-1-7）</h3>
+  <div class="quad"><div class="h"></div><div class="h">金錢誘因</div><div class="h">非金錢誘因</div>
+  <div class="h">正向<br>（提高報酬／減少懲罰）</div><div class="c">校園競賽優勝獲得<b>獎金</b><br>獎學金、禮券、折扣、補助</div><div class="c">協助整理家務得到家人<b>稱讚</b><br>獎狀、表揚、嘉獎</div>
+  <div class="h">負向<br>（降低報酬／提高懲罰）</div><div class="c neg">弄壞公用設施而<b>賠錢</b><br>罰款、罰單、滯納金</div><div class="c neg">違規學生處<b>記過</b><br>勞動服務、取消權利</div></div>
+  <p class="muted">口訣：先看<b>方向</b>（好處變多或處罰變少＝正向），再看<b>有沒有用到錢</b>。</p></div>`);
+  const steps=[
+    {label:'① 什麼是誘因',imgs:[{img:'u2_award',tag:'獎狀、獎牌：鼓勵好的表現'}],poem:'<b>誘因</b>是能誘使人們改變其行為的因素。誘因出現時，會使選擇的<b>機會成本</b>產生變化；人們如何選擇，取決於誘因帶來的利益和機會成本的大小。',key:'54 校考誘因。誘因可以「鼓勵」也可以「抑制」行為。'},
+    {label:'② 正向誘因',imgs:[{img:'u2_coin',tag:'獎金：正向金錢誘因'},{img:'u2_chores',tag:'和家人一起做家事、得到稱讚：正向非金錢誘因'}],poem:'<b>提高報酬</b>或是<b>減少懲罰</b>稱為「正向誘因」。例如：參加校園競賽優勝獲得獎金、協助整理家務得到家人稱讚。',key:'「全勤可免掃廁所」是<b>減少懲罰</b>，也是正向誘因（常考陷阱）。'},
+    {label:'③ 負向誘因',imgs:[{img:'u2_ticket',tag:'違規停車的罰單：負向金錢誘因'},{img:'u2_fine',tag:'亂丟垃圾最高罰款的告示'}],poem:'<b>降低報酬</b>或是<b>提高懲罰</b>稱為「負向誘因」。例如：在學校弄壞公用設施而賠錢、學校對違規學生處記過處分、考試舞弊會被記過。',key:'罰款、賠償＝負向<b>金錢</b>；記過、取消玩手機、勞動服務＝負向<b>非金錢</b>。'},
+    {label:'④ 同一誘因，反應不同',imgs:[{img:'u2_store',tag:'超商常推出「消費滿額換公仔」'}],poem:'由於個人的<b>喜好與需求</b>皆不相同，同一誘因對每個人產生的機會成本也不盡相同。喜歡收集公仔的人會增加消費，沒興趣的人並不會。',key:'若能先了解人們的需求和偏好，便能運用誘因達到期望的效果（哥哥送遊戲寶物、弟弟去露營）。'},
+    {label:'⑤ 綠色旅遊',imgs:[{img:'u2_hotel',tag:'入住環保標章旅館可得抵用金'}],poem:'環保署（民國 111 年）搭配國旅補助推出綠色旅遊：入住具「<b>環保標章</b>」的旅館並現場付款，可另外獲得<b>綠點住宿抵用金 200 元</b>。',key:'抵用金＝<b>正向金錢誘因</b>；政策訴求重點是<b>生態環境的保護</b>。'},
+    {label:'⑥ 免費的代價',imgs:[{img:'u2_google',tag:'網路公司的資料中心'}],poem:'Google 的網路服務免費，但天下沒有白吃的午餐：使用者付出了「<b>行為模式</b>」的資訊（裝置資訊、紀錄資訊、位置資訊），用於<b>優化服務與產品</b>和<b>廣告投放</b>。',key:'網路犯罪常用「免費」當誘餌釣取個資。看到免費，要想到背後的成本。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-1 價格如何影響資源分配 ================= */
+function animC3(p){
+  stage(p,`<div class="card"><h3>📈 價格影響誰？</h3>
+  <table class="tbl"><tr><th></th><th>價格上漲時</th><th>價格下跌時</th></tr>
+  <tr><td>生產者</td><td>生產意願提高，<b>多生產</b>、改種</td><td>生產意願降低，少生產</td></tr>
+  <tr><td>消費者</td><td><b>減少</b>購買數量</td><td><b>增加</b>購買數量</td></tr></table>
+  <p class="muted" style="margin-top:8px">消費者的說法一定要加「<b>在其他條件不變的情況下</b>」。</p></div>
+  <div class="card"><h3>🏭 生產者三課題</h3>
+  <p><span class="pill">生產什麼</span>決定產品品項（賣什麼、種什麼）</p>
+  <p><span class="pill">如何生產</span>決定方法、技術、機器、人力</p>
+  <p><span class="pill">為誰生產</span>決定主要客群（學生？上班族？）</p>
+  <p class="muted">「何時生產」「何處生產」「為何生產」都不是三課題之一。</p></div>`);
+  const steps=[
+    {label:'① 價格影響生產者',split:[{img:'u3_kongxin',tag:'空心菜'},{img:'u3_qingjiang',tag:'青江菜'}],poem:'對生產者而言，商品價格的高低常會決定<b>生產的意願</b>。農夫有一塊土地可以種空心菜或青江菜，當<b>空心菜價格比青江菜高</b>時，農夫就會把土地拿去<b>種空心菜</b>。',key:'42 校考。價格<b>高</b>→生產者<b>多種</b>；別和消費者「價高少買」弄反。'},
+    {label:'② 土地是有限的資源',imgs:[{img:'u3_farm',tag:'菜園：一塊地只能先種一種作物'}],poem:'當個人擁有的資源有限時，通常會運用<b>機會成本</b>的概念分配資源，以達最大效益。土地拿去種空心菜，就放棄了種青江菜的收入。',key:'價格是一種<b>誘因</b>：分配資源時，人們常根據價格考量各種選擇的機會成本。'},
+    {label:'③ 價格影響消費者',split:[{img:'u3_kongxin',tag:'空心菜貴'},{img:'u3_qingjiang',tag:'就買青江菜'}],poem:'在<b>其他條件不變</b>的情況下，商品價格上漲，消費者會<b>減少</b>購買該商品的數量；價格下跌，會<b>增加</b>購買數量。若對兩種菜喜好相同，空心菜較貴時，消費者會買<b>青江菜</b>。',key:'44 校考「價漲量減、價跌量增」：第二件 5 折、飯店平日優惠都是例子。'},
+    {label:'④ 颱風前搶購',imgs:[{img:'u3_typhoon',tag:'颱風接近臺灣的衛星雲圖'}],poem:'每當颱風過境前，消費者<b>預期菜價可能會上漲</b>，因此會趕在菜價上漲前<b>大量購買</b>。',key:'他版稱為「<b>預期心理</b>」（44 校考），可連結到綜合頁的延伸練習。'},
+    {label:'⑤ 生產者三課題',imgs:[{img:'u3_restaurant',tag:'餐廳也是生產者：決定菜單、做法、客群'},{img:'u3_factory',tag:'改用機器生產＝如何生產'}],poem:'生產者運用資源生產商品的行為，稱為<b>生產行為</b>。生產者需考慮「<b>生產什麼</b>」、「<b>如何生產</b>」與「<b>為誰生產</b>」三個課題，才能獲取最大利潤。',key:'44 校考。鎖定客群＝為誰生產；問卷決定餐點＝生產什麼；改機器＝如何生產。'},
+    {label:'⑥ 誘餌效應',imgs:[{img:'u3_milk',tag:'賣場裡同類商品，品質與價格各有高低'}],poem:'高級小農鮮奶 150 元（90 分）、普通鮮奶 90 元（50 分），再加上 60 元非鮮乳飲品（10 分）後，選普通鮮奶的人變多了。較差的選項就是「<b>誘餌</b>」，這叫<b>誘餌效應</b>。',key:'「便宜」真的省荷包了嗎？買了不需要的促銷品，事後可能付出更多金錢與時間。要評估<b>真實需要</b>。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-2、2-3 資源分配方式與公平正義 ================= */
+function animC4(p){
+  stage(p,`<div class="card"><h3>⚖️ 四種資源分配方式（課本表）</h3>
+  <table class="tbl"><tr><th>方式</th><th>優點</th><th>缺點</th></tr>
+  <tr><td>先占先贏</td><td>簡單且最直接</td><td>速度慢的人搶不到，可能分配不均</td></tr>
+  <tr><td>抽籤決定</td><td>每個人都有機會使用到</td><td>全憑運氣，可能一直抽不到</td></tr>
+  <tr><td>輪流使用</td><td>每個人都能夠使用到</td><td>使用人可能不需要，造成浪費</td></tr>
+  <tr><td>使用者付費</td><td>有需求者付費使用，提高效率</td><td>弱勢民眾難以享有資源</td></tr></table></div>
+  <div class="card"><h3>😷 口罩怎麼分？</h3>
+  <table class="tbl"><tr><th></th><th>民眾可自由買賣</th><th>政府限制價格與數量</th></tr>
+  <tr><td>優點</td><td>市場競爭力較高，消費者有較多選擇</td><td>每個人都能買到，獲得基本保障</td></tr>
+  <tr><td>缺點</td><td>經濟弱勢的民眾可能買不到</td><td>市場缺乏競爭力，消費者選擇較少</td></tr></table></div>`);
+  const steps=[
+    {label:'① 先占先贏',imgs:[{img:'u4_court',tag:'國中籃球場：下課先到先打'}],poem:'下課鈴一響，教室離球場遠的小南和 Andy 總是搶不到籃球場。資源分配大致有「<b>先占先贏</b>」、「<b>抽籤決定</b>」、「<b>輪流使用</b>」與「<b>使用者付費</b>」四種。學校籃球場大多以<b>先占先贏</b>分配。',key:'43 校考四種方式優缺點。先占先贏：簡單直接，但速度慢的人搶不到。'},
+    {label:'② 排隊與抽籤',imgs:[{img:'u4_queue',tag:'排隊：先來先服務'}],poem:'<b>抽籤決定</b>讓每個人都有機會，但一切全憑運氣；<b>輪流使用</b>讓每個人都用得到，但不需要的人也分到，會造成浪費。',key:'抽號碼牌<b>依序叫號</b>是先來先服務，不是抽籤（段考陷阱）；抽籤的缺點不是「耗時」。'},
+    {label:'③ 使用者付費',imgs:[{img:'u4_meter',tag:'路邊停車收費機'}],poem:'生活中分配資源時，通常以「<b>使用者付費</b>」為主：聽演唱會、看電影買門票，搭交通工具買車票。願意付費且負擔得起的人，便能享有該資源。',key:'停車收費、高速公路收費＝使用者付費。優點提高效率；缺點<b>弱勢難以享有</b>。'},
+    {label:'④ YouBike',imgs:[{img:'u4_youbike',tag:'YouBike 微笑單車（臺北，2012 年）'}],poem:'<b>民國 101 年</b>第一個營運系統從臺北市啟用，初期「前 30 分鐘免費」，卻造成「<b>先騎先贏</b>」、無車可用；<b>民國 104 年</b>取消免費優惠，回歸<b>使用者付費</b>，情形獲得改善。',key:'共享經濟：免費（先占先贏）→ 付費（使用者付費）。'},
+    {label:'⑤ 公平正義：口罩',imgs:[{img:'u4_masksold',tag:'疫情初期超商口罩「均已售完」的公告',fit:'contain',bg:'#e8eef7'},{img:'u4_mask',tag:'口罩實名制期間的健保特約藥局'}],poem:'社會上的資源分配，不只追求效益，也要兼顧弱勢民眾的權益，因此政府會適時介入，實現「<b>公平正義</b>」。疫情期間實施<b>口罩實名制</b>，國人還自發發起「<b>我OK，你先領</b>」。',key:'政府控管時消費者選擇<b>較少</b>（段考陷阱）；自由買賣時弱勢可能買不到。'},
+    {label:'⑥ 社會住宅',imgs:[{img:'u4_social',tag:'桃園市的社會住宅'}],poem:'<b>民國 106 年 3 月</b>行政院核定「社會住宅興辦計畫」：<b>只租不賣</b>，租金為市場行情五折至八五折、居住 6 至 12 年。桃園市：<b>資格審查</b>→<b>公開抽籤</b>→選屋簽約入住。偏鄉公車補助也是同樣的精神。',key:'資格審查＝追求<b>公平正義</b>；分配途徑＝<b>抽籤決定</b>。'},
+    {label:'⑦ 司馬庫斯',imgs:[{img:'u4_smangus',tag:'司馬庫斯一帶的山林'},{img:'u4_smangus2',tag:'司馬庫斯部落'}],poem:'司馬庫斯位於<b>新竹縣尖石鄉</b>，居民幾乎都是<b>泰雅族</b>，過去交通不便、晚期才有電，被稱為「<b>黑暗部落</b>」。發現神木群後觀光興起，卻產生利益衝突；頭目提議<b>共同經營</b>，後來實踐<b>土地共有</b>、分擔工作、均分所得。',key:'南一特有專題：至今仍是全臺最成功的<b>共享共營</b>原住民族社區。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+
+<!-- AK:answer-key -->
+<style id="ak-style">#ak-btn{position:fixed;left:14px;bottom:14px;z-index:9990;font:600 16px/1 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:#1f4e79;color:#fff;border:0;border-radius:999px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer}#ak-btn:hover{background:#163a5c}#ak-box{display:none;position:fixed;inset:0;z-index:9995;background:rgba(15,25,40,.45);padding:16px;overflow:auto}#ak-box.show{display:block}#ak-box .ak-card{max-width:960px;margin:20px auto;background:#fff;color:#1d2733;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:16px/1.6 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;text-align:left}#ak-box .ak-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #e3e8ef;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}#ak-box .ak-head b{font-size:18px;color:#1f4e79}#ak-box .ak-head button{font:inherit;font-size:16px;margin-left:8px;border:1px solid #c9d3df;background:#f4f7fb;color:#1d2733;border-radius:8px;padding:6px 12px;cursor:pointer}#ak-box .ak-body{padding:6px 18px 18px}#ak-box h3{font-size:17px;margin:16px 0 6px;color:#1f4e79}#ak-box .ak-t{border-collapse:collapse;width:100%;margin:6px 0;table-layout:fixed}#ak-box .ak-t th,#ak-box .ak-t td{border:1px solid #cfd8e3;padding:5px 2px;text-align:center;font-size:16px;word-break:break-all}#ak-box .ak-t th{background:#eef3f9;color:#1f4e79;font-weight:600}#ak-box .ak-t th:first-child{width:3.6em}#ak-box .ak-t td{font-weight:700}#ak-box .ak-list{columns:2 300px;margin:6px 0;padding-left:0;list-style:none}#ak-box .ak-list li{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e3e8ef}@media print{#ak-btn{display:none!important}html:not(.ak-on) #ak-box{display:none!important}html.ak-on body>*:not(#ak-box){display:none!important}html.ak-on #ak-box{position:static;background:none;padding:0;display:block!important;overflow:visible}html.ak-on #ak-box .ak-card{box-shadow:none;margin:0;max-width:none}html.ak-on #ak-box .ak-head button{display:none}html.ak-on #ak-box .ak-head{position:static}}</style>
+<script id="ak-core">(function(){
+if(window.AK)return;
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function norm(secs){
+ if(!secs)return[];
+ if(!Array.isArray(secs[0]&&secs[0].items)&&Array.isArray(secs))secs=[{title:'',items:secs}];
+ return secs.map(function(s){return{title:s.title||'',items:(s.items||[]).map(function(x,i){return Array.isArray(x)?[x[0],x[1]]:[i+1,x]})}}).filter(function(s){return s.items.length});
+}
+function table(s){
+ var long=s.items.some(function(x){return String(x[1]).length>3});
+ var h=s.title?'<h3>'+esc(s.title)+'</h3>':'';
+ if(long){
+  return h+'<ol class="ak-list">'+s.items.map(function(x){return'<li><b>'+esc(x[0])+'.</b> '+esc(x[1])+'</li>'}).join('')+'</ol>';
+ }
+ var out=h;
+ for(var i=0;i<s.items.length;i+=10){
+  var r=s.items.slice(i,i+10);
+  out+='<table class="ak-t"><tr><th>題號</th>'+r.map(function(x){return'<th>'+esc(x[0])+'</th>'}).join('')+'</tr><tr><th>答案</th>'+r.map(function(x){return'<td>'+esc(x[1])+'</td>'}).join('')+'</tr></table>';
+ }
+ return out;
+}
+window.AK=function(fn){
+ function run(){
+  var secs;
+  try{secs=norm(typeof fn==='function'?fn():fn)}catch(e){console.warn('AK',e);return}
+  window.__AK_DATA=secs;
+  if(!secs.length)return;
+  var n=secs.reduce(function(a,s){return a+s.items.length},0);
+  var btn=document.createElement('button');btn.id='ak-btn';btn.type='button';btn.textContent='📋 答案總表';if(window.AK_BTN_STYLE)btn.style.cssText=window.AK_BTN_STYLE;
+  var box=document.createElement('div');box.id='ak-box';
+  box.innerHTML='<div class="ak-card" role="dialog" aria-label="答案總表"><div class="ak-head"><b>📋 答案總表（教師用，共 '+n+' 題）</b><span><button type="button" class="ak-p">🖨 列印答案</button><button type="button" class="ak-x" aria-label="關閉">✕</button></span></div><div class="ak-body">'+secs.map(table).join('')+'</div></div>';
+  document.body.appendChild(btn);document.body.appendChild(box);
+  function close(){box.classList.remove('show');document.documentElement.classList.remove('ak-on')}
+  btn.onclick=function(){box.classList.add('show');document.documentElement.classList.add('ak-on')};
+  box.querySelector('.ak-x').onclick=close;
+  box.onclick=function(e){if(e.target===box)close()};
+  box.querySelector('.ak-p').onclick=function(){window.print()};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+ }
+ if(document.readyState==='complete')setTimeout(run,0);else window.addEventListener('load',function(){setTimeout(run,0)});
+};
+})();</script>
+<script>AK(function(){
+if(!/[?&]teacher\b/.test(location.search))return [];
+/* 段考闖關站（chinese/civics/geography/history/science-site 的 volX_ 的 index.html）共用 adapter。
+   資料：頂層 const（L 各課 .mcq/.ext、RIDDLE/EXT/SCEN/CHART…）裡的選擇題物件 {q,o,a}。
+   renderMCQ 題序固定、但「選項每次洗牌」，所以答案列「正解選項文字」而非字母。
+   快問快答／配對／分類挑戰（題目隨機抽）與總測驗（pool/pick 隨機抽題）都不是頂層 {q,o,a} 陣列，不會被列入。 */
+window.AK_BTN_STYLE='left:14px;bottom:76px;font-size:20px;padding:12px 18px';
+(function(){
+  if(document.getElementById('ak-big'))return;
+  var s=document.createElement('style');s.id='ak-big';
+  s.textContent='html body #ak-box .ak-card{font-size:20px}html body #ak-box .ak-head b{font-size:22px}html body #ak-box .ak-head button{font-size:20px}html body #ak-box h3{font-size:21px}html body #ak-box .ak-list li{font-size:20px}html body #ak-box .ak-t th,html body #ak-box .ak-t td{font-size:20px}html body #ak-box .ak-note{font-size:20px;color:#5a6878;margin:10px 0 0}@media(max-width:600px){html body #ak-box{padding:6px}html body #ak-box .ak-card{margin:6px auto}html body #ak-box .ak-body{padding:6px 12px 14px}html body #ak-box .ak-list{columns:1}}';
+  document.head.appendChild(s);
+  setTimeout(function(){var b=document.querySelector('html body #ak-box .ak-body');if(b&&!b.querySelector('.ak-note')){var p=document.createElement('p');p.className='ak-note';p.textContent='※ 題號＝各練習頁上的題號；選項每次會重新洗牌，故列「正確選項的內容」。快問快答、配對、分類挑戰、總測驗為隨機出題，不列。';b.insertBefore(p,b.firstChild)}},50);
+})();
+var src=[].slice.call(document.querySelectorAll('script:not([src])')).filter(function(x){return x.id!=='ak-core'&&x.textContent.indexOf('AK(function')<0}).map(function(x){return x.textContent}).join('\n');
+var names=[];src.replace(/^(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=/gm,function(_,n){if(names.indexOf(n)<0)names.push(n)});
+var isQ=function(x){return x&&typeof x==='object'&&typeof x.q==='string'&&Array.isArray(x.o)};
+var clean=function(t){t=String(t).replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();return t.length>60?t.slice(0,60)+'…':t};
+var lit=function(expr){var re=new RegExp('renderMCQ\\([^,]+,\\s*'+expr.replace(/[.$[\]]/g,'\\$&')+'\\s*,\\s*[^,]+,\\s*([\'"`])([^\'"`$]*)\\1');var m=src.match(re);return m?m[2]:''};
+var KEY={mcq:'📝 段考模擬題',ext:'延伸題',graph:'綜合 圖表判讀',calc:'綜合 計算練習'};
+var secs=[];
+function add(title,arr,pri){for(var j=0;j<secs.length;j++)if(secs[j].arr===arr){if(pri>secs[j].pri){secs[j].title=title;secs[j].pri=pri}return}secs.push({arr:arr,pri:pri,title:title,items:arr.map(function(q,i){return[i+1,clean(q.o[q.a==null?0:q.a])]})})}
+function walk(v,path,parents){
+  if(!v||typeof v!=='object'||path.length>6||v instanceof Node||v===window)return;
+  if(Array.isArray(v)){
+    if(v.length&&v.every(isQ)){
+      var root=path[0],last=path[path.length-1],par=parents[parents.length-1],t;
+      if(root==='L'&&path.length===3){var d=parents[1];t=[d.no,d.title||d.name].filter(Boolean).join(' ')+'｜'+(KEY[last]||last)}
+      else if(path.length===1)t=lit(root)||root;
+      else if(par&&!Array.isArray(par)&&par.title){var gi=path[path.length-2];t=(/^[①-⑳]/.test(par.title)?'':(typeof gi==='number'?(gi+1)+'. ':''))+String(par.title).replace(/<[^>]*>/g,'')}
+      else t=lit(path.join('.'))||KEY[last]||path.join('.');
+      add(t,v,root==='L'?1:0);return;
+    }
+    v.forEach(function(x,i){walk(x,path.concat(i),parents.concat([v]))});return;
+  }
+  if(Object.getPrototypeOf(v)!==Object.prototype)return;
+  Object.keys(v).forEach(function(k){walk(v[k],path.concat(k),parents.concat([v]))});
+}
+names.forEach(function(n){var v;try{v=(0,eval)(n)}catch(e){return}walk(v,[n],[])});
+/* 同一陣列被兩處引用（如 L.ex.mcq＝EXT）只列一次，以課別標題為準；依 L 的課序排在前面 */
+secs.sort(function(a,b){return b.pri-a.pri});
+return secs.map(function(s){return{title:s.title,items:s.items}});
+});</script>
+<!-- /AK -->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+</body>
+</html>

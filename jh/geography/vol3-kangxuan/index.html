@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國二地理段考闖關（康軒）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#2f6b3a; --main-2:#4a9a5a; --accent:#d9a441; --accent-2:#a8741c;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#1f4d2a 0%,#4a9a5a 60%,#d9a441 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#1f4d2a;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+.qword{font-size:1.5rem;letter-spacing:0;line-height:1.5;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word}
+@media(max-width:560px){.opts{grid-template-columns:1fr}.qword{font-size:1.3rem}}
+.bars .b span{line-height:1.35}
+@media(max-width:560px){.bars .b{grid-template-columns:128px 1fr 52px}}
+details.card summary{cursor:pointer}
+@media(max-width:560px){.lessoncards{grid-template-columns:1fr}.lc{min-height:0;gap:8px}}
+/* 表格與圖表（文字放在 HTML，不畫在圖上） */
+.tbl{width:100%;border-collapse:collapse;font-size:1rem;margin:6px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.tbl th{background:#eef5ec;color:var(--main)}
+.tbl td:first-child{white-space:nowrap}
+@media(max-width:560px){.tbl td:first-child{white-space:normal}}
+.figbox{overflow-x:auto;margin-bottom:6px}
+.chip{display:inline-block;color:#fff;border-radius:8px;padding:0 8px}
+.passage{background:#f3f8f1;border-radius:12px;padding:14px 16px;line-height:1.9}
+.scale{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.scale span{flex:1 1 120px;background:#eef5ec;border-radius:12px;padding:8px 10px;text-align:center;font-size:1rem;line-height:1.5}
+.scale span b{color:var(--accent-2)}
+.ramp{display:flex;border-radius:12px;overflow:hidden;margin-top:10px}
+.ramp span{flex:1;color:#fff;text-align:center;padding:6px 0;font-weight:700;font-size:1rem}
+.ladder{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 12px}
+.ladder span{background:var(--main);color:#fff;border-radius:12px;padding:6px 12px;font-weight:700;text-align:center}
+.ladder span.an{background:var(--accent);color:#3b2600}
+.ladder small{display:block;font-size:1rem;font-weight:500}
+/* 地理：鄰國方位圖、比例尺與時差計算機 */
+.compass{display:grid;grid-template-columns:1fr 1.3fr 1fr;grid-template-rows:auto auto auto;gap:8px;text-align:center;margin:6px 0}
+.compass span{background:#eef5ec;border-radius:12px;padding:8px 6px;line-height:1.5}
+.compass .n{grid-column:2;grid-row:1}.compass .w{grid-column:1;grid-row:2}.compass .c{grid-column:2;grid-row:2;background:var(--main);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.compass .e{grid-column:3;grid-row:2}.compass .s{grid-column:1/4;grid-row:3}
+@media(max-width:560px){.compass{grid-template-columns:1fr 1fr}.compass .n{grid-column:1/3;grid-row:1}.compass .w{grid-column:1;grid-row:2}.compass .c{grid-column:1/3;grid-row:3;padding:12px}.compass .e{grid-column:2;grid-row:2}.compass .s{grid-column:1/3;grid-row:4}}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.calc label{font-weight:500}
+.exfig{margin:0 0 10px}.exfig img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;display:block}.exfig figcaption{font-size:1rem;color:var(--muted,#5b6b5e);margin-top:6px;line-height:1.5}
+.calc input,.calc select{display:block;width:100%;font-size:1.1rem;padding:8px 10px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit;background:#fff}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回地理選單</a><span class="tag">康軒版 國二上地理 ｜ 第一次段考</span>
+    <h1>地理段考闖關｜中國的自然環境～人口成長與文化遷移</h1>
+    <p>先看真實照片動畫弄懂課本，再用遊戲練熟地形、季風、人口名詞與數字，最後做圖表判讀與段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap"><details style="margin-top:8px"><summary>圖片來源與授權</summary>
+  照片皆來自 Wikimedia Commons（CC0／公有領域／CC BY／CC BY-SA），未使用 AI 生成圖：Everest North Face toward Base Camp Tibet Luca Galuzzi 2006：Luca Galuzzi (Lucag)（CC BY-SA 2.5）；Shilin Yunnan China Shilin-Stone-Forest-01：CEphoto, Uwe Aranas（CC BY-SA 3.0）；Loess landscape china：Till Niermann (User:Till.niermann)（CC BY-SA 3.0）；Hulunbuir Grasslands, Inner Mongolia：Sergio Tittarini（CC BY 2.0）；广元明月峡古栈道 - panoramio：landagent（CC BY-SA 3.0）；Taklamakan-d12：Colegota（CC BY-SA 2.5 es）；Longji rice terraces - 2023 10 11 Kaur Virunurm：Kurinurm（CC0）；Damxung, Lhasa, Tibet, China - panoramio (25)：Chen Zhi（CC BY 3.0）；Yangtze river three gorges：Jan Kranendonk（CC BY-SA 4.0）；Beijing - Sandstorm March 2021：Greenpeace（CC BY 2.0）；Harbin Ice and Snow Festival 2013：Tracy Hunter（CC BY 2.0）；Kang in a hostel room：Yoshi Canopus（CC BY-SA 4.0）；Part of Qinling mountains：Charlie439753（CC BY-SA 4.0）；LPCC-758-Collita d'arròs a Guangxi：Miquel Pujol Palol（CC BY-SA 3.0）；Tibetan Buddhist women in chuba with prayer beads in Tibet, 2010 (cropped)：Christopher Michel（CC BY 2.0）；Beaches in Sanya, Hainan, China10：Huangdan2060（CC0）；Turpan-calles-d01：Colegota（CC BY-SA 2.5 es）；20230602 Reaper gathering wheat in Weishi County：Windmemories（CC BY-SA 4.0）；Cave houses shanxi 1：Meier&Poehlmann（CC BY 3.0）；在成都遥望雪山 Chengdu skyline with a view of Mount Siguniang：书剑飘零（CC BY-SA 4.0）；Evening crowds on East Nanjing Road：Benlisquare（CC BY-SA 4.0）；Kashgar-casco-viejo-d01：Colegota（CC BY-SA 2.5 es）；An elderly Tibetan women holding a prayer wheel on Lhasa, Barkhor：Luca Galuzzi (Lucag)（CC BY-SA 2.5）；Kashgar Uyghur People：ChiralJon（CC BY 2.0）；Elderly Shanghai woman practices tai chi：Tom Thai from shanghai, china（CC BY 2.0）；Umbrellas at marriage market, Shanghai：Jpbowen（CC BY-SA 4.0）；Family Planning in Chengdu, China：Jan Kranendonk（CC0）；China 1982 happy family with one child：Robert Schediwy（CC BY-SA 3.0）；Pagoda Street Chinatown Singapore：kallerna（CC BY-SA 4.0）；Departure of a Loo Choo (Ryukyu) Junk with Tribute to Pekin (Peking, China) 2：William Smyth（素描）、F. Finden（雕版）（公有領域）；Ho Ann Kiong：Fikku_fiq（CC BY-SA 3.0）；Chinese railroad workers sierra nevada：Joseph Becker（素描）（公有領域）；Dragon Gate, Chinatown, San Francisco 2021-11-16：Ilkka Simomaa（CC BY 4.0）；頂泰山巖DSC 6536：Taiwankengo（CC BY-SA 3.0）；Tulou from Fujian - Aug 2022：HGShg（CC BY-SA 4.0）；Small boats on Grand Canal near Suzhou 1984：BabelStone（CC BY-SA 4.0）；Platform of Hotan station：Prcshaw（CC BY-SA 4.0）；20230331 Central Line of South–North Water Transfer in Jiaozuo：Windmemories（CC BY-SA 4.0）；Xinjiang Tianshan (54572894424)：xiquinhosilva（CC BY 2.0）。</details>
+</div></footer>
+
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料（康軒 國二上地理 第一次段考：第1課＋第2課） =================
+   名詞、數字、定義一律依康軒 115 學年版國中地理2上課本（第1課 中國的自然環境、第2課 中國的人口成長與文化遷移）。
+   快問快答：[題目, 正解, [3 個誘答], 幾校考過(0＝不標★), 題目提示(可省略)]
+   模擬題：{q, o:[正解, 誘答…], a:0, src, ex}（選項每次洗牌；全部原創改寫，只借各校命題方向與陷阱） */
+const L = {
+/* ---------- 1-1 中國的地形有何特徵？ ---------- */
+a:{
+  no:'1-1', code:1, title:'中國的地形有何特徵？', short:'地形與三級階梯', color:'linear-gradient(135deg,#1f4d2a,#4a9a5a)',
+  desc:'五大地形｜三級階梯｜西高東低→河川東流｜九大地形區特色｜省級行政區',
+  quickAsk:'選出正確的答案', quickTitle:'地形與行政區快問快答',
+  quick:[
+    ['中國五大地形中，合計約占總面積 59％ 的兩種','山地和高原',['平原和丘陵','盆地和平原','丘陵和盆地'],4],
+    ['中國地勢劃分「三級階梯」的依據','平均海拔高度與地形種類',['距海遠近','緯度高低','年降水量多寡'],16],
+    ['最高階梯的平均高度約','4,000 公尺',['1,500 公尺','1,000 公尺以下','8,000 公尺'],16],
+    ['次高階梯的平均高度約','1,500 公尺',['4,000 公尺','500 公尺以下','3,000 公尺'],16],
+    ['最低階梯主要的地形','平原和丘陵',['山地和高原','盆地和高原','山地和盆地'],16],
+    ['次高階梯主要的地形','山地、高原和盆地',['平原和丘陵','只有高原','山地和高原（約 4,000 公尺）'],16],
+    ['地勢陡峻、世界最高的高原，有「世界屋脊」之稱','青藏高原',['黃土高原','雲貴高原','內蒙古高原'],16],
+    ['世界最高的山脈，位在青藏高原南緣','喜馬拉雅山',['秦嶺','天山','大興安嶺'],7],
+    ['喜馬拉雅山是哪兩個板塊互相擠壓形成','印澳板塊與歐亞板塊',['太平洋板塊與歐亞板塊','菲律賓海板塊與歐亞板塊','印澳板塊與太平洋板塊'],9],
+    ['黃土由風力堆積、質地鬆散，被流水侵蝕成千溝萬壑','黃土高原',['雲貴高原','內蒙古高原','四川盆地'],15],
+    ['多石灰岩地形，易受流水侵蝕，地表高低起伏不平','雲貴高原',['黃土高原','青藏高原','東南丘陵'],10],
+    ['周圍群山環繞、進出不易，古代沿河修築棧道','四川盆地',['塔里木盆地','長江中下游平原','黃土高原'],17],
+    ['中國面積最大的盆地，大部分被塔克拉瑪干沙漠占據','塔里木盆地',['四川盆地','準噶爾盆地','柴達木盆地'],13],
+    ['平坦遼闊的荒漠和草原，乾燥少雨、年日溫差皆大','內蒙古高原',['東北平原','雲貴高原','長江中下游平原'],10],
+    ['中國面積最大的平原，土地肥沃，是重要的糧倉','東北平原',['華北平原','長江中下游平原','四川盆地'],10],
+    ['地勢平坦、水源匯聚，人口密集與經濟發達的精華區','長江中下游平原',['東北平原','內蒙古高原','塔里木盆地'],7],
+    ['丘陵地勢崎嶇，為養活眾多人口常被開闢成梯田','東南丘陵',['黃土高原','東北平原','內蒙古高原'],13],
+    ['地勢西高東低，使中國主要河川大多向哪裡流','向東流',['向西流','向北流','向南流'],9],
+    ['河川上游水流湍急，多富什麼資源','水力資源',['石油資源','漁業資源','航運之便'],0],
+    ['河川下游流勢平緩、河面寬廣，有利於','東西向水路運輸',['南北向水路運輸','水力發電','開闢梯田'],0],
+    ['西高東低的地勢，有利於夏季什麼深入內陸','海洋暖溼氣流',['乾冷的冬季季風','沙塵暴','來自北方的冷空氣'],9],
+    ['中國的省級行政區中，「省」有幾個','22 個',['5 個','4 個','33 個'],11],
+    ['為少數民族聚居的地方而設立的省級行政區','自治區',['特別行政區','直轄市','省'],14],
+    ['曾受英國殖民的香港與受葡萄牙殖民的澳門屬於','特別行政區',['自治區','直轄市','省'],7],
+    ['北京、天津、上海、重慶屬於哪一種行政區','直轄市',['特別行政區','自治區','省'],7],
+    ['少數民族中人口最多的壯族，所在的自治區','廣西壯族自治區',['寧夏回族自治區','西藏自治區','新疆維吾爾自治區'],7],
+  ],
+  words:[
+    ['青藏高原','世界屋脊，位於最高階梯'],['喜馬拉雅山','世界最高的山脈'],['黃土高原','風積黃土、流水侵蝕成千溝萬壑'],
+    ['雲貴高原','石灰岩地形，地表高低起伏'],['內蒙古高原','平坦遼闊的荒漠和草原'],['四川盆地','群山環繞，古代修築棧道'],
+    ['塔里木盆地','面積最大的盆地，有塔克拉瑪干沙漠'],['東北平原','面積最大的平原，重要糧倉'],['長江中下游平原','人口密集、經濟發達的精華區'],
+    ['東南丘陵','地勢崎嶇，常開闢梯田'],['自治區','少數民族聚居處設立'],['特別行政區','香港、澳門'],['直轄市','北京、天津、上海、重慶'],
+    ['三級階梯','依平均海拔高度與地形種類劃分'],
+  ],
+  sorts:[
+    {title:'這個地形區在哪一級階梯？',tip:'依平均海拔高度：最高約 4,000 公尺、次高約 1,500 公尺、最低約 1,000 公尺以下。（16 校考）',buckets:['最高階梯','次高階梯','最低階梯'],items:[
+      ['青藏高原',0],['黃土高原',1],['雲貴高原',1],['內蒙古高原',1],['四川盆地',1,'盆地也在次高階梯，不是最低！'],['塔里木盆地',1],
+      ['東北平原',2],['華北平原',2],['長江中下游平原',2],['東南丘陵',2,'丘陵在最低階梯']]},
+    {title:'看特色，猜地形區',tip:'抓關鍵字：千溝萬壑、石灰岩、棧道、沙漠、草原。（16 校考地形區特色）',buckets:['黃土高原','雲貴高原','四川盆地','塔里木盆地','內蒙古高原'],items:[
+      ['風力堆積的黃土，被流水切割得千溝萬壑',0],['居民挖掘窯洞居住',0],['石灰岩廣布，石林地形高低起伏',1],['易受流水侵蝕，地表崎嶇不平的高原',1],
+      ['群山環繞，古人感嘆「蜀道難」',2],['沿河修築棧道以便出入',2],['中國面積最大的盆地',3],['盆地內大部分是塔克拉瑪干沙漠',3],
+      ['平坦遼闊的荒漠和草原',4],['牧民住蒙古包、放牧牛羊',4]]},
+    {title:'這是哪一種省級行政區？',tip:'22 省、5 自治區、4 直轄市、2 特別行政區。（11 校考）',buckets:['省','自治區','直轄市','特別行政區'],items:[
+      ['四川',0],['黑龍江',0],['廣東',0],['雲南',0],['西藏',1],['新疆維吾爾',1],['寧夏回族',1],['廣西壯族',1],['內蒙古',1],
+      ['北京',2],['上海',2],['重慶',2,'山城重慶也是直轄市'],['天津',2],['香港',3,'曾受英國殖民'],['澳門',3,'曾受葡萄牙殖民']]},
+    {title:'地勢造成的？還是緯度造成的？',tip:'西高東低 → 河川東流、水氣入內陸；南北很長（緯度）→ 冬季南暖北冷。（5 校陷阱）',buckets:['地勢西高東低','緯度跨距大'],items:[
+      ['主要河川多向東流',0],['夏季海洋暖溼氣流可深入內陸',0],['河川上游水流湍急，富水力',0],['下游河面寬廣，利於東西向航運',0],
+      ['冬季南暖北冷，南北溫差大',1,'這是緯度，不是地勢！'],['季風氣候分熱帶、副熱帶、溫帶三型',1],['哈爾濱辦冰雪節，海南島卻能避寒',1],['作物收穫次數南方多、北方少',1]]},
+  ],
+  mcq:[
+    {q:'某生整理中國地形資料：「山地和高原約占總面積的 59％」。由此最能推論中國地形的哪一項特徵？',o:['山多平原少','平原面積最廣','地勢由東向西升高','以丘陵為主'],a:0,src:'五大地形比例',ex:'課本：山地和高原約占 59％，整體呈現山多平原少的特徵。地勢是西高東低，不是東高西低。'},
+    {q:'地理老師把中國地勢分成三級階梯，並說「這是依據某一項指標分類的」。這項指標最可能是？',o:['平均海拔高度','距海遠近','坡度大小','緯度高低'],a:0,src:'16 校考三級階梯',ex:'三級階梯依平均海拔高度與地形種類劃分：最高約 4,000 公尺、次高約 1,500 公尺、最低約 1,000 公尺以下。'},
+    {q:'小晴依序拜訪甲：四川盆地、乙：長江中下游平原、丙：青藏高原。三地所在的階梯由高到低排列，何者正確？',o:['丙＞甲＞乙','甲＞丙＞乙','丙＞乙＞甲','乙＞甲＞丙'],a:0,src:'階梯歸屬',ex:'青藏高原在最高階梯；四川盆地是「盆地」但位於次高階梯；長江中下游平原在最低階梯。'},
+    {q:'漢樂府〈長歌行〉說「百川東到海，何時復西歸」。若用地理知識解釋「百川東到海」，下列何者最恰當？',o:['中國地勢西高東低，河水由高處往低處流','中國位在北半球，地球自轉使河水東流','東部沿海降水多，把河水吸引過去','冬季季風由西北吹來，推動河水東流'],a:0,src:'課本配合題（古詩入題）',ex:'中國地勢西高東低、由西向東級級下降，河水由高往低流，所以主要河川多向東流；和季風、地球自轉無關。'},
+    {q:'下列哪一項「不是」中國地勢西高東低帶來的影響？',o:['冬季時南方溫暖、北方寒冷','夏季海洋暖溼氣流能深入內陸','河川上游多水力資源','河川下游利於東西向水運'],a:0,src:'陷阱',ex:'冬季南暖北冷是「緯度」造成的；其餘三項都是西高東低的影響。'},
+    {q:'某紀錄片介紹一處地形區：「黃土由風力搬運堆積，土質鬆散，經過長期侵蝕，地表千溝萬壑。」造成千溝萬壑的主要作用是？',o:['流水侵蝕','風力侵蝕','冰河侵蝕','板塊擠壓'],a:0,src:'5 校陷阱（強風吹蝕）',ex:'黃土是「風力堆積」而成，但地表破碎是「流水侵蝕」造成的；強風吹蝕是常見誘答。'},
+    {q:'李白〈蜀道難〉寫道「蜀道之難，難於上青天」。詩中描寫的地形區最可能具有下列哪一項特徵？',o:['周圍群山環繞，進出不易','面積最大的平原，是重要糧倉','地表多石灰岩，石林林立','位於最高階梯，有世界屋脊之稱'],a:0,src:'17 校考四川盆地',ex:'蜀＝四川盆地：群山環繞、進出不易，古代沿河修築棧道以便出入。'},
+    {q:'小安在雲南旅遊時看到大片石林，導遊說「這裡的岩石容易被水溶蝕」。這種地形與下列哪一個地形區的特色最相符？',o:['雲貴高原','黃土高原','內蒙古高原','東北平原'],a:0,src:'10 校考雲貴高原',ex:'雲貴高原多石灰岩地形，易受流水侵蝕，地表高低起伏不平。崎嶇不是板塊擠壓造成的。'},
+    {q:'新聞報導：「中國面積最大的盆地，內部大部分被沙漠占據，當地修築鐵路環繞盆地一圈。」報導中的地形區是？',o:['塔里木盆地','四川盆地','準噶爾盆地','長江中下游平原'],a:0,src:'13 校考塔里木盆地；6 校考和若鐵路',ex:'塔里木盆地是中國面積最大的盆地，大部分被塔克拉瑪干沙漠占據。'},
+    {q:'電影中，主角騎馬奔馳在平坦遼闊的草原上，夜晚氣溫驟降，他躲進蒙古包取暖。這個場景最可能位於哪一個地形區？',o:['內蒙古高原','東南丘陵','四川盆地','長江中下游平原'],a:0,src:'10 校考內蒙古高原',ex:'內蒙古高原為平坦遼闊的荒漠和草原，乾燥少雨，年、日溫差皆大。'},
+    {q:'下列關於中國各地形區的敘述，何者正確？',o:['東北平原是中國面積最大的平原，是重要糧倉','東南丘陵地勢平坦，是工商業精華區','長江中下游平原位於次高階梯','青藏高原位於次高階梯'],a:0,src:'16 校考地形區特色',ex:'東南丘陵地勢崎嶇（常開闢梯田）；長江中下游平原在最低階梯；青藏高原在最高階梯。'},
+    {q:'喜馬拉雅山的聖母峰是世界最高峰，而且至今仍在緩慢升高。它主要是哪兩個板塊互相擠壓形成？',o:['印澳板塊與歐亞板塊','太平洋板塊與歐亞板塊','菲律賓海板塊與歐亞板塊','非洲板塊與印澳板塊'],a:0,src:'',ex:'印澳板塊向北推擠歐亞板塊，隆起喜馬拉雅山與青藏高原。'},
+    {q:'下列哪一組行政區「都」屬於自治區？',o:['西藏、寧夏、廣西','西藏、四川、雲南','新疆、香港、澳門','內蒙古、重慶、天津'],a:0,src:'14 校考自治區',ex:'5 個自治區：內蒙古、新疆維吾爾、西藏、寧夏回族、廣西壯族。重慶、天津是直轄市；香港、澳門是特別行政區。'},
+    {q:'中國設立「特別行政區」的主要原因是什麼？',o:['曾受英、葡殖民，政治、經濟與生活型態差異大','少數民族聚居','人口超過一千萬的大都市','位於邊疆的國防重地'],a:0,src:'',ex:'課本註：特別行政區是曾受英國殖民的香港與受葡萄牙殖民的澳門，長久以來政治、經濟與生活型態等與其他地區差異大而設立。'},
+    {q:'一位旅客在某城市吃到葡式蛋塔、看到葡萄牙風格的建築。他最可能在哪裡？',o:['澳門','香港','上海','廣西'],a:0,src:'特別行政區情境（時事題）',ex:'澳門曾受葡萄牙殖民；香港曾受英國殖民。'},
+    {q:'中國的省級行政區包括：省 22 個、自治區 5 個、直轄市 4 個、特別行政區 2 個。下列敘述何者正確？',o:['自治區是少數民族聚居的地方','直轄市包括北京、上海、香港、澳門','特別行政區是面積最大的行政區','省的數量比自治區少'],a:0,src:'11 校考行政區數量',ex:'直轄市是北京、天津、上海、重慶；香港、澳門是特別行政區；省有 22 個，比自治區多。'},
+  ]
+},
+/* ---------- 1-2 中國的氣候有何特徵？ ---------- */
+b:{
+  no:'1-2', code:2, title:'中國的氣候有何特徵？', short:'氣溫・季風・三大氣候', color:'linear-gradient(135deg,#1d5a6b,#3f98a8)',
+  desc:'夏高溫・冬南暖北冷｜冬夏季風｜夏雨冬乾・東溼西乾｜秦嶺—淮河｜季風・乾燥・高地氣候',
+  quickAsk:'選出正確的答案', quickTitle:'氣候快問快答',
+  quick:[
+    ['中國大部分地區位於哪一個氣候帶','溫帶',['熱帶','寒帶','副極地'],0],
+    ['夏季中國各地普遍高溫，南北溫差','小',['大','和冬季一樣大','無法比較'],16],
+    ['冬季中國各地氣溫隨什麼增加而下降','緯度',['經度','距海距離','人口'],11],
+    ['冬季西部山地、高原比同緯度地區冷，原因是','地形（地勢高）',['緯度高','距海近','人口少'],11],
+    ['1 月月均溫 0℃ 等溫線大致和哪一條線重疊','秦嶺—淮河',['黑河—騰衝','長江','500 毫米等雨量線'],11],
+    ['750 毫米等雨量線大致和哪一條線重疊','秦嶺—淮河',['黑河—騰衝','黃河','萬里長城'],10],
+    ['乾燥氣候與季風氣候大致以多少毫米等雨量線為界','500 毫米',['750 毫米','1,000 毫米','250 毫米'],15],
+    ['北方居民在臥房設置、引灶火熱氣保暖的床舖','火炕',['窯洞','騎樓','蒙古包'],6],
+    ['冬季時太陽直射哪一個半球','南半球',['北半球','赤道','北回歸線'],0],
+    ['冬季時，蒙古一帶形成什麼氣壓區','高氣壓',['低氣壓','颱風','熱低壓'],7],
+    ['冬季季風由哪裡吹向哪裡','由陸地吹向海洋',['由海洋吹向陸地','由南吹向北','由東吹向西'],21],
+    ['冬季季風的性質','乾冷',['溼熱','溼冷','乾熱'],21],
+    ['夏季時，歐亞大陸增溫快速形成什麼氣壓區','低氣壓',['高氣壓','反氣旋','冷高壓'],7],
+    ['夏季季風來自哪兩個大洋','太平洋與印度洋',['北極海與太平洋','大西洋與印度洋','大西洋與太平洋'],0],
+    ['中國降水在時間上的特徵','夏雨冬乾',['冬雨夏乾','全年平均','春雨秋乾'],21],
+    ['中國年降水量在空間上的分布','由東南向西北遞減',['由西北向東南遞減','由北向南遞減','由西向東遞減'],12],
+    ['西部內陸年降水量少的主要原因','距海遙遠',['緯度高','地勢低','人口少'],14],
+    ['乾燥氣候的年降水量','不足 500 毫米',['超過 750 毫米','超過 1,000 毫米','剛好 750 毫米'],18],
+    ['乾燥氣候依年降水量多寡分成哪兩種','草原與沙漠',['熱帶與溫帶','高山與高原','季風與高地'],18],
+    ['季風氣候依什麼分成熱帶、副熱帶與溫帶','最冷月月均溫',['年降水量','最暖月月均溫','海拔高度'],12],
+    ['高地氣候的最暖月月均溫','低於 20℃',['低於 10℃','高於 20℃','低於 0℃'],13],
+    ['青藏高原空氣稀薄、水氣少，造成日照強烈和','日夜溫差大',['日夜溫差小','風勢微弱','終年多雨'],13],
+    ['青藏高原居民穿方便穿脫的袍子，是為了適應','日夜溫差大',['年降水量多','夏季高溫','強烈季風雨'],6],
+    ['高地氣候的氣候與植被隨什麼呈現垂直變化','高度',['緯度','經度','距海遠近'],13],
+    ['秦嶺—淮河以南主要的糧食作物','稻米',['小麥','玉米','青稞'],18],
+    ['北方冬季「集中供暖」的南界大致是哪一條河','淮河',['長江','黃河','珠江'],9],
+  ],
+  words:[
+    ['冬季季風','由陸地吹向海洋，乾冷'],['夏季季風','由海洋吹向陸地，富含水氣'],['秦嶺—淮河','1 月 0℃ 等溫線、750 毫米等雨量線'],
+    ['500 毫米等雨量線','季風氣候與乾燥氣候的分界'],['季風氣候','溫和溼潤，夏雨冬乾'],['乾燥氣候','年降水量不足 500 毫米'],
+    ['高地氣候','最暖月月均溫低於 20℃'],['火炕','北方引灶火熱氣保暖的床舖'],['袍子','適應高原日夜溫差大'],
+    ['東溼西乾','降水由東南向西北遞減'],['夏雨冬乾','受冬夏風向相反的季風影響'],['南暖北冷','冬季氣溫隨緯度增加而下降'],
+  ],
+  sorts:[
+    {title:'冬季季風還是夏季季風？',tip:'冬：陸地高壓→吹向海洋、乾冷；夏：陸地低壓→吹向陸地、多雨。（18 校考）',buckets:['冬季季風','夏季季風'],items:[
+      ['太陽直射南半球',0],['蒙古一帶形成高氣壓',0],['風由陸地吹向海洋',0],['華北吹西北風、東南沿海吹東北風',0],['帶來沙塵暴與霾害',0],['古代帆船順風南下東南亞',0],
+      ['太陽直射北半球',1],['歐亞大陸形成低氣壓',1],['風由海洋吹向陸地',1],['吹東南風、西南風，富含水氣',1],['長江流域進入梅雨季',1]]},
+    {title:'這個差異主要是緯度？還是地形？',tip:'南北比 → 緯度；同緯度東西比（上海 vs 拉薩）→ 地形。（6 校陷阱）',buckets:['緯度','地形（地勢高低）'],items:[
+      ['1 月時哈爾濱冰天雪地，海南島溫暖如春',0],['北方作物一年一穫，南方可一年兩穫以上',0],['季風區分為熱帶、副熱帶、溫帶',0],
+      ['同緯度的上海與拉薩，拉薩夏季比較涼爽',1,'拉薩在青藏高原，地勢高'],['西部山地、高原夏季相對涼爽',1],['青藏高原上終年積雪',1]]},
+    {title:'這是哪一種氣候類型？',tip:'看年降水量（500 毫米）分季風／乾燥；地勢高、最暖月 <20℃ 是高地。（18 校考）',buckets:['季風氣候','乾燥氣候','高地氣候'],items:[
+      ['溫和溼潤、夏雨冬乾，適合作物生長',0],['分布在中國東半部',0],['依最冷月月均溫分成三種類型',0],
+      ['深居內陸，年降水量不足 500 毫米',1],['分為草原與沙漠兩型',1],['塔克拉瑪干沙漠所在',1],['吐魯番靠高山融雪灌溉種葡萄',1],
+      ['最暖月月均溫低於 20℃',2],['空氣稀薄、日照強烈',2],['氣候與植被隨高度垂直變化',2],['居民穿方便穿脫的袍子',2]]},
+    {title:'秦嶺—淮河以北？還是以南？',tip:'以北：1 月均溫 <0℃、年雨量 <750 毫米、溫帶季風；以南：副熱帶季風、種稻。（18 校考）',buckets:['以北','以南'],items:[
+      ['1 月月均溫低於 0℃',0],['溫帶季風氣候',0],['以小麥為主要糧食作物',0],['冬季有集中供暖',0],['河流冬季可能結冰',0],
+      ['1 月月均溫高於 0℃',1],['副熱帶季風氣候',1],['以稻米為主要糧食作物',1],['年降水量超過 750 毫米',1]]},
+  ],
+  mcq:[
+    {q:'農曆新年時，哈爾濱的居民穿著厚重羽絨衣，廣州的居民卻只穿薄外套。造成這種差異的主要因素是什麼？',o:['緯度','經度','地形','距海遠近'],a:0,src:'11 校考氣溫影響因素',ex:'冬季各地氣溫隨緯度增加而下降，南、北氣溫差異大；哈爾濱緯度高、廣州緯度低。'},
+    {q:'上海和拉薩的緯度差不多，但拉薩的夏季比上海涼爽許多。主要原因是什麼？',o:['拉薩地勢較高','拉薩緯度較高','拉薩距海較近','拉薩吹冬季季風'],a:0,src:'6 校陷阱（緯度 vs 地勢）',ex:'同緯度比較要看地形：拉薩在青藏高原上，地勢高，所以氣溫較低。'},
+    {q:'關於中國冬、夏的氣溫特徵，下列敘述何者正確？',o:['夏季普遍高溫，南北溫差小','冬季南北溫差小','夏季北方比南方熱很多','冬季西部高原比同緯度地區溫暖'],a:0,src:'16 校考溫差',ex:'夏季太陽直射北半球，各地普遍高溫、南北溫差小；冬季南暖北冷、溫差大；西部高原冬季比同緯度地區冷。'},
+    {q:'冬季時，歐亞大陸的降溫比海洋快，蒙古一帶會形成哪一種氣壓，風又怎麼吹？',o:['高氣壓；由陸地吹向海洋','低氣壓；由海洋吹向陸地','高氣壓；由海洋吹向陸地','低氣壓；由陸地吹向海洋'],a:0,src:'18 校考季風成因',ex:'冬季大陸冷→高氣壓→風由陸吹向海，形成乾冷的冬季季風。'},
+    {q:'氣象圖上，蒙古一帶標示「L（低氣壓）」、太平洋標示「H（高氣壓）」，風由海洋吹向陸地。這張圖最可能是哪個季節？此時中國是雨季還是乾季？',o:['夏季；雨季','冬季；乾季','夏季；乾季','冬季；雨季'],a:0,src:'14 校考氣壓風向圖',ex:'大陸低壓、風由海吹陸＝夏季季風，帶來豐沛降水，是主要的雨季。'},
+    {q:'每年冬、春季節，北京常出現沙塵暴與嚴重霾害。這主要和哪一種風有關？',o:['乾冷的冬季季風','富含水氣的夏季季風','颱風','來自印度洋的西南季風'],a:0,src:'霾害',ex:'冬季季風從北方內陸吹來，乾冷少雨，容易挾帶沙塵；冬半年也是乾季。'},
+    {q:'下列關於中國降水的敘述，何者正確？',o:['降水集中在夏季，冬季乾燥','降水集中在冬季，夏季乾燥','年降水量由西北向東南遞增是因為緯度','全國降水平均分布'],a:0,src:'12 校考降水分布',ex:'受季風影響呈現「夏雨冬乾」；空間上由東南向西北遞減（東溼西乾），原因是季風、距海遠近與地形。'},
+    {q:'新疆、內蒙古西部年降水量很少，最主要的原因是什麼？',o:['深居內陸、距海遙遠','地處高緯','地勢很高','冬季季風太強'],a:0,src:'陷阱',ex:'西部內陸距海遙遠，海洋水氣難以到達，年降水量不足 500 毫米。'},
+    {q:'「秦嶺—淮河」是中國重要的地理分界線。下列哪一項「不是」這條線的意義？',o:['500 毫米等雨量線','1 月月均溫 0℃ 等溫線','750 毫米等雨量線','溫帶季風與副熱帶季風的分界'],a:0,src:'6 校陷阱（500 vs 750）',ex:'500 毫米等雨量線是季風氣候與乾燥氣候的分界；秦嶺—淮河是 750 毫米等雨量線。'},
+    {q:'成語「南橘北枳」說橘子種在淮河以南是橘、移到淮河以北就變成枳。這反映淮河南北哪一項差異？',o:['淮河以北 1 月月均溫低於 0℃','淮河以北年降水量超過 750 毫米','淮河以南是乾燥氣候','淮河以北是高地氣候'],a:0,src:'成語入題',ex:'淮河大致是 1 月 0℃ 等溫線，以北冬季較冷、雨量較少（<750 毫米），屬溫帶季風氣候。'},
+    {q:'北方冬季又冷又長，鄉村居民把廚房爐灶的排煙通道連到臥房，晚上睡在溫暖的床舖上。這種設施是？',o:['火炕','窯洞','騎樓','干欄式建築'],a:0,src:'氣候與生活',ex:'火炕：引灶火的熱氣保暖，是北方適應冬季嚴寒的方式。'},
+    {q:'關於中國三大氣候類型的劃分，下列何者正確？',o:['依季風影響程度、年降水量多寡、地勢高低劃分','只依緯度高低劃分','只依經度劃分','依人口多寡劃分'],a:0,src:'18 校考三大氣候',ex:'課本：依季風影響程度、年降水量多寡、地勢高低等差異，分屬季風、乾燥、高地三大氣候類型。'},
+    {q:'中國季風氣候區可分為熱帶、副熱帶與溫帶三種類型，主要是哪一項因素造成？',o:['國土南北跨距大（緯度）','東西跨距大（經度）','地勢西高東低','距海遠近不同'],a:0,src:'12 校考季風三型',ex:'季風區依最冷月月均溫劃分，受緯度影響；不是經度。'},
+    {q:'青藏高原經常晴朗無雲、日照強烈，且日夜溫差大。主要原因是？',o:['空氣稀薄、水氣量少','緯度高','距海近','受夏季季風影響大'],a:0,src:'13 校考高地氣候',ex:'地勢高聳→空氣稀薄、水氣少→晴朗、日照強、日夜溫差大；高原地表風勢強勁。'},
+    {q:'下列對高地氣候的描述，何者錯誤？',o:['地形摩擦力大，風勢微弱','最暖月月均溫低於 20℃','氣候與植被隨高度呈垂直變化','日夜溫差大'],a:0,src:'陷阱',ex:'課本：高原地表氣候嚴寒、終年積雪、風勢強勁。「風勢微弱」是錯的。'},
+    {q:'吐魯番年降水量極少，居民卻能種出甜美的葡萄。他們灌溉的水主要來自哪裡？',o:['高山冰雪融水','夏季季風帶來的豐沛降雨','颱風雨','海水淡化'],a:0,src:'綠洲',ex:'乾燥氣候區的綠洲農業依靠高山融雪；西部人口也集中在河谷與綠洲。'},
+    {q:'塔克拉瑪干沙漠形成的主要原因，下列何者正確？',o:['距海遙遠，水氣難以到達','受副熱帶高壓籠罩的熱帶沙漠','緯度高、太陽斜射','地勢高、空氣稀薄'],a:0,src:'陷阱',ex:'塔克拉瑪干位於塔里木盆地，屬溫帶沙漠，主因是深居內陸、距海遙遠。'},
+  ]
+},
+/* ---------- 2-1 中國的人口有哪些特徵？ ---------- */
+c:{
+  no:'2-1', code:3, title:'中國的人口有哪些特徵？', short:'人口組成・成長・分布', color:'linear-gradient(135deg,#6b4a1d,#c08a3a)',
+  desc:'漢族 90％＋少數民族｜1950 年代後快速成長｜環境負載力｜黑河—騰衝線東密西疏',
+  quickAsk:'選出正確的答案', quickTitle:'人口特徵快問快答',
+  quick:[
+    ['中國人數最多的民族，占總人口 90％ 以上','漢族',['壯族','滿族','回族'],0],
+    ['漢族以外、所占比例較低的民族稱為','少數民族',['原住民族','外來民族','新住民'],8],
+    ['少數民族中人口最多的是','壯族',['維吾爾族','藏族','蒙古族'],7],
+    ['主要分布在新疆、信仰伊斯蘭教的民族','維吾爾族',['藏族','壯族','滿族'],11],
+    ['主要分布在青藏高原的民族','藏族',['蒙古族','壯族','回族'],6],
+    ['曾建立清朝，但「沒有」設立自治區的民族','滿族',['回族','壯族','蒙古族'],4],
+    ['中國人口在哪一個年代以後迅速成長','1950 年代',['1700 年代','1980 年代','2020 年代'],9],
+    ['西元 1950 年中國人口約','5.5 億',['1.5 億','10 億','14 億'],9],
+    ['西元 1980 年中國人口已接近','10 億',['5.5 億','14 億','20 億'],9],
+    ['目前中國人口總數已超過','14 億',['10 億','20 億','5.5 億'],9],
+    ['歷代中國人口的增減，多與政治局勢、糧食供應和什麼有關','醫療衛生',['宗教信仰','國際移民','經度位置'],9],
+    ['某地區能提供生物所需資源、承受其廢棄物的能力','環境負載力',['人口密度','人口成長率','扶養比'],14],
+    ['環境負載力較高的地方，人口通常較','密集',['稀疏','老化','外移'],14],
+    ['中國人口分布疏密的分界線，從東北的黑河連到西南的','騰衝',['淮河','拉薩','廣州'],19],
+    ['黑河—騰衝線以東的土地面積約占全國','43％',['57％','94％','6％'],19],
+    ['黑河—騰衝線以東的人口約占全國','94％',['43％','57％','6％'],19],
+    ['黑河—騰衝線以西的人口約占全國','6％',['57％','43％','94％'],19],
+    ['黑河—騰衝線以西的居民多集中在哪裡','河谷與綠洲',['沙漠中央','高原頂部','冰川上'],19],
+    ['中國人口分布的特徵','東密西疏',['西密東疏','南疏北密','平均分布'],19],
+    ['以點的多寡表示某主題數量與分布的地圖','點子圖',['等值線圖','剖面圖','流線圖'],5],
+    ['黑河—騰衝線又稱為','胡煥庸線',['秦嶺—淮河線','500 毫米線','北回歸線'],14],
+    ['西元 1700 到 1794 年，中國人口增加一倍約需','90 年',['40 年','10 年','200 年'],0],
+    ['西元 1950 到 1990 年，中國人口增加近一倍約需','40 年',['90 年','10 年','100 年'],0],
+  ],
+  words:[
+    ['漢族','人數最多，超過 90％'],['少數民族','漢族以外、比例較低的民族'],['壯族','少數民族中人口最多'],['維吾爾族','聚居新疆'],
+    ['藏族','聚居青藏高原'],['環境負載力','能提供資源、承受廢棄物的能力'],['黑河—騰衝線','人口東密西疏的分界'],
+    ['線以東','土地 43％、人口 94％'],['線以西','土地 57％、人口 6％'],['點子圖','用點表示數量與分布'],
+    ['1950 年','人口約 5.5 億'],['1980 年','人口接近 10 億'],
+  ],
+  sorts:[
+    {title:'黑河—騰衝線以東？還是以西？',tip:'東：平坦、溫溼、交通便利；西：乾燥、多山地高原盆地。（19 校考）',buckets:['線以東','線以西'],items:[
+      ['土地 43％，人口 94％',0],['地形平坦，氣候溫暖溼潤',0],['交通便利，農、工商業發達',0],['就業機會多，吸引人口移入',0],['四川盆地、長江中下游平原',0],
+      ['土地 57％，人口 6％',1],['深入內陸，氣候乾燥少雨',1],['多山地、高原與盆地，維生不易',1],['居民集中在河谷與綠洲',1],['青藏高原、塔里木盆地',1]]},
+    {title:'環境負載力高？還是低？',tip:'負載力和自然環境、生產技術有關；負載力高 → 人口密集。（14 校考）',buckets:['負載力較高','負載力較低'],items:[
+      ['地形平坦、土壤肥沃的平原',0],['氣候溫暖溼潤、水源充足',0],['生產技術進步，糧食增產',0],
+      ['乾燥少雨的沙漠',1],['空氣稀薄、氣候嚴寒的高原',1],['地勢崎嶇、交通不便的山地',1]]},
+    {title:'人口成長的原因：對還是錯？',tip:'課本：政治局勢、糧食供應、醫療衛生。（9 校考）',buckets:['✅ 合理原因','❌ 不合理'],items:[
+      ['1950 年代後政局較穩定',0],['醫療衛生改善，死亡率下降',0],['糧食供應增加',0],
+      ['大量外國移民移入（社會增加）',1,'中國人口增加主要是自然增加'],['戰爭頻繁',1,'戰亂使人口減少'],['宗教信仰鼓勵遷入西部',1]]},
+  ],
+  mcq:[
+    {q:'中國人口數量的增減，歷代以來最主要與哪些原因有關？',o:['政治局勢、糧食供應、醫療衛生','宗教信仰、語言、服飾','經度位置、時區、季節','國際移民、觀光、留學'],a:0,src:'9 校考人口成長',ex:'課本：中國人口的增減多與政治局勢、糧食供應、醫療衛生等原因有關。'},
+    {q:'西元 1700～1794 年中國人口增加一倍需時 90 年；1950～1990 年增加近一倍只需 40 年。這代表近代中國人口成長有什麼特徵？',o:['人口成長愈來愈快','人口增加速度變慢','外移人口愈來愈多','死亡率愈來愈高'],a:0,src:'課本配合題改寫',ex:'倍增所需時間變短，表示成長速度加快。'},
+    {q:'1950 年中國人口約 5.5 億，1980 年已接近 10 億。下列何者最可能是這段期間人口快速成長的原因？',o:['政局穩定、醫療衛生改善','大量國際移民湧入','實施一胎化政策','戰爭頻繁'],a:0,src:'誘答：移民政策',ex:'中國人口成長主要靠自然增加；一胎化是 1979 年後減緩成長的政策。'},
+    {q:'中國現在的人口增加率已經很低，甚至負成長，但過去數十年每年「增加的人數」仍然很多。最主要的原因是？',o:['人口基數龐大','出生率持續上升','死亡率持續上升','大量移民移入'],a:0,src:'',ex:'人口總數多，即使增加率低，乘上去增加的數量仍然很多。'},
+    {q:'「某一地區能提供生物所需的資源及承受其廢棄物的能力」稱為什麼？',o:['環境負載力','人口密度','扶養比','自然增加率'],a:0,src:'14 校考環境負載力',ex:'環境負載力高低與自然環境、生產技術有關；負載力較高的地方，人口較密集。'},
+    {q:'下列哪一個地區的環境負載力最可能「最高」？',o:['地形平坦、氣候溫溼的長江中下游平原','空氣稀薄的青藏高原','乾燥的塔克拉瑪干沙漠','冬季酷寒的內蒙古荒漠'],a:0,src:'',ex:'平坦、溫溼、水源充足的地方能養活較多人口，負載力較高。'},
+    {q:'關於黑河—騰衝線兩側的比較，下列何者正確？',o:['線以東土地約 43％，卻住了約 94％ 的人口','線以東土地約 94％，人口約 43％','線以西人口密度比線以東高','線以西土地約 6％'],a:0,src:'19 校考黑河—騰衝線',ex:'線東：土地 43％、人口 94％；線西：土地 57％、人口 6％。'},
+    {q:'下列哪一項「不是」黑河—騰衝線以東人口眾多的原因？',o:['居民宗教信仰相同','地形平坦','氣候溫暖溼潤','交通便利、農工商業發達'],a:0,src:'排除宗教',ex:'課本列出：地形平坦、氣候溫暖溼潤、地理位置優越、交通便利、農工商業發達、就業機會吸引人口移入。宗教不是原因。'},
+    {q:'黑河—騰衝線以西人口稀少，居民多集中在哪裡？',o:['河谷與綠洲','沙漠中央','高原山頂','冰川附近的荒野'],a:0,src:'',ex:'線西氣候乾燥、多山地高原盆地，維生不易，人口集中在有水源的河谷與綠洲。'},
+    {q:'若在中國人口分布點子圖上套疊四個同樣大小的圓圈：甲在四川盆地、乙在塔里木盆地、丙在青藏高原、丁在內蒙古高原。哪一個圓圈內的點子最密集？',o:['甲','乙','丙','丁'],a:0,src:'課本配合題改寫（點子圖）',ex:'四川盆地盆底相對平坦、氣候溫暖溼潤、農工商業發達，人口眾多；其餘都在黑河—騰衝線以西。'},
+    {q:'「點子圖」最適合用來表示下列哪一種資料？',o:['人口的數量與分布情形','地形的海拔高度變化','各地的月均溫','河川的流向'],a:0,src:'5 校考點子圖',ex:'點子圖用點的多寡與疏密表示某一主題的數量與分布。'},
+    {q:'中國居民以漢族最多，其餘稱為少數民族。下列敘述何者正確？',o:['漢族超過總人口的 90％','少數民族占總人口的一半以上','少數民族中人口最多的是滿族','各民族的生活方式都相同'],a:0,src:'8 校考少數民族',ex:'漢族超過 90％；少數民族中人口最多的是壯族；不同民族因集居環境不同，發展出各具特色的生活與文化。'},
+    {q:'小美在一座城市看到頭戴白帽的居民在清真寺附近的市集買賣羊隻，街上招牌有阿拉伯字母書寫的文字。她最可能在哪一個自治區？',o:['新疆維吾爾自治區','西藏自治區','廣西壯族自治區','內蒙古自治區'],a:0,src:'11 校考維吾爾族／新疆',ex:'維吾爾族多信仰伊斯蘭教，聚居新疆；藏族多信藏傳佛教。'},
+    {q:'可可西里保護區的藏羚羊棲息在高寒的高原上，當地主要居住的少數民族是？',o:['藏族','壯族','回族','滿族'],a:0,src:'動漫／時事情境',ex:'可可西里位於青藏高原，藏族是當地主要民族。'},
+    {q:'下列哪一項「不是」黑河—騰衝線的意義？',o:['1 月 0℃ 等溫線、750 毫米等雨量線','中國人口疏密的分界','線以東人口密、線以西人口稀','又稱為胡煥庸線'],a:0,src:'兩條分界線混淆（多校陷阱）',ex:'1 月 0℃、750 毫米是「秦嶺—淮河」的意義；黑河—騰衝線（胡煥庸線）是人口東密西疏的分界。'},
+    {q:'某新聞：「中國西北部人口稀少，但近年在綠洲城市興建鐵路、發展觀光。」下列推論何者最合理？',o:['綠洲有水源，環境負載力相對較高','綠洲位於黑河—騰衝線以東','沙漠地區人口密度最高','西北部沒有任何居民'],a:0,src:'環境負載力情境',ex:'乾燥區中有水的綠洲才能養活較多人口，所以人口與城市集中在綠洲。'},
+  ]
+},
+/* ---------- 2-2 中國如何解決人口問題？ ---------- */
+d:{
+  no:'2-2', code:4, title:'中國如何解決人口問題？', short:'一胎化與人口問題', color:'linear-gradient(135deg,#7a2f3f,#c4566a)',
+  desc:'計畫生育・一胎化（1979）｜人口老化・高齡社會（2023）｜性別比失衡｜開放二胎、三胎',
+  quickAsk:'選出正確的答案', quickTitle:'人口問題快問快答',
+  quick:[
+    ['中國自哪個年代起提出計畫生育政策','1970 年代',['1950 年代','1990 年代','2010 年代'],13],
+    ['一對夫妻只能生一個孩子的政策','一胎化政策',['二胎政策','三胎政策','移民政策'],16],
+    ['一胎化政策大約在哪一年提出','1979 年',['1949 年','2016 年','2021 年'],13],
+    ['嚴格執行一胎化後，中國的什麼大幅降低','出生率',['死亡率','性別比','老年人口比例'],11],
+    ['快速增加的人口雖有利經濟發展，卻造成糧食、社會與什麼的壓力','環境',['宗教','語言','時區'],0],
+    ['一胎化使幼年人口比例下降，老年人口比例','持續增加',['持續減少','保持不變','先升後降'],15],
+    ['聯合國標準：65 歲以上人口超過 14％ 稱為','高齡社會',['高齡化社會','超高齡社會','少子化社會'],15],
+    ['65 歲以上人口超過 7％ 稱為','高齡化社會',['高齡社會','超高齡社會','人口紅利'],15],
+    ['中國在西元哪一年邁入高齡社會','2023 年',['2000 年','1979 年','2016 年'],15],
+    ['每 100 位女性所對應的男性人數','性別比',['扶養比','出生率','自然增加率'],13],
+    ['性別比大於 100 表示','男多於女',['女多於男','男女相等','人口老化'],13],
+    ['中國新生兒性別比嚴重失衡，是從哪個年代以後','1990 年代',['1950 年代','1970 年代','2020 年代'],6],
+    ['造成新生兒性別失衡的傳統觀念','重男輕女',['重女輕男','多子多孫','晚婚晚育'],16],
+    ['出生率減去死亡率','自然增加率',['社會增加率','扶養比','性別比'],11],
+    ['移入率減去移出率','社會增加率',['自然增加率','出生率','死亡率'],4],
+    ['出生率低於死亡率時，人口會','負成長',['快速成長','不變','老化減緩'],11],
+    ['中國全面開放生育第二胎是在哪一年','2016 年',['1979 年','2021 年','2000 年'],9],
+    ['中國開放生育第三胎是在哪一年','2021 年',['2016 年','1979 年','2023 年'],9],
+    ['依賴人口（幼年＋老年）與工作年齡人口的比值','扶養比',['性別比','出生率','人口密度'],7],
+    ['人口老化、工作人口減少，扶養比會','上升',['下降','不變','歸零'],7],
+    ['男多女少造成許多男性找不到結婚對象，俗稱','光棍（剩男）',['銀髮族','頂客族','月光族'],13],
+    ['開放二胎、三胎後，短時間內的成效','尚不顯著',['立刻翻倍','出生率暴增','人口快速年輕化'],6],
+    ['以人口年齡、性別結構畫成的圖','人口金字塔',['點子圖','氣候圖','等雨量線圖'],9],
+  ],
+  words:[
+    ['計畫生育','1970 年代起控制人口成長'],['一胎化政策','1979 年提出，一對夫妻一胎'],['高齡化社會','65 歲以上人口超過 7％'],
+    ['高齡社會','65 歲以上人口超過 14％'],['性別比','每 100 位女性對應的男性人數'],['自然增加率','出生率－死亡率'],
+    ['社會增加率','移入率－移出率'],['扶養比','依賴人口÷工作年齡人口'],['開放二胎','2016 年'],['開放三胎','2021 年'],
+    ['重男輕女','新生兒性別失衡的傳統觀念'],['人口金字塔','呈現年齡與性別結構'],
+  ],
+  sorts:[
+    {title:'一胎化的衍生問題？還是因應對策？',tip:'問題：老化、性別失衡、扶養比上升；對策：開放二三胎、老年福利、婚戀服務。（16 校考）',buckets:['衍生的問題','政府的對策'],items:[
+      ['老年人口比例持續增加',0],['新生兒男多於女',0],['許多男性找不到結婚對象',0],['工作年齡人口負擔加重',0],['出現人口總數減少',0],
+      ['2016 年全面開放第二胎',1],['2021 年開放第三胎',1],['推動老年福利、長期照顧',1],['舉辦婚戀聯誼、公益服務',1],['加強宣導性別平等',1]]},
+    {title:'一胎化會造成這個結果嗎？',tip:'一胎化影響「年齡」與「性別」結構，不會改變人口「分布」。（段考陷阱）',buckets:['✅ 會','❌ 不會'],items:[
+      ['出生率大幅下降',0],['人口快速老化',0],['性別結構失衡',0],['扶養比上升',0],
+      ['人口集中到沿海地區',1,'人口分布是環境負載力造成的'],['女性人口多於男性',1,'性別比大於 100，男多於女'],['死亡率大幅上升',1]]},
+    {title:'這是哪一個年代？',tip:'1950 年代人口快速成長→1970 年代計畫生育→1990 年代性別失衡→2016 二胎→2021 三胎→2023 高齡社會。',buckets:['1970 年代','1990 年代','2010 年代','2020 年代'],items:[
+      ['開始推動計畫生育',0],['提出一胎化政策（1979）',0],['新生兒性別比明顯失衡',1],['全面開放生育第二胎（2016）',2],['開放生育第三胎（2021）',3],['邁入高齡社會（2023）',3],['出生率創新低、人口負成長',3]]},
+  ],
+  mcq:[
+    {q:'中國自 1970 年代起推動計畫生育政策，主要目的是什麼？',o:['減緩人口增加的速度與數量','增加勞動人口','鼓勵人口向西部遷移','提高新生兒性別比'],a:0,src:'13 校考一胎化',ex:'快速增加的人口造成糧食、社會與環境壓力，所以推動計畫生育以減緩人口增加。'},
+    {q:'嚴格執行一胎化政策後，中國的人口最直接出現哪一種變化？',o:['出生率大幅降低','死亡率大幅升高','人口集中到沿海','社會增加率上升'],a:0,src:'11 校考出生率',ex:'課本：嚴格執行一胎化政策，使出生率大幅降低，近年甚至出現人口負成長。'},
+    {q:'下列哪一項「不是」一胎化政策衍生的人口問題？',o:['人口分布集中在沿海','人口快速老化','新生兒性別結構失衡','扶養比上升'],a:0,src:'陷阱',ex:'人口東密西疏是環境負載力造成的，和一胎化無關。'},
+    {q:'某國 65 歲以上人口占總人口的 15％。依聯合國標準，該國屬於哪一個階段？',o:['高齡社會','高齡化社會','超高齡社會','年輕型社會'],a:0,src:'15 校考高齡社會',ex:'超過 7％＝高齡化社會；超過 14％＝高齡社會。中國在 2023 年已超過 14％。'},
+    {q:'中國在西元 2023 年邁入高齡社會，近年更出現人口總數減少。課本認為這「未來可能」帶來什麼影響？',o:['衝擊經濟的發展','使糧食嚴重過剩','讓性別比回到 100','增加環境負載力'],a:0,src:'課本 2-2',ex:'人口快速老化、總數減少，工作年齡人口變少，未來可能衝擊經濟發展。'},
+    {q:'2022 年某國人口統計：出生率 6.8‰、死亡率 7.4‰、性別比 104.9。根據資料推論何者正確？',o:['人口呈現自然減少，且男性多於女性','人口快速增加，且女多於男','自然增加率為正值','性別比低於 100'],a:0,src:'統計表判讀',ex:'出生率＜死亡率→自然增加率為負；性別比 104.9＞100，表示男多於女。'},
+    {q:'1990 年代以後，中國新生兒「男多於女」的失衡程度遠高於世界其他國家。造成這種現象的主要原因是？',o:['生育率下降加上重男輕女的觀念','女性大量移出國外','男性壽命比女性長','開放三胎政策'],a:0,src:'16 校考性別比失衡',ex:'課本：隨著生育率下降與重男輕女的傳統觀念影響，新生兒性別男多於女。'},
+    {q:'中國某些地方舉辦大型聯誼活動、提供婚戀公益服務。這項做法主要想因應哪一個人口問題？',o:['性別結構失衡，許多男性難以成家','人口快速增加','人口過度集中東部','少數民族人數太多'],a:0,src:'光棍',ex:'性別比失衡造成「剩男」、光棍問題，婚戀服務是因應對策之一。'},
+    {q:'上海的公園裡，許多父母撐著傘、拿著寫有子女條件的紙張，替孩子尋找結婚對象。這個「相親市場」反映的現象，與下列哪一項政策的長期影響最相關？',o:['一胎化政策','開放三胎政策','南水北調','和若鐵路'],a:0,src:'性別比與婚姻問題（情境）',ex:'一胎化加上重男輕女，造成性別比失衡、結婚困難；也讓獨生子女的父母格外關心婚事。'},
+    {q:'面對人口問題，中國陸續調整生育政策。下列時間與政策的配對何者正確？',o:['2016 年全面開放二胎','1979 年開放三胎','2021 年提出一胎化','1950 年推動計畫生育'],a:0,src:'9 校考二胎三胎',ex:'1970 年代計畫生育、1979 一胎化、2016 全面開放二胎、2021 開放三胎。'},
+    {q:'開放生育第二胎、第三胎之後，中國的出生率並沒有明顯回升。下列解釋何者最合理？',o:['養育成本高、觀念改變，短時間內成效尚不顯著','開放後人口立刻翻倍','死亡率突然下降','政策只適用少數民族'],a:0,src:'課本：成效尚不顯著',ex:'課本：陸續開放二、三胎，但短時間內成效尚不顯著。'},
+    {q:'人口快速老化後，下列哪一種新興行業最可能增加？',o:['陪伴長者就醫的陪診師','嬰兒用品專賣店','大學新生補習班','婚紗攝影'],a:0,src:'陪診師時事',ex:'老年人口增加，帶動照護、陪診等銀髮產業。'},
+    {q:'某中國家庭從「四代同堂、兄弟姊妹五人」，變成現在「一對夫妻只照顧一個孩子與四位長輩」。這反映出哪一項變化？',o:['扶養比上升，青壯年負擔加重','扶養比下降','性別比低於 100','人口快速增加'],a:0,src:'四代同堂題',ex:'獨生子女要奉養較多長輩，依賴人口相對增加，扶養負擔加重。'},
+    {q:'比較中國 1982 年與 2023 年的人口年齡結構，下列何者最可能正確？',o:['幼年人口比例下降，老年人口比例上升','幼年人口比例上升，老年人口比例下降','三個年齡層比例都不變','老年人口比例下降到 5％ 以下'],a:0,src:'13 校考人口金字塔',ex:'一胎化使幼年人口比例下降、老年人口比例持續增加，人口金字塔底部變窄、頂部變寬。'},
+    {q:'下列哪一項最能說明「自然增加率」的意義？',o:['出生率減去死亡率','移入率減去移出率','男性人數除以女性人數','老年人口除以總人口'],a:0,src:'11 校考自然增加率',ex:'自然增加率＝出生率－死亡率；社會增加率＝移入率－移出率。中國人口變化主要受自然增加影響。'},
+    {q:'為了因應人口老化，下列哪一項做法最適當？',o:['推動老年福利、興建老年公寓與長照設施','恢復一胎化政策','限制民眾就醫','鼓勵年輕人移民國外'],a:0,src:'對策',ex:'人口老化的對策包括老年福利、長期照顧等；恢復一胎化會讓老化更嚴重。'},
+  ]
+},
+/* ---------- 2-3 近代中國的人口為何向外遷移？ ---------- */
+e:{
+  no:'2-3', code:5, title:'近代中國的人口為何向外遷移？', short:'向外遷移與文化擴散', color:'linear-gradient(135deg,#1f3f6b,#4a78b0)',
+  desc:'東南丘陵山多田少→推力｜遷往東南亞、臺灣｜十九世紀華工赴美澳｜唐人街、媽祖・文化擴散',
+  quickAsk:'選出正確的答案', quickTitle:'人口遷移快問快答',
+  quick:[
+    ['中國東南沿海人口外移的地形背景','丘陵廣布，山多田少',['平原遼闊，土壤肥沃','沙漠廣布，乾燥少雨','高原遼闊，空氣稀薄'],13],
+    ['東南沿海人口增加、糧食不足，對居民形成','外移的推力',['移入的拉力','移入的推力','留下的拉力'],14],
+    ['早先中國東南沿海移民人數最多的地區','東南亞與臺灣',['日本與韓國','歐洲與非洲','南亞與中亞'],14],
+    ['十九世紀以後，數以百萬計的華工前往哪些地方','美國、澳洲',['日本、韓國','印度、伊朗','俄羅斯、蒙古'],5],
+    ['十九世紀華工到美國、澳洲主要從事','採礦、築路',['種植稻米','捕鯨','經營電子業'],5],
+    ['移民在海外重建原鄉的生活方式，使文化傳播到各地','文化擴散',['文化衝突','人口老化','環境負載'],8],
+    ['古代帆船從福建、廣東順風南下東南亞，利用的是','冬季東北季風',['夏季東南季風','夏季西南季風','颱風'],4],
+    ['新加坡著名的華人聚居區','牛車水',['小印度','甘榜格南','聖淘沙'],8],
+    ['海外華人聚居、具有中式牌樓與商店的街區','唐人街（中國城）',['小東京','小義大利','舊城區'],7],
+    ['新北市泰山的「泰山巖」，廟名沿用自哪裡的原鄉','福建安溪',['廣東梅縣','四川成都','北京'],8],
+    ['隨福建移民傳到臺灣與東南亞的海上守護神信仰','媽祖',['關公','土地公','觀音'],2],
+    ['東南沿海移民的原鄉主要在哪兩個省','福建、廣東',['四川、雲南','山東、河北','新疆、西藏'],14],
+    ['福建山區的圓形大型集合住宅','土樓',['窯洞','蒙古包','四合院'],0],
+    ['移民把原鄉的飲食、衣著、住宅和什麼帶到新居地','習俗',['氣候','地形','經緯度'],8],
+    ['推力是指原居地使人想離開的因素，拉力是指','新居地吸引人前往的因素',['原居地吸引人留下的因素','新居地讓人想離開的因素','政府禁止遷移的命令'],0],
+    ['十七到十九世紀，閩、粵居民移居東南亞，俗稱','下南洋',['闖關東','走西口','上山下鄉'],0],
+    ['「東南亞華人社會中常聽到閩南語、客家話」屬於','文化擴散',['人口老化','性別失衡','環境負載'],8],
+    ['下列何者「不是」華人移民帶來的文化擴散','印尼的清真寺',['新加坡牛車水','舊金山唐人街','馬來西亞媽祖廟'],4],
+    ['人口太多、難以謀生時，居民常以什麼方式紓解壓力','移居他地',['提高出生率','開放三胎','修建運河'],0],
+    ['東南沿海外移的推力「不是」下列哪一項','氣候乾燥少雨',['山多田少','人口增加','糧食不足'],6],
+    ['臺灣漢人的祖先，大多來自中國哪一個地區','東南沿海',['西北內陸','青藏高原','東北平原'],14],
+  ],
+  words:[
+    ['推力','原居地使人離開的因素'],['拉力','新居地吸引人前往的因素'],['山多田少','東南丘陵外移的推力'],
+    ['東南亞、臺灣','早先移民人數最多'],['美國、澳洲','十九世紀華工採礦、築路'],['文化擴散','移民把原鄉文化帶到各地'],
+    ['牛車水','新加坡的華人街區'],['唐人街','海外華人聚居區'],['泰山巖','沿用福建安溪原鄉廟名'],
+    ['媽祖','隨移民傳播的海上守護神'],['冬季東北季風','帆船順風南下'],['土樓','福建原鄉的圓形集合住宅'],
+  ],
+  sorts:[
+    {title:'是華人移民帶來的文化擴散嗎？',tip:'要是「華人原鄉」的飲食、衣著、住宅、習俗，在海外重建。（4 校陷阱）',buckets:['✅ 是','❌ 不是'],items:[
+      ['新加坡牛車水的中式店屋',0],['舊金山唐人街的中式牌樓',0],['馬來西亞的媽祖廟',0],['新北泰山巖沿用福建原鄉廟名',0],['東南亞華人過農曆新年',0],['海外華人社區說閩南語、客家話',0],
+      ['印尼的清真寺',1,'伊斯蘭文化，不是華人移民帶去的'],['越南的法式麵包',1,'來自法國殖民'],['菲律賓的天主教堂',1,'來自西班牙殖民'],['全球各地的麥當勞',1,'美國企業的擴張']]},
+    {title:'推力還是拉力？',tip:'推力：原居地讓人離開；拉力：新居地吸引人。（14 校考）',buckets:['推力（原鄉）','拉力（新居地）'],items:[
+      ['東南丘陵山多田少',0],['人口增加、糧食不足',0],['原鄉難以謀生',0],
+      ['東南亞有開墾與經商機會',1],['美國、澳洲需要大量礦工與鐵路工人',1],['臺灣有可開墾的平原',1]]},
+  ],
+  mcq:[
+    {q:'近代中國東南沿海地區有大量人口向外遷移。課本認為最主要的推力是什麼？',o:['丘陵廣布、山多田少，人口增加造成糧食不足','氣候乾燥少雨，無法耕種','地勢低窪，常發生水患','政府強制遷移'],a:0,src:'6 校陷阱（乾燥、低窪）',ex:'東南沿海丘陵廣布、山多田少，隨人口逐漸增加形成巨大的外移推力。'},
+    {q:'中國東南沿海早先的移民，遷往哪些地區的人數最多？',o:['東南亞與臺灣','日本與南亞','歐洲與非洲','中亞與西亞'],a:0,src:'陷阱：日本、南亞',ex:'課本：早先移民以遷往鄰近的東南亞與臺灣人數最多。'},
+    {q:'十九世紀以後，數以百萬計的華工前往美國、澳洲。他們主要從事哪些工作？',o:['採礦、築路','種植稻米與茶葉','擔任官員','經營科技公司'],a:0,src:'5 校考華工',ex:'課本：十九世紀以後，華工前往美國、澳洲等地，以採礦、築路等工作維生。'},
+    {q:'清代從福建、廣東搭帆船前往東南亞的移民，最適合在哪一個時節出發？',o:['冬季，順著東北季風南下','夏季，順著東南季風南下','夏季，順著西南季風南下','颱風季，順著強風南下'],a:0,src:'陷阱：夏季',ex:'冬季吹東北季風，帆船可以順風往西南方的東南亞航行；夏季吹西南、東南風，適合回航。'},
+    {q:'移民把原鄉的飲食、衣著、住宅、習俗帶到新居地，使華人文化傳到世界許多角落。這種現象稱為？',o:['文化擴散','文化衝突','人口老化','環境負載'],a:0,src:'8 校考文化擴散',ex:'移民在海外重建或複製原鄉的生活方式，形成文化擴散。'},
+    {q:'下列哪一個例子「不是」華人移民造成的文化擴散？',o:['印尼的清真寺','新加坡的牛車水','舊金山的唐人街','馬來西亞的媽祖廟'],a:0,src:'陷阱',ex:'清真寺屬伊斯蘭文化；其餘都是華人移民把原鄉文化帶到海外。'},
+    {q:'新北市泰山區的「泰山巖」，廟名沿用自福建安溪的原鄉廟宇。這個例子最能說明什麼？',o:['移民把原鄉文化帶到新居地','臺灣的地名都來自日本','宗教信仰造成人口東密西疏','臺灣的寺廟都由政府興建'],a:0,src:'新北泰山巖（課本例）',ex:'移民在新居地沿用原鄉廟名、信仰，是文化擴散的例子。'},
+    {q:'臺灣、新加坡、馬來西亞的華人社會常聽到閩南語、客家話，並保有拜媽祖的習俗。最主要的原因是？',o:['早期移民多來自福建、廣東等東南沿海','當地政府規定必須使用','這些語言源自東南亞','媽祖信仰起源於新加坡'],a:0,src:'14 校考東南沿海移民',ex:'東南沿海（閩、粵）移民把語言、信仰帶到臺灣與東南亞。'},
+    {q:'在中國歷史上，當一個地區人口太多、居民難以謀生時，常見的解決方式是什麼？',o:['移居他地，以緩解人口壓力','提高出生率','開放第三胎','興建大型水庫'],a:0,src:'課本 2-3',ex:'課本：難以謀生的居民常被迫移居他地，以緩解人口成長的壓力。'},
+    {q:'阿明的高祖父在十九世紀中葉從廣東到美國舊金山工作，後來定居唐人街。他最可能從事什麼工作？',o:['修築鐵路','種植稻米','擔任外交官','經營電子工廠'],a:0,src:'華工赴美情境',ex:'十九世紀華工赴美、澳主要從事採礦、築路；美國橫貫鐵路曾雇用大量華工。'},
+    {q:'下列關於「推力」與「拉力」的配對，何者正確？',o:['推力：原鄉山多田少；拉力：新居地有工作機會','推力：新居地有工作機會；拉力：原鄉糧食不足','推力與拉力都是指原鄉的條件','推力是指移民搭船的風力'],a:0,src:'推拉理論',ex:'推力是原居地讓人離開的因素；拉力是新居地吸引人前往的因素。'},
+    {q:'某生畫出「東南沿海人口外移」的因果圖：甲 丘陵廣布、山多田少 → 乙 ？ → 丙 遷往東南亞與臺灣 → 丁 華人文化擴散。乙最適合填入？',o:['人口增加，糧食不足','氣候乾燥，缺水','地勢低窪，水患頻繁','實施一胎化政策'],a:0,src:'因果排序',ex:'山多田少，隨人口增加造成糧食不足，形成外移推力。'},
+    {q:'東南沿海是臺灣漢人祖先的主要原鄉。這一帶最常見的地形是什麼？',o:['丘陵','高原','盆地','沙漠'],a:0,src:'13 校考東南丘陵',ex:'東南丘陵地勢崎嶇、山多田少，為養活人口常開闢梯田。'},
+    {q:'關於近代中國人口向外遷移的敘述，下列何者正確？',o:['移民在海外重建原鄉的生活方式','移民只帶走勞力，沒有帶走文化','十九世紀華工主要前往日本','移民大多來自西北乾燥地區'],a:0,src:'綜合 2-3',ex:'移民把飲食、衣著、住宅、習俗帶到新居地；華工前往美國、澳洲；移民多來自東南沿海。'},
+    {q:'下列哪一張旅遊照片最能作為「華人文化擴散」的證據？',o:['舊金山街頭的中式牌樓「龍門」','巴黎的艾菲爾鐵塔','印度的泰姬瑪哈陵','杜拜的帆船飯店'],a:0,src:'唐人街情境',ex:'舊金山唐人街的中式牌樓，是華人移民在海外重建原鄉文化的例子。'},
+  ]
+},
+};
+
+/* ================= 綜合：排序與時間軸（code 7） ================= */
+const SEQ=[
+  {title:'中國人口政策時間軸',tip:'1950 年代快速成長 → 1970 年代計畫生育 → 1979 一胎化 → 2016 二胎 → 2021 三胎。',buckets:['第1','第2','第3','第4','第5'],items:[
+    ['1950 年代後人口迅速成長（1950 年約 5.5 億）',0],['1970 年代起推動計畫生育',1],['1979 年提出一胎化政策',2],['2016 年全面開放生育第二胎',3],['2021 年開放生育第三胎',4]]},
+  {title:'中國人口總數：由少到多',tip:'1700 年約 1.5 億 → 1950 年 5.5 億 → 1980 年近 10 億 → 今日超過 14 億。',buckets:['第1（最少）','第2','第3','第4（最多）'],items:[
+    ['西元 1700 年',0],['西元 1950 年',1],['西元 1980 年',2],['今日',3]]},
+  {title:'冬季季風怎麼形成？',tip:'太陽直射南半球 → 大陸降溫快 → 蒙古高氣壓 → 風由陸吹向海 → 乾冷乾季。',buckets:['第1','第2','第3','第4','第5'],items:[
+    ['太陽直射南半球',0],['歐亞大陸降溫比海洋快',1],['蒙古一帶形成高氣壓區',2],['盛行風由陸地吹向海洋',3],['中國各地乾燥少雨，進入乾季',4]]},
+  {title:'東南沿海人口外移的因果鏈',tip:'山多田少 → 人口增加、糧食不足 → 推力 → 移居臺灣、東南亞 → 文化擴散。',buckets:['第1','第2','第3','第4'],items:[
+    ['東南丘陵廣布，山多田少',0],['人口逐漸增加，糧食不足',1],['居民搭船移居臺灣與東南亞',2],['在新居地重建原鄉生活，華人文化擴散',3]]},
+  {title:'從青藏高原到東海：地勢由高到低',tip:'最高階梯 → 次高階梯 → 最低階梯 → 海洋；河川也順著這個方向流。',buckets:['第1（最高）','第2','第3','第4（最低）'],items:[
+    ['青藏高原（約 4,000 公尺）',0],['四川盆地、雲貴高原（次高階梯）',1],['長江中下游平原（最低階梯）',2],['東海',3]]},
+  {title:'人口老化的三個門檻',tip:'65 歲以上人口：7％ 高齡化社會 → 14％ 高齡社會 → 20％ 超高齡社會。',buckets:['第1','第2','第3'],items:[
+    ['高齡化社會（超過 7％，中國約在 2000 年）',0],['高齡社會（超過 14％，中國在 2023 年）',1],['超高齡社會（超過 20％）',2]]},
+];
+
+/* ================= 綜合：圖表判讀（code 7）。文字放在 HTML，不畫在圖上 ================= */
+const CHART=[
+  {title:'① 冬夏氣壓與風向',src:'14 校考氣壓風向圖',
+   fig:'<table class="tbl"><tr><th>圖</th><th>蒙古一帶</th><th>太平洋</th><th>箭頭（風向）</th></tr><tr><td>甲圖</td><td>H（高氣壓）</td><td>L（低氣壓）</td><td>由陸地指向海洋</td></tr><tr><td>乙圖</td><td>L（低氣壓）</td><td>H（高氣壓）</td><td>由海洋指向陸地</td></tr></table><p class="muted">風由高氣壓吹向低氣壓。</p>',
+   qs:[
+    {q:'甲圖代表哪一個季節？此時中國多為什麼天氣？',o:['冬季；乾冷少雨','夏季；高溫多雨','冬季；溼熱多雨','夏季；乾冷少雨'],ex:'陸地高壓、風由陸吹海＝冬季季風，乾冷，是乾季。'},
+    {q:'長江流域出現連日梅雨、暴雨時，最可能對應哪一張圖？',o:['乙圖','甲圖','兩張都有可能','兩張都不可能'],ex:'夏季季風從海洋帶來水氣（乙圖），梅雨、夏季暴雨都發生在夏半年。'},
+    {q:'清代移民要搭帆船從福建順風前往東南亞，應選擇哪一張圖的季節出發？',o:['甲圖（冬季，東北季風）','乙圖（夏季，東南季風）','乙圖（夏季，西南季風）','任何季節都一樣'],ex:'冬季東南沿海吹東北季風，帆船可順風往西南方的東南亞航行。'}]},
+  {title:'② 四個城市的氣候資料',src:'18 校考氣候圖判讀',
+   fig:'<table class="tbl"><tr><th>城市</th><th>1 月均溫</th><th>7 月均溫</th><th>年降水量</th></tr><tr><td>甲</td><td>－18℃</td><td>23℃</td><td>約 530 毫米</td></tr><tr><td>乙</td><td>14℃</td><td>29℃</td><td>約 1,800 毫米</td></tr><tr><td>丙</td><td>－1℃</td><td>16℃</td><td>約 430 毫米</td></tr><tr><td>丁</td><td>－5℃</td><td>26℃</td><td>約 40 毫米</td></tr></table><p class="muted">提示：先看最暖月是否低於 20℃，再看年降水量是否低於 500 毫米，最後看最冷月均溫。</p>',
+   qs:[
+    {q:'哪一個城市屬於高地氣候？',o:['丙','丁','甲','乙'],ex:'丙最暖月（7 月）只有 16℃，低於 20℃，是高地氣候（如拉薩）。雖然丙年雨量也低於 500 毫米，但要先看地勢造成的低溫。'},
+    {q:'哪一個城市屬於乾燥氣候？',o:['丁','丙','甲','乙'],ex:'丁年降水量只有約 40 毫米，且最暖月 26℃，屬乾燥氣候（如新疆和闐）。'},
+    {q:'年溫差最大的是哪一個城市？主要原因是什麼？',o:['甲；緯度較高','丁；距海遙遠','丙；地勢高','乙；緯度低'],ex:'甲：23－（－18）＝41℃，最大；甲是東北的高緯城市（如哈爾濱）。'},
+    {q:'乙城市最可能屬於哪一種氣候？',o:['季風氣候（較低緯）','乾燥氣候','高地氣候','溫帶沙漠'],ex:'乙 1 月仍有 14℃、年降水量多，是南方低緯的季風氣候（如廣州）。'}]},
+  {title:'③ 中國人口統計表',src:'13 校考人口統計圖表',
+   fig:'<table class="tbl"><tr><th>年</th><th>人口總數</th><th>出生率</th><th>死亡率</th><th>自然增加率</th></tr><tr><td>1970</td><td>8.3 億</td><td>33.6‰</td><td>7.6‰</td><td>26.0‰</td></tr><tr><td>2000</td><td>12.7 億</td><td>14.0‰</td><td>6.5‰</td><td>7.5‰</td></tr><tr><td>2020</td><td>14.1 億</td><td>8.5‰</td><td>7.0‰</td><td>1.5‰</td></tr><tr><td>2023</td><td>14.1 億</td><td>6.4‰</td><td>7.9‰</td><td>－1.5‰</td></tr></table><p class="muted">‰＝千分比。數字依康軒課本第2課配合題的人口統計表；自然增加率＝出生率－死亡率。</p>',
+   qs:[
+    {q:'1970 到 2020 年自然增加率大幅下降，主要是哪一項數值下降造成？',o:['出生率','死亡率','人口總數','社會增加率'],ex:'死亡率變化不大，出生率從 33.6‰ 降到 8.5‰，自然增加率跟著下降。'},
+    {q:'2023 年的資料顯示中國人口出現什麼情形？',o:['出生率低於死亡率，人口自然減少','人口快速成長','死亡率大幅下降','出生率回升到 1970 年的水準'],ex:'6.4‰＜7.9‰，自然增加率為負，人口總數減少（負成長）。'},
+    {q:'1970 年代以後出生率急遽下降，與下列哪一項政策最相關？',o:['計畫生育、一胎化政策','開放三胎政策','南水北調工程','和若鐵路通車'],ex:'1970 年代起推動計畫生育、1979 年一胎化，出生率大幅降低。'}]},
+  {title:'④ 人口年齡結構的變化',src:'13 校考人口金字塔',
+   fig:'<table class="tbl"><tr><th>年</th><th>幼年（0～14 歲）</th><th>青壯年（15～64 歲）</th><th>老年（65 歲以上）</th></tr><tr><td>1982</td><td>33.6％</td><td>61.5％</td><td>4.9％</td></tr><tr><td>2000</td><td>22.9％</td><td>70.1％</td><td>7.0％</td></tr><tr><td>2020</td><td>17.9％</td><td>68.6％</td><td>13.5％</td></tr><tr><td>2023</td><td>約 16％</td><td>約 69％</td><td>約 15％</td></tr></table>',
+   qs:[
+    {q:'依聯合國標準，表中哪一年中國已進入「高齡社會」？',o:['2023 年','2020 年','2000 年','1982 年'],ex:'高齡社會是 65 歲以上超過 14％；2023 年約 15％，符合。2000 年的 7％ 只是高齡化社會。'},
+    {q:'1982 到 2023 年的變化，若畫成人口金字塔，形狀會如何改變？',o:['底部變窄、頂部變寬','底部變寬、頂部變窄','完全不變','變成倒三角形且老年人變少'],ex:'幼年比例下降（底部變窄）、老年比例上升（頂部變寬）。'},
+    {q:'這張表最能支持下列哪一項敘述？',o:['一胎化政策使幼年人口比例下降、人口快速老化','人口集中在沿海地區','性別比低於 100','老年人口比例越來越低'],ex:'表格只呈現年齡結構：幼年減、老年增，就是少子化與人口老化。'}]},
+  {title:'⑤ 黑河—騰衝線兩側',src:'19 校考黑河—騰衝線',
+   fig:'<table class="tbl"><tr><th></th><th>土地面積占全國</th><th>人口占全國</th><th>主要環境</th></tr><tr><td>線以東</td><td>43％</td><td>94％</td><td>地形平坦、氣候溫溼、交通便利</td></tr><tr><td>線以西</td><td>57％</td><td>6％</td><td>乾燥少雨、多山地高原盆地</td></tr></table>',
+   qs:[
+    {q:'根據表格，下列敘述何者正確？',o:['線以東的人口密度遠高於線以西','線以西的人口密度較高','兩側人口密度相同','線以西的土地面積較小'],ex:'線東用 43％ 的土地住 94％ 的人口，密度遠高於線西（57％ 土地、6％ 人口）。'},
+    {q:'造成兩側人口差異的根本原因，用哪一個名詞最能說明？',o:['環境負載力','性別比','扶養比','文化擴散'],ex:'線東自然條件好、生產技術高，環境負載力高，人口密集。'},
+    {q:'線以西的居民為什麼多集中在河谷和綠洲？',o:['那裡有水源，較能維生','那裡交通最便利','那裡是工商業中心','那裡氣候最溼潤'],ex:'線西氣候乾燥，有水源的河谷與綠洲才能發展農業、聚居。'}]},
+  {title:'⑥ 從西到東的地形剖面',src:'10 校考三級階梯剖面圖',
+   fig:'<table class="tbl"><tr><th>剖面位置（西 → 東）</th><th>平均海拔</th><th>地形</th></tr><tr><td>甲</td><td>約 4,000 公尺</td><td>高原、山地</td></tr><tr><td>乙</td><td>約 1,500 公尺</td><td>高原、盆地</td></tr><tr><td>丙</td><td>1,000 公尺以下</td><td>平原、丘陵</td></tr></table>',
+   qs:[
+    {q:'甲、乙、丙最可能分別是哪三個地形區？',o:['青藏高原、四川盆地、長江中下游平原','四川盆地、青藏高原、東南丘陵','長江中下游平原、雲貴高原、青藏高原','黃土高原、青藏高原、東北平原'],ex:'由西向東級級下降：最高階梯青藏高原→次高階梯四川盆地→最低階梯長江中下游平原。'},
+    {q:'依剖面判斷，流經甲、乙、丙的河流最可能往哪個方向流？',o:['向東','向西','向北','向南'],ex:'河水由高處流向低處，地勢西高東低，所以向東流。'},
+    {q:'乙處的盆地雖然被稱為「盆地」，為什麼不在最低階梯？',o:['三級階梯看的是平均海拔高度，乙的盆底仍約 1,500 公尺上下','盆地一定在最高階梯','盆地的劃分看緯度','盆地內都是沙漠'],ex:'階梯依平均海拔高度劃分；四川、塔里木盆地都在次高階梯（常見陷阱）。'}]},
+  {title:'⑦ 年降水量由東南向西北遞減',src:'12 校考降水分布；15 校考 500 毫米線',
+   fig:'<table class="tbl"><tr><th>城市（由東南到西北）</th><th>年降水量</th></tr><tr><td>廣州</td><td>約 1,800 毫米</td></tr><tr><td>上海</td><td>約 1,200 毫米</td></tr><tr><td>北京</td><td>約 600 毫米</td></tr><tr><td>蘭州</td><td>約 300 毫米</td></tr><tr><td>和闐</td><td>約 40 毫米</td></tr></table>',
+   qs:[
+    {q:'表中哪兩個城市之間，會通過「秦嶺—淮河」（750 毫米）一帶？',o:['上海和北京之間','廣州和上海之間','蘭州和和闐之間','北京和蘭州之間'],ex:'上海 1,200 毫米＞750；北京 600 毫米＜750。750 毫米線大致和秦嶺—淮河重疊。'},
+    {q:'季風氣候與乾燥氣候的分界（500 毫米）會通過哪兩個城市之間？',o:['北京和蘭州之間','上海和北京之間','廣州和上海之間','表中沒有'],ex:'北京 600 毫米（季風區）、蘭州 300 毫米（低於 500，屬乾燥區）。'},
+    {q:'造成表中降水差異的因素，下列何者「不是」課本列出的？',o:['經度','季風','距海遠近','地形'],ex:'課本：在季風、距海遠近與地形的交互影響下，年降水量由東南向西北遞減。'}]},
+];
+
+/* ================= 延伸：運河・鐵路・疆域與時事（少數校考，code 10） ================= */
+const EXT=[
+  {q:'京杭大運河從北京延伸到杭州，是南北向的人工水道。古代開鑿它最主要是為了什麼？',o:['彌補中國主要河川多東西向、南北水運不便','把海水引入內陸','灌溉塔里木盆地','方便帆船前往東南亞'],a:0,src:'（5 校）',ex:'地勢西高東低使大河多向東流，東西向水運方便、南北向不便，所以開鑿南北向運河補足。'},
+  {q:'「南水北調」工程把長江流域的水送往華北。這項工程反映中國水資源有什麼特徵？',o:['南多北少','北多南少','東少西多','全年平均'],a:0,src:'3 校',ex:'秦嶺—淮河以南年降水量多於 750 毫米，北方較少，所以「南水北調」。'},
+  {q:'2022 年通車的和若鐵路（和闐—若羌）沿著塔里木盆地南緣興建。下列哪一項最可能是鐵路營運的困擾？',o:['風沙掩埋路基、日夜溫差大','低溫暴雪、空氣稀薄','颱風豪雨','梅雨造成河水暴漲'],a:0,src:'6 校',ex:'塔里木盆地屬乾燥氣候（溫帶沙漠），風沙大、年日溫差大；當地種植固沙植物保護鐵路。'},
+  {q:'和若鐵路所在的地形區，下列敘述何者正確？',o:['位於次高階梯，是中國面積最大的盆地','位於最高階梯，有世界屋脊之稱','位於最低階梯，人口密集','屬於高地氣候區'],a:0,src:'5 校陷阱（誤放最高階梯）',ex:'塔里木盆地在次高階梯，不是青藏高原（最高階梯、世界屋脊）。'},
+  {q:'中國最西端約在東經 73 度，最東端約在東經 135 度。兩地太陽升起的時間差距大約多少？',o:['約 4 小時','約 1 小時','約 8 小時','約 12 小時'],a:0,src:'極點經緯度',ex:'經度相差約 62 度，每 15 度差 1 小時，約 4 小時；但中國全國統一使用北京時間（GMT+8）。'},
+  {q:'青藏高原被稱為「亞洲水塔」，主要原因是什麼？',o:['高原上的冰川與積雪是亞洲許多大河的源頭','高原上降雨最多','高原上有最多水庫','高原地勢最低，河水匯集'],a:0,src:'3 校',ex:'喜馬拉雅山與青藏高原終年積雪，是亞洲許多大河的源頭。'},
+  {q:'中國計畫在雅魯藏布江下游興建大型水壩，引起下游國家關注。這條河流向哪裡，最能解釋原因？',o:['從青藏高原向南流入印度、孟加拉','從四川盆地流入長江','從東北平原流入日本海','從新疆流入哈薩克'],a:0,src:'時事',ex:'雅魯藏布江發源於青藏高原，下游流經印度、孟加拉，是跨國河流，上游築壩會影響下游用水。'},
+  {q:'2025 年初，西藏日喀則定日縣發生規模約 6.8 的強烈地震。這一帶多地震的主要原因是？',o:['位於印澳板塊與歐亞板塊碰撞擠壓處','位於太平洋板塊邊緣','位於沙漠，地表乾燥','受冬季季風影響'],a:0,src:'時事',ex:'喜馬拉雅山一帶是印澳板塊與歐亞板塊碰撞處，板塊擠壓使地震頻繁。'},
+];
+
+/* ================= 考點雷達（同版 22 校康軒卷） ================= */
+const RADAR={
+  n:22, other:37,
+  schools:'',
+  topics:[['黑河—騰衝線與東密西疏',19],['季風成因與風向（氣壓圖）',18],['三大氣候類型與氣候圖',18],['秦嶺—淮河線',18],['地形區特色辨識',16],['三級階梯',16],
+    ['乾燥氣候（新疆、塔里木、和若鐵路）',14],['東南沿海向外移民',14],['高地氣候（青藏高原）',13],['人口金字塔／統計圖表',13],['一胎化與衍生問題',13],['性別比失衡',13],
+    ['降水分布（東溼西乾）',12],['省級行政區',11],['氣溫影響因素：緯度 vs 地形',11],['氣候與生活（火炕、窯洞、袍子）',11],['人口成長',9],['少數民族與自治區',8],
+    ['疆域位置／極點經緯度',8],['環境負載力',8],['文化擴散（唐人街、泰山巖、媽祖）',8],['喜馬拉雅山與板塊擠壓',7],['生育政策調整（二胎、三胎）',6],['五大地形面積比例',4],['帆船順冬季東北季風南下',4],['京杭大運河',3]],
+  graphs:[['冬夏氣壓與風向圖',14],['人口分布點子圖＋黑河—騰衝線',13],['人口金字塔、出生率統計圖',13],['三大氣候分布圖＋氣候圖',10],['三級階梯剖面圖',10],['地形分布代號圖',9],['和若鐵路路線圖',6],['年降水量塗色地圖',4]],
+  words:[['季風',21],['秦嶺—淮河',20],['東南沿海移民',19],['乾燥氣候',18],['四川盆地',17],['年溫差／日溫差',16],['青藏高原',16],['三級階梯',16],
+    ['一胎化',16],['性別比',16],['黃土高原',15],['500 毫米等雨量線',15],['高齡社會',15],['自治區',14],['黑河—騰衝線',14],['環境負載力',14],
+    ['塔里木盆地',13],['東南丘陵',13],['1 月 0℃ 等溫線',11],['自然增加率',11],['雲貴高原',10],['高地氣候',10],['750 毫米等雨量線',10]],
+  common:[['季風成因與氣壓圖',18,37],['三大氣候與年溫差',18,35],['青藏高原、高地氣候、板塊',13,34],['地形區特色',16,34],['三級階梯與西高東低',16,32],
+    ['黃土高原千溝萬壑',16,29],['省級行政區',11,29],['降水分布與等雨量線',12,29],['新疆乾燥、和若鐵路',14,28],['秦嶺—淮河線',18,27],['火炕、窯洞等氣候與生活',11,8],['人口（一胎化、性別比、黑河—騰衝）',13,7]],
+};
+
+const TABS=[['home','🏠 考點雷達'],['a','⛰️ 1-1 地形'],['b','🌦️ 1-2 氣候'],['c','👥 2-1 人口特徵'],['d','👶 2-2 人口問題'],['e','⛵ 2-3 向外遷移'],['mix','📊 綜合＋總測驗']];
+
+/* ================= 注釋配對 ================= */
+function renderMatch(el,pairs){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0,miss=0;
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 注釋配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${miss<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3><p>配錯 ${miss} 次</p><button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div>`;$('#ag',el).onclick=()=>renderMatch(el,pairs)}
+  draw();
+}
+
+/* ================= 分類 ================= */
+function renderSort(el,so){
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w[0])}」→ <b>${so.buckets[w[1]]}</b>${w[2]?'：'+esc(w[2]):''}`).join('<br>')}</div>`:''}
+      <button class="btn" style="margin-top:12px">再玩一次</button></div>`;
+      el.querySelector('.btn').onclick=()=>renderSort(el,so);return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push(it)}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+/* ================= 選擇題 ================= */
+function renderMCQ(el,qs){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}<span class="src">${q.src}</span></div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(+b.dataset.k===q.a){got++;sOK()}else{b.classList.add('bad');sBAD()}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderMCQ(el,qs);
+}
+
+/* ================= 翻卡 ================= */
+function renderCards(el,cards){
+  el.innerHTML=`<div class="card"><h3>🃏 十五種標點翻卡</h3><p class="muted">點卡片翻面看用法。重點：分號、破折號、引號、書名號、刪節號。</p>
+  <div class="flips">${cards.map(c=>`<div class="flip"><div class="in"><div class="f"><div class="sym">${esc(c[1])}</div><b>${c[0]}</b></div><div class="bk2">${esc(c[2])}</div></div></div>`).join('')}</div></div>`;
+  el.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('on'));
+}
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、geo8-kangxuan-1（例 chinese8-1）、地理 國二上第一次段考（康軒）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'geo8-kangxuan-1',
+  site:'地理 國二上第一次段考（康軒）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('geo8-kangxuan-1_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('geo8-kangxuan-1_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${(d&&d.quickTitle)||'名詞快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽（地理 國二上 第一次段考・康軒） ================= */
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+document.body.insertAdjacentHTML('beforeend','<button class="bgm" id="bgmBtn"></button>');
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};
+
+const ANIM={a:animA,b:animB,c:animC,d:animD,e:animE};
+const UNITS=['a','b','c','d','e'];
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 快問快答'],['match','🔗 名詞配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel');
+  const title=`${d.no} ${d.short}`;
+  if(s==='anim') ANIM[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">本單元 ${d.mcq.length} 題，全部依各校命題方向原創改寫。點選答案後才會出現解析；做完可以交卷給老師。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const N=RADAR.n;
+  const bar=arr=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  app.innerHTML=`
+  <h2>📡 第一次段考考點雷達</h2>
+  
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${UNITS.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].short}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+    <div class="lc" style="background:linear-gradient(135deg,#5a4a12,#d9a441)" data-k="mix"><div><div class="n">綜合</div><div class="t">圖表判讀＋總測驗</div></div><div class="d">氣壓風向｜氣候資料｜人口統計表｜時間軸排序｜延伸：運河、和若鐵路、時事｜跨課總測驗</div></div>
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（${N} 校中幾校考過）</h3>${bar(RADAR.topics)}
+  <p class="muted" style="margin-top:10px">⚠️ 第1課（地形＋氣候）約占 62％，<b>1-2 氣候是題數最多的一節</b>（150 題）。<br>⚠️ 第2課人口約占 38％：<b>黑河—騰衝線 19 校考</b>，是單一最高頻考點。</p></div>
+  <div class="card"><h3>🗺️ 最常出現的圖表（幾校考過）</h3>${bar(RADAR.graphs)}
+  <p class="muted" style="margin-top:10px">這些圖表都改寫成「📊 綜合」的圖表判讀題（文字放在表格裡，不畫在圖上）。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>高頻名詞（★ 快問快答會標）</h3><div class="chips">${RADAR.words.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">名詞以康軒課本為準：「<b>三級階梯</b>」「<b>環境負載力</b>」「<b>黑河—騰衝</b>」「<b>計畫生育政策</b>」「<b>文化擴散</b>」。</p></div>
+    <div class="card"><h3>🔢 一定要會的數字</h3>
+    <p><span class="pill">59％</span>山地＋高原占總面積</p>
+    <p><span class="pill">4,000／1,500／1,000</span>三級階梯平均海拔（公尺）</p>
+    <p><span class="pill">0℃＋750</span>秦嶺—淮河＝1 月 0℃ 等溫線＋750 毫米等雨量線</p>
+    <p><span class="pill">500</span>毫米：季風氣候與乾燥氣候的分界</p>
+    <p><span class="pill">＜20℃</span>高地氣候的最暖月月均溫</p>
+    <p><span class="pill">43／94</span>黑河—騰衝線以東：土地 43％、人口 94％</p>
+    <p><span class="pill">5.5→10→14</span>億：1950、1980、今日人口</p>
+    <p><span class="pill">1979／2016／2021</span>一胎化、開放二胎、開放三胎；<b>2023</b> 高齡社會（≥14％）</p></div>
+  </div>
+  <div class="card"><h3>🪤 最常錯的 8 個陷阱</h3>
+    <p><span class="pill">1</span>秦嶺—淮河是 <b>750</b> 毫米，不是 500 毫米（500 是季風／乾燥分界）。</p>
+    <p><span class="pill">2</span>黃土是<b>風力堆積</b>，但千溝萬壑是<b>流水侵蝕</b>；雲貴高原也是流水侵蝕。</p>
+    <p><span class="pill">3</span>冬季南暖北冷、全境無寒帶是<b>緯度</b>；河川東流、水氣入內陸才是<b>西高東低</b>。</p>
+    <p><span class="pill">4</span>上海 vs 拉薩看<b>地勢</b>；哈爾濱 vs 海南看<b>緯度</b>。</p>
+    <p><span class="pill">5</span>冬季<b>高</b>氣壓在陸地、是<b>乾季</b>；帆船移民順<b>冬季東北季風</b>南下。</p>
+    <p><span class="pill">6</span>四川盆地、塔里木盆地在<b>次高階梯</b>；新疆乾燥是<b>距海遙遠</b>，不是高緯。</p>
+    <p><span class="pill">7</span>中國性別比<b>大於 100</b>（男多於女）；一胎化<b>不會</b>造成人口集中沿海。</p>
+    <p><span class="pill">8</span>東南沿海外移推力是<b>山多田少</b>，不是乾燥、低窪；印尼清真寺<b>不是</b>華人文化擴散。</p></div>
+  <div class="card"><h3>🌏 不分版本的共通考點（他版卷）</h3>
+  <p class="muted">tcool 另有翰林、南一等他版卷 ${RADAR.other} 校，只統計和康軒第1～2課重疊的考點（康軒校數／他版校數）：</p>
+  <div class="chips">${RADAR.common.map(([w,a,b])=>`<span>${w} <b>${a}／${b}</b></span>`).join('')}</div>
+  <p class="muted" style="margin-top:10px">他版第一次段考多半<b>不考人口</b>，人口（2-1～2-3）是<b>康軒版特色</b>，一定要準備。</p></div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每節先看 <b>🎬 動畫導覽</b>，用真實照片弄懂課本 → ② <b>⚡ 快問快答</b>、<b>🔗 配對</b>練熟名詞與數字 → ③ <b>🎯 分類挑戰</b>破解緯度／地勢、冬夏季風、線東線西 → ④ <b>📝 段考模擬題</b>與 <b>📊 綜合</b>的圖表題、總測驗檢查程度，做完按「📤 交卷給老師」。</p></div>
+  <details class="card"><summary><b>統計限制</b>（給老師看）</summary>
+  </details>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,c.dataset.k==='mix'?undefined:'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 綜合：圖表判讀＋排序＋延伸＋總測驗 ================= */
+function renderMix(app){
+  const s=curSub.mix||'chart';
+  const subs=[['chart','📊 圖表判讀'],['seq','🔢 時間軸・排序'],['ext','🚀 延伸'],['total','🏁 總測驗']];
+  app.innerHTML=`<h2>📊 綜合：圖表判讀＋排序＋總測驗</h2>
+  <p class="muted">22 校最愛考「看氣壓圖、看氣候資料、看人口統計」。這裡把高頻圖表改寫成題組，再加上時間軸排序、少數校考的延伸題，最後用跨課總測驗檢查程度。</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div><div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub.mix=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='chart'){
+    p.innerHTML=CHART.map((c,k)=>`<div class="card"><h3>${c.title}</h3><div class="figbox">${c.fig}</div><div id="cq${k}"></div></div>`).join('');
+    CHART.forEach((c,k)=>renderMCQ($('#cq'+k),c.qs.map(q=>({a:0,...q,src:c.src})),7,`綜合 ${c.title.replace(/^[①-⑨]\s*/,'')}`));
+    return;
+  }
+  if(s==='seq'){
+    p.innerHTML=`<p class="muted">把每一項放到正確的順位。</p>`+SEQ.map((_,i)=>`<div class="card" id="st${i}"></div>`).join('');
+    SEQ.forEach((so,i)=>{SORTCTX={code:7,title:'綜合 時間軸・排序'};renderSort($('#st'+i),so)});SORTCTX=null;
+    return;
+  }
+  if(s==='ext'){
+    p.innerHTML=`<div class="card"><h3>🚀 延伸：運河、和若鐵路、疆域與時事（少數校考）</h3>
+    <div class="grid2">
+      <figure class="exfig"><img src="img/x_canal.jpg" alt="蘇州附近的京杭大運河" loading="lazy"><figcaption>京杭大運河（蘇州附近，1984 年）：南北向的人工水道</figcaption></figure>
+      <figure class="exfig"><img src="img/x_snsd.jpg" alt="南水北調中線渠道" loading="lazy"><figcaption>南水北調中線（河南焦作）：把南方的水送到北方</figcaption></figure>
+    </div>
+    <p><span class="pill">運河</span>地勢西高東低 → 大河多向東流、<b>東西向</b>水運便利 → 開鑿<b>南北向</b>的京杭大運河補不足。</p>
+    <p><span class="pill">南水北調</span>降水<b>南多北少</b>（秦嶺—淮河以南超過 750 毫米）→ 把長江流域的水調往華北。</p>
+    <p><span class="pill">和若鐵路</span>和闐—若羌，2022 年通車，在<b>塔里木盆地</b>南緣（次高階梯、溫帶沙漠）；困擾是風沙、日夜溫差大。</p>
+    <p><span class="pill">時事</span>雅魯藏布江（青藏高原→印度、孟加拉）、定日地震（印澳＋歐亞板塊）、亞洲水塔（青藏高原是大河源頭）。</p>
+    </div><div id="eq"></div>`;
+    renderMCQ($('#eq'),EXT,10,'延伸 運河・鐵路・時事');
+    return;
+  }
+  const pool=[];
+  UNITS.forEach(k=>L[k].mcq.forEach(q=>pool.push({...q,unit:L[k].no,src:`${L[k].no}｜${q.src||''}`})));
+  const n=25,pick=shuf(pool).slice(0,n);
+  p.innerHTML=`<div class="card"><h3>🏁 跨課總測驗</h3><p>從五個單元的段考模擬題（共 ${pool.length} 題）隨機抽 ${n} 題。按「重新抽題」會換一批題目。</p>
+    <div class="row"><button class="btn ghost" id="redraw">🔀 重新抽題</button></div></div><div id="tq"></div>`;
+  $('#redraw').onclick=()=>render();
+  renderMCQ($('#tq'),pick,9,'總測驗（跨課隨機）');
+}
+
+/* ================= 共用：動畫外框 ================= */
+function stage(p,extra){p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${extra||''}`}
+
+/* ================= 1-1 中國的地形有何特徵？ ================= */
+function animA(p){
+  stage(p,`<div class="card"><h3>🪜 三級階梯一張表</h3>
+  <div class="ladder"><span>最高階梯<small>約 4,000 公尺</small></span><b>→</b><span>次高階梯<small>約 1,500 公尺</small></span><b>→</b><span class="an">最低階梯<small>約 1,000 公尺以下</small></span></div>
+  <table class="tbl"><tr><th>階梯</th><th>主要地形</th><th>地形區</th></tr>
+  <tr><td>最高</td><td>山地、高原</td><td>青藏高原（世界屋脊）、喜馬拉雅山</td></tr>
+  <tr><td>次高</td><td>山地、高原、盆地</td><td>內蒙古、黃土、雲貴高原；四川、塔里木盆地</td></tr>
+  <tr><td>最低</td><td>平原、丘陵</td><td>東北、華北、長江中下游平原；東南丘陵</td></tr></table>
+  <p class="muted" style="margin-top:10px">劃分依據＝<b>平均海拔高度與地形種類</b>。盆地也在次高階梯！</p></div>
+  <div class="card"><h3>🏛️ 省級行政區</h3>
+  <div class="scale"><span>省<br><b>22 個</b></span><span>自治區<br><b>5 個</b></span><span>直轄市<br><b>4 個</b></span><span>特別行政區<br><b>2 個</b></span></div>
+  <p><span class="pill">自治區</span>少數民族聚居：內蒙古、新疆維吾爾、西藏、寧夏回族、廣西壯族</p>
+  <p><span class="pill">直轄市</span>北京、天津、上海、重慶</p>
+  <p><span class="pill">特別行政區</span>香港（曾受英國殖民）、澳門（曾受葡萄牙殖民）</p></div>`);
+  const steps=[
+    {label:'① 板塊擠壓的地形',imgs:[{img:'k1_everest',tag:'從西藏看聖母峰北壁：喜馬拉雅山'}],poem:'中國幅員遼闊，各地地質結構不同，加上受到<b>板塊擠壓</b>的影響，地形差異大，可分為<b>山地、高原、盆地、平原和丘陵</b>五大類型；其中山地和高原約占總面積的 <b>59％</b>，整體<b>山多平原少</b>。',key:'喜馬拉雅山是<b>印澳板塊</b>擠壓<b>歐亞板塊</b>隆起的世界最高山脈（7 校考）。'},
+    {label:'② 最高階梯：青藏高原',imgs:[{img:'k1_tibet',tag:'西藏納木錯湖畔的犛牛，遠方是雪山'}],poem:'<b>最高階梯</b>平均高度約 <b>4,000 公尺</b>，以山地和高原為主。<b>青藏高原</b>地勢陡峻，是世界最高的高原，有「<b>世界屋脊</b>」之稱。',key:'三級階梯依<b>平均海拔高度</b>與地形種類劃分，不是距海遠近或緯度（16 校考）。'},
+    {label:'③ 次高階梯的高原',imgs:[{img:'k1_loess',tag:'黃土高原：千溝萬壑'},{img:'k2_yaodong',tag:'黃土高原上的窯洞聚落'},{img:'k1_karst',tag:'雲南石林：雲貴高原的石灰岩地形'},{img:'k1_neimeng',tag:'內蒙古呼倫貝爾草原'}],poem:'<b>黃土高原</b>：黃土由<b>風力堆積</b>，質地鬆散，易受<b>流水侵蝕</b>，地表千溝萬壑。<b>雲貴高原</b>：多石灰岩，易受流水侵蝕，高低起伏。<b>內蒙古高原</b>：平坦遼闊的荒漠和草原，乾燥少雨、年日溫差皆大。',key:'千溝萬壑是<b>流水侵蝕</b>，不是強風吹蝕（5 校陷阱）。'},
+    {label:'④ 次高階梯的盆地',imgs:[{img:'k1_shudao',tag:'四川廣元明月峽的古棧道'},{img:'k1_takla',tag:'塔克拉瑪干沙漠：塔里木盆地內'}],poem:'<b>四川盆地</b>周圍群山環繞，進出不易，古代沿河修築<b>棧道</b>以便出入。<b>塔里木盆地</b>是中國面積最大的盆地，盆地內大部分為<b>塔克拉瑪干沙漠</b>所據。',key:'次高階梯平均約 <b>1,500 公尺</b>，有山地、高原和<b>盆地</b>；把四川盆地放到最低階梯是常見錯誤。'},
+    {label:'⑤ 最低階梯：平原與丘陵',imgs:[{img:'k2_wheat',tag:'河南的麥田：華北平原'},{img:'k1_terrace',tag:'廣西龍脊梯田：丘陵開闢成梯田'}],poem:'<b>最低階梯</b>平均高度約 <b>1,000 公尺以下</b>，主要是平原和丘陵。<b>東北平原</b>是中國面積最大的平原、重要糧倉；<b>長江中下游平原</b>地勢平坦、水源匯聚，是人口密集的精華區；<b>東南丘陵</b>地勢崎嶇，常開闢成梯田。',key:'東南丘陵<b>山多田少</b>，也是第2課人口外移的推力（13 校考）。'},
+    {label:'⑥ 西高東低→河川東流',imgs:[{img:'k1_yangtze',tag:'長江三峽：上游水流湍急'},{img:'x_canal',tag:'蘇州附近的京杭大運河：南北向水道'}],poem:'西高東低的地勢，一方面有利於<b>夏季海洋暖溼氣流深入內陸</b>；另一方面也造成中國主要河川多<b>向東流</b>。上游水流湍急，多富<b>水力資源</b>；下游流勢平緩，利於<b>東西向水路運輸</b>。',key:'「冬季南北溫差大」「沒有寒帶」是<b>緯度</b>造成的，不是西高東低（5 校陷阱）。南北水運不便，所以開鑿京杭大運河。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 1-2 中國的氣候有何特徵？ ================= */
+function animB(p){
+  stage(p,`<div class="card"><h3>🌬️ 冬夏季風比一比</h3>
+  <table class="tbl"><tr><th></th><th>冬季季風</th><th>夏季季風</th></tr>
+  <tr><td>太陽直射</td><td>南半球</td><td>北半球</td></tr>
+  <tr><td>歐亞大陸</td><td>降溫快 → <b>高氣壓</b>（蒙古一帶）</td><td>增溫快 → <b>低氣壓</b></td></tr>
+  <tr><td>風向</td><td>由陸地吹向海洋</td><td>由海洋吹向陸地</td></tr>
+  <tr><td>性質</td><td>乾冷，<b>乾季</b></td><td>富含水氣，<b>雨季</b></td></tr>
+  <tr><td>例子</td><td>華北西北風、東南沿海東北風；沙塵、霾</td><td>東南季風、西南季風；梅雨</td></tr></table></div>
+  <div class="card"><h3>🌡️ 三大氣候類型怎麼判斷？</h3>
+  <p><span class="pill">1</span>最暖月月均溫 <b>＜20℃</b> → <b>高地氣候</b>（青藏高原；空氣稀薄、日照強、日夜溫差大）</p>
+  <p><span class="pill">2</span>年降水量 <b>＜500 毫米</b> → <b>乾燥氣候</b>（西部內陸距海遙遠；草原、沙漠）</p>
+  <p><span class="pill">3</span>其餘 → <b>季風氣候</b>（東半部；依最冷月月均溫分熱帶、副熱帶、溫帶）</p>
+  <p class="muted">秦嶺—淮河＝1 月 0℃ 等溫線＝750 毫米等雨量線＝溫帶與副熱帶季風分界。</p></div>`);
+  const steps=[
+    {label:'① 冬季南暖北冷',split:[{img:'k2_harbin',tag:'1 月哈爾濱'},{img:'k2_sanya',tag:'1 月海南三亞'}],poem:'夏季太陽直射北半球，各地<b>普遍高溫</b>、南北溫差小。冬季時，各地氣溫隨<b>緯度</b>增加而下降，<b>南、北氣溫差異大</b>；西半部山地、高原受地形影響，氣溫較同緯度地區低。',key:'哈爾濱 vs 海南＝<b>緯度</b>；上海 vs 拉薩＝<b>地勢</b>（6 校陷阱）。'},
+    {label:'② 火炕與秦嶺—淮河',imgs:[{img:'k2_kang',tag:'黑龍江漠河的火炕：爐灶的熱氣通到床下'},{img:'k2_qinling',tag:'秦嶺山脈'}],poem:'中國北方冬季嚴寒且漫長，居民設置「<b>火炕</b>」，引灶火熱氣保暖。<b>1 月月均溫 0℃ 等溫線</b>大致與<b>秦嶺、淮河</b>一線重疊。',key:'秦嶺—淮河：1 月 0℃、<b>750 毫米</b>、溫帶／副熱帶季風分界、南稻北麥（18 校考）。'},
+    {label:'③ 季風：夏雨冬乾',imgs:[{img:'k2_dust',tag:'2021 年 3 月北京沙塵：乾冷的冬半年'}],poem:'冬季時，歐亞大陸降溫較海洋快，蒙古一帶形成<b>高氣壓</b>，盛行風由<b>陸地吹向海洋</b>，形成乾冷的冬季季風。夏季時，大陸增溫快形成<b>低氣壓</b>，盛行風由<b>海洋吹向陸地</b>，帶來豐沛降水，呈現<b>夏雨冬乾</b>。',key:'冬季高壓在<b>陸地</b>、是<b>乾季</b>；把高壓畫在海上當冬季是陷阱（14 校考氣壓圖）。'},
+    {label:'④ 東溼西乾、南稻北麥',split:[{img:'k2_rice',tag:'南方：稻米'},{img:'k2_wheat',tag:'北方：小麥'}],poem:'在<b>季風、距海遠近與地形</b>的交互影響下，年降水量<b>由東南向西北遞減</b>，呈現東溼西乾。<b>750 毫米等雨量線</b>大致與秦嶺、淮河一線重疊。',key:'秦嶺—淮河是 <b>750</b> 毫米；<b>500</b> 毫米是季風氣候與乾燥氣候的分界（6 校陷阱）。'},
+    {label:'⑤ 乾燥氣候',imgs:[{img:'k2_turpan',tag:'吐魯番的葡萄架長廊：綠洲農業'},{img:'x_tianshan2',tag:'空中看天山：高山積雪是綠洲的水源'},{img:'x_hotan',tag:'新疆和闐車站：和若鐵路的起點'}],poem:'西部地區因位居內陸且<b>距海遙遠</b>，年降水量<b>不足 500 毫米</b>；氣候乾燥、缺少水氣調節，使得<b>年、日溫差均大</b>，又依年降水量多寡分為<b>草原與沙漠</b>兩種氣候類型。',key:'新疆乾燥是<b>距海遙遠</b>，不是高緯；塔克拉瑪干是<b>溫帶</b>沙漠（14 校考）。'},
+    {label:'⑥ 高地氣候',imgs:[{img:'k2_robe',tag:'穿著傳統袍子的藏族婦女'},{img:'k1_tibet',tag:'青藏高原：晴朗、日照強烈'}],poem:'青藏高原與西部高山地勢崎嶇，氣候與植被隨<b>高度</b>呈現垂直變化。高原地表氣候嚴寒、終年積雪、<b>風勢強勁</b>；又因<b>空氣稀薄、水氣量少</b>，經常晴朗無雲、日照強烈，且<b>日夜溫差大</b>，居民穿著方便穿脫的袍子。',key:'高地氣候：最暖月月均溫 <b>＜20℃</b>（不是 10℃）；「風勢微弱」是錯的（13 校考）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-1 中國的人口有哪些特徵？ ================= */
+function animC(p){
+  stage(p,`<div class="card"><h3>📏 黑河—騰衝線兩側比一比</h3>
+  <div class="scale"><span>線以東 土地<br><b>43％</b></span><span>線以東 人口<br><b>94％</b></span><span>線以西 土地<br><b>57％</b></span><span>線以西 人口<br><b>6％</b></span></div>
+  <p><span class="pill">線東</span>地形平坦、氣候溫暖溼潤、地理位置優越、交通便利、農工商業發達、就業機會多</p>
+  <p><span class="pill">線西</span>深入內陸、氣候乾燥少雨、多山地高原盆地，人口集中在<b>河谷與綠洲</b></p></div>
+  <div class="card"><h3>📈 人口成長</h3>
+  <div class="ladder"><span>1700 年<small>約 1.5 億</small></span><b>→</b><span>1950 年<small>5.5 億</small></span><b>→</b><span>1980 年<small>接近 10 億</small></span><b>→</b><span class="an">今日<small>超過 14 億</small></span></div>
+  <p class="muted">1700～1794 年人口倍增需 90 年；1950～1990 年只需 40 年 → 成長愈來愈快。</p></div>`);
+  const steps=[
+    {label:'① 族系眾多的人口組成',imgs:[{img:'k3_uyghur',tag:'新疆喀什的維吾爾族市集'},{img:'k3_tibetan',tag:'拉薩八廓街手持轉經輪的藏族長者'}],poem:'中國的居民以<b>漢族</b>人數最多，超過 <b>90％</b>，其餘民族所占比例較低，稱為<b>少數民族</b>。不同民族因集居的環境差異，而發展出各具特色的生活方式與文化樣貌。',key:'少數民族人口最多＝<b>壯族</b>（廣西壯族自治區）；滿族<b>沒有</b>自治區（8 校考）。'},
+    {label:'② 快速增加的人口數量',imgs:[{img:'k3_crowd',tag:'上海南京東路的夜間人潮'}],poem:'中國人口的增減多與<b>政治局勢、糧食供應、醫療衛生</b>有關。<b>1950 年代以後</b>人口迅速成長，由 1950 年的 <b>5.5 億</b>，至 1980 年已接近 <b>10 億</b>；至今已超過 <b>14 億</b>。',key:'成長原因不是「移民移入」「戰爭頻繁」；人口基數大，增加率低時增加數仍多（9 校考）。'},
+    {label:'③ 環境負載力',imgs:[{img:'k3_chengdu',tag:'成都平原的城市，遠方是四姑娘山'}],poem:'<b>環境負載力</b>指某一地區能提供生物所需的資源及承受其廢棄物的能力，通常與當地的<b>自然環境與生產技術</b>有關；環境負載力較高的地方，人口較為密集。',key:'四川盆地盆底平坦、溫暖溼潤 → 點子圖上人口很密（課本配合題）。'},
+    {label:'④ 東密西疏：黑河—騰衝線',imgs:[{img:'k3_crowd',tag:'線以東：人口密集的東部都市'}],poem:'中國人口大致以東北的<b>黑河</b>和西南的<b>騰衝</b>兩地連線為界：連線以東<b>土地 43％，人口 94％</b>；以西<b>土地 57％，人口 6％</b>。',key:'19 校考，第一名的考點！原因<b>不是</b>宗教信仰；別和秦嶺—淮河線搞混。'},
+    {label:'⑤ 線以西：河谷與綠洲',imgs:[{img:'k3_kashgar',tag:'綠洲城市喀什的老城'},{img:'x_tianshan2',tag:'天山的冰雪融水灌溉綠洲'}],poem:'連線以西的地區深入內陸，<b>氣候乾燥少雨</b>，且多山地、高原與盆地，居民維生不易，多集中在<b>河谷與綠洲</b>之處。',key:'西部人口集中處＝有水的地方；乾燥區的環境負載力低。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-2 中國如何解決人口問題？ ================= */
+function animD(p){
+  stage(p,`<div class="card"><h3>🔗 人口問題與對策一張圖</h3>
+  <table class="tbl"><tr><th>衍生問題</th><th>原因</th><th>對策</th></tr>
+  <tr><td>人口快速老化</td><td>一胎化使幼年人口比例下降、老年比例增加；2023 年超過 14％ 邁入<b>高齡社會</b></td><td>開放二胎、三胎；老年福利、長照</td></tr>
+  <tr><td>性別結構失衡</td><td>生育率下降＋<b>重男輕女</b>；1990 年代以後新生兒男多於女</td><td>宣導性別平等；婚戀服務</td></tr>
+  <tr><td>人口負成長</td><td>出生率大幅降低</td><td>調整生育政策（成效尚不顯著）</td></tr></table></div>
+  <div class="card"><h3>👵 高齡門檻</h3>
+  <div class="scale"><span>高齡化社會<br><b>65 歲以上 ＞7％</b></span><span>高齡社會<br><b>＞14％</b></span><span>超高齡社會<br><b>＞20％</b></span></div></div>`);
+  const steps=[
+    {label:'① 人口太多的壓力',imgs:[{img:'k3_crowd',tag:'人口密集的大城市'}],poem:'近數十年來，中國快速增加的人口，雖有利於經濟發展，卻也造成<b>糧食供應、社會與環境</b>的極大壓力。',key:'人口快速成長是 1950 年代以後的事。'},
+    {label:'② 計畫生育與一胎化',imgs:[{img:'k4_onechild',tag:'1987 年成都街頭的計畫生育宣傳看板'},{img:'k4_onechild2',tag:'1982 年街頭看板上的「三口之家」：一胎化初期的家庭形象'}],poem:'為了控制人口增加的速度與數量，中國自 <b>1970 年代</b>起提出<b>計畫生育政策</b>。由於嚴格執行<b>一胎化政策</b>，中國的<b>出生率大幅降低</b>，近年甚至出現人口負成長。',key:'一胎化約 <b>1979 年</b>提出（13 校考）；它<b>不會</b>造成人口集中沿海。'},
+    {label:'③ 人口快速老化',imgs:[{img:'k4_elderly',tag:'上海公園裡打太極拳的長者',fit:'contain',bg:'#2d3a2a'}],poem:'一胎化使<b>幼年人口比例下降</b>，也導致<b>老年人口比例持續增加</b>，到了 <b>2023 年</b>已超過聯合國所訂的 <b>14％</b> 標準，邁入<b>高齡社會</b>；近年更出現人口總數減少，未來可能衝擊經濟發展。',key:'高齡化社會 7％、高齡社會 14％（15 校考）；扶養比上升、陪診師等新行業。'},
+    {label:'④ 性別結構失衡',imgs:[{img:'k4_market',tag:'上海人民公園的「相親角」'}],poem:'隨著<b>生育率下降</b>與<b>重男輕女</b>的傳統觀念影響，<b>1990 年代</b>以後，中國新生兒性別<b>男多於女</b>的失衡現象，遠高於世界其他國家。',key:'性別比＝每 100 位女性對應的男性數；中國<b>大於 100</b>（男多於女），光棍、剩男問題（13 校考）。'},
+    {label:'⑤ 調整生育政策',imgs:[{img:'k4_onechild2',tag:'1980 年代看板上的三口之家；如今改為開放二胎、三胎'}],poem:'面對人口問題的困境，中國不斷調整生育政策，陸續開放生育<b>第二胎（2016 年）</b>、<b>第三胎（2021 年）</b>，以因應人口問題，但<b>短時間內成效尚不顯著</b>。',key:'2016 二胎、2021 三胎（9 校考）；其他對策：老年福利、婚戀公益服務、宣導性別平等。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-3 近代中國的人口為何向外遷移？ ================= */
+function animE(p){
+  stage(p,`<div class="card"><h3>⛵ 移民路線一張表</h3>
+  <table class="tbl"><tr><th>時期</th><th>原鄉</th><th>目的地</th><th>原因／工作</th></tr>
+  <tr><td>早先（明清）</td><td>東南沿海（閩、粵）</td><td><b>東南亞、臺灣</b>（人數最多）</td><td>丘陵廣布、山多田少 → 推力</td></tr>
+  <tr><td>十九世紀以後</td><td>東南沿海</td><td><b>美國、澳洲</b></td><td>華工採礦、築路</td></tr></table>
+  <p class="muted" style="margin-top:10px">帆船順著<b>冬季東北季風</b>南下東南亞（跨 1-2 季風的熱門題）。</p></div>
+  <div class="card"><h3>🏮 文化擴散：是？不是？</h3>
+  <p><span class="pill">是</span>新加坡牛車水、舊金山唐人街、媽祖廟、新北泰山巖（沿用福建安溪原鄉廟名）、閩南語與客家話</p>
+  <p><span class="pill">不是</span>印尼清真寺、越南法式麵包、菲律賓天主教堂、麥當勞</p></div>`);
+  const steps=[
+    {label:'① 山多田少的原鄉',imgs:[{img:'k5_tulou',tag:'福建土樓：東南沿海丘陵的原鄉聚落'},{img:'k1_terrace',tag:'丘陵上開闢的梯田'}],poem:'在中國歷史上，當一個地區人口太多，難以謀生的居民常被迫移居他地。中國<b>東南沿海</b>因<b>丘陵廣布、山多田少</b>，隨著人口增加，形成人口外移的巨大<b>推力</b>。',key:'推力<b>不是</b>「氣候乾燥」「地勢低窪」（6 校陷阱）。'},
+    {label:'② 帆船順風南下',imgs:[{img:'k5_junk',tag:'十九世紀版畫：準備出航的中式帆船（戎克船）',fit:'contain',bg:'#efe8d8'}],poem:'早先移民以遷往鄰近的<b>東南亞與臺灣</b>人數最多。帆船時代，冬季吹<b>東北季風</b>，船隻可順風往西南方的東南亞航行。',key:'出發季節選<b>冬季</b>（聖誕節、1 月），不是夏季（4 校陷阱）。目的地不是日本、南亞。'},
+    {label:'③ 東南亞的華人社會',imgs:[{img:'k5_chinatown',tag:'新加坡牛車水的寶塔街'},{img:'k5_mazu',tag:'馬來西亞登嘉樓的媽祖廟（和安宮）'}],poem:'移民在海外各地<b>重建或複製原鄉的生活方式</b>，將華人的飲食、衣著、住宅、習俗等文化移到新居地。',key:'新加坡<b>牛車水</b>、媽祖信仰都是華人文化擴散的例子（8 校考）。'},
+    {label:'④ 十九世紀的華工',imgs:[{img:'k5_railroad',tag:'1870 年報紙版畫：內華達山脈的太平洋鐵路與華工'},{img:'k5_sfgate',tag:'舊金山唐人街的龍門'}],poem:'<b>十九世紀</b>以後，也有數以百萬計的華工前往<b>美國、澳洲</b>等地，以<b>採礦、築路</b>等工作維生，後來形成唐人街。',key:'華工的工作＝採礦、築路；舊金山唐人街是文化擴散的證據。'},
+    {label:'⑤ 文化擴散到臺灣',imgs:[{img:'k5_taishan',tag:'新北泰山巖的木雕與燈籠'}],poem:'移民把原鄉的信仰帶到新居地：新北<b>泰山巖</b>沿用福建安溪原鄉的廟名，閩南語、客家話與媽祖信仰也隨移民傳到臺灣，使<b>華人文化擴散</b>到世界許多角落。',key:'印尼清真寺、越南法式麵包、麥當勞<b>不是</b>華人移民的文化擴散（4 校陷阱）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2f6b3a;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2f6b3a;background:#e8effa}
+  #penBar button.mode{background:#2f6b3a;color:#fff;border-color:#2f6b3a}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+
+<!-- AK:answer-key -->
+<style id="ak-style">#ak-btn{position:fixed;left:14px;bottom:14px;z-index:9990;font:600 16px/1 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:#1f4e79;color:#fff;border:0;border-radius:999px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer}#ak-btn:hover{background:#163a5c}#ak-box{display:none;position:fixed;inset:0;z-index:9995;background:rgba(15,25,40,.45);padding:16px;overflow:auto}#ak-box.show{display:block}#ak-box .ak-card{max-width:960px;margin:20px auto;background:#fff;color:#1d2733;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:16px/1.6 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;text-align:left}#ak-box .ak-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #e3e8ef;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}#ak-box .ak-head b{font-size:18px;color:#1f4e79}#ak-box .ak-head button{font:inherit;font-size:16px;margin-left:8px;border:1px solid #c9d3df;background:#f4f7fb;color:#1d2733;border-radius:8px;padding:6px 12px;cursor:pointer}#ak-box .ak-body{padding:6px 18px 18px}#ak-box h3{font-size:17px;margin:16px 0 6px;color:#1f4e79}#ak-box .ak-t{border-collapse:collapse;width:100%;margin:6px 0;table-layout:fixed}#ak-box .ak-t th,#ak-box .ak-t td{border:1px solid #cfd8e3;padding:5px 2px;text-align:center;font-size:16px;word-break:break-all}#ak-box .ak-t th{background:#eef3f9;color:#1f4e79;font-weight:600}#ak-box .ak-t th:first-child{width:3.6em}#ak-box .ak-t td{font-weight:700}#ak-box .ak-list{columns:2 300px;margin:6px 0;padding-left:0;list-style:none}#ak-box .ak-list li{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e3e8ef}@media print{#ak-btn{display:none!important}html:not(.ak-on) #ak-box{display:none!important}html.ak-on body>*:not(#ak-box){display:none!important}html.ak-on #ak-box{position:static;background:none;padding:0;display:block!important;overflow:visible}html.ak-on #ak-box .ak-card{box-shadow:none;margin:0;max-width:none}html.ak-on #ak-box .ak-head button{display:none}html.ak-on #ak-box .ak-head{position:static}}</style>
+<script id="ak-core">(function(){
+if(window.AK)return;
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function norm(secs){
+ if(!secs)return[];
+ if(!Array.isArray(secs[0]&&secs[0].items)&&Array.isArray(secs))secs=[{title:'',items:secs}];
+ return secs.map(function(s){return{title:s.title||'',items:(s.items||[]).map(function(x,i){return Array.isArray(x)?[x[0],x[1]]:[i+1,x]})}}).filter(function(s){return s.items.length});
+}
+function table(s){
+ var long=s.items.some(function(x){return String(x[1]).length>3});
+ var h=s.title?'<h3>'+esc(s.title)+'</h3>':'';
+ if(long){
+  return h+'<ol class="ak-list">'+s.items.map(function(x){return'<li><b>'+esc(x[0])+'.</b> '+esc(x[1])+'</li>'}).join('')+'</ol>';
+ }
+ var out=h;
+ for(var i=0;i<s.items.length;i+=10){
+  var r=s.items.slice(i,i+10);
+  out+='<table class="ak-t"><tr><th>題號</th>'+r.map(function(x){return'<th>'+esc(x[0])+'</th>'}).join('')+'</tr><tr><th>答案</th>'+r.map(function(x){return'<td>'+esc(x[1])+'</td>'}).join('')+'</tr></table>';
+ }
+ return out;
+}
+window.AK=function(fn){
+ function run(){
+  var secs;
+  try{secs=norm(typeof fn==='function'?fn():fn)}catch(e){console.warn('AK',e);return}
+  window.__AK_DATA=secs;
+  if(!secs.length)return;
+  var n=secs.reduce(function(a,s){return a+s.items.length},0);
+  var btn=document.createElement('button');btn.id='ak-btn';btn.type='button';btn.textContent='📋 答案總表';if(window.AK_BTN_STYLE)btn.style.cssText=window.AK_BTN_STYLE;
+  var box=document.createElement('div');box.id='ak-box';
+  box.innerHTML='<div class="ak-card" role="dialog" aria-label="答案總表"><div class="ak-head"><b>📋 答案總表（教師用，共 '+n+' 題）</b><span><button type="button" class="ak-p">🖨 列印答案</button><button type="button" class="ak-x" aria-label="關閉">✕</button></span></div><div class="ak-body">'+secs.map(table).join('')+'</div></div>';
+  document.body.appendChild(btn);document.body.appendChild(box);
+  function close(){box.classList.remove('show');document.documentElement.classList.remove('ak-on')}
+  btn.onclick=function(){box.classList.add('show');document.documentElement.classList.add('ak-on')};
+  box.querySelector('.ak-x').onclick=close;
+  box.onclick=function(e){if(e.target===box)close()};
+  box.querySelector('.ak-p').onclick=function(){window.print()};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+ }
+ if(document.readyState==='complete')setTimeout(run,0);else window.addEventListener('load',function(){setTimeout(run,0)});
+};
+})();</script>
+<script>AK(function(){
+if(!/[?&]teacher\b/.test(location.search))return [];
+/* 段考闖關站（chinese/civics/geography/history/science-site 的 volX_ 的 index.html）共用 adapter。
+   資料：頂層 const（L 各課 .mcq/.ext、RIDDLE/EXT/SCEN/CHART…）裡的選擇題物件 {q,o,a}。
+   renderMCQ 題序固定、但「選項每次洗牌」，所以答案列「正解選項文字」而非字母。
+   快問快答／配對／分類挑戰（題目隨機抽）與總測驗（pool/pick 隨機抽題）都不是頂層 {q,o,a} 陣列，不會被列入。 */
+window.AK_BTN_STYLE='left:14px;bottom:76px;font-size:20px;padding:12px 18px';
+(function(){
+  if(document.getElementById('ak-big'))return;
+  var s=document.createElement('style');s.id='ak-big';
+  s.textContent='html body #ak-box .ak-card{font-size:20px}html body #ak-box .ak-head b{font-size:22px}html body #ak-box .ak-head button{font-size:20px}html body #ak-box h3{font-size:21px}html body #ak-box .ak-list li{font-size:20px}html body #ak-box .ak-t th,html body #ak-box .ak-t td{font-size:20px}html body #ak-box .ak-note{font-size:20px;color:#5a6878;margin:10px 0 0}@media(max-width:600px){html body #ak-box{padding:6px}html body #ak-box .ak-card{margin:6px auto}html body #ak-box .ak-body{padding:6px 12px 14px}html body #ak-box .ak-list{columns:1}}';
+  document.head.appendChild(s);
+  setTimeout(function(){var b=document.querySelector('html body #ak-box .ak-body');if(b&&!b.querySelector('.ak-note')){var p=document.createElement('p');p.className='ak-note';p.textContent='※ 題號＝各練習頁上的題號；選項每次會重新洗牌，故列「正確選項的內容」。快問快答、配對、分類挑戰、總測驗為隨機出題，不列。';b.insertBefore(p,b.firstChild)}},50);
+})();
+var src=[].slice.call(document.querySelectorAll('script:not([src])')).filter(function(x){return x.id!=='ak-core'&&x.textContent.indexOf('AK(function')<0}).map(function(x){return x.textContent}).join('\n');
+var names=[];src.replace(/^(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=/gm,function(_,n){if(names.indexOf(n)<0)names.push(n)});
+var isQ=function(x){return x&&typeof x==='object'&&typeof x.q==='string'&&Array.isArray(x.o)};
+var clean=function(t){t=String(t).replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();return t.length>60?t.slice(0,60)+'…':t};
+var lit=function(expr){var re=new RegExp('renderMCQ\\([^,]+,\\s*'+expr.replace(/[.$[\]]/g,'\\$&')+'\\s*,\\s*[^,]+,\\s*([\'"`])([^\'"`$]*)\\1');var m=src.match(re);return m?m[2]:''};
+var KEY={mcq:'📝 段考模擬題',ext:'延伸題',graph:'綜合 圖表判讀',calc:'綜合 計算練習'};
+var secs=[];
+function add(title,arr,pri){for(var j=0;j<secs.length;j++)if(secs[j].arr===arr){if(pri>secs[j].pri){secs[j].title=title;secs[j].pri=pri}return}secs.push({arr:arr,pri:pri,title:title,items:arr.map(function(q,i){return[i+1,clean(q.o[q.a==null?0:q.a])]})})}
+function walk(v,path,parents){
+  if(!v||typeof v!=='object'||path.length>6||v instanceof Node||v===window)return;
+  if(Array.isArray(v)){
+    if(v.length&&v.every(isQ)){
+      var root=path[0],last=path[path.length-1],par=parents[parents.length-1],t;
+      if(root==='L'&&path.length===3){var d=parents[1];t=[d.no,d.title||d.name].filter(Boolean).join(' ')+'｜'+(KEY[last]||last)}
+      else if(path.length===1)t=lit(root)||root;
+      else if(par&&!Array.isArray(par)&&par.title){var gi=path[path.length-2];t=(/^[①-⑳]/.test(par.title)?'':(typeof gi==='number'?(gi+1)+'. ':''))+String(par.title).replace(/<[^>]*>/g,'')}
+      else t=lit(path.join('.'))||KEY[last]||path.join('.');
+      add(t,v,root==='L'?1:0);return;
+    }
+    v.forEach(function(x,i){walk(x,path.concat(i),parents.concat([v]))});return;
+  }
+  if(Object.getPrototypeOf(v)!==Object.prototype)return;
+  Object.keys(v).forEach(function(k){walk(v[k],path.concat(k),parents.concat([v]))});
+}
+names.forEach(function(n){var v;try{v=(0,eval)(n)}catch(e){return}walk(v,[n],[])});
+/* 同一陣列被兩處引用（如 L.ex.mcq＝EXT）只列一次，以課別標題為準；依 L 的課序排在前面 */
+secs.sort(function(a,b){return b.pri-a.pri});
+return secs.map(function(s){return{title:s.title,items:s.items}});
+});</script>
+<!-- /AK -->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+</body>
+</html>

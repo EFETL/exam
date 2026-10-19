@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國三國文段考闖關（翰林）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#2b4c7e; --main-2:#3f6aa8; --accent:#f2a541; --accent-2:#e07a2f;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#1f3a63 0%,#3f6aa8 60%,#f2a541 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#1f3a63;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.chk{display:inline-flex;gap:6px;align-items:center;background:#f3f6fb;border-radius:10px;padding:6px 12px}
+.chk input{width:20px;height:20px}
+.btn:disabled{opacity:.7}
+.ps .p{animation:none}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;font-size:20px}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+:root{--main:#2f5d50;--main-2:#4f8a6b;--accent:#d9a441;--accent-2:#c0714f}
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回國文選單</a><span class="tag">翰林版 國三上 ｜ 第一次段考</span>
+    <h1>國文段考闖關｜L1～L3＋對聯＋大明湖</h1>
+    <p>先看動畫弄懂課文，再用遊戲練熟考點，最後做段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<button class="bgm" id="bgmBtn"></button>
+<footer><div class="wrap"><details style="margin-top:8px"><summary>圖片來源與授權</summary>動畫照片與畫作皆來自 Wikimedia Commons（公有領域或 CC 授權），未使用 AI 生成圖：赤膊在稻田裡工作的農人：Tahmid Reza（CC BY-SA 4.0）；彰化 二水收割後的稻田：一行一行的田畝：LiCheng Shih（CC BY 2.0）；挑著稻束的農人：收成的喜悅：Zaheed Sarwer Khan（CC BY 4.0）；稻子抽穗開花：Unknown（CC BY-SA 4.0）；颱風過後，稻田泡在水裡：Chris Quintana（CC BY 2.0）；稻田遭飛蝨啃食，枯黃一片：つくる暮らし（CC BY 2.0）；農夫駕著水牛犁田：udeyismail（CC BY-SA 2.0）；旭日照在收割後的稻田上（彰化 二水）：LiCheng Shih（CC BY 2.0）；〈韓熙載夜宴圖〉：南唐的繁華歲月：Tang Zu-Ming（原上傳者）（Public domain）；李後主像（明代《三才圖會》）：Wang Qi (1529 - 1612)（Public domain）；故國：南唐都城金陵（今南京）古地圖：陳沂（明代）（Public domain）；夜空中一輪明月：Lydia Liu（CC BY 2.0）；宮殿的白玉欄杆與臺階（雕闌玉砌）：Allen Lubitz（Public domain）；長江水滾滾向東流：Jan Kranendonk（CC BY-SA 4.0）；明代 朱朗〈北固山圖〉：Unknown（Public domain）；今日的鎮江 北固山：rheins（CC BY 3.0）；長江瞿塘峽：不盡長江滾滾流：Tan Wei Liang Byorn（CC BY 3.0）；吳主孫權（閻立本〈歷代帝王圖〉）：Yan Liben（Public domain）；戰國時代的青銅頭盔（兜鍪）：Flickr user Gary Todd（CC0）；辛棄疾雕像：Huangdan2060（CC BY 3.0）；九二一地震當夜，臺北 東星大樓倒塌：Ho.siminn（CC BY-SA 3.0）；南投 集集 武昌宮：地震後倒塌的廟宇：Zairon（CC BY-SA 4.0）；九九峰：地震震落山壁，變得光禿禿：egghead（CC BY-SA 3.0）；九二一地震教育園區保留的倒塌校舍：Alan Wilson from Peterborough, Cambs, UK（CC BY-SA 4.0）；泛黃的家庭老照片：佚名（Public domain）；九二一地震教育園區：不遺忘的紀念：Liu Shu fu / Office of the President（CC BY 2.0）；日出能高山：黑夜之後的光：lienyuan lee（CC BY 3.0）；廟門上的門神，兩旁是對聯：舟集工作室（CC BY-SA 4.0）；老房子門口貼著春聯：Winston110063002（CC BY-SA 4.0）；〈寫揮春〉：清末過年寫春聯（版畫）：Unknown（Public domain）；關帝廟拜殿的楹聯：舟集 Boattoad（CC BY-SA 4.0）；廟宇石柱上的楹聯：舟集 Boattoad（CC BY-SA 4.0）；笑口常開的彌勒佛（布袋和尚）：shankar s. from Dubai, United Arab Emirates（CC BY 2.0）；《老殘遊記》作者 劉鶚（鐵雲）：不詳（Public domain）；濟南泉水與垂柳：家家泉水，戶戶垂楊：Ermell（CC BY-SA 4.0）；大明湖 歷下亭：Steven Sun（CC BY-SA 4.0）；大明湖 鐵公祠：Sprt98（CC BY-SA 4.0）；大明湖的荷花與垂柳：王泓天（CC BY-SA 4.0）；大明湖與遠方的千佛山：Qquchn at Chinese Wikipedia（Public domain）；秋天的紅楓：Haha169（CC BY-SA 4.0）；湖面平靜如鏡，柳樹與亭子倒映水中：rheins（CC BY 3.0）；盛開的蘆葦白花：Сарапулов（CC BY-SA 4.0）；夕陽映照的蘆葦：Vicky Brock from Tallinn, UK（CC BY-SA 2.0）；蓮蓬：Daderot（CC0）。</details>
+</div></footer>
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料（翰林 國三上 第一次段考） ================= */
+/* 快問快答：[題目, 正解, [誘答], 幾校考過(≥2 才標★), 自訂提問(可省)]
+   注音一律依翰林課本注釋（吳晟ㄔㄥˊ、了ㄌㄧㄠˇ、砌ㄑㄧˋ、兜鍪ㄉㄡ ㄇㄡˊ、踅ㄒㄩㄝˊ 等皆以課本為準） */
+const ASKW='選出「」內字詞在句中的意思';
+const L = {
+l1:{
+  no:'第一課', title:'土', author:'吳晟', color:'linear-gradient(135deg,#6b4f2a,#a8834c)',
+  desc:'鄉土詩｜對比映襯｜轉品「吟哦自己的吟哦」', code:1,
+  quick:[
+    ['赤「膊」','ㄅㄛˊ',['ㄅㄛ','ㄆㄛˋ','ㄅㄨˊ'],14],
+    ['赤「ㄅㄛˊ」上陣','膊',['搏','博','駁'],14],
+    ['脈「ㄅㄛˊ」','搏',['膊','博','薄'],14],
+    ['「ㄅㄛˊ」得喝采','博',['搏','膊','駁'],14],
+    ['揮汗吟「哦」','ㄜˊ',['ㄛˊ','ㄜˋ','ㄨㄛˋ'],0],
+    ['汗「漬」','ㄗˋ',['ㄐㄧˋ','ㄗ','ㄓˋ'],12],
+    ['醃「ㄗˋ」','漬',['積','跡','績'],12],
+    ['嘖嘖稱奇的「嘖」','ㄗㄜˊ',['ㄗˋ','ㄐㄧˋ','ㄗㄜ'],12],
+    ['「蝕」盡','ㄕˊ',['ㄕˋ','ㄔˋ','ㄙˋ'],3],
+    ['侵「ㄕˊ」','蝕',['飾','飭','拭'],3],
+    ['握鋤「荷」犁','ㄏㄜˋ',['ㄏㄜˊ','ㄏㄜ','ㄏㄜˇ'],12],
+    ['不堪負「荷」','ㄏㄜˋ',['ㄏㄜˊ','ㄏㄜ','ㄏㄨㄛˋ'],12],
+    ['笨「拙」','ㄓㄨㄛˊ',['ㄔㄨ','ㄓㄨㄛ','ㄑㄩ'],3],
+    ['勤能補「ㄓㄨㄛˊ」','拙',['絀','茁','濁'],3],
+    ['「憨」直','ㄏㄢ',['ㄍㄢˇ','ㄏㄢˋ','ㄎㄢ'],2],
+    ['吳「晟」（課本讀音）','ㄔㄥˊ',['ㄕㄥˋ','ㄔㄥˋ','ㄕㄥ'],0],
+    ['好高「ㄨˋ」遠','騖',['鶩','務','霧'],18],
+    ['趨之若「ㄨˋ」','鶩',['騖','務','婺'],18],
+    ['心無旁「ㄨˋ」','騖',['鶩','務','誤'],18],
+    ['「ㄒㄧㄠ」灑','瀟',['蕭','簫','嘯'],7],
+    ['閒愁逸「ㄓˋ」','致',['緻','至','志'],5],
+    ['呼「ㄩˋ」','籲',['諭','喻','域'],4],
+    ['握鋤荷犁的「荷」','扛',['負擔','荷花','感謝'],12,ASKW],
+    ['吟哦自己的「吟哦」（後一個）','作品（名詞）',['吟詠（動詞）','嘆息（動詞）','歌聲（形容詞）'],15,'選出「」內詞語的意思與詞性'],
+  ],
+  words:[
+    ['赤膊','光著上身'],['瀟灑','作風灑脫、不受拘束'],['吟哦自己的吟哦','前一個是動詞（吟詠），後一個是名詞（作品）'],
+    ['詠嘆自己的詠嘆','前一個是動詞（歌唱、吟誦），後一個是名詞（詩作）'],['閒愁逸致','無關緊要的愁緒和閒適的情致'],
+    ['汗漬','汗水乾後所留下的汙痕'],['蝕盡','完全侵蝕'],['談經論道說賢話聖','指談論做人處事的大道理'],
+    ['握鋤荷犁','指農夫的工作（荷：扛）'],['鄉土詩','以愛護家鄉、刻畫土地、護衛家園為主要內容的詩'],['詠懷之作','抒發自己情懷的作品'],
+  ],
+  sorts:[
+    {title:'對比找一找：這句寫的是誰？',tip:'作者拿「武將、文人、附庸風雅的詩人」和農人對比，凸顯農人務實、安守本分',buckets:['農人','詩人／文人','武將'],items:[
+      ['赤膊、赤足，在田裡揮汗',0],['揮汗吟哦自己的吟哦',0,'把耕作比成寫詩：作品寫在土地上。'],['安安分分握鋤荷犁',0],['不爭、不吵，沉默的等待',0],
+      ['一行一行笨拙的足印',0],['為了附庸風雅、追求青史留名而寫詩',1,'課本賞析：與農人赤膊赤足的辛勤耕作兩相對照。'],
+      ['談經論道說賢話聖',1,'談論做人處事的大道理＝文人。'],['帶著閒愁逸致吟詩',1],['掛刀、佩劍',2]]},
+    {title:'轉品練習：「」內的詞是什麼詞性？',tip:'看位置：被修飾、當主語受詞＝名詞；後面接受詞＝動詞；修飾動詞＝副詞；修飾名詞＝形容詞',buckets:['動詞','名詞','副詞','形容詞'],items:[
+      ['「吟哦」自己的吟哦',0],['吟哦自己的「吟哦」',1],['「規畫」出版一套叢書',0],['職場生涯中最重要的「規畫」',1],
+      ['在關鍵「時刻」大家給予幫助',1],['他「時刻」放在心上，不敢忘懷',2,'修飾動詞「放」，表示時時＝副詞。'],
+      ['妹妹最「寶貝」那隻大熊',0,'後面接受詞「那隻大熊」＝動詞（珍愛）。'],['把它當成「寶貝」',1],
+      ['「自由」選擇工作',2,'修飾動詞「選擇」＝副詞。'],['憲法賦予每個人的「自由」',1],
+      ['要「負荷」這麼艱鉅的任務',0],['相當沉重的「負荷」',1],['冬日陽光很「溫暖」',3],['這句話「溫暖」了我的心',0,'後面接受詞「我的心」＝動詞。']]},
+    {title:'寫作手法：課本說法還是陷阱？',tip:'〈土〉＝對比、映襯、意象具體、質樸語言；「層遞」「人定勝天」「作者筆耕」都是陷阱',buckets:['✔ 課本說法','✘ 常見陷阱'],items:[
+      ['善用對比，刻畫農人的形象',0],['藉層遞法呈現農人一生的辛勞',1,'新莊、國昌、民族、燕巢都拿「層遞」當錯誤選項。'],
+      ['兩個「如果」並列，形成對比（映襯）',0],['表達人定勝天的精神',1,'不悲、不怨是樂天知命，不是人定勝天。'],
+      ['意象具體鮮明（赤膊、汗漬、病蟲害、握鋤荷犁）',0],['是一首懷舊的詠物詩',1,'課本：鄉土詩人的「詠懷」之作。'],
+      ['以質樸的語言營造淳樸詩風',0],['「躺成一大片寬厚的土地」寫作者勤奮筆耕',1,'主語是農人，寫對土地至死不渝的愛。'],
+      ['「沿著祖先汗漬」寫世代傳承耕作精神',0],['「不爭、不吵」暗諷農人憨愚、不懂爭取權益',1,'寫農人樸實、耐心等待收成。']]},
+  ],
+  mcq:[
+    {q:'〈土〉這首詩最主要想表達什麼？',o:['農人對土地永恆真摯的愛','替農人微薄的收入抱不平','農人應該被歷史記錄下來','鄉村生活悠閒自在'],a:0,src:'課本題解',ex:'題解：本詩是詠懷之作，表達詩人對土地永恆真摯的愛。農人辛勞是事實，但主旨不是抱不平，也不是要被歷史記錄。'},
+    {q:'「赤膊，無關乎瀟灑／赤足，無關乎詩意」的意思，下列何者最恰當？',o:['農人赤膊赤足是為了辛勤耕作，不是刻意表現風雅','凸顯農人不怕寒冷、身體健壯','農人藉此抒發心中的悲憤','寫出農人灑脫、不受拘束的性格'],a:0,src:'11 校',ex:'赤膊、赤足是下田工作的樣子，作者特別說「無關乎瀟灑、詩意」，用來和附庸風雅的詩人對比，凸顯農人務實。'},
+    {q:'「揮汗吟哦自己的吟哦」中，前後兩個「吟哦」詞性不同。下列哪一句「」內的詞也是「前動詞、後名詞」？',o:['他「夢想」著實現自己的「夢想」','「快樂」的人每天都很「快樂」','「慢慢」走，「慢慢」說','這本「說明」書上的「說明」很詳細'],a:0,src:'15 校考轉品',ex:'「夢想著」後接受詞＝動詞；「自己的夢想」＝名詞，和「吟哦自己的吟哦」相同。快樂：形容詞；慢慢：副詞；說明書的「說明」與後面的「說明」都是名詞。'},
+    {q:'「有一天，被迫停下來／也願躺成一大片／寬厚的土地」，下列說明何者錯誤？',o:['呈現作者勤奮筆耕的心志','展現農人眷戀土地的深情','表示農人與土地關係緊密','意近「化作春泥更護花」的奉獻'],a:0,src:'12 校',ex:'句子的主語是「農人」：即使有一天被迫停止耕作（死亡），也願化為土地。和作者寫作無關，「勤奮筆耕」是常見陷阱。'},
+    {q:'「一行一行笨拙的足印／沿著寬厚的田畝，也沿著祖先／滴不盡的汗漬」最能看出什麼？',o:['農人承續先人耕作的精神，世代傳承','農人不知變通、固守老方法','農人數典忘祖、離鄉背井','農人辛勞至死卻一無所獲'],a:0,src:'11 校',ex:'「沿著祖先滴不盡的汗漬」＝一代接一代在同一片土地上耕作，意近「克紹箕裘」。「笨拙」寫樸實，不是不知變通。'},
+    {q:'「如果開一些花、結一些果／那是獻上怎樣的感激／如果冷冷漠漠的病蟲害／或是狂暴的風雨／蝕盡所有辛辛苦苦寫上去的足印／不悲、不怨，繼續走下去」表現農人怎樣的態度？',o:['豐收時感恩，歉收時也不悲不怨，樂天知命','相信人定勝天，一定能戰勝天災','生死有命，所以不必努力','以誇飾強調天災的可怕'],a:0,src:'9 校',ex:'兩個「如果」形成對比（映襯）：收成好就感恩、遇災害也不悲不怨 → 樸實認命、知足感恩。不是人定勝天。'},
+    {q:'「不掛刀、不佩劍／也不談經論道說賢話聖／安安分分握鋤荷犁的行程」運用了什麼寫法？',o:['以武將、文人對比農人，凸顯農人安守本分','呼籲大家愛護環境、節約資源','表達期望和平、拒絕武力','表現以德報怨的胸襟'],a:0,src:'9 校',ex:'掛刀佩劍＝武將，談經論道＝文人，對照握鋤荷犁的農人，表達農人安守本分的生活態度。'},
+    {q:'關於〈土〉的寫作手法，下列何者錯誤？',o:['藉層遞法呈現農人一生的辛勞','善用對比凸顯農人的形象','以質樸的語言營造淳樸詩風','運用詞性的變化來表情達意'],a:0,src:'12 校考寫作手法',ex:'本詩用對比、映襯與轉品，語言質樸；沒有用層遞。「層遞」是最常出現的錯誤選項。'},
+    {q:'關於作者吳晟，下列敘述何者正確？',o:['本名吳勝雄，曾任溪州國中生物教師，擅長以質樸語言寫鄉土','作品多浪漫、脫離現實，深受西方文學影響','〈土〉是一首詠物詩，以泥土比喻母親','代表作〈負荷〉寫農人對土地的眷戀'],a:0,src:'12 校',ex:'吳晟（晟，課本讀ㄔㄥˊ），彰化人，屏東農專畢業，教學之餘也務農。當時詩壇多浪漫風，他卻以大地為依歸。〈負荷〉寫的是父親對子女「甜蜜的負荷」。'},
+    {q:'下列何者最符合「鄉土詩」的定義？',o:['以愛護家鄉、刻畫土地、護衛家園為主要內容的詩','以華麗辭藻描寫都市生活的詩','只能用臺語寫成的詩','描寫遠方旅行見聞的詩'],a:0,src:'',ex:'課本「課文前哨站」：鄉土詩以愛護家鄉、刻畫土地、護衛家園為主要內容，多用質樸自然的語言、寫實的手法。'},
+    {q:'下列「」內與「土」有關的成語，何者使用正確？',o:['爺爺「安土重遷」，退休後仍住在老家，不願搬走','這棟大樓用「土法煉鋼」的方式施工，技術非常先進','他熱心公益，是地方上人人敬重的「土豪劣紳」','敵軍一「捲土重來」就「土崩瓦解」，可見士氣高昂'],a:0,src:'13 校考土字成語',ex:'安土重遷：留戀故土，不肯輕易遷移。土法煉鋼＝用老舊方法，不是先進技術；土豪劣紳是貶義；捲土重來與土崩瓦解前後矛盾。'},
+    {q:'下列哪一組字形完全正確？',o:['好高騖遠／趨之若鶩','好高鶩遠／趨之若騖','心無旁鶩／赤搏上陣','汗積斑斑／侵飭殆盡'],a:0,src:'18 校都考',ex:'騖（馬部）＝追求、奔馳：好高騖遠、心無旁騖。鶩（鳥部）＝鴨子：趨之若鶩。赤膊、汗漬、侵蝕。'},
+    {q:'「不爭、不吵，沉默的等待」寫出農人怎樣的特質？',o:['樸實、耐心地等待收成','憨愚、不懂得爭取權益','冷漠、不在乎收成','吝於表達、個性孤僻'],a:0,src:'6 校',ex:'播種後只能耐心等待作物生長，表現農人樸實、沉穩。說他「憨愚、不懂爭取」是常見陷阱。'},
+    {q:'「寫上誠誠懇懇的土地」，把人的「誠懇」用來形容土地，這是哪一種寫法？',o:['移情：把農人的情感移到土地上','誇飾：誇大土地的面積','借代：以土地代指國家','設問：自問自答'],a:0,src:'',ex:'土地本身不會「誠懇」，是農人以誠懇的心耕作，把自己的情感投射到土地上＝移情（也可說轉化）。'},
+  ]
+},
+l2:{
+  no:'第二課', title:'詞選', author:'李煜〈虞美人〉／辛棄疾〈南鄉子〉', color:'linear-gradient(135deg,#1f3a63,#4f7cac)',
+  desc:'詞的常識（22 校都考）｜物是人非｜藉古諷今', code:2,
+  quick:[
+    ['春花秋月何時「了」','ㄌㄧㄠˇ',['ㄌㄜ˙','ㄌㄧㄠˋ','ㄌㄧㄠˊ'],13],
+    ['雕闌玉「砌」','ㄑㄧˋ',['ㄑㄧ','ㄑㄧㄝˋ','ㄐㄧˋ'],17],
+    ['「沏」一壺好茶','ㄑㄧ',['ㄑㄧˋ','ㄑㄧㄝˋ','ㄑㄧˇ'],17],
+    ['雕闌玉「ㄑㄧˋ」','砌',['沏','徹','切'],17],
+    ['「ㄑㄧ」茶待客','沏',['砌','泣','漆'],17],
+    ['雕「闌」','ㄌㄢˊ',['ㄐㄧㄢˇ','ㄌㄢˋ','ㄌㄧㄢˊ'],0],
+    ['萬兜「鍪」','ㄇㄡˊ',['ㄇㄠˊ','ㄨˋ','ㄇㄡˇ'],6],
+    ['「兜」鍪','ㄉㄡ',['ㄉㄡˇ','ㄊㄡ','ㄉㄨ'],6],
+    ['一「闋」詞','ㄑㄩㄝˋ',['ㄑㄩㄝ','ㄐㄩㄝˊ','ㄍㄨㄟ'],7],
+    ['一「ㄑㄩㄝˋ」詞','闋',['闕','缺','鵲'],7],
+    ['天上宮「ㄑㄩㄝˋ」','闕',['闋','缺','卻'],7],
+    ['李「煜」','ㄩˋ',['ㄩ','ㄧˋ','ㄩˊ'],0],
+    ['綺麗柔「靡」','ㄇㄧˇ',['ㄇㄧˊ','ㄇㄟˊ','ㄇㄧˋ'],16],
+    ['「稼」軒長短句','ㄐㄧㄚˋ',['ㄐㄧㄚ','ㄐㄧㄚˇ','ㄏㄨㄚˋ'],0],
+    ['不「ㄎㄢ」回首','堪',['勘','戡','湛'],11],
+    ['「ㄎㄢ」測地形','勘',['堪','戡','砍'],11],
+    ['處境難「ㄎㄢ」','堪',['勘','戡','坎'],11],
+    ['叱「ㄓㄚˋ」風雲','吒',['乍','炸','詐'],9],
+    ['宮中「嬪」妃','ㄆㄧㄣˊ',['ㄅㄧㄣ','ㄆㄧㄣ','ㄅㄧㄣˋ'],2],
+    ['纏綿「悱惻」','ㄈㄟˇ ㄘㄜˋ',['ㄈㄟ ㄘㄜˋ','ㄈㄟˇ ㄗㄜˋ','ㄈㄟˋ ㄘㄜˋ'],0],
+    ['請「纓」報國','ㄧㄥ',['ㄧㄥˊ','ㄧㄥˇ','ㄧ'],0],
+    ['興衰更「迭」','ㄉㄧㄝˊ',['ㄉㄧㄝ','ㄕˋ','ㄊㄧㄝˋ'],0],
+    ['當頭棒「喝」','ㄏㄜˋ',['ㄏㄜ','ㄏㄜˊ','ㄏㄜˇ'],0],
+    ['坐斷東南戰未「休」','停止',['休息','美好','不要'],5,ASKW],
+    ['春花秋月何時「了」','完結',['明白','聰明','完全'],13,ASKW],
+    ['小時「了了」','聰明伶俐',['完結','明白清楚','了不起的成就'],13,ASKW],
+    ['「悠悠」，不盡長江滾滾流','長遠的樣子',['眾多','憂思','悠閒'],9,ASKW],
+    ['「坐斷」東南','占據',['撤退','坐下休息','斷絕'],6,ASKW],
+  ],
+  words:[
+    ['春花秋月','指美好的時光與景物'],['了（何時了）','完結'],['故國','舊日的國家，此指南唐'],['雕闌','雕有美麗花紋的欄杆'],
+    ['玉砌','用玉石所建的臺階'],['朱顏','紅潤的容貌'],['幾多','多少'],['神州','中原地區，此指被金人占領的地區'],
+    ['悠悠','長遠的樣子'],['年少','孫權繼承孫策為吳主時只有十九歲'],['萬兜鍪','眾多的軍隊'],['兜鍪','頭盔，代指戰士'],
+    ['坐斷','占據'],['曹 劉','曹操和劉備'],['孫仲謀','孫權，字仲謀'],['詩餘','詞的別稱：詞由詩演變而來'],
+    ['長短句','詞的別稱：句子多長短不齊'],['詞牌','填詞所用的曲調名，和內容大多無關'],
+  ],
+  sorts:[
+    {title:'李煜還是辛棄疾？',tip:'李煜＝南唐後主、詞中之帝、婉約；辛棄疾＝南宋愛國詞人、稼軒、豪放、蘇辛',buckets:['李煜','辛棄疾'],items:[
+      ['南唐後主',0],['世譽「詞中之聖、詞中之帝」',0],['作品收在《南唐二主詞》',0],['亡國前綺麗柔靡，被俘後抒亡國之痛',0],['〈虞美人〉',0],['恰似一江春水向東流',0],['屬婉約派',0],
+      ['字幼安，號稼軒居士',1],['南宋著名愛國詞人',1],['與蘇軾並稱「蘇辛」',1],['有《稼軒長短句》傳世',1],['〈南鄉子 登京口北固亭有懷〉',1],['生子當如孫仲謀',1],['被稱為「詞中之龍」',1,'段考常考：詞中之帝＝李煜，詞中之龍＝辛棄疾。'],['以豪放為主，也有婉約之作',1]]},
+    {title:'詞的常識：正確還是陷阱？（22 校都考！）',tip:'詞＝詩餘、長短句、曲子詞、樂府；詞牌和內容無關；小令／中調／長調看「字數」',buckets:['✔ 正確','✘ 陷阱'],items:[
+      ['詞又稱「詩餘」',0,'詞由詩演變而來。'],['詞又稱「詞餘」',1,'「詞餘」是曲的別稱！'],['詞又稱長短句、曲子詞、樂府',0],
+      ['詞牌是曲調名，和作品內容大多無關',0],['〈虞美人〉寫的是美人虞姬',1,'虞美人只是詞牌，內容寫亡國之痛。'],
+      ['依「字數」分小令、中調、長調',0],['依「句數」分小令、中調、長調',1],['小令 58 字以內、中調 59～90 字、長調 91 字以上',0],
+      ['〈虞美人〉〈南鄉子〉都是 56 字，屬於中調',1,'56 字＝小令。'],['「南鄉子」是題目',1,'南鄉子是詞牌；「登京口北固亭有懷」才是題目。'],
+      ['〈虞美人〉有換韻，〈南鄉子〉一韻到底',0],['一闋詞大多分上、下兩片',0],['詞與漢賦、唐詩、元曲並稱中國四大韻文',0],['詞起源於元代',1,'受隋唐胡樂與民歌影響產生，宋代大盛。']]},
+    {title:'婉約派還是豪放派？',tip:'婉約＝纏綿婉轉、離愁別恨；豪放＝氣勢雄偉、弔古傷今、報國',buckets:['婉約派','豪放派'],items:[
+      ['李煜、柳永、秦觀、李清照',0],['蘇軾、陸游、辛棄疾',1],['多寫男女戀情、離愁別恨、惜春悲秋',0],['弔古傷今、請纓報國都可入詞',1],
+      ['知否？知否？應是綠肥紅瘦',0,'李清照〈如夢令〉。'],['大江東去，浪淘盡，千古風流人物',1,'蘇軾〈念奴嬌 赤壁懷古〉。'],
+      ['醉裡挑燈看劍，夢回吹角連營',1,'辛棄疾〈破陣子〉。'],['衣帶漸寬終不悔，為伊消得人憔悴',0,'柳永〈鳳棲梧〉。'],
+      ['問君能有幾多愁？恰似一江春水向東流',0],['天下英雄誰敵手？曹 劉。生子當如孫仲謀',1]]},
+  ],
+  mcq:[
+    {q:'關於「詞」的別稱，下列何者錯誤？',o:['詞餘','詩餘','長短句','曲子詞'],a:0,src:'22 校都考',ex:'詞的別稱：曲子詞、樂府、詩餘、長短句。「詞餘」是「曲」的別稱，最常被拿來當陷阱。'},
+    {q:'小令、中調、長調是依什麼來區分？〈虞美人〉與〈南鄉子〉都是 56 字，屬於哪一類？',o:['依字數；屬於小令','依句數；屬於中調','依押韻字數；屬於小令','依詞牌名稱；屬於長調'],a:0,src:'22 校都考',ex:'依字數：小令 58 字以內、中調 59～90 字、長調 91 字以上。兩闋都是 56 字＝小令。'},
+    {q:'關於「詞牌」，下列敘述何者正確？',o:['詞牌是填詞時所用的曲調名，和內容大多無關','「南鄉子」是題目，「登京口北固亭有懷」是詞牌','〈虞美人〉的內容一定和美人有關','同一個詞牌，每首的字數、句數都可以自由增減'],a:0,src:'',ex:'詞牌是曲調名；每個詞牌的句數、字數、平仄、用韻都有固定格式。南鄉子＝詞牌，登京口北固亭有懷＝題目。'},
+    {q:'「雕闌玉砌應猶在，只是朱顏改」的意思，下列何者正確？',o:['宮殿應該還在，人卻已容顏憔悴，物是人非','感嘆宮中嬪妃年華老去','慨嘆華麗的宮殿年久失修','暗示京城已被敵軍破壞'],a:0,src:'10 校',ex:'雕闌玉砌（宮殿）不變，朱顏（自己的容貌、人事）已改 → 景物依舊、人事已非。「嬪妃變老」是民族、大社、五甲出過的陷阱。'},
+    {q:'「問君能有幾多愁？恰似一江春水向東流！」下列說明何者正確？',o:['以具體的江水比喻抽象的愁，並自問自答','以抽象的流水比喻具體的痛苦','屬於激問，答案在問題的反面','表達思念親人的離愁'],a:0,src:'15 校',ex:'愁是抽象的，江水是具體的 → 以具體喻抽象。先問後答＝設問中的「提問」，不是激問。愁的內容是亡國之痛。'},
+    {q:'「小樓昨夜又東風，故國不堪回首月明中」，下列說明何者正確？',o:['東風吹來表示春天又到，明月勾起對故國的悲痛','東風捎來家人的消息，讓作者欣慰','作者期待在月明時重返故國','春風送暖，撫慰作者的孤寂'],a:0,src:'10 校',ex:'東風＝春風，季節是春。春天又來、明月當空，反而使作者想起南唐故國而「不堪回首」。'},
+    {q:'「春花秋月何時了，往事知多少？」為什麼作者希望美好的春花秋月趕快「了」？',o:['美好景物反而勾起他對故國往事的傷痛','他討厭春天和秋天的天氣','他想表達對季節變化的留心','他感嘆自己年華老去、青春不再'],a:0,src:'9 校',ex:'以美好景物反襯內心愁苦：每看到春花秋月就想起往事，所以盼它早日完結（了：ㄌㄧㄠˇ，完結）。'},
+    {q:'「何處望神州？滿眼風光北固樓。」下列說明何者正確？',o:['登樓遠望，風景依舊，中原卻已淪陷','讚嘆北固樓的建築之美','懷念故鄉的北固樓','中原地區被匈奴占據'],a:0,src:'12 校',ex:'神州＝中原地區，此指被「金人」占領的地區。作者登北固樓只見滿眼風光，望不到淪陷的中原，感慨山河變色。'},
+    {q:'「千古興亡多少事？悠悠，不盡長江滾滾流。」表達了什麼？',o:['藉長江滾滾寫歷代興亡更迭的無盡感慨','讚嘆中國歷史源遠流長','表達對故鄉的鄉愁','哀傷自己一事無成'],a:0,src:'14 校',ex:'悠悠＝長遠的樣子。長江不停奔流，像歷代興亡不斷更替。化用杜甫〈登高〉「不盡長江滾滾來」。'},
+    {q:'「年少萬兜鍪，坐斷東南戰未休」寫的是誰？',o:['孫權','周瑜','南宋皇帝','曹操'],a:0,src:'10 校',ex:'年少＝孫權繼承孫策為吳主時只有十九歲；萬兜鍪＝統率眾多軍隊；坐斷＝占據。段考常考「稱頌周瑜」的陷阱。'},
+    {q:'「天下英雄誰敵手？曹 劉。生子當如孫仲謀。」作者真正的用意是什麼？',o:['藉讚美孫權，暗諷南宋朝廷苟安無能','作者自比孫權，可以爭霸天下','期望兒子繼承己志、光復神州','直接批判曹操和劉備'],a:0,src:'17 校',ex:'引曹操讚孫權的話，以曹操、劉備襯托孫權的英雄形象 → 藉古諷今，委婉譴責南宋朝廷妥協苟安。不是自比，也不是期望兒子。'},
+    {q:'關於辛棄疾，下列何者正確？',o:['南宋愛國詞人，號稼軒居士，與蘇軾並稱「蘇辛」','北宋詞人，作品以婉約為主','世稱「詞中之帝」','反清復明的義士'],a:0,src:'',ex:'辛棄疾，字幼安，號稼軒居士，南宋人，詞以抗金復國為主，風格豪邁，也有婉約之作。詞中之帝是李煜。'},
+    {q:'關於李煜，下列何者正確？',o:['南唐後主，世譽詞中之帝，被俘後多寫亡國之痛','被俘前的作品多寫亡國之痛','南宋人，與辛棄疾同時','以豪放詞風聞名'],a:0,src:'',ex:'李煜，字重光，南唐國主，世稱李後主。亡國前多寫宮廷歡樂（綺麗柔靡），被俘後抒亡國之痛，哀怨淒絕。'},
+    {q:'關於〈虞美人〉與〈南鄉子〉的比較，下列何者正確？',o:['都運用問答（設問）來抒發感懷','都藉歌詠古人抒發自己的志向','都以無盡的江水抒寫愁緒','都屬於豪放派'],a:0,src:'9 校',ex:'虞美人以問起筆、以答作結；南鄉子三問三答。只有南鄉子歌詠古人（孫權）；南鄉子的江水寫興亡感慨。虞美人婉約、南鄉子豪放。'},
+    {q:'「年少萬兜鍪」用「兜鍪」（頭盔）代指戰士，這是哪一種修辭？下列何者也用了相同修辭？',o:['借代；「黃髮垂髫，並怡然自樂」以頭髮代指老人與小孩','譬喻；「恰似一江春水向東流」','設問；「何處望神州」','轉品；「吟哦自己的吟哦」'],a:0,src:'6 校',ex:'以頭盔（兜鍪）代戰士、以黃髮垂髫代老人與小孩，都是借代。「恰似」是譬喻，「何處望神州」是設問，「吟哦自己的吟哦」是轉品。'},
+    {q:'關於詩與詞的比較，下列何者正確？',o:['近體詩一韻到底，詞可以換韻','詞的句子都是五言或七言','近體詩又稱長短句','詞的字數可以由作者自由決定'],a:0,src:'12 校',ex:'近體詩句數、字數固定，一韻到底；詞依詞牌格律，句子長短不齊（長短句），可換韻（如虞美人依序押ㄠ、ㄥ、ㄞ、ㄡ四種韻，換了三次韻）。'},
+  ]
+},
+l3:{
+  no:'第三課', title:'與921說再見', author:'劉光瑩', color:'linear-gradient(135deg,#7a3b2e,#c0714f)',
+  desc:'報導文學｜受訪者心境｜主觀與客觀', code:3,
+  quick:[
+    ['「倖」存','ㄒㄧㄥˋ',['ㄒㄧㄥ','ㄒㄧㄥˇ','ㄐㄧㄥˋ'],6],
+    ['「ㄒㄧㄥˋ」存者','倖',['杏','性','姓'],6],
+    ['「罹」難','ㄌㄧˊ',['ㄌㄨㄛˊ','ㄐㄧˋ','ㄌㄧˋ'],4],
+    ['天崩地「坼」','ㄔㄜˋ',['ㄔㄞ','ㄊㄨㄛˋ','ㄔㄜ'],12],
+    ['天崩地「ㄔㄜˋ」','坼',['拆','柝','撤'],12],
+    ['「剖」白','ㄆㄡˇ',['ㄆㄛˇ','ㄆㄡ','ㄅㄡ'],5],
+    ['結「痂」','ㄐㄧㄚ',['ㄐㄧㄚˋ','ㄐㄧㄚˇ','ㄍㄚ'],7],
+    ['結「ㄐㄧㄚ」','痂',['枷','茄','袈'],7],
+    ['「ㄐㄧㄚ」鎖','枷',['痂','茄','珈'],7],
+    ['鉅細「靡」遺','ㄇㄧˇ',['ㄇㄧˊ','ㄇㄟˊ','ㄇㄧ'],16],
+    ['鉅細「ㄇㄧˇ」遺','靡',['糜','彌','迷'],16],
+    ['所向披「ㄇㄧˇ」','靡',['糜','彌','弭'],16],
+    ['瓦「礫」堆','ㄌㄧˋ',['ㄌㄜˋ','ㄌㄨㄛˋ','ㄌㄧˊ'],0],
+    ['阿「騫」','ㄑㄧㄢ',['ㄐㄧㄢ','ㄑㄧㄢˊ','ㄒㄧㄢ'],0],
+    ['受傷「逾」萬人','ㄩˊ',['ㄩˋ','ㄧㄡˊ','ㄩ'],0],
+    ['走出陰「ㄇㄞˊ」','霾',['埋','貍','麥'],2],
+    ['「創」傷','ㄔㄨㄤ',['ㄔㄨㄤˋ','ㄘㄤ','ㄔㄨㄤˇ'],5],
+    ['心情「翻ㄊㄥˊ」','騰',['藤','謄','滕'],0],
+    ['「鉅細靡遺」的「靡」','沒有',['奢侈','倒下','美好'],16,ASKW],
+    ['再來一記「回馬槍」','事發突然、來不及防備的反擊',['臨陣磨槍的準備','玩弄手段、耍花招','單獨一人行動'],2,ASKW],
+  ],
+  words:[
+    ['山河變色','此指自然地形改變了形貌'],['倖存','僥倖存活'],['出頭（三十歲出頭）','用在整數後，表示比該整數多一點'],['罹難','遭逢災難而死'],
+    ['失依兒','失去父母的兒童'],['天崩地坼','天崩塌，地裂陷，比喻重大的變故'],['剖白','表白、表露'],['鉅細靡遺','重點或細節都沒有遺漏，比喻很詳盡'],
+    ['結痂','指傷口癒合'],['回馬槍','比喻事發突然，來不及防備的反擊'],['翻騰','上下翻動，此指情緒起伏極大'],['耍花槍','今多指耍花招、玩弄手段'],
+    ['報導文學','融合新聞性與文學性的文體'],
+  ],
+  sorts:[
+    {title:'受訪者這句話，反映什麼心境？（13 校考）',tip:'看關鍵字：不公平、算了＝沉痛；排斥、不願＝壓抑；說再見、迎接新的自己＝接受；努力生活、愈來愈好＝堅強面對',buckets:['孤寂沉痛','封閉壓抑','坦然接受','堅強面對'],items:[
+      ['為什麼是我？為什麼你們都離開了，就丟下、剩下我一個人？就覺得很不公平。',0],
+      ['為什麼不讓我跟他們一起離開這個世界算了？',0,'阿盛到扶養家庭後的孤單與絕望。'],
+      ['憑什麼全家只有我活下來了，是不是因為我做了什麼事，害了他們？',0,'倖存者的罪惡感。'],
+      ['我原本很排斥講出自己的事，怕會讓人覺得我很可憐。',1],
+      ['剛開始我根本不願意去看爸爸媽媽的遺體。',1],
+      ['與其說是和逝去的家人說再見，其實比較像是和過去的自己說再見，迎接新的自己。',2],
+      ['原來沒有所謂的「走出來」，而是自己要選擇用怎樣的心情來面對。',2],
+      ['當然還是會感到難過，但我現在很努力地在生活，我沒有讓這場震災把我打倒。',3,'仍會難過，所以不是「振奮欣喜」。'],
+      ['這一兩年，我開始只留小燈睡覺，慢慢地練習，一定會愈來愈好。',3]]},
+    {title:'報導文學：客觀事實、作者主觀，還是受訪者原話？',tip:'數字、時間、機構＝客觀（新聞的眼）；作者的評論與比喻＝主觀（文學的筆）；「」內是受訪者的話',buckets:['客觀事實','作者主觀敘述','受訪者原話'],items:[
+      ['凌晨一點四十七分，近兩分鐘的天搖地動',0],['全臺十萬多棟房屋全倒或半倒，超過二千四百人死亡',0],['留下一百三十四位失去雙親的失依兒',0],['兒福聯盟於同年十二月在臺中成立家庭重建中心',0],
+      ['這麼多令人痛心的問題，不會有答案。',1],['硬體重建，是相對容易的。然而，心靈的重建卻沒這麼容易。',1],
+      ['每次講述和面對，就像是在傷口上塗藥，儘管痛苦，其實是給傷口癒合結痂的機會。',1,'這是作者的主觀敘述（以譬喻說理），不是受訪者的話。'],
+      ['「我們的功課就是要學習和悲傷共處。」',2,'社工黃雅祺。'],['「有天大的困難，當你說出來的那一刻，世界就不一樣了。」',2,'阿騫。']]},
+    {title:'這是本文的寫作手法嗎？',tip:'「倖存者彼此對話」是最常見的錯誤選項',buckets:['✔ 本文有用','✘ 本文沒用'],items:[
+      ['藉由實際統計數字，具體呈現災害之大',0],['以倖存者的回憶呈現地震當夜的情況',0],['透過倖存者彼此間的對話呈現內心傷痛',1,'段考常考：受訪者是分別受訪，沒有彼此對話。'],
+      ['擇取不同身分的受訪者（當事者、陪伴者），多元呈現主題',0],['以阿倫開頭、結尾，首尾呼應',0],['如實記錄受訪者的言詞、語氣',0],
+      ['以作者自己經歷九二一的回憶為主軸',1],['用小標題串起段落（如「最大的噩夢是忘記」）',0],['全文以文言文寫成',1]]},
+  ],
+  mcq:[
+    {q:'下列何者最接近本文主旨？',o:['陳述九二一倖存者面對傷痛的歷程','敘述兒福聯盟在九二一前後的付出','報導失依兒的職業發展','說明民間基金會如何參與硬體重建'],a:0,src:'課本讀後檢測',ex:'本文以幾位年幼倖存者為報導對象，呈現他們二十年來從無法面對，到學習面對巨大創傷的心路歷程。'},
+    {q:'「路橋重建不難，但留給倖存大人小孩的，卻是一輩子的生命課題。」「一輩子的生命課題」指的是什麼？',o:['如何面對過往沉重的傷痛','背負重建家園的經費壓力','被迫搬離原本家園的無奈','無法在社會上生存的窘境'],a:0,src:'課本讀後檢測',ex:'硬體重建容易，心靈的重建卻不容易；倖存者要學的是如何面對失去家人的傷痛。'},
+    {q:'下列受訪者的話與心境的配對，何者錯誤？',o:['「當然還是會感到難過，但我現在很努力地在生活」－振奮欣喜','「為什麼是我？……就覺得很不公平」－孤寂沉痛','「與其說是和逝去的家人說再見，其實比較像是和過去的自己說再見」－坦然接受','「我原本很排斥講出自己的事」－封閉壓抑'],a:0,src:'13 校',ex:'阿倫仍會難過，但努力生活、不被打倒，是堅強面對；說「振奮欣喜」不對，這是最常考的陷阱。'},
+    {q:'從下列倖存者的話，可以看出何者已經能面對傷痛？',o:['與其說是和逝去的家人說再見，其實比較像是和過去的自己說再見，迎接新的自己','為什麼你們都離開了，就丟下、剩下我一個人','憑什麼全家只有我活下來了，是不是因為我做了什麼事','後來我說著說著就哭了'],a:0,src:'課本讀後檢測',ex:'阿騫在多次表達之後，能和過去的自己告別、迎接新的自己 → 已能面對傷痛。其餘是沉痛、自責或剛開始察覺傷痛。'},
+    {q:'下列何者「不是」本文的寫作手法？',o:['透過倖存者彼此間的對話呈現他們內心的傷痛','藉由實際統計數字具體呈現災害之大','擇取不同身分的受訪者，以多元角度呈現主題','以阿倫首尾呼應，呈現倖存者的成長'],a:0,src:'',ex:'受訪者是各自接受訪問，文中沒有倖存者彼此對話。其餘三項都是課本提到的寫作特色。'},
+    {q:'關於「報導文學」，下列敘述何者正確？',o:['融合新聞性與文學性，陳述客觀事件時也適時加入感性筆觸與主觀敘述','內容可以完全虛構，只要感人即可','只能列出客觀數據，不能有作者的看法','一定要用第一人稱寫自己的經歷'],a:0,src:'約 12 校',ex:'高信疆：「以文學的筆、新聞的眼」來從事人生探訪與現實報導。必須紀實，但可以有主觀敘述。'},
+    {q:'「我們不是『走出來』，而是與傷痛一起往前走」最能說明哪一種面對創傷的態度？',o:['學習與悲傷共處，選擇用怎樣的心情面對','時間是最好的良藥，久了就會忘記','花十年就能完全走出創傷','讓時間沖淡一切，不要再提起'],a:0,src:'6 校',ex:'阿倫體悟：沒有所謂的「走出來」，而是學習面對悲傷、跟它相處。「讓時間沖淡一切」是文中扶養家庭大人的想法，不是理想的態度。'},
+    {q:'馮燕說：「如果只是把創傷掩蔽起來，難保不會在你最脆弱的時候，再來一記回馬槍。」這句話的意思是？',o:['被壓抑的傷痛，可能在脆弱時突然反撲','創傷會在時間中自然痊癒','要像騎馬打仗一樣勇敢','遇到困難應該轉身逃走'],a:0,src:'',ex:'回馬槍＝比喻事發突然、來不及防備的反擊。所以面對傷痛不是把它當不存在，而是要一次次去面對。'},
+    {q:'社工幫失依兒編製「生命史」，主要用意是什麼？',o:['讓孩子記得父母的模樣，孤單時可以想念親人','讓時間沖淡孩子悲痛的回憶','向社會募集重建的經費','記錄地震造成的財產損失'],a:0,src:'課文段落',ex:'孩子最大的噩夢是忘記父母的長相。生命史讓他們「孤單寂寞的時候，可以抱著這本畫冊想念親人」。'},
+    {q:'全文以阿倫開頭，又以他作結，這樣安排的用意是什麼？',o:['首尾呼應，呈現倖存者從無助到逐漸面對傷痛的成長','因為阿倫是唯一的受訪者','為了說明社工的工作內容','凸顯地震當晚的恐怖'],a:0,src:'課本問題討論',ex:'開頭阿倫「開大燈才能睡」，結尾「開始只留小燈睡覺」，前後對照，看見他慢慢學會面對傷痛。'},
+    {q:'「每次講述和面對，就像是在傷口上塗藥，儘管痛苦，其實是給傷口癒合結痂的機會。」關於這句話，何者正確？',o:['是作者的主觀敘述，用譬喻說明面對傷痛的意義','是受訪者阿騫說的原話','是客觀的統計資料','屬於新聞性的事實報導'],a:0,src:'3 校考主觀敘述',ex:'這句沒有引號，是作者在阿騫的話之後加上的評論與比喻＝報導文學中的主觀敘述（文學的筆）。'},
+    {q:'下列哪一組字形完全正確？',o:['天崩地坼／結痂／鉅細靡遺','天崩地拆／結枷／鉅細糜遺','天崩地柝／結痂／鉅細彌遺','天崩地撤／結茄／巨細靡遺'],a:0,src:'12～16 校',ex:'坼ㄔㄜˋ＝裂開（段考常考錯字「天崩地撤」）；痂ㄐㄧㄚ＝傷口結成的硬塊；靡ㄇㄧˇ＝沒有。'},
+    {q:'下列「」內的詞語，何者使用正確？',o:['她把藏在心裡多年的委屈全部「剖白」給好友聽','這份報告「鉅細靡遺」，連重點都漏掉了','這場球賽他們「天崩地坼」地贏了','傷口「結痂」代表傷勢正在惡化'],a:0,src:'詞語運用',ex:'剖白＝表白、表露。鉅細靡遺＝很詳盡；天崩地坼比喻重大變故；結痂＝傷口癒合。'},
+    {q:'「天崩地坼」與「山河變色」在本文中的解釋，下列何者正確？',o:['天崩地坼比喻重大的變故；山河變色此指自然地形改變了形貌','兩者意思完全相同','天崩地坼指自然地形改變；山河變色比喻國家滅亡','兩者都是形容天氣惡劣'],a:0,src:'',ex:'蘆洲故意把山河變色的解釋套到天崩地坼。課本：天崩地坼＝天崩塌，地裂陷，比喻重大的變故；山河變色＝此指自然地形改變了形貌。'},
+  ]
+},
+yw:{
+  no:'語文常識', title:'應用文─對聯', author:'上聯仄、下聯平', color:'linear-gradient(135deg,#9c2f2f,#d0604a)',
+  desc:'仄起平收｜行業、人物、場合配對（13 校）', code:4,
+  quick:[
+    ['「楹」聯','ㄧㄥˊ',['ㄧㄥ','ㄧㄥˇ','ㄧㄣˊ'],0],
+    ['「ㄧㄥˊ」聯','楹',['盈','營','瀛'],0],
+    ['「輓」聯','ㄨㄢˇ',['ㄨㄢ','ㄨㄢˋ','ㄇㄧㄢˇ'],0],
+    ['「ㄨㄢˇ」聯（哀悼死者）','輓',['晚','婉','腕'],0],
+    ['神「荼」','ㄕㄨ',['ㄊㄨˊ','ㄔㄚˊ','ㄕㄨˊ'],0],
+    ['鬱「壘」','ㄌㄩˋ',['ㄌㄟˇ','ㄌㄟˊ','ㄌㄩˇ'],0],
+    ['孟「昶」','ㄔㄤˇ',['ㄩㄥˇ','ㄔㄤ','ㄔㄤˊ'],0],
+    ['高懷同「霽」月','ㄐㄧˋ',['ㄑㄧˊ','ㄐㄧ','ㄓㄞ'],0],
+    ['一「樽」談笑','ㄗㄨㄣ',['ㄗㄨㄣˇ','ㄗㄨㄣˋ','ㄉㄨㄣ'],0],
+    ['「泗」水文章','ㄙˋ',['ㄙ','ㄒㄧˋ','ㄙˇ'],0],
+    ['青龍「偃」盡千秋月','ㄧㄢˇ',['ㄧㄢˋ','ㄧㄢ','ㄧㄢˊ'],0],
+    ['三寶「鍘」','ㄓㄚˊ',['ㄗㄜˊ','ㄓㄚˋ','ㄘㄜˋ'],0],
+    ['范「蠡」','ㄌㄧˊ',['ㄌㄧˇ','ㄌㄨㄛˊ','ㄌㄧˋ'],0],
+    ['年豐物「阜」','ㄈㄨˋ',['ㄈㄨˇ','ㄅㄨˋ','ㄈㄨ'],0],
+    ['「韶」華不為少年留','ㄕㄠˊ',['ㄓㄠ','ㄕㄠˋ','ㄕㄠ'],0],
+    ['喬「ㄑㄧㄢ」之喜','遷',['僉','謙','簽'],0],
+    ['風馳電「掣」','ㄔㄜˋ',['ㄓˋ','ㄓㄜˊ','ㄔㄜ'],0],
+    ['「鐫」刻','ㄐㄩㄢ',['ㄐㄩㄢˋ','ㄐㄧㄢ','ㄏㄨㄟˋ'],0],
+    ['對聯的「仄聲」包括','上、去、入三聲',['陰平、陽平','只有入聲','平、上兩聲'],11,'選出正確的說明'],
+  ],
+  words:[
+    ['對聯','前後字數相等、結構相似、音韻相諧、意義相關的一對句子'],['桃符','古時畫神荼、鬱壘掛在門上驅鬼鎮邪的桃木板'],
+    ['春聯','新年、春節專用的門聯'],['楹聯','宅第、亭閣、寺廟等所用'],['行業聯','各行各業專用的對聯'],['賀聯','婚嫁、壽慶、新居等所用'],
+    ['輓聯','哀悼死者所用'],['仄起平收','上聯末字仄聲，下聯末字平聲'],['仄聲','古代的上、去、入三聲'],['對仗工整','字數相等，詞性、意義兩兩對稱'],
+    ['樽','酒器'],['喬遷','稱人遷居或升職'],['寶地','敬詞，稱對方所在的地方'],['端木','孔子弟子子貢，善於經商'],['陶朱','范蠡，助句踐復國後經商致富'],
+  ],
+  sorts:[
+    {title:'上聯還是下聯？看最後一個字！',tip:'上聯末字仄聲（國語三、四聲，或入聲字）；下聯末字平聲（國語一、二聲）',buckets:['上聯（末字仄）','下聯（末字平）'],items:[
+      ['大肚能容了卻人間多少事',0],['滿腔歡喜笑開天下古今愁',1],['新年納餘慶',0],['佳節號長春',1],
+      ['大塊文章百城富有',0],['名山事業千古永留',1,'留是平聲 → 下聯（段考常考）。'],['廣招三倍利',0],['遠集四方財',1],
+      ['由此登堂入室',0,'室是入聲字，屬仄聲。'],['任君步月凌雲',1],['時光冉冉春長駐',0],['風度翩翩笑永存',1],
+      ['福如東海長流水',0],['壽比南山不老松',1],['常體天地好生德',0,'德是入聲字（課本特別標出），屬仄聲。'],['獨存聖賢濟世心',1]]},
+    {title:'行業聯配對：這副對聯掛在哪裡？',tip:'找關鍵字：文章、學術＝書局；活人、濟世＝醫院；頂上、頭頭＝理髮；時間＝鐘錶；財、利＝商店',buckets:['書局／出版','醫院','理髮店','鐘錶店／照相館','商店通用'],items:[
+      ['藏古今學術，聚天地精華',0],['大塊文章百城富有，名山事業千古永留',0],['學貫中西活人無數，道通天地濟世實多',1],['常體天地好生德，獨存聖賢濟世心',1],
+      ['雖然毫末生意，卻是頂上功夫',2],['技術高超頭頭是道，容光煥發面面俱春',2],['能於細處求精確，慣與時間較短長',3,'鐘錶店。'],['時光冉冉春長駐，風度翩翩笑永存',3,'照相館。'],
+      ['生意興隆通四海，財源茂盛達三江',4],['廣招三倍利，遠集四方財',4],['端木善於商戰，陶朱本是人豪',4,'端木＝子貢、陶朱＝范蠡，都善於經商。']]},
+    {title:'場合配對：這副對聯用在什麼時候？',tip:'除舊、更新＝春聯；琴瑟、佳偶＝婚；東海南山＝壽；喬遷、新居＝新家；逝、千古恨＝輓聯',buckets:['春聯','賀婚','祝壽','喬遷新居','輓聯'],items:[
+      ['一元復始，萬象更新',0],['爆竹一聲除舊，桃符萬戶更新',0],['山河增秀色，大地播春暉',0],['百年琴瑟好，千載鳳麟祥',1],['百年佳偶同心結，並蒂紅花向陽開',1],
+      ['福如東海長流水，壽比南山不老松',2],['福同天地共在，壽與日月同輝',2],['遷宅喜迎新氣象，換門不改舊家風',3],['地無寒舍春常在，居有芳鄰德不孤',3],['陽光照寶地，春風拂新居',3],
+      ['夕陽流水千古恨，春露秋霜百年愁',4],['身似芳蘭從此逝，心如皓月幾時歸',4,'輓女喪。'],['蒼松長聳翠，古柏永垂青',4,'輓男喪。']]},
+    {title:'人物／廟宇配對',tip:'青龍刀、赤兔馬＝關公；泗水、杏壇＝孔子；大肚、笑口＝彌勒佛；三寶鍘、明鏡高懸＝包公',buckets:['關公','孔子','彌勒佛','包公'],items:[
+      ['青龍偃盡千秋月，赤兔追餘萬里風',0],['英雄三國無雙士，正氣千秋第一人',0],['泗水文章昭日月，杏壇禮樂冠華夷',1],['教澤垂千古，泰山終不頹',1],
+      ['大肚能容了卻人間多少事，滿腔歡喜笑開天下古今愁',2],['聯中有「三寶鍘」「明鏡高懸」「一青天」',3]]},
+  ],
+  mcq:[
+    {q:'撰寫對聯講究「仄起平收」，意思是什麼？',o:['上聯末字為仄聲，下聯末字為平聲','上聯第一字為仄聲，下聯第一字為平聲','上聯全用仄聲字，下聯全用平聲字','上聯末字為平聲，下聯末字為仄聲'],a:0,src:'11 校',ex:'仄起平收：上聯的末一字必須是仄聲，下聯的末一字必須是平聲。仄聲＝上、去、入三聲。'},
+    {q:'彌勒佛像旁的對聯「大肚能容了卻人間多少事」「滿腔歡喜笑開天下古今愁」，哪一句是上聯？為什麼？',o:['「大肚能容了卻人間多少事」，因為「事」是仄聲','「滿腔歡喜笑開天下古今愁」，因為「愁」是仄聲','「滿腔歡喜笑開天下古今愁」，因為字數較多','兩句都可以當上聯'],a:0,src:'課本語文常識',ex:'事（ㄕˋ，去聲）屬仄 → 上聯；愁（ㄔㄡˊ，陽平）屬平 → 下聯。'},
+    {q:'張貼春聯時，面對大門，上聯、下聯應該怎麼貼？',o:['上聯貼右邊，下聯貼左邊','上聯貼左邊，下聯貼右邊','上下聯都貼在門楣上','由主人自由決定'],a:0,src:'春聯貼法圖',ex:'傳統由右向左讀：面對大門，右邊是上聯、左邊是下聯，橫批在上方。'},
+    {q:'根據史料，最早的一副對聯是誰寫的？內容為何？',o:['五代 後蜀 孟昶：「新年納餘慶，佳節號長春」','唐太宗：「一元復始，萬象更新」','宋代 蘇軾：「爆竹一聲除舊，桃符萬戶更新」','明太祖：「福如東海長流水，壽比南山不老松」'],a:0,src:'課本語文常識',ex:'五代 後蜀國君孟昶（昶ㄔㄤˇ）於春節時在門上自題「新年納餘慶，佳節號長春」，成為最早的一副對聯。'},
+    {q:'對聯的使用，相傳與下列何者有關？',o:['古代民俗中的桃符（神荼、鬱壘）','唐代的科舉考試','宋代的詞牌','佛教的經文'],a:0,src:'課本語文常識',ex:'上古人們把神荼、鬱壘的圖像畫在桃木板上掛在門上驅鬼鎮邪（桃符），後來演變成對偶整齊的對聯。'},
+    {q:'「雖然毫末生意，卻是頂上功夫」最適合掛在哪一種店？',o:['理髮店','書局','醫院','鐘錶店'],a:0,src:'13 校考行業聯',ex:'毫末（頭髮）、頂上（頭頂）＝理髮店。雖是小生意，卻是頭頂上的大功夫，一語雙關。'},
+    {q:'「能於細處求精確，慣與時間較短長」最適合哪一個行業？',o:['鐘錶店','照相館','鞋店','蔬果行'],a:0,src:'課本應用練習',ex:'「時間」「精確」「細處」都指鐘錶。照相館是「時光冉冉春長駐，風度翩翩笑永存」。'},
+    {q:'「學貫中西活人無數，道通天地濟世實多」適合用於何處？',o:['醫院','報社','書局','學校'],a:0,src:'課本語文常識',ex:'「活人」（使人活）、「濟世」（救助世人）＝醫院。報社是「縱談中外事，洞徹古今情」。'},
+    {q:'下列哪一副對聯適合掛在關帝廟？',o:['青龍偃盡千秋月，赤兔追餘萬里風','泗水文章昭日月，杏壇禮樂冠華夷','滿腔歡喜笑開天下古今愁','天上慈悲傳千古'],a:0,src:'',ex:'青龍偃月刀與赤兔馬是關羽的特徵。泗水、杏壇指孔子；滿腔歡喜指彌勒佛。'},
+    {q:'要送給長輩祝壽，下列哪一副對聯最恰當？',o:['福如東海長流水，壽比南山不老松','百年琴瑟好，千載鳳麟祥','蒼松長聳翠，古柏永垂青','新屋廳堂窗明几淨，闔家老幼心曠神怡'],a:0,src:'場合配對',ex:'百年琴瑟＝賀婚；蒼松古柏（長聳翠、永垂青）＝輓男喪；新屋廳堂＝賀新居。'},
+    {q:'「水唯善下方成海，山不矜高自極天」蘊含的道理最接近哪一個成語？',o:['虛懷若谷','氣概凌雲','坦蕩無懼','廉潔安貧'],a:0,src:'課本應用練習',ex:'水因為甘居低處才匯成大海，山不自誇高卻自然高聳 → 謙虛。「海到無邊天作岸，山登絕頂我為峰」才是氣概凌雲。'},
+    {q:'「兩袖清風存正氣，一間陋室透書香」描寫的是怎樣的人？',o:['廉潔安貧、愛好讀書','虛懷若谷、不自誇','氣概凌雲、志向遠大','經商致富、財源廣進'],a:0,src:'課本應用練習',ex:'兩袖清風＝為官清廉；陋室透書香＝生活簡樸而愛讀書 → 廉潔安貧。'},
+    {q:'「端木善於商戰，陶朱本是人豪」中的「端木」「陶朱」分別指誰？',o:['子貢、范蠡','孔子、句踐','顏回、伍子胥','孟子、陶淵明'],a:0,src:'課本語文常識',ex:'端木賜（子貢）善於經商致富；范蠡（蠡ㄌㄧˊ）助句踐復國後退隱，居陶，自號朱公，以經商致富。常用於商業聯。'},
+    {q:'關於「對仗工整」，下列敘述何者正確？',o:['上下聯字數相等，詞性、意義要兩兩對稱','上下聯的字可以完全相同','只要字數相同，詞性不用對應','上聯寫景、下聯一定要寫人'],a:0,src:'課本語文常識',ex:'名詞對名詞、動詞對動詞……疊字、數字、人名、地名、動植物都要兩兩對應，例如「寰中」對「海上」。'},
+  ]
+},
+zx:{
+  no:'自學選文', title:'大明湖', author:'劉鶚《老殘遊記》', color:'linear-gradient(135deg,#2e6b6b,#5fa3a0)',
+  desc:'路線方位｜三副對聯｜秋景與蘆花（8 校）', code:5,
+  quick:[
+    ['劉「鶚」','ㄜˋ',['ㄜˊ','ㄜˇ','ㄏㄜˋ'],0],
+    ['老「圃」黃花','ㄆㄨˇ',['ㄈㄨˇ','ㄆㄨ','ㄆㄨˋ'],0],
+    ['高「陞」店','ㄕㄥ',['ㄕㄥˋ','ㄒㄧㄥ','ㄕㄣ'],0],
+    ['滿街「踅」了一趟','ㄒㄩㄝˊ',['ㄓㄜˊ','ㄒㄧㄝˊ','ㄒㄩㄝˋ'],3],
+    ['「梵」宇僧樓','ㄈㄢˋ',['ㄈㄢˊ','ㄈㄢ','ㄈㄥˊ'],3],
+    ['「ㄈㄢˋ」宇僧樓','梵',['范','泛','汎'],3],
+    ['青的「靛」青','ㄉㄧㄢˋ',['ㄉㄧㄥˋ','ㄉㄧㄢ','ㄉㄧㄢˇ'],3],
+    ['青的「ㄉㄧㄢˋ」青','靛',['澱','殿','墊'],3],
+    ['高下相「間」','ㄐㄧㄢˋ',['ㄐㄧㄢ','ㄐㄧㄢˇ','ㄒㄧㄢˊ'],0],
+    ['一「盞」寒泉','ㄓㄢˇ',['ㄓㄢ','ㄓㄢˋ','ㄐㄧㄢˇ'],0],
+    ['「薦」秋菊','ㄐㄧㄢˋ',['ㄐㄧㄢ','ㄐㄧㄣˋ','ㄑㄧㄢˋ'],0],
+    ['三「更」畫舫','ㄍㄥ',['ㄍㄥˋ','ㄐㄧㄥ','ㄍㄥˇ'],0],
+    ['畫「舫」','ㄈㄤˇ',['ㄈㄤ','ㄈㄤˊ','ㄈㄤˋ'],0],
+    ['蓮蓬「蹦」到船窗','ㄅㄥˋ',['ㄅㄥ','ㄆㄥˊ','ㄅㄥˇ'],0],
+    ['鐵「鉉」','ㄒㄩㄢˋ',['ㄒㄩㄢˊ','ㄒㄩㄢ','ㄐㄩㄢˋ'],0],
+    ['朱「棣」','ㄉㄧˋ',['ㄌㄧˋ','ㄉㄧ','ㄉㄞˋ'],0],
+    ['起兵「篡」位','ㄘㄨㄢˋ',['ㄓㄨㄢˋ','ㄘㄨㄢˊ','ㄙㄨㄢˋ'],0],
+    ['「趵」突泉','ㄅㄠˋ',['ㄅㄠ','ㄅㄠˇ','ㄆㄠˇ'],0],
+    ['「業已」澄淨','已經',['事業','業務','已然完成'],0,ASKW],
+    ['開發了車價酒錢的「開發」','給付',['開墾','開始','發展'],2,ASKW],
+  ],
+  words:[
+    ['開發（開發了車價）','給付'],['酒錢','指小費'],['踅','來回走動'],['虛應一應故事','敷衍一下例行的事務'],['串鈴','走江湖行醫、算命的人搖來招攬顧客'],
+    ['土人','土生土長的當地人'],['梵宇僧樓','佛寺與和尚的住所'],['靛青','深藍色'],['趙千里','名伯駒，南宋著名畫家'],['漁唱','捕魚人的歌聲'],
+    ['業已','已經'],['享堂','供奉和祭祀祖先、神佛的殿堂'],['薦','進獻'],['畫舫','華美的遊船'],['嗤嗤價響','嗤嗤地響，形容擦撞聲'],['格格','鳥飛起拍擊翅膀的聲音'],
+  ],
+  sorts:[
+    {title:'遊湖路線：這是第幾站？',tip:'鵲華橋上船 → 歷下亭 → 鐵公祠 → 古水仙祠 → 回鵲華橋',buckets:['①','②','③','④','⑤'],items:[
+      ['鵲華橋邊僱了一隻小船',0],['亭子上懸了「歷下此亭古，濟南名士多」',1],['入了大門，便是一個亭子，油漆已大半剝蝕',1],['明初與燕王為難的鐵鉉',2],['朝南一望，對面千佛山上梵宇僧樓',2],
+      ['大門裡面楹柱上「四面荷花三面柳，一城山色半城湖」',2],['破匾上題「古水仙祠」四個字',3],['「一盞寒泉薦秋菊，三更畫舫穿藕花」',3],['一面吃著蓮蓬，船已到了鵲華橋畔',4]]},
+    {title:'三副對聯在哪裡看到？',tip:'歷下亭＝杜甫的詩句；鐵公祠＝荷花柳樹、山色湖光；古水仙祠＝祭水神',buckets:['歷下亭','鐵公祠','古水仙祠'],items:[
+      ['歷下此亭古，濟南名士多',0],['上寫「杜工部句」，下寫「道州 何紹基書」',0],['四面荷花三面柳，一城山色半城湖',1,'段考常考：在鐵公祠，不是歷下亭。'],
+      ['老殘「暗暗點頭道：真正不錯！」',1],['一盞寒泉薦秋菊，三更畫舫穿藕花',2],['用一杯清涼的泉水和菊花祭祀水神',2]]},
+    {title:'摹寫：這句用了哪一種感官？',tip:'看到的顏色、光影＝視覺；聽到的聲音、狀聲詞＝聽覺（課本：視覺之外還用了聽覺摹寫）',buckets:['視覺','聽覺'],items:[
+      ['紅的火紅，白的雪白，青的靛青，綠的碧綠',0],['那千佛山的倒影映在湖裡，顯得明明白白',0],['一片白花映著帶水氣的斜陽，好似一條粉紅絨毯',0],
+      ['忽聽一聲漁唱',1],['那荷葉初枯，擦得船嗤嗤價響',1],['那水鳥被人驚起，格格價飛',1,'格格＝鳥拍擊翅膀的聲音（狀聲詞）。'],['更有一株半株的丹楓夾在裡面',0]]},
+  ],
+  mcq:[
+    {q:'關於《老殘遊記》，下列敘述何者正確？',o:['晚清 劉鶚以遊記形式寫成的章回小說，主角老殘是作者的化身','清代 吳敬梓所著，譏諷科舉制度','明末清初以文言寫成的筆記小說','情節與地景完全虛構，與現實無關'],a:0,src:'',ex:'《老殘遊記》是晚清劉鶚的章回小說（譴責小說），以白話寫成；藉老殘行醫各地的見聞揭發吏治黑暗。吳敬梓寫的是《儒林外史》。'},
+    {q:'根據本文，老殘遊大明湖經過的景點順序何者正確？',o:['鵲華橋→歷下亭→鐵公祠→古水仙祠→鵲華橋','鵲華橋→鐵公祠→古水仙祠→歷下亭→鵲華橋','鵲華橋→千佛山→歷下亭→古水仙祠→鵲華橋','鵲華橋→歷下亭→千佛山→古水仙祠→鵲華橋'],a:0,src:'8 校考大明湖（路線方位）',ex:'從鵲華橋僱船，朝北到歷下亭，向西到鐵公祠，再到古水仙祠，最後回鵲華橋。千佛山是在鐵公祠前「朝南一望」看到的，沒有上山。'},
+    {q:'「紅的火紅，白的雪白，青的靛青，綠的碧綠」描寫的是什麼？',o:['千佛山上佛寺、松柏與丹楓交錯的秋天色彩','湖邊百花爭妍的春天景色','大明湖湖面的波光','街市上五顏六色的招牌'],a:0,src:'',ex:'描寫千佛山上梵宇僧樓與蒼松翠柏、丹楓的色彩。時節是秋天（秋山紅葉、荷葉初枯），不是春天百花。'},
+    {q:'「彷彿宋人趙千里的一幅大畫，做了一架數十里長的屏風」，這個比喻在形容什麼？',o:['千佛山景色如畫、綿延壯闊','大明湖湖面遼闊','歷下亭的建築精美','鐵公祠的屏風古老'],a:0,src:'課本文意驗收',ex:'把千佛山比成趙伯駒（趙千里）的畫，又比成數十里長的屏風，描寫的是山景，不是湖面。'},
+    {q:'「一片白花映著帶水氣的斜陽，好似一條粉紅絨毯」中的「白花」是什麼？',o:['蘆葦的花','荷花','菊花','梨花'],a:0,src:'',ex:'前文說湖的南岸有一層蘆葦，「現在正是開花的時候」。白色蘆花被夕陽染成粉紅，不是荷花。'},
+    {q:'「四面荷花三面柳，一城山色半城湖」這副對聯，老殘是在哪裡看到的？',o:['鐵公祠','歷下亭','古水仙祠','鵲華橋'],a:0,src:'',ex:'在鐵公祠「大門裡面楹柱上」。歷下亭是「歷下此亭古，濟南名士多」，古水仙祠是「一盞寒泉薦秋菊，三更畫舫穿藕花」。'},
+    {q:'「那千佛山的倒影映在湖裡，顯得明明白白……覺得比上頭的一個千佛山還要好看」，作者用什麼方法寫湖水的澄淨？',o:['以倒影的清楚襯托湖水澄淨如鏡','直接說明湖水的深度','以聲音描寫湖面的平靜','以誇飾寫湖面的遼闊'],a:0,src:'課本想想看',ex:'倒影比真山還清楚好看，間接寫出湖水「澄淨得同鏡子一般」（譬喻＋烘托）。'},
+    {q:'從文中哪些描寫可以判斷老殘遊湖的季節是秋天？',o:['秋山紅葉、丹楓、荷葉初枯、蓮蓬已老','百花盛開、柳絮紛飛','荷花初開、蟬聲大作','白雪覆蓋千佛山'],a:0,src:'',ex:'開頭「一路秋山紅葉，老圃黃花」，後面寫丹楓、荷葉初枯、已老的蓮蓬，都是秋景。'},
+    {q:'胡適稱讚《老殘遊記》哪一方面最擅長？',o:['描寫的技術：不肯用套語濫調，總想鎔鑄新詞','對話寫得幽默風趣','情節曲折離奇','考證歷史詳細'],a:0,src:'課本簡介',ex:'胡適：「老殘遊記最擅長的是描寫的技術，無論寫人寫景，作者都不肯用套語濫調，總想鎔鑄新詞，作實地的描畫。」'},
+    {q:'文中的「鐵公」是誰？',o:['明初與燕王為難的鐵鉉','明成祖朱棣','南宋畫家趙伯駒','清代書法家何紹基'],a:0,src:'課文注釋',ex:'鐵鉉在建文初任山東參政，屢挫燕王軍；燕王即位後鐵鉉被擒，不屈而死。後人敬他忠義，建鐵公祠。'},
+    {q:'「那荷葉初枯，擦得船嗤嗤價響。那水鳥被人驚起，格格價飛」運用了哪一種摹寫？',o:['聽覺摹寫','味覺摹寫','嗅覺摹寫','觸覺摹寫'],a:0,src:'課本想想看',ex:'嗤嗤（擦撞聲）、格格（拍翅聲）都是狀聲詞＝聽覺摹寫，讓畫面更鮮活。'},
+    {q:'關於作者劉鶚，下列何者正確？',o:['晚清人，是出版甲骨文研究專著的第一人，著有《鐵雲藏龜》','明代人，以寫山水詩聞名','字老殘，曾任山東巡撫','一生隱居大明湖，不問世事'],a:0,src:'',ex:'劉鶚，字鐵雲，晚清小說家，學識廣博，曾參與整治黃河；著有《老殘遊記》《鐵雲藏龜》。'},
+    {q:'千佛山、大明湖與哪一處並稱「濟南三大名勝」？',o:['趵突泉','西湖','黃鶴樓','岳陽樓'],a:0,src:'課本圖說',ex:'千佛山古稱歷山，與趵突泉（趵ㄅㄠˋ）、大明湖並稱濟南三大名勝。'},
+    {q:'關於本文的說明，下列何者正確？',o:['文中穿插古人聯語，豐富遊記內容','以倒敘法記載旅途見聞','對千佛山、大明湖的春景描繪深刻','開頭對投宿濟南的過程敘述十分詳細'],a:0,src:'課本文意驗收',ex:'文中有三副對聯（歷下亭、鐵公祠、古水仙祠）。全文依時間順序（順敘）；寫的是秋景；投宿只是「胡亂吃點晚飯，也就睡了」，很簡略。'},
+  ]
+}
+};
+
+/* ================= 綜合：宋詞常識＋課外宋詞＋共通字音字形 ================= */
+const EXTRAQ=[
+  ['「ㄐㄧˋ ㄩˊ」（非分的企圖）','覬覦',['覬瑜','冀覦','覬諭'],16],
+  ['衣食無「ㄩˊ」','虞',['娛','愚','餘'],16],
+  ['信守不「ㄩˊ」','渝',['逾','愉','諭'],16],
+  ['瑕不掩「ㄩˊ」','瑜',['渝','愉','榆'],16],
+  ['爾「ㄩˊ」我詐','虞',['娛','余','愚'],16],
+  ['「揶揄」','ㄧㄝˊ ㄩˊ',['ㄧㄝ ㄩˊ','ㄧㄝˊ ㄩ','ㄧㄚˊ ㄩˊ'],4],
+  ['作繭自「ㄈㄨˊ」','縛',['傅','博','敷'],9],
+  ['一「ㄈㄨˋ」眾咻','傅',['縛','博','附'],9],
+  ['跌「宕」有致','ㄉㄤˋ',['ㄉㄤ','ㄊㄤˋ','ㄉㄤˇ'],4],
+  ['大筆如「椽」','ㄔㄨㄢˊ',['ㄩㄢˊ','ㄓㄨㄢˋ','ㄔㄨㄢ'],3],
+  ['租「賃」','ㄌㄧㄣˋ',['ㄖㄣˋ','ㄌㄧㄣˊ','ㄌㄧㄥˋ'],3],
+  ['「ㄖㄡˊ」躪','蹂',['揉','柔','糅'],3],
+  ['感「慨」','ㄎㄞˇ',['ㄍㄞˋ','ㄎㄞ','ㄎㄞˋ'],4],
+  ['英雄氣「ㄍㄞˋ」','概',['慨','溉','丐'],4],
+  ['「創」傷','ㄔㄨㄤ',['ㄔㄨㄤˋ','ㄘㄤ','ㄔㄨㄤˇ'],5],
+  ['直抒胸「ㄧˋ」','臆',['億','憶','意'],2],
+  ['深受青「ㄌㄞˋ」','睞',['賴','籟','瀨'],2],
+];
+const RHET={title:'修辭大亂鬥：L1～L3＋大明湖 句子分類',tip:'譬喻＝像、似、彷彿；設問＝用問句；借代＝用相關事物代替本名；轉品＝同一詞換了詞性；對比＝兩相對照',
+  buckets:['譬喻','設問','借代','轉品','對比／映襯'],items:[
+  ['恰似一江春水向東流',0],['就像是在傷口上塗藥',0],['彷彿宋人趙千里的一幅大畫',0],['好似一條粉紅絨毯',0],
+  ['問君能有幾多愁？',1,'自問自答＝提問。'],['何處望神州？滿眼風光北固樓。',1],['天下英雄誰敵手？曹 劉。',1],
+  ['年少萬兜鍪',2,'以頭盔代指戰士。'],
+  ['揮汗吟哦自己的吟哦',3],['詠嘆自己的詠嘆',3],
+  ['赤膊，無關乎瀟灑／赤足，無關乎詩意',4,'農人與附庸風雅的詩人對照。'],['如果開一些花、結一些果……如果冷冷漠漠的病蟲害……',4],['雕闌玉砌應猶在，只是朱顏改',4,'物不變、人已變的對比。']]};
+const MIX=[
+  {title:'古體詩、近體詩還是詞？',tip:'古體＝句數字數不限、可換韻；近體＝字數句數固定、一韻到底；詞＝依詞牌、長短句',buckets:['古體詩','近體詩','詞'],items:[
+    ['句數、字數沒有限制',0],['可以換韻，押韻較自由',0],['〈迢迢牽牛星〉（古詩十九首）',0],
+    ['分為絕句、律詩，字數句數固定',1],['講究平仄，一韻到底',1],['盛行於唐代',1],['〈登鸛雀樓〉',1],
+    ['依詞牌規定句數、字數',2],['句子長短不齊，又稱長短句、詩餘',2],['宋代文學的代表',2],['〈虞美人〉〈南鄉子〉',2]]},
+  {title:'【延伸】課外宋詞：這句是誰寫的？（課本外，各校與他版常考）',tip:'李清照＝如夢令、聲聲慢；蘇軾＝念奴嬌、水調歌頭、定風波；辛棄疾＝西江月、青玉案、破陣子；陸游＝詠梅、釵頭鳳',buckets:['李清照','蘇軾','辛棄疾','陸游','李煜'],items:[
+    ['知否？知否？應是綠肥紅瘦（如夢令）',0],['尋尋覓覓，冷冷清清，悽悽慘慘戚戚（聲聲慢）',0],
+    ['大江東去，浪淘盡，千古風流人物（念奴嬌）',1],['但願人長久，千里共嬋娟（水調歌頭）',1],['莫聽穿林打葉聲，何妨吟嘯且徐行（定風波）',1],
+    ['明月別枝驚鵲，清風半夜鳴蟬（西江月）',2],['眾裡尋他千百度，驀然回首（青玉案 元夕）',2],['醉裡挑燈看劍，夢回吹角連營（破陣子）',2],
+    ['零落成泥碾作塵，只有香如故（卜算子 詠梅）',3],['紅酥手，黃縢酒，滿城春色宮牆柳（釵頭鳳）',3],
+    ['林花謝了春紅，太匆匆（相見歡）',4],['無言獨上西樓，月如鉤（相見歡）',4]]},
+];
+const RIDDLE=[
+  {q:'辛棄疾〈青玉案〉「眾裡尋他千百度，驀然回首，那人卻在，燈火闌珊處」描寫的是哪一個節日的情景？',o:['元宵節','端午節','中秋節','七夕'],a:0,src:'延伸（課外）｜、等 5 校（蔣勳評文）',ex:'〈青玉案〉的題目是「元夕」＝元宵夜，詞中寫滿城花燈；在熱鬧中尋人，最後在燈火稀落處找到。'},
+  {q:'李清照〈如夢令〉「知否？知否？應是綠肥紅瘦」，「綠肥紅瘦」的意思是？',o:['綠葉繁茂、紅花凋零，惋惜春光易逝','紅花與綠葉一樣茂盛','人因思念而消瘦','秋天的落葉紛飛'],a:0,src:'他版 29 校、課本應用練習',ex:'一夜風雨後，海棠的葉子更茂密、花卻凋落了 → 綠肥紅瘦，表達傷春、惜春之情。'},
+  {q:'「明月別枝驚鵲，清風半夜鳴蟬。稻花香裡說豐年，聽取蛙聲一片」（辛棄疾〈西江月〉），可以看出辛棄疾怎樣的詞風？',o:['清新淡遠的田園詞，可見他不只有豪放之作','纏綿悱惻的愛情詞','弔古傷今的懷古詞','描寫宮廷生活的綺麗詞'],a:0,src:'延伸（課外）',ex:'辛棄疾以豪放為主，但也有清新淡遠（西江月 夜行黃沙道中）與婉約（青玉案 元夕）之作。'},
+  {q:'下列哪一句和「問君能有幾多愁？恰似一江春水向東流」一樣，用流水來比喻愁思？',o:['便做春江都是淚，流不盡，許多愁','大江東去，浪淘盡，千古風流人物','孤帆遠影碧空盡，唯見長江天際流','君不見黃河之水天上來'],a:0,src:'延伸（課外）｜、等 8 校',ex:'秦觀〈江城子〉把春江都當成眼淚，也流不盡愁 → 以水喻愁。大江東去寫歷史人物，孤帆遠影寫送別目送，黃河之水寫氣勢。'},
+  {q:'下列各句中的「悠悠」，何者解釋正確？',o:['悠悠，不盡長江滾滾流：長遠的樣子','杜悠悠之口：悠閒的樣子','青青子衿，悠悠我心：長久的樣子','閒雲潭影日悠悠：眾多的樣子'],a:0,src:'9 校',ex:'杜悠悠之口＝眾多；悠悠我心＝憂思；日悠悠＝悠閒自在。課本：悠悠＝長遠的樣子。'},
+  {q:'「坐斷東南戰未休」的「休」，和下列哪一個「休」意思相同？',o:['爭論不休','休戚與共','休得無禮','一紙休書'],a:0,src:'5 校；他版 33 校',ex:'戰未休＝戰爭沒有停止；爭論不休＝爭論不停止。休戚＝喜樂與憂愁；休得＝不要；休書＝古代離婚的文書。'},
+  {q:'「握鋤荷犁」的「荷」是「扛」的意思，下列哪一個「荷」也是這個意思？',o:['帶月荷鋤歸','荷塘月色','無任感荷','薄荷清香'],a:0,src:'12 校',ex:'陶淵明「帶月荷鋤歸」＝扛著鋤頭回家（荷ㄏㄜˋ）。荷塘、薄荷是植物；感荷＝感謝。'},
+  {q:'下列「了」的意思，何者解釋錯誤？',o:['小時了了：完結','春花秋月何時了：完結','一目了然：明白','了卻人間多少事：結束、解決'],a:0,src:'13 校',ex:'「小時了了」的了了＝聰明伶俐，不是完結。何時了＝完結；了然＝明白；了卻＝了結。'},
+  {q:'「衣帶漸寬終不悔，為伊消得人憔悴」常被用來形容什麼？',o:['為了理想或所愛，執著付出、毫不後悔','因為生病而日漸消瘦','衣服買太大不合身','對人冷淡、漠不關心'],a:0,src:'延伸（課外）｜、等 8 校考宋詞名句活用',ex:'柳永〈鳳棲梧〉。王國維用它比喻做學問、成大事的第二種境界：為目標執著而無怨無悔。'},
+];
+const RADAR={n:22,
+  schools:'',
+  note:'⚠️ 22 校都考的只有「詞的常識」。大社、英明、新莊、龍華 4 校沒考 L3；對聯 13 校考、〈大明湖〉8 校考。課外宋詞很多：蔣勳評〈青玉案 元夕〉的文章被 5 校照搬成閱讀題組。另有使用者自編卷 1 份，未計入校數。',
+  topics:[['詞的常識（別稱、詞牌、小令中調長調）',22],['字形辨識',21],['字音辨識',20],['南鄉子句意與主旨',19],['字義辨析（荷、了、休、堪、悠悠）',18],['虞美人句意賞析',15],['轉品「吟哦自己的吟哦」',15],['對聯：行業／人物／場合配對',13],['921 受訪者心境',13],['〈土〉詩句意涵',13],['錯別字',13],['土字成語運用',13],['吳晟作品／鄉土詩',12],['報導文學：主觀與客觀',12],['〈土〉寫作手法（對比、非層遞）',12],['詩體比較表',12],['對聯：上下聯判斷',11],['婉約 vs 豪放',11],['〈大明湖〉路線、對聯、秋景',8]],
+  zy:[['好高騖遠／趨之若鶩',18],['沏ㄑㄧ／砌ㄑㄧˋ',17],['鉅細靡ㄇㄧˇ遺',16],['覬覦／無虞／不渝',16],['膊／搏／博',14],['了ㄌㄧㄠˇ',13],['天崩地坼ㄔㄜˋ',12],['荷ㄏㄜˋ犁',12],['汗漬ㄗˋ',12],['堪／勘／戡',11],['叱吒',9],['作繭自縛／一傅眾咻',9],['悠悠',9],['闋／闕',7],['結痂／枷鎖',7],['兜鍪ㄇㄡˊ',6],['倖ㄒㄧㄥˋ存',6]],
+  wd:[['雕闌玉砌',10],['兜鍪＝頭盔，代指戰士',9],['春花秋月',8],['瀟灑',7],['閒愁逸致',7],['坐斷＝占據',6],['朱顏',6],['鉅細靡遺',4],['幾多＝多少',3],['吟哦（前動後名）',3],['悠悠＝長遠',3],['天崩地坼 vs 山河變色',3]]};
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};BGM.btn();
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績 Google Apps Script（只記姓名，不用班級碼）。subject 依各站設定（本站 chi9-hanlin-1）。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'chi9-hanlin-1',
+  site:'國文 國三上第一次段考（翰林）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('chi9-hanlin-1_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('chi9-hanlin-1_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${d&&d.quickAsk?'詞性＋量詞快問快答':'字音字形快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽（翰林 國三上 第一次段考） =================
+   交卷引擎在 engine.js（build.py 先放 engine.js 再放本檔）。
+   單元代碼：l1=1、l2=2、l3=3、yw(對聯)=4、zx(大明湖)=5、綜合=7、總測驗=9 */
+const UNITS=['l1','l2','l3','yw','zx'];
+const TABS=[['home','🏠 考點雷達'],['l1','🌾 土'],['l2','🌊 詞選'],['l3','🕯️ 與921說再見'],['yw','🧧 對聯'],['zx','🛶 大明湖'],['mix','🎭 宋詞＋綜合'],['final','📝 總測驗']];
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix'){app.innerHTML=`<h2>🎭 宋詞常識＋綜合題型</h2>
+    <p class="muted">跨課整理：修辭、詩體比較、課外宋詞（各校很愛考），以及各課共通的字音字形。</p>
+    <h2>⚡ 【延伸】各校高頻字音字形（課文外）</h2><p class="muted">覬覦／無虞／不渝 16 校考；作繭自縛／一傅眾咻 9 校考。</p><div id="xq"></div>
+    <div class="card" id="rz"></div><div class="card" id="mx0"></div><div class="card" id="mx1"></div>
+    <h2>📚 宋詞與字義選擇題</h2><p class="muted">標「延伸（課外）」的是課本外的宋詞（青玉案、西江月等，各校常考）；如夢令出自課本應用練習；另有「悠悠、休、荷、了」字義辨析。</p><div id="rd"></div>`;
+    renderQuick($('#xq'),EXTRAQ,null,7,'宋詞＋綜合');SORTCTX={code:7,title:'宋詞＋綜合'};renderSort($('#rz'),RHET);renderSort($('#mx0'),MIX[0]);renderSort($('#mx1'),MIX[1]);SORTCTX=null;
+    return renderMCQ($('#rd'),RIDDLE,7,'宋詞＋綜合')}
+  if(cur==='final') return renderFinal(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 字音字形快問快答'],['match','🔗 注釋配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title} <span class="muted" style="font-size:1rem">${d.author}</span></h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel'),title=`${d.no} ${d.title}`;
+  if(s==='anim') ({l1:animL1,l2:animL2,l3:animL3,yw:animYW,zx:animZX})[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq') renderMCQ(p,d.mcq,d.code,title);
+}
+
+/* ================= 總測驗：各課抽題 ================= */
+function renderFinal(app){
+  app.innerHTML=`<h2>📝 第一次段考總測驗</h2>
+  <div class="card"><p>從各課的段考模擬題隨機抽題，模擬真正段考。做完按 <b>📤 交卷給老師</b>，老師就能看到你的分數和錯題。</p>
+  <p class="muted">選擇範圍（可多選；你們學校沒考的單元可以取消）：</p>
+  <div class="row" id="fu">${UNITS.map(k=>`<label class="chk"><input type="checkbox" value="${k}" checked> ${L[k].no} ${L[k].title}</label>`).join('')}
+  <label class="chk"><input type="checkbox" value="mix" checked> 宋詞＋綜合</label></div>
+  <div class="row" style="margin-top:12px"><span>題數：</span>${[20,30,40].map(n=>`<button class="btn ${n===20?'':'ghost'}" data-n="${n}">${n} 題</button>`).join('')}</div></div>
+  <div id="fq"></div>`;
+  app.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{
+    const us=[...app.querySelectorAll('#fu input:checked')].map(x=>x.value);
+    if(!us.length)return alert('至少選一課喔！');
+    const pool=shuf(us.flatMap(k=>k==='mix'?RIDDLE.map(q=>({...q,unit:'宋詞＋綜合'})):L[k].mcq.map(q=>({...q,src:L[k].title+'｜'+q.src,unit:L[k].no}))));
+    renderMCQ($('#fq'),pool.slice(0,+b.dataset.n),9,'總測驗');
+    $('#fq').scrollIntoView({behavior:'smooth'});
+  });
+}
+
+/* ================= 首頁 ================= */
+function renderHome(app){
+  const R=RADAR,N=R.n;
+  const bar=(arr)=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  app.innerHTML=`
+  <h2>📡 第一次段考考點雷達</h2>
+  <p class="muted">整理 ${N} 所翰林版學校的第一次段考卷：${R.schools}。長條＝「幾校考過」（分母 ${N} 校）。</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${UNITS.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].title}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（幾校考過）</h3>${bar(R.topics)}<p class="muted" style="margin-top:10px">${R.note}</p></div>
+  <div class="grid2">
+    <div class="card"><h3>字音字形高頻字</h3><div class="chips">${R.zy.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div></div>
+    <div class="card"><h3>注釋高頻詞</h3><div class="chips">${R.wd.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div></div>
+  </div>
+  <div class="card"><h3>💬 最常考的課文句</h3><div class="chips">
+    <span>生子當如孫仲謀 <b>×17</b></span><span>一江春水向東流 <b>×15</b></span><span>不盡長江滾滾流 <b>×14</b></span><span>何處望神州 <b>×12</b></span><span>躺成一大片寬厚的土地 <b>×12</b></span><span>沿著祖先汗漬 <b>×11</b></span></div></div>
+  <div class="card"><h3>🪤 各校最愛的陷阱</h3>
+    <p><span class="pill">詞的常識</span>別稱是「詩餘」，<b>「詞餘」是曲</b>；詞牌和內容無關；小令／中調／長調看<b>字數</b>（兩闋都 56 字＝小令）</p>
+    <p><span class="pill">虞美人</span>朱顏改<b>不是嬪妃變老</b>；「問君能有幾多愁」是<b>提問</b>（自問自答），不是激問</p>
+    <p><span class="pill">南鄉子</span>辛棄疾是<b>南宋</b>；「年少萬兜鍪」寫<b>孫權</b>不是周瑜；「生子當如孫仲謀」<b>不是自比、不是期望兒子</b>，是藉古諷今</p>
+    <p><span class="pill">土</span>寫作手法是對比、映襯，<b>「層遞」是錯誤選項</b>；「躺成土地」的主角是農人，不是作者筆耕</p>
+    <p><span class="pill">921</span>「倖存者彼此對話」<b>不是</b>本文寫法；阿倫「仍難過但努力生活」是堅強面對，不是振奮欣喜</p>
+    <p><span class="pill">土字成語</span>「土法煉鋼」「土豪劣紳」最常被誤用</p></div>
+  <div class="card"><h3>⚠️ 課本讀音（以翰林課本注釋為準）</h3>
+    <div class="chips"><span>吳晟 <b>ㄔㄥˊ</b></span><span>何時了 <b>ㄌㄧㄠˇ</b></span><span>玉砌 <b>ㄑㄧˋ</b></span><span>沏茶 <b>ㄑㄧ</b></span><span>荷犁 <b>ㄏㄜˋ</b></span><span>兜鍪 <b>ㄉㄡ ㄇㄡˊ</b></span><span>吟哦 <b>ㄜˊ</b></span><span>汗漬 <b>ㄗˋ</b></span><span>天崩地坼 <b>ㄔㄜˋ</b></span><span>鉅細靡遺 <b>ㄇㄧˇ</b></span><span>一闋 <b>ㄑㄩㄝˋ</b></span><span>踅 <b>ㄒㄩㄝˊ</b></span></div></div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每課先看 <b>🎬 動畫導覽</b> → ② <b>⚡ 快問快答</b>、<b>🔗 配對</b>，練熟基本分 → ③ <b>🎯 分類挑戰</b>，練修辭、作者與結構 → ④ <b>📝 段考模擬題</b>，做完按 <b>📤 交卷給老師</b>。</p>
+  <p>再到 <b>🎭 宋詞＋綜合</b> 練課外宋詞（他版康軒、南一也考南鄉子、如夢令），最後到 <b>📝 總測驗</b> 抽題。</p>
+  <p class="muted">範圍：L1～L3＋語文常識（對聯）＋自學〈大明湖〉。各校不同：對聯 13 校考、大明湖 8 校考；大社、英明、新莊、龍華沒考 L3。</p></div>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 動畫 ================= */
+function animL1(p){
+  p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>
+  <div class="card"><h3>🗺️ 結構一張圖</h3>
+  <p><span class="pill">第一段</span>赤膊、赤足、揮汗吟哦 ↔ 瀟灑、詩意、閒愁逸致：<b>農人 vs 附庸風雅的詩人</b></p>
+  <p><span class="pill">第二段</span>笨拙的足印沿著祖先汗漬 → <b>世代傳承</b>；不爭、不吵，沉默的等待</p>
+  <p><span class="pill">第三段</span>兩個「如果」：豐收就感激、災害也不悲不怨 → <b>映襯</b>，樂天知命</p>
+  <p><span class="pill">第四段</span>不掛刀佩劍（武將）、不談經論道（文人）→ 安分握鋤荷犁；死後也願<b>躺成土地</b></p>
+  <p class="muted">〈土〉選自《吳晟詩選》，是<b>詠懷</b>之作：表達詩人對土地永恆真摯的愛。鄉土詩＝質樸語言、寫實手法。</p></div>`;
+  const steps=[
+    {label:'① 赤膊赤足',imgs:[{img:'l1_farmer',tag:'赤膊在稻田裡工作的農人'}],poem:'赤<b>膊</b>，無關乎<b>瀟灑</b><br>赤足，無關乎詩意',key:'赤膊＝光著上身；膊ㄅㄛˊ（14 校考膊／搏／博）。農人赤膊赤足是為了工作，和附庸風雅的詩人<b>對比</b>（11 校）。'},
+    {label:'② 吟哦自己的吟哦',imgs:[{img:'l1_harvest',tag:'挑著稻束的農人：揮汗耕作'}],poem:'至於揮汗<b>吟哦</b>自己的<b>吟哦</b><br>詠嘆自己的詠嘆<br>無關乎<b>閒愁逸致</b>，更無關乎<br>走進不走進歷史',key:'<b>轉品</b>（15 校）：前一個「吟哦」是動詞（吟詠），後一個是名詞（作品）；哦ㄜˊ。農人在田裡耕作，就像詩人在稿紙上寫詩。'},
+    {label:'③ 沿著祖先汗漬',imgs:[{img:'l1_field',tag:'彰化 二水收割後的稻田：一行一行的田畝'}],poem:'一行一行笨拙的足印<br>沿著寬厚的田畝，也沿著祖先<br>滴不盡的<b>汗漬</b><br>寫上誠誠懇懇的土地<br>不爭、不吵，沉默的等待',key:'沿著祖先汗漬＝<b>世代傳承</b>耕作精神（11 校）。汗漬ㄗˋ＝汗水乾後留下的汙痕。不爭不吵＝樸實耐心，<b>不是</b>憨愚不懂爭取。'},
+    {label:'④ 開花結果',imgs:[{img:'l1_flower',tag:'稻子抽穗開花'},{img:'l1_harvest',tag:'收成的喜悅'}],poem:'如果開一些花、結一些果<br>那是獻上怎樣的感激',key:'收成時心存<b>感恩</b>。和下一段「病蟲害、狂暴的風雨」形成兩個「如果」的<b>映襯</b>。'},
+    {label:'⑤ 病蟲害與風雨',imgs:[{img:'l1_pest',tag:'稻田遭飛蝨啃食，枯黃一片'},{img:'l1_flood',tag:'颱風過後，稻田泡在水裡'}],poem:'如果冷冷漠漠的病蟲害<br>或是狂暴的風雨<br><b>蝕盡</b>所有辛辛苦苦寫上去的足印<br>不悲、不怨，繼續走下去',key:'蝕ㄕˊ盡＝完全侵蝕。不悲不怨＝<b>樂天知命</b>，<b>不是</b>「人定勝天」（常見陷阱）。'},
+    {label:'⑥ 握鋤荷犁',imgs:[{img:'l1_plough',tag:'農夫駕著水牛犁田'}],poem:'不掛刀、不佩劍<br>也不談經論道說賢話聖<br>安安分分握鋤<b>荷</b>犁的行程',key:'掛刀佩劍＝武將、談經論道＝文人，對照<b>安分</b>的農人。荷ㄏㄜˋ＝扛（12 校）；同「帶月荷鋤歸」。'},
+    {label:'⑦ 躺成土地',imgs:[{img:'l1_dawn',tag:'旭日照在收割後的稻田上（彰化 二水）'}],poem:'有一天，被迫停下來<br>也願躺成一大片<br>寬厚的土地',key:'主角是<b>農人</b>：即使死去也願化為土地 → 對土地<b>至死不渝</b>的愛（12 校）。說成「作者勤奮筆耕」是陷阱。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),7000);
+}
+function animL2(p){
+  p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>
+  <div class="grid2">
+    <div class="card"><h3>📜 詞的常識（22 校都考）</h3>
+      <p><span class="pill">別稱</span>曲子詞、樂府、<b>詩餘</b>、長短句（「詞餘」是曲！）</p>
+      <p><span class="pill">詞牌</span>曲調名，和內容大多無關；句數、字數、平仄、用韻有固定格式</p>
+      <p><span class="pill">分類</span>依<b>字數</b>：小令 ≤58、中調 59～90、長調 ≥91</p>
+      <p><span class="pill">分段</span>一闋多分上、下兩片；可以換韻</p></div>
+    <div class="card"><h3>⚖️ 兩闋比較</h3>
+      <p><span class="pill">虞美人</span>李煜｜南唐後主｜婉約｜亡國之痛、物是人非｜以問起筆、以答作結</p>
+      <p><span class="pill">南鄉子</span>辛棄疾｜南宋｜豪放｜登樓懷古、藉古諷今｜三問三答</p>
+      <p class="muted">兩闋都 56 字＝小令；都用設問；只有南鄉子歌詠古人（孫權）。</p></div>
+  </div>`;
+  const steps=[
+    {label:'① 南唐後主',imgs:[{img:'l2_court',tag:'〈韓熙載夜宴圖〉：南唐的繁華歲月'},{img:'l2_liyu',tag:'李後主像（明代《三才圖會》）',fit:'contain',bg:'#f3eee2'}],poem:'李煜，字重光，南唐國主，世稱李後主。亡國前多寫宮廷生活，<b>綺麗柔靡</b>；被俘後抒亡國之痛，哀怨淒絕。',key:'世譽「<b>詞中之帝</b>」，屬<b>婉約派</b>。〈虞美人〉約作於降宋後第三年。靡ㄇㄧˇ。'},
+    {label:'② 春花秋月何時了',imgs:[{img:'l2_moon',tag:'夜空中一輪明月'}],poem:'<b>春花秋月</b>何時<b>了</b>，往事知多少？',key:'了ㄌㄧㄠˇ＝完結（13 校）。美好的景物反而勾起往事，所以盼它早日「了」→ <b>以樂景寫哀</b>。'},
+    {label:'③ 故國不堪回首',imgs:[{img:'l2_jinling',tag:'故國：南唐都城金陵（今南京）古地圖',fit:'contain',bg:'#f4f1ea'}],poem:'小樓昨夜又東風，<b>故國</b>不堪回首月明中！',key:'東風＝春風（季節是春）。故國＝南唐。春天又到、明月當空，反而「不堪回首」。'},
+    {label:'④ 雕闌玉砌',imgs:[{img:'l2_balustrade',tag:'宮殿的白玉欄杆與臺階（雕闌玉砌）'}],poem:'<b>雕闌玉砌</b>應猶在，只是<b>朱顏</b>改。',key:'砌ㄑㄧˋ＝臺階（17 校考沏／砌）。宮殿不變、人已憔悴 → <b>物是人非</b>。朱顏改<b>不是嬪妃變老</b>。'},
+    {label:'⑤ 一江春水',imgs:[{img:'l2_river',tag:'長江水滾滾向東流'}],poem:'問君能有<b>幾多</b>愁？恰似一江春水向東流！',key:'自問自答＝<b>提問</b>，不是激問（15 校）。以具體的江水<b>譬喻</b>抽象的愁，綿延不絕。'},
+    {label:'⑥ 何處望神州',imgs:[{img:'l2_beigu_paint',tag:'明代 朱朗〈北固山圖〉',fit:'contain',bg:'#f3eee2'},{img:'l2_beigu',tag:'今日的鎮江 北固山'}],poem:'何處望<b>神州</b>？滿眼風光北固樓。',key:'辛棄疾，字幼安，號稼軒居士，<b>南宋</b>愛國詞人，與蘇軾並稱「蘇辛」。神州＝中原，此指被<b>金人</b>占領的地區（12 校）。'},
+    {label:'⑦ 不盡長江滾滾流',imgs:[{img:'l2_gorge',tag:'長江瞿塘峽：不盡長江滾滾流'}],poem:'千古興亡多少事？<b>悠悠</b>，不盡長江滾滾流。',key:'悠悠＝長遠的樣子（9 校）。長江不停奔流，像歷代興亡更迭不止（14 校）。化用杜甫〈登高〉。'},
+    {label:'⑧ 年少萬兜鍪',imgs:[{img:'l2_helmet',tag:'戰國時代的青銅頭盔（兜鍪）',fit:'contain',bg:'#111'},{img:'l2_sunquan',tag:'吳主孫權（閻立本〈歷代帝王圖〉）',fit:'contain',bg:'#f3eee2'}],poem:'年少萬<b>兜鍪</b>，<b>坐斷</b>東南戰未休。',key:'兜鍪ㄉㄡ ㄇㄡˊ＝頭盔，<b>借代</b>戰士（9 校）。坐斷＝占據。寫的是十九歲繼位的<b>孫權</b>，不是周瑜。'},
+    {label:'⑨ 生子當如孫仲謀',imgs:[{img:'l2_xin',tag:'辛棄疾雕像'}],poem:'天下英雄誰敵手？曹 劉。生子當如孫仲謀。',key:'借曹操的話稱讚孫權（17 校）→ <b>藉古諷今</b>，委婉譴責南宋朝廷妥協苟安。<b>不是</b>自比、<b>不是</b>期望兒子。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),7000);
+}
+function animL3(p){
+  p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>
+  <div class="grid2">
+    <div class="card"><h3>📰 報導文學＝文學的筆＋新聞的眼</h3>
+      <p><span class="pill">客觀</span>時間、數字、機構（凌晨一點四十七分、十萬多棟、一百三十四位失依兒）</p>
+      <p><span class="pill">主觀</span>作者的評論與比喻（「就像是在傷口上塗藥」）</p>
+      <p><span class="pill">原話</span>「」內是受訪者的話，如實記錄言詞、語氣</p>
+      <p class="muted">⚠️ 文中<b>沒有</b>「倖存者彼此對話」，這是最常見的錯誤選項。</p></div>
+    <div class="card"><h3>💭 受訪者心境四階段（13 校考）</h3>
+      <p><span class="pill">孤寂沉痛</span>「為什麼是我？……很不公平」</p>
+      <p><span class="pill">封閉壓抑</span>「我原本很排斥講出自己的事」</p>
+      <p><span class="pill">坦然接受</span>「和過去的自己說再見，迎接新的自己」</p>
+      <p><span class="pill">堅強面對</span>「還是會難過，但我現在很努力地在生活」</p></div>
+  </div>`;
+  const steps=[
+    {label:'① 凌晨一點四十七分',imgs:[{img:'l3_collapse',tag:'九二一地震當夜，臺北 東星大樓倒塌'}],poem:'整整二十年前的九月二十一日凌晨一點四十七分，臺灣遭遇百年以來最強震，近兩分鐘的天搖地動，讓<b>山河變色</b>、路崩橋斷。',key:'精確的時間＝<b>新聞的眼</b>（客觀）。山河變色＝此指自然地形改變了形貌（別和「天崩地坼」的解釋搞混）。'},
+    {label:'② 災情數字',imgs:[{img:'l3_temple',tag:'南投 集集 武昌宮：地震後倒塌的廟宇'},{img:'l3_peaks',tag:'九九峰：地震震落山壁，變得光禿禿'}],poem:'全臺十萬多棟房屋全倒或半倒，超過二千四百人死亡……更留下一百三十四位失去雙親的<b>失依兒</b>。',key:'藉由<b>統計數字</b>具體呈現災害之大。罹ㄌㄧˊ難＝遭逢災難而死；失依兒＝失去父母的兒童。'},
+    {label:'③ 心靈的重建',imgs:[{img:'l3_school',tag:'九二一地震教育園區保留的倒塌校舍'}],poem:'硬體重建，是相對容易的。……很快就會被所有人忘記，這兒曾見證了<b>天崩地坼</b>的時刻。然而，心靈的重建卻沒這麼容易。',key:'坼ㄔㄜˋ＝裂開（12 校）；天崩地坼＝比喻重大的變故。這是作者的<b>主觀敘述</b>。'},
+    {label:'④ 最大的噩夢是忘記',imgs:[{img:'l3_album',tag:'泛黃的家庭老照片'}],poem:'社工幫助願意參與的失依兒編製<b>生命史</b>。他們地毯式地找尋家庭照片、衣物、錄音帶等物品……',key:'孩子最怕忘記父母的長相；生命史讓他們孤單時能抱著畫冊<b>想念親人</b>。面對傷痛不是忘記，而是把回憶深深記下。'},
+    {label:'⑤ 說出來',imgs:[{img:'l3_museum',tag:'九二一地震教育園區：不遺忘的紀念'}],poem:'「有天大的困難，當你說出來的那一刻，世界就不一樣了。」<br>每次講述和面對，就像是在傷口上塗藥，儘管痛苦，其實是給傷口癒合<b>結痂</b>的機會。',key:'引號內＝受訪者阿騫的話；「塗藥」那句沒有引號＝<b>作者的主觀敘述</b>（譬喻）。痂ㄐㄧㄚ（結痂／枷鎖 7 校）。'},
+    {label:'⑥ 與傷痛一起往前走',imgs:[{img:'l3_sunrise',tag:'日出能高山：黑夜之後的光'}],poem:'原來沒有所謂的「走出來」，而是自己要選擇用怎樣的心情來面對。<br>活下來的孩子三十歲了，從開大燈才能睡，進步到可以留小燈就好。',key:'以阿倫開頭、結尾 → <b>首尾呼應</b>。「我們的功課就是要學習和悲傷共處」（社工黃雅祺）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),7000);
+}
+function animYW(p){
+  p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>
+  <div class="grid2">
+    <div class="card"><h3>🧧 對聯的種類</h3>
+      <p><span class="pill">春聯</span>新年、春節專用</p><p><span class="pill">楹聯</span>宅第、亭閣、寺廟</p>
+      <p><span class="pill">行業聯</span>各行各業（書局、醫院、理髮、鐘錶）</p>
+      <p><span class="pill">賀聯</span>婚嫁、壽慶、新居</p><p><span class="pill">輓聯</span>哀悼死者</p></div>
+    <div class="card"><h3>✍️ 撰寫原則</h3>
+      <p><span class="pill">字數相等</span>上下聯字數一樣</p>
+      <p><span class="pill">對仗工整</span>詞性、意義兩兩相對</p>
+      <p><span class="pill">仄起平收</span>上聯末字仄聲、下聯末字平聲</p>
+      <p><span class="pill">貼法</span>面對大門，上聯在<b>右</b>、下聯在左</p>
+      <p class="muted">仄聲＝上、去、入聲（國語三、四聲，或入聲字如「室」「德」）。</p></div>
+  </div>`;
+  const steps=[
+    {label:'① 桃符',imgs:[{img:'y_doorgod',tag:'廟門上的門神，兩旁是對聯',fit:'contain',bg:'#111'}],poem:'上古時，人們將<b>神荼</b>、<b>鬱壘</b>兩位神將的圖像畫在桃木板，掛在門上以驅鬼鎮邪。',key:'對聯相傳與<b>桃符</b>有關。荼ㄕㄨ、壘ㄌㄩˋ（特殊讀音）。後來桃符內容被對偶整齊、聲律協調的句子取代。'},
+    {label:'② 最早的對聯',imgs:[{img:'y_writing',tag:'〈寫揮春〉：清末過年寫春聯（版畫）',fit:'contain',bg:'#f4f1ea'}],poem:'五代 後蜀國君<b>孟昶</b>於春節時在門上自題一聯：「新年納餘慶，佳節號長春」',key:'成為<b>最早的一副對聯</b>。昶ㄔㄤˇ。「慶」是去聲（仄）→ 上聯；「春」是平聲 → 下聯。'},
+    {label:'③ 貼春聯',imgs:[{img:'y_chunlian',tag:'老房子門口貼著春聯',fit:'contain',bg:'#111'}],poem:'一元復始，萬象更新<br>爆竹一聲除舊，桃符萬戶更新',key:'面對大門，<b>上聯貼右邊</b>、下聯貼左邊，橫批在上方（段考常考貼法圖）。'},
+    {label:'④ 仄起平收',imgs:[{img:'y_budai',tag:'笑口常開的彌勒佛（布袋和尚）'}],poem:'大肚能容了卻人間多少<b>事</b>（上聯，仄）<br>滿腔歡喜笑開天下古今<b>愁</b>（下聯，平）',key:'看<b>最後一個字</b>：事ㄕˋ去聲＝仄 → 上聯；愁ㄔㄡˊ陽平＝平 → 下聯（11 校考上下聯判斷）。'},
+    {label:'⑤ 楹聯與人物',imgs:[{img:'y_temple',tag:'關帝廟拜殿的楹聯'},{img:'y_pillar',tag:'廟宇石柱上的楹聯',fit:'contain',bg:'#111'}],poem:'青龍<b>偃</b>盡千秋月，赤兔追餘萬里風<br>泗水文章昭日月，杏壇禮樂冠華夷',key:'青龍偃月刀、赤兔馬＝<b>關公</b>；泗水、杏壇＝<b>孔子</b>。人物、行業、場合配對 13 校考，抓關鍵字就對了。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),7000);
+}
+function animZX(p){
+  p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>
+  <div class="card"><h3>🗺️ 遊湖路線（8 校考路線方位）</h3>
+    <p><span class="pill">①</span>鵲華橋僱船 → <span class="pill">②</span>朝北到<b>歷下亭</b>（歷下此亭古）→ <span class="pill">③</span>向西到<b>鐵公祠</b>（四面荷花三面柳；朝南望千佛山）→ <span class="pill">④</span><b>古水仙祠</b>（一盞寒泉薦秋菊）→ <span class="pill">⑤</span>回鵲華橋</p>
+    <p class="muted">《老殘遊記》：晚清 劉鶚，章回小說（白話）。季節是<b>秋天</b>：秋山紅葉、丹楓、荷葉初枯、蓮蓬已老、蘆葦開花。千佛山只是「望」見，沒有上山。</p></div>`;
+  const steps=[
+    {label:'① 劉鶚與老殘',imgs:[{img:'z_liue',tag:'《老殘遊記》作者 劉鶚（鐵雲）',fit:'contain',bg:'#f3eee2'}],poem:'胡適：「老殘遊記最擅長的是描寫的技術，無論寫人寫景，作者都不肯用套語濫調，總想鎔鑄新詞，作實地的描畫。」',key:'劉鶚ㄜˋ，字鐵雲，晚清人；著《鐵雲藏龜》，是出版甲骨文專著第一人。主角老殘是作者的化身。'},
+    {label:'② 家家泉水',imgs:[{img:'z_spring',tag:'濟南泉水與垂柳：家家泉水，戶戶垂楊'}],poem:'一路秋山紅葉，老<b>圃</b>黃花，頗不寂寞。到了濟南府，進得城來，家家泉水，戶戶垂楊，比那江南風景覺得更為有趣。',key:'「秋山紅葉、老圃黃花」點出<b>秋天</b>。圃ㄆㄨˇ。住進高陞店，搖著串鈴滿街<b>踅</b>ㄒㄩㄝˊ了一趟（來回走動）。'},
+    {label:'③ 歷下亭',imgs:[{img:'z_lixia',tag:'大明湖 歷下亭'}],poem:'朝北不遠，便到歷下亭前……亭子上懸了一副對聯：「歷下此亭古，濟南名士多」，上寫著「杜工部句」，下寫著「道州 何紹基書」。',key:'第一副對聯：<b>杜甫</b>的詩句、<b>何紹基</b>的字。'},
+    {label:'④ 鐵公祠',imgs:[{img:'z_tiegong',tag:'大明湖 鐵公祠'},{img:'z_lotus',tag:'大明湖的荷花與垂柳'}],poem:'看那大門裡面楹柱上有副對聯，寫的是「四面荷花三面柳，一城山色半城湖」，暗暗點頭道：「真正不錯！」',key:'鐵公＝明初與燕王為難的<b>鐵鉉</b>ㄒㄩㄢˋ。這副對聯在<b>鐵公祠</b>，不是歷下亭（段考常考）。'},
+    {label:'⑤ 千佛山秋色',imgs:[{img:'z_maple',tag:'秋天的紅楓'},{img:'z_lake',tag:'大明湖與遠方的千佛山'}],poem:'對面千佛山上，<b>梵</b>宇僧樓，與那蒼松翠柏，高下相間，紅的火紅，白的雪白，青的<b>靛</b>青，綠的碧綠。更有一株半株的丹楓夾在裡面，彷彿宋人趙千里的一幅大畫，做了一架數十里長的屏風。',key:'<b>視覺摹寫</b>＋<b>譬喻</b>（像畫、像屏風）寫山。梵ㄈㄢˋ、靛ㄉㄧㄢˋ。趙千里＝南宋畫家趙伯駒。'},
+    {label:'⑥ 湖如明鏡',imgs:[{img:'z_mirror',tag:'湖面平靜如鏡，柳樹與亭子倒映水中'}],poem:'忽聽一聲漁唱，低頭看去，誰知那明湖<b>業已</b>澄淨得同鏡子一般。那千佛山的倒影映在湖裡，顯得明明白白……覺得比上頭的一個千佛山還要好看，還要清楚。',key:'業已＝已經。以倒影比真山更清楚，<b>烘托</b>湖水澄淨。漁唱是<b>聽覺</b>。'},
+    {label:'⑦ 粉紅絨毯',imgs:[{img:'z_reed',tag:'盛開的蘆葦白花'},{img:'z_reedsun',tag:'夕陽映照的蘆葦'}],poem:'這湖的南岸……卻有一層蘆葦，密密遮住。現在正是開花的時候，一片白花映著帶水氣的斜陽，好似一條粉紅絨毯，做了上下兩個山的墊子，實在奇絕！',key:'「白花」是<b>蘆花</b>，不是荷花。白花被夕陽染成粉紅＝譬喻；上下兩個山＝真山與倒影。'},
+    {label:'⑧ 古水仙祠，返航',imgs:[{img:'z_pod',tag:'蓮蓬'}],poem:'「一<b>盞</b>寒泉<b>薦</b>秋菊，三更畫<b>舫</b>穿藕花」……那荷葉初枯，擦得船嗤嗤價響。那水鳥被人驚起，格格價飛。那已老的蓮蓬，不斷的<b>蹦</b>到船窗裡面來。',key:'第三副對聯在<b>古水仙祠</b>（祭水神）。嗤嗤、格格＝<b>聽覺摹寫</b>（狀聲詞）。最後回到鵲華橋畔。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),7000);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+
+<!-- AK:answer-key -->
+<style id="ak-style">#ak-btn{position:fixed;left:14px;bottom:14px;z-index:9990;font:600 16px/1 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:#1f4e79;color:#fff;border:0;border-radius:999px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer}#ak-btn:hover{background:#163a5c}#ak-box{display:none;position:fixed;inset:0;z-index:9995;background:rgba(15,25,40,.45);padding:16px;overflow:auto}#ak-box.show{display:block}#ak-box .ak-card{max-width:960px;margin:20px auto;background:#fff;color:#1d2733;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:16px/1.6 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;text-align:left}#ak-box .ak-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #e3e8ef;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}#ak-box .ak-head b{font-size:18px;color:#1f4e79}#ak-box .ak-head button{font:inherit;font-size:16px;margin-left:8px;border:1px solid #c9d3df;background:#f4f7fb;color:#1d2733;border-radius:8px;padding:6px 12px;cursor:pointer}#ak-box .ak-body{padding:6px 18px 18px}#ak-box h3{font-size:17px;margin:16px 0 6px;color:#1f4e79}#ak-box .ak-t{border-collapse:collapse;width:100%;margin:6px 0;table-layout:fixed}#ak-box .ak-t th,#ak-box .ak-t td{border:1px solid #cfd8e3;padding:5px 2px;text-align:center;font-size:16px;word-break:break-all}#ak-box .ak-t th{background:#eef3f9;color:#1f4e79;font-weight:600}#ak-box .ak-t th:first-child{width:3.6em}#ak-box .ak-t td{font-weight:700}#ak-box .ak-list{columns:2 300px;margin:6px 0;padding-left:0;list-style:none}#ak-box .ak-list li{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e3e8ef}@media print{#ak-btn{display:none!important}html:not(.ak-on) #ak-box{display:none!important}html.ak-on body>*:not(#ak-box){display:none!important}html.ak-on #ak-box{position:static;background:none;padding:0;display:block!important;overflow:visible}html.ak-on #ak-box .ak-card{box-shadow:none;margin:0;max-width:none}html.ak-on #ak-box .ak-head button{display:none}html.ak-on #ak-box .ak-head{position:static}}</style>
+<script id="ak-core">(function(){
+if(window.AK)return;
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function norm(secs){
+ if(!secs)return[];
+ if(!Array.isArray(secs[0]&&secs[0].items)&&Array.isArray(secs))secs=[{title:'',items:secs}];
+ return secs.map(function(s){return{title:s.title||'',items:(s.items||[]).map(function(x,i){return Array.isArray(x)?[x[0],x[1]]:[i+1,x]})}}).filter(function(s){return s.items.length});
+}
+function table(s){
+ var long=s.items.some(function(x){return String(x[1]).length>3});
+ var h=s.title?'<h3>'+esc(s.title)+'</h3>':'';
+ if(long){
+  return h+'<ol class="ak-list">'+s.items.map(function(x){return'<li><b>'+esc(x[0])+'.</b> '+esc(x[1])+'</li>'}).join('')+'</ol>';
+ }
+ var out=h;
+ for(var i=0;i<s.items.length;i+=10){
+  var r=s.items.slice(i,i+10);
+  out+='<table class="ak-t"><tr><th>題號</th>'+r.map(function(x){return'<th>'+esc(x[0])+'</th>'}).join('')+'</tr><tr><th>答案</th>'+r.map(function(x){return'<td>'+esc(x[1])+'</td>'}).join('')+'</tr></table>';
+ }
+ return out;
+}
+window.AK=function(fn){
+ function run(){
+  var secs;
+  try{secs=norm(typeof fn==='function'?fn():fn)}catch(e){console.warn('AK',e);return}
+  window.__AK_DATA=secs;
+  if(!secs.length)return;
+  var n=secs.reduce(function(a,s){return a+s.items.length},0);
+  var btn=document.createElement('button');btn.id='ak-btn';btn.type='button';btn.textContent='📋 答案總表';if(window.AK_BTN_STYLE)btn.style.cssText=window.AK_BTN_STYLE;
+  var box=document.createElement('div');box.id='ak-box';
+  box.innerHTML='<div class="ak-card" role="dialog" aria-label="答案總表"><div class="ak-head"><b>📋 答案總表（教師用，共 '+n+' 題）</b><span><button type="button" class="ak-p">🖨 列印答案</button><button type="button" class="ak-x" aria-label="關閉">✕</button></span></div><div class="ak-body">'+secs.map(table).join('')+'</div></div>';
+  document.body.appendChild(btn);document.body.appendChild(box);
+  function close(){box.classList.remove('show');document.documentElement.classList.remove('ak-on')}
+  btn.onclick=function(){box.classList.add('show');document.documentElement.classList.add('ak-on')};
+  box.querySelector('.ak-x').onclick=close;
+  box.onclick=function(e){if(e.target===box)close()};
+  box.querySelector('.ak-p').onclick=function(){window.print()};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+ }
+ if(document.readyState==='complete')setTimeout(run,0);else window.addEventListener('load',function(){setTimeout(run,0)});
+};
+})();</script>
+<script>AK(function(){
+if(!/[?&]teacher\b/.test(location.search))return [];
+/* 段考闖關站（chinese/civics/geography/history/science-site 的 volX_ 的 index.html）共用 adapter。
+   資料：頂層 const（L 各課 .mcq/.ext、RIDDLE/EXT/SCEN/CHART…）裡的選擇題物件 {q,o,a}。
+   renderMCQ 題序固定、但「選項每次洗牌」，所以答案列「正解選項文字」而非字母。
+   快問快答／配對／分類挑戰（題目隨機抽）與總測驗（pool/pick 隨機抽題）都不是頂層 {q,o,a} 陣列，不會被列入。 */
+window.AK_BTN_STYLE='left:14px;bottom:76px;font-size:20px;padding:12px 18px';
+(function(){
+  if(document.getElementById('ak-big'))return;
+  var s=document.createElement('style');s.id='ak-big';
+  s.textContent='html body #ak-box .ak-card{font-size:20px}html body #ak-box .ak-head b{font-size:22px}html body #ak-box .ak-head button{font-size:20px}html body #ak-box h3{font-size:21px}html body #ak-box .ak-list li{font-size:20px}html body #ak-box .ak-t th,html body #ak-box .ak-t td{font-size:20px}html body #ak-box .ak-note{font-size:20px;color:#5a6878;margin:10px 0 0}@media(max-width:600px){html body #ak-box{padding:6px}html body #ak-box .ak-card{margin:6px auto}html body #ak-box .ak-body{padding:6px 12px 14px}html body #ak-box .ak-list{columns:1}}';
+  document.head.appendChild(s);
+  setTimeout(function(){var b=document.querySelector('html body #ak-box .ak-body');if(b&&!b.querySelector('.ak-note')){var p=document.createElement('p');p.className='ak-note';p.textContent='※ 題號＝各練習頁上的題號；選項每次會重新洗牌，故列「正確選項的內容」。快問快答、配對、分類挑戰、總測驗為隨機出題，不列。';b.insertBefore(p,b.firstChild)}},50);
+})();
+var src=[].slice.call(document.querySelectorAll('script:not([src])')).filter(function(x){return x.id!=='ak-core'&&x.textContent.indexOf('AK(function')<0}).map(function(x){return x.textContent}).join('\n');
+var names=[];src.replace(/^(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=/gm,function(_,n){if(names.indexOf(n)<0)names.push(n)});
+var isQ=function(x){return x&&typeof x==='object'&&typeof x.q==='string'&&Array.isArray(x.o)};
+var clean=function(t){t=String(t).replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();return t.length>60?t.slice(0,60)+'…':t};
+var lit=function(expr){var re=new RegExp('renderMCQ\\([^,]+,\\s*'+expr.replace(/[.$[\]]/g,'\\$&')+'\\s*,\\s*[^,]+,\\s*([\'"`])([^\'"`$]*)\\1');var m=src.match(re);return m?m[2]:''};
+var KEY={mcq:'📝 段考模擬題',ext:'延伸題',graph:'綜合 圖表判讀',calc:'綜合 計算練習'};
+var secs=[];
+function add(title,arr,pri){for(var j=0;j<secs.length;j++)if(secs[j].arr===arr){if(pri>secs[j].pri){secs[j].title=title;secs[j].pri=pri}return}secs.push({arr:arr,pri:pri,title:title,items:arr.map(function(q,i){return[i+1,clean(q.o[q.a==null?0:q.a])]})})}
+function walk(v,path,parents){
+  if(!v||typeof v!=='object'||path.length>6||v instanceof Node||v===window)return;
+  if(Array.isArray(v)){
+    if(v.length&&v.every(isQ)){
+      var root=path[0],last=path[path.length-1],par=parents[parents.length-1],t;
+      if(root==='L'&&path.length===3){var d=parents[1];t=[d.no,d.title||d.name].filter(Boolean).join(' ')+'｜'+(KEY[last]||last)}
+      else if(path.length===1)t=lit(root)||root;
+      else if(par&&!Array.isArray(par)&&par.title){var gi=path[path.length-2];t=(/^[①-⑳]/.test(par.title)?'':(typeof gi==='number'?(gi+1)+'. ':''))+String(par.title).replace(/<[^>]*>/g,'')}
+      else t=lit(path.join('.'))||KEY[last]||path.join('.');
+      add(t,v,root==='L'?1:0);return;
+    }
+    v.forEach(function(x,i){walk(x,path.concat(i),parents.concat([v]))});return;
+  }
+  if(Object.getPrototypeOf(v)!==Object.prototype)return;
+  Object.keys(v).forEach(function(k){walk(v[k],path.concat(k),parents.concat([v]))});
+}
+names.forEach(function(n){var v;try{v=(0,eval)(n)}catch(e){return}walk(v,[n],[])});
+/* 同一陣列被兩處引用（如 L.ex.mcq＝EXT）只列一次，以課別標題為準；依 L 的課序排在前面 */
+secs.sort(function(a,b){return b.pri-a.pri});
+return secs.map(function(s){return{title:s.title,items:s.items}});
+});</script>
+<!-- /AK -->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+</body>
+</html>

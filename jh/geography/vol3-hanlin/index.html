@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國二地理段考闖關（翰林）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#2f6b3a; --main-2:#4a9a5a; --accent:#d9a441; --accent-2:#b07d24;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#1f4a28 0%,#4a9a5a 60%,#d9a441 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#1f4a28;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(15,35,20,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+.qword{font-size:1.4rem;letter-spacing:0;line-height:1.5;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word}
+@media(max-width:560px){.opts{grid-template-columns:1fr}.qword{font-size:1.25rem}}
+.bars .b span{line-height:1.35}
+@media(max-width:560px){.bars .b{grid-template-columns:128px 1fr 52px}}
+details.card summary{cursor:pointer}
+@media(max-width:560px){.lessoncards{grid-template-columns:1fr}.lc{min-height:0;gap:8px}}
+/* 表格、圖表（文字放在 HTML，不畫在圖上） */
+.tbl{width:100%;border-collapse:collapse;font-size:1rem;margin:6px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.tbl th{background:#e8f3ea;color:var(--main)}
+.tbl td:first-child{white-space:nowrap}
+.figbox{overflow-x:auto;margin-bottom:6px}
+.passage{background:#f4f9f1;border-left:5px solid var(--accent);border-radius:12px;padding:14px 16px;line-height:1.9}
+.scale{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.scale span{flex:1 1 120px;background:#e8f3ea;border-radius:12px;padding:8px 10px;text-align:center;font-size:1rem;line-height:1.5}
+.scale span b{color:var(--accent-2)}
+.ladder{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 12px}
+.ladder span{background:var(--main);color:#fff;border-radius:12px;padding:6px 12px;font-weight:700;text-align:center}
+.ladder span.an{background:var(--accent);color:#3b2600}
+.ladder small{display:block;font-size:1rem;font-weight:500}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.calc label{font-weight:500}
+.calc input,.calc select{display:block;width:100%;font-size:1.1rem;padding:8px 10px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit;background:#fff}
+.meaning b{color:var(--main)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回地理選單</a><span class="tag">翰林版 國二上地理 ｜ 第一次段考</span>
+    <h1>地理段考闖關｜第1章 中國的地形＋第2章 中國的氣候</h1>
+    <p>先看真實照片動畫弄懂課本，再用遊戲練熟三級階梯、季風、秦嶺淮河與三大氣候類型，最後做段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap"><details style="margin-top:8px"><summary>圖片來源與授權</summary>
+  照片皆來自 Wikimedia Commons（CC0／公有領域／CC BY／CC BY-SA），未使用 AI 生成圖：Taklamakan desert：Pravit（CC BY-SA 4.0）；Everest North Face toward Base Camp Tibet Luca Galuzzi 2006：Luca Galuzzi (Lucag)（CC BY-SA 2.5）；Hulunbuir Grasslands, Inner Mongolia - 9758628436：Sergio Tittarini（CC BY 2.0）；Hengduan Mountain Range (3317218758)：reurinkjan（CC BY 2.0）；Loess landscape china：Till Niermann（CC BY-SA 3.0）；Qinghai-Tibet Railway View - 14257015644：Andrew and Annemarie（CC BY-SA 2.0）；Lhassa-Xining railway：Royonx（CC0）；The skyline of Pudong from the Huangpu river：Lloyd Tudor（CC BY-SA 4.0）；Longji Rice Terraces 003：Rutger van der Maar（CC BY 2.0）；Landscape of the Tibetan Plateau：Jan Kranendonk（CC BY-SA 4.0）；Tulou from Fujian - Aug 2022：HGShg（CC BY-SA 4.0）；Cave houses shanxi 1：Meier&Poehlmann（CC BY 3.0）；Hukou Waterfall：Leruswing（CC BY-SA 3.0）；Dust storm in Beijing 2006：Shizhao（CC BY 2.5）；Grapes sold in Turpan (2)：Radosław Botev（CC BY 3.0 pl）；Harbin Ice and Snow Festival 2013：Tracy Hunter（CC BY 2.0）；201806 Bengbu and Huai River：MNXANL（CC BY-SA 4.0）；Kailash north：Ondřej Žváček（CC BY 2.5）；Kang in a hostel room：Yoshi Canopus（CC BY-SA 4.0）；北极村的童话世界 QQ696847 - panoramio：funcn（CC BY 3.0）；201907 Rice Field in Yongchang, Lanxi：MNXANL（CC BY-SA 4.0）；布达拉宫：Coolmanjackey（CC BY-SA 3.0）；Part of the view on Qinling mountains：Charlie439753（CC BY-SA 4.0）；Strand in der Yalong Bay Bucht in Sanya auf der Insel Hainan：Kusafiri（CC BY-SA 3.0）；Ice skating summer palace：Jacob Ehnmark（CC BY 2.0）；Turpan-flaming-mountains-d02：Colegota（CC BY-SA 2.5 es）；20230602 Reaper gathering wheat in Weishi County：Windmemories（CC BY-SA 4.0）；Kaiserkanal Grand Canal Hangzhou China (45133988404)：Flashpacker Travelguide（CC BY-SA 2.0）；Bar-headed Goose in Kaziranga National Park March 2025 by Tisha Mukherjee 01：Tisha Mukherjee（CC BY-SA 4.0）；Victoria Harbour skyscrapers：Wilfredor（CC0）；The Ruins of St. Paul's in Macau：BenjPhoto（CC BY-SA 4.0）。</details>
+</div></footer>
+
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料（翰林 國二上地理 第一次段考） =================
+   範圍：第1章 中國的地形（1-1 地形特徵、1-2 地形的區域差異）＋第2章 中國的氣候（2-1 氣候特徵、2-2 氣候類型）。
+   第3章 中國的人口不在本次範圍。
+   名詞、數字、地名依翰林國中社會 2 上地理課本（課本 WORD 檔 114f408371／114f408372；找不到 115 年版，待老師確認）。
+   快問快答：[題目, 正解, [3 個誘答], 幾校考過(≥2 才標★，0＝不標)]
+   模擬題：{q, o:[正解, 誘答…], a:0, src, ex}（選項每次洗牌；全部原創改寫，只借 30 校翰林卷的命題方向與陷阱） */
+const L = {
+/* ---------- 1-1 地形特徵 ---------- */
+a1:{
+  no:'1-1', code:1, title:'中國的地形特徵', short:'地形特徵', color:'linear-gradient(135deg,#1f4a28,#3f8a4e)',
+  desc:'絕對／相對位置｜面積世界第四｜五大地形｜山多平原少｜西高東低、河川東流｜板塊與山脈走向',
+  quickAsk:'選出正確的答案', quickTitle:'地形特徵快問快答',
+  quick:[
+    ['中國位於哪一洲的東部','亞洲',['歐洲','非洲','大洋洲'],0],
+    ['從相對位置看，中國位於歐亞大陸的哪一部','東南部',['西北部','東北部','西南部'],16],
+    ['中國東側臨哪一個大洋','太平洋',['大西洋','印度洋','北極海'],16],
+    ['中國國土的經度範圍大約是','73°E～135°E',['73°W～135°W','18°E～53°E','100°E～160°E'],11],
+    ['中國國土的緯度範圍大約是','18°N～53°N',['18°S～53°S','0°～35°N','30°N～70°N'],11],
+    ['用經緯度描述中國的位置，屬於','絕對位置',['相對位置','行政位置','地形位置'],16],
+    ['「東臨太平洋、陸上鄰國眾多」屬於','相對位置',['絕對位置','經緯度座標','數理位置'],16],
+    ['中國大部分國土位在哪一個緯度帶','中緯度',['低緯度','高緯度','赤道附近'],6],
+    ['中國面積世界排名第幾','第四',['第一','第二','第三'],8],
+    ['面積比中國大的三國不包括','印度',['俄羅斯','加拿大','美國'],3],
+    ['中國陸上鄰國「不」包括','日本',['俄羅斯','北韓','越南'],3],
+    ['中國五大地形中占比最高的是','山地',['高原','盆地','平原'],13],
+    ['山地與高原合計約占中國國土多少','約 60%',['約 30%','約 45%','約 80%'],13],
+    ['中國五大地形中占比最低的是','丘陵',['平原','盆地','山地'],13],
+    ['中國整體地形特徵是','山多平原少',['平原多山地少','高原最多','丘陵遍布'],13],
+    ['中國的地勢特徵是','西高東低',['東高西低','南高北低','北高南低'],21],
+    ['西高東低造成主要河川怎麼流','由西向東流',['由東向西流','由北向南流','由南向北流'],21],
+    ['課本列出的中國陸上鄰國大約有幾個','十餘個',['約 3 個','約 5 個','約 30 個'],0],
+    ['西半部山脈多呈什麼走向','東西走向',['南北走向','東北—西南走向','西北—東南走向'],25],
+    ['東半部山脈大致呈什麼走向','東北—西南走向',['東西走向','南北走向','西北—東南走向'],25],
+    ['西半部山脈由哪一個板塊向北推擠歐亞板塊形成','印度—澳洲板塊',['太平洋板塊','非洲板塊','菲律賓海板塊'],25],
+    ['東半部山脈由哪一個板塊向西北推擠歐亞板塊形成','太平洋板塊',['印度—澳洲板塊','非洲板塊','北美板塊'],5],
+    ['中、西半部山脈走向不同的主因','板塊擠壓的方向不同',['緯度不同','距海遠近不同','季風風向不同'],25],
+    ['中國地形大致分為幾大類型','五大類型',['三大類型','四大類型','六大類型'],0],
+    ['中國的政治、文化與交通中心','北京市',['上海市','天津市','重慶市'],17],
+    ['「大江東去」這類詩句反映中國的哪一項地形特徵','地勢西高東低',['山多平原少','幅員遼闊','山脈東西走向'],10],
+  ],
+  words:[
+    ['相對位置','歐亞大陸東南部、東臨太平洋'],['絕對位置','約 73°E～135°E、18°N～53°N'],['面積世界第四','僅次於俄羅斯、加拿大、美國'],
+    ['五大地形','山地、高原、盆地、平原、丘陵'],['山地＋高原','約占國土總面積 60%'],['山多平原少','可耕地相對不足'],
+    ['西高東低','主要河川由西向東流'],['西半部山脈','東西走向（印度—澳洲板塊推擠）'],['東半部山脈','東北—西南走向（太平洋板塊推擠）'],
+    ['歐亞板塊','中國所在的板塊，被兩側板塊推擠'],['北京市','首都，政治、文化與交通中心'],['陸上鄰國','俄羅斯、北韓、越南、印度等十餘國'],
+  ],
+  sorts:[
+    {title:'絕對位置還是相對位置？',tip:'用經緯度、東西南北半球、緯度帶描述＝絕對位置；以周圍的海陸、鄰國為基準＝相對位置。',buckets:['絕對位置','相對位置'],items:[
+      ['約介於 73°E～135°E',0],['約介於 18°N～53°N',0],['位於東半球、北半球',0,'用經緯度判斷的半球，屬於絕對位置'],['大部分國土位於中緯度',0,'緯度帶由緯度決定，屬於絕對位置'],
+      ['位於歐亞大陸東南部',1],['東側臨太平洋',1],['陸上鄰國眾多',1],['位於亞洲東部',1],['北與俄羅斯為鄰',1],['面海背陸',1]]},
+    {title:'這個現象的主因是什麼？',tip:'河川東流、海洋水氣深入內陸＝西高東低；山脈走向＝板塊推擠方向；耕地不足＝山多平原少。',buckets:['地勢西高東低','板塊擠壓方向','山多平原少'],items:[
+      ['黃河、長江由西向東流',0],['「一江春水向東流」',0],['夏季海洋水氣可沿河谷深入內陸',0],['天然河道多東西向，古代開鑿南北向運河',0,'京杭大運河連接東西向的河川'],
+      ['喜馬拉雅山呈東西走向',1],['大興安嶺呈東北—西南走向',1],['青藏高原持續隆起、地震頻繁',1],
+      ['丘陵地區開闢梯田增加耕地',2],['山地與高原約占國土 60%',2],['可耕地面積比例偏低',2]]},
+    {title:'山脈走向與成因配對',tip:'西半部：印度—澳洲板塊向北推擠→東西走向；東半部：太平洋板塊向西北推擠→東北—西南走向；橫斷山脈特殊，南北走向。',buckets:['東西走向','東北—西南走向','南北走向'],items:[
+      ['喜馬拉雅山',0],['天山',0],['崑崙山',0],['秦嶺',0],['大興安嶺',1],['長白山',1],['武夷山',1],['橫斷山脈',2,'山勢陡直、南北走向、平行排列']]},
+  ],
+  mcq:[
+    {q:'「中國位於歐亞大陸東南部，東側臨太平洋。」這段描述屬於哪一種位置？',o:['相對位置','絕對位置','經緯度位置','數理位置'],a:0,src:'位置判別 16 校',ex:'以周圍的陸地、海洋為基準來描述，是相對位置；用經緯度描述才是絕對位置。'},
+    {q:'下列哪一項描述屬於中國的絕對位置？',o:['大部分國土位於中緯度','東臨太平洋','陸上鄰國眾多','位於亞洲東部'],a:0,src:'陷阱',ex:'緯度帶是由緯度決定的，屬於絕對位置；其他三項都以周圍的海陸為基準，屬於相對位置。'},
+    {q:'中國國土主要位於中緯度，這對居民生活最主要的好處是什麼？',o:['氣候溫和、適宜人居','全年炎熱多雨','終年冰雪覆蓋','沒有季節變化'],a:0,src:'課本 1-1',ex:'課本：大部分國土位居中緯度，氣候溫和、適宜人居。'},
+    {q:'小安說：「面積比中國大的國家只有三個。」這三個國家是？',o:['俄羅斯、加拿大、美國','俄羅斯、印度、巴西','美國、澳洲、巴西','加拿大、印度、澳洲'],a:0,src:'疆域',ex:'中國面積僅次於俄羅斯、加拿大與美國，世界排名第四。'},
+    {q:'中國五大地形的面積比例中，哪一組合計約占國土的 60%？',o:['山地＋高原','平原＋丘陵','盆地＋平原','高原＋盆地'],a:0,src:'面積比例圖 13 校',ex:'課本：山地與高原約占國土總面積的 60%，呈現山多平原少的特徵。'},
+    {q:'老師展示「中國五大地形面積比例圓餅圖」，請問從這張圖最能推論出什麼？',o:['可耕地相對不足','地勢西高東低','河川由西向東流','山脈多東西走向'],a:0,src:'陷阱',ex:'比例圖只看得出各種地形面積多寡（山多平原少→耕地少）；看不出高低分布，所以推不出西高東低或河川流向。'},
+    {q:'「黃河之水天上來，奔流到海不復回」「大江東去」等詩句，最能反映中國的哪一項地形特徵？',o:['地勢西高東低','山多平原少','山脈東西走向','國土遼闊'],a:0,src:'詩句題 10 校',ex:'河川由高處往低處流；中國地勢西高東低，所以黃河、長江都向東流入海。'},
+    {q:'下列哪一個現象與「中國地勢西高東低」最有關？',o:['主要河川向東流入太平洋','冬季南北溫差大','西半部山脈東西走向','東南丘陵開闢梯田'],a:0,src:'陷阱',ex:'西高東低→河川東流。冬季南北溫差大是緯度；山脈走向是板塊；梯田是山多平原少。'},
+    {q:'古代中國開鑿京杭大運河連接北京與杭州，主要是為了彌補什麼不便？',o:['天然河川多東西向，缺少南北向水運','河川冬季全部結冰','沿海沒有港口','西部沙漠阻隔'],a:0,src:'運河題 3 校',ex:'地勢西高東低，主要河川多東西向流動，南北向水運需要靠人工運河連接。'},
+    {q:'中國西半部的喜馬拉雅山、崑崙山多呈東西走向，主要是哪一種作用造成？',o:['印度—澳洲板塊向北推擠歐亞板塊','太平洋板塊向西北推擠歐亞板塊','冰河侵蝕','河川向東侵蝕切割'],a:0,src:'板塊 25 校',ex:'西半部山脈由印度—澳洲板塊向北推擠歐亞板塊形成，多呈東西走向。'},
+    {q:'中國東半部的大興安嶺、長白山大致呈東北—西南走向，成因是什麼？',o:['太平洋板塊向西北推擠歐亞板塊','印度—澳洲板塊向北推擠','非洲板塊向東推擠','菲律賓海板塊向南推擠'],a:0,src:'板塊 5 校',ex:'東半部受太平洋板塊向西北推擠歐亞板塊，山脈大致呈東北—西南走向。'},
+    {q:'中國東、西半部山脈走向不同，主要是哪一項因素不同所導致？',o:['板塊擠壓的方向','緯度高低','距海遠近','季風風向'],a:0,src:'課本想一想',ex:'課本想一想：山脈走向差異來自板塊擠壓方向不同。'},
+    {q:'2025 年西藏日喀則發生強烈地震。這一帶地震頻繁，與下列哪一項有關？',o:['印度—澳洲板塊與歐亞板塊碰撞','太平洋板塊與歐亞板塊碰撞','地勢西高東低','距海遙遠'],a:0,src:'時事',ex:'喜馬拉雅山、青藏高原一帶是印度—澳洲板塊向北推擠歐亞板塊的地方，至今仍常有地震。'},
+    {q:'下列哪一個國家「不是」中國的陸上鄰國？',o:['日本','俄羅斯','越南','印度'],a:0,src:'鄰國 3 校',ex:'課本列出的陸上鄰國有俄羅斯、北韓、越南、印度等十餘國；日本隔海相望，不是陸上鄰國。'},
+    {q:'中國國土約介於 73°E～135°E。若以每 15 度一時區計算，中國實際橫跨約幾個時區？',o:['約 5 個','約 2 個','約 8 個','約 12 個'],a:0,src:'疆域',ex:'經度差約 62 度÷15≈4 個多，橫跨約 5 個時區；但全國統一使用北京時間。'},
+    {q:'若把「東北—西南走向的山脈」和「東西走向的山脈」分成兩組，下列分組何者正確？',o:['大興安嶺屬前者；喜馬拉雅山屬後者','喜馬拉雅山屬前者；天山屬後者','長白山屬後者；秦嶺屬前者','橫斷山脈屬前者；崑崙山屬後者'],a:0,src:'山脈走向 25 校',ex:'東半部大興安嶺、長白山為東北—西南走向；西半部喜馬拉雅山、天山、崑崙山、秦嶺為東西走向；橫斷山脈是南北走向。'},
+  ]
+},
+/* ---------- 1-2 地形的區域差異 ---------- */
+a2:{
+  no:'1-2', code:2, title:'地形的區域差異（地勢三級階梯）', short:'三級階梯', color:'linear-gradient(135deg,#25563a,#4a9a5a)',
+  desc:'高階梯：青藏高原・喜馬拉雅・橫斷山脈｜中階梯：內蒙古・黃土高原・塔里木・四川盆地｜低階梯：平原・東南丘陵｜青藏鐵路',
+  quickAsk:'選出正確的答案', quickTitle:'三級階梯快問快答',
+  quick:[
+    ['高階梯地形區平均高度約在','4,000 公尺以上',['2,000 公尺以下','500 公尺以下','1,000 公尺左右'],22],
+    ['高階梯以哪兩種地形為主','山地、高原',['平原、丘陵','高原、盆地','盆地、平原'],22],
+    ['中階梯以哪兩種地形為主','高原、盆地',['山地、高原','平原、丘陵','山地、丘陵'],22],
+    ['低階梯以哪兩種地形為主','平原、丘陵',['平原、盆地','高原、盆地','山地、高原'],22],
+    ['中階梯地形區地勢降到','2,000 公尺以下',['4,000 公尺以上','200 公尺以下','3,000～5,000 公尺'],22],
+    ['世界平均高度最高的高原','青藏高原',['黃土高原','內蒙古高原','雲貴高原'],19],
+    ['「世界屋脊」指的是','青藏高原',['喜馬拉雅山','黃土高原','天山'],19],
+    ['黃河、長江的發源地位在哪一階梯','高階梯',['中階梯','低階梯','分屬不同階梯'],10],
+    ['世界最高的山脈','喜馬拉雅山',['橫斷山脈','天山','崑崙山'],15],
+    ['喜馬拉雅山位在青藏高原的哪一側','西南側',['東北側','西北側','東南側'],15],
+    ['中國與南亞多國的界山','喜馬拉雅山',['天山','秦嶺','大興安嶺'],15],
+    ['山勢陡直、南北走向、平行排列的山脈','橫斷山脈',['喜馬拉雅山','天山','秦嶺'],12],
+    ['部分河川經哪一山脈流至中南半島','橫斷山脈',['大興安嶺','天山','長白山'],12],
+    ['中央有中國最大沙漠的盆地','塔里木盆地',['四川盆地','準噶爾盆地','柴達木盆地'],13],
+    ['中國最大的沙漠','塔克拉瑪干沙漠',['戈壁沙漠','撒哈拉沙漠','騰格里沙漠'],5],
+    ['塔里木盆地邊緣綠洲的水源','夏季高山融雪',['颱風豪雨','梅雨','海水淡化'],5],
+    ['地勢平坦遼闊、西側沙漠東側草原','內蒙古高原',['黃土高原','青藏高原','雲貴高原'],8],
+    ['易受河川侵蝕切割、地勢崎嶇不平','黃土高原',['內蒙古高原','青藏高原','四川盆地'],21],
+    ['流經黃土高原而含沙量高的河川','黃河',['長江','珠江','淮河'],10],
+    ['長江流經、位於中階梯的盆地','四川盆地',['塔里木盆地','準噶爾盆地','柴達木盆地'],7],
+    ['位於長江河口的沖積平原','長江三角洲',['珠江三角洲','華北平原','東北平原'],10],
+    ['中國主要的農業生產地帶、人口稠密精華區','低階梯',['高階梯','中階梯','各階梯平均'],22],
+    ['東南丘陵居民為增加耕地常開闢','梯田',['綠洲','窯洞','鹽田'],5],
+    ['青藏鐵路連接西寧與哪一座城市','拉薩',['成都','烏魯木齊','昆明'],6],
+    ['青藏鐵路以高架軌道克服什麼問題','土壤反覆凍融使地基不穩',['風沙掩埋軌道','颱風暴雨','河川定期氾濫'],7],
+    ['青藏鐵路若修建支線，最可能引起哪國的邊境疑慮','印度',['俄羅斯','越南','北韓'],5],
+    ['黃土高原 2000 年起實施的政策','退耕還林、退牧還草',['一胎化','西部大開發','南水北調'],3],
+  ],
+  words:[
+    ['青藏高原','世界屋脊，平均高度最高'],['喜馬拉雅山','世界最高山脈，中國與南亞界山'],['橫斷山脈','南北走向，河川流向中南半島'],
+    ['內蒙古高原','平坦遼闊，西沙漠東草原'],['黃土高原','黃土疏鬆，崎嶇、黃河含沙量高'],['塔里木盆地','中央為塔克拉瑪干沙漠'],
+    ['四川盆地','長江流經的中階梯盆地'],['準噶爾盆地','位於新疆北部的中階梯盆地'],['長江三角洲','長江河口沖積平原，人口產業精華區'],
+    ['東南丘陵','山多平原少，開闢梯田'],['綠洲','高山融雪灌溉形成的農業聚落'],['青藏鐵路','世界海拔最高，高架軌道克服凍土'],
+    ['退耕還林','2000 年起改善黃土高原水土流失'],
+  ],
+  sorts:[
+    {title:'這個地形區在第幾階梯？',tip:'高階：青藏高原、喜馬拉雅、橫斷山脈、柴達木盆地（在青藏高原內）。中階：內蒙古、黃土、雲貴高原，塔里木、準噶爾、四川盆地。低階：平原、三角洲、東南丘陵。',buckets:['高階梯','中階梯','低階梯'],items:[
+      ['青藏高原',0],['喜馬拉雅山',0],['橫斷山脈',0],['柴達木盆地',0,'位在青藏高原內，屬高階梯'],
+      ['內蒙古高原',1],['黃土高原',1],['塔里木盆地',1,'雖然四周是高山，盆地本身在中階梯'],['四川盆地',1],['準噶爾盆地',1],['雲貴高原',1],
+      ['華北平原',2],['東北平原',2],['長江三角洲',2],['東南丘陵',2],['珠江三角洲',2]]},
+    {title:'景觀描述屬於哪一個地形區？',tip:'抓關鍵字：融雪綠洲→塔里木；千溝萬壑、窯洞→黃土；蒙古包、草原→內蒙古；凍土、世界屋脊→青藏；梯田、土樓→東南丘陵。',buckets:['青藏高原','塔里木盆地','黃土高原','內蒙古高原','東南丘陵'],items:[
+      ['列車要換乘供氧車廂',0],['鐵路架高以避開反覆凍融的土壤',0],['藏族、布達拉宮',0],
+      ['沙漠邊緣靠高山融雪形成綠洲',1],['環繞沙漠的鐵路要種植固沙植物',1],
+      ['河水像泥漿一樣黃濁',2],['千溝萬壑、居民住窯洞',2],
+      ['地勢平坦遼闊，東側草原上有蒙古包',3],['春季沙塵常從這裡吹向華北',3],
+      ['沿山坡開闢層層梯田',4],['圓形土樓聚落、種茶',4]]},
+    {title:'青藏鐵路還是環塔里木鐵路？',tip:'青藏鐵路：高階梯、凍土、高架軌道、供氧。環塔里木（和若）鐵路：中階梯塔里木盆地、沙漠、固沙植物。兩者的維護措施常被互換。',buckets:['青藏鐵路','環塔里木鐵路'],items:[
+      ['世界海拔最高的鐵路',0],['連接西寧與拉薩',0],['設計高架軌道避免與凍土接觸',0],['旅客要換乘有氧列車',0],['支線可能引起印度的邊境疑慮',0],
+      ['環繞中國最大的沙漠',1],['兩側種植防風固沙植物',1],['沿線多綠洲城市',1],['位於中階梯的盆地',1]]},
+  ],
+  mcq:[
+    {q:'中國地勢分為三級階梯，主要是依據什麼來畫分？',o:['平均海拔高度與地形種類','山脈走向','年降水量多寡','緯度高低'],a:0,src:'三級階梯 22 校',ex:'由西向東依平均高度與主要地形分成高（山地、高原）、中（高原、盆地）、低（平原、丘陵）三階。'},
+    {q:'下列哪一組地形區與所在階梯的配對正確？',o:['四川盆地—中階梯','柴達木盆地—中階梯','東南丘陵—中階梯','內蒙古高原—高階梯'],a:0,src:'陷阱',ex:'四川盆地在中階梯；柴達木盆地位在青藏高原內，屬高階梯；東南丘陵在低階梯；內蒙古高原在中階梯。'},
+    {q:'有關低階梯的敘述，何者正確？',o:['以平原、丘陵為主，是主要農業帶與人口精華區','以平原、盆地為主','平均高度在 2,000 公尺以上','是主要河川的發源地'],a:0,src:'低階梯陷阱',ex:'低階梯以河川中下游沖積平原、三角洲與丘陵為主；是平原與丘陵，不是平原與盆地。河川發源地在高階梯。'},
+    {q:'黃河、長江都發源於哪一個地形區？',o:['青藏高原','黃土高原','內蒙古高原','四川盆地'],a:0,src:'課本 1-2',ex:'高階梯是中國主要河川的發源地，例如黃河、長江，源頭都在青藏高原。'},
+    {q:'2020 年起中國與印度在邊境多次發生衝突。兩國邊界主要沿著哪一座山脈？',o:['喜馬拉雅山','橫斷山脈','天山','秦嶺'],a:0,src:'時事 5 校',ex:'喜馬拉雅山位於青藏高原西南側，是中國與南亞多國的界山。'},
+    {q:'某報導：「當地居民靠溜索橫渡湍急的河谷，山與河南北平行排列，河水最後流進中南半島。」這是描述哪一個地形區？',o:['橫斷山脈','喜馬拉雅山','東南丘陵','黃土高原'],a:0,src:'溜索題組',ex:'橫斷山脈山勢陡直、南北走向、平行排列，部分河川經此流到中南半島。'},
+    {q:'中國在橫斷山脈一帶的河川上游興建水壩，最可能引起哪一個地區的國家關切水資源？',o:['中南半島','印度半島','朝鮮半島','阿拉伯半島'],a:0,src:'',ex:'源於青藏高原的河川部分經橫斷山脈流到中南半島（例如瀾滄江下游為湄公河），上游建壩會影響下游國家。'},
+    {q:'塔里木盆地邊緣能發展綠洲農業，主要水源來自哪裡？',o:['夏季高山融雪','颱風帶來的雨水','梅雨鋒面','海水淡化'],a:0,src:'綠洲 5 校',ex:'塔里木盆地四周高山環繞，夏季高山融雪在盆地邊緣形成綠洲。'},
+    {q:'2022 年通車的環塔里木（和若）鐵路，最需要哪一種維護措施？',o:['種植防風固沙植物，避免風沙掩埋軌道','架高軌道克服土壤凍融','加強防颱排水','加高河岸堤防'],a:0,src:'陷阱',ex:'環塔里木鐵路繞著塔克拉瑪干沙漠，最怕風沙；克服凍土是青藏鐵路的問題，兩者常被互換。'},
+    {q:'青藏鐵路大部分路段的土壤容易凍結，工程師用什麼方法解決地基不穩的問題？',o:['設計高架軌道，避免鐵路與土壤直接接觸','種植防風固沙植物','加高河岸堤防','開鑿運河排水'],a:0,src:'青藏鐵路 7 校',ex:'課本：土壤解凍或再度凍結會使地基不穩定，所以在這些路段設計高架軌道。'},
+    {q:'從北京、上海、廣州、成都出發直達拉薩的列車中，哪一條路線的平均高度最高？',o:['成都出發','北京出發','上海出發','廣州出發'],a:0,src:'課本實作與練習',ex:'成都位在中階梯的四川盆地，其他三市在低階梯，路線經過較多低地，平均高度較低。'},
+    {q:'黃土高原地勢崎嶇不平、千溝萬壑，主要原因是什麼？',o:['黃土疏鬆，容易被河水侵蝕切割','板塊擠壓隆起','冰河侵蝕','地震頻繁'],a:0,src:'黃土高原 21 校',ex:'黃土性質疏鬆，夏季暴雨時易受流水侵蝕切割；與地震無關。'},
+    {q:'黃土高原的黃土被黃河沖刷、搬運，最後主要堆積在哪一階梯的地形區？',o:['低階梯的平原','高階梯的高原','中階梯的盆地','黃土高原本身'],a:0,src:'課本想一想',ex:'黃河由西向東流，泥沙隨河水搬到下游，堆積在低階梯的平原。'},
+    {q:'中國自 2000 年起在黃土高原推動「退耕還林、退牧還草」，下列哪一項是最可能出現的結果？',o:['黃河的泥沙含量降低','黃河改道向西流','沙塵暴次數增加','耕地面積大幅增加'],a:0,src:'課後閱讀 3 校',ex:'植被增加能減緩水土流失，課本提到水土保持也讓黃河泥沙含量降低。'},
+    {q:'「地勢平坦遼闊，西側多沙漠，東側有草原，牧民住蒙古包。」這是哪一個地形區？',o:['內蒙古高原','黃土高原','青藏高原','雲貴高原'],a:0,src:'內蒙古高原 15 校',ex:'課本：內蒙古高原地勢平坦遼闊，西側多沙漠，東側有草原景觀。'},
+    {q:'長江三角洲被稱為中國人口與產業的精華區，它屬於哪一種地形、位在哪一階梯？',o:['沖積平原、低階梯','高原、中階梯','盆地、中階梯','丘陵、高階梯'],a:0,src:'低階梯',ex:'長江三角洲位於長江河口，是河川沖積形成的平原，在低階梯。'},
+    {q:'福建安溪的茶園多種在山坡上，當地居民開闢層層梯田的主要原因是什麼？',o:['山多平原少，需要增加耕地','黃土疏鬆容易流失','高山融雪水源充足','地勢平坦遼闊'],a:0,src:'東南丘陵 13 校',ex:'東南丘陵山多平原少，居民沿坡地開闢梯田以增加耕地；它位在低階梯。'},
+    {q:'某學生沿北緯 36 度從西向東旅行，依序最可能經過哪些地形區？',o:['青藏高原→黃土高原→華北平原','黃土高原→青藏高原→華北平原','華北平原→黃土高原→青藏高原','四川盆地→長江三角洲→東南丘陵'],a:0,src:'剖面圖 18 校',ex:'課本北緯 36 度剖面：西段高階梯青藏高原，中段中階梯黃土高原，東段低階梯華北平原。'},
+  ]
+},
+/* ---------- 2-1 氣候特徵 ---------- */
+b1:{
+  no:'2-1', code:3, title:'中國的氣候特徵', short:'氣候特徵', color:'linear-gradient(135deg,#2d5f6b,#3f8f8a)',
+  desc:'夏季普遍高溫（高原例外）｜冬季南北溫差近 50℃｜秦嶺淮河：一月 0℃＋750mm｜季風成因：海陸性質差異｜降水由東南向西北遞減',
+  quickAsk:'選出正確的答案', quickTitle:'氣候特徵快問快答',
+  quick:[
+    ['中國國土大部分位於哪一種氣候區','溫帶',['熱帶','寒帶','副極地'],0],
+    ['夏季日照偏向北半球，中國各地普遍','高溫、南北溫差小',['低溫、南北溫差大','高溫、南北溫差大','低溫、南北溫差小'],16],
+    ['除山地高原外，中國七月月均溫大多在','20℃以上',['0℃以下','10℃左右','30℃以上'],16],
+    ['夏季西藏比上海涼爽，主因','地形（地勢高）',['緯度','距海遠近','季風風向'],16],
+    ['冬季中國氣溫分布','南高北低',['北高南低','東高西低','各地相同'],25],
+    ['冬季中國南北溫差將近','50℃',['10℃','20℃','100℃'],25],
+    ['冬季東半部氣溫主要受什麼影響','緯度',['地形','距海遠近','洋流'],25],
+    ['冬季西半部高原山地較同緯度冷，主要受','地形',['緯度','季風','洋流'],16],
+    ['一月月均溫 0℃等溫線大致與哪一線一致','秦嶺、淮河',['黃河','長江','長城'],21],
+    ['秦嶺、淮河也大致符合年降水量幾毫米等雨量線','750 毫米',['250 毫米','500 毫米','1,500 毫米'],21],
+    ['秦嶺淮河以北的河川湖泊冬季常','結冰',['氾濫','乾涸','颱風侵襲'],10],
+    ['哈爾濱冰雪節與海南戲水的差異主因','緯度',['經度','地形','距海遠近'],25],
+    ['「季風」形成的原因','海陸性質差異',['地勢西高東低','距海遠近','緯度高低'],9],
+    ['冬季歐亞大陸形成','冷高壓',['熱低壓','暖高壓','冷低壓'],26],
+    ['冬季季風的性質','寒冷乾燥',['溫暖潮溼','寒冷潮溼','炎熱乾燥'],26],
+    ['冬季季風吹的方向','由陸地吹向海洋',['由海洋吹向陸地','由南吹向北','由東吹向西'],26],
+    ['夏季高壓位於','太平洋及印度洋',['歐亞大陸內部','青藏高原','蒙古'],26],
+    ['夏季季風的性質','暖溼',['乾冷','乾熱','冷溼'],26],
+    ['中國季風造成的降水特徵','夏雨冬乾',['冬雨夏乾','全年平均','全年乾燥'],20],
+    ['冬季北京盛行什麼風','西北季風',['東南季風','西南季風','東北季風'],26],
+    ['夏季北京盛行什麼風','東南季風',['西北季風','東北季風','西風'],26],
+    ['中國國土東西橫跨約','5,000 公里以上',['1,000 公里','2,000 公里','20,000 公里'],0],
+    ['中國降水空間分布','由東南向西北遞減',['由西北向東南遞減','由北向南遞減','由西向東遞減'],20],
+    ['降水由東南向西北遞減的主因','距海遠近',['緯度高低','季風風向','地勢西高東低'],20],
+    ['中國降水的水氣主要來自','太平洋、印度洋',['大西洋、北極海','北極海、太平洋','內陸湖泊'],10],
+    ['北極村雪景與哪一項氣候因素關係最大','緯度',['地形','距海遠近','洋流'],0],
+  ],
+  words:[
+    ['夏季普遍高溫','七月月均溫多在 20℃以上'],['冬季南北溫差大','南北溫差將近 50℃'],['一月 0℃等溫線','大致與秦嶺、淮河一致'],
+    ['750 毫米等雨量線','也大致與秦嶺、淮河一致'],['緯度影響','冬季東半部氣溫南高北低'],['地形影響','高原山地比同緯度地區冷'],
+    ['季風','海陸性質差異，冬夏風向相反'],['冬季季風','陸地冷高壓，寒冷乾燥吹向海洋'],['夏季季風','海洋高壓，暖溼氣流吹向陸地'],
+    ['夏雨冬乾','季風帶來的降水季節特徵'],['距海遠近','降水由東南向西北遞減'],['冷高壓','冬季位在歐亞大陸（蒙古、西伯利亞一帶）'],
+  ],
+  sorts:[
+    {title:'這個現象主要受哪個因素影響？',tip:'南北比冷熱＝緯度；同緯度高處較冷＝地形；東西比乾溼＝距海遠近；冬夏風向相反＝海陸性質差異（季風）。',buckets:['緯度','地形','距海遠近','海陸性質差異'],items:[
+      ['冬季哈爾濱冰雪節、海南戲水',0],['一月等溫線在東半部大致東西向排列',0],['北極村冬季冰天雪地',0],['天南海北第一車一路由冬到夏',0],
+      ['七月西藏比上海涼爽',1],['青藏高原七月出現低溫中心',1],['拉薩與上海緯度相近，夏季氣溫差很多',1],
+      ['年降水量由東南向西北遞減',2],['新疆塔克拉瑪干沙漠年雨量極少',2],['夏季季風無法深入西北內陸',2],
+      ['冬夏風向相反',3],['夏雨冬乾',3]]},
+    {title:'冬季季風還是夏季季風？',tip:'冬季：陸地冷、歐亞大陸冷高壓→陸吹海，寒冷乾燥。夏季：海洋相對冷、太平洋印度洋高壓→海吹陸，暖溼多雨。',buckets:['冬季季風','夏季季風'],items:[
+      ['歐亞大陸形成冷高壓',0],['風由陸地吹向海洋',0],['寒冷而乾燥',0],['北京吹西北風',0],['臺灣、東南沿海吹東北風',0],['常帶來寒潮、沙塵',0],
+      ['太平洋及印度洋形成高壓',1],['風由海洋吹向陸地',1],['暖溼氣流，帶來主要雨季',1],['北京吹東南風',1],['華南吹西南風',1]]},
+    {title:'秦嶺淮河以北還是以南？',tip:'以北：一月均溫＜0℃、年雨量＜750mm、溫帶季風、冬季河湖結冰、種小麥、睡炕。以南：一月均溫＞0℃、年雨量＞750mm、副熱帶季風、種稻。',buckets:['秦嶺淮河以北','秦嶺淮河以南'],items:[
+      ['一月月均溫低於 0℃',0],['年降水量少於 750 毫米',0],['冬季湖面結冰可以滑冰',0],['傳統以小麥為主糧',0],['屋內砌炕取暖',0],['夏季才舉辦馬拉松',0,'吉林、哈爾濱的馬拉松在夏季'],
+      ['一月月均溫高於 0℃',1],['年降水量多於 750 毫米',1],['以水稻為主',1],['冬季可舉辦馬拉松（上海、廣州、廈門）',1],['屬於副熱帶或熱帶季風氣候',1]]},
+  ],
+  mcq:[
+    {q:'七月時，除了青藏高原等高地外，中國各地月均溫多在 20℃以上，南北溫差小。主要原因是什麼？',o:['夏季日照偏向北半球，各地普遍高溫','夏季季風來自北方','中國全部位在熱帶','距海遠近相同'],a:0,src:'課本 2-1',ex:'夏季日照偏北半球，中國各地普遍高溫、南北溫差小；只有地勢高的山地、高原較涼爽。'},
+    {q:'上海和拉薩緯度相近，但夏季上海炎熱、拉薩涼爽。造成這個差異的主因是什麼？',o:['地形（地勢高低）','緯度','經度','季風風向'],a:0,src:'陷阱',ex:'兩地緯度相近，差別在於拉薩位在高階梯的青藏高原，地勢高所以涼爽。'},
+    {q:'一月時，哈爾濱的月均溫約 -18.5℃，海口約 18.5℃。造成兩地溫差的主要因素是什麼？',o:['緯度高低','地勢高低','距海遠近','經度差異'],a:0,src:'哈爾濱 vs 海南 25 校',ex:'冬季中國東半部氣溫主要受緯度影響，緯度愈高氣溫愈低；哈爾濱緯度遠高於海口。'},
+    {q:'有關中國冬季氣溫的敘述，何者正確？',o:['南高北低，南北溫差將近 50℃','北高南低，南北溫差很小','各地氣溫都在 0℃以上','東半部氣溫主要受地形影響'],a:0,src:'課本 2-1',ex:'冬季氣溫南高北低、南北溫差將近 50℃；東半部主要受緯度影響，西半部高原山地受地形影響。'},
+    {q:'秦嶺、淮河是中國重要的地理分界線，下列哪一項敘述正確？',o:['大致與一月月均溫 0℃等溫線、年降水量 750 毫米等雨量線一致','大致與年降水量 500 毫米等雨量線一致','是熱帶與副熱帶的分界','是季風氣候與乾燥氣候的分界'],a:0,src:'秦淮線 21 校（≥12 校設陷阱）',ex:'500mm 是季風與乾燥的分界；熱帶／副熱帶的分界約在最冷月 18℃。秦嶺淮河＝一月 0℃＋750mm。'},
+    {q:'1950～1980 年間，中國曾對冬季寒冷地區免費供煤取暖。若以「一月月均溫低於 0℃」為標準，供煤範圍的南界最可能是哪一條線？',o:['秦嶺、淮河','長江','珠江','長城'],a:0,src:'105 會考改寫',ex:'一月月均溫 0℃等溫線大致與秦嶺、淮河一致，以北冬季均溫低於 0℃。'},
+    {q:'「在秦嶺淮河一線以北，冬季許多河川湖泊會結冰。」北京市民冬季在湖上滑冰，最能說明哪一項氣候特徵？',o:['冬季南北溫差大，北方寒冷','夏季普遍高溫','降水由東南向西北遞減','高地日溫差大'],a:0,src:'課本圖 1-2-7',ex:'北方冬季氣溫低於 0℃，湖面結冰；南方的海南則溫暖可戲水，顯示冬季南北溫差大。'},
+    {q:'中國季風形成的主要原因是什麼？',o:['海陸性質差異，冬夏海陸溫度不同','地勢西高東低','距海遠近不同','緯度跨距大'],a:0,src:'季風成因 9 校',ex:'陸地與海洋受熱、冷卻速度不同，冬夏氣壓高低互換，形成冬夏風向相反的季風。'},
+    {q:'冬季時，中國附近的氣壓與風向，下列敘述何者正確？',o:['歐亞大陸形成冷高壓，寒冷乾燥的風由陸地吹向海洋','太平洋形成高壓，暖溼的風吹向陸地','歐亞大陸形成低壓，風由海洋吹向陸地','冬季是中國主要的雨季'],a:0,src:'氣壓風向 26 校',ex:'冬季陸地比海洋冷，歐亞大陸形成冷高壓，氣流由陸地吹向海洋，寒冷乾燥。'},
+    {q:'冬季時，北京與臺灣分別盛行什麼風向的季風？',o:['北京西北風、臺灣東北風','北京東南風、臺灣西南風','北京東北風、臺灣西北風','北京西南風、臺灣東南風'],a:0,src:'',ex:'冬季風從蒙古、西伯利亞的冷高壓吹出：北京吹西北季風；到東南沿海與臺灣轉為東北季風。'},
+    {q:'夏季季風為中國帶來主要的降水，它的水氣主要來自哪裡？',o:['太平洋與印度洋','北極海','歐亞大陸內部','大西洋'],a:0,src:'課本圖說',ex:'夏季太平洋及印度洋形成高壓，暖溼氣流由海洋吹向陸地，水氣主要來自這兩個大洋。'},
+    {q:'中國年降水量由東南向西北遞減，主要原因是什麼？',o:['距海遠近不同，夏季季風難以深入西北內陸','緯度由南向北增加','西北地勢最低','西北冬季季風較強'],a:0,src:'陷阱',ex:'國土東西橫跨 5,000 公里以上，西北內陸距海遙遠，來自海洋的夏季季風到不了。'},
+    {q:'111 年會考曾問：沿哪一條路線前進，夏季時會感受到「由溼熱變乾熱」？依此方向，下列哪一條路線最符合？',o:['由東南沿海的上海往西北內陸的新疆','由北京往南到廣州','由哈爾濱往南到海口','由拉薩往東到上海'],a:0,src:'111 會考改寫 5 校',ex:'夏季各地都熱；由東南沿海往西北內陸，降水愈來愈少，所以由溼熱變乾熱。南北向路線主要變的是溫度。'},
+    {q:'小傑寒假從哈爾濱搭火車一路南下到海口，沿途最可能感受到哪種變化？',o:['氣溫愈來愈高','氣溫愈來愈低','降水愈來愈少','海拔愈來愈高'],a:0,src:'寒假南下 路線題',ex:'冬季中國氣溫南高北低，由北往南氣溫上升（哈爾濱 -18.5℃→海口 18.5℃）。'},
+    {q:'某地「一年中七月雨量最多、一月雨量很少，冬季吹西北風」。這種降水特徵最主要是受什麼影響？',o:['季風','地形雨','颱風','洋流'],a:0,src:'夏雨冬乾',ex:'中國降水受季風影響集中在夏季，冬季吹乾冷的冬季季風，呈現夏雨冬乾。'},
+    {q:'冬季從北京出發的旅客，下列哪一個地點最不可能看到河湖結冰？',o:['海南三亞','哈爾濱','長春','瀋陽'],a:0,src:'冬季南北溫差',ex:'海南位在熱帶，一月均溫約 18℃以上；其他城市都在秦嶺淮河以北，冬季均溫低於 0℃。'},
+    {q:'若在「中國一月等溫線圖」上觀察，東半部的等溫線大致與哪一種線平行？',o:['緯線','經線','海岸線','河川'],a:0,src:'等溫線圖 15 校',ex:'冬季東半部氣溫主要受緯度影響，所以一月等溫線大致呈東西向、與緯線平行。'},
+  ]
+},
+/* ---------- 2-2 氣候類型 ---------- */
+b2:{
+  no:'2-2', code:4, title:'中國的氣候類型', short:'氣候類型', color:'linear-gradient(135deg,#6b5a1f,#b8872c)',
+  desc:'季風（熱帶・副熱帶・溫帶）｜乾燥（溫帶草原・溫帶沙漠）｜高地（最暖月＜20℃、年溫差小日溫差大）｜馬拉松｜天南海北第一車',
+  quickAsk:'選出正確的答案', quickTitle:'氣候類型快問快答',
+  quick:[
+    ['中國氣候分三大類，依據不包括','經度',['氣溫高低','年降水量多寡','地形高度'],21],
+    ['中國三大氣候類型','季風、乾燥、高地',['熱帶、溫帶、寒帶','季風、地中海、高地','乾燥、寒帶、高地'],21],
+    ['分布於中國東半部、溫和溼潤適合農業','季風氣候',['乾燥氣候','高地氣候','地中海型氣候'],21],
+    ['季風氣候年降水量多於','500 毫米',['250 毫米','750 毫米','2,000 毫米'],10],
+    ['季風氣候再分三型，依據','緯度（最冷月均溫）',['年降水量','地形高度','經度'],21],
+    ['最冷月均溫高於 18℃的季風氣候','熱帶季風氣候',['副熱帶季風氣候','溫帶季風氣候','高地氣候'],3],
+    ['最冷月均溫 0～18℃的季風氣候','副熱帶季風氣候',['熱帶季風氣候','溫帶季風氣候','溫帶草原氣候'],21],
+    ['最冷月均溫低於 0℃、年雨量多於 500mm','溫帶季風氣候',['溫帶草原氣候','副熱帶季風氣候','高地氣候'],21],
+    ['海南三亞屬於','熱帶季風氣候',['副熱帶季風氣候','溫帶季風氣候','溫帶沙漠氣候'],11],
+    ['哈爾濱屬於','溫帶季風氣候',['副熱帶季風氣候','溫帶草原氣候','高地氣候'],11],
+    ['上海屬於','副熱帶季風氣候',['熱帶季風氣候','溫帶季風氣候','溫帶草原氣候'],13],
+    ['分布於西北內陸（新疆、內蒙古一帶）的氣候','乾燥氣候',['季風氣候','高地氣候','熱帶季風氣候'],22],
+    ['乾燥氣候少雨的原因','夏季季風不易到達',['緯度太高','地勢太高','冬季季風太弱'],22],
+    ['乾燥氣候的溫差特徵','日溫差與年溫差均大',['日溫差大、年溫差小','日溫差小、年溫差大','日溫差與年溫差均小'],22],
+    ['乾燥氣候再分兩型，依據','年降水量',['最冷月均溫','地形高度','緯度'],21],
+    ['年降水量少於 250 毫米','溫帶沙漠氣候',['溫帶草原氣候','溫帶季風氣候','高地氣候'],6],
+    ['年降水量 250～500 毫米','溫帶草原氣候',['溫帶沙漠氣候','溫帶季風氣候','副熱帶季風氣候'],6],
+    ['新疆和闐屬於','溫帶沙漠氣候',['溫帶草原氣候','高地氣候','溫帶季風氣候'],0],
+    ['主要分布於青藏高原及山地的氣候','高地氣候',['乾燥氣候','季風氣候','寒帶氣候'],24],
+    ['高地氣候的海拔高度約','3,000 公尺以上',['1,000 公尺以上','500 公尺以上','8,000 公尺以上'],5],
+    ['高地氣候最「暖」月均溫低於','20℃',['0℃','10℃','30℃'],5],
+    ['高地氣候的溫差特徵','日溫差大、年溫差小',['日溫差與年溫差均大','日溫差小、年溫差大','日溫差與年溫差均小'],24],
+    ['高地氣候氣溫、植被隨高度呈','垂直變化',['水平變化','季節不變','由東向西變化'],24],
+    ['「一年無四季，一日見四季」描述','高地氣候',['乾燥氣候','熱帶季風氣候','溫帶季風氣候'],4],
+    ['西藏岡仁波齊峰一帶屬於','高地氣候',['溫帶沙漠氣候','溫帶季風氣候','溫帶草原氣候'],0],
+    ['夏季舉辦世界級馬拉松的城市','吉林、哈爾濱',['廣州、三亞','上海、廈門','昆明、重慶'],0],
+    ['天南海北第一車連接哪兩省','黑龍江省、海南省',['新疆、上海','西藏、廣東','吉林、雲南'],5],
+    ['由哈爾濱南下海口，依序經過','溫帶→副熱帶→熱帶季風',['熱帶→副熱帶→溫帶季風','溫帶季風→乾燥→高地','副熱帶→溫帶→熱帶季風'],5],
+  ],
+  words:[
+    ['季風氣候','東半部，溫和溼潤適合農業'],['熱帶季風氣候','最冷月均溫＞18℃（海南）'],['副熱帶季風氣候','最冷月均溫 0～18℃（上海）'],
+    ['溫帶季風氣候','最冷月均溫＜0℃、年雨量＞500mm'],['乾燥氣候','西北內陸，日溫差年溫差均大'],['溫帶草原氣候','年降水量 250～500mm'],
+    ['溫帶沙漠氣候','年降水量＜250mm'],['高地氣候','青藏高原，最暖月＜20℃'],['垂直變化','氣溫與植被隨高度改變'],
+    ['500 毫米等雨量線','季風氣候與乾燥氣候的界線'],['天南海北第一車','黑龍江↔海南，一車過四季'],['一月 18℃','熱帶與副熱帶季風的界線'],
+  ],
+  sorts:[
+    {title:'這是哪一種氣候類型？',tip:'先看高度與最暖月（＞3,000m、最暖月＜20℃→高地）；再看年雨量（＜250 沙漠、250～500 草原、＞500 季風）；季風再看最冷月（＞18 熱帶、0～18 副熱帶、＜0 溫帶）。',buckets:['熱帶季風','副熱帶季風','溫帶季風','溫帶草原','溫帶沙漠','高地'],items:[]},
+    {title:'這個城市屬於哪一種氣候？',tip:'海南＝熱帶季風；長江流域與華南＝副熱帶季風；華北、東北＝溫帶季風；內蒙古＝溫帶草原；新疆盆地＝溫帶沙漠；西藏＝高地。',buckets:['熱帶季風','副熱帶季風','溫帶季風','乾燥','高地'],items:[
+      ['海南海口',0],['海南三亞',0],['上海',1],['廣州',1],['重慶',1],['北京',2],['哈爾濱',2],['瀋陽',2],
+      ['新疆和闐',3],['吐魯番',3],['內蒙古西部',3],['西藏拉薩',4],['西藏日喀則',4]]},
+    {title:'乾燥氣候還是高地氣候？',tip:'兩者都「日溫差大」！差別在年溫差：乾燥＝年溫差也大；高地＝年溫差小。乾燥因距海遠，高地因地勢高。',buckets:['乾燥氣候','高地氣候'],items:[
+      ['日溫差大、年溫差也大',0],['距海遙遠，夏季季風不易到達',0],['年降水量少於 500 毫米，有沙漠與草原',0],['塔里木盆地綠洲種瓜果、棉花',0],['新疆、內蒙古一帶',0],
+      ['日溫差大、年溫差小',1],['最暖月均溫低於 20℃',1],['海拔約 3,000 公尺以上',1],['氣溫與植被隨高度垂直變化',1],['藏袍白天繫袖、夜晚當睡袋',1],['冬蟲夏草、紅景天生長的地方',1]]},
+  ],
+  mcq:[
+    {q:'中國依「氣溫高低、年降水量多寡、地形高度」將氣候分為三大類型。下列哪一項配對正確？',o:['季風氣候—分布於東半部','乾燥氣候—分布於青藏高原','高地氣候—分布於新疆、內蒙古','季風氣候—全年乾燥少雨'],a:0,src:'三大類型 21 校',ex:'季風氣候在東半部；乾燥氣候在西北內陸（新疆、內蒙古）；高地氣候在青藏高原與山地。'},
+    {q:'季風氣候再分為熱帶、副熱帶、溫帶三型，畫分的主要依據是什麼？',o:['最冷月均溫（緯度高低）','年降水量多寡','地形高度','距海遠近'],a:0,src:'陷阱',ex:'依緯度高低造成的最冷月均溫來分：＞18℃熱帶、0～18℃副熱帶、＜0℃溫帶。'},
+    {q:'乾燥氣候區分為溫帶草原與溫帶沙漠氣候，畫分依據是什麼？',o:['年降水量（以 250 毫米為界）','最冷月均溫（以 0℃為界）','最暖月均溫（以 20℃為界）','海拔高度（以 3,000 公尺為界）'],a:0,src:'陷阱',ex:'年降水量 250～500 毫米為溫帶草原，少於 250 毫米為溫帶沙漠。'},
+    {q:'某地資料：「最冷月均溫 -18℃，最暖月 23℃，年降水量 530 毫米，雨量集中在夏季。」此地最可能屬於哪一種氣候？',o:['溫帶季風氣候','溫帶草原氣候','副熱帶季風氣候','高地氣候'],a:0,src:'氣候資料判讀 28 校',ex:'年雨量＞500 毫米屬季風氣候；最冷月＜0℃屬溫帶季風（如哈爾濱）。'},
+    {q:'某地資料：「最冷月均溫 -11℃，最暖月 22℃，年降水量 420 毫米。」此地最可能屬於哪一種氣候？',o:['溫帶草原氣候','溫帶季風氣候','溫帶沙漠氣候','高地氣候'],a:0,src:'溫帶草原陷阱（481mm 題）',ex:'年降水量在 250～500 毫米之間是溫帶草原氣候；不要因為最冷月＜0℃就選溫帶季風。'},
+    {q:'某地資料：「海拔 3,650 公尺，最暖月均溫 16℃，最冷月 -1℃，日溫差很大。」此地最可能屬於哪一種氣候？',o:['高地氣候','副熱帶季風氣候','溫帶沙漠氣候','溫帶季風氣候'],a:0,src:'高地判讀',ex:'海拔 3,000 公尺以上、最暖月均溫低於 20℃，是高地氣候（如拉薩）。'},
+    {q:'有關高地氣候的敘述，何者正確？',o:['最暖月均溫低於 20℃，日溫差大、年溫差小','最冷月均溫低於 20℃，日溫差與年溫差均大','低溫的主因是緯度高','年降水量少於 250 毫米'],a:0,src:'高地 24 校',ex:'高地氣候是「最暖月」＜20℃；年溫差小、日溫差大；低溫原因是地勢高（地形），不是緯度。'},
+    {q:'西藏居民的藏袍白天常把一邊袖子繫在腰間，晚上又能當睡袋。這反映高地氣候的哪一項特徵？',o:['日溫差大','年溫差大','全年炎熱','終年多雨'],a:0,src:'',ex:'高地氣候日溫差大：白天陽光強而溫暖，夜晚急速變冷；「一年無四季，一日見四季」。'},
+    {q:'乾燥氣候與高地氣候都有「日溫差大」的特徵，下列哪一項可以區分兩者？',o:['乾燥氣候年溫差大，高地氣候年溫差小','乾燥氣候年溫差小，高地氣候年溫差大','乾燥氣候分布在青藏高原','高地氣候年雨量都少於 250 毫米'],a:0,src:'陷阱',ex:'乾燥氣候日溫差、年溫差都大；高地氣候日溫差大但年溫差小。'},
+    {q:'新疆吐魯番的葡萄、哈密瓜特別甜，與當地哪一項氣候特徵最有關？',o:['乾燥少雨、日溫差大','終年多雨','冬季溫暖','最暖月低於 20℃'],a:0,src:'新疆棉、瓜果',ex:'新疆屬乾燥氣候，日照強、日夜溫差大，有利糖分累積；水源來自高山融雪灌溉。'},
+    {q:'新疆、內蒙古一帶全年乾燥少雨，主要原因是什麼？',o:['距海遙遠，夏季季風不易到達','緯度太高','地勢最高','冬季季風太弱'],a:0,src:'乾燥 22 校',ex:'乾燥氣候分布於西北內陸，距海遙遠，來自海洋的夏季季風不易到達。'},
+    {q:'畫分「季風氣候」與「乾燥氣候」的年降水量界線是多少？',o:['500 毫米','250 毫米','750 毫米','1,000 毫米'],a:0,src:'500mm vs 750mm 陷阱',ex:'年降水量＞500 毫米為季風氣候；750 毫米是秦嶺淮河線的雨量，250 毫米分沙漠與草原。'},
+    {q:'中國世界級馬拉松的舉辦城市，夏季集中在吉林、哈爾濱，冬季集中在上海、廈門、廣州、三亞。這種變化與下列哪一項最有關？',o:['夏季多在秦嶺淮河以北，冬季多在以南','夏季多在中階梯，冬季多在高階梯','夏季多在乾燥氣候區，冬季多在季風區','夏季多在內陸，冬季多在太平洋以外'],a:0,src:'課本實作與練習',ex:'秦嶺淮河以南冬季最冷月均溫＞0℃，戶外較溫暖，適合冬季比賽；北方夏季涼爽適合夏季比賽。'},
+    {q:'觀察中國世界級馬拉松舉辦城市的分布，城市明顯集中在東半部、西部極少。這條分布不均的界線最接近哪一條？',o:['年降水量 500 毫米等雨量線','一月月均溫 0℃等溫線','年降水量 750 毫米等雨量線','北回歸線'],a:0,src:'課本實作與練習',ex:'500 毫米等雨量線以東是溼潤的季風氣候區，人口與大城市集中；以西是乾燥與高地氣候區。'},
+    {q:'搭乘「天南海北第一車」從哈爾濱一路到海口，依序會經過哪些氣候區？',o:['溫帶季風→副熱帶季風→熱帶季風','熱帶季風→副熱帶季風→溫帶季風','溫帶季風→溫帶草原→高地','副熱帶季風→溫帶季風→熱帶季風'],a:0,src:'課後閱讀 5 校',ex:'由北往南緯度降低，最冷月均溫升高：溫帶季風（＜0℃）→副熱帶季風（0～18℃）→熱帶季風（＞18℃）。'},
+    {q:'「天南海北第一車」的起訖站：一月時哈爾濱月均溫約 -18.5℃、海口約 18.5℃，兩地溫差約多少？乘客要準備什麼？',o:['約 37℃，要帶冬季到夏季的衣物','約 18℃，只要帶外套','約 50℃，只要帶短袖','幾乎沒有溫差，不用換衣服'],a:0,src:'課後閱讀',ex:'18.5－（－18.5）＝37℃；課本說乘客要帶著由冬季到夏季的衣物，「一車過四季」。'},
+    {q:'由南往北看中國東半部的季風氣候，下列哪一項變化正確？',o:['年溫差愈來愈大','最冷月均溫愈來愈高','年溫差愈來愈小','全部屬於熱帶季風'],a:0,src:'天南海北 年溫差',ex:'愈往北冬季愈冷、年溫差愈大；哈爾濱年溫差約 40℃，海南終年溫暖、年溫差小。'},
+  ]
+},
+};
+
+/* 2-2 第一組分類：用氣候資料判類型 */
+L.b2.sorts[0].items=[
+  ['最冷月 20℃、年雨 1,700mm',0],['最冷月 19℃、年雨 1,600mm',0],
+  ['最冷月 5℃、年雨 1,150mm',1],['最冷月 14℃、年雨 1,700mm',1],
+  ['最冷月 -18℃、年雨 530mm',2],['最冷月 -3℃、年雨 570mm',2],
+  ['最冷月 -11℃、年雨 420mm',3],['最冷月 -9℃、年雨 300mm',3],
+  ['最冷月 -5℃、年雨 40mm',4],['最冷月 -8℃、年雨 16mm',4],
+  ['海拔 3,650m、最暖月 16℃',5],['海拔 4,000m、最暖月 12℃',5]];
+
+/* ================= 綜合：圖表判讀（題組，交卷 code 7） ================= */
+const CHART=[
+  {title:'① 七座城市的氣候資料表',src:'氣候圖／資料表判讀 28 校',
+   fig:'<table class="tbl"><tr><th>城市</th><th>一月均溫</th><th>七月均溫</th><th>年降水量</th></tr><tr><td>甲 哈爾濱</td><td>-18.5℃</td><td>23℃</td><td>530mm</td></tr><tr><td>乙 北京</td><td>-3℃</td><td>27℃</td><td>570mm</td></tr><tr><td>丙 上海</td><td>5℃</td><td>28℃</td><td>1,150mm</td></tr><tr><td>丁 海口</td><td>18.5℃</td><td>29℃</td><td>1,650mm</td></tr><tr><td>戊 呼和浩特</td><td>-11℃</td><td>23℃</td><td>420mm</td></tr><tr><td>己 和闐</td><td>-5℃</td><td>26℃</td><td>40mm</td></tr><tr><td>庚 拉薩</td><td>-1℃</td><td>16℃</td><td>430mm</td></tr></table><p class="muted">數值為約略值，供練習判讀用。</p>',
+   qs:[
+    {q:'甲～庚中，哪一座城市屬於高地氣候？',o:['庚 拉薩','己 和闐','戊 呼和浩特','乙 北京'],a:0,ex:'最暖月（七月）均溫只有 16℃，低於 20℃，且位在青藏高原，屬高地氣候。'},
+    {q:'戊城市年降水量 420mm，最冷月 -11℃，屬於哪一種氣候？',o:['溫帶草原氣候','溫帶季風氣候','溫帶沙漠氣候','副熱帶季風氣候'],a:0,ex:'年雨量在 250～500mm 之間，屬乾燥氣候中的溫帶草原氣候。'},
+    {q:'把甲、乙、丙、丁依年溫差由大到小排列，何者正確？',o:['甲＞乙＞丙＞丁','丁＞丙＞乙＞甲','乙＞甲＞丁＞丙','甲＞丙＞乙＞丁'],a:0,ex:'年溫差＝七月－一月：甲 41.5、乙 30、丙 23、丁 10.5；愈往北年溫差愈大。'},
+    {q:'哪兩座城市的分界最接近秦嶺淮河線兩側？',o:['乙 北京在北、丙 上海在南','甲在北、乙在南','丙在北、丁在南','己在北、庚在南'],a:0,ex:'北京一月 -3℃、年雨 570mm（＜0℃、＜750mm）在以北；上海一月 5℃、年雨 1,150mm 在以南。'}]},
+  {title:'② 冬季地面天氣示意',src:'氣壓／天氣圖 26 校',
+   fig:'<div class="passage">某年一月的地面天氣圖顯示：蒙古、西伯利亞一帶有一個中心氣壓 <b>1,060 百帕</b>的「H」，臺灣東方的太平洋上氣壓較低。北京、上海與臺灣出現強烈降溫。</div>',
+   qs:[
+    {q:'圖中的「H」代表什麼？',o:['冷高壓','熱低壓','颱風中心','鋒面'],a:0,ex:'H 是高壓；冬季陸地冷，歐亞大陸形成冷高壓。'},
+    {q:'此時北京最可能吹哪一個方向的季風？',o:['西北風','東南風','西南風','東風'],a:0,ex:'氣流由冷高壓（蒙古、西伯利亞）往海洋吹出，北京位在其東南方，吹西北季風。'},
+    {q:'此時的天氣特性，下列何者正確？',o:['寒冷乾燥，風由陸地吹向海洋','溫暖潮溼，是主要的雨季','風源於海洋','高壓位於太平洋'],a:0,ex:'冬季季風寒冷乾燥、由陸吹海；夏季才是海洋高壓、暖溼多雨。'},
+    {q:'天氣圖上氣壓的單位應寫成什麼？',o:['百帕（hPa）','毫米（mm）','毫升（mL）','攝氏度（℃）'],a:0,ex:'氣壓單位是百帕；毫米是雨量單位。'}]},
+  {title:'③ 北緯 36 度地形剖面（由西到東）',src:'剖面圖 18 校',
+   fig:'<div class="ladder"><span>甲<small>約 4,500m 以上</small></span><b>→</b><span>乙<small>約 1,000～2,000m</small></span><b>→</b><span class="an">丙<small>約 50m 以下</small></span><b>→</b><span>黃海</span></div><p class="muted">剖面線由西向東，左邊最高、右邊臨海。</p>',
+   qs:[
+    {q:'甲、乙、丙依序最可能是哪些地形區？',o:['青藏高原、黃土高原、華北平原','黃土高原、青藏高原、長江三角洲','內蒙古高原、四川盆地、東北平原','青藏高原、塔里木盆地、東南丘陵'],a:0,ex:'課本北緯 36 度剖面：高階梯青藏高原→中階梯黃土高原→低階梯華北平原。'},
+    {q:'從這張剖面圖最能看出中國的哪一項地形特徵？',o:['地勢西高東低，呈階梯狀下降','山多平原少','山脈多東北—西南走向','面積世界第四'],a:0,ex:'剖面由西向東一階一階下降，顯示西高東低、三級階梯。'},
+    {q:'乙地的黃土被河流帶走後，最可能堆積在哪裡？',o:['丙所在的低階梯平原','甲所在的高原','乙地本身','黃海以外的大洋中央'],a:0,ex:'黃河由西向東流，把黃土高原的泥沙帶到下游低階梯堆積。'}]},
+  {title:'④ 五大地形面積比例',src:'面積比例圖 13 校',
+   fig:'<table class="tbl"><tr><th>地形</th><th>山地</th><th>高原</th><th>盆地</th><th>平原</th><th>丘陵</th></tr><tr><td>比例</td><td>33%</td><td>26%</td><td>19%</td><td>12%</td><td>10%</td></tr></table>',
+   qs:[
+    {q:'根據此表，下列推論何者最合理？',o:['適合耕作的平地有限','中國地勢西高東低','河川多由西向東流','西半部山脈呈東西走向'],a:0,ex:'表只說明各地形面積多寡：山地＋高原約 60%、平原只有 12%，推得出耕地有限；推不出地勢高低方向。'},
+    {q:'表中占比最高的兩種地形合計約多少？',o:['約 60%','約 45%','約 30%','約 80%'],a:0,ex:'山地 33%＋高原 26%＝59%，約 60%。'}]},
+  {title:'⑤ 三條鐵路的維護難題',src:'青藏、和若鐵路 7＋6 校',
+   fig:'<table class="tbl"><tr><th>代號</th><th>鐵路</th><th>沿線環境</th></tr><tr><td>甲</td><td>青藏鐵路（西寧—拉薩）</td><td>世界海拔最高的鐵路，土壤容易凍結</td></tr><tr><td>乙</td><td>環塔里木鐵路（和若段）</td><td>繞行中國最大的沙漠</td></tr><tr><td>丙</td><td>京滬高鐵（北京—上海）</td><td>行經華北平原、長江三角洲</td></tr></table>',
+   qs:[
+    {q:'甲鐵路最需要哪一種工程設計？',o:['高架軌道，避免鐵路與反覆凍融的土壤直接接觸','種植防風固沙植物','加高河岸堤防','加強防颱設施'],a:0,ex:'課本：土壤解凍、再凍結使地基不穩，所以設計高架軌道。'},
+    {q:'乙鐵路最需要哪一種維護措施？',o:['種植防風固沙植物','高架軌道克服凍土','供應氧氣的車廂','防範颱風'],a:0,ex:'塔克拉瑪干沙漠風沙大，要用固沙植物保護軌道。'},
+    {q:'甲、乙、丙三條鐵路分別主要位在哪一階梯？',o:['高、中、低','中、高、低','高、低、中','低、中、高'],a:0,ex:'青藏高原在高階梯；塔里木盆地在中階梯；華北平原與長江三角洲在低階梯。'}]},
+  {title:'⑥ 年降水量分布（等雨量線）',src:'等值線圖 8 校、500mm 10 校',
+   fig:'<div class="ladder"><span>新疆和闐<small>約 40mm</small></span><b>→</b><span>內蒙古<small>約 300～400mm</small></span><b>→</b><span>北京<small>約 570mm</small></span><b>→</b><span>上海<small>約 1,150mm</small></span><b>→</b><span class="an">廣州<small>約 1,700mm</small></span></div><p class="muted">由西北內陸往東南沿海排列。</p>',
+   qs:[
+    {q:'這組數值由西北往東南逐漸增加，主要受什麼影響？',o:['距海遠近','緯度','地勢高低','板塊擠壓'],a:0,ex:'愈靠近海洋、夏季季風愈容易帶來水氣；西北內陸距海遠，雨量最少。'},
+    {q:'500mm 等雨量線大約通過哪兩地之間？',o:['內蒙古與北京之間','北京與上海之間','上海與廣州之間','和闐與內蒙古之間'],a:0,ex:'內蒙古約 300～400mm（乾燥），北京約 570mm（季風），500mm 線在兩者之間。'},
+    {q:'若把同樣五地改成「年溫差」，數值變化最可能是？',o:['大致由南向北增加','由西北往東南增加','五地都相同','由東向西減少'],a:0,ex:'年溫差主要受緯度與海陸影響，大致愈往北、愈內陸愈大；不要和年降水量的方向搞混。'}]},
+];
+
+/* 排序挑戰（綜合頁，交卷 code 7） */
+const STEPS=[
+  {title:'四大平原由北而南',tip:'東北平原→華北平原→長江中下游平原→珠江三角洲（京港高鐵路線也是這個順序）。',buckets:['第1','第2','第3','第4'],items:[
+    ['東北平原',0],['華北平原',1],['長江中下游平原',2],['珠江三角洲',3]]},
+  {title:'沿北緯 36 度由西向東',tip:'青藏高原→黃土高原→華北平原→黃海。',buckets:['第1','第2','第3','第4'],items:[
+    ['青藏高原',0],['黃土高原',1],['華北平原',2],['黃海',3]]},
+  {title:'由北到南：一月均溫由低到高',tip:'溫帶季風→副熱帶季風→熱帶季風；一月均溫愈來愈高、年溫差愈來愈小（就像搭天南海北第一車南下）。',buckets:['第1','第2','第3','第4'],items:[
+    ['哈爾濱（一月 -18.5℃）',0],['北京（一月約 -3℃）',1],['安徽（一月約 0℃，梅花盛開）',2],['海口（一月 18.5℃）',3]]},
+  {title:'黃土高原的變化（依時間先後）',tip:'過度開墾→水土流失、沙塵→2000 年起退耕還林→植被增加→黃河泥沙減少。',buckets:['第1','第2','第3','第4'],items:[
+    ['長期過度開墾，植被消失',0],['水土流失嚴重、沙塵漫天',1],['2000 年起實施退耕還林、退牧還草',2],['植被增加，黃河泥沙含量降低',3]]},
+  {title:'冬季季風的形成（依先後）',tip:'陸地降溫比海洋快→歐亞大陸形成冷高壓→氣流由陸吹海→寒冷乾燥。',buckets:['第1','第2','第3','第4'],items:[
+    ['冬季陸地溫度比海洋低',0],['歐亞大陸形成冷高壓',1],['寒冷乾燥的氣流由陸地吹向海洋',2],['北京吹西北風、氣溫驟降',3]]},
+  {title:'年降水量由少到多',tip:'由西北內陸往東南沿海遞增。',buckets:['第1','第2','第3','第4','第5'],items:[
+    ['新疆和闐',0],['內蒙古',1],['北京',2],['上海',3],['廣州',4]]},
+];
+
+/* 延伸：行政區、特別行政區與時事（少數校加考，交卷 code 10） */
+const EXT=[
+  {q:'中國首都北京是全國的政治、文化與交通中心。北京屬於哪一種行政區？',o:['直轄市','自治區','特別行政區','省'],a:0,src:'延伸・行政區圖 18 校',ex:'北京、天津、上海、重慶是直轄市；新疆、西藏等是自治區；香港、澳門是特別行政區。'},
+  {q:'中國的四個直轄市是哪些？',o:['北京、天津、上海、重慶','北京、上海、廣州、深圳','北京、天津、南京、武漢','上海、重慶、成都、西安'],a:0,src:'行政區 18 校',ex:'直轄市：北京、天津、上海、重慶；其中重慶位在四川盆地，地形和其他三市不同。'},
+  {q:'下列哪一個是「自治區」？',o:['新疆維吾爾自治區','重慶市','香港','四川省'],a:0,src:'自治區',ex:'五個自治區：新疆、西藏、內蒙古、寧夏、廣西；香港、澳門是特別行政區。'},
+  {q:'香港與澳門回歸前，分別屬於哪兩個國家管轄？',o:['香港—英國；澳門—葡萄牙','香港—葡萄牙；澳門—英國','都屬於英國','都屬於日本'],a:0,src:'特別行政區 6 校',ex:'香港 1997 年由英國交還，澳門 1999 年由葡萄牙交還，現為特別行政區。'},
+  {q:'重慶被稱為「山城」，它位在哪一個地形區？',o:['四川盆地','華北平原','長江三角洲','東南丘陵'],a:0,src:'重慶 4 校',ex:'重慶位於四川盆地東部，屬中階梯，城市依山而建。'},
+  {q:'斑頭雁冬季從青藏高原飛越喜馬拉雅山到印度過冬，牠們飛越的是哪一階梯的地形？',o:['高階梯','中階梯','低階梯','海洋'],a:0,src:'',ex:'青藏高原與喜馬拉雅山都在高階梯，平均高度 4,000 公尺以上。'},
+  {q:'2023 年夏季中國華北出現嚴重暴雨，累積雨量圖上顏色最深的地區最可能是哪一個地形區？',o:['華北平原','塔里木盆地','青藏高原','內蒙古高原西部'],a:0,src:'時事 13 校',ex:'華北平原位在低階梯、東部季風區，夏季季風帶來大量水氣。'},
+  {q:'2022 年夏季長江流域、四川盆地出現嚴重乾旱，當地平常屬於哪一種氣候？',o:['副熱帶季風氣候','溫帶沙漠氣候','高地氣候','溫帶草原氣候'],a:0,src:'時事 乾旱圖',ex:'長江流域與四川盆地在秦嶺淮河以南，平常屬副熱帶季風氣候，夏季多雨；乾旱是異常現象。'},
+  {q:'春季北京常受沙塵暴影響，沙塵主要來自哪個方向的乾燥地區？',o:['西北方的內蒙古、蒙古一帶','東南方的太平洋','南方的海南','東方的朝鮮半島'],a:0,src:'沙塵 4 校',ex:'沙塵源自西北方乾燥的沙漠與草原，隨冬春的西北風吹向華北。'},
+];
+
+/* ================= 考點雷達（30 校翰林卷） ================= */
+const RADAR={
+  n:30,
+  schools:'',
+  topics:[['氣候圖／氣候資料表判讀',28],['冬夏季風風向與氣壓圖',26],['冬季南北溫差大＝緯度',25],['板塊擠壓與山脈走向',25],['高地氣候',24],['東部四大平原',23],
+    ['乾燥氣候',22],['地勢三級階梯',22],['三大氣候類型與畫分標準',21],['西高東低的影響',21],['黃土高原',21],['秦嶺淮河分界線',21],
+    ['降水由東南向西北遞減',20],['青藏高原／世界屋脊',19],['行政區（延伸）',18],['地形剖面圖判讀',18],['喜馬拉雅山',18],['位置與疆域',16],
+    ['夏季高溫、高原較涼＝地形',16],['塔里木盆地與沙漠',16],['內蒙古高原',15],['時事情境題',13],['東南丘陵',13],['五大地形面積比例',13],['橫斷山脈',12],['四川盆地',11]],
+  basics:[['黃土高原',21],['淮河',19],['青藏高原',19],['長江',18],['秦嶺',17],['北京',17],['喜馬拉雅山',15],['塔里木盆地',13],['上海',13],
+    ['橫斷山脈',12],['東南丘陵',11],['一月 0℃等溫線',11],['海南',11],['哈爾濱',11],['73～135°E、18～53°N',11],['500mm',10]],
+  words:[['長江中下游平原',10],['黃河',10],['東北平原',9],['華北平原',9],['750mm',9],['新疆',8],['內蒙古高原',8],['四川盆地',7],['拉薩',6],
+    ['香港',6],['250mm',6],['青藏鐵路',6],['環塔里木鐵路',5],['塔克拉瑪干沙漠',5],['最暖月 20℃',5],['珠江三角洲',5],['天南海北第一車',5],['梯田',5]],
+  maps:[['氣候圖／氣候資料表',28],['氣壓風向圖、天氣圖',26],['三大氣候類型分布圖',21],['地形剖面圖',18],['行政區圖',18],['一月／七月等溫線圖',15],
+    ['五大地形比例圖',13],['時事地圖（暴雨、乾旱、地震）',13],['路線圖（鐵路、旅遊）',12],['年降水量分布圖',8]],
+};
+
+const TABS=[['home','🏠 考點雷達'],['a1','⛰️ 1-1 地形特徵'],['a2','🏔️ 1-2 三級階梯'],['b1','🌡️ 2-1 氣候特徵'],['b2','🌦️ 2-2 氣候類型'],['mix','🧩 綜合＋總測驗']];
+
+/* ================= 注釋配對 ================= */
+function renderMatch(el,pairs){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0,miss=0;
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 注釋配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${miss<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3><p>配錯 ${miss} 次</p><button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div>`;$('#ag',el).onclick=()=>renderMatch(el,pairs)}
+  draw();
+}
+
+/* ================= 分類 ================= */
+function renderSort(el,so){
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w[0])}」→ <b>${so.buckets[w[1]]}</b>${w[2]?'：'+esc(w[2]):''}`).join('<br>')}</div>`:''}
+      <button class="btn" style="margin-top:12px">再玩一次</button></div>`;
+      el.querySelector('.btn').onclick=()=>renderSort(el,so);return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push(it)}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+/* ================= 選擇題 ================= */
+function renderMCQ(el,qs){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}<span class="src">${q.src}</span></div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(+b.dataset.k===q.a){got++;sOK()}else{b.classList.add('bad');sBAD()}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderMCQ(el,qs);
+}
+
+/* ================= 翻卡 ================= */
+function renderCards(el,cards){
+  el.innerHTML=`<div class="card"><h3>🃏 十五種標點翻卡</h3><p class="muted">點卡片翻面看用法。重點：分號、破折號、引號、書名號、刪節號。</p>
+  <div class="flips">${cards.map(c=>`<div class="flip"><div class="in"><div class="f"><div class="sym">${esc(c[1])}</div><b>${c[0]}</b></div><div class="bk2">${esc(c[2])}</div></div></div>`).join('')}</div></div>`;
+  el.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('on'));
+}
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、geo8-hanlin-1（例 chinese8-1）、地理 國二上第一次段考（翰林）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'geo8-hanlin-1',
+  site:'地理 國二上第一次段考（翰林）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('geo8-hanlin-1_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('geo8-hanlin-1_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${(d&&d.quickTitle)||'名詞快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽（地理 國二上 第一次段考・翰林） ================= */
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+document.body.insertAdjacentHTML('beforeend','<button class="bgm" id="bgmBtn"></button>');
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};
+
+const ANIM={a1:animA1,a2:animA2,b1:animB1,b2:animB2};
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 快問快答'],['match','🔗 名詞配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel');
+  const title=`${d.no} ${d.short}`;
+  if(s==='anim') ANIM[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">本單元 ${d.mcq.length} 題，全部依各校命題方向原創改寫。點選答案後才會出現解析；做完可以交卷給老師。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const N=RADAR.n;
+  const bar=arr=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  const cards=['a1','a2','b1','b2'];
+  app.innerHTML=`
+  <h2>📡 第一次段考考點雷達</h2>
+  <p class="muted">整理 ${N} 所學校的<b>翰林版</b>國二上地理第一次段考卷（多為社會合卷，只取地理部分）。範圍：第1章 中國的地形＋第2章 中國的氣候（第3章 人口不考）。</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${cards.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].short}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+    <div class="lc" style="background:linear-gradient(135deg,#4d3d12,#b8872c)" data-k="mix"><div><div class="n">綜合</div><div class="t">圖表判讀＋總測驗</div></div><div class="d">氣候資料表｜天氣圖｜36 度剖面｜鐵路題組｜等雨量線｜排序挑戰｜延伸：行政區與時事</div></div>
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（${N} 校中幾校考過）</h3>${bar(RADAR.topics)}
+  <p class="muted" style="margin-top:10px">⚠️ <b>氣候圖／氣候資料表判讀</b>幾乎每校必考（28/30 校），先看最冷月、再看年雨量、最後看最暖月。<br>⚠️ <b>冬夏季風風向與氣壓圖</b> 26 校考：冬季 H 在蒙古、西伯利亞，北京吹西北風。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>基本分必拿（幾校考過）</h3><div class="chips">${RADAR.basics.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">最穩的數字：<b>山地＋高原約 60%</b>、<b>高階 4,000m 以上、中階 2,000m 以下</b>、<b>秦嶺淮河＝一月 0℃＋750mm</b>、<b>500mm 分季風／乾燥</b>、<b>250mm 分沙漠／草原</b>、<b>高地最暖月＜20℃</b>。</p></div>
+    <div class="card"><h3>高頻名詞（★ 快問快答會標）</h3><div class="chips">${RADAR.words.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">名詞以翰林課本為準：「<b>印度—澳洲板塊</b>」「<b>世界屋脊</b>」「<b>海陸性質差異</b>」「<b>距海遠近</b>」「<b>垂直變化</b>」「<b>天南海北第一車</b>」。</p></div>
+  </div>
+  <div class="card"><h3>🪤 最常錯的 8 個陷阱</h3>
+    <p><span class="pill">1</span>秦嶺淮河＝<b>一月 0℃＋750mm</b>，不是 500mm（那是季風／乾燥分界），也不是熱帶／副熱帶分界（約一月 18℃）。至少 12 校以此設陷阱。</p>
+    <p><span class="pill">2</span>高地氣候：<b>最暖月</b>＜20℃、<b>年溫差小、日溫差大</b>；乾燥氣候：<b>年、日溫差都大</b>。兩者常互換。</p>
+    <p><span class="pill">3</span>季風三型看<b>最冷月均溫（緯度）</b>；沙漠／草原看<b>年雨量 250mm</b>。依據別對調。</p>
+    <p><span class="pill">4</span>五大地形比例圖只推得出<b>山多平原少、耕地少</b>，推不出西高東低、河川東流。</p>
+    <p><span class="pill">5</span>原因要配對：河川東流＝<b>西高東低</b>；冬季南北溫差＝<b>緯度</b>；拉薩比上海涼＝<b>地形</b>；西北乾燥＝<b>距海遠近</b>；季風＝<b>海陸性質差異</b>；山脈走向＝<b>板塊</b>。</p>
+    <p><span class="pill">6</span>青藏鐵路維護＝<b>克服土壤凍融（高架軌道）</b>；環塔里木鐵路＝<b>種植固沙植物</b>。選項常互換。</p>
+    <p><span class="pill">7</span>低階梯是<b>平原、丘陵</b>（不是平原、盆地）；中階梯是<b>高原、盆地</b>；柴達木盆地在青藏高原內，屬<b>高階</b>。</p>
+    <p><span class="pill">8</span>冬季氣壓圖：H 在陸地＝<b>冷高壓</b>、風由陸吹海、寒冷乾燥；單位是<b>百帕</b>。北京冬吹<b>西北</b>、夏吹<b>東南</b>；臺灣冬吹<b>東北</b>。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>🗺️ 地圖與圖表題（幾校出現）</h3><div class="chips">${RADAR.maps.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">圖表判讀比例極高 →「🧩 綜合」頁把氣候資料、天氣圖、剖面圖改寫成表格題組（文字不畫在圖上，手機也看得清楚）。</p></div>
+    <div class="card"><h3>💡 意外發現</h3>
+    <p>📰 <b>時事入題</b>：2023 華北暴雨、2022 長江乾旱、2025 日喀則地震、中印邊境衝突、和若鐵路通車。</p>
+    <p>🚆 <b>交通情境</b>成主軸：青藏鐵路（7 校）、環塔里木鐵路、京港高鐵、天南海北第一車、京杭大運河。</p>
+    <p>📜 會考原題再利用：111 會考「由溼熱變乾熱」5 校、105 會考「免費供煤南界」2 校。</p>
+    <p>➕ 行政區（直轄市、自治區、特別行政區）課本只在圖說出現，卻有 18 校考 → 放在「延伸」。</p></div>
+  </div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每單元先看 <b>🎬 動畫導覽</b>，用真實照片弄懂課本 → ② <b>⚡ 快問快答</b>、<b>🔗 配對</b>練熟地名與數字 → ③ <b>🎯 分類挑戰</b>破解陷阱 → ④ <b>📝 段考模擬題</b>與 <b>🧩 綜合</b>圖表題、總測驗檢查程度，做完按「📤 交卷給老師」。</p></div>
+  <details class="card"><summary><b>統計限制</b>（給老師看）</summary>
+  </details>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,c.dataset.k==='mix'?undefined:'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 綜合：圖表判讀＋排序＋總測驗＋延伸 ================= */
+function renderMix(app){
+  const s=curSub.mix||'chart';
+  const subs=[['chart','📊 圖表判讀題組'],['steps','🔢 排序挑戰'],['exam','🏁 總測驗'],['ext','🚀 延伸：行政區與時事']];
+  app.innerHTML=`<h2>🧩 綜合：圖表判讀＋排序＋總測驗</h2>
+  <p class="muted">各校最愛的氣候資料表、天氣圖、地形剖面、鐵路與等雨量線，這裡改寫成表格題組（不把字畫在圖上，手機也看得清楚）。</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div><div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub.mix=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='chart'){
+    p.innerHTML=CHART.map((c,k)=>`<div class="card"><h3>${c.title}</h3><div class="figbox">${c.fig}</div><div id="cq${k}"></div></div>`).join('');
+    CHART.forEach((c,k)=>renderMCQ($('#cq'+k),c.qs.map(q=>({...q,src:c.src})),7,`綜合 ${c.title.replace(/^[①-⑨]\s*/,'')}`));
+    return;
+  }
+  if(s==='steps'){
+    p.innerHTML=`<p class="muted">每張卡片問「它排第幾」，把它放進正確的順序格。</p>`+STEPS.map((_,i)=>`<div class="card" id="st${i}"></div>`).join('');
+    STEPS.forEach((so,i)=>{SORTCTX={code:7,title:'綜合 排序挑戰'};renderSort($('#st'+i),so)});SORTCTX=null;
+    return;
+  }
+  if(s==='exam'){
+    const keys=['a1','a2','b1','b2'];
+    const pick=keys.flatMap(k=>shuf(L[k].mcq).slice(0,7).map(q=>({...q,unit:L[k].no,src:`${L[k].no}｜${q.src||''}`})));
+    const cp=shuf(CHART.flatMap(c=>c.qs.map(q=>({...q,unit:'綜合',src:`綜合｜${c.title.replace(/^[①-⑨]\s*/,'')}`})))).slice(0,2);
+    const all=shuf(pick.concat(cp));
+    p.innerHTML=`<div class="card"><h3>🏁 第一次段考總測驗（${all.length} 題）</h3><p class="muted">從四個單元的模擬題各隨機抽 7 題，再加 2 題圖表題組，每次進來題目都不同。建議 25 分鐘內完成，再按「交卷給老師」。</p>
+    <button class="btn ghost" id="again">🔀 換一份題目</button></div><div id="eq"></div>`;
+    $('#again').onclick=()=>render();
+    renderMCQ($('#eq'),all,9,'總測驗（隨機抽題）');
+    return;
+  }
+  stage(p,`<div class="card"><h3>🏙️ 行政區速記（課本圖 1-1-2 行政區圖）</h3>
+    <table class="tbl"><tr><th>類別</th><th>名稱</th></tr>
+    <tr><td>首都</td><td><b>北京市</b>：政治、文化與交通中心</td></tr>
+    <tr><td>直轄市</td><td>北京、天津、上海、重慶（重慶在四川盆地）</td></tr>
+    <tr><td>自治區</td><td>新疆維吾爾、西藏、內蒙古、寧夏回族、廣西壯族</td></tr>
+    <tr><td>特別行政區</td><td>香港（1997 英國交還）、澳門（1999 葡萄牙交還）</td></tr></table>
+    <p class="muted" style="margin-top:10px">下面是課本圖說或補充提到、少數學校加考的延伸內容，請依自己學校的範圍準備。</p></div>
+    <div id="xq"></div>`);
+  const steps=[
+    {label:'① 特別行政區',imgs:[{img:'x_hk',tag:'香港維多利亞港夜景'},{img:'x_macau',tag:'澳門大三巴牌坊'}],poem:'<b>香港</b>、<b>澳門</b>是中國的特別行政區：香港原由<b>英國</b>管轄（1997 年交還），澳門原由<b>葡萄牙</b>管轄（1999 年交還）。',key:'香港配英國、澳門配葡萄牙，常被對調（6 校考香港）。'},
+    {label:'② 直轄市',imgs:[{img:'g1_shanghai',tag:'直轄市上海：長江三角洲的精華區'},{img:'g2_skate',tag:'首都北京：頤和園昆明湖'}],poem:'<b>北京、天津、上海、重慶</b>四個直轄市。北京是首都，為政治、文化與交通中心；上海位於長江三角洲，是人口與產業的精華區。',key:'重慶在中階梯的四川盆地，其他三市在低階梯（京滬高鐵題考北京、上海位置）。'},
+    {label:'③ 南北向的運河',imgs:[{img:'x_canal',tag:'杭州的京杭大運河'}],poem:'中國地勢<b>西高東低</b>，天然河川多由西向東流；古代開鑿<b>京杭大運河</b>，以人工河道連通南北。',key:'運河題的答案是「西高東低」，不是季風或緯度（3 校）。'},
+    {label:'④ 飛越世界屋脊',imgs:[{img:'x_goose',tag:'斑頭雁：冬季飛越喜馬拉雅山到南亞'}],poem:'斑頭雁夏季在青藏高原的湖泊繁殖，冬季飛越<b>喜馬拉雅山</b>到南亞過冬，是飛得最高的鳥類之一。',key:'斑頭雁飛越的是高階梯的青藏高原與喜馬拉雅山（3 校）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+  renderMCQ($('#xq'),EXT,10,'延伸 行政區與時事');
+}
+
+/* ================= 共用：動畫外框 ================= */
+function stage(p,extra){p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${extra||''}`}
+
+/* ================= 1-1 地形特徵 ================= */
+function animA1(p){
+  stage(p,`<div class="card"><h3>📋 中國的位置與疆域</h3>
+  <table class="tbl"><tr><th>項目</th><th>內容</th></tr>
+  <tr><td>絕對位置</td><td>約 <b>73°E～135°E、18°N～53°N</b>；大部分國土位居<b>中緯度</b>，氣候溫和、適宜人居</td></tr>
+  <tr><td>相對位置</td><td>位於<b>歐亞大陸東南部</b>，東側臨<b>太平洋</b>；陸上鄰國眾多：俄羅斯、北韓、越南、印度等十餘國</td></tr>
+  <tr><td>面積</td><td>僅次於俄羅斯、加拿大、美國，世界<b>第四</b></td></tr>
+  <tr><td>首都</td><td><b>北京市</b>：政治、文化與交通中心</td></tr></table></div>
+  <div class="card"><h3>⛰️ 五大地形面積比例（課本圖 1-1-4）</h3>
+  <div class="scale"><span>山地<br><b>33%</b></span><span>高原<br><b>26%</b></span><span>盆地<br><b>19%</b></span><span>平原<br><b>12%</b></span><span>丘陵<br><b>10%</b></span></div>
+  <p class="muted">山地＋高原約 <b>60%</b> → 山多平原少。這張圖<b>看不出</b>西高東低！</p></div>
+  <div class="card"><h3>🧭 山脈走向（課本圖 1-1-5）</h3>
+  <table class="tbl"><tr><th></th><th>西半部</th><th>東半部</th></tr>
+  <tr><td>推擠的板塊</td><td><b>印度—澳洲板塊</b>向北推擠歐亞板塊</td><td><b>太平洋板塊</b>向西北推擠歐亞板塊</td></tr>
+  <tr><td>山脈走向</td><td><b>東西走向</b></td><td>大致<b>東北—西南走向</b></td></tr>
+  <tr><td>例子</td><td>喜馬拉雅山、天山、崑崙山、秦嶺</td><td>大興安嶺、長白山</td></tr></table>
+  <p class="muted" style="margin-top:10px">特例：<b>橫斷山脈</b>呈南北走向。</p></div>`);
+  const steps=[
+    {label:'① 位置與疆域',imgs:[{img:'g1_shanghai',tag:'上海浦東：中國東部沿海，東側臨太平洋'}],poem:'中國位於東亞，從相對位置來看，位於<b>歐亞大陸東南部</b>，東側臨<b>太平洋</b>，陸上鄰國眾多。從絕對位置來看，國土主要位於 <b>73°E～135°E、18°N～53°N</b> 之間，大部分國土位居<b>中緯度</b>。',key:'經緯度、「中緯度」＝絕對位置；「東臨太平洋」「面海背陸」＝相對位置（16 校）。面積世界第四，次於俄、加、美。'},
+    {label:'② 五大地形・山多平原少',imgs:[{img:'g1_tibet',tag:'青藏高原：高原與山地占國土大半'},{img:'g1_terrace',tag:'廣西龍脊梯田：山坡開墾成耕地'}],poem:'中國地形大致可分為<b>山地、高原、盆地、平原、丘陵</b>五大類型。其中山地與高原約占國土總面積的 <b>60%</b>，整體呈現<b>山多平原少</b>。',key:'比例圖只能推「山多平原少、耕地不足」，推不出「西高東低」（段考陷阱）。'},
+    {label:'③ 西高東低・河川東流',imgs:[{img:'g1_yellow',tag:'黃河壺口瀑布：由西向東奔流入海'},{img:'x_canal',tag:'京杭大運河：人工連通南北水運'}],poem:'中國地勢<b>西高東低</b>，因此主要河川流向為<b>由西向東流</b>，例如：黃河、長江。',key:'「大江東去」「一江春水向東流」→ 西高東低（10 校詩句題）。冬季南北溫差大是緯度，別配錯。'},
+    {label:'④ 西半部：東西走向',imgs:[{img:'g1_everest',tag:'聖母峰：喜馬拉雅山的最高峰'}],poem:'西半部山脈由<b>印度—澳洲板塊</b>向北方推擠<b>歐亞板塊</b>而形成，多呈<b>東西走向</b>，例如喜馬拉雅山。',key:'2025 日喀則地震、喜馬拉雅隆起 → 印度—澳洲板塊＋歐亞板塊（25 校考板塊）。'},
+    {label:'⑤ 東半部：東北—西南走向',imgs:[{img:'g1_hengduan',tag:'橫斷山脈：特例，南北走向'}],poem:'東半部因<b>太平洋板塊</b>向西北方推擠歐亞板塊而形成，山脈大致呈<b>東北—西南走向</b>，如大興安嶺、長白山。東、西半部山脈走向不同，是因為<b>板塊擠壓的方向</b>不同。',key:'橫斷山脈是南北走向（段考陷阱）；山脈走向的原因是板塊，不是緯度或季風。'},
+    {label:'⑥ 首都北京',imgs:[{img:'g2_skate',tag:'北京頤和園：冬季湖面結冰'}],poem:'中國的首都位於<b>北京市</b>，為中國的<b>政治、文化與交通中心</b>。',key:'北京是直轄市（北京、天津、上海、重慶），行政區題 18 校考，見「綜合→延伸」。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 1-2 地形的區域差異 ================= */
+function animA2(p){
+  stage(p,`<div class="card"><h3>🪜 地勢三級階梯（課本圖 1-1-6）</h3>
+  <div class="ladder"><span>高階梯<small>4,000m 以上</small></span><b>→</b><span>中階梯<small>2,000m 以下</small></span><b>→</b><span class="an">低階梯<small>平原、丘陵</small></span></div>
+  <table class="tbl"><tr><th>階梯</th><th>主要地形</th><th>地形區</th></tr>
+  <tr><td>高</td><td>山地、高原</td><td>青藏高原（世界屋脊）、喜馬拉雅山、橫斷山脈；黃河、長江發源地</td></tr>
+  <tr><td>中</td><td>高原、盆地</td><td>內蒙古高原、黃土高原、準噶爾盆地、塔里木盆地、四川盆地</td></tr>
+  <tr><td>低</td><td>平原、丘陵</td><td>東北平原、華北平原、長江中下游平原（長江三角洲）、珠江三角洲、東南丘陵</td></tr></table>
+  <p class="muted" style="margin-top:10px">分層設色：高→咖啡、中→黃、低→綠。北緯 36 度由西到東：青藏高原→黃土高原→華北平原。</p></div>
+  <div class="card"><h3>🚆 青藏鐵路（實作與練習）</h3>
+  <p><span class="pill">路線</span>青海西寧—西藏拉薩，世界<b>海拔最高</b>的鐵路，全長約 1,971 公里。</p>
+  <p><span class="pill">難題</span>土壤反覆凍結、解凍使地基不穩 → 設計<b>高架軌道</b>。所有列車先到西寧，再換乘<b>有氧列車</b>。</p>
+  <p><span class="pill">比較</span>從成都出發的班次平均高度較高：成都在<b>中階梯</b>四川盆地，其他起點在低階梯。</p></div>`);
+  const steps=[
+    {label:'① 高階梯：世界屋脊',imgs:[{img:'g1_tibet',tag:'青藏高原：世界平均高度最高的高原'},{img:'g2_potala',tag:'拉薩布達拉宮'}],poem:'中國由西向東分為高、中、低三階梯。<b>高階梯</b>平均高度約在 <b>4,000 公尺以上</b>，以<b>山地、高原</b>為主，是黃河、長江等主要河川的<b>發源地</b>。<b>青藏高原</b>是世界平均高度最高的高原，有「<b>世界屋脊</b>」之稱。',key:'柴達木盆地在青藏高原內，屬高階（段考陷阱）。'},
+    {label:'② 喜馬拉雅與橫斷山脈',imgs:[{img:'g1_everest',tag:'喜馬拉雅山：中國與南亞多國的界山'},{img:'g1_hengduan',tag:'橫斷山脈：山河南北平行排列'}],poem:'世界最高的山脈<b>喜馬拉雅山</b>位於青藏高原<b>西南側</b>，是中國與南亞多國的<b>界山</b>。<b>橫斷山脈</b>山勢陡直，呈<b>南北走向</b>，山脈間平行排列；源於青藏高原的河川，部分經橫斷山脈流至<b>中南半島</b>。',key:'中印邊境衝突→喜馬拉雅山；上游建壩引起下游抗議→橫斷山脈、中南半島（4 校）。'},
+    {label:'③ 青藏鐵路',imgs:[{img:'g1_qtviaduct',tag:'青藏鐵路的高架橋段'},{img:'g1_qttrack',tag:'青藏高原上的鐵軌'}],poem:'青藏鐵路是世界<b>海拔最高</b>的鐵路，連接西寧與拉薩。大部分路段土壤容易凍結，解凍或再凍結時地基不穩，工程師設計<b>高架軌道</b>，避免鐵路與土壤直接接觸。',key:'維護＝克服土壤反覆凍融；「種植固沙植物」是環塔里木鐵路（段考陷阱）。支線引起邊境疑慮的國家＝印度。'},
+    {label:'④ 中階梯：高原與盆地',imgs:[{img:'g1_desert',tag:'塔克拉瑪干沙漠：中國最大的沙漠'},{img:'g1_grass',tag:'內蒙古高原東側的草原'}],poem:'<b>中階梯</b>地勢降到 <b>2,000 公尺以下</b>，是主要<b>高原與盆地</b>的分布區。<b>塔里木盆地</b>四周高山環繞，中央為中國最大的<b>塔克拉瑪干沙漠</b>，夏季<b>高山融雪</b>使盆地邊緣形成綠洲；<b>內蒙古高原</b>地勢平坦遼闊，<b>西側多沙漠、東側有草原</b>；長江流經<b>四川盆地</b>。',key:'綠洲水源是高山融雪，不是梅雨或颱風；塔里木盆地屬中階（不是高階）。'},
+    {label:'⑤ 黃土高原',imgs:[{img:'g1_loess',tag:'黃土高原：千溝萬壑'},{img:'g1_yaodong',tag:'山西的窯洞聚落'},{img:'g1_yellow',tag:'黃河挾帶大量泥沙'}],poem:'<b>黃土高原</b>的黃土性質疏鬆，易受河川<b>侵蝕切割</b>，導致地勢崎嶇不平，且造成流經的<b>黃河含沙量高</b>。中國自 <b>2000 年</b>起實行<b>退耕還林、退牧還草</b>，黃土高原逐漸「由黃轉綠」。',key:'崎嶇是流水侵蝕造成，與地震無關；黃土被河水帶到下游<b>低階梯</b>平原堆積（課本想一想）。'},
+    {label:'⑥ 低階梯：平原與丘陵',imgs:[{img:'g1_shanghai',tag:'長江三角洲的上海：人口與產業精華區'},{img:'g1_terrace',tag:'丘陵坡地開闢的梯田'},{img:'g1_tulou',tag:'福建土樓：東南丘陵的聚落'}],poem:'中國東側地勢最低，主要地形為河川中下游的<b>沖積平原</b>、<b>河口三角洲</b>與平原間的<b>丘陵</b>，是主要的<b>農業生產地帶</b>，亦為人口稠密的精華區。<b>長江三角洲</b>位於長江河口；東南丘陵<b>山多平原少</b>，居民沿坡地開闢<b>梯田</b>。',key:'低階梯＝平原＋丘陵（不是平原＋盆地）。四大平原由北而南：東北→華北→長江中下游→珠江三角洲（23 校）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-1 氣候特徵 ================= */
+function animB1(p){
+  stage(p,`<div class="card"><h3>🌡️ 氣溫：夏季 vs 冬季</h3>
+  <table class="tbl"><tr><th></th><th>夏季（七月）</th><th>冬季（一月）</th></tr>
+  <tr><td>特徵</td><td>普遍高溫，<b>南北溫差小</b>；除高原山地外多在 <b>20℃以上</b></td><td>南高北低，<b>南北溫差將近 50℃</b></td></tr>
+  <tr><td>影響因素</td><td>高原山地較涼＝<b>地形</b></td><td>東半部＝<b>緯度</b>；西半部高原山地＝<b>地形</b></td></tr>
+  <tr><td>課本例子</td><td>西藏涼爽 vs 上海炎熱</td><td>北京湖上滑冰 vs 海南度假</td></tr></table></div>
+  <div class="card"><h3>🌬️ 季風（海陸性質差異）</h3>
+  <table class="tbl"><tr><th></th><th>冬季季風</th><th>夏季季風</th></tr>
+  <tr><td>高壓位置</td><td>歐亞大陸（<b>冷高壓</b>）</td><td>太平洋及印度洋</td></tr>
+  <tr><td>風向</td><td>由陸地吹向海洋</td><td>由海洋吹向陸地</td></tr>
+  <tr><td>性質</td><td>寒冷乾燥</td><td>暖溼，帶來雨季</td></tr>
+  <tr><td>北京</td><td>西北風</td><td>東南風</td></tr></table>
+  <p class="muted" style="margin-top:10px">降水特徵：<b>夏雨冬乾</b>（季節不均）；<b>由東南向西北遞減</b>（空間不均，因距海遠近）。</p></div>
+  <div class="card"><h3>📏 秦嶺、淮河</h3>
+  <div class="scale"><span>一月月均溫<br><b>0℃ 等溫線</b></span><span>年降水量<br><b>750mm 等雨量線</b></span><span>以北<br><b>溫帶季風</b>、冬季結冰</span><span>以南<br><b>副熱帶季風</b></span></div></div>`);
+  const steps=[
+    {label:'① 夏季普遍高溫',split:[{img:'g2_potala',tag:'西藏：地勢高，夏季涼爽'},{img:'g1_shanghai',tag:'上海：低階梯，夏季炎熱'}],poem:'夏季時，日照偏北半球，各地<b>普遍高溫</b>，南北溫差小。除了地勢較高的山地、高原外，七月月均溫大多在 <b>20℃以上</b>。',key:'拉薩和上海緯度相近、夏季溫差大 → 主因是<b>地形</b>，不是緯度（16 校）。'},
+    {label:'② 冬季南北溫差大',split:[{img:'g2_harbin',tag:'哈爾濱冰雪節：一月約 -18.5℃'},{img:'g2_sanya',tag:'海南三亞：冬季溫暖，遊客度假'}],poem:'冬季時，氣溫<b>南高北低</b>，南北溫差將近 <b>50℃</b>。東半部氣溫主要受「<b>緯度</b>」影響，緯度愈高，氣溫愈低；西半部的高原、山地則受「<b>地形</b>」影響，較同緯度地區氣溫低。',key:'哈爾濱冰雪節 vs 海南戲水 → <b>緯度</b>（25 校）。一月等溫線在東半部大致與緯線平行。'},
+    {label:'③ 秦嶺、淮河',imgs:[{img:'g2_qinling',tag:'秦嶺山脈'},{img:'g2_huaihe',tag:'安徽蚌埠的淮河'}],poem:'一月月均溫 <b>0℃ 等溫線</b>，大致與<b>秦嶺、淮河</b>一致；秦嶺、淮河也與年降水量 <b>750 毫米</b>等雨量線大致相符，是中國重要的地理分界線。',key:'是 750mm，不是 500mm；也不是熱帶／副熱帶分界（21 校，≥12 校設陷阱）。'},
+    {label:'④ 秦淮以北的冬天',imgs:[{img:'g2_skate',tag:'北京湖上滑冰：冬季湖面結冰'},{img:'g2_kang',tag:'北方的炕：底下燒火取暖'},{img:'g2_wheat',tag:'華北的麥田：北方以小麥為主'}],poem:'秦嶺、淮河一線以北的河川或湖泊，大部分<b>冬季會結冰</b>，可從事冰上活動；以南冬季較溫暖，如安徽一月月均溫接近 0℃，冬季梅花盛開。',key:'免費供煤取暖的南界＝淮河（105 會考改寫）；炕出現在一月＜0℃的北方（2 校）。'},
+    {label:'⑤ 季風：夏雨冬乾',imgs:[{img:'g2_dust',tag:'北京沙塵：冬春乾冷的西北風夾帶沙塵'},{img:'g2_paddy',tag:'夏季季風：暖溼，帶來雨季'}],poem:'因<b>海陸性質差異</b>，冬季歐亞大陸形成<b>冷高壓</b>，寒冷而乾燥的氣流由陸地吹向海洋；夏季太平洋及印度洋形成高壓，<b>暖溼氣流</b>由海洋吹向陸地。形成冬夏風向相反的「<b>季風</b>」，呈現<b>夏雨冬乾</b>。',key:'冬季：H 在陸地、北京西北風、臺灣東北風；「雨季」「風源於海洋」是夏季（26 校）。'},
+    {label:'⑥ 降水由東南向西北遞減',imgs:[{img:'g2_turpan',tag:'新疆吐魯番火焰山：西北內陸極乾燥'},{img:'g1_desert',tag:'塔克拉瑪干沙漠'}],poem:'中國國土東西橫跨 <b>5,000 公里以上</b>，各地「<b>距海遠近</b>」不同，來自海洋的夏季季風無法深入西北內陸，故降水<b>由東南向西北遞減</b>。',key:'主因是距海遠近，不是季風風向或緯度。111 會考：東南沿海→西北內陸＝溼熱變乾熱。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-2 氣候類型 ================= */
+const CLIM=[['熱帶季風','季風氣候：最冷月＞18℃、年雨＞500mm'],['副熱帶季風','季風氣候：最冷月 0～18℃、年雨＞500mm'],['溫帶季風','季風氣候：最冷月＜0℃、年雨＞500mm'],
+  ['溫帶草原','乾燥氣候：年雨 250～500mm'],['溫帶沙漠','乾燥氣候：年雨＜250mm'],['高地','海拔＞3,000m、最暖月＜20℃']];
+function animB2(p){
+  stage(p,`<div class="card"><h3>🧮 氣候類型判斷器</h3><p class="muted">輸入氣候資料，照課本圖 1-2-13 的順序判斷：先看高度與最暖月，再看年雨量，最後看最冷月。</p>
+  <div class="calc"><label>海拔（公尺）<input id="ch" type="number" min="0" step="100" value="0"></label>
+  <label>最暖月均溫（℃）<input id="cw" type="number" step="0.5" value="27"></label>
+  <label>最冷月均溫（℃）<input id="cc" type="number" step="0.5" value="5"></label>
+  <label>年降水量（mm）<input id="cr" type="number" min="0" step="10" value="1150"></label></div>
+  <div class="meaning" id="cout"></div></div>
+  <div class="card"><h3>📋 三大氣候類型</h3>
+  <table class="tbl"><tr><th>類型</th><th>分布</th><th>特徵</th></tr>
+  <tr><td>季風</td><td>東半部</td><td>溫和溼潤、適合農業、人口多；依<b>緯度（最冷月）</b>分熱帶、副熱帶、溫帶</td></tr>
+  <tr><td>乾燥</td><td>西北內陸（新疆、內蒙古）</td><td>夏季季風不易到達，<b>日溫差與年溫差均大</b>；依<b>年雨量</b>分草原、沙漠</td></tr>
+  <tr><td>高地</td><td>青藏高原及山地</td><td>地勢高聳，<b>日溫差大、年溫差小</b>，氣溫與植被<b>垂直變化</b></td></tr></table></div>
+  <div class="card"><h3>🚆 天南海北第一車（課後閱讀）</h3>
+  <div class="ladder"><span>哈爾濱<small>一月 -18.5℃</small></span><b>→</b><span>溫帶季風</span><b>→</b><span>副熱帶季風</span><b>→</b><span class="an">海口<small>一月 18.5℃</small></span></div>
+  <p class="muted">黑龍江↔海南約 4,300 公里、47 小時；兩地一月溫差將近 37℃，乘客要帶冬季到夏季的衣物——「一車過四季」。由北往南年溫差變小。</p></div>`);
+  const cc=()=>{const h=+$('#ch').value,w=+$('#cw').value,c=+$('#cc').value,r=+$('#cr').value;
+    if([h,w,c,r].some(x=>isNaN(x))||r<0){$('#cout').textContent='請輸入數字';return}
+    if(c>w){$('#cout').textContent='最冷月均溫不會高於最暖月，請再檢查';return}
+    let k,why;
+    if(h>=3000&&w<20){k=5;why='海拔 3,000 公尺以上且最暖月低於 20℃'}
+    else if(r<250){k=4;why='年降水量少於 250mm'}
+    else if(r<500){k=3;why='年降水量在 250～500mm'}
+    else if(c>18){k=0;why='年雨量＞500mm，最冷月高於 18℃'}
+    else if(c>=0){k=1;why='年雨量＞500mm，最冷月 0～18℃'}
+    else{k=2;why='年雨量＞500mm，最冷月低於 0℃'}
+    $('#cout').innerHTML=`${why} → <b>${CLIM[k][0]}氣候</b>（${CLIM[k][1]}）。年溫差 ${Math.round((w-c)*10)/10}℃。`};
+  ['ch','cw','cc','cr'].forEach(i=>$('#'+i).oninput=cc);cc();
+  const steps=[
+    {label:'① 熱帶季風氣候',imgs:[{img:'g2_sanya',tag:'海南三亞：終年溫暖的度假勝地'}],poem:'<b>季風氣候</b>分布於中國東半部，氣候溫和溼潤，適合農業發展，因而聚集眾多人口；依<b>緯度高低</b>可分為熱帶、副熱帶、溫帶季風氣候。海南省多屬<b>熱帶季風氣候</b>（最冷月均溫＞18℃）。',key:'季風三型依最冷月均溫（緯度），不是年雨量（段考陷阱）。'},
+    {label:'② 副熱帶季風氣候',imgs:[{img:'g2_paddy',tag:'浙江的稻田：長江以南以水稻為主'},{img:'g1_terrace',tag:'華南丘陵的梯田'}],poem:'秦嶺、淮河以南、熱帶以北屬<b>副熱帶季風氣候</b>：年降水量多於 500 毫米，最冷月均溫在 <b>0～18℃</b> 之間，例如上海、廣州。',key:'副熱帶與溫帶的界線＝秦嶺淮河（一月 0℃）；熱帶與副熱帶的界線約一月 18℃。'},
+    {label:'③ 溫帶季風氣候',imgs:[{img:'g2_mohe',tag:'黑龍江漠河北極村：中國最北端'},{img:'g2_wheat',tag:'華北平原的麥田'}],poem:'秦嶺、淮河以北屬<b>溫帶季風氣候</b>：年降水量多於 500 毫米、<b>最冷月均溫低於 0℃</b>，例如北京、哈爾濱。哈爾濱年溫差約 <b>40℃</b>，四季分明。',key:'北極村的雪景主要受<b>緯度</b>影響（課本想一想）。溫帶季風與溫帶草原最冷月都＜0℃，要看年雨量是否＞500mm。'},
+    {label:'④ 乾燥氣候：溫帶沙漠',imgs:[{img:'g2_turpan',tag:'吐魯番火焰山'},{img:'g2_grape',tag:'吐魯番市場的葡萄'}],poem:'<b>乾燥氣候</b>分布於西北內陸，例如新疆、內蒙古一帶，因<b>夏季季風不易到達</b>，全年乾燥少雨，<b>日溫差與年溫差均大</b>。年降水量少於 <b>250 毫米</b>為<b>溫帶沙漠氣候</b>，例如新疆和闐。',key:'新疆瓜果甜、棉花好 → 乾燥、日照強、日夜溫差大（明正、光華新疆棉題）。'},
+    {label:'⑤ 乾燥氣候：溫帶草原',imgs:[{img:'g1_grass',tag:'內蒙古呼倫貝爾草原上的駱駝'}],poem:'年降水量在 <b>250～500 毫米</b>之間為<b>溫帶草原氣候</b>，多見於內蒙古高原東部，以畜牧為主。',key:'分沙漠與草原的指標是<b>年降水量 250mm</b>，不是溫度；年雨 481mm、一月 -18℃ → 溫帶草原，別選溫帶季風。'},
+    {label:'⑥ 高地氣候',imgs:[{img:'g2_kailash',tag:'西藏岡仁波齊峰'},{img:'g2_potala',tag:'拉薩：海拔約 3,650 公尺'}],poem:'<b>高地氣候</b>主要分布於青藏高原及山地地區，因地勢高聳（高度＞3,000 公尺），相較於同緯度地區平均溫度較低，<b>最暖月均溫＜20℃</b>，<b>日溫差大、年溫差小</b>，且氣溫與植被隨高度呈<b>垂直變化</b>。',key:'「一年無四季，一日見四季」、藏袍白天繫袖夜裡當被 → 日溫差大；是<b>最暖月</b>＜20℃，不是最冷月（24 校）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+
+<!-- AK:answer-key -->
+<style id="ak-style">#ak-btn{position:fixed;left:14px;bottom:14px;z-index:9990;font:600 16px/1 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:#1f4e79;color:#fff;border:0;border-radius:999px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer}#ak-btn:hover{background:#163a5c}#ak-box{display:none;position:fixed;inset:0;z-index:9995;background:rgba(15,25,40,.45);padding:16px;overflow:auto}#ak-box.show{display:block}#ak-box .ak-card{max-width:960px;margin:20px auto;background:#fff;color:#1d2733;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:16px/1.6 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;text-align:left}#ak-box .ak-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #e3e8ef;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}#ak-box .ak-head b{font-size:18px;color:#1f4e79}#ak-box .ak-head button{font:inherit;font-size:16px;margin-left:8px;border:1px solid #c9d3df;background:#f4f7fb;color:#1d2733;border-radius:8px;padding:6px 12px;cursor:pointer}#ak-box .ak-body{padding:6px 18px 18px}#ak-box h3{font-size:17px;margin:16px 0 6px;color:#1f4e79}#ak-box .ak-t{border-collapse:collapse;width:100%;margin:6px 0;table-layout:fixed}#ak-box .ak-t th,#ak-box .ak-t td{border:1px solid #cfd8e3;padding:5px 2px;text-align:center;font-size:16px;word-break:break-all}#ak-box .ak-t th{background:#eef3f9;color:#1f4e79;font-weight:600}#ak-box .ak-t th:first-child{width:3.6em}#ak-box .ak-t td{font-weight:700}#ak-box .ak-list{columns:2 300px;margin:6px 0;padding-left:0;list-style:none}#ak-box .ak-list li{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e3e8ef}@media print{#ak-btn{display:none!important}html:not(.ak-on) #ak-box{display:none!important}html.ak-on body>*:not(#ak-box){display:none!important}html.ak-on #ak-box{position:static;background:none;padding:0;display:block!important;overflow:visible}html.ak-on #ak-box .ak-card{box-shadow:none;margin:0;max-width:none}html.ak-on #ak-box .ak-head button{display:none}html.ak-on #ak-box .ak-head{position:static}}</style>
+<script id="ak-core">(function(){
+if(window.AK)return;
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function norm(secs){
+ if(!secs)return[];
+ if(!Array.isArray(secs[0]&&secs[0].items)&&Array.isArray(secs))secs=[{title:'',items:secs}];
+ return secs.map(function(s){return{title:s.title||'',items:(s.items||[]).map(function(x,i){return Array.isArray(x)?[x[0],x[1]]:[i+1,x]})}}).filter(function(s){return s.items.length});
+}
+function table(s){
+ var long=s.items.some(function(x){return String(x[1]).length>3});
+ var h=s.title?'<h3>'+esc(s.title)+'</h3>':'';
+ if(long){
+  return h+'<ol class="ak-list">'+s.items.map(function(x){return'<li><b>'+esc(x[0])+'.</b> '+esc(x[1])+'</li>'}).join('')+'</ol>';
+ }
+ var out=h;
+ for(var i=0;i<s.items.length;i+=10){
+  var r=s.items.slice(i,i+10);
+  out+='<table class="ak-t"><tr><th>題號</th>'+r.map(function(x){return'<th>'+esc(x[0])+'</th>'}).join('')+'</tr><tr><th>答案</th>'+r.map(function(x){return'<td>'+esc(x[1])+'</td>'}).join('')+'</tr></table>';
+ }
+ return out;
+}
+window.AK=function(fn){
+ function run(){
+  var secs;
+  try{secs=norm(typeof fn==='function'?fn():fn)}catch(e){console.warn('AK',e);return}
+  window.__AK_DATA=secs;
+  if(!secs.length)return;
+  var n=secs.reduce(function(a,s){return a+s.items.length},0);
+  var btn=document.createElement('button');btn.id='ak-btn';btn.type='button';btn.textContent='📋 答案總表';if(window.AK_BTN_STYLE)btn.style.cssText=window.AK_BTN_STYLE;
+  var box=document.createElement('div');box.id='ak-box';
+  box.innerHTML='<div class="ak-card" role="dialog" aria-label="答案總表"><div class="ak-head"><b>📋 答案總表（教師用，共 '+n+' 題）</b><span><button type="button" class="ak-p">🖨 列印答案</button><button type="button" class="ak-x" aria-label="關閉">✕</button></span></div><div class="ak-body">'+secs.map(table).join('')+'</div></div>';
+  document.body.appendChild(btn);document.body.appendChild(box);
+  function close(){box.classList.remove('show');document.documentElement.classList.remove('ak-on')}
+  btn.onclick=function(){box.classList.add('show');document.documentElement.classList.add('ak-on')};
+  box.querySelector('.ak-x').onclick=close;
+  box.onclick=function(e){if(e.target===box)close()};
+  box.querySelector('.ak-p').onclick=function(){window.print()};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+ }
+ if(document.readyState==='complete')setTimeout(run,0);else window.addEventListener('load',function(){setTimeout(run,0)});
+};
+})();</script>
+<script>AK(function(){
+if(!/[?&]teacher\b/.test(location.search))return [];
+/* 段考闖關站（chinese/civics/geography/history/science-site 的 volX_ 的 index.html）共用 adapter。
+   資料：頂層 const（L 各課 .mcq/.ext、RIDDLE/EXT/SCEN/CHART…）裡的選擇題物件 {q,o,a}。
+   renderMCQ 題序固定、但「選項每次洗牌」，所以答案列「正解選項文字」而非字母。
+   快問快答／配對／分類挑戰（題目隨機抽）與總測驗（pool/pick 隨機抽題）都不是頂層 {q,o,a} 陣列，不會被列入。 */
+window.AK_BTN_STYLE='left:14px;bottom:76px;font-size:20px;padding:12px 18px';
+(function(){
+  if(document.getElementById('ak-big'))return;
+  var s=document.createElement('style');s.id='ak-big';
+  s.textContent='html body #ak-box .ak-card{font-size:20px}html body #ak-box .ak-head b{font-size:22px}html body #ak-box .ak-head button{font-size:20px}html body #ak-box h3{font-size:21px}html body #ak-box .ak-list li{font-size:20px}html body #ak-box .ak-t th,html body #ak-box .ak-t td{font-size:20px}html body #ak-box .ak-note{font-size:20px;color:#5a6878;margin:10px 0 0}@media(max-width:600px){html body #ak-box{padding:6px}html body #ak-box .ak-card{margin:6px auto}html body #ak-box .ak-body{padding:6px 12px 14px}html body #ak-box .ak-list{columns:1}}';
+  document.head.appendChild(s);
+  setTimeout(function(){var b=document.querySelector('html body #ak-box .ak-body');if(b&&!b.querySelector('.ak-note')){var p=document.createElement('p');p.className='ak-note';p.textContent='※ 題號＝各練習頁上的題號；選項每次會重新洗牌，故列「正確選項的內容」。快問快答、配對、分類挑戰、總測驗為隨機出題，不列。';b.insertBefore(p,b.firstChild)}},50);
+})();
+var src=[].slice.call(document.querySelectorAll('script:not([src])')).filter(function(x){return x.id!=='ak-core'&&x.textContent.indexOf('AK(function')<0}).map(function(x){return x.textContent}).join('\n');
+var names=[];src.replace(/^(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=/gm,function(_,n){if(names.indexOf(n)<0)names.push(n)});
+var isQ=function(x){return x&&typeof x==='object'&&typeof x.q==='string'&&Array.isArray(x.o)};
+var clean=function(t){t=String(t).replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();return t.length>60?t.slice(0,60)+'…':t};
+var lit=function(expr){var re=new RegExp('renderMCQ\\([^,]+,\\s*'+expr.replace(/[.$[\]]/g,'\\$&')+'\\s*,\\s*[^,]+,\\s*([\'"`])([^\'"`$]*)\\1');var m=src.match(re);return m?m[2]:''};
+var KEY={mcq:'📝 段考模擬題',ext:'延伸題',graph:'綜合 圖表判讀',calc:'綜合 計算練習'};
+var secs=[];
+function add(title,arr,pri){for(var j=0;j<secs.length;j++)if(secs[j].arr===arr){if(pri>secs[j].pri){secs[j].title=title;secs[j].pri=pri}return}secs.push({arr:arr,pri:pri,title:title,items:arr.map(function(q,i){return[i+1,clean(q.o[q.a==null?0:q.a])]})})}
+function walk(v,path,parents){
+  if(!v||typeof v!=='object'||path.length>6||v instanceof Node||v===window)return;
+  if(Array.isArray(v)){
+    if(v.length&&v.every(isQ)){
+      var root=path[0],last=path[path.length-1],par=parents[parents.length-1],t;
+      if(root==='L'&&path.length===3){var d=parents[1];t=[d.no,d.title||d.name].filter(Boolean).join(' ')+'｜'+(KEY[last]||last)}
+      else if(path.length===1)t=lit(root)||root;
+      else if(par&&!Array.isArray(par)&&par.title){var gi=path[path.length-2];t=(/^[①-⑳]/.test(par.title)?'':(typeof gi==='number'?(gi+1)+'. ':''))+String(par.title).replace(/<[^>]*>/g,'')}
+      else t=lit(path.join('.'))||KEY[last]||path.join('.');
+      add(t,v,root==='L'?1:0);return;
+    }
+    v.forEach(function(x,i){walk(x,path.concat(i),parents.concat([v]))});return;
+  }
+  if(Object.getPrototypeOf(v)!==Object.prototype)return;
+  Object.keys(v).forEach(function(k){walk(v[k],path.concat(k),parents.concat([v]))});
+}
+names.forEach(function(n){var v;try{v=(0,eval)(n)}catch(e){return}walk(v,[n],[])});
+/* 同一陣列被兩處引用（如 L.ex.mcq＝EXT）只列一次，以課別標題為準；依 L 的課序排在前面 */
+secs.sort(function(a,b){return b.pri-a.pri});
+return secs.map(function(s){return{title:s.title,items:s.items}});
+});</script>
+<!-- /AK -->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+</body>
+</html>

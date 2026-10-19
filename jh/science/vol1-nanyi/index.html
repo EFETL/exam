@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國一自然段考闖關（南一）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#1d5c63; --main-2:#2f8f83; --accent:#f2a541; --accent-2:#e07a2f;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#163f45 0%,#2f8f83 60%,#f2a541 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#163f45;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.chk{display:inline-flex;gap:6px;align-items:center;background:#f3f6fb;border-radius:10px;padding:6px 12px}
+.chk input{width:20px;height:20px}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;font-size:20px}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+/* 自然科：題目是一句話，不是單字 */
+.qword{font-size:1.4rem;letter-spacing:0;line-height:1.55;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word;line-height:1.45}
+.sortcard{font-size:1.15rem}
+.bk{font-size:1rem;word-break:break-word}
+.tb{border-collapse:collapse;margin:8px 0;min-width:100%}
+.tb th,.tb td{border:1px solid var(--line);padding:6px 10px;text-align:center;font-size:1rem}
+.tb th{background:#eef5f4;color:var(--main)}
+.mixhtml p{margin:0 0 8px}
+.traps{margin:0;padding-left:1.2em}.traps li{margin:4px 0}
+.bars .b span{word-break:break-word;line-height:1.35}
+@media(max-width:560px){.bars .b{grid-template-columns:118px 1fr 52px}.mcols{grid-template-columns:1fr 1.3fr;gap:8px}.mi{padding:8px}}
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回自然選單</a><span class="tag">南一版 國一上 ｜ 第一次段考</span>
+    <h1>自然段考闖關｜1-1～2-1 生命的發現＋食物中的養分</h1>
+    <p>先看真實照片動畫弄懂課本，再用遊戲練熟名詞與實驗，最後做段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<button class="bgm" id="bgmBtn"></button>
+<footer><div class="wrap"><details style="margin-top:8px"><summary>圖片來源與授權</summary>動畫照片皆來自 Wikimedia Commons（公有領域或 CC 授權，未使用 AI 生成圖）：Salivary alpha-amylase 1SMD：Fvasconcellos（公有領域）；A measuring cylinder：Jeremyida002（CC BY-SA 4.0）；Bread dough in basket：Wald1siedel（CC BY-SA 3.0）；Alcohol-burner flame：Marián Hubinský（CC BY-SA 4.0）；Jiaodong steamed buns：Fumikas Sagisavas（CC0）；A Moldy Loaf of Bread：Muldoonsamuel55（CC0）；Essential Sprouting2026-06-18mung beans 02：P1898（CC BY 4.0）；Bats hanging from ceiling (28610600666)：Thomas Quine（CC BY 2.0）；Monarch caterpillar transformation (50189204121)：U.S. Fish and Wildlife Service - Midwest（公有領域）；Tamias striatus CT：Cephas（CC BY-SA 3.0）；Micrographia Schem 11：Robert Hooke（公有領域）；Hatchetfish bioluminescence：HulloThere（CC BY 4.0）；Desert Cactus at Saguaro NP in AZ 2：Jeffhollett（CC BY-SA 4.0）；The Earth seen from Apollo 17：NASA/Apollo 17 crew; taken by either Har（公有領域）；Hooke-Microscope-cork：Robert Hooke（公有領域）；Kandelia obovata Propagules：Anonymous Powered（CC BY 3.0）；Mimosa pudica leaves close up：NonNerd（CC0）；Khao Sok primary tropical rainforest, southern Thailand：Vyacheslav Argenberg（CC BY 4.0）；Coral Reef：Jerry Reid（公有領域）；Children watch with binoculars, birdwatching：Walton LaVonda, U.S. Fish and Wildlife S（公有領域）；Compound Microscope：Acagastya（CC0）；Paramecium caudatum (Light Microscope)：Fritzmann2002（CC BY-SA 4.0）；Misc pollen colorized：Dartmouth Electron Microscope Facility（公有領域）；Microscope Specimen Slide Set：作者不詳（公有領域）；Olympus SZIII stereo microscope：Wammes Waggel（公有領域）；Novel Coronavirus SARS-CoV-2 (49919836457)：NIH Image Gallery from Bethesda, Marylan（公有領域）；Human Cheek Cells (Methylene Blue Stain)：Fritzmann2002（CC BY-SA 4.0）；Ostrich eggs：Anicap（CC BY-SA 3.0）；Cloroplasti Elodea：Cimice50（CC BY-SA 4.0）；Muscle Tissue Skeletal Muscle Fibers (28089113308)：Berkshire Community College  Bioscience （CC0）；Nervous Tissue Spinal Cord Motor Neuron (41850849392)：Berkshire Community College  Bioscience （CC0）；Onion Epidermis Cells W.M. 40x - 132：loganrickert（CC BY 2.0）；Red blood cells (2)：Scootdive（CC BY-SA 3.0）；Stomata of Tradescantia spathacea leaves：Trương Minh Khải（CC BY 4.0）；Alpha-D-glucose-from-xtal-1979-3D-balls：Ben Mills（公有領域）；Mont Blanc Lavender Purple ink on Water：Luigi Crespo from Frederick, MD, USA（CC BY 2.0）；Mamuang dong：Takeaway（CC BY-SA 3.0）；Korean cuisine-Salted baechu-01：Joseph Steinberg（CC BY-SA 2.0）；Plasmolysis of red onion (Allium cepa) cells：Trương Minh Khải（CC BY 4.0）；Old Ficus Banyan tree in Fengyuan, Taichung：noroi（CC0）；The desmid, Clostarium：derekkeats（CC BY-SA 2.0）；Daphnia magna：AnastasiaObradovych（CC BY 4.0）；A fishmonger at Taipei Dongmen Market 20090321 02：Banzai Hiroaki（CC BY 2.0）；Citrus maxima-fruit-yercaud-salem-India：Yercaud-elango（CC BY-SA 4.0）；Garden snail crossing the sidewalk：Grendelkhan（CC BY-SA 3.0）；A greengrocer at Taipei Dongmen Market 20090321：Banzai Hiroaki（CC BY 2.0）；Benedict precipitate 20211012 093944：HunterRSC（CC0）；Fresh vegetables and fruits at the market：FranHogan（CC BY-SA 4.0）；Iod-Stärke-Test：Kopiersperre（CC BY-SA 3.0）；08 Railway Lunch Box 鐵路便當 - famous Taiwanese cuisine food in Fenqihu, Taiwan：Marek Ślusarczyk (Tupungato) Photo portf（CC BY 3.0）；Peanut oil bottle：Adam Engelhart（CC BY-SA 2.0）；A bowl of rice：Douglas Perkins（CC0）；Beef Steak - Shaan Curry and Kebab：Andy Li（CC0）。</details>
+</div></footer>
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料：南一版 國一上自然 第一次段考（1-1～2-1，2-2 延伸） =================
+   名詞、定義、單位、實驗步驟一律依南一課本（粒線體、液泡、本氏液、亞甲藍液…）。
+   快問快答：[題目, 正解, [3 個誘答], 幾校考過(≥2 才標★，0＝不標)]
+   模擬題全部原創改寫，只借各校命題方向與陷阱；src 標學校名或「N 校都考」。 */
+const ASK='選出正確答案';
+const L = {
+c1:{
+  no:'1-1', title:'探究自然的方法', author:'科學方法｜變因｜實驗室安全', color:'linear-gradient(135deg,#1d5c63,#2f8f83)',
+  desc:'觀察→問題→假說→實驗→結論｜三種變因', code:1, quickAsk:ASK,
+  quick:[
+    ['科學方法通常的第一步','觀察',['提出假說','設計實驗','提出結論'],12],
+    ['「可能是……」「或許……」屬於哪一步','提出假說',['提出問題','觀察','提出結論'],12],
+    ['用問句「為什麼……？」呈現的是哪一步','提出問題',['提出假說','觀察','分析結果'],12],
+    ['實驗組與對照組之間「唯一不同」的因素','操作變因',['控制變因','應變變因','實驗誤差'],12],
+    ['實驗組與對照組之間要「保持相同」的因素','控制變因',['操作變因','應變變因','假說'],12],
+    ['實驗後要「測量或比較」的項目','應變變因',['操作變因','控制變因','對照組'],12],
+    ['麵糰實驗中「沒有加酵母菌」的那一組','對照組',['實驗組','控制變因','應變變因'],0],
+    ['課本說實驗至少要重複幾次，以減少誤差','3 次',['1 次','2 次','不用重複'],0],
+    ['合理的假說經多次驗證並被廣泛接受，可能成為','學說',['問題','變因','觀察'],7],
+    ['學說遇到新的證據時','可能被修正或捨棄',['永遠不會改變','一定是錯的','只有名人能修改'],4],
+    ['畫圖表時一定要標出','標題、單位與刻度',['作者姓名','老師簽名','實驗心得'],0],
+    ['實驗結果符合假說時，可以','提出結論',['放棄假說','再加一個操作變因','跳過分析'],0],
+    ['酒精燈內的酒精量約為','1/2～2/3',['裝到全滿','1/4 以下','1/10'],5],
+    ['熄滅酒精燈的正確方法','用燈罩蓋熄',['用嘴吹熄','用水澆熄','用書本搧熄'],5],
+    ['讀量筒刻度時，視線要對齊','液面凹處最低點',['液面最高點','量筒頂端','量筒底部'],4],
+    ['可以點燃酒精燈的是','火柴或點火器',['另一盞燃著的酒精燈','瓦斯爐上的鍋子','把酒精倒在桌上點火'],5],
+  ],
+  words:[
+    ['觀察','用感官或儀器客觀收集現象'],['提出問題','把觀察到的疑惑寫成問句'],['參考文獻資料','查書、上網並確認可信度'],
+    ['假說','問題可能的答案，不一定正確'],['實驗組','接受要探討處理的那一組'],['對照組','不做該項處理、用來比較的一組'],
+    ['操作變因','實驗組與對照組唯一不同的因素'],['控制變因','實驗組與對照組保持相同的因素'],['應變變因','實驗後測量或比較的結果'],
+    ['學說','經多次驗證並被廣泛接受的假說'],
+  ],
+  sorts:[
+    {title:'科學方法：這句話是哪一步？',tip:'「發現…」＝觀察；問句＝提出問題；「可能／或許」＝假說；動手比較＝實驗；「所以…」＝結論',
+     buckets:['觀察','提出問題','提出假說','進行實驗','提出結論'],
+     items:[['小華發現放了好幾天的吐司長出綠色斑點',0],['吐司為什麼會發霉呢？',1],['吐司發霉可能和溼度有關',2,'「可能…」是假說'],
+       ['取兩片吐司，一片噴水、一片不噴，放在相同溫度下',3],['噴水的吐司較快發霉，所以溼度會影響發霉速度',4],
+       ['小美看到被噴肥皂水的蟑螂翻倒死亡',0],['肥皂水為什麼能殺死蟑螂？',1],['或許洗碗精水也能殺死蟑螂',2,'「或許…」也是假說，不是問題'],
+       ['分別對蟑螂噴洗碗精水和自來水，記錄死亡數',3],['洗碗精水確實能殺死蟑螂',4]]},
+    {title:'變因分類：三個實驗一起來',tip:'操作＝故意改變的那一個；控制＝保持相同；應變＝最後量到的結果',
+     buckets:['操作變因','控制變因','應變變因'],
+     items:[['（綠豆實驗）培養的溫度',0],['（綠豆實驗）每天澆水量',1],['（綠豆實驗）綠豆的數量與品種',1],['（綠豆實驗）發芽的綠豆數',2],
+       ['（毛毛蟲實驗）餵食葉子的顏色',0],['（毛毛蟲實驗）結成的繭的顏色',2],['（毛毛蟲實驗）毛毛蟲的種類與數量',1],
+       ['（麵糰實驗）有沒有加酵母菌',0],['（麵糰實驗）麵糰膨脹的高度',2],['（麵糰實驗）麵粉量與水溫',1]]},
+    {title:'實驗室安全：對還是錯？',tip:'酒精燈、量筒、顯微鏡的使用規則各校常考',
+     buckets:['正確做法','錯誤做法'],
+     items:[['用燈罩蓋熄酒精燈',0],['用嘴吹熄酒精燈',1],['拿燃著的酒精燈去點另一盞',1,'容易漏出酒精起火'],['酒精燈的酒精量約 1/2～2/3',0],
+       ['把量筒放在酒精燈上直接加熱',1,'量筒不可加熱'],['讀量筒時視線與液面凹處最低點等高',0],['搬顯微鏡時一手握鏡臂、一手托鏡座',0,'課本實驗 1-1 的拿法'],
+       ['加熱試管時把管口對著同學',1],['酒精只剩不到 1/4 就添加',0]]},
+  ],
+  mcq:[
+    {q:'新聞報導：「這幾年流感病例減少，或許是因為民眾出門都習慣戴口罩。」這段話屬於科學方法中的哪一步？',o:['提出假說','觀察','提出問題','分析實驗結果'],a:0,src:'12 校都考',ex:'「或許是因為……」是對現象提出的可能解釋，所以是提出假說；假說不一定正確，要靠實驗驗證。'},
+    {q:'設計對照實驗時，研究者「刻意改變」、而且每次只設定一項的因素，叫做什麼？',o:['操作變因','控制變因','應變變因','實驗誤差'],a:0,src:'',ex:'刻意改變、只能有一個的是操作變因；保持相同的是控制變因；最後測量的結果是應變變因。'},
+    {q:'阿傑想探討「溫度」對綠豆發芽的影響，準備四盆綠豆：甲（25℃、照光、每天澆水 2 次）、乙（25℃、不照光、每天澆水 2 次）、丙（15℃、照光、每天澆水 1 次）、丁（15℃、照光、每天澆水 2 次）。應選哪兩盆比較？',o:['甲和丁','甲和丙','乙和丁','甲和乙'],a:0,src:'5 校題型',ex:'甲、丁只有溫度不同，其他條件都一樣。甲和丙有溫度、澆水兩個條件不同；甲和乙比較的是照光。'},
+    {q:'小安連續量了三次同一株植物的高度，得到 12.1、12.4、11.9 公分。想讓結果更可信，下列哪個做法最合適？',o:['重複多次測量再取平均','增加操作變因','減少控制變因','只採用最大的那一次'],a:0,src:'',ex:'課本：實驗至少重複 3 次以減少誤差。增加操作變因反而讓結果無法判斷。'},
+    {q:'在「酵母菌是否讓麵糰膨脹」的實驗中，有加酵母菌的那一組麵糰稱為什麼？',o:['實驗組','對照組','控制變因','應變變因'],a:0,src:'課本實驗',ex:'接受要探討處理（加酵母菌）的是實驗組；沒加酵母菌、拿來比較的是對照組。'},
+    {q:'承上題，實驗中每 5 分鐘記錄一次「麵糰的高度」，麵糰高度屬於哪一種變因？',o:['應變變因','操作變因','控制變因','不是變因'],a:0,src:'課本實驗',ex:'實驗後要測量、比較的結果是應變變因；加不加酵母菌才是操作變因。'},
+    {q:'關於「假說」與「學說」，下列敘述何者正確？',o:['學說可能因為新的證據而被修正','假說一定是正確的','名人提出的說法就是學說','學說一旦形成就永遠不會改變'],a:0,src:'',ex:'假說只是可能的答案；經多次驗證並被接受才可能成為學說，而學說遇到新證據仍可能被修正或捨棄。'},
+    {q:'小羽看到不同毛毛蟲結成不同顏色的繭，他認為「繭的顏色可能和吃的葉子顏色有關」，於是用不同顏色的葉子餵同種的毛毛蟲。這個實驗的操作變因是什麼？',o:['餵食葉子的顏色','繭的顏色','毛毛蟲的數量','毛毛蟲的種類'],a:0,src:'',ex:'故意改變的是葉子顏色（操作變因）；繭的顏色是量到的結果（應變變因）；毛毛蟲種類與數量要相同（控制變因）。'},
+    {q:'小智把吐司分成四組密封：甲（不噴水、25℃）、乙（噴水、25℃）、丙（噴水、5℃）、丁（不噴水、5℃）。想知道「溼度」是否影響發霉速度，應比較哪兩組？',o:['甲和乙','甲和丙','乙和丙','乙和丁'],a:0,src:'課本題型',ex:'要探討溼度，只能讓「噴不噴水」不同、溫度相同：甲、乙都是 25℃。乙和丙比較的是溫度。'},
+    {q:'承上題，結果噴水且 25℃ 的吐司發霉最快，不噴水且 5℃ 的幾乎沒有發霉。吃不完的吐司最好怎麼保存？',o:['低溫乾燥','溫暖潮溼','溫暖乾燥','低溫潮溼'],a:0,src:'課本題型',ex:'溫度低、溼度低兩個條件都不利黴菌生長，所以低溫乾燥最能保持新鮮。'},
+    {q:'阿明說：「潮溼溫暖的環境容易讓麵包發霉。」若要確認這句話是否正確，下一步最適合做什麼？',o:['設計並進行實驗','提出假說','再觀察一次發霉的麵包','直接寫成結論'],a:0,src:'',ex:'這句話本身已經是假說，下一步就是設計實驗驗證它。不少同學誤選「提出假說」。'},
+    {q:'下列何者是熄滅酒精燈的正確方法？',o:['用燈罩蓋熄','用嘴吹熄','用溼紙巾擦熄','把酒精燈倒過來'],a:0,src:'',ex:'用燈罩蓋住隔絕空氣就會熄滅。用嘴吹可能讓火焰往燈內竄，很危險。'},
+    {q:'用量筒量取 20 毫升的水，讀刻度時應該怎麼做？',o:['視線與液面凹處的最低點等高','視線與液面最高點等高','從量筒上方往下看','把量筒拿起來傾斜著看'],a:0,src:'',ex:'量筒要放在水平桌面，眼睛平視液面凹下去的最低點。量筒也不可以加熱。'},
+    {q:'關於實驗設計，下列何者正確？',o:['一個實驗可以有好幾個實驗組，但每次只探討一個操作變因','實驗組和對照組的控制變因要不同','對照組可有可無，不影響結論','應變變因要在實驗前就決定好數值'],a:0,src:'',ex:'例如探討溫度可以設 10℃、20℃、30℃ 好幾個實驗組，但都只改變溫度一項；控制變因必須相同。'},
+  ]
+},
+c2:{
+  no:'1-2', title:'生命現象與生物圈', author:'生命現象｜適應｜生物圈｜細胞的發現', color:'linear-gradient(135deg,#2f6b3f,#6aa86b)',
+  desc:'四種生命現象｜生物圈 20 公里｜虎克', code:2, quickAsk:ASK,
+  quick:[
+    ['生物「察覺環境變化並產生反應」屬於','感應與運動',['代謝','生殖','生長與發育'],11],
+    ['生物體內的分解與合成，常伴隨能量轉換','代謝',['生殖','感應與運動','生長與發育'],11],
+    ['毛毛蟲變成蝴蝶屬於','生長與發育',['生殖','代謝','感應與運動'],11],
+    ['含羞草被碰觸後葉片閉合屬於','感應與運動',['代謝','生長與發育','生殖'],11],
+    ['母雞孵出小雞屬於','生殖',['代謝','感應與運動','生長與發育'],11],
+    ['鐘乳石慢慢變大是不是生命現象','不是',['是，屬於生長','是，屬於代謝','是，屬於生殖'],6],
+    ['地球上所有生物和其賴以生存的環境合稱','生物圈',['大氣層','地殼','海洋'],12],
+    ['以海平面為基準，生物圈約上、下各','1 萬公尺',['100 公尺','100 公里','1000 公里'],12],
+    ['把地球比作一顆蘋果，生物圈比什麼還薄','一層果皮',['果肉','果核','半顆蘋果'],8],
+    ['深海很難找到藻類，主要原因是缺乏','陽光',['氧氣','水','壓力'],6],
+    ['仙人掌針狀的葉可以','減少水分散失',['大量吸收陽光','儲存養分','捕捉昆蟲'],7],
+    ['水筆仔能適應河口環境，靠的是','胎生苗',['針狀葉','肥厚的莖','發光構造'],7],
+    ['蝙蝠在黑暗洞穴中靠什麼感知環境','回聲定位',['發光器官','葉綠體','嗅覺'],7],
+    ['第一位描述並命名「細胞」的科學家','虎克',['雷文霍克','許旺','菲可'],8],
+    ['虎克在軟木薄片中看到的其實是','死細胞留下的細胞壁',['活的細胞核','葉綠體','細菌'],8],
+    ['改良顯微鏡、發現許多細菌與微生物的是','雷文霍克',['虎克','布朗','許萊登'],0],
+    ['細胞學說的核心內容','細胞是生物體構造與功能的基本單位',['所有細胞都有細胞壁','細胞都能用肉眼看見','原子是生命的基本單位'],8],
+    ['提出「每一個細胞都來自另一個細胞」的是','菲可',['虎克','許旺','詹森父子'],0],
+    ['絕大多數生物維持生命所需的條件','日光、空氣、水和養分',['只要水','日光和岩石','空氣和聲音'],7],
+  ],
+  words:[
+    ['代謝','體內分解與合成作用，伴隨能量轉換'],['生殖','成熟個體產生新個體，延續生命'],['生長與發育','細胞增大變多、形態功能趨於成熟'],
+    ['感應與運動','察覺環境變化並產生反應'],['生物圈','所有生物和其賴以生存的環境'],['回聲定位','蝙蝠在黑暗中感知環境的方式'],
+    ['胎生苗','水筆仔種子在樹上長成的筆狀幼苗'],['虎克','用自製顯微鏡看軟木，命名細胞'],['許旺','把許萊登的論點擴大到動物，發表細胞學說'],
+    ['細胞學說','細胞是生物體構造與功能的基本單位'],
+  ],
+  sorts:[
+    {title:'這是哪一種生命現象？',tip:'不是生物做出來的變化（鐘乳石、汽車、冷氣），或只是水的移動，都不算生命現象',
+     buckets:['代謝','生殖','生長與發育','感應與運動','不是生命現象'],
+     items:[['植物吸收光能製造養分',0],['動物消化食物獲得養分',0],['花栗鼠生下幼鼠',1],['草履蟲分裂成兩隻',1],['蝌蚪長成青蛙',2],['種子長成大樹',2],
+       ['植物朝向光照充足的方向生長',3],['花栗鼠在氣溫太低時冬眠',3],['鐘乳石越長越大',4],['汽車加油後在路上跑',4],['冷氣被遙控器打開',4],
+       ['一滴紅墨水在清水中慢慢散開',4,'只是物質的擴散，不是生物的表現']]},
+    {title:'牠／它住在哪裡？生物適應環境',tip:'看特殊構造或行為，推回適應的環境',
+     buckets:['深海','沙漠','河口','洞穴','極地冰原'],
+     items:[['身體能發光，用來辨識、捕食或避敵',0],['肥厚的莖儲水、針狀的葉',1],['種子在母樹上長成胎生苗',2],['用回聲定位在夜間出沒',3],['厚厚的脂肪和皮毛',4],['有共生細菌發光引誘小魚',0]]},
+  ],
+  mcq:[
+    {q:'小組整理生命現象的筆記，哪一則例子被放錯了類別？',o:['感應與運動：毛毛蟲變成蝴蝶','生殖：雞蛋孵出小雞','代謝：植物吸收光能製造養分','感應與運動：含羞草被碰觸後葉片閉合'],a:0,src:'題型',ex:'毛毛蟲變成蝴蝶是形態與功能趨於成熟，屬於生長與發育；感應與運動是察覺環境變化並產生反應。'},
+    {q:'研究潛艇下潛到海面下約 500 公尺的黑暗海域，拍到會發光的魚和蝦，卻找不到任何海藻。造成這種現象最主要的因素是什麼？',o:['缺乏陽光','溫度太低','水壓太大','缺乏氧氣'],a:0,src:'',ex:'藻類要行光合作用，需要陽光；深海光線照不到。注意：深海仍屬於生物圈。'},
+    {q:'小芸寫了四句關於生物圈的筆記，哪一句寫錯了？',o:['溫暖多雨的地方適合所有生物生存','熱帶雨林的生物種類比沙漠多','生物在生物圈內的分布並不均勻','生物圈包含生物與牠們生存的環境'],a:0,src:'',ex:'不同生物適應不同環境，例如北極熊、仙人掌就不適合溫暖多雨的地方。'},
+    {q:'依南一課本，下列關於生物圈範圍的敘述何者正確？',o:['可能因生物的適應或滅絕而改變大小','永遠固定不變','包含地球中心','生物在其中均勻分布'],a:0,src:'問法不同',ex:'課本重點：生物圈「可能因生物的適應或滅絕而改變範圍大小」。⚠️ 有學校問「部分物種滅絕後範圍是否不變」，答案隨題目情境而定，要看清楚問法。'},
+    {q:'以海平面為基準，目前生物圈的範圍大約是多少？',o:['海平面上、下各約 1 萬公尺','海平面上、下各約 100 公尺','海平面以上約 100 公里','整個地球的半徑'],a:0,src:'12 校都考',ex:'上、下各約 1 萬公尺，合計約 20 公里；和地球半徑比起來，比蘋果皮還薄。'},
+    {q:'地球分層圖中：甲是 8000 公尺高空、乙是陸地表面、丙是海面下 5000 公尺深海、丁是地心。哪些位置屬於生物圈？',o:['甲、乙、丙','只有乙','乙、丙、丁','甲、乙、丙、丁'],a:0,src:'8 校考地球分層圖',ex:'海平面上下各約 1 萬公尺內都算生物圈；高空仍有微生物，深海也有發光魚。地心不屬於生物圈。'},
+    {q:'下列哪一個環境，生物的種類與數量通常最豐富？',o:['熱帶雨林','沙漠','深海','冰原'],a:0,src:'課本',ex:'課本：珊瑚礁海域和熱帶雨林溫暖、水分充沛，生物種類與數量豐富；沙漠、深海較稀少。'},
+    {q:'某種魚身上有共生細菌會發光，可以吸引小魚靠近再捕食。這種魚最可能生活在哪裡？',o:['深海','淺水珊瑚礁','高山溪流','沙漠綠洲'],a:0,src:'',ex:'深海黑暗，發光有利辨識、捕食或避敵。'},
+    {q:'關於虎克，下列敘述何者正確？',o:['用自製顯微鏡觀察軟木薄片，把格狀構造稱為細胞','提出了細胞學說','在軟木中看到活的細胞核','發明了電子顯微鏡'],a:0,src:'8 校',ex:'虎克看到的是死亡植物細胞留下的細胞壁。細胞學說是後來許萊登、許旺等人提出的——「虎克提出細胞學說」是常見陷阱。'},
+    {q:'細胞學說的主要內容是什麼？',o:['細胞是生物體構造與功能的基本單位','所有細胞都有細胞壁','細胞都大到肉眼可見','只有動物由細胞組成'],a:0,src:'8 校',ex:'許萊登說植物由細胞組成，許旺擴大到動物並發表細胞學說，後來菲可補充「細胞來自細胞」。'},
+    {q:'下列科學家的發現，依時間先後排列何者正確？①許旺發表細胞學說 ②虎克觀察軟木薄片 ③詹森父子發明顯微鏡 ④雷文霍克發現許多微生物',o:['③②④①','②③④①','③④②①','②④③①'],a:0,src:'課本科學漫遊',ex:'1590 詹森父子 → 1665 虎克 → 1673 雷文霍克 → 1839 許旺。'},
+    {q:'向日葵的幼苗會朝向光照充足的方向生長，這屬於哪一種生命現象？',o:['感應與運動','代謝','生殖','生長與發育'],a:0,src:'課本',ex:'察覺環境變化（光的方向）並產生對應反應，屬於感應與運動。'},
+    {q:'下列哪一項「不是」生物？',o:['鐘乳石','黴菌','草履蟲','一顆可以發芽的綠豆'],a:0,src:'',ex:'鐘乳石變大是礦物沉積，沒有代謝、生殖等生命現象。種子雖然看起來不動，但仍是活的。'},
+  ]
+},
+c3:{
+  no:'1-2', title:'顯微鏡與尺度', author:'複式｜解剖｜倍率｜玻片｜μm、nm', color:'linear-gradient(135deg,#29466e,#4f7cc0)',
+  desc:'倍率、影像方向、調節輪（100 題以上最大宗）', code:3, quickAsk:ASK,
+  quick:[
+    ['放大倍率的算法','目鏡倍率×物鏡倍率',['目鏡倍率＋物鏡倍率','物鏡倍率÷目鏡倍率','只看物鏡倍率'],12],
+    ['目鏡 10×、物鏡 40×，放大倍率是','400 倍',['50 倍','4 倍','4000 倍'],12],
+    ['物鏡鏡頭愈長，倍率','愈高',['愈低','不變','歸零'],7],
+    ['目鏡鏡頭愈長，倍率','愈低',['愈高','不變','加倍'],7],
+    ['倍率變高時，視野範圍','變小',['變大','不變','先大後小'],12],
+    ['倍率變高時，視野亮度','變暗',['變亮','不變','變成彩色'],12],
+    ['倍率變高時，看到的細胞數','變少',['變多','不變','先少後多'],12],
+    ['複式顯微鏡看到的影像','上下顛倒、左右相反',['和實物方向相同','只有上下顛倒','只有左右相反'],11],
+    ['解剖顯微鏡看到的影像','方向與實物相同、立體',['上下左右相反','平面且顛倒','只看得到黑白'],10],
+    ['複式顯微鏡中，目標在視野右上方，玻片要往','右上方移',['左下方移','右下方移','左上方移'],11],
+    ['換成高倍物鏡後只能轉','細調節輪',['粗調節輪','眼焦調整器','光圈'],9],
+    ['調節光的通過量、改變視野亮度','光圈',['細調節輪','目鏡','玻片夾'],8],
+    ['解剖顯微鏡兩眼清晰度不同時要調整','眼焦調整器',['光圈','反光鏡','載物板'],6],
+    ['觀察螞蟻、葉面細毛等不透光的表面','解剖顯微鏡',['複式顯微鏡','電子顯微鏡','天文望遠鏡'],10],
+    ['觀察口腔皮膜細胞、草履蟲','複式顯微鏡',['解剖顯微鏡','雙筒望遠鏡','肉眼'],10],
+    ['蓋玻片以 45 度角慢慢放下，目的是','減少氣泡',['加快染色','讓細胞變大','固定標本'],8],
+    ['讓細胞核、細胞膜更明顯的染劑','亞甲藍液',['本氏液','生理食鹽水','酒精'],10],
+    ['1 毫米（mm）＝','1000 微米（μm）',['100 微米','10 微米','1000 奈米'],5],
+    ['1 微米（μm）＝','1000 奈米（nm）',['100 奈米','10 奈米','1 毫米'],5],
+    ['冠狀病毒（約 100 nm）要用什麼觀察','電子顯微鏡',['複式顯微鏡','解剖顯微鏡','放大鏡'],3],
+    ['人的肉眼約可看到的最小長度','0.1 毫米',['0.1 微米','100 奈米','1 公分'],0],
+    ['人的紅血球直徑約','7 微米（μm）',['7 毫米','7 奈米','7 公分'],5],
+    ['顯微鏡用完後要換回','最低倍率物鏡',['最高倍率物鏡','不用換','把物鏡拆下'],0],
+  ],
+  words:[
+    ['目鏡','靠近眼睛的鏡頭，愈短倍率愈高'],['物鏡','靠近標本的鏡頭，愈長倍率愈高'],['光圈','調節光的通過量'],
+    ['粗調節輪','大幅調整標本與物鏡的距離'],['細調節輪','微幅調整，使影像更清晰'],['眼焦調整器','調整一眼焦距，讓雙眼都看清楚'],
+    ['載玻片','放在下面、承載觀察物'],['蓋玻片','蓋在觀察物上方的薄玻片'],['亞甲藍液','染色後細胞核和細胞膜較明顯'],
+    ['電子顯微鏡','能看見病毒等奈米級構造'],
+  ],
+  sorts:[
+    {title:'要用哪一種工具觀察？',tip:'表面、立體、不透光 → 解剖；薄而透光的細胞 → 複式；奈米級的病毒 → 電子顯微鏡',
+     buckets:['肉眼','解剖顯微鏡','複式顯微鏡','電子顯微鏡'],
+     items:[['螞蟻頭部的外形',1],['構樹葉片表面的細毛',1],['蜜蜂的觸角形狀',1],['洋蔥表皮細胞',2],['草履蟲的形態',2],
+       ['水蚤體內跳動的心臟（身體薄而透光）',2],['冠狀病毒（約 100 奈米）',3],['鴕鳥蛋',0],['口腔皮膜細胞的細胞核',2]]},
+    {title:'低倍率還是高倍率？',tip:'高倍：物鏡長、目鏡短、範圍小、細胞大而少、視野暗',
+     buckets:['低倍率','高倍率'],
+     items:[['物鏡較短',0],['目鏡較長',0],['視野範圍較大',0],['看到的細胞數較多',0],['視野較亮',0],
+       ['細胞看起來較大',1],['視野較暗',1],['只能轉細調節輪',1],['光圈要開大',1],['物鏡較長',1]]},
+    {title:'複式顯微鏡操作順序（第幾步？）',tip:'依課本實驗 1-1：先低倍、移到中央、再換高倍',
+     buckets:['第 1 步','第 2 步','第 3 步','第 4 步','第 5 步'],
+     items:[['一手握鏡臂、一手托鏡座，放到桌上',0],['低倍物鏡對準圓孔，調光源與光圈讓亮度適中',1],['先轉粗調節輪看到影像，再轉細調節輪使影像清晰',2],
+       ['把要看的目標移到視野中央',3],['換成高倍物鏡，只微調細調節輪',4]]},
+  ],
+  mcq:[
+    {q:'老師準備了 10× 和 15× 兩支目鏡，以及 4×、10×、40× 三支物鏡。小凱想先找出洋蔥表皮細胞的位置，希望一次看到最大範圍、最多細胞，應選哪一種搭配？',o:['目鏡 10×＋物鏡 4×','目鏡 15×＋物鏡 10×','目鏡 10×＋物鏡 40×','目鏡 15×＋物鏡 40×'],a:0,src:'',ex:'倍率最低（10×4＝40 倍）時，視野範圍最大，看到的細胞最多。'},
+    {q:'小婷用同一支目鏡，把物鏡由 4× 轉成 10×。下列哪一項「不是」她會看到的改變？',o:['視野範圍變大','視野變暗','細胞看起來變大','看到的細胞變少'],a:0,src:'',ex:'倍率變高：範圍變小、變暗、細胞變大變少，影像方向不變。'},
+    {q:'在複式顯微鏡的視野裡，想看的草履蟲停在右上角。要讓牠回到視野正中央，手應該把玻片往哪邊推？',o:['右上方','左下方','右下方','左上方'],a:0,src:'11 校',ex:'影像上下左右相反，所以「影像在哪裡，玻片就往哪裡移」。'},
+    {q:'小傑在複式顯微鏡下把玻片朝下方挪動一點，他從目鏡裡看到的影像會往哪裡跑？',o:['上方','下方','左方','右方'],a:0,src:'',ex:'複式顯微鏡影像上下左右相反：玻片往下，影像往上。'},
+    {q:'把寫有字母「F」的玻片正放在複式顯微鏡下，看到的影像是什麼樣子？',o:['F 轉了半圈（上下顛倒且左右相反）','和原本的 F 一樣','只有上下顛倒','只有左右相反'],a:0,src:'11 校',ex:'複式顯微鏡的影像上下顛倒、左右相反，等於把原圖旋轉 180 度。解剖顯微鏡才和實物方向相同。'},
+    {q:'在低倍物鏡下看到字母 a，換成高倍物鏡後，下列敘述何者正確？',o:['影像變大、看到的範圍變小、方向不變','影像再翻轉一次','看到的範圍變大','影像變小、變亮'],a:0,src:'',ex:'換物鏡不會讓影像再翻轉；倍率變高只會讓影像變大、範圍變小、亮度變暗。'},
+    {q:'換成高倍物鏡後，視野變得太暗，應該怎麼調整？',o:['把光圈開大或把光源調亮','轉粗調節輪','換成較長的目鏡','把玻片拿掉'],a:0,src:'8 校',ex:'光圈和光源（或反光鏡）負責調節亮度；調節輪是對焦用的。'},
+    {q:'換成高倍物鏡後影像有點模糊，應該怎麼做？',o:['微調細調節輪','大幅轉動粗調節輪','調整眼焦調整器','把光圈關小'],a:0,src:'9 校',ex:'高倍物鏡很長、離玻片很近，轉粗調節輪可能壓破玻片、傷到鏡頭，只能用細調節輪。'},
+    {q:'關於解剖顯微鏡，下列敘述何者正確？',o:['兩眼同時觀察，影像立體、方向與實物相同','可放大的倍率比複式顯微鏡高','標本一定要切成透光的薄片','影像上下顛倒、左右相反'],a:0,src:'10 校',ex:'解剖顯微鏡適合看物體表面，倍率較低；複式顯微鏡倍率較高，標本要做成透光薄片，影像上下左右相反。'},
+    {q:'小儒想看清楚構樹葉片表面的細毛，最適合用哪一種工具？',o:['解剖顯微鏡','複式顯微鏡','電子顯微鏡','天文望遠鏡'],a:0,src:'課本題型',ex:'葉片表面的細毛是立體、不透光的表面構造，用解剖顯微鏡最合適。'},
+    {q:'製作玻片標本時，蓋玻片的一邊先接觸水滴，再以約 45 度角慢慢放下，主要目的是什麼？',o:['減少氣泡產生','讓細胞染色','讓觀察物變薄','讓水分蒸發'],a:0,src:'8 校',ex:'氣泡會擋住視野。載玻片在下、蓋玻片在上，觀察物夾在中間。'},
+    {q:'用顯微鏡觀察口腔皮膜細胞時，想看清楚細胞核，應先怎麼處理？',o:['用亞甲藍液染色','用本氏液加熱','滴一滴碘液在嘴裡','改用解剖顯微鏡'],a:0,src:'',ex:'亞甲藍液讓細胞核與細胞膜較明顯。水蘊草的葉綠體本身是綠色，不染色就看得到。'},
+    {q:'有長、短兩支目鏡，以及長、短兩支物鏡。想在視野中看到最多細胞，應該選哪一組？',o:['長目鏡＋短物鏡','短目鏡＋長物鏡','長目鏡＋長物鏡','短目鏡＋短物鏡'],a:0,src:'',ex:'目鏡愈長倍率愈低、物鏡愈短倍率愈低，兩者都選低倍，總倍率最低、範圍最大。'},
+    {q:'冠狀病毒直徑約 100 奈米（nm），紅血球直徑約 7 微米（μm）。紅血球的直徑大約是病毒的幾倍？',o:['70 倍','7 倍','700 倍','7000 倍'],a:0,src:'課本',ex:'7 μm＝7000 nm，7000÷100＝70 倍。照片上看起來一樣大，要看比例尺。'},
+    {q:'使用解剖顯微鏡時，眼焦調整器在右邊目鏡。下列操作順序何者正確？',o:['先閉右眼用左眼轉調節輪對焦，再閉左眼調右眼的眼焦調整器','先調眼焦調整器，再轉調節輪','兩眼都閉上再調','只用一隻眼睛看就好'],a:0,src:'',ex:'先用「沒有眼焦調整器」的那一眼對焦，再用眼焦調整器修正另一眼，最後兩眼同時觀察。'},
+  ]
+},
+c4:{
+  no:'1-3', title:'細胞的形態與構造', author:'細胞核｜膜｜壁｜粒線體｜葉綠體｜液泡', color:'linear-gradient(135deg,#7a3b69,#b5679f)',
+  desc:'構造功能｜動植物細胞｜保衛細胞', code:4, quickAsk:ASK,
+  quick:[
+    ['含遺傳物質，是細胞的生命中樞','細胞核',['細胞膜','液泡','細胞壁'],10],
+    ['區隔細胞內外、控制物質進出','細胞膜',['細胞壁','細胞核','葉綠體'],12],
+    ['細胞進行各種代謝的主要場所','細胞質',['細胞壁','細胞膜','細胞核'],0],
+    ['產生細胞活動所需的能量','粒線體',['葉綠體','液泡','細胞核'],11],
+    ['能行光合作用產生養分','葉綠體',['粒線體','細胞核','細胞膜'],12],
+    ['可暫存水分、養分和廢物','液泡',['細胞核','粒線體','細胞膜'],6],
+    ['由纖維素組成，保護並維持細胞形狀','細胞壁',['細胞膜','細胞質','液泡'],11],
+    ['動物細胞的最外層構造','細胞膜',['細胞壁','細胞核','葉綠體'],0],
+    ['區分動、植物細胞最可靠的構造','細胞壁',['葉綠體','粒線體','細胞核'],6],
+    ['保衛細胞的功能','控制氣孔開閉',['保護內部構造','運送氧氣','傳遞訊息'],6],
+    ['植物表皮細胞的功能','保護內部構造',['控制氣孔開閉','行光合作用','產生大量能量'],6],
+    ['形狀細長，能收縮舒張引起運動','肌肉細胞',['神經細胞','紅血球','皮膜細胞'],12],
+    ['有許多延伸的突起，能接收與傳送訊息','神經細胞',['肌肉細胞','紅血球','保衛細胞'],12],
+    ['雙凹圓盤狀，有利於運送氧氣','紅血球',['神經細胞','肌肉細胞','表皮細胞'],12],
+    ['大到肉眼可見的細胞例子','鳥類的卵細胞',['紅血球','口腔皮膜細胞','細菌'],4],
+    ['洋蔥鱗葉表皮細胞有沒有葉綠體','沒有',['有很多','只有白天有','有，但是紅色'],8],
+    ['動物細胞與植物細胞「都有」的是','粒線體',['細胞壁','葉綠體','纖維素'],8],
+    ['不需染色就能在水蘊草細胞看到的','葉綠體',['細胞核','細胞膜','粒線體'],6],
+    ['肌肉、肝臟細胞消耗能量多，含較多','粒線體',['葉綠體','細胞壁','液泡'],3],
+  ],
+  words:[
+    ['細胞核','含遺傳物質，細胞的生命中樞'],['細胞質','進行代謝的主要場所'],['細胞膜','區隔內外、控制物質進出'],
+    ['細胞壁','纖維素組成，保護並維持形狀'],['粒線體','產生細胞活動所需的能量'],['葉綠體','行光合作用產生養分'],
+    ['液泡','暫存水分、養分和廢物'],['保衛細胞','半月形、兩兩成對，控制氣孔開閉'],['表皮細胞','扁平、排列緊密，保護內部'],
+    ['紅血球','雙凹圓盤狀，運送氧氣'],
+  ],
+  sorts:[
+    {title:'動、植物細胞構造歸屬',tip:'課本表格：細胞壁只有植物有；葉綠體只有「綠色」植物細胞有',
+     buckets:['動、植物細胞都有','植物細胞才有','只有部分植物細胞有'],
+     items:[['細胞核',0],['細胞膜',0],['細胞質',0],['粒線體',0],['液泡',0,'課本表格動物細胞也打 ○（較小）'],['細胞壁',1],['葉綠體',2,'綠色細胞才有'],['遺傳物質',0]]},
+    {title:'細胞形態與功能',tip:'形狀和功能有關：扁平＝保護；突起＝傳訊；細長＝運動',
+     buckets:['保護','運送氧氣','傳遞訊息','引起運動','控制氣孔'],
+     items:[['口腔皮膜細胞（扁平）',0],['洋蔥表皮細胞（扁平、排列緊密）',0],['紅血球（雙凹圓盤狀）',1],['神經細胞（許多突起）',2],['肌肉細胞（細長）',3],['保衛細胞（半月形、兩兩成對）',4]]},
+    {title:'有沒有葉綠體？',tip:'不是所有植物細胞都有葉綠體；保衛細胞有，表皮細胞沒有',
+     buckets:['有葉綠體','沒有葉綠體'],
+     items:[['水蘊草葉片細胞',0],['保衛細胞',0],['洋蔥鱗葉表皮細胞',1],['葉的表皮細胞',1],['植物根部的細胞',1],['口腔皮膜細胞',1],['新月藻',0],['紅血球',1]]},
+  ],
+  mcq:[
+    {q:'一棵數十公尺高的大樹沒有骨骼，卻能撐起自己的身體不倒下。這主要和植物細胞的哪一種構造有關？',o:['細胞壁','細胞核','細胞膜','液泡'],a:0,src:'',ex:'細胞壁由纖維素組成，能保護細胞並維持形狀，支撐植物體。'},
+    {q:'跑步時，腿部的肌肉細胞要不停收縮，消耗大量能量。推測這類細胞中，哪一種構造的數量會特別多？',o:['粒線體','葉綠體','液泡','細胞壁'],a:0,src:'',ex:'粒線體負責產生細胞活動所需的能量；耗能愈多的細胞，粒線體愈多。'},
+    {q:'做親子鑑定或身分比對時，主要要分析細胞中哪一個構造裡的物質？',o:['細胞核','細胞膜','細胞壁','葉綠體'],a:0,src:'10 校',ex:'細胞核內含遺傳物質，是細胞的生命中樞。'},
+    {q:'在顯微鏡下判斷一個細胞是動物細胞還是植物細胞，最可靠的依據是什麼？',o:['有沒有細胞壁','有沒有葉綠體','有沒有細胞核','有沒有粒線體'],a:0,src:'',ex:'很多植物細胞（如洋蔥表皮、根細胞）沒有葉綠體，所以「沒有葉綠體」不代表是動物細胞；細胞壁才是最準的依據。'},
+    {q:'觀察葉的下表皮，比較保衛細胞與表皮細胞，下列敘述何者正確？',o:['保衛細胞有葉綠體，能控制氣孔開閉','表皮細胞也能行光合作用製造養分','保衛細胞的主要功能是保護','只有保衛細胞有粒線體'],a:0,src:'',ex:'保衛細胞呈半月形、兩兩成對，有葉綠體，可調節氣孔大小；表皮細胞扁平、沒有葉綠體，負責保護。兩者都有細胞核、細胞壁和粒線體。'},
+    {q:'下列細胞與功能的配對，何者錯誤？',o:['紅血球：製造氧氣','神經細胞：接收與傳送訊息','肌肉細胞：收縮舒張引起運動','口腔皮膜細胞：保護內部構造'],a:0,src:'',ex:'紅血球的功能是「運送」氧氣，不是製造氧氣。'},
+    {q:'動物細胞最外層的構造是什麼？',o:['細胞膜','細胞壁','細胞質','細胞核'],a:0,src:'課本',ex:'動物細胞沒有細胞壁，最外層是細胞膜；植物細胞在細胞膜外還有細胞壁。'},
+    {q:'關於葉綠體，下列敘述何者正確？',o:['不是所有植物細胞都有葉綠體','動物細胞也有葉綠體','葉綠體負責控制物質進出','觀察葉綠體一定要先用亞甲藍液染色'],a:0,src:'8 校',ex:'葉綠體只存在於部分植物細胞（綠色細胞）；本身是綠色，不用染色就看得到。'},
+    {q:'甲細胞約有 1000 個粒線體，乙細胞約有 200 個粒線體。下列推論何者最合理？',o:['甲細胞的能量產生比較旺盛','甲細胞較能行光合作用','甲細胞會產生較多氧氣','甲細胞一定是植物細胞'],a:0,src:'',ex:'粒線體分解養分、產生能量。吸收光能、產生氧氣是葉綠體的工作。'},
+    {q:'觀察水蘊草葉片時，看到細胞內有許多綠色顆粒，這是什麼構造？功能為何？',o:['葉綠體，行光合作用產生養分','粒線體，產生能量','細胞核，控制生命活動','液泡，暫存廢物'],a:0,src:'課本實驗 1-2',ex:'綠色顆粒是葉綠體，可以行光合作用產生養分。'},
+    {q:'下列哪一個構造能控制物質進出細胞？',o:['細胞膜','細胞壁','液泡','葉綠體'],a:0,src:'',ex:'細胞壁只負責保護和支持，不能控制物質進出——這是常見陷阱。'},
+    {q:'下列哪一種細胞大到用肉眼就能看見？',o:['鴕鳥蛋中的卵細胞','水蘊草葉片細胞','人的紅血球','口腔皮膜細胞'],a:0,src:'課本、4 校',ex:'鳥類的卵細胞（蛋黃部分）大到肉眼可見；大部分細胞要用顯微鏡觀察。'},
+    {q:'下列哪一組構造，動物細胞和植物細胞都具有？',o:['細胞核、細胞膜、粒線體','細胞壁、細胞膜、細胞核','葉綠體、粒線體、細胞膜','細胞壁、葉綠體、液泡'],a:0,src:'12 校都考',ex:'細胞核、細胞質、細胞膜、粒線體、液泡兩者都有；細胞壁只有植物細胞，葉綠體只有綠色植物細胞。'},
+    {q:'洋蔥鱗葉表皮細胞和人的口腔皮膜細胞相比，洋蔥表皮細胞多了哪一種構造？',o:['細胞壁','細胞核','粒線體','細胞膜'],a:0,src:'課本實驗 1-2',ex:'洋蔥表皮細胞有細胞壁，但沒有葉綠體；口腔皮膜細胞沒有細胞壁。'},
+  ]
+},
+c5:{
+  no:'1-4', title:'細胞的組成與物質進出', author:'原子分子｜擴散｜滲透｜醃漬', color:'linear-gradient(135deg,#1f6f8b,#47a3c4)',
+  desc:'紅血球三杯食鹽水｜醃漬脫水｜進出細胞膜', code:5, quickAsk:ASK,
+  quick:[
+    ['組成物質最基本的單位','原子',['分子','細胞','組織'],9],
+    ['數個原子組合成','分子',['細胞','組織','器官'],9],
+    ['葡萄糖 C6H12O6 由幾「種」原子組成','3 種',['6 種','12 種','24 種'],5],
+    ['一個葡萄糖分子 C6H12O6 共有幾「個」原子','24 個',['3 個','6 個','12 個'],5],
+    ['許多葡萄糖分子連結成','澱粉',['蛋白質','脂質','胺基酸'],5],
+    ['許多胺基酸分子連結成','蛋白質',['澱粉','葡萄糖','纖維素'],0],
+    ['物質由高濃度往低濃度移動，最後均勻分布','擴散作用',['滲透作用','光合作用','合成作用'],8],
+    ['水通過細胞膜的擴散作用又稱為','滲透作用',['蒸發作用','光合作用','分解作用'],12],
+    ['可以「直接」通過細胞膜的是','氧氣、二氧化碳',['澱粉、蛋白質','葡萄糖、胺基酸','礦物質'],12],
+    ['要經過細胞膜上「特殊構造」才能通過的是','葡萄糖、胺基酸、礦物質',['氧氣、二氧化碳','澱粉','蛋白質'],12],
+    ['兩種方式都能進出細胞膜的是','水',['氧氣','澱粉','蛋白質'],12],
+    ['澱粉、蛋白質要進入細胞必須先','分解成小分子',['加熱','加鹽','染色'],12],
+    ['紅血球放入清水中會','膨脹甚至破裂',['萎縮','保持原狀','長出細胞壁'],7],
+    ['紅血球放入濃食鹽水中會','脫水萎縮',['膨脹破裂','保持原狀','變成雙凹圓盤'],7],
+    ['植物細胞放入清水不會脹破，是因為有','細胞壁',['大液泡','葉綠體','細胞核'],5],
+    ['植物細胞放進濃鹽水，細胞膜與細胞壁分開','質壁分離',['細胞分裂','光合作用','擴散作用'],5],
+    ['與細胞質濃度相近、細胞能保持原狀的溶液','生理食鹽水',['清水','濃食鹽水','濃糖水'],5],
+    ['醃漬食物不易腐壞，是因為微生物','脫水而難以生長',['被鹽毒死','吸水脹破','被細胞壁擋住'],6],
+    ['電影院裡炸雞香味傳開，是因為','擴散作用',['滲透作用','感應與運動','光合作用'],4],
+    ['擴散作用需不需要消耗能量','不需要',['需要大量','只在白天需要','只有動物需要'],6],
+  ],
+  words:[
+    ['原子','組成物質最基本的單位'],['分子','數個原子組合而成，如水、氧氣'],['澱粉','許多葡萄糖分子連結而成'],
+    ['蛋白質','許多胺基酸分子連結而成'],['擴散作用','由高濃度往低濃度移動，最後均勻'],['滲透作用','水通過細胞膜的擴散'],
+    ['生理食鹽水','與細胞質濃度相近的食鹽水'],['質壁分離','植物細胞失水，細胞膜與細胞壁分開'],['膜上特殊構造','讓葡萄糖、胺基酸、礦物質通過'],
+    ['萎縮','細胞外較濃，水分流出細胞'],
+  ],
+  sorts:[
+    {title:'物質怎麼進出細胞膜？',tip:'小的氣體直接過；葡萄糖、胺基酸、礦物質走特殊構造；水兩種都行；大分子先分解',
+     buckets:['直接通過','經膜上特殊構造','兩種都可以','要先分解才能進入'],
+     items:[['氧氣',0],['二氧化碳',0],['葡萄糖',1],['胺基酸',1],['礦物質',1],['水',2],['澱粉',3],['蛋白質',3]]},
+    {title:'細胞放進去會怎樣？',tip:'外面比較稀 → 水跑進去；外面比較濃 → 水跑出來',
+     buckets:['膨脹（動物細胞可能破裂）','保持原狀','萎縮／質壁分離'],
+     items:[['紅血球滴入清水',0],['紅血球滴入生理食鹽水',1],['紅血球滴入濃食鹽水',2],['紫色洋蔥表皮放入濃糖水',2],
+       ['水蘊草葉片放入清水',0,'植物細胞會膨脹，但有細胞壁所以不會破'],['高麗菜灑上大量鹽',2],['口腔皮膜細胞放入生理食鹽水',1],['醃芒果青時的芒果果肉細胞',2]]},
+    {title:'由大到小排一排',tip:'細胞＞粒線體＞蛋白質／澱粉＞葡萄糖＞原子',
+     buckets:['最大','第二','第三','第四','最小'],
+     items:[['一個細胞',0],['一個粒線體',1],['一個澱粉分子',2],['一個葡萄糖分子',3],['一個碳原子',4]]},
+  ],
+  mcq:[
+    {q:'小腸吸收養分時，哪一組物質必須借助細胞膜上的特殊構造才能進入細胞？',o:['葡萄糖、胺基酸','氧氣、二氧化碳','澱粉、蛋白質','二氧化碳、澱粉'],a:0,src:'12 校都考',ex:'氧氣、二氧化碳可直接通過；葡萄糖、胺基酸、礦物質走特殊構造；澱粉、蛋白質太大，要先分解。'},
+    {q:'小華把血液分別滴進 A、B、C 三種濃度的食鹽水，在顯微鏡下看到：A 的紅血球縮小變皺、B 的紅血球維持雙凹圓盤狀、C 的紅血球脹大甚至破掉。三杯食鹽水由濃到稀的順序為何？',o:['A＞B＞C','C＞B＞A','B＞A＞C','A＞C＞B'],a:0,src:'7 校',ex:'萎縮＝外面比較濃（最濃）；雙凹圓盤＝和細胞質濃度相近；破裂＝外面最稀，水大量進入。'},
+    {q:'做泡菜時，媽媽在切好的大白菜上抹了一層粗鹽，一小時後盆底多了許多水。白菜細胞發生了什麼事？',o:['水分流出，細胞脫水萎縮','吸收鹽分而膨脹','完全沒有變化','吸水膨脹並破裂'],a:0,src:'',ex:'細胞外的鹽濃度高，水以滲透作用流出細胞。'},
+    {q:'醃漬的食物不容易腐壞，原因是什麼？',o:['微生物的水分因滲透作用流出，脫水而難以生長','鹽讓微生物中毒死亡','水滲入微生物使它脹破','鹽把食物的細胞壁溶解'],a:0,src:'',ex:'醃漬是讓「水分流出」——不是鹽有毒。這是學生最常錯的地方之一。'},
+    {q:'一個葡萄糖分子含有 6 個碳原子、12 個氫原子和 6 個氧原子。葡萄糖是由幾「種」原子組成的？',o:['3 種','6 種','12 種','24 種'],a:0,src:'',ex:'碳、氫、氧 3 種原子；一個分子共有 6＋12＋6＝24 個原子。注意「種」和「個」。'},
+    {q:'物質通過細胞膜示意圖中：甲物質直接穿過細胞膜；乙物質經過膜上的特殊構造；丙物質被擋在膜外。丙最可能是什麼？',o:['澱粉','氧氣','葡萄糖','水'],a:0,src:'8 校考這張圖',ex:'澱粉、蛋白質這類大分子無法直接通過，要先分解成葡萄糖、胺基酸。'},
+    {q:'承上題，甲物質最可能是什麼？',o:['二氧化碳','胺基酸','蛋白質','礦物質'],a:0,src:'8 校考這張圖',ex:'氧氣、二氧化碳可以直接通過細胞膜；水則兩種方式都可以。'},
+    {q:'在一杯清水中滴入一滴紅墨水，不攪拌，過一段時間整杯水變成均勻的紅色。這是什麼現象？',o:['擴散作用，不需消耗能量','滲透作用，需要消耗能量','代謝作用','光合作用'],a:0,src:'課本、8 校',ex:'物質由高濃度往低濃度移動、最後均勻分布＝擴散。液體、氣體都會擴散，也不是生命現象。'},
+    {q:'把植物細胞放進清水中，細胞會膨脹但不會破裂，主要原因是什麼？',o:['有細胞壁保護','液泡很大','有葉綠體','細胞膜比較厚'],a:0,src:'',ex:'細胞壁能維持細胞形狀，所以不會脹破。不是因為液泡大。'},
+    {q:'某種細胞在 0.6% 食鹽水中破裂、在 1.2% 食鹽水中萎縮。這種細胞的生理食鹽水濃度最可能是多少？',o:['0.9%','0.3%','0.5%','1.5%'],a:0,src:'',ex:'保持原狀的濃度要介於「破裂」和「萎縮」之間，所以在 0.6%～1.2% 之間。'},
+    {q:'關於擴散作用，下列敘述何者正確？',o:['不需消耗能量，由高濃度往低濃度移動','只有氣體會擴散','需要消耗大量能量','是生物才有的生命現象'],a:0,src:'',ex:'擴散在自然狀態下就會發生，液體、氣體都會擴散；擴散和滲透都不是生命現象。'},
+    {q:'若細胞外的溶液比細胞質濃很多，細胞內的水分會怎麼移動？',o:['水分流出細胞，細胞萎縮','水分流入細胞，細胞膨脹','水分不移動','鹽分流入細胞，細胞膨脹'],a:0,src:'運動飲料閱讀',ex:'滲透作用中水由「水多（稀）」往「水少（濃）」移動，外面濃，水就往外跑。'},
+    {q:'下列物質由大到小的排列，何者正確？',o:['細胞＞蛋白質＞葡萄糖＞原子','原子＞葡萄糖＞蛋白質＞細胞','蛋白質＞細胞＞原子＞葡萄糖','葡萄糖＞蛋白質＞細胞＞原子'],a:0,src:'9 校',ex:'原子組成分子（葡萄糖），小分子連成大分子（蛋白質、澱粉），大分子再組成細胞。'},
+    {q:'把紫色洋蔥表皮細胞放入濃糖水中，看到細胞膜和細胞壁分開。下列敘述何者正確？',o:['這是質壁分離，動物細胞沒有細胞壁所以不會發生','這是細胞分裂','水分從外面進入細胞','口腔皮膜細胞也會發生一樣的質壁分離'],a:0,src:'',ex:'植物細胞失水時細胞膜縮小、離開細胞壁＝質壁分離；動物細胞失水只會萎縮。'},
+  ]
+},
+c6:{
+  no:'1-5', title:'生物體的組成層次', author:'細胞→組織→器官→器官系統→個體', color:'linear-gradient(135deg,#8a5a12,#d39a3a)',
+  desc:'市場食材排層次｜植物沒有器官系統', code:6, quickAsk:ASK,
+  quick:[
+    ['動物體的組成層次（由小到大）','細胞→組織→器官→器官系統→個體',['細胞→器官→組織→器官系統→個體','組織→細胞→器官→個體','細胞→組織→器官系統→器官→個體'],12],
+    ['植物體缺少哪一個層次','器官系統',['組織','器官','細胞'],9],
+    ['形態與功能相似的細胞聚集成','組織',['器官','器官系統','個體'],12],
+    ['血液屬於哪一個層次','組織',['細胞','器官','器官系統'],8],
+    ['一塊豬肉片屬於','組織',['器官','細胞','個體'],7],
+    ['未受精雞蛋的卵黃屬於','細胞',['個體','組織','器官'],7],
+    ['胃、心臟、眼睛屬於','器官',['組織','器官系統','細胞'],8],
+    ['一片菜葉、一顆番茄屬於','器官',['組織','個體','器官系統'],7],
+    ['一條完整的魚、一顆蚵仔屬於','個體',['器官','組織','器官系統'],7],
+    ['口腔、食道、胃、小腸、大腸合起來是','器官系統',['器官','組織','個體'],8],
+    ['只由一個細胞構成就能表現完整生命現象','單細胞生物',['多細胞生物','組織','器官'],12],
+    ['草履蟲、眼蟲、新月藻是','單細胞生物',['多細胞生物','植物器官','組織'],12],
+    ['水蚤、蝸牛、榕樹是','多細胞生物',['單細胞生物','組織','器官'],12],
+    ['根、莖、葉屬於','營養器官',['生殖器官','器官系統','組織'],7],
+    ['花、果實、種子屬於','生殖器官',['營養器官','器官系統','組織'],7],
+    ['甘蔗、馬鈴薯是植物的','莖',['根','果實','葉'],7],
+    ['胡蘿蔔、地瓜是植物的','根',['莖','果實','種子'],7],
+    ['單細胞生物的一個細胞，功能比多細胞生物的一個細胞','多',['少','一樣','無法比較'],4],
+    ['心臟和血管組成','循環系統',['消化系統','輸導組織','血液組織'],0],
+  ],
+  words:[
+    ['組織','形態功能相似的細胞聚集而成'],['器官','不同組織聯合，有特定形態與功能'],['器官系統','相關功能的器官分工合作（植物沒有）'],
+    ['個體','能獨立表現完整生命現象的生物'],['單細胞生物','一個細胞就能表現完整生命現象'],['多細胞生物','許多細胞分工合作'],
+    ['營養器官','根、莖、葉，和養分製造、運輸、儲存有關'],['生殖器官','花、果實、種子，和繁衍後代有關'],
+    ['消化系統','胃、肝臟、小腸、大腸等，分解吸收養分'],['循環系統','心臟、血管，運輸體內物質'],
+  ],
+  sorts:[
+    {title:'逛市場：食材是哪一個層次？',tip:'未受精蛋黃＝細胞；肉片、血＝組織；葉、果實、心臟＝器官；整隻完整生物＝個體',
+     buckets:['細胞','組織','器官','器官系統','個體'],
+     items:[['未受精雞蛋的卵黃',0],['豬血',1],['一塊豬肉片',1],['一片高麗菜葉',2],['一顆番茄',2],['豬的心臟',2],
+       ['豬的一整套消化道（食道、胃、腸）',3],['一條完整的吳郭魚',4],['一顆完整的蚵仔',4],['一根完整的豆芽菜',4,'整株小植物就是個體'],['一隻草履蟲',4,'單細胞生物：一個細胞就是個體']]},
+    {title:'單細胞還是多細胞？',tip:'課本：草履蟲、新月藻、眼蟲是單細胞；榕樹、黴菌、人、跳蚤是多細胞',
+     buckets:['單細胞生物','多細胞生物'],
+     items:[['草履蟲',0],['眼蟲',0],['新月藻',0],['變形蟲',0],['細菌',0],['水蚤',1],['水母',1],['蝸牛',1],['榕樹',1],['黴菌',1],['咸豐草',1],['跳蚤',1]]},
+    {title:'營養器官還是生殖器官？',tip:'吃的部位如果是根、莖、葉 → 營養器官；花、果實、種子 → 生殖器官',
+     buckets:['營養器官','生殖器官'],
+     items:[['甘蔗',0,'莖'],['馬鈴薯',0,'莖'],['胡蘿蔔',0,'根'],['地瓜',0,'根'],['高麗菜葉',0,'葉'],['番茄',1,'果實'],['南瓜',1,'果實'],['綠豆',1,'種子'],['葡萄',1,'果實'],['玫瑰花',1,'花']]},
+  ],
+  mcq:[
+    {q:'阿宥在校園榕樹旁的解說牌寫上：「榕樹由小到大依序為細胞、組織、器官、器官系統、個體。」這段說明對嗎？',o:['不對，榕樹是植物，沒有器官系統','對，所有多細胞生物都一樣','不對，榕樹是植物，沒有器官','不對，榕樹是植物，沒有組織'],a:0,src:'',ex:'植物的組成層次是細胞→組織→器官→個體，沒有器官系統。'},
+    {q:'做三明治時用到下列材料，哪一項屬於「器官」層次？',o:['一片生菜葉','一片豬里肌肉','一顆未受精的雞蛋','一根完整的豆芽菜'],a:0,src:'題型',ex:'葉子是器官；豬里肌肉片是肌肉組織；未受精雞蛋的卵黃是細胞；一根豆芽菜是一株完整植物＝個體。'},
+    {q:'下列哪一項屬於「組織」層次？',o:['豬血','豬的心臟','一顆蘋果','一隻蝦子'],a:0,src:'7 校',ex:'血液、肉片是組織；心臟、蘋果是器官；一隻完整的蝦是個體。'},
+    {q:'比較單細胞生物與多細胞生物，下列敘述何者正確？',o:['多細胞生物的細胞會分工合作，單一細胞通常無法獨立生活','單細胞生物有器官系統','多細胞生物的單一細胞功能比單細胞生物多','單細胞生物無法表現生命現象'],a:0,src:'',ex:'單細胞生物一個細胞就能完成所有生命現象，所以單一細胞的功能比較多。'},
+    {q:'老師請同學帶植物的「生殖器官」到學校，下列哪一位同學帶對了？',o:['小華帶一顆番茄','小美帶一段甘蔗','小強帶一片榕樹葉','小芳帶一顆馬鈴薯'],a:0,src:'',ex:'番茄是果實，屬於生殖器官；甘蔗、馬鈴薯是莖，榕樹葉是葉，都是營養器官。好吃、甜的不一定是生殖器官。'},
+    {q:'人體的消化系統包括下列哪些器官？',o:['胃、肝臟、小腸、大腸','心臟、血管','肺臟、氣管','腦、脊髓'],a:0,src:'課本',ex:'課本：消化系統包括胃、肝臟、小腸、大腸等，與養分的分解和吸收有關；心臟、血管屬循環系統。'},
+    {q:'下列哪一項屬於「器官系統」層次？',o:['循環系統','心臟','血液','紅血球'],a:0,src:'課本',ex:'循環系統（器官系統）＞心臟（器官）＞血液（組織）＞紅血球（細胞）。'},
+    {q:'草履蟲的組成層次中，缺少下列哪些層次？',o:['組織、器官、器官系統','只缺器官系統','只缺細胞','細胞、組織'],a:0,src:'9 校',ex:'草履蟲是單細胞生物，一個細胞就是一個個體，沒有組織、器官和器官系統。'},
+    {q:'下列關於一隻蝴蝶的組成層次，何者正確？',o:['細胞→組織→器官→器官系統→個體','細胞→器官→組織→個體','細胞→組織→器官→個體（沒有器官系統）','組織→細胞→器官系統→器官→個體'],a:0,src:'12 校都考',ex:'蝴蝶是動物，具有完整的五個層次。'},
+    {q:'柚子樹的根、莖、葉和養分的製造、運輸和儲存有關，合稱為什麼？',o:['營養器官','生殖器官','器官系統','輸導組織'],a:0,src:'課本',ex:'根、莖、葉＝營養器官；花、果實、種子＝生殖器官。'},
+    {q:'下列哪一組生物都是單細胞生物？',o:['草履蟲、新月藻、眼蟲','草履蟲、水蚤、蝸牛','新月藻、榕樹、黴菌','眼蟲、跳蚤、水母'],a:0,src:'12 校都考',ex:'水蚤、蝸牛、榕樹、黴菌、跳蚤、水母都是多細胞生物。'},
+    {q:'下列哪一項的組成層次和其他三項「不同」？',o:['血液','胃','葉','花'],a:0,src:'改寫自各校層次題',ex:'血液是組織；胃、葉、花都是器官。'},
+    {q:'做實驗時從洋蔥鱗葉撕下一層薄薄的透明表皮，這層表皮在組成層次中屬於什麼？',o:['組織','細胞','器官','個體'],a:0,src:'改寫自各校層次題',ex:'表皮由許多形態相似的表皮細胞排列而成，屬於表皮組織。整片鱗葉才是器官。'},
+  ]
+},
+c8:{
+  no:'2-1', title:'食物中的養分', author:'六大養分｜熱量計算｜碘液與本氏液', color:'linear-gradient(135deg,#a8431f,#e07a2f)',
+  desc:'4／4／9 大卡｜碘液藍黑｜本氏液隔水加熱', code:8, quickAsk:ASK,
+  quick:[
+    ['可以產生能量的三大養分','醣類、蛋白質、脂質',['維生素、礦物質、水','醣類、維生素、水','脂質、礦物質、纖維素'],8],
+    ['米飯、麵包含量最高的養分','澱粉（醣類）',['蛋白質','脂質','維生素'],8],
+    ['海鮮、肉類、蛋類富含','蛋白質',['澱粉','維生素C','纖維素'],8],
+    ['食用油含量最高的是','脂質',['蛋白質','醣類','礦物質'],8],
+    ['1 公克醣類可產生','4 大卡',['9 大卡','1 大卡','0 大卡'],7],
+    ['1 公克蛋白質可產生','4 大卡',['9 大卡','2 大卡','0 大卡'],7],
+    ['1 公克脂質可產生','9 大卡',['4 大卡','7 大卡','1 大卡'],7],
+    ['1 大卡等於','1000 卡',['100 卡','10 卡','1 卡'],7],
+    ['下列哪一種「不能」提供熱量','維生素',['醣類','脂質','蛋白質'],6],
+    ['纖維素屬於哪一類養分','醣類',['蛋白質','脂質','維生素'],6],
+    ['纖維素不能被人體分解產生能量，但能','促進腸胃蠕動',['提供大量熱量','製造紅血球','組成骨骼'],6],
+    ['組成骨骼和牙齒的重要礦物質','鈣',['鐵','維生素A','脂質'],0],
+    ['參與紅血球製造的礦物質','鐵',['鈣','維生素C','纖維素'],0],
+    ['和眼睛保健有關的維生素','維生素A',['維生素C','鈣','鐵'],0],
+    ['構成人體肌肉與頭髮的主要成分','蛋白質',['澱粉','脂質','纖維素'],0],
+    ['皮膚下層的脂肪有什麼功能','保溫、防止熱量散失',['運送氧氣','消化食物','製造紅血球'],0],
+    ['碘液原本的顏色','黃褐色',['淺藍色','紅色','綠色'],6],
+    ['碘液遇到澱粉會變成','藍黑色或紫紅色',['磚紅色','黃褐色','淺藍色'],6],
+    ['本氏液原本的顏色','淺藍色',['黃褐色','藍黑色','無色'],6],
+    ['本氏液檢測葡萄糖時需要','隔水加熱',['冷藏','不必加熱','直接用火燒試管'],6],
+    ['有葡萄糖時，本氏液加熱後可能變成','綠、黃、橙或紅色',['藍黑色','維持淺藍色','無色'],6],
+    ['大分子變成小分子的代謝作用','分解作用',['合成作用','擴散作用','滲透作用'],0],
+    ['小分子結合成大分子的代謝作用','合成作用',['分解作用','滲透作用','擴散作用'],0],
+  ],
+  words:[
+    ['醣類','又稱碳水化合物，每克 4 大卡'],['蛋白質','構成肌肉與頭髮，每克 4 大卡'],['脂質','每克 9 大卡，皮下脂肪可保溫'],
+    ['纖維素','醣類的一種，組成細胞壁，人體無法分解'],['鈣','組成骨骼和牙齒'],['鐵','參與紅血球的製造'],
+    ['碘液','黃褐色，遇澱粉變藍黑或紫紅色'],['本氏液','淺藍色，遇葡萄糖隔水加熱變綠黃橙紅'],
+    ['代謝作用','養分在體內產生能量或物質的反應'],['分解作用','大分子變成小分子'],
+  ],
+  sorts:[
+    {title:'會不會產生熱量？',tip:'只有醣類（含澱粉）、蛋白質、脂質會產生熱量；纖維素雖是醣類，人體無法分解',
+     buckets:['可產生熱量','不產生熱量'],
+     items:[['醣類',0],['蛋白質',0],['脂質',0],['澱粉',0],['維生素C',1],['鈣',1],['鐵',1],['水',1],['纖維素',1,'人體無法分解'],['鈉',1]]},
+    {title:'要用哪一種試劑？',tip:'碘液測澱粉（不用加熱）；本氏液測葡萄糖等小分子醣類（要隔水加熱）',
+     buckets:['碘液','本氏液','兩種都不適合'],
+     items:[['米飯裡有沒有澱粉',0],['馬鈴薯切片有沒有澱粉',0],['蘋果汁有沒有葡萄糖',1],['葡萄汁有沒有糖',1],
+       ['口腔細胞的細胞核染色',2,'那是亞甲藍液'],['食物裡有沒有纖維素',2,'碘液測的是澱粉，不是纖維素'],['澱粉加唾液後有沒有產生小分子醣類',1]]},
+    {title:'本氏液實驗步驟排序',tip:'依課本實驗 2-1：先準備溫水，再加樣品與本氏液，最後隔水加熱',
+     buckets:['第 1 步','第 2 步','第 3 步','第 4 步'],
+     items:[['燒杯裝溫水加熱備用（準備隔水加熱）',0],['兩支試管分別放入水和葡萄糖液',1],['兩支試管各加入 2 mL 本氏液並搖勻',2],['把試管放進燒杯隔水加熱，記錄加熱前後的顏色',3]]},
+  ],
+  mcq:[
+    {q:'某包餅乾每份含：醣類 25 公克、蛋白質 8 公克、脂質 4 公克、鈉 120 毫克。一份餅乾約可提供多少熱量？',o:['168 大卡','148 大卡','168 卡','132 大卡'],a:0,src:'7 校',ex:'25×4＋8×4＋4×9＝100＋32＋36＝168 大卡。鈉不提供熱量；單位是「大卡」。'},
+    {q:'某食品標示「每 100 公克」含醣類 20 公克、蛋白質 5 公克、脂質 10 公克。整包 200 公克全部吃完，共攝取多少熱量？',o:['380 大卡','190 大卡','280 大卡','760 大卡'],a:0,src:'',ex:'每 100 g：80＋20＋90＝190 大卡；整包是 2 倍＝380 大卡。忘記換算是最常見的錯。'},
+    {q:'下列哪一組養分都「不能」提供人體熱量？',o:['維生素、礦物質、水','醣類、蛋白質、脂質','澱粉、脂質、水','蛋白質、維生素、鐵'],a:0,src:'',ex:'只有醣類、蛋白質、脂質能產生能量。所以只喝白開水不會讓人變胖。'},
+    {q:'把碘液滴在米飯上，米飯變成藍黑色，代表什麼？',o:['米飯含有澱粉','米飯含有葡萄糖','米飯含有蛋白質','米飯含有脂質'],a:0,src:'',ex:'黃褐色的碘液遇澱粉變藍黑或紫紅色，不需要加熱。'},
+    {q:'用本氏液檢測一杯含有葡萄糖的果汁，隔水加熱後「不可能」出現哪一種顏色？',o:['維持淺藍色','綠色','黃色','橙紅色'],a:0,src:'',ex:'有葡萄糖時，本氏液加熱後會依含量變成綠、黃、橙或紅；維持淺藍色代表沒有小分子醣類。'},
+    {q:'醫生建議腎臟病患者少吃蛋白質。下列哪一種食物最應該少吃？',o:['牛排','白飯','青菜','白開水'],a:0,src:'',ex:'肉類富含蛋白質；白飯主要是澱粉（醣類）。'},
+    {q:'關於纖維素，下列敘述何者正確？',o:['屬於醣類，人體無法分解產生能量，但能促進腸胃蠕動','屬於蛋白質，可以提供大量熱量','可以用碘液檢測出來','只存在於動物細胞中'],a:0,src:'',ex:'纖維素是植物細胞壁的主要成分，屬於醣類；碘液測的是澱粉，不是纖維素。'},
+    {q:'檢測澱粉時，在梅花盤中同時做「碘液＋水」這一組，目的是什麼？',o:['當作對照組，確認讓碘液變色的是澱粉而不是水','讓碘液更快變色','把澱粉稀釋','代替加熱'],a:0,src:'課本實驗 2-1',ex:'對照組用來比較，證明變色是澱粉造成的。'},
+    {q:'用本氏液檢測時要「隔水加熱」，主要原因是什麼？',o:['讓試管均勻受熱','讓碘液變色','讓澱粉變成蛋白質','加熱比較快、可以用大火直接燒'],a:0,src:'課本實驗 2-1',ex:'課本：隔水加熱可使本氏液與測試液在反應時能均勻受熱，也比較安全。'},
+    {q:'白飯含有大量澱粉，但直接用本氏液檢測不太會變色。若米飯中的澱粉被分解了，才可能和本氏液反應，原因是什麼？',o:['澱粉被分解成小分子醣類，才會和本氏液反應','澱粉本身就會讓本氏液變紅','本氏液只測蛋白質','米飯中的水會讓本氏液變色'],a:0,src:'米澱粉閱讀題組、課本',ex:'澱粉是大分子醣類，不和本氏液反應；分解成葡萄糖、麥芽糖等小分子醣類後才會變色。'},
+    {q:'小莉常頭暈、臉色蒼白，醫生說她缺乏一種參與紅血球製造的礦物質。這種礦物質是什麼？',o:['鐵','鈣','維生素A','脂質'],a:0,src:'課本',ex:'鐵質參與紅血球的製造；鈣組成骨骼牙齒；維生素A和眼睛保健有關。'},
+    {q:'「植物肉」主要用黃豆等豆類製成，用來代替肉類。它最主要提供的是哪一種養分？',o:['蛋白質','纖維素','維生素C','水'],a:0,src:'植物肉閱讀題組',ex:'黃豆富含蛋白質，所以能取代肉類提供蛋白質。'},
+    {q:'相同重量的下列養分，哪一種產生的熱量最多？',o:['脂質','醣類','蛋白質','礦物質'],a:0,src:'7 校',ex:'脂質每克 9 大卡，醣類和蛋白質每克 4 大卡，礦物質不產生熱量。'},
+    {q:'養分在體內把澱粉變成葡萄糖，屬於哪一種代謝作用？',o:['分解作用','合成作用','滲透作用','擴散作用'],a:0,src:'課本',ex:'大分子變小分子＝分解作用；小分子結合成大分子（如葡萄糖連成澱粉）＝合成作用。'},
+  ]
+},
+x1:{
+  no:'2-2', title:'酵素（延伸關卡）', author:'新莊、玉山、丹鳳有考', color:'linear-gradient(135deg,#4a4f5c,#7f8799)',
+  desc:'專一性｜溫度與酸鹼｜唾液實驗', code:11, quickAsk:ASK,
+  quick:[
+    ['酵素又稱為','酶',['醣','脂','膜'],3],
+    ['和酵素結合而作用的物質稱為','受質',['產物','染劑','溶劑'],3],
+    ['大部分酵素的主要成分是','蛋白質',['澱粉','脂質','纖維素'],3],
+    ['唾液澱粉酶能分解澱粉、卻不能分解纖維素，表示酵素有','專一性',['擴散性','滲透性','永久性'],3],
+    ['酵素反應結束後','仍可與新的受質作用',['會被用光','變成澱粉','變成受質'],3],
+    ['胃內酵素活性較佳的環境','酸性',['鹼性','高溫','冰冷'],3],
+    ['小腸內酵素適合的環境','鹼性',['酸性','高溫','冰冷'],3],
+    ['溫度過高時，酵素的活性會','降低甚至失去',['一直升高','完全不受影響','變成脂質'],3],
+    ['唾液實驗中，試管要放在約幾度的溫水','37℃',['0℃','100℃','60℃'],3],
+  ],
+  words:[
+    ['酵素','又稱酶，促進代謝反應進行'],['受質','和酵素結合而作用的物質'],['專一性','酵素只和特定受質結合'],
+    ['澱粉酶','分解澱粉，唾液中就有'],['活性','酵素作用的能力，受溫度與酸鹼影響'],
+  ],
+  sorts:[
+    {title:'唾液實驗的變因',tip:'課本實驗 2-2：操作變因是「是否加入唾液」',
+     buckets:['操作變因','控制變因','應變變因'],
+     items:[['是否加入唾液',0],['澱粉液的濃度與體積',1],['反應的溫度與時間',1],['唾液或水的體積',1],['澱粉有沒有產生小分子醣類（本氏液顏色）',2]]},
+  ],
+  mcq:[
+    {q:'關於酵素，下列敘述何者正確？',o:['大部分酵素的主要成分是蛋白質','酵素反應一次就會被用完','酵素可以和任何物質結合','酵素不受溫度影響'],a:0,src:'',ex:'酵素多為蛋白質、具專一性、反應後仍可和新的受質作用，活性受溫度與酸鹼影響。'},
+    {q:'唾液中的澱粉酶能分解澱粉，卻無法分解纖維素。這說明酵素具有什麼特性？',o:['專一性','擴散性','永久性','滲透性'],a:0,src:'課本',ex:'酵素和受質的結合具專一性，就像鑰匙只能開特定的鎖。'},
+    {q:'在澱粉液中加入唾液，放在 37℃ 溫水一段時間，再加本氏液隔水加熱，結果變成黃色。可推論什麼？',o:['唾液能把澱粉分解成小分子醣類','唾液能把葡萄糖合成澱粉','唾液中含有很多葡萄糖','本氏液會分解澱粉'],a:0,src:'課本實驗 2-2',ex:'本氏液變色代表出現小分子醣類，而原本只有澱粉，所以是唾液把澱粉分解了。'},
+    {q:'承上題，對照組的試管應該怎麼做？',o:['澱粉液加入等量的清水，其他條件相同','不加澱粉液','改放在 100℃ 的水中','不加本氏液'],a:0,src:'課本實驗 2-2',ex:'只改變「是否加唾液」，其他條件（澱粉液量、溫度、時間）都要相同。'},
+    {q:'唾液實驗中，混合後要放在 37℃ 的溫水中靜置，主要原因是什麼？',o:['接近人體體溫，酵素活性較好','讓澱粉變成蛋白質','讓本氏液變色','避免唾液蒸發'],a:0,src:'課本實驗 2-2',ex:'人體酵素在接近體溫的環境作用最好。'},
+    {q:'把唾液先煮沸再冷卻，加入澱粉液反應後用本氏液檢測，結果仍是藍色。最合理的推論是什麼？',o:['高溫使唾液中的酵素失去活性','煮沸讓唾液變成澱粉','本氏液壞掉了','煮沸讓酵素活性變得更強'],a:0,src:'課本',ex:'溫度過高時酵素活性降低，甚至失去活性，所以澱粉沒有被分解。'},
+    {q:'課本實驗中，低溫處理的唾液組結果呈「藍綠色」，37℃ 組呈「黃色」。下列推論何者最合理？',o:['低溫使酵素活性降低，只分解了少量澱粉','低溫使酵素完全失去活性','低溫組分解的澱粉比 37℃ 組多','顏色和澱粉分解無關'],a:0,src:'課本',ex:'藍綠色表示有少量小分子醣類產生：低溫只是讓活性降低。'},
+    {q:'胃液含有鹽酸，胃內的酵素在哪一種環境中活性較佳？',o:['酸性','鹼性','中性','沒有差別'],a:0,src:'課本',ex:'胃內酵素適合酸性環境；小腸內的酵素適合鹼性環境。'},
+    {q:'一個酵素分子幫忙分解完一個澱粉分子後，會怎麼樣？',o:['仍可以再和新的受質作用','跟著被分解掉','變成葡萄糖','永遠不能再用'],a:0,src:'',ex:'在溫度、酸鹼沒有改變時，酵素反應後仍可與新的受質作用。'},
+    {q:'某酵素在 0℃ 活性很低、37℃ 最高、60℃ 以上幾乎為零。下列敘述何者正確？',o:['在一定範圍內，溫度升高活性增加；溫度過高活性反而下降','溫度愈高活性一定愈高','溫度愈低活性愈高','溫度不影響活性'],a:0,src:'課本圖 2-5',ex:'酵素有最適合的溫度，超過後活性降低甚至失去活性。'},
+    {q:'小玲在唾液中先加入醋（酸性），再和澱粉液反應，結果本氏液沒有變色。可以推論什麼？',o:['酸性環境讓唾液中酵素的活性降低','醋會分解澱粉','唾液在酸性中活性更好','本氏液只能測酸性物質'],a:0,src:'課本題型',ex:'沒有產生小分子醣類，代表唾液的酵素在酸性環境下沒有作用（活性降低）。'},
+    {q:'下列哪一項「不是」酵素的特性？',o:['反應結束後就會消失','具有專一性','活性受溫度影響','活性受酸鹼影響'],a:0,src:'',ex:'酵素反應後不會被消耗，仍可重複作用。'},
+  ]
+},
+};
+
+/* ================= 動畫腳本（照片皆來自 Wikimedia Commons） ================= */
+const ANIMS={
+c1:{steps:[
+  {label:'① 觀察',imgs:[{img:'u1_mold',tag:'放了太久、長滿黴菌的吐司'}],poem:'通常是科學方法的第一步，可利用感官或儀器進行觀察，必須<b>客觀</b>且注意安全。',key:'題目寫「發現……」「看到……」通常是<b>觀察</b>；問句「為什麼……？」是<b>提出問題</b>。'},
+  {label:'② 假說',imgs:[{img:'u1_mantou',tag:'饅頭：課本用它切面上的小洞示範科學方法'}],poem:'無法直接找到答案時，整合學過的知識和資料，<b>提出假說</b>。但假說只是可能的答案或解釋，不一定正確。',key:'「<b>可能</b>是……」「<b>或許</b>……」＝提出假說（12 校都考）。課本用饅頭的小洞示範科學方法。'},
+  {label:'③ 實驗組與對照組',imgs:[{img:'u1_dough',tag:'正在揉製的麵糰'}],poem:'添加酵母菌的麵糰是<b>實驗組</b>，無酵母菌的麵糰則是<b>對照組</b>，用來確認添加酵母菌是否會對麵糰造成影響。',key:'有對照組，才能確定結果是「酵母菌」造成的。'},
+  {label:'④ 三種變因',imgs:[{img:'u1_sprout',tag:'發芽中的綠豆'}],poem:'變因有 3 種：<b>操作變因</b>、<b>控制變因</b>和<b>應變變因</b>，且每次實驗會設定 1 項操作變因。',key:'挑實驗組與對照組：只能有「要探討的那一個條件」不同。綠豆發芽表 5 校考過。'},
+  {label:'⑤ 重複與記錄',imgs:[{img:'u1_cylinder',tag:'量筒：讀液面凹處最低點'}],poem:'實驗也必須<b>至少重複 3 次</b>，以減少誤差。形成圖、表時，必須註明標題與數據的類別並加上<b>單位及刻度</b>。',key:'減少誤差＝重複實驗，不是增加變因。量筒讀數：視線與液面凹處最低點等高，量筒不可加熱。'},
+  {label:'⑥ 實驗室安全',imgs:[{img:'u1_lamp',tag:'酒精燈的火焰'}],poem:'酒精燈：酒精量約 <b>1/2～2/3</b>，用<b>燈罩蓋熄</b>，不可用燃著的酒精燈去點另一盞。',key:'實驗室安全與器材操作 7 校考過；用嘴吹熄是錯誤做法。'},
+ ],map:`<p><span class="pill">科學方法</span>觀察 → 提出問題 → 參考文獻資料 → 提出假說 → 設計並進行實驗 → 分析結果 → 結論</p>
+  <p><span class="pill">變因</span>操作（唯一不同）／控制（保持相同）／應變（量到的結果）</p>
+  <p><span class="pill">學說</span>合理的假說經多次驗證並被接受 → 學說；遇到新證據仍可能被修正</p>`},
+c2:{steps:[
+  {label:'① 生命現象',imgs:[{img:'u2_chipmunk',tag:'花栗鼠：課本用牠說明生命現象'},{img:'u2_mimosa',tag:'含羞草：被碰觸葉片會閉合'}],poem:'生物體常能表現出<b>代謝、生殖、生長與發育、感應與運動</b>等現象，通稱為生命現象。',key:'花栗鼠氣溫太低時冬眠＝<b>感應與運動</b>。鐘乳石變大、汽車跑不是生命現象。'},
+  {label:'② 生長與發育',imgs:[{img:'u2_caterpillar',tag:'帝王斑蝶的幼蟲倒掛成 J 字形，準備化蛹'}],poem:'生長是細胞增大或數目變多、個體由小變大；<b>發育</b>則是形態與功能趨於成熟。',key:'毛毛蟲變成蝴蝶＝生長與發育；雞蛋孵出小雞＝生殖。'},
+  {label:'③ 環境與生物數量',imgs:[{img:'u2_reef',tag:'珊瑚礁：溫暖、生物豐富'},{img:'u2_rainforest',tag:'熱帶雨林'}],poem:'絕大多數的生物都需要<b>日光、空氣、水和養分</b>。珊瑚礁海域和熱帶雨林溫暖、水分充沛，生物的種類與數量豐富。',key:'沙漠、深海乾燥或黑暗，生物較少，但仍有生物。'},
+  {label:'④ 適應環境',imgs:[{img:'u2_bat',tag:'倒掛在洞穴頂的蝙蝠'},{img:'u2_deep',tag:'會發光的深海斧頭魚'},{img:'u2_desert',tag:'沙漠中的仙人掌'},{img:'u2_kandelia',tag:'水筆仔的胎生苗'}],poem:'蝙蝠利用<b>回聲定位</b>；深海魚能<b>發光</b>；仙人掌莖肥厚儲水、葉呈針狀；水筆仔有<b>胎生苗</b>。',key:'深海少藻類是因為<b>缺乏陽光</b>，不是水壓或缺氧（6 校考）。'},
+  {label:'⑤ 生物圈',imgs:[{img:'u2_earth',tag:'從太空看地球'}],poem:'地球上所有的生物和其賴以生存的環境，合稱<b>生物圈</b>。以海平面為基準，約上、下各<b>一萬公尺</b>。',key:'把地球比作蘋果，生物圈比果皮還薄（8 校考地球分層圖）。範圍可能因生物的適應或滅絕而改變。'},
+  {label:'⑥ 細胞的發現',imgs:[{img:'u2_hookescope',tag:'虎克的顯微鏡與軟木薄片手繪'},{img:'u2_cork',tag:'《顯微圖譜》中的軟木格狀構造'}],poem:'英國科學家<b>虎克</b>利用自製的顯微鏡觀察軟木薄片，看見一格一格的構造，稱為<b>細胞</b>。',key:'虎克看到的是死細胞留下的<b>細胞壁</b>；他<b>沒有</b>提出細胞學說（8 校考）。'},
+ ],map:`<p><span class="pill">生命現象</span>代謝｜生殖｜生長與發育｜感應與運動</p>
+  <p><span class="pill">生物圈</span>海平面上下各約 1 萬公尺；生物分布不均勻</p>
+  <p><span class="pill">細胞學說</span>詹森父子 1590 → 虎克 1665 → 雷文霍克 1673 → 許萊登 1838 → 許旺 1839 → 菲可 1858</p>`},
+c3:{steps:[
+  {label:'① 複式顯微鏡',imgs:[{img:'u3_compound',tag:'複式顯微鏡'}],poem:'複式顯微鏡可放大的倍率較高，標本必須製成<b>透光的薄片</b>，影像<b>上下顛倒、左右相反</b>。',key:'放大倍率＝目鏡倍率 × 物鏡倍率（12 校都考）。物鏡愈長、目鏡愈短，倍率愈高。'},
+  {label:'② 解剖顯微鏡',imgs:[{img:'u3_stereo',tag:'解剖顯微鏡（雙眼觀察）',fit:'contain',bg:'#fff'}],poem:'解剖顯微鏡適合觀察物體的<b>表面結構</b>，影像較為立體，方向與實物相同，但可放大倍率較低。',key:'看螞蟻、葉毛、花蕊用解剖；兩眼不清楚時調<b>眼焦調整器</b>。'},
+  {label:'③ 玻片標本',imgs:[{img:'u3_slide',tag:'一盒製作好的玻片標本'}],poem:'蓋上蓋玻片時，一邊先接觸水滴，與載玻片成 <b>45 度角</b>緩慢放下，可減少氣泡。用<b>亞甲藍液</b>或碘液染色，細胞膜和細胞核較明顯。',key:'載玻片在下、蓋玻片在上；觀察物要薄到能透光。'},
+  {label:'④ 先低倍再高倍',imgs:[{img:'u3_param',tag:'顯微鏡下的草履蟲'}],poem:'將觀測數字移至<b>視野中央</b>，再換成高倍率物鏡，轉動<b>細調節輪</b>，直到影像清楚。',key:'影像在右上 → 玻片往右上移；換高倍後只能轉細調節輪（此時不可轉粗調節輪）。'},
+  {label:'⑤ 電子顯微鏡',imgs:[{img:'u3_sem',tag:'電子顯微鏡下的花粉（後製上色）'},{img:'u3_virus',tag:'電子顯微鏡下的冠狀病毒（後製上色）'}],poem:'光學顯微鏡最小約可觀測 <b>200 奈米</b>的物體；<b>電子顯微鏡</b>可以看到 0.05 奈米。',key:'1 mm＝1000 μm；1 μm＝1000 nm。病毒約 100 nm、紅血球約 7 μm，相差 70 倍。'},
+  {label:'⑥ 巨觀尺度',imgs:[{img:'u3_binocular',tag:'用雙筒望遠鏡賞鳥'}],poem:'肉眼約可觀察 <b>0.1 毫米</b>以上的物體；距離遠而看起來很小的物體，會使用<b>望遠鏡</b>觀測。',key:'照片上要加比例尺才能判斷實際大小。'},
+ ],map:`<div style="overflow-x:auto"><table class="tb"><tr><th></th><th>低倍率</th><th>高倍率</th></tr>
+  <tr><td>物鏡</td><td>短</td><td>長</td></tr><tr><td>視野範圍</td><td>大</td><td>小</td></tr><tr><td>亮度</td><td>亮</td><td>暗</td></tr>
+  <tr><td>細胞</td><td>小、多</td><td>大、少</td></tr><tr><td>調節輪</td><td>先粗後細</td><td>只用細</td></tr></table></div>`},
+c4:{steps:[
+  {label:'① 大小不同的細胞',imgs:[{img:'u4_egg',tag:'鴕鳥蛋：鳥類的卵細胞大到肉眼可見'}],poem:'有的細胞大到肉眼可見，例如<b>鳥類的卵細胞</b>；大多數的細胞則無法直接用肉眼看清楚。',key:'未受精雞蛋的卵黃＝一個細胞（組成層次題常用）。'},
+  {label:'② 水蘊草細胞',imgs:[{img:'u4_elodea',tag:'顯微鏡下的水蘊草葉片細胞',fit:'contain',bg:'#000'}],poem:'有些植物細胞中還有<b>葉綠體</b>，可進行光合作用產生養分。',key:'葉綠體本身是綠色，<b>不用染色</b>就看得到；不是所有植物細胞都有。'},
+  {label:'③ 保衛細胞',imgs:[{img:'u4_stoma',tag:'葉下表皮：成對的保衛細胞',fit:'contain',bg:'#000'},{img:'u4_onion',tag:'洋蔥表皮細胞：排列整齊緊密'}],poem:'<b>保衛細胞</b>呈半月形，兩兩成對，可調節中間的<b>氣孔</b>大小；<b>表皮細胞</b>呈扁平狀，排列整齊緊密，能保護內部構造。',key:'保衛細胞的功能是「控制氣孔」，<b>不是保護</b>（6 校考）。保衛細胞有葉綠體，表皮細胞沒有。'},
+  {label:'④ 人體的細胞',imgs:[{img:'u4_cheek',tag:'口腔皮膜細胞（亞甲藍染色）'},{img:'u4_neuron',tag:'神經細胞（染色切片）'},{img:'u4_muscle',tag:'肌肉細胞（染色切片）'},{img:'u4_rbc',tag:'紅血球'}],poem:'神經細胞有許多突起，<b>接收或傳送訊息</b>；口腔皮膜細胞扁平，<b>保護</b>；肌肉細胞細長，能<b>收縮和舒張</b>；紅血球雙凹圓盤狀，有利於<b>運送氧氣</b>。',key:'形態和功能有關。紅血球是「運送」氧氣，不是製造。'},
+  {label:'⑤ 細胞的構造',imgs:[{img:'u4_elodea',tag:'植物細胞：外圍是細胞壁',fit:'contain',bg:'#000'}],poem:'細胞核內含<b>遺傳物質</b>；<b>粒線體</b>產生能量；<b>液泡</b>暫存水分、養分和廢物；<b>細胞膜</b>控制物質進出；植物細胞還有<b>細胞壁</b>（纖維素）。',key:'區分動植物細胞看<b>細胞壁</b>，不是看葉綠體（6 校考）。'},
+ ],map:`<div style="overflow-x:auto"><table class="tb"><tr><th>構造</th><th>動物</th><th>植物</th></tr>
+  <tr><td>細胞核、細胞質、細胞膜</td><td>○</td><td>○</td></tr><tr><td>粒線體、液泡</td><td>○</td><td>○</td></tr>
+  <tr><td>細胞壁</td><td>×</td><td>○</td></tr><tr><td>葉綠體</td><td>×</td><td>綠色細胞才有</td></tr></table></div>`},
+c5:{steps:[
+  {label:'① 原子與分子',imgs:[{img:'u5_glucose',tag:'葡萄糖分子模型',fit:'contain',bg:'#fff'}],poem:'<b>原子</b>是組成物質最基本的單位，數個原子組合成<b>分子</b>。多個葡萄糖分子連結成<b>澱粉</b>，多個胺基酸連結成<b>蛋白質</b>。',key:'C6H12O6：3 種原子、共 24 個原子（「種」和「個」要分清楚）。'},
+  {label:'② 擴散作用',imgs:[{img:'u5_ink',tag:'墨水在水中慢慢散開'}],poem:'<b>擴散作用</b>是指在自然狀態下，物質從<b>高濃度往低濃度</b>方向移動，最後達到均勻分布的現象。',key:'不需消耗能量；炸雞香味傳開也是擴散。'},
+  {label:'③ 滲透：紅血球',imgs:[{img:'u4_rbc',tag:'正常的紅血球呈雙凹圓盤狀'}],poem:'水通過細胞膜的擴散作用又稱為<b>滲透作用</b>。在清水中細胞膨脹，動物細胞甚至會<b>破裂</b>；在濃食鹽水中細胞<b>脫水萎縮</b>。',key:'三杯食鹽水：萎縮那杯最濃、破裂那杯最稀（7 校考）。'},
+  {label:'④ 質壁分離',imgs:[{img:'u5_plasmo',tag:'紫色洋蔥細胞失水後的樣子',fit:'contain',bg:'#000'}],poem:'植物細胞在濃食鹽水中，<b>細胞膜和細胞壁分離</b>；在清水中膨脹但因為有<b>細胞壁</b>而不會破裂。',key:'動物細胞沒有細胞壁，不會發生質壁分離。'},
+  {label:'⑤ 醃漬',imgs:[{img:'u5_pickle',tag:'抹鹽醃漬的白菜'},{img:'u5_mango',tag:'醃漬的青芒果'}],poem:'細胞外鹽濃度高，水分以<b>滲透作用流出</b>細胞，細胞脫水萎縮；微生物也因脫水而難以生長。',key:'醃漬是讓水流出，<b>不是</b>鹽讓微生物中毒（6 校考）。'},
+ ],map:`<p><span class="pill">直接通過</span>氧氣、二氧化碳、水</p>
+  <p><span class="pill">膜上特殊構造</span>葡萄糖、胺基酸、礦物質、水</p>
+  <p><span class="pill">先分解</span>澱粉 → 葡萄糖；蛋白質 → 胺基酸</p>`},
+c6:{steps:[
+  {label:'① 單細胞生物',imgs:[{img:'u3_param',tag:'草履蟲'},{img:'u6_closterium',tag:'新月藻'}],poem:'有的生物僅由<b>一個細胞</b>構成，便能表現完整的生命現象，稱為單細胞生物，例如草履蟲、新月藻和眼蟲。',key:'單細胞生物一個細胞就是個體，沒有組織、器官、器官系統。'},
+  {label:'② 多細胞生物',imgs:[{img:'u6_daphnia',tag:'水蚤（多細胞，身體透明）'},{img:'u6_snail',tag:'蝸牛'}],poem:'有的生物由許多個細胞構成，藉由不同功能的細胞<b>分工合作</b>，稱為多細胞生物。',key:'多細胞生物的單一細胞功能較少，通常無法獨立生活。'},
+  {label:'③ 市場裡的層次',imgs:[{img:'u6_fish',tag:'傳統市場的魚攤'},{img:'u6_veg',tag:'傳統市場的菜攤'}],poem:'相似的細胞形成<b>組織</b>（肌肉、血液）；組織聯合成<b>器官</b>（心臟、葉）；相關器官分工形成<b>器官系統</b>。',key:'肉片、豬血＝組織；菜葉、番茄＝器官；整條魚、整顆蚵仔＝個體（7 校考市場食材）。'},
+  {label:'④ 植物的器官',imgs:[{img:'u6_banyan',tag:'臺中豐原的老榕樹'},{img:'u6_pomelo',tag:'柚子的果實'}],poem:'根、莖、葉與養分的製造、運輸和儲存有關，稱為<b>營養器官</b>；花、果實、種子與繁衍後代有關，稱為<b>生殖器官</b>。',key:'植物<b>沒有器官系統</b>：細胞 → 組織 → 器官 → 個體（9 校考）。'},
+ ],map:`<p><span class="pill">動物</span>細胞 → 組織 → 器官 → 器官系統 → 個體</p>
+  <p><span class="pill">植物</span>細胞 → 組織 → 器官 → 個體（沒有器官系統）</p>
+  <p><span class="pill">單細胞</span>細胞＝個體</p>`},
+c8:{steps:[
+  {label:'① 均衡飲食',imgs:[{img:'u8_meal',tag:'鐵路便當：排骨、蔬菜，下面還有白飯'},{img:'u8_fruitveg',tag:'蔬菜水果富含維生素與礦物質'}],poem:'養分中，包括可以產生能量的<b>醣類（碳水化合物）、蛋白質和脂質</b>，以及無法產生能量的<b>礦物質、維生素和水</b>。',key:'不同食物的養分組成比例不同，僅有單一養分的食物很少見。'},
+  {label:'② 醣類',imgs:[{img:'u8_rice',tag:'米飯：澱粉含量高'}],poem:'米飯、麵粉類食品含有較高比例的<b>澱粉</b>（醣類的一種）；<b>纖維素</b>也是醣類，組成細胞壁。',key:'纖維素人體無法分解產生能量，但能促進腸胃蠕動。'},
+  {label:'③ 蛋白質與脂質',imgs:[{img:'u8_steak',tag:'牛排：富含蛋白質'},{img:'u8_oil',tag:'花生油：脂質含量高'}],poem:'<b>蛋白質</b>是構成人體肌肉與頭髮的主要成分；皮膚下層的<b>脂肪</b>能防止熱量散失、保溫。',key:'腎臟病要少吃蛋白質 → 少吃肉類。'},
+  {label:'④ 熱量計算',imgs:[{img:'u8_meal',tag:'吃一個便當，攝取多少熱量？'}],poem:'1 公克的<b>醣類或蛋白質</b>可產生 <b>4 大卡</b>，1 公克的<b>脂質</b>可產生 <b>9 大卡</b>；1000 卡＝1 大卡。',key:'營養標示常寫「每 100 公克」，整包要換算（6 校考）。'},
+  {label:'⑤ 碘液測澱粉',imgs:[{img:'u8_iodine',tag:'滴上碘液後的蘋果切面',fit:'contain',bg:'#fff'}],poem:'黃褐色的<b>碘液</b>遇澱粉會變成<b>藍黑色或紫紅色</b>（不需加熱）。「碘液＋水」可作為對照組。',key:'碘液測的是澱粉，不是纖維素。'},
+  {label:'⑥ 本氏液測糖',imgs:[{img:'u8_benedict',tag:'本氏液加熱後產生的顏色變化'}],poem:'淺藍色的<b>本氏液</b>加入葡萄糖溶液後<b>隔水加熱</b>，會出現<b>綠、黃、橙、紅</b>等顏色變化。',key:'有葡萄糖時不可能維持淺藍色；澱粉是大分子，不和本氏液反應。'},
+ ],map:`<div style="overflow-x:auto"><table class="tb"><tr><th>養分</th><th>熱量</th><th>常見食物</th></tr>
+  <tr><td>醣類</td><td>4 大卡／克</td><td>米飯、麵包</td></tr><tr><td>蛋白質</td><td>4 大卡／克</td><td>肉、魚、蛋、豆</td></tr>
+  <tr><td>脂質</td><td>9 大卡／克</td><td>食用油</td></tr><tr><td>維生素、礦物質、水</td><td>0</td><td>蔬菜、水果</td></tr></table></div>`},
+x1:{steps:[
+  {label:'① 酵素是什麼',imgs:[{img:'u11_amylase',tag:'唾液澱粉酶的分子結構模型',fit:'contain',bg:'#fff'}],poem:'<b>酵素</b>，又稱為酶，能促進代謝反應的進行；和酵素結合而作用的物質，稱為<b>受質</b>。',key:'大部分酵素的主要成分是<b>蛋白質</b>，具<b>專一性</b>，反應後仍可與新的受質作用。'},
+  {label:'② 唾液分解澱粉',imgs:[{img:'u8_rice',tag:'白飯嚼久了會變甜'}],poem:'人體唾液中的<b>澱粉酶</b>能和澱粉結合，促進澱粉的分解，但不能分解纖維素。',key:'實驗 2-2：加唾液的試管用本氏液測出小分子醣類。'},
+  {label:'③ 溫度與酸鹼',imgs:[{img:'u8_benedict',tag:'用本氏液比較分解的程度'}],poem:'溫度過高，酵素活性會降低甚至<b>失去活性</b>；胃內酵素適合<b>酸性</b>，小腸內酵素適合<b>鹼性</b>。',key:'煮沸組維持藍色、低溫組藍綠色、37℃ 組黃色。'},
+ ],map:`<p><span class="pill">延伸</span>2-2 只有新莊、段考常考，共 12 題；你的學校若考到 2-1 就可先跳過。</p>`},
+};
+
+/* ================= 綜合：圖表判讀與實驗題（原創數據） ================= */
+const MIXQ=[
+  {title:'題組一：水蚤喝到酒精',html:`<p>小青把水蚤分別放進不同濃度的酒精溶液中，各 3 分鐘後，用顯微鏡數每分鐘的心跳次數（各組 5 隻、溫度相同，取平均）：</p>
+   <table class="tb"><tr><th>酒精濃度</th><th>0%</th><th>1%</th><th>2%</th><th>4%</th></tr><tr><td>心跳（次／分）</td><td>300</td><td>262</td><td>214</td><td>150</td></tr></table>`,
+   qs:[
+    {q:'這個實驗的操作變因是什麼？',o:['酒精濃度','水蚤的心跳次數','水蚤的數量','水的溫度'],a:0,src:'題型',ex:'故意改變的是酒精濃度；心跳是量到的結果（應變變因）；水蚤數量、溫度是控制變因。'},
+    {q:'0% 那一組的角色是什麼？',o:['對照組','實驗組','操作變因','應變變因'],a:0,src:'題型',ex:'沒有酒精的一組用來比較，是對照組。'},
+    {q:'根據表格，最合理的結論是什麼？',o:['酒精濃度愈高，水蚤心跳愈慢','酒精濃度愈高，水蚤心跳愈快','酒精不影響心跳','水蚤喝酒後會死亡'],a:0,src:'題型',ex:'濃度由 0% 增加到 4%，心跳由 300 降到 150。表格沒有死亡的資料，不能下這個結論。'},
+    {q:'水蚤身體薄而透光，要看清楚牠體內跳動的心臟，最適合用什麼工具？',o:['複式顯微鏡','解剖顯微鏡','電子顯微鏡','雙筒望遠鏡'],a:0,src:'課本題型',ex:'薄而透光、要看內部構造 → 複式顯微鏡。'},
+   ]},
+  {title:'題組二：綠豆發芽實驗',html:`<p>阿豪把綠豆分成四組，每組 20 顆，一週後記錄發芽數：</p>
+   <table class="tb"><tr><th>組別</th><th>溫度</th><th>照光</th><th>澆水</th><th>發芽數</th></tr>
+   <tr><td>A</td><td>25℃</td><td>有</td><td>每天</td><td>18</td></tr><tr><td>B</td><td>25℃</td><td>無</td><td>每天</td><td>19</td></tr>
+   <tr><td>C</td><td>10℃</td><td>有</td><td>每天</td><td>6</td></tr><tr><td>D</td><td>25℃</td><td>有</td><td>不澆</td><td>0</td></tr></table>`,
+   qs:[
+    {q:'想知道「溫度」是否影響綠豆發芽，應比較哪兩組？',o:['A 和 C','A 和 B','B 和 C','C 和 D'],a:0,src:'',ex:'A、C 只有溫度不同。'},
+    {q:'比較 A 和 B，可以得到什麼結論？',o:['有沒有照光對綠豆發芽的影響不大','綠豆一定要照光才會發芽','照光會讓發芽數變成 0','溫度不影響發芽'],a:0,src:'改寫題',ex:'A（照光）18 顆、B（不照光）19 顆，差異很小。'},
+    {q:'比較 A 和 D，可以知道什麼？',o:['綠豆發芽需要水','綠豆發芽需要低溫','照光會抑制發芽','D 組的操作變因是溫度'],a:0,src:'改寫題',ex:'A、D 只差澆水；D 不澆水完全沒有發芽。'},
+    {q:'若結論是「低溫使綠豆發芽率降低」，則實驗組與對照組分別是哪一組？',o:['實驗組 C、對照組 A','實驗組 A、對照組 C','實驗組 B、對照組 D','實驗組 D、對照組 B'],a:0,src:'',ex:'接受要探討處理（低溫）的是實驗組 C；常溫的 A 是對照組。常見錯誤是兩者顛倒。'},
+   ]},
+  {title:'題組三：顯微鏡鏡頭選選看',html:`<p>實驗桌上有 3 支目鏡、3 支物鏡（鏡頭長度：甲＞乙＞丙；丁＜戊＜己）：</p>
+   <table class="tb"><tr><th>目鏡</th><td>甲 5×</td><td>乙 10×</td><td>丙 15×</td></tr><tr><th>物鏡</th><td>丁 4×</td><td>戊 10×</td><td>己 40×</td></tr></table>`,
+   qs:[
+    {q:'想在視野中看到最多細胞，應選哪一組？',o:['甲＋丁','丙＋己','乙＋戊','丙＋丁'],a:0,src:'',ex:'5×4＝20 倍最低，範圍最大、細胞最多。目鏡最長、物鏡最短。'},
+    {q:'哪一組的放大倍率最高？是幾倍？',o:['丙＋己，600 倍','甲＋己，200 倍','丙＋丁，60 倍','乙＋己，400 倍'],a:0,src:'12 校都考',ex:'15×40＝600 倍。'},
+    {q:'由「乙＋丁」換成「乙＋己」，視野會怎樣？',o:['範圍變小、變暗、細胞變大','範圍變大、變亮','影像再翻轉一次','完全沒有變化'],a:0,src:'12 校都考',ex:'40 倍 → 400 倍，倍率變高。影像方向不會因換物鏡而改變。'},
+   ]},
+  {title:'題組四：營養標示',html:`<p>某包洋芋片的營養標示：</p>
+   <table class="tb"><tr><th colspan="2">每一份量 50 公克，本包裝含 4 份</th></tr><tr><td>蛋白質</td><td>3 公克</td></tr><tr><td>脂肪</td><td>8 公克</td></tr>
+   <tr><td>碳水化合物</td><td>30 公克</td></tr><tr><td>鈉</td><td>150 毫克</td></tr></table>`,
+   qs:[
+    {q:'一份洋芋片約可提供多少熱量？',o:['204 大卡','164 大卡','204 卡','816 大卡'],a:0,src:'',ex:'3×4＋8×9＋30×4＝12＋72＋120＝204 大卡。'},
+    {q:'整包吃完約攝取多少熱量？',o:['816 大卡','204 大卡','408 大卡','612 大卡'],a:0,src:'改寫題',ex:'整包 4 份：204×4＝816 大卡。'},
+    {q:'這包洋芋片的熱量，主要來自哪一種養分？',o:['碳水化合物','蛋白質','鈉','脂肪'],a:0,src:'改寫題',ex:'碳水化合物 120 大卡＞脂肪 72 大卡＞蛋白質 12 大卡；鈉不提供熱量。'},
+   ]},
+  {title:'題組五：細胞構造代號',html:`<p>某細胞的構造說明如下：</p>
+   <table class="tb"><tr><th>代號</th><th>說明</th></tr><tr><td>甲</td><td>呈球形，被膜包圍，內含遺傳物質</td></tr><tr><td>乙</td><td>最外層，由纖維素組成</td></tr>
+   <tr><td>丙</td><td>綠色顆粒</td></tr><tr><td>丁</td><td>袋狀構造，暫存水分、養分和廢物</td></tr><tr><td>戊</td><td>分解養分、產生能量</td></tr></table>`,
+   qs:[
+    {q:'這是動物細胞還是植物細胞？依據是什麼？',o:['植物細胞，因為有乙（細胞壁）','動物細胞，因為有戊（粒線體）','植物細胞，因為有甲（細胞核）','無法判斷'],a:0,src:'10 校考細胞圖題組',ex:'有細胞壁就是植物細胞；細胞核、粒線體動植物都有。'},
+    {q:'被稱為細胞「生命中樞」的是哪一個代號？',o:['甲','乙','丁','戊'],a:0,src:'10 校考細胞圖題組',ex:'甲是細胞核。'},
+    {q:'人的口腔皮膜細胞「沒有」哪些構造？',o:['乙和丙','甲和戊','丁和戊','甲和丁'],a:0,src:'10 校考細胞圖題組',ex:'動物細胞沒有細胞壁（乙）和葉綠體（丙）。'},
+    {q:'哪一個構造在消耗能量多的肌肉細胞中特別多？',o:['戊','丙','乙','丁'],a:0,src:'10 校考細胞圖題組',ex:'戊是粒線體。'},
+   ]},
+  {title:'題組六：肺泡與 PM2.5（閱讀）',html:`<p>肺泡是肺裡的小氣囊，肺泡壁和周圍的微血管壁都只有一層扁平的細胞。吸入的氧氣在肺泡中濃度較高，會進入濃度較低的血液；血液中的二氧化碳則進入肺泡被呼出。PM2.5 是直徑 2.5 微米以下的細小懸浮微粒，能深入肺泡，長期吸入可能傷害健康。</p>`,
+   qs:[
+    {q:'氧氣從肺泡進入血液，主要是靠什麼方式？',o:['擴散作用','滲透作用','光合作用','先分解再吸收'],a:0,src:'PM2.5 題組',ex:'氧氣由高濃度往低濃度移動＝擴散，而且氧氣可以直接通過細胞膜。'},
+    {q:'PM2.5 的直徑「2.5 微米」等於多少？',o:['2500 奈米','0.25 奈米','25 毫米','2.5 公分'],a:0,src:'尺度題',ex:'1 μm＝1000 nm，2.5 μm＝2500 nm。'},
+    {q:'在組成層次中，「肺」屬於哪一個層次？',o:['器官','組織','器官系統','細胞'],a:0,src:'層次題',ex:'肺是器官；肺和氣管等合起來屬於呼吸系統（器官系統）。'},
+   ]},
+];
+
+/* ================= 考點雷達（依 stats.json；分母＝同版 12 校） ================= */
+const RADAR={n:12,
+  schools:'',
+  topics:[['細胞構造與功能',12],['組成層次',12],['滲透作用',12],['變因與對照組',12],['顯微鏡倍率與視野',12],['科學方法步驟',12],['細胞形態與功能',12],['動植物細胞比較',12],['物質進出細胞膜',12],['單細胞與多細胞',12],['生物圈',12],['顯微鏡影像方向',11],['生命現象判別',11],['顯微鏡種類選擇',10],['玻片製作與染色',10],['顯微鏡構造功能',9],['原子分子大小',9],['擴散作用',8],['細胞的發現',8],['2-1 食物中的養分',8],['實驗室安全',7],['食物熱量計算',7],['碘液／本氏液',6],['尺度與單位',5],['酵素（延伸）',3]],
+  qcount:[['細胞構造與功能',47],['組成層次',45],['滲透作用',37],['變因與對照組',27],['顯微鏡倍率與視野',26],['顯微鏡影像方向',25],['科學方法步驟',23],['細胞形態與功能',22],['動植物細胞比較',21],['顯微鏡構造功能',21]],
+  other:[['生命現象',40],['細胞壁',40],['葉綠體',38],['紅血球',37],['組成層次',37],['食物養分',37],['複式／解剖顯微鏡',36],['放大倍率',36],['擴散作用',36],['科學方法（假說）',35],['細胞學說／虎克',35],['原子分子',35],['滲透作用',34],['光合作用（南一不考）',33]],
+  charts:[['地球分層圖判斷生物圈',8],['物質通過細胞膜示意圖',8],['紅血球放進三種食鹽水',7],['市場食材排組成層次',7],['醃漬',6],['葉下表皮的保衛細胞',6],['營養標示算熱量',6]],
+  traps:['保衛細胞的功能是<b>控制氣孔</b>，不是保護','區分動植物細胞看<b>細胞壁</b>，不是葉綠體','植物<b>沒有器官系統</b>','換高倍物鏡後<b>只能轉細調節輪</b>','醃漬是<b>水分流出</b>，不是鹽讓微生物中毒','虎克<b>沒有</b>提出細胞學說','深海沒有藻類是因為<b>缺乏陽光</b>','營養標示「每 100 公克」要<b>換算整包</b>'],
+};
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};BGM.btn();
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、sci7-nanyi-1（例 chinese8-1）、自然 國一上第一次段考（南一）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'sci7-nanyi-1',
+  site:'自然 國一上第一次段考（南一）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('sci7-nanyi-1_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('sci7-nanyi-1_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${'名詞快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽 ================= */
+const UNITS=['c1','c2','c3','c4','c5','c6','c8','x1'];
+const TABS=[['home','🏠 考點雷達'],['c1','🔬 1-1 科學方法'],['c2','🌍 1-2 生命與生物圈'],['c3','🔭 1-2 顯微鏡'],['c4','🧫 1-3 細胞'],['c5','💧 1-4 進出細胞'],['c6','🐟 1-5 組成層次'],['c8','🍱 2-1 養分'],['x1','🧪 2-2 酵素（延伸）'],['mix','📊 圖表與實驗'],['final','📝 總測驗']];
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMixPage(app);
+  if(cur==='final') return renderFinal(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 名詞快問快答'],['match','🔗 構造↔功能配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2><p class="muted" style="margin:0">${d.author}</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel'),title=`${d.no} ${d.title}`;
+  if(s==='anim') animUnit(p,ANIMS[cur]);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">共 ${d.mcq.length} 題，全部是單選題（各校段考也都是單選）。點選答案後才會出現解析，選項每次重新洗牌。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 動畫（照片舞台＋課本重點＋考點） ================= */
+function animUnit(p,A){
+  p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>
+  <div class="card"><h3>🗺️ 重點一張表</h3>${A.map}</div>`;
+  stepper(p,A.steps,i=>showPhoto(A.steps[i]),7000);
+}
+
+/* ================= 綜合：圖表判讀與實驗題 ================= */
+function renderMixPage(app){
+  app.innerHTML=`<h2>📊 圖表判讀與實驗題</h2>
+  <p class="muted">各校最愛的圖表題型：數據表找變因、顯微鏡鏡頭組合、營養標示算熱量、細胞構造代號、閱讀題組。數據為原創改寫。每個題組做完都能交卷。</p>
+  ${MIXQ.map((g,i)=>`<div class="card"><h3>${g.title}</h3><div class="mixhtml">${g.html}</div></div><div id="mx${i}"></div>`).join('')}`;
+  MIXQ.forEach((g,i)=>renderMCQ($('#mx'+i),g.qs,7,'圖表與實驗｜'+g.title));
+}
+
+/* ================= 總測驗：各單元抽題 ================= */
+function renderFinal(app){
+  app.innerHTML=`<h2>📝 第一次段考總測驗</h2>
+  <div class="card"><p>從各單元的段考模擬題隨機抽題，模擬真正段考。做完按 <b>📤 交卷給老師</b>，老師就能看到你的分數和錯題。</p>
+  <p class="muted">選擇範圍（可多選；2-2 酵素只有部分學校考，預設不勾）：</p>
+  <div class="row" id="fu">${UNITS.map(k=>`<label class="chk"><input type="checkbox" value="${k}" ${k==='x1'?'':'checked'}> ${L[k].no} ${L[k].title}</label>`).join('')}</div>
+  <div class="row" style="margin-top:12px"><span>題數：</span>${[25,40].map(n=>`<button class="btn ${n===25?'':'ghost'}" data-n="${n}">${n} 題</button>`).join('')}</div></div>
+  <div id="fq"></div>`;
+  app.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{
+    const us=[...app.querySelectorAll('#fu input:checked')].map(x=>x.value);
+    if(!us.length)return alert('至少選一個單元喔！');
+    const pool=shuf(us.flatMap(k=>L[k].mcq.map(q=>({...q,src:L[k].no+' '+L[k].title,unit:L[k].no+' '+L[k].title}))));
+    renderMCQ($('#fq'),pool.slice(0,+b.dataset.n),9,'總測驗');
+    $('#fq').scrollIntoView({behavior:'smooth'});
+  });
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const R=RADAR,N=R.n;
+  const bar=(arr,n,unit)=>`<div class="bars">${arr.map(([t,v])=>`<div class="b"><span>${t}</span><div class="track"><div class="fill" data-w="${v/n*100}"></div></div><b>${v}${unit||'/'+n}</b></div>`).join('')}</div>`;
+  const maxQ=Math.max(...R.qcount.map(x=>x[1]));
+  app.innerHTML=`
+  <h2>📡 第一次段考考點雷達</h2>
+  <p class="muted">整理 ${N} 所學校南一版第一次段考卷：${R.schools}。12 校全部是單選題（含題組）。</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${UNITS.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].title}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（12 校中幾校考過）</h3>${bar(R.topics,N)}
+    <p class="muted" style="margin-top:10px">顯微鏡相關（倍率、影像方向、構造、種類、製作玻片）合計超過 100 題，是最大宗；2-1 養分只有 8 校考，比重不高。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>題數最多的主題（12 校合計題數）</h3>${bar(R.qcount,maxQ,' 題')}</div>
+    <div class="card"><h3>最多校考的圖表題</h3>${bar(R.charts,N)}</div>
+  </div>
+  <div class="card"><h3>⚠️ 學生最常錯的地方</h3><ul class="traps">${R.traps.map(t=>`<li>${t}</li>`).join('')}</ul></div>
+  <div class="card"><h3>🌏 他版學校也都考的共通考點（40 校中幾校出現）</h3>${bar(R.other,40)}
+    <p class="muted" style="margin-top:10px">他版（康軒、翰林）第一次段考多考到光合作用；南一版第一次段考只有新莊考光合作用，本網站不收。他版資料只用來對照關鍵字。</p></div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每個單元先看 <b>🎬 動畫導覽</b> → ② <b>⚡ 名詞快問快答</b>、<b>🔗 構造↔功能配對</b>，把名詞練熟 → ③ <b>🎯 分類挑戰</b>，練變因、細胞、層次 → ④ <b>📝 段考模擬題</b>，做完按 <b>📤 交卷給老師</b>。</p>
+  <p>再到 <b>📊 圖表與實驗</b> 練題組，最後用 <b>📝 總測驗</b> 檢查自己準備好了沒。</p>
+  <p class="muted">範圍：1-1～2-1（多數學校）。段考常考到 2-2 酵素，放在延伸關卡。</p></div>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+
+<!-- AK:answer-key -->
+<style id="ak-style">#ak-btn{position:fixed;left:14px;bottom:14px;z-index:9990;font:600 16px/1 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:#1f4e79;color:#fff;border:0;border-radius:999px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer}#ak-btn:hover{background:#163a5c}#ak-box{display:none;position:fixed;inset:0;z-index:9995;background:rgba(15,25,40,.45);padding:16px;overflow:auto}#ak-box.show{display:block}#ak-box .ak-card{max-width:960px;margin:20px auto;background:#fff;color:#1d2733;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:16px/1.6 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;text-align:left}#ak-box .ak-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #e3e8ef;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}#ak-box .ak-head b{font-size:18px;color:#1f4e79}#ak-box .ak-head button{font:inherit;font-size:16px;margin-left:8px;border:1px solid #c9d3df;background:#f4f7fb;color:#1d2733;border-radius:8px;padding:6px 12px;cursor:pointer}#ak-box .ak-body{padding:6px 18px 18px}#ak-box h3{font-size:17px;margin:16px 0 6px;color:#1f4e79}#ak-box .ak-t{border-collapse:collapse;width:100%;margin:6px 0;table-layout:fixed}#ak-box .ak-t th,#ak-box .ak-t td{border:1px solid #cfd8e3;padding:5px 2px;text-align:center;font-size:16px;word-break:break-all}#ak-box .ak-t th{background:#eef3f9;color:#1f4e79;font-weight:600}#ak-box .ak-t th:first-child{width:3.6em}#ak-box .ak-t td{font-weight:700}#ak-box .ak-list{columns:2 300px;margin:6px 0;padding-left:0;list-style:none}#ak-box .ak-list li{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e3e8ef}@media print{#ak-btn{display:none!important}html:not(.ak-on) #ak-box{display:none!important}html.ak-on body>*:not(#ak-box){display:none!important}html.ak-on #ak-box{position:static;background:none;padding:0;display:block!important;overflow:visible}html.ak-on #ak-box .ak-card{box-shadow:none;margin:0;max-width:none}html.ak-on #ak-box .ak-head button{display:none}html.ak-on #ak-box .ak-head{position:static}}</style>
+<script id="ak-core">(function(){
+if(window.AK)return;
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function norm(secs){
+ if(!secs)return[];
+ if(!Array.isArray(secs[0]&&secs[0].items)&&Array.isArray(secs))secs=[{title:'',items:secs}];
+ return secs.map(function(s){return{title:s.title||'',items:(s.items||[]).map(function(x,i){return Array.isArray(x)?[x[0],x[1]]:[i+1,x]})}}).filter(function(s){return s.items.length});
+}
+function table(s){
+ var long=s.items.some(function(x){return String(x[1]).length>3});
+ var h=s.title?'<h3>'+esc(s.title)+'</h3>':'';
+ if(long){
+  return h+'<ol class="ak-list">'+s.items.map(function(x){return'<li><b>'+esc(x[0])+'.</b> '+esc(x[1])+'</li>'}).join('')+'</ol>';
+ }
+ var out=h;
+ for(var i=0;i<s.items.length;i+=10){
+  var r=s.items.slice(i,i+10);
+  out+='<table class="ak-t"><tr><th>題號</th>'+r.map(function(x){return'<th>'+esc(x[0])+'</th>'}).join('')+'</tr><tr><th>答案</th>'+r.map(function(x){return'<td>'+esc(x[1])+'</td>'}).join('')+'</tr></table>';
+ }
+ return out;
+}
+window.AK=function(fn){
+ function run(){
+  var secs;
+  try{secs=norm(typeof fn==='function'?fn():fn)}catch(e){console.warn('AK',e);return}
+  window.__AK_DATA=secs;
+  if(!secs.length)return;
+  var n=secs.reduce(function(a,s){return a+s.items.length},0);
+  var btn=document.createElement('button');btn.id='ak-btn';btn.type='button';btn.textContent='📋 答案總表';if(window.AK_BTN_STYLE)btn.style.cssText=window.AK_BTN_STYLE;
+  var box=document.createElement('div');box.id='ak-box';
+  box.innerHTML='<div class="ak-card" role="dialog" aria-label="答案總表"><div class="ak-head"><b>📋 答案總表（教師用，共 '+n+' 題）</b><span><button type="button" class="ak-p">🖨 列印答案</button><button type="button" class="ak-x" aria-label="關閉">✕</button></span></div><div class="ak-body">'+secs.map(table).join('')+'</div></div>';
+  document.body.appendChild(btn);document.body.appendChild(box);
+  function close(){box.classList.remove('show');document.documentElement.classList.remove('ak-on')}
+  btn.onclick=function(){box.classList.add('show');document.documentElement.classList.add('ak-on')};
+  box.querySelector('.ak-x').onclick=close;
+  box.onclick=function(e){if(e.target===box)close()};
+  box.querySelector('.ak-p').onclick=function(){window.print()};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+ }
+ if(document.readyState==='complete')setTimeout(run,0);else window.addEventListener('load',function(){setTimeout(run,0)});
+};
+})();</script>
+<script>AK(function(){
+if(!/[?&]teacher\b/.test(location.search))return [];
+/* 段考闖關站（chinese/civics/geography/history/science-site 的 volX_ 的 index.html）共用 adapter。
+   資料：頂層 const（L 各課 .mcq/.ext、RIDDLE/EXT/SCEN/CHART…）裡的選擇題物件 {q,o,a}。
+   renderMCQ 題序固定、但「選項每次洗牌」，所以答案列「正解選項文字」而非字母。
+   快問快答／配對／分類挑戰（題目隨機抽）與總測驗（pool/pick 隨機抽題）都不是頂層 {q,o,a} 陣列，不會被列入。 */
+window.AK_BTN_STYLE='left:14px;bottom:76px;font-size:20px;padding:12px 18px';
+(function(){
+  if(document.getElementById('ak-big'))return;
+  var s=document.createElement('style');s.id='ak-big';
+  s.textContent='html body #ak-box .ak-card{font-size:20px}html body #ak-box .ak-head b{font-size:22px}html body #ak-box .ak-head button{font-size:20px}html body #ak-box h3{font-size:21px}html body #ak-box .ak-list li{font-size:20px}html body #ak-box .ak-t th,html body #ak-box .ak-t td{font-size:20px}html body #ak-box .ak-note{font-size:20px;color:#5a6878;margin:10px 0 0}@media(max-width:600px){html body #ak-box{padding:6px}html body #ak-box .ak-card{margin:6px auto}html body #ak-box .ak-body{padding:6px 12px 14px}html body #ak-box .ak-list{columns:1}}';
+  document.head.appendChild(s);
+  setTimeout(function(){var b=document.querySelector('html body #ak-box .ak-body');if(b&&!b.querySelector('.ak-note')){var p=document.createElement('p');p.className='ak-note';p.textContent='※ 題號＝各練習頁上的題號；選項每次會重新洗牌，故列「正確選項的內容」。快問快答、配對、分類挑戰、總測驗為隨機出題，不列。';b.insertBefore(p,b.firstChild)}},50);
+})();
+var src=[].slice.call(document.querySelectorAll('script:not([src])')).filter(function(x){return x.id!=='ak-core'&&x.textContent.indexOf('AK(function')<0}).map(function(x){return x.textContent}).join('\n');
+var names=[];src.replace(/^(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=/gm,function(_,n){if(names.indexOf(n)<0)names.push(n)});
+var isQ=function(x){return x&&typeof x==='object'&&typeof x.q==='string'&&Array.isArray(x.o)};
+var clean=function(t){t=String(t).replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();return t.length>60?t.slice(0,60)+'…':t};
+var lit=function(expr){var re=new RegExp('renderMCQ\\([^,]+,\\s*'+expr.replace(/[.$[\]]/g,'\\$&')+'\\s*,\\s*[^,]+,\\s*([\'"`])([^\'"`$]*)\\1');var m=src.match(re);return m?m[2]:''};
+var KEY={mcq:'📝 段考模擬題',ext:'延伸題',graph:'綜合 圖表判讀',calc:'綜合 計算練習'};
+var secs=[];
+function add(title,arr,pri){for(var j=0;j<secs.length;j++)if(secs[j].arr===arr){if(pri>secs[j].pri){secs[j].title=title;secs[j].pri=pri}return}secs.push({arr:arr,pri:pri,title:title,items:arr.map(function(q,i){return[i+1,clean(q.o[q.a==null?0:q.a])]})})}
+function walk(v,path,parents){
+  if(!v||typeof v!=='object'||path.length>6||v instanceof Node||v===window)return;
+  if(Array.isArray(v)){
+    if(v.length&&v.every(isQ)){
+      var root=path[0],last=path[path.length-1],par=parents[parents.length-1],t;
+      if(root==='L'&&path.length===3){var d=parents[1];t=[d.no,d.title||d.name].filter(Boolean).join(' ')+'｜'+(KEY[last]||last)}
+      else if(path.length===1)t=lit(root)||root;
+      else if(par&&!Array.isArray(par)&&par.title){var gi=path[path.length-2];t=(/^[①-⑳]/.test(par.title)?'':(typeof gi==='number'?(gi+1)+'. ':''))+String(par.title).replace(/<[^>]*>/g,'')}
+      else t=lit(path.join('.'))||KEY[last]||path.join('.');
+      add(t,v,root==='L'?1:0);return;
+    }
+    v.forEach(function(x,i){walk(x,path.concat(i),parents.concat([v]))});return;
+  }
+  if(Object.getPrototypeOf(v)!==Object.prototype)return;
+  Object.keys(v).forEach(function(k){walk(v[k],path.concat(k),parents.concat([v]))});
+}
+names.forEach(function(n){var v;try{v=(0,eval)(n)}catch(e){return}walk(v,[n],[])});
+/* 同一陣列被兩處引用（如 L.ex.mcq＝EXT）只列一次，以課別標題為準；依 L 的課序排在前面 */
+secs.sort(function(a,b){return b.pri-a.pri});
+return secs.map(function(s){return{title:s.title,items:s.items}});
+});</script>
+<!-- /AK -->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+</body>
+</html>

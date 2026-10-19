@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國一公民段考闖關</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#1f4e8c; --main-2:#3a72c0; --accent:#f2a541; --accent-2:#e07a2f;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#163a6b 0%,#3a72c0 60%,#f0a03c 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#163a6b;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+.qword{font-size:1.5rem;letter-spacing:0;line-height:1.5;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word}
+@media(max-width:560px){.opts{grid-template-columns:1fr}.qword{font-size:1.3rem}}
+.bars .b span{line-height:1.35}
+@media(max-width:560px){.bars .b{grid-template-columns:128px 1fr 52px}}
+details.card summary{cursor:pointer}
+@media(max-width:560px){.lessoncards{grid-template-columns:1fr}.lc{min-height:0;gap:8px}}
+/* 表格與圖表（文字放在 HTML，不畫在圖上） */
+.tbl{width:100%;border-collapse:collapse;font-size:1rem;margin:6px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.tbl th{background:#eaf1fb;color:var(--main)}
+.tbl td:first-child{white-space:nowrap}
+.figbox{overflow-x:auto;margin-bottom:6px}
+.chip{display:inline-block;color:#fff;border-radius:8px;padding:0 8px}
+.passage{background:#f2f6fc;border-radius:12px;padding:14px 16px;line-height:1.9}
+.scale{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.scale span{flex:1 1 120px;background:#eaf1fb;border-radius:12px;padding:8px 10px;text-align:center;font-size:1rem;line-height:1.5}
+.scale span b{color:var(--accent-2)}
+.ramp{display:flex;border-radius:12px;overflow:hidden;margin-top:10px}
+.ramp span{flex:1;color:#fff;text-align:center;padding:6px 0;font-weight:700;font-size:1rem}
+.ladder{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 12px}
+.ladder span{background:var(--main);color:#fff;border-radius:12px;padding:6px 12px;font-weight:700;text-align:center}
+.ladder span.an{background:var(--accent);color:#3b2600}
+.ladder small{display:block;font-size:1rem;font-weight:500}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回公民選單</a><span class="tag">南一版 國一上公民 ｜ 第一次段考</span>
+    <h1>公民段考闖關｜人性尊嚴與人權保障＋性別平權</h1>
+    <p>先看真實照片動畫弄懂課本，再用遊戲練熟考點，最後做段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap"><details style="margin-top:8px"><summary>圖片來源與授權</summary>
+  照片皆來自 Wikimedia Commons（CC0／公有領域／CC BY／CC BY-SA），未使用 AI 生成圖：Child Labour in Brick Kilns of Nepal：Shresthakedar（CC BY-SA 4.0）；Lewis Hine, Spinner in Globe Cotton Mill, Augusta, Georgia, 1909：Lewis Hine（公有領域）；Capital Area Food Bank Volunteers - Flickr - USDAgov：U.S. Department of Agriculture（CC BY 2.0）；Students of Baozhong Junior High School during class 20130308：褒忠國中 雲端網（CC BY 2.0）；Guide dog at the end of the road A Gate Town Hall Railway Station Sydney P1350256：John Robert McPherson（CC BY-SA 4.0）；Police officers of Taiwan with different generations of uniform at the uniform replacement ceremony 20190418：中華民國總統府（CC BY 2.0）；Accessible toilet Platform 10 Roma Street Station Brisbane P1110354：John Robert McPherson（CC BY-SA 4.0）；Eleanor Roosevelt UDHR (cropped)：FDR Presidential Library & Museum（CC BY 2.0）；United Nations General Assembly Hall (2)：Basil D Soufi（CC BY-SA 3.0）；Waiting Zone for Female Passengers at Night, TRA Banqiao Station Platform 2B 20181027：Solomon203（CC BY-SA 4.0）；"Arbeit macht frei" sign on top of the main gate - Auschwitz I (9307331040)：Jorge Láscar from Australia（CC BY 2.0）；Esther Bubley - An instructor of the Capitol Transit Company teaching a woman to operate a one-man streetcar：Esther Bubley / Adam Cuerden（公有領域）；What S Cooking Dad (123615287)：Nicu Buculei（CC BY-SA 3.0）；NASA Engineer Thu Nguyen：Robert Markowitz（公有領域）；Me-too sign：surdumihail（CC0）；Interior of a Taipei MRT train 2008-10-09：Kuruman（CC BY 2.0）；Nurse Abram：Fabjullianna（CC BY-SA 4.0）；L-14-11-17-A-0419 (15200961503)：US Department of Labor（公有領域）；School children of Taichung Beishih Elementary School on Sports Day 2016-12-03：Master COCO（CC0）；Family watching television 1958：Evert F. Baumgardner（公有領域）；Equal Pay Day am 23. März 2012 (6862191654)：Fraktion DIE LINKE. im Bundestag（CC BY 2.0）。</details>
+</div></footer>
+
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料（南一 國一上公民 第一次段考） =================
+   名詞、定義、法律名稱一律依南一國一上公民課本（114 學年版 WORD 檔：單元1 人性尊嚴與人權保障、單元2 性別平權）。
+   快問快答：[題目, 正解, [3 個誘答], 幾校考過(0＝不標★)]
+   模擬題：{q, o:[正解, 誘答…], a:0, src, ex}（選項每次洗牌；全部原創改寫，只借各校命題方向與陷阱） */
+const L = {
+/* ---------- 單元1 人性尊嚴與人權保障 ---------- */
+l1:{
+  no:'單元1', code:1, title:'人性尊嚴與人權保障', short:'人性尊嚴與人權保障', color:'linear-gradient(135deg,#1f4e8c,#3a72c0)',
+  desc:'1-1 人性尊嚴｜1-2 保障人權與人性尊嚴｜1-3 普遍性保障、世界人權宣言',
+  quickAsk:'選出正確的答案', quickTitle:'人權名詞快問快答',
+  quick:[
+    ['每個人都是獨立自主的個體，可選擇自己想要的生活方式，不被干涉並受到尊重','人性尊嚴',['人權','法治','公共利益'],4],
+    ['人性尊嚴的核心概念','選擇的自由',['財富的多寡','服從多數','社會地位'],3],
+    ['每個人與生俱來所應享有且不可侵犯的權利','人權',['特權','義務','福利'],4],
+    ['課本列出的人權內涵：生存、自由、平等，以及','人身安全',['財富累積','升學考試','社會名望'],2],
+    ['保障人權與維護人性尊嚴的關係','保障人權是維護人性尊嚴的具體作為',['兩者互相衝突','人性尊嚴只能靠個人努力','保障人權只為了經濟發展'],4],
+    ['民主國家用什麼保障基本生活水準，並約束他人或政府','制定法律',['道德勸說','宗教規範','風俗習慣'],4],
+    ['憲法：「人民之老弱殘廢，無力生活…國家應予以適當之扶助與救濟」保障的是','基本生活',['身體自由','言論自由','財產權'],3],
+    ['憲法：「人民身體之自由應予保障」，法律藉此約束','他人或政府',['只有罪犯','只有外國人','只有學生'],3],
+    ['警察依法逮捕正在犯罪的人，是否侵害人權？','不算侵害人權',['侵害身體自由','侵害人性尊嚴','侵害受教權'],2],
+    ['讓國際社會認知「唯有普遍性的人權保障才能維護人性尊嚴」的歷史經驗','第二次世界大戰',['第一次世界大戰','工業革命','地理大發現'],3],
+    ['第二次世界大戰後成立、目標在維持世界和平的國際組織','聯合國',['歐洲聯盟','世界貿易組織','國際奧委會'],3],
+    ['第一部獲得國際社會重視的人權文件','世界人權宣言',['人權兩公約','中華民國憲法','性別平等教育法'],4],
+    ['聯合國通過世界人權宣言的年份','1948 年',['1945 年','1966 年','1919 年'],3],
+    ['聯合國通過人權兩公約的年份','1966 年',['1948 年','1939 年','2009 年'],2],
+    ['「公民與政治權利國際公約」和「經濟社會文化權利國際公約」合稱','人權兩公約',['世界人權宣言','性平三法','聯合國憲章'],3],
+    ['世界人權宣言具體列出人權的內涵，強調人權的','普世價值',['地方特色','經濟價值','宗教價值'],3],
+    ['世界人權宣言：人人生而自由，在尊嚴和權利上','一律平等',['依身分而不同','由國家決定','由財富決定'],2],
+    ['臺鐵「夜間婦女候車區」呼應憲法增修條文的哪一項精神','保障婦女人身安全',['保障身心障礙者','保障原住民族','保障兒童受教權'],2],
+    ['政府規範建築物設置無障礙設施，保障的是誰的權利','身心障礙者',['婦女','兒童','觀光客'],2],
+    ['依身心障礙者權益保障法，大眾運輸不得拒絕哪種動物進入','合格導盲犬',['寵物貓','寵物狗','觀賞鳥'],2],
+    ['國家立法保障人權的兩個目的：維護個人的自由，以及','幫助弱勢群體',['增加稅收','擴大政府權力','限制外國人'],2],
+    ['我國設有國民基本教育，提供同齡學生','平等的受教權利',['相同的成績','相同的職業','相同的興趣'],0],
+    ['學生可以自由選擇自己喜歡的社團，表現出人性尊嚴的','選擇的自由',['服從師長','團體利益優先','成績至上'],3],
+    ['某國以「歷史文化不同」為由迫害少數民族，仍會受國際批評，因為人權具有','普世性',['地方性','暫時性','選擇性'],3],
+    ['12 歲時因童工報導而成立「解放兒童基金會」的人物（課本專欄）','柯柏格',['塔拉納．伯克','韋恩斯坦','艾莉莎．米蘭諾'],0],
+  ],
+  words:[
+    ['人性尊嚴','獨立自主、可選擇生活方式，不被干涉並受尊重'],['人權','與生俱來、不可侵犯的權利'],['選擇的自由','人性尊嚴的核心概念'],
+    ['聯合國','二戰後成立，目標在維持世界和平'],['世界人權宣言','1948 年，第一部受國際重視的人權文件'],['人權兩公約','1966 年，公民政治權利＋經濟社會文化權利'],
+    ['第二次世界大戰','因族群、政治立場遭迫害，促成普遍性人權保障'],['扶助與救濟','保障老弱殘廢、受災者的基本生活'],['身體自由','除依法逮捕外，任何人不能隨意侵害'],
+    ['夜間婦女候車區','保障婦女的人身安全'],['無障礙設施','保障身心障礙者的權利'],['導盲犬','不得拒絕自由出入、不得收額外費用'],
+    ['國民基本教育','提供同齡學生平等的受教權利'],['解放兒童基金會','柯柏格為童工爭取人權而成立'],
+  ],
+  sorts:[
+    {title:'這件事維護還是侵害人性尊嚴？',tip:'看當事人有沒有「選擇的自由」、有沒有被公平對待、有沒有被騷擾或迫害。',buckets:['✅ 維護人性尊嚴','❌ 侵害人性尊嚴'],items:[
+      ['學生依自己的興趣選擇社團',0],['爸爸強迫孩子接手家裡小吃攤，不給選擇',1,'沒有選擇的自由'],['政府定期發放物資給清寒民眾',0,'保障基本生活'],
+      ['在社群網站散播同學的不實謠言',1],['戲院為視障者提供口述影像服務',0,'保障身心障礙者'],['公車司機拒絕合格導盲犬上車',1,'違反身心障礙者權益保障法'],
+      ['警察依法逮捕正在搶劫的人',0,'依法逮捕不是侵害人權'],['工廠讓童工每天工作十幾個小時',1],['班會先讓每個人發表意見，再交換想法取得共識',0],['遊民收容所提供住宿和熱食',0,'享有人應有的生存條件']]},
+    {title:'國際保障還是我國保障？',tip:'1-3：國際上由聯合國通過宣言與公約；我國用憲法、憲法增修條文與法律擴大保障對象。',buckets:['🌐 國際如何保障人權','🇹🇼 我國如何保障人權'],items:[
+      ['世界人權宣言',0],['人權兩公約',0],['聯合國呼籲各國重視人權',0],['憲法：老弱殘廢無力生活者，國家應扶助救濟',1],
+      ['憲法增修條文：保障婦女人身安全',1],['憲法增修條文：保障身心障礙者無障礙環境',1],['身心障礙者權益保障法：不得拒絕導盲犬',1],['憲法：人民身體之自由應予保障',1]]},
+    {title:'法律怎麼維護人性尊嚴？',tip:'1-2：法律一方面「保障基本生活水準」，一方面「約束他人或政府」以免侵害個人權利。',buckets:['保障基本生活水準','約束他人或政府'],items:[
+      ['政府定期發放物資給清寒民眾',0],['颱風災民由政府提供食物與安置',0],['學校補助清寒學生的學雜費',0],['設立收容所給無家可歸的人',0],
+      ['政府不能任意拘禁人民',1],['任何人都不能隨意傷害他人的身體',1],['不得對合格導盲犬附加出入條件',1,'約束他人，保障視障者']]},
+  ],
+  mcq:[
+    {q:'班上討論未來志願時，小芸說：「我想當飛行員，爸媽說只要我有興趣就支持我。」這段話最能呈現人性尊嚴的哪一個核心概念？',o:['擁有選擇的自由','服從家人的安排','追求高收入的職業','以團體利益為優先'],a:0,src:'4 校考：人性尊嚴＝選擇的自由',ex:'人性尊嚴的核心概念是每個人都有「選擇的自由」，能自行決定自身事務，不被他人干涉並受到尊重。'},
+    {q:'下列哪一個情境中，當事人的人性尊嚴最受到維護？',o:['小安想讀美術班，家人與他討論後尊重他的決定','阿哲的爸爸不顧他的意願，要他放棄升學去工作','小玲因為家境不好，被同學排擠','老師規定全班都要參加同一個社團'],a:0,src:'名人故事與生活案例',ex:'人性尊嚴強調當事人能選擇自己想要的生活方式並受到尊重；其他選項都是被干涉、不被尊重。'},
+    {q:'「每個人與生俱來所應享有，且不可侵犯的權利」指的是什麼？',o:['人權','特權','義務','福利'],a:0,src:'人權的定義',ex:'人權是每個人與生俱來應享有且不可侵犯的權利，包含生存、自由、平等、人身安全等。'},
+    {q:'關於「保障人權」與「維護人性尊嚴」的關係，下列敘述何者正確？',o:['保障人權是維護人性尊嚴的具體作為','維護人性尊嚴只能靠個人努力，與國家無關','只要保障自己的人權，不必在意他人的權利','保障人權的主要目的是促進經濟發展'],a:0,src:'4 校考 1-2',ex:'課本：保障人權是維護人性尊嚴的具體作為，國家也透過制定法律保障人民權利；同時我們也應重視他人的權利。'},
+    {q:'某縣市在颱風過後，立即將食物、飲用水與睡袋送到受災民眾的收容中心。這項作為最主要是為了保障人民的什麼？',o:['基本生活','言論自由','財產權','參政權'],a:0,src:'扶助救濟',ex:'憲法規定受非常災害者，國家應予以適當的扶助與救濟，以保障其基本生活。'},
+    {q:'憲法規定「人民身體之自由應予保障」，除非依法逮捕犯人，任何人都不能隨意侵害他人的身體。這說明法律具有什麼功能？',o:['約束他人或政府，以免侵害個人權利','鼓勵人民多參與公共事務','確保每個人收入相同','保障犯罪者可以不受處罰'],a:0,src:'身體自由',ex:'課本 1-2：法律一方面保障基本生活水準，一方面約束他人或政府，以免侵害個人的權利。'},
+    {q:'下列哪一種情況「不屬於」侵害人權？',o:['警察依法逮捕正在行竊的現行犯','雇主扣留外籍員工的護照不讓他離開','網友公開散布某人的私密照片','某國政府無故關押批評政府的作家'],a:0,src:'警察逮捕現行犯（陷阱）',ex:'依法逮捕是為了阻止犯罪，不是侵害人權；罪犯在程序上仍享有人權。其他三項都侵害了自由或尊嚴。'},
+    {q:'第二次世界大戰期間，許多人因族群、政治立場等因素遭到迫害甚至失去生命。這段歷史讓國際社會認知到什麼？',o:['唯有普遍性的人權保障，才能維護人性尊嚴','各國人權應由各國自行決定，外人不應過問','戰爭期間可以暫停保障人權','只有戰勝國人民才享有人權'],a:0,src:'二戰與人權',ex:'課本 1-3：有鑑於二戰慘痛經驗，國際社會認知唯有普遍性的人權保障，才能維護人性尊嚴與價值。'},
+    {q:'有一份文件在 1948 年由聯合國通過，具體列出人權內涵、強調人權的普世價值，是第一部獲得國際社會重視的人權文件。這份文件是什麼？',o:['世界人權宣言','公民與政治權利國際公約','中華民國憲法','兒童權利公約'],a:0,src:'4 校考：世界人權宣言',ex:'世界人權宣言（1948）是第一部獲國際社會重視的人權文件；人權兩公約是 1966 年。'},
+    {q:'關於人權兩公約，下列敘述何者正確？',o:['指公民與政治權利國際公約、經濟社會文化權利國際公約','是第一部受國際重視的人權文件','由我國立法院制定','內容只保障女性的權利'],a:0,src:'兩公約',ex:'兩公約是 1966 年聯合國通過的國際人權文件；「第一部」的是世界人權宣言。人權保障所有人，不只女性。'},
+    {q:'下列哪一項「不是」國際性的人權保障文件？',o:['中華民國憲法','世界人權宣言','公民與政治權利國際公約','經濟社會文化權利國際公約'],a:0,src:'國際文件 vs 國內法',ex:'中華民國憲法是我國的國內法；其他三項是聯合國通過的國際人權文件。'},
+    {q:'某國以「國土廣大、歷史文化不同」為由，長期限制少數民族的宗教活動，仍受到許多國家批評。國際社會批評的主要理由是什麼？',o:['人權具有普世價值，只要是人都應享有','各國的文化應該完全相同','國際社會想干涉他國的經濟','宗教活動會妨礙經濟發展'],a:0,src:'國家安全優先限制言論→國際批評',ex:'世界人權宣言強調人權的普世價值，不因國家、文化等因素而有所不同。'},
+    {q:'臺鐵在部分車站月臺設立「夜間婦女候車區」，這項措施是呼應憲法增修條文的哪一項規定？',o:['國家應維護婦女之人格尊嚴，保障婦女之人身安全','國家應保障身心障礙者的無障礙環境','人民有受國民教育之權利與義務','人民有選舉、罷免、創制、複決之權'],a:0,src:'課本圖3-1-6',ex:'夜間婦女候車區呼應憲法增修條文保障婦女人身安全的精神，讓女性乘客多一層保障。'},
+    {q:'政府規定公共建築物必須設置無障礙廁所與坡道。這項規定最主要是為了什麼？',o:['保障身心障礙者的權利，維護其人性尊嚴','美化建築物的外觀','增加建築公司的收入','方便政府管理建築物'],a:0,src:'身心障礙者權益',ex:'憲法增修條文規定國家對身心障礙者之無障礙環境的建構應予保障。'},
+    {q:'依身心障礙者權益保障法，大眾運輸工具不得拒絕合格導盲犬自由出入，也不得收取額外費用。我國制定這項規定，最主要是要展現什麼精神？',o:['落實人性尊嚴','促進經濟發展','保障財產安全','維護世界和平'],a:0,src:'課本專欄改寫',ex:'導盲犬如同視障者的第二雙眼睛；保障視障者能自由行動，就是保障其選擇與平等，維護人性尊嚴。'},
+    {q:'國家立法保障人權，一方面讓每個人能安心選擇自己想要的生活；另一方面還有什麼目的？',o:['幫助弱勢群體，捍衛其權益','讓政府可以任意限制人民','保障少數人享有特權','減少人民參與公共事務'],a:0,src:'課本 1-3',ex:'國家立法保障人權：一方面維護個人的自由，另一方面幫助弱勢群體捍衛權益，促進全人類和平共存。'},
+    {q:'一家國際品牌被揭露，其香料供應鏈中有童工在凌晨徒手採花，每天工作超過十小時。下列看法何者最恰當？',o:['即使在不同國家，兒童的人權都應受到保障','這是別國的事，與我們無關','只要商品便宜，生產過程不重要','童工能幫助家計，所以沒有問題'],a:0,src:'香水供應鏈童工（題組改寫）',ex:'人權具有普世性，不因國家、身分而不同；童工被剝奪受教育與健康成長的權利。'},
+    {q:'某校推出「教育儲蓄戶」，由社會大眾捐款補助清寒學生的午餐與學雜費。這項做法最能呼應課本中哪一個觀念？',o:['保障基本生活，讓每個人都能維持有尊嚴的生活','學生應自行負擔所有費用','學校應以升學率為優先','補助只能由政府提供'],a:0,src:'教育儲蓄戶',ex:'保障弱勢者的基本生活與平等受教，讓每個人都能享有同等的尊嚴和權利。'},
+  ],
+},
+
+/* ---------- 單元2 性別平權 ---------- */
+l2:{
+  no:'單元2', code:2, title:'性別平權', short:'性別平權', color:'linear-gradient(135deg,#3a72c0,#f0a03c)',
+  desc:'2-1 社會性別與不平等｜刻板印象・偏見・歧視｜2-2 性平三法',
+  quickAsk:'選出正確的答案', quickTitle:'性別平權名詞快問快答',
+  quick:[
+    ['以生殖器官等與生俱來的身體構造為基準來區分性別','生理性別',['社會性別','性別角色','性別刻板印象'],3],
+    ['社會期望不同性別表現出的行為模式（後天學習）','社會性別',['生理性別','性別歧視','性霸凌'],3],
+    ['個人最早學習社會性別的場所','家庭',['學校','大眾傳播媒體','職場'],3],
+    ['廣告中汽車業者常找男生代言、洗衣機業者常找女生代言，屬於哪一種學習途徑','大眾傳播媒體',['家庭','學校','社區'],3],
+    ['選班級幹部時，男生常當體育股長、女生常當學藝股長，屬於哪一種學習途徑','學校',['家庭','大眾傳播媒體','政府'],3],
+    ['對某一性別的性格特質產生固定、僵化的看法，並以此評價他人','性別刻板印象',['性別偏見','性別歧視','性騷擾'],3],
+    ['行為不符合社會對其性別的期待時，社會對此人抱持負面態度','性別偏見',['性別刻板印象','性別歧視','性侵害'],2],
+    ['以不公平的方式或制度對待特定性別，形成差別待遇','性別歧視',['性別偏見','性別刻板印象','性霸凌'],4],
+    ['「女生應該要溫柔賢淑；男生要勇敢果斷」屬於','性別刻板印象',['性別歧視','性騷擾','性別平權'],3],
+    ['怕蟑螂的男生被說「不像男生」屬於','性別偏見',['性別歧視','生理性別','性侵害'],2],
+    ['公司以性別決定升遷人選、幼兒園徵教師限女性，屬於','性別歧視',['性別偏見','性別刻板印象','生理性別'],4],
+    ['消除性別不平等觀念最根本的方法','培養尊重多元性別的態度',['依性別分配工作','避免與異性來往','要求每個人符合性別期待'],3],
+    ['以明示或暗示方式，從事不受歡迎、具性意味或性別歧視的言行，未達性侵害','性騷擾',['性侵害','性霸凌','性別偏見'],4],
+    ['以強暴、脅迫、恐嚇等違反被害人意願的方法發生性行為','性侵害',['性騷擾','性霸凌','性別歧視'],3],
+    ['以語言、肢體等貶抑、攻擊他人性別特徵或性傾向，且非屬性騷擾','性霸凌',['性騷擾','性侵害','性別刻板印象'],2],
+    ['校園性平事件中，一方是學生、另一方是學校成員，適用','性別平等教育法',['性別平等工作法','性騷擾防治法','身心障礙者權益保障法'],4],
+    ['雇主性騷擾受僱者或求職者，適用','性別平等工作法',['性別平等教育法','性騷擾防治法','勞動基準法'],4],
+    ['在捷運上被陌生人偷摸身體，適用','性騷擾防治法',['性別平等教育法','性別平等工作法','民法'],4],
+    ['在學校跟同學講黃色笑話，適用','性別平等教育法',['性騷擾防治法','性別平等工作法','刑法'],4],
+    ['在辦公室傳送黃色照片讓同事不舒服，適用','性別平等工作法',['性騷擾防治法','性別平等教育法','著作權法'],4],
+    ['校園性平事件由哪個單位受理','學務處（教導處）',['輔導處','警察局','家長會'],2],
+    ['校園性平事件由誰負責調查','性別平等教育委員會',['學生申訴評議委員會','家長會','班級幹部'],2],
+    ['校園性平事件調查後，由哪個單位進行輔導','輔導處',['總務處','警察局','教育部'],2],
+    ['徵才廣告寫「限女性」，不符合哪一部法律','性別平等工作法',['性騷擾防治法','性別平等教育法','身心障礙者權益保障法'],3],
+    ['女性升遷到一定職位就無法再往上升的無形障礙','玻璃天花板',['同酬日','權勢性騷擾','性別偏見'],2],
+    ['勞動部公布、女性需多工作幾天才能與男性年薪相同的日子','同酬日',['婦女節','兒童節','勞動節'],0],
+    ['2006 年在社群平臺使用「我也是（MeToo）」短語的美國社會運動者','塔拉納．伯克',['柯柏格','韋恩斯坦','艾莉莎．米蘭諾'],1],
+    ['利用教育、公務、求職等關係的權勢，對自己監督、照護、指導之人性騷擾','權勢性騷擾',['性霸凌','性別偏見','性侵害'],0],
+  ],
+  words:[
+    ['生理性別','與生俱來的身體構造'],['社會性別','社會期望的行為模式，後天學習'],['家庭','最早學習社會性別的場所'],
+    ['性別刻板印象','固定、僵化的看法'],['性別偏見','不符期待時產生負面評價'],['性別歧視','以不公平的方式或制度差別對待'],
+    ['性騷擾','不受歡迎、具性意味的言行'],['性侵害','違反意願發生性行為'],['性霸凌','貶抑他人性別特徵或性傾向'],
+    ['性別平等教育法','校園：一方為學生'],['性別平等工作法','職場：雇主、受僱者、求職者'],['性騷擾防治法','社會：不適用前兩法的性騷擾'],
+    ['性別平等教育委員會','調查校園性平事件'],['玻璃天花板','女性升遷的無形障礙'],['同酬日','女性多工作 58 天才追上男性年薪'],
+  ],
+  sorts:[
+    {title:'刻板印象、偏見還是歧視？',tip:'只是固定想法＝刻板印象；產生負面評價＝偏見；用實際方式或制度差別對待＝歧視。',buckets:['性別刻板印象','性別偏見','性別歧視'],items:[
+      ['「男生要勇敢剛強，將來賺錢養家」',0],['「女生就該很會做家事」',0],['玩具店把汽車放藍色區、娃娃放粉紅色區',0,'把喜好和性別綁在一起'],
+      ['男生怕蟑螂被嘲笑「不像男生」',1],['不會煮飯的女生被說「不夠賢慧」',1],['女生當選里長，被說是「靠外貌」',1,'對不符期待的人產生負面評價'],
+      ['公司規定只有男性能升主管',2],['徵才廣告寫「限女性」',2],['同樣工作，男性薪水比女性多',2],['航空公司強制女性空服員只能穿裙子',2,'以制度差別對待']]},
+    {title:'性平三法：該用哪一部？',tip:'先看「人」與「場合」：一方是學生→性別平等教育法；雇主／受僱者／求職者→性別平等工作法；其他（捷運、KTV、百貨公司）→性騷擾防治法。',buckets:['性別平等教育法','性別平等工作法','性騷擾防治法'],items:[
+      ['老師在指導學生時毛手毛腳',0],['同學在教室講黃色笑話',0],['同學在走廊嘲笑他人的性傾向',0,'校園性霸凌也適用'],
+      ['主管對求職者說帶有性意味的話',1],['在辦公室傳送黃色照片給同事',1],['外派女經理執行職務時被客戶傳訊騷擾',1,'受僱者執行職務期間被任何人性騷擾'],
+      ['在捷運上被陌生人偷摸',2],['逛百貨公司時被陌生人襲胸',2],['健身教練在 KTV 聚會時對學員強行摟抱',2,'不是校園、也不是雇傭關係']]},
+    {title:'社會性別從哪裡學來的？',tip:'課本圖3-2-1：家庭（最早）、學校、大眾傳播媒體。',buckets:['家庭','學校','大眾傳播媒體'],items:[
+      ['爸媽買汽車模型給兒子、布偶娃娃給女兒',0],['長輩說「女兒以後要嫁人，不用讀太多書」',0],['父母支持兒子學縫紉、做衣服',0],
+      ['選幹部時男生當體育股長、女生當學藝股長',1],['老師安排男生搬桌椅、女生掃地',1],
+      ['洗衣機廣告都找女生代言',2],['電視劇中醫生多是男生、護理師多是女生',2],['#MeToo 在社群網站上傳開',2,'網路社群也屬大眾傳播媒體']]},
+    {title:'生理性別還是社會性別？',tip:'與生俱來的身體構造＝生理性別；社會期望、後天學習的行為模式＝社會性別。',buckets:['生理性別','社會性別'],items:[
+      ['男生青春期出現喉結',0],['女生青春期胸部隆起',0],['基因與染色體的差異',0],
+      ['「男生要會打球，女生要會做飯」',1],['「夫唱婦隨」的傳統期待',1],['「男生應該喜歡飛機和汽車」',1]]},
+  ],
+  mcq:[
+    {q:'小澄是男生，從小就喜歡設計衣服，但親戚常說：「男孩子應該喜歡汽車和飛機才對。」親戚的說法反映了下列哪一個概念？',o:['社會性別','生理性別','性騷擾','性侵害'],a:0,src:'吳季剛故事（題組改寫）',ex:'「男生應該喜歡什麼」是社會對不同性別的期待，屬於後天學習的社會性別（性別角色）。'},
+    {q:'小澄是男生，喜歡設計衣服；媽媽不在意親戚「男生不該玩布料」的說法，買了縫紉機支持他。小澄從媽媽身上學到「興趣不分性別」，這是透過哪一種途徑學習社會性別？',o:['家庭','學校','大眾傳播媒體','政府機關'],a:0,src:'家庭是最早的途徑',ex:'家庭是個人最早學習社會性別的場所，父母的教養方式影響很大。'},
+    {q:'某研究指出：「男女在部分身體構造上的差異，主要是由基因與染色體決定。」這段敘述描述的是什麼？',o:['生理性別','社會性別','性別刻板印象','性別偏見'],a:0,src:'基因差異→生理性別',ex:'以生殖器官等與生俱來的身體構造區分性別，是生理性別；社會期望才是社會性別。'},
+    {q:'某部影片描述性別多元的故事，在偏鄉巡迴放映後，許多觀眾改變了對性別的看法。這主要是透過哪一種途徑學習社會性別？',o:['大眾傳播媒體','家庭','學校','宗教團體'],a:0,src:'媒體途徑',ex:'戲劇、電影、網路社群等大眾傳播媒體的內容，對社會性別的學習有所影響。'},
+    {q:'下列哪一項屬於「性別歧視」？',o:['某公司規定主管職只開放給男性','有人認為女生比較細心','同學笑怕黑的男生是膽小鬼','長輩覺得男生應該讀理工科'],a:0,src:'4 校考：性別歧視',ex:'性別歧視是以不公平的方式或制度對待特定性別；只讓男性升主管是制度上的差別待遇。'},
+    {q:'阿翔是男生，平時講話輕柔、喜歡烘焙，卻常被同學嘲笑「娘娘腔」。這種嘲笑屬於下列何者？',o:['性霸凌','性侵害','性別平權','性別刻板印象的消除'],a:0,src:'嘲笑娘娘腔→性霸凌',ex:'透過語言貶抑他人的性別特徵或性傾向，且非屬性騷擾，屬於性霸凌，不只是一般的言語衝突。'},
+    {q:'小宇心裡一直認為「男生就該陽剛、不能太溫柔」，但他從沒有因此嘲笑或排擠任何人。小宇的想法屬於哪一個概念？',o:['性別刻板印象','性別偏見','性別歧視','性霸凌'],a:0,src:'三概念區分',ex:'只是固定、僵化的看法＝刻板印象；產生負面評價＝偏見；以實際方式或制度差別對待＝歧視。'},
+    {q:'小晴在補習班下課時，聽到老師用帶有性意味的言詞評論她的身材，讓她很不舒服。這種行為屬於什麼？',o:['性騷擾','性侵害','性別歧視','性別偏見'],a:0,src:'性騷擾判斷',ex:'以明示或暗示方式，從事不受歡迎且具性意味的言詞，但未達性侵害標準，屬於性騷擾。'},
+    {q:'國中生小芊在學校被同校學生傳送具有性意味的訊息騷擾，她應該依據哪一部法律向學校尋求協助？',o:['性別平等教育法','性別平等工作法','性騷擾防治法','身心障礙者權益保障法'],a:0,src:'4 校考：性平三法適用',ex:'加害人或被害人其中一方為學生，另一方為學校成員的校園性平事件，適用性別平等教育法。'},
+    {q:'某公司的徵才廣告寫著「誠徵會計，限男性，未婚」。這則廣告違反了哪一部法律？',o:['性別平等工作法','性別平等教育法','性騷擾防治法','世界人權宣言'],a:0,src:'限性別徵才',ex:'職場上雇主、受僱者、求職者之間的性別平等，依性別平等工作法；以性別、婚姻狀況限制求職者是歧視。'},
+    {q:'小方搭公車時被陌生乘客故意碰觸身體，他可以依據哪一部法律尋求保護？',o:['性騷擾防治法','性別平等教育法','性別平等工作法','民法'],a:0,src:'公共場所',ex:'不適用性別平等教育法與性別平等工作法的性騷擾事件（如大眾運輸、公共場所），適用性騷擾防治法。'},
+    {q:'某國中發生校園性平事件，學校依流程處理。下列哪一個步驟的負責單位寫錯了？',o:['由學生申訴評議委員會負責調查','由學務處（教導處）受理','由輔導處進行輔導','將案件資訊及結果陳報教育主管機關'],a:0,src:'流程圖（陷阱）',ex:'課本圖3-2-5：調查由「性別平等教育委員會」負責，不是學生申訴評議委員會。'},
+    {q:'依課本，要落實性別平權可從兩個層面著手。下列配對何者正確？',o:['消除不平等觀念：培養尊重多元性別的態度；政府：制定法規促進性別平等','消除不平等觀念：要求每人符合性別期待；政府：限制女性就業','個人：避免與異性來往；政府：讓男女分校就讀','個人：保持沉默；政府：不介入家庭事務'],a:0,src:'落實平權的做法',ex:'課本 2-2：一是消除性別不平等的觀念（尊重多元性別），二是政府制定法規（性平三法）。'},
+    {q:'下列哪一項做法最能「實際」落實性別平權？',o:['公司依工作能力與表現決定升遷，不考慮性別','規定只有女性可以擔任護理師','規定只有男性可以擔任主管','要求男生不能哭、女生不能大聲說話'],a:0,src:'最能落實平權（陷阱）',ex:'平權是以能力而非性別作為標準；限定某性別擔任某工作，都是差別待遇。'},
+    {q:'依課本專欄，民國 111 年我國女性平均時薪約為男性的 84.2%。這項數據最能說明什麼？',o:['職場薪資待遇仍存在性別差距','女性的工作能力比男性差','男女薪資已經完全平等','女性工時比男性長很多'],a:0,src:'職場平權',ex:'兩性薪資差距 15.8%，女性須多工作約 58 天才能與男性年薪相同，顯示薪資平權還有一段距離。'},
+    {q:'某企業高階主管幾乎都是男性，許多優秀女性員工升到一定職位就再也升不上去。這種現象稱為什麼？',o:['玻璃天花板','同酬日','性別刻板印象','權勢性騷擾'],a:0,src:'只讓男性升主管',ex:'玻璃天花板是女性升遷到一定職位就無法突破的無形障礙，常來自僱用、升遷考核標準的人為偏差。'},
+    {q:'MeToo 運動能獲得廣大回響，主要原因是什麼？',o:['讓被害人感受到被同理與支持，願意勇敢發聲','鼓勵大家檢討被害人的穿著','證明性騷擾只發生在演藝圈','要求被害人不要說出自己的故事'],a:0,src:'#MeToo 題組改寫',ex:'「MeToo」一詞讓被害人感受到被同理與支持，不再是檢討被害人的氛圍，建立友善安全的社會網路。'},
+    {q:'2023 年臺灣掀起 MeToo 運動後，立法院修正性平三法，其中加重「權勢性騷擾」的責任。主要考量是什麼？',o:['許多被害人與加害者的權力、地位不對等，不敢聲張','權勢性騷擾比較少發生','加害者通常是陌生人','為了減少法院的案件'],a:0,src:'課本專欄',ex:'權勢性騷擾是利用教育、公務、求職等關係的權勢或機會性騷擾；因權力地位不對等，被害人常不敢聲張。'},
+    {q:'某校原本規定女生制服只能穿裙子，經學生會提案討論後，改成不分性別都能自由選擇褲裝或裙裝。學校的改變最符合哪一個觀念？',o:['尊重多元性別，不以單一性別限制發展','維持傳統的性別分工','依生理性別決定所有規範','讓制服更加統一'],a:0,src:'制服規定與性別（改寫）',ex:'課本 2-1：即使有人不符傳統性別期待，也應抱持尊重的態度，不用單一性別限制其發展。'},
+  ],
+},
+};
+
+/* ================= 延伸：兒童權利與法規（4 校中少數校加考） ================= */
+const EXT=[
+  {q:'依兒童權利公約，「兒童」是指幾歲以下的人？',o:['未滿 18 歲','未滿 12 歲','未滿 6 歲','未滿 20 歲'],a:0,src:'延伸',ex:'兒童權利公約所稱兒童是指未滿 18 歲的人，不是 12 歲。'},
+  {q:'兒童權利公約有四大基本原則：禁止歧視、兒童最佳利益、生存及發展權，以及哪一項？',o:['表意權（尊重兒童的意見）','兒童必須服從父母','兒童應參加工作','兒童意見永遠優先於一切'],a:0,src:'延伸',ex:'第四項是尊重兒童表達意見的權利（表意權）；但不是「兒童意見永遠最重要」。'},
+  {q:'每年 6 月 12 日是「世界無童工日」，國際組織呼籲各國消除童工。這項訴求最能呼應哪一個觀念？',o:['人人天生自由平等，兒童也應享有人性尊嚴','促進跨國貿易','降低企業的生產成本','讓兒童提早學習工作技能'],a:0,src:'延伸',ex:'童工被剝奪受教育、健康成長的權利；人權具普世性，兒童同樣享有人性尊嚴。'},
+  {q:'課本專欄中，12 歲的柯柏格看到童工報導後成立「解放兒童基金會」。他的行動最能說明什麼？',o:['個人的力量也能幫助他人維護人性尊嚴','保障人權只能仰賴政府立法','童工問題只存在於某一個國家','兒童沒有能力參與公共事務'],a:0,src:'個人力量也能維護他人人性尊嚴',ex:'柯柏格在貧窮地區修建學校、發放物資，讓孩子能受教育，說明個人行動也能捍衛他人的人性尊嚴。'},
+  {q:'某國修法規定：故意傷害 7 歲以下幼兒致死者，加重刑罰。這項立法最主要是為了保障誰？',o:['弱勢者（幼兒）的人權','所有人的財產權','加害者的身體自由','政府的行政效率'],a:0,src:'延伸',ex:'國家立法保障人權的目的之一是幫助弱勢群體、捍衛其權益。'},
+  {q:'女性員工依法請「生理假」，男性員工依法請「陪產假」、男女都可請「育嬰留職停薪」。這些規定是依據哪一部法律？',o:['性別平等工作法','性別平等教育法','性騷擾防治法','兒童權利公約'],a:0,src:'延伸',ex:'生理假、陪產假、育嬰假都屬職場性別平等，依性別平等工作法（2023 年由「性別工作平等法」更名）。'},
+  {q:'某公司規定「只有女性員工能申請育嬰留職停薪」。下列評論何者最恰當？',o:['男性無法請育嬰假，違反了人人平等','這是因為男女生理差異，所以合理','育嬰本來就只是女性的責任','公司有權自行決定，與平權無關'],a:0,src:'男性不能請育嬰假（陷阱）',ex:'生理假只給女性是因生理差異，不違反平等；但育嬰照顧男女都能做，只限女性就是差別待遇。'},
+  {q:'早期民法規定「父母對子女權利行使意見不一致時，由父行使之」，後來修法改為父母共同協議、必要時由法院依子女最佳利益決定。修法的主要意義是什麼？',o:['落實父母權利平等，消除性別不平等','反映男女生理差異','促進經濟發展','維持傳統家庭秩序'],a:0,src:'法條判讀（延伸）',ex:'舊條文以父親優先，是制度上的性別不平等；修法讓父母權利平等。'},
+  {q:'我國 2019 年施行「司法院釋字第 748 號解釋施行法」，讓相同性別的兩人可以成立婚姻關係。這項立法最能呼應哪一個觀念？',o:['尊重多元性別、落實權利平等','保障言論自由','促進國際貿易','維護傳統性別分工'],a:0,src:'延伸',ex:'尊重多元性別、讓不同性別傾向的人享有平等權利，是落實性別平權的做法。'},
+];
+
+/* ================= 綜合：時間軸與流程排序 ================= */
+const STEPS=[
+  {title:'人權與性別平權時間軸：依序排一排',tip:'由早到晚：二戰（1939～1945）→ 1948 → 1966 → 2006 → 2023。',buckets:['① 最早','②','③','④','⑤ 最晚'],items:[
+    ['第二次世界大戰期間，納粹迫害猶太人',0],['聯合國通過世界人權宣言',1,'1948 年'],['聯合國通過人權兩公約',2,'1966 年'],
+    ['塔拉納．伯克在社群平臺使用「MeToo」',3,'2006 年'],['臺灣掀起 MeToo 運動，性平三法修法',4,'2023 年']]},
+  {title:'哪個年代？分一分',tip:'記住 1948 宣言、1966 兩公約；MeToo 2006 出現、2017 擴散、2023 臺灣修法。',buckets:['1950 年以前','1950～2000 年','2000 年以後'],items:[
+    ['德國納粹迫害猶太人',0],['聯合國成立',0,'1945 年'],['世界人權宣言通過',0,'1948 年'],
+    ['人權兩公約通過',1,'1966 年'],['柯柏格成立解放兒童基金會',1,'1995 年'],
+    ['好萊塢製片人性侵風波，#MeToo 擴散全球',2,'2017 年'],['我國性平三法修法加重權勢性騷擾責任',2,'2023 年'],['民國 111 年女性時薪為男性 84.2%',2,'2022 年']]},
+  {title:'校園性平事件處理流程（課本圖3-2-5）',tip:'申請或檢舉 → 學務處（教導處）受理 → 性別平等教育委員會調查 → 輔導處輔導 → 陳報教育主管機關。',buckets:['① 申請／檢舉','② 受理','③ 調查','④ 輔導','⑤ 陳報'],items:[
+    ['被害人或其法定代理人提出申請',0],['知情人檢舉',0],['學務處（教導處）受理',1],['性別平等教育委員會負責調查',2,'不是學生申訴評議委員會'],
+    ['輔導處進行輔導',3],['案件資訊及結果陳報教育主管機關',4]]},
+];
+
+/* ================= 綜合：圖表與資料判讀（文字放在 HTML 表格，不畫在圖上） ================= */
+const CHART=[
+  {title:'① 性平三法比較表',src:'課本圖3-2-4（4 校考適用判斷）',
+   fig:`<table class="tbl"><tr><th>法律</th><th>適用對象</th><th>舉例</th></tr>
+   <tr><td>甲</td><td>學校中一方為學生的性騷擾、性侵害、性霸凌事件</td><td>在學校跟同學講黃色笑話</td></tr>
+   <tr><td>乙</td><td>雇主、受僱者、求職者</td><td>在辦公室傳送黃色照片</td></tr>
+   <tr><td>丙</td><td>不適用前兩部法律的性騷擾</td><td>在捷運上偷摸他人身體</td></tr></table>`,
+   qs:[
+    {q:'表中甲、乙、丙依序是哪三部法律？',o:['性別平等教育法、性別平等工作法、性騷擾防治法','性騷擾防治法、性別平等教育法、性別平等工作法','性別平等工作法、性騷擾防治法、性別平等教育法','性別平等教育法、性騷擾防治法、性別平等工作法'],a:0,ex:'校園→性別平等教育法；職場→性別平等工作法；社會→性騷擾防治法。'},
+    {q:'業務員小玫到客戶公司開會時，被客戶以帶有性意味的言語騷擾。依表格，最適用哪一部法律？',o:['乙','甲','丙','三部都不適用'],a:0,ex:'受僱者在執行職務期間被任何人性騷擾，屬於職場，適用性別平等工作法（乙）。'},
+   ]},
+  {title:'② 兩性薪資統計（民國 111 年，課本專欄）',src:'統計判讀',
+   fig:`<table class="tbl"><tr><th>項目</th><th>男性</th><th>女性</th></tr>
+   <tr><td>每月總薪資</td><td>63,219 元</td><td>51,636 元</td></tr>
+   <tr><td>每月總工時</td><td>169.7 小時</td><td>164.6 小時</td></tr>
+   <tr><td>平均時薪</td><td>373 元</td><td>314 元</td></tr></table>
+   <p class="muted">女性平均時薪為男性的 84.2%，兩性薪資差距 15.8%；勞動部公布同酬日為 2 月 27 日（女性須多工作 58 天）。</p>`,
+   qs:[
+    {q:'根據表格，下列解讀何者正確？',o:['兩性工時相近，但女性時薪較低，職場仍有薪資差距','女性工時比男性多很多，所以薪資較低','男女薪資已達到完全平等','女性時薪比男性高'],a:0,ex:'工時只差約 5 小時，時薪卻差 59 元，顯示薪資待遇存在性別差距。'},
+    {q:'「同酬日」訂在 2 月 27 日，代表什麼意思？',o:['女性要從隔年 1 月 1 日起多工作約 58 天，年薪才能和男性相同','2 月 27 日當天男女可以領到相同薪水','女性每年只需工作到 2 月 27 日','這天是政府發放育兒津貼的日子'],a:0,ex:'同酬日依兩性時薪差距，計算女性自隔年 1 月 1 日起需增加的工作日數。'},
+    {q:'若要改善表中呈現的現象，下列哪一項做法最適當？',o:['以工作能力與表現決定薪資和升遷','規定某些職位只錄取男性','要求女性減少工作時數','維持「男主外、女主內」的分工'],a:0,ex:'打破玻璃天花板，讓不同性別擁有相同的權利與機會，要以能力而非性別作為考核標準。'},
+   ]},
+  {title:'③ 憲法與法律條文判讀',src:'法條判讀',
+   fig:`<div class="passage">甲：「人民之老弱殘廢，無力生活，及受非常災害者，國家應予以適當之扶助與救濟。」<br>
+   乙：「人民身體之自由應予保障。」<br>
+   丙：「國家應維護婦女之人格尊嚴，保障婦女之人身安全。」<br>
+   丁：「國家對於身心障礙者之無障礙環境之建構，應予保障。」</div>`,
+   qs:[
+    {q:'政府定期發放物資給清寒民眾，最符合哪一條規定的精神？',o:['甲','乙','丙','丁'],a:0,ex:'甲保障人民基本生活；乙是身體自由；丙是婦女；丁是身心障礙者。'},
+    {q:'公共場所設置無障礙廁所與坡道，最符合哪一條規定的精神？',o:['丁','甲','乙','丙'],a:0,ex:'丁是憲法增修條文對身心障礙者無障礙環境的保障。'},
+    {q:'關於四條規定的共同目的，下列敘述何者最適當？',o:['透過法律保障人權，具體維護人性尊嚴','透過法律促進經濟發展','透過法律擴大政府的權力','透過法律維持傳統的社會階級'],a:0,ex:'國家透過制定法律保障人民權利，就是以具體行動維護人性尊嚴。'},
+   ]},
+  {title:'④ 宣言條文閱讀',src:'簡版條文判讀',
+   fig:`<div class="passage">下列是一份國際人權文件的簡化版條文：<br>
+   ・人人生而自由，在尊嚴和權利上一律平等。<br>
+   ・人人有權享受生命、自由與人身安全。<br>
+   這份文件在第二次世界大戰後由聯合國通過，是第一部獲得國際社會重視的人權文件。</div>`,
+   qs:[
+    {q:'這份文件是什麼？',o:['世界人權宣言','公民與政治權利國際公約','中華民國憲法','性別平等教育法'],a:0,ex:'二戰後聯合國通過、第一部受國際重視的人權文件＝世界人權宣言（1948）。'},
+    {q:'文件中「人人生而自由，在尊嚴和權利上一律平等」最能體現什麼精神？',o:['人人平等的普世價值','國家利益優先','依身分給予不同權利','只保障本國人民'],a:0,ex:'世界人權宣言強調人權的普世價值，體現人人平等的精神。'},
+   ]},
+];
+
+/* ================= 綜合：跨單元混合題 ================= */
+const MIXQ=[
+  {q:'下列哪一項敘述同時涉及「人性尊嚴」與「性別平權」？',o:['不論性別，每個人都能依自己的興趣選擇職業','政府發放颱風救災物資','聯合國通過人權兩公約','警察依法逮捕現行犯'],a:0,ex:'能依興趣選擇＝選擇的自由（人性尊嚴）；不論性別＝性別平權。'},
+  {q:'某公司以「女生結婚後會分心」為由，拒絕讓已婚女性升遷。這件事同時侵害了什麼？',o:['人性尊嚴與性別平等的權利','只侵害了公司的利益','只是一種性別刻板印象，沒有影響','沒有侵害任何權利'],a:0,ex:'以制度差別對待＝性別歧視，侵害人權，也讓當事人失去以能力晉升的選擇。'},
+  {q:'下列哪一組「國際文件」與「我國法律」的配對最適當？',o:['世界人權宣言／身心障礙者權益保障法','性別平等工作法／人權兩公約','中華民國憲法／世界人權宣言','性騷擾防治法／性別平等教育法'],a:0,ex:'世界人權宣言、人權兩公約是國際文件；憲法、身心障礙者權益保障法、性平三法是我國法律。'},
+  {q:'下列哪一項措施的主要目的是「保障婦女的人身安全」，而不是「讓不同性別依能力享有相同機會」？',o:['設立夜間婦女候車區','公司依能力決定升遷','男女都可以申請育嬰留職停薪','學校讓學生自由選擇褲裝或裙裝'],a:0,src:'保護措施≠最能落實平權（陷阱）',ex:'夜間婦女候車區呼應憲法增修條文「保障婦女之人身安全」，屬於人權保障措施；其他三項是讓不同性別享有相同選擇與機會的平權做法。'},
+  {q:'同學說：「人權只保障女性和小孩，罪犯沒有人權。」下列回應何者最正確？',o:['人權是每個人與生俱來的權利，罪犯也享有人權','對，罪犯不需要任何保障','對，人權只保障弱勢者','人權只保障有工作的人'],a:0,src:'人權陷阱',ex:'人權是每個人與生俱來應享有的權利；依法處罰罪犯不代表剝奪他所有的人權。'},
+  {q:'下列四件事，哪一件屬於「大眾傳播媒體」影響社會性別的例子？',o:['網路影片常把男性塑造成權威者、女性塑造成祕書','父母買娃娃給女兒','老師安排男生搬桌椅','祖父母要求孫女學做菜'],a:0,src:'媒體中的性別角色',ex:'網路、電視、電影、廣告都是大眾傳播媒體；其他是家庭與學校。'},
+];
+
+/* ================= 考點雷達（4 校南一卷） ================= */
+const RADAR={
+  n:4,
+  schools:'',
+  topics:[['性平三法適用判斷（11 題）',4],['性別歧視（7 題）',4],['世界人權宣言 1948（5 題）',4],['人性尊嚴＝選擇的自由（5 題）',4],['社會性別學習途徑（5 題）',4],
+    ['性別刻板印象（9 題）',3],['人權侵害案例判斷（6 題）',3],['職場平權：薪資差距／玻璃天花板',3],['國家立法保障人權',3],['人權的普世價值',3],['尊重多元性別',3],['兒童權利公約（延伸）',3],
+    ['性騷擾／性侵害／性霸凌定義',2],['生理性別 vs 社會性別',2],['落實性別平權的做法',2],['基本生活保障（扶助救濟）',2],['身心障礙者權益',2],['人權兩公約',2],['身體自由',2],['校園性平事件流程圖',2],['MeToo 運動',1]],
+  basics:[['人性尊嚴',4],['人權',4],['世界人權宣言',4],['性別歧視',4],['性騷擾',4],['性別平等教育法',4],['性別平等工作法',4],
+    ['選擇的自由',3],['人權兩公約',3],['聯合國',3],['第二次世界大戰',3],['身體自由',3],['扶助救濟',3],['性騷擾防治法',3]],
+  words:[['生理性別',3],['社會性別',3],['學習途徑：家庭／學校／媒體',3],['性別刻板印象',3],['性侵害',3],['多元性別',3],['育嬰假／生理假／陪產假',3],['家務分工',3],
+    ['身心障礙者權益',2],['性別偏見',2],['性霸凌',2],['玻璃天花板',2]],
+  charts:[['法條／新聞判讀',4],['校園性平流程圖',2],['統計數據判讀',2],['漫畫／圖片判讀',2],['長文閱讀題組',2]],
+};
+
+const TABS=[['home','🏠 考點雷達'],['l1','🕊️ 單元1 人性尊嚴'],['l2','⚖️ 單元2 性別平權'],['mix','📊 綜合＋延伸'],['exam','📝 總測驗']];
+
+/* ================= 注釋配對 ================= */
+function renderMatch(el,pairs){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0,miss=0;
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 注釋配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${miss<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3><p>配錯 ${miss} 次</p><button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div>`;$('#ag',el).onclick=()=>renderMatch(el,pairs)}
+  draw();
+}
+
+/* ================= 分類 ================= */
+function renderSort(el,so){
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w[0])}」→ <b>${so.buckets[w[1]]}</b>${w[2]?'：'+esc(w[2]):''}`).join('<br>')}</div>`:''}
+      <button class="btn" style="margin-top:12px">再玩一次</button></div>`;
+      el.querySelector('.btn').onclick=()=>renderSort(el,so);return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push(it)}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+/* ================= 選擇題 ================= */
+function renderMCQ(el,qs){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}<span class="src">${q.src}</span></div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(+b.dataset.k===q.a){got++;sOK()}else{b.classList.add('bad');sBAD()}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderMCQ(el,qs);
+}
+
+/* ================= 翻卡 ================= */
+function renderCards(el,cards){
+  el.innerHTML=`<div class="card"><h3>🃏 十五種標點翻卡</h3><p class="muted">點卡片翻面看用法。重點：分號、破折號、引號、書名號、刪節號。</p>
+  <div class="flips">${cards.map(c=>`<div class="flip"><div class="in"><div class="f"><div class="sym">${esc(c[1])}</div><b>${c[0]}</b></div><div class="bk2">${esc(c[2])}</div></div></div>`).join('')}</div></div>`;
+  el.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('on'));
+}
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、civ7-nanyi-1（例 chinese8-1）、公民 國一上第一次段考（南一）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'civ7-nanyi-1',
+  site:'公民 國一上第一次段考（南一）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('civ7-nanyi-1_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('civ7-nanyi-1_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${(d&&d.quickTitle)||'名詞快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽（公民 國一上 第一次段考・南一） ================= */
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+document.body.insertAdjacentHTML('beforeend','<button class="bgm" id="bgmBtn"></button>');
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};
+
+const ANIM={l1:animL1,l2:animL2};
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  if(cur==='exam') return renderExam(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 名詞快問快答'],['match','🔗 名詞↔定義配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel');
+  const title=`${d.no} ${d.short}`;
+  if(s==='anim') ANIM[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">本單元 ${d.mcq.length} 題，全部依各校命題方向原創改寫。點選答案後才會出現解析；做完可以交卷給老師。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const N=RADAR.n;
+  const bar=arr=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  app.innerHTML=`
+  <h2>📡 第一次段考考點雷達</h2>
+  <p class="muted">整理 ${N} 所學校的<b>南一版</b>國一上公民第一次段考卷。範圍：單元1 人性尊嚴與人權保障＋單元2 性別平權（4 校都考到單元2）。</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${['l1','l2'].map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].short}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+    <div class="lc" style="background:linear-gradient(135deg,#183e70,#5b86c4)" data-k="mix"><div><div class="n">綜合</div><div class="t">時間軸＋圖表＋延伸</div></div><div class="d">年代排序｜性平流程｜薪資統計｜法條判讀｜兒童權利公約</div></div>
+    <div class="lc" style="background:linear-gradient(135deg,#c97a1c,#f0a03c)" data-k="exam"><div><div class="n">總測驗</div><div class="t">隨機 25 題</div></div><div class="d">兩個單元＋跨單元題混合，做完交卷給老師</div></div>
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（${N} 校中幾校考過）</h3>${bar(RADAR.topics)}
+  <p class="muted" style="margin-top:10px">⚠️ 主戰場是<b>性平三法適用判斷</b>（4 校共 11 題）與<b>刻板印象／偏見／歧視</b>的區分（合計 16 題以上）。<br>⚠️ 題數分布：單元2 約 46 題、單元1 約 33 題、延伸 3 題——單元2 比重較高。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>基本分必拿（幾校考過）</h3><div class="chips">${RADAR.basics.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">最穩的分數：<b>人性尊嚴核心＝選擇的自由</b>、<b>1948 世界人權宣言（第一部受國際重視）</b>、<b>1966 人權兩公約</b>、<b>性平三法看「人」與「場合」</b>。</p></div>
+    <div class="card"><h3>高頻名詞（★ 快問快答會標）</h3><div class="chips">${RADAR.words.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">法律名稱以南一課本為準：寫「<b>性別平等工作法</b>」（2023 年由「性別工作平等法」更名，舊卷仍用舊名）。</p></div>
+  </div>
+  <div class="card"><h3>🪤 最常錯的 8 個陷阱</h3>
+    <p><span class="pill">1</span>性平三法看「人」與「場合」：一方是學生→<b>性別平等教育法</b>；雇主、受僱者、求職者→<b>性別平等工作法</b>；捷運、KTV、百貨公司→<b>性騷擾防治法</b>。</p>
+    <p><span class="pill">2</span>只是想法＝<b>刻板印象</b>；負面評價＝<b>偏見</b>；實際制度差別待遇（徵才、升遷、薪資、服裝規定）＝<b>歧視</b>。</p>
+    <p><span class="pill">3</span><b>世界人權宣言</b>（1948、第一部）≠ <b>人權兩公約</b>（1966）≠ <b>中華民國憲法</b>（國內法）。</p>
+    <p><span class="pill">4</span>警察<b>依法</b>逮捕現行犯<b>不是</b>侵害人權；罪犯仍享有人權；人權不只保障女性。</p>
+    <p><span class="pill">5</span>校園性平事件：學務處<b>受理</b>、<b>性別平等教育委員會調查</b>（不是申評會、不是校事會議）、輔導處輔導。</p>
+    <p><span class="pill">6</span>「基因差異」＝<b>生理性別</b>；「社會期望、夫唱婦隨」＝<b>社會性別</b>。</p>
+    <p><span class="pill">7</span>嘲笑「娘娘腔」是<b>性霸凌</b>，不只是一般言語霸凌，也不是性騷擾。</p>
+    <p><span class="pill">8</span>「保護女性」不等於「平權」：婦女候車區是保護措施；只錄取女性也是差別待遇。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>📊 圖表、史料題型（幾校出現）</h3><div class="chips">${RADAR.charts.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">法條、新聞判讀 4 校都有：先找「立法目的」——落實人權保障、權利平等、性別平等，不要選「促進經濟發展」。</p></div>
+    <div class="card"><h3>💡 意外發現</h3>
+    <p>👶 <b>兒童權利公約</b>（兒童＝未滿 18 歲、四大原則）3 校共 5 題，但南一課本沒有專段 → 放在「綜合＋延伸」。</p>
+    <p>👩‍🍼 <b>育嬰假、生理假、陪產假</b> 3 校考，都屬<b>性別平等工作法</b>。</p>
+    <p>📰 <b>名人故事題</b>（運動員、設計師、足球員）考「選擇的自由」與「家庭是學習途徑」。</p></div>
+  </div>
+  <div class="card"><h3>🌏 不分版本的共通考點（他版卷）</h3>
+  <p class="muted">tcool 另有翰林 38 校、康軒 14 校的卷子。同版本只有 4 校，所以他版卷只統計「與南一單元1～2 重疊」的關鍵詞：性騷擾 51 校、人權 50 校、人性尊嚴 49 校、刻板印象 48 校、性別歧視 46 校、性平三法 44～45 校都考到。</p>
+  <div class="chips"><span>人性尊嚴＝選擇的自由</span><span>人權的定義</span><span>世界人權宣言 1948</span><span>人權兩公約 1966</span><span>生理性別 vs 社會性別</span><span>刻板印象／偏見／歧視</span><span>性騷擾／性侵害／性霸凌</span><span>性平三法適用</span></div></div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每單元先看 <b>🎬 動畫導覽</b>，用真實照片弄懂課本 → ② <b>⚡ 名詞快問快答</b>、<b>🔗 配對</b>練熟基本分 → ③ <b>🎯 分類挑戰</b>破解陷阱 → ④ <b>📝 段考模擬題</b>、<b>📊 綜合</b>圖表題 → ⑤ <b>📝 總測驗</b>，做完按「📤 交卷給老師」。</p></div>
+  <details class="card"><summary><b>統計限制</b>（給老師看）</summary>
+  </details>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,(c.dataset.k==='mix'||c.dataset.k==='exam')?undefined:'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 綜合：時間軸＋圖表＋跨單元＋延伸 ================= */
+const EXT_IMGS=[{img:'ex_childlabor',tag:'1909 年美國紡織廠的童工（路易斯．海因攝）'},{img:'ex_brick',tag:'尼泊爾磚窯搬磚的孩子'}];
+function renderMix(app){
+  const s=curSub.mix||'time';
+  const subs=[['time','⏳ 時間軸與流程排序'],['chart','📊 圖表與條文判讀'],['mixq','🔀 跨單元混合題'],['ext','🚀 延伸：兒童權利與法規']];
+  app.innerHTML=`<h2>📊 綜合：時間軸＋圖表＋延伸</h2>
+  <p class="muted">把兩個單元串起來：年代排序、校園性平事件流程、薪資統計與法條判讀，最後是少數學校加考的延伸題。</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div><div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub.mix=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='time'){
+    p.innerHTML=`<div class="card"><h3>🗓️ 一定要記的年代</h3>
+    <table class="tbl"><tr><th>年代</th><th>事件</th></tr>
+    <tr><td>1939～1945</td><td>第二次世界大戰：許多人因族群、政治立場遭迫害</td></tr>
+    <tr><td>1948</td><td>聯合國通過<b>世界人權宣言</b>（第一部受國際重視的人權文件）</td></tr>
+    <tr><td>1966</td><td>聯合國通過<b>人權兩公約</b></td></tr>
+    <tr><td>1995</td><td>柯柏格成立解放兒童基金會（課本專欄）</td></tr>
+    <tr><td>2006／2017</td><td>塔拉納．伯克使用「MeToo」／好萊塢事件讓 #MeToo 擴散全球</td></tr>
+    <tr><td>2023</td><td>臺灣 MeToo 運動，7 月性平三法修法，加重權勢性騷擾責任</td></tr></table></div>`+
+    STEPS.map((_,i)=>`<div class="card" id="st${i}"></div>`).join('');
+    STEPS.forEach((so,i)=>{SORTCTX={code:7,title:'綜合 時間軸與流程排序'};renderSort($('#st'+i),so)});SORTCTX=null;
+    return;
+  }
+  if(s==='chart'){
+    p.innerHTML=CHART.map((c,k)=>`<div class="card"><h3>${c.title}</h3><div class="figbox">${c.fig}</div><div id="cq${k}"></div></div>`).join('');
+    CHART.forEach((c,k)=>renderMCQ($('#cq'+k),c.qs.map(q=>({...q,src:c.src})),7,`綜合 ${c.title.replace(/^[①-⑨]\s*/,'')}`));
+    return;
+  }
+  if(s==='mixq'){
+    p.innerHTML=`<p class="muted">跨單元的觀念比較題，全部原創改寫。</p><div id="xq"></div>`;
+    renderMCQ($('#xq'),MIXQ,7,'綜合 跨單元混合題');
+    return;
+  }
+  p.innerHTML=`<div class="card">${photoStage()}<div class="caption"><div class="poem">童工被剝奪受教育與健康成長的權利。課本專欄的柯柏格 12 歲時讀到童工報導，成立<b>解放兒童基金會</b>，在貧窮地區蓋學校、發放物資。</div><div class="key">人權具有普世性：不論國家、年齡，兒童同樣享有人性尊嚴。</div></div></div>
+    <div class="card"><h3>🚀 延伸重點（南一課本沒有專段，3 校加考）</h3>
+    <p><span class="pill">兒童權利公約</span>兒童＝<b>未滿 18 歲</b>（不是 12 歲）。四大原則：<b>禁止歧視、兒童最佳利益、生存及發展權、表意權</b>（尊重兒童意見）。</p>
+    <p><span class="pill">世界無童工日</span>每年 6 月 12 日，呼籲消除童工。</p>
+    <p><span class="pill">職場假別</span><b>生理假、陪產假、育嬰留職停薪</b>都依<b>性別平等工作法</b>；生理假只給女性不違反平等（生理差異），但育嬰假只給女性就是差別待遇。</p>
+    <p><span class="pill">法條判讀</span>早期民法「父母意見不一致由父行使」→ 修法改為父母平等；2019 年 748 施行法讓同性伴侶可以結婚 → 尊重多元性別、權利平等。</p></div>
+    <div id="eq"></div>`;
+  showPhoto({imgs:EXT_IMGS});
+  renderMCQ($('#eq'),EXT,3,'延伸 兒童權利與法規');
+}
+
+/* ================= 總測驗（隨機 25 題） ================= */
+function renderExam(app){
+  const pool=[...L.l1.mcq.map(q=>({...q,unit:'單元1'})),...L.l2.mcq.map(q=>({...q,unit:'單元2'})),...MIXQ.map(q=>({...q,unit:'綜合'}))];
+  const qs=shuf(pool).slice(0,25);
+  app.innerHTML=`<h2>📝 總測驗｜隨機 25 題</h2>
+  <p class="muted">從單元1、單元2 與跨單元題庫（共 ${pool.length} 題）隨機抽 25 題，每題 4 分。做完按「📤 交卷給老師」；想換一份題目按下面的按鈕。</p>
+  <div class="row" style="margin-bottom:12px"><button class="btn ghost" id="newExam">🔄 換一份新的總測驗</button></div><div id="ex"></div>`;
+  $('#newExam').onclick=()=>renderExam(app);
+  renderMCQ($('#ex'),qs,9,'總測驗');
+}
+
+/* ================= 共用：動畫外框 ================= */
+function stage(p,extra){p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${extra||''}`}
+
+/* ================= 單元1 人性尊嚴與人權保障 ================= */
+function animL1(p){
+  stage(p,`<div class="card"><h3>🗺️ 單元1 一張圖</h3>
+  <p><span class="pill">1-1</span><b>人性尊嚴</b>：每個人都是獨立自主的個體（不被干涉並受到尊重）、每個人天生自由且平等 → 核心＝<b>選擇的自由</b>。</p>
+  <p><span class="pill">1-2</span><b>保障人權</b>是維護人性尊嚴的具體作為；國家透過<b>制定法律</b>：保障基本生活水準＋約束他人或政府。</p>
+  <p><span class="pill">1-3</span>二戰迫害 → 國際社會認知<b>普遍性人權保障</b> → 聯合國通過<b>世界人權宣言</b>（1948）與<b>人權兩公約</b>（1966）→ 我國以憲法增修條文、法律擴大保障對象（婦女、身心障礙者）。</p>
+  <table class="tbl"><tr><th>文件</th><th>年代</th><th>重點</th></tr>
+  <tr><td>世界人權宣言</td><td>1948</td><td>第一部受國際重視的人權文件；強調普世價值、人人平等</td></tr>
+  <tr><td>人權兩公約</td><td>1966</td><td>公民與政治權利國際公約＋經濟社會文化權利國際公約</td></tr>
+  <tr><td>中華民國憲法</td><td>—</td><td>我國的<b>國內法</b>，不是國際人權文件</td></tr></table></div>`);
+  const steps=[
+    {label:'① 什麼是人性尊嚴',imgs:[{img:'l1_class',tag:'每位學生都有平等接受教育的權利'}],poem:'人性尊嚴是指每個人都是<b>獨立自主的個體</b>，可以選擇自己想要的生活方式，不會被他人干涉，並受到他人的尊重；也指每個人<b>天生自由且平等</b>。',key:'核心概念＝每個人都有「<b>選擇的自由</b>」（4 校都考）。爸爸強迫孩子接手家業＝沒有被尊重。'},
+    {label:'② 人權與人性尊嚴',imgs:[{img:'l1_aid',tag:'食物銀行的志工，協助有需要的人取得食物'}],poem:'<b>人權</b>是每個人與生俱來所應享有且不可侵犯的權利，包含<b>生存、自由、平等、人身安全</b>。<br><b>保障人權是維護人性尊嚴的具體作為。</b>',key:'憲法：老弱殘廢、受非常災害者，國家應予<b>扶助與救濟</b> → 保障<b>基本生活</b>。'},
+    {label:'③ 法律約束他人或政府',imgs:[{img:'l1_police',tag:'警察要依法執行職務'}],poem:'憲法規定「人民身體之自由應予保障」，因此除非是為了阻止犯罪、警察<b>依法</b>逮捕犯人外，任何人都不能隨意侵害他人的身體。',key:'警察依法逮捕現行犯<b>不是</b>侵害人權（段考陷阱）；法律保障人權的兩種方式：保障基本生活＋約束他人或政府。'},
+    {label:'④ 二戰的慘痛經驗',imgs:[{img:'l1_ww2',tag:'奧斯威辛集中營大門（今為紀念館）'}],poem:'第二次世界大戰期間，許多人因為<b>族群、政治立場</b>等因素遭到迫害，甚至失去生命。國際社會認知到，唯有<b>普遍性的人權保障</b>，才能維護人性尊嚴與價值。',key:'因果題：二戰迫害 → 聯合國通過世界人權宣言、人權兩公約（3 校考）。'},
+    {label:'⑤ 聯合國與世界人權宣言',imgs:[{img:'l1_udhr',tag:'1949 年，羅斯福夫人展示世界人權宣言海報'},{img:'l1_un',tag:'聯合國大會會場'}],poem:'聯合國是第二次世界大戰後成立的國際組織，目標在<b>維持世界和平</b>。<b>世界人權宣言</b>（1948）具體列出人權的內涵，強調人權的<b>普世價值</b>，是第一部獲得國際社會重視的人權文件。',key:'1948 宣言 vs 1966 <b>兩公約</b>（公民與政治權利、經濟社會文化權利）；憲法是國內法。'},
+    {label:'⑥ 我國擴大保障對象',imgs:[{img:'l1_women',tag:'臺鐵板橋站的夜間婦女候車區'},{img:'l1_toilet',tag:'公共場所的無障礙廁所'},{img:'l1_guidedog',tag:'導盲犬是視障者的第二雙眼睛',fit:'contain',bg:'#1b2a3d'}],poem:'憲法增修條文：「國家應維護婦女之人格尊嚴，保障婦女之人身安全。」「國家對於身心障礙者之無障礙環境之建構，應予保障。」身心障礙者權益保障法：不得拒絕合格導盲犬自由出入。',key:'國家立法保障人權：維護<b>個人的自由</b>＋<b>幫助弱勢群體</b>。立法目的題不要選「促進經濟發展」。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 單元2 性別平權 ================= */
+function animL2(p){
+  stage(p,`<div class="card"><h3>🪜 刻板印象 → 偏見 → 歧視</h3>
+  <div class="ladder"><span>性別刻板印象<small>固定、僵化的看法</small></span><b>→</b><span>性別偏見<small>產生負面評價</small></span><b>→</b><span class="an">性別歧視<small>以不公平的方式或制度差別對待</small></span></div>
+  <p><span class="pill">例</span>「女生應該溫柔賢淑」→ 刻板印象；「怕蟑螂的男生不像男生」→ 偏見；「公司以性別決定升遷、幼兒園徵教師限女性」→ 歧視。</p></div>
+  <div class="card"><h3>⚖️ 性平三法（課本圖3-2-4）</h3>
+  <table class="tbl"><tr><th>場合</th><th>法律</th><th>適用對象</th><th>舉例</th></tr>
+  <tr><td>校園</td><td>性別平等教育法</td><td>一方為學生，另一方為學校成員</td><td>在學校跟同學講黃色笑話</td></tr>
+  <tr><td>職場</td><td>性別平等工作法</td><td>雇主、受僱者、求職者</td><td>在辦公室傳送黃色照片</td></tr>
+  <tr><td>社會</td><td>性騷擾防治法</td><td>不適用前兩法的性騷擾</td><td>在捷運上偷摸他人身體</td></tr></table>
+  <p class="muted" style="margin-top:10px">校園流程：申請／檢舉 → <b>學務處（教導處）受理</b> → <b>性別平等教育委員會調查</b> → <b>輔導處輔導</b> → 陳報教育主管機關。</p></div>`);
+  const steps=[
+    {label:'① 生理性別與社會性別',imgs:[{img:'l2_school',tag:'學校活動中，社會對男女常有不同期待'}],poem:'<b>生理性別</b>：以生殖器官等與生俱來的身體構造為基準來區分性別。<br><b>社會性別</b>：社會期望不同性別表現出的行為模式，例如「男生要會打球，女生要會做飯」。',key:'「基因、喉結」＝生理性別；「夫唱婦隨、男生該喜歡汽車」＝社會性別。'},
+    {label:'② 社會性別怎麼學來的',imgs:[{img:'l2_cook',tag:'家庭：最早學習社會性別的場所'},{img:'l2_tv',tag:'大眾傳播媒體：戲劇、廣告影響性別觀念',fit:'contain',bg:'#1b2a3d'}],poem:'<b>家庭</b>是最早學習社會性別的場所（父母買汽車玩具給男生、布偶給女生）；<b>學校</b>的課程、老師態度與活動（男生體育股長、女生學藝股長）；<b>大眾傳播媒體</b>（汽車廣告找男生、洗衣機廣告找女生）。',key:'學習途徑 4 校都考；網路社群（#MeToo 傳開）也算大眾傳播媒體。'},
+    {label:'③ 刻板印象、偏見、歧視',imgs:[{img:'l2_office',tag:'職場上，升遷和薪資應以能力為標準'}],poem:'社會性別長時間累積定型，若對特定性別產生固定、僵化的看法並以此評價他人，就成為<b>性別刻板印象</b>，甚至造成<b>性別偏見</b>、<b>性別歧視</b>等不平等現象。',key:'只是想法＝刻板印象；負面評價＝偏見；實際制度差別待遇＝<b>歧視</b>（4 校考）。'},
+    {label:'④ 工作不分性別',imgs:[{img:'l2_busdriver',tag:'1943 年，女性學習駕駛路面電車',fit:'contain',bg:'#1b2a3d'},{img:'l2_nurse2',tag:'男性也能當護理師',fit:'contain',bg:'#1b2a3d'},{img:'l2_engineer',tag:'女性工程師在工地'}],poem:'每個人都是獨一無二的個體，沒有什麼工作是只能由某一性別來做。最根本的方法是培養<b>尊重多元性別</b>的態度，不用單一性別限制他人的發展。',key:'落實平權兩層面：<b>消除不平等觀念</b>（尊重多元）＋<b>政府制定法規</b>（性平三法）。'},
+    {label:'⑤ 性騷擾與性平三法',imgs:[{img:'l2_mrt',tag:'公共場所的性騷擾：適用性騷擾防治法'}],poem:'<b>性騷擾</b>：以明示或暗示方式，從事不受歡迎且具性意味或性別歧視的言行，未達性侵害標準。<b>性侵害</b>：違反意願發生性行為。<b>性霸凌</b>：貶抑、攻擊他人的性別特徵或性傾向。',key:'看「人」與「場合」：學生→性別平等<b>教育</b>法；雇主、受僱者、求職者→性別平等<b>工作</b>法；捷運、KTV→<b>性騷擾防治法</b>。'},
+    {label:'⑥ MeToo 與玻璃天花板',imgs:[{img:'l2_metoo',tag:'#MeToo：讓被害人感受到被同理與支持'},{img:'l2_wage',tag:'德國同酬日活動：呼籲同工同酬'}],poem:'2006 年塔拉納．伯克使用「我也是（MeToo）」；2023 年臺灣掀起 MeToo，性平三法修法加重<b>權勢性騷擾</b>責任。111 年女性時薪為男性的 <b>84.2%</b>，須多工作 58 天；女性升遷的無形障礙稱為<b>玻璃天花板</b>。',key:'薪資差距、只讓男性升主管＝<b>性別歧視</b>；統計題不要解讀成「社會已重視女性」。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+
+<!-- AK:answer-key -->
+<style id="ak-style">#ak-btn{position:fixed;left:14px;bottom:14px;z-index:9990;font:600 16px/1 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:#1f4e79;color:#fff;border:0;border-radius:999px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer}#ak-btn:hover{background:#163a5c}#ak-box{display:none;position:fixed;inset:0;z-index:9995;background:rgba(15,25,40,.45);padding:16px;overflow:auto}#ak-box.show{display:block}#ak-box .ak-card{max-width:960px;margin:20px auto;background:#fff;color:#1d2733;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:16px/1.6 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;text-align:left}#ak-box .ak-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #e3e8ef;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}#ak-box .ak-head b{font-size:18px;color:#1f4e79}#ak-box .ak-head button{font:inherit;font-size:16px;margin-left:8px;border:1px solid #c9d3df;background:#f4f7fb;color:#1d2733;border-radius:8px;padding:6px 12px;cursor:pointer}#ak-box .ak-body{padding:6px 18px 18px}#ak-box h3{font-size:17px;margin:16px 0 6px;color:#1f4e79}#ak-box .ak-t{border-collapse:collapse;width:100%;margin:6px 0;table-layout:fixed}#ak-box .ak-t th,#ak-box .ak-t td{border:1px solid #cfd8e3;padding:5px 2px;text-align:center;font-size:16px;word-break:break-all}#ak-box .ak-t th{background:#eef3f9;color:#1f4e79;font-weight:600}#ak-box .ak-t th:first-child{width:3.6em}#ak-box .ak-t td{font-weight:700}#ak-box .ak-list{columns:2 300px;margin:6px 0;padding-left:0;list-style:none}#ak-box .ak-list li{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e3e8ef}@media print{#ak-btn{display:none!important}html:not(.ak-on) #ak-box{display:none!important}html.ak-on body>*:not(#ak-box){display:none!important}html.ak-on #ak-box{position:static;background:none;padding:0;display:block!important;overflow:visible}html.ak-on #ak-box .ak-card{box-shadow:none;margin:0;max-width:none}html.ak-on #ak-box .ak-head button{display:none}html.ak-on #ak-box .ak-head{position:static}}</style>
+<script id="ak-core">(function(){
+if(window.AK)return;
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function norm(secs){
+ if(!secs)return[];
+ if(!Array.isArray(secs[0]&&secs[0].items)&&Array.isArray(secs))secs=[{title:'',items:secs}];
+ return secs.map(function(s){return{title:s.title||'',items:(s.items||[]).map(function(x,i){return Array.isArray(x)?[x[0],x[1]]:[i+1,x]})}}).filter(function(s){return s.items.length});
+}
+function table(s){
+ var long=s.items.some(function(x){return String(x[1]).length>3});
+ var h=s.title?'<h3>'+esc(s.title)+'</h3>':'';
+ if(long){
+  return h+'<ol class="ak-list">'+s.items.map(function(x){return'<li><b>'+esc(x[0])+'.</b> '+esc(x[1])+'</li>'}).join('')+'</ol>';
+ }
+ var out=h;
+ for(var i=0;i<s.items.length;i+=10){
+  var r=s.items.slice(i,i+10);
+  out+='<table class="ak-t"><tr><th>題號</th>'+r.map(function(x){return'<th>'+esc(x[0])+'</th>'}).join('')+'</tr><tr><th>答案</th>'+r.map(function(x){return'<td>'+esc(x[1])+'</td>'}).join('')+'</tr></table>';
+ }
+ return out;
+}
+window.AK=function(fn){
+ function run(){
+  var secs;
+  try{secs=norm(typeof fn==='function'?fn():fn)}catch(e){console.warn('AK',e);return}
+  window.__AK_DATA=secs;
+  if(!secs.length)return;
+  var n=secs.reduce(function(a,s){return a+s.items.length},0);
+  var btn=document.createElement('button');btn.id='ak-btn';btn.type='button';btn.textContent='📋 答案總表';if(window.AK_BTN_STYLE)btn.style.cssText=window.AK_BTN_STYLE;
+  var box=document.createElement('div');box.id='ak-box';
+  box.innerHTML='<div class="ak-card" role="dialog" aria-label="答案總表"><div class="ak-head"><b>📋 答案總表（教師用，共 '+n+' 題）</b><span><button type="button" class="ak-p">🖨 列印答案</button><button type="button" class="ak-x" aria-label="關閉">✕</button></span></div><div class="ak-body">'+secs.map(table).join('')+'</div></div>';
+  document.body.appendChild(btn);document.body.appendChild(box);
+  function close(){box.classList.remove('show');document.documentElement.classList.remove('ak-on')}
+  btn.onclick=function(){box.classList.add('show');document.documentElement.classList.add('ak-on')};
+  box.querySelector('.ak-x').onclick=close;
+  box.onclick=function(e){if(e.target===box)close()};
+  box.querySelector('.ak-p').onclick=function(){window.print()};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+ }
+ if(document.readyState==='complete')setTimeout(run,0);else window.addEventListener('load',function(){setTimeout(run,0)});
+};
+})();</script>
+<script>AK(function(){
+if(!/[?&]teacher\b/.test(location.search))return [];
+/* 段考闖關站（chinese/civics/geography/history/science-site 的 volX_ 的 index.html）共用 adapter。
+   資料：頂層 const（L 各課 .mcq/.ext、RIDDLE/EXT/SCEN/CHART…）裡的選擇題物件 {q,o,a}。
+   renderMCQ 題序固定、但「選項每次洗牌」，所以答案列「正解選項文字」而非字母。
+   快問快答／配對／分類挑戰（題目隨機抽）與總測驗（pool/pick 隨機抽題）都不是頂層 {q,o,a} 陣列，不會被列入。 */
+window.AK_BTN_STYLE='left:14px;bottom:76px;font-size:20px;padding:12px 18px';
+(function(){
+  if(document.getElementById('ak-big'))return;
+  var s=document.createElement('style');s.id='ak-big';
+  s.textContent='html body #ak-box .ak-card{font-size:20px}html body #ak-box .ak-head b{font-size:22px}html body #ak-box .ak-head button{font-size:20px}html body #ak-box h3{font-size:21px}html body #ak-box .ak-list li{font-size:20px}html body #ak-box .ak-t th,html body #ak-box .ak-t td{font-size:20px}html body #ak-box .ak-note{font-size:20px;color:#5a6878;margin:10px 0 0}@media(max-width:600px){html body #ak-box{padding:6px}html body #ak-box .ak-card{margin:6px auto}html body #ak-box .ak-body{padding:6px 12px 14px}html body #ak-box .ak-list{columns:1}}';
+  document.head.appendChild(s);
+  setTimeout(function(){var b=document.querySelector('html body #ak-box .ak-body');if(b&&!b.querySelector('.ak-note')){var p=document.createElement('p');p.className='ak-note';p.textContent='※ 題號＝各練習頁上的題號；選項每次會重新洗牌，故列「正確選項的內容」。快問快答、配對、分類挑戰、總測驗為隨機出題，不列。';b.insertBefore(p,b.firstChild)}},50);
+})();
+var src=[].slice.call(document.querySelectorAll('script:not([src])')).filter(function(x){return x.id!=='ak-core'&&x.textContent.indexOf('AK(function')<0}).map(function(x){return x.textContent}).join('\n');
+var names=[];src.replace(/^(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=/gm,function(_,n){if(names.indexOf(n)<0)names.push(n)});
+var isQ=function(x){return x&&typeof x==='object'&&typeof x.q==='string'&&Array.isArray(x.o)};
+var clean=function(t){t=String(t).replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();return t.length>60?t.slice(0,60)+'…':t};
+var lit=function(expr){var re=new RegExp('renderMCQ\\([^,]+,\\s*'+expr.replace(/[.$[\]]/g,'\\$&')+'\\s*,\\s*[^,]+,\\s*([\'"`])([^\'"`$]*)\\1');var m=src.match(re);return m?m[2]:''};
+var KEY={mcq:'📝 段考模擬題',ext:'延伸題',graph:'綜合 圖表判讀',calc:'綜合 計算練習'};
+var secs=[];
+function add(title,arr,pri){for(var j=0;j<secs.length;j++)if(secs[j].arr===arr){if(pri>secs[j].pri){secs[j].title=title;secs[j].pri=pri}return}secs.push({arr:arr,pri:pri,title:title,items:arr.map(function(q,i){return[i+1,clean(q.o[q.a==null?0:q.a])]})})}
+function walk(v,path,parents){
+  if(!v||typeof v!=='object'||path.length>6||v instanceof Node||v===window)return;
+  if(Array.isArray(v)){
+    if(v.length&&v.every(isQ)){
+      var root=path[0],last=path[path.length-1],par=parents[parents.length-1],t;
+      if(root==='L'&&path.length===3){var d=parents[1];t=[d.no,d.title||d.name].filter(Boolean).join(' ')+'｜'+(KEY[last]||last)}
+      else if(path.length===1)t=lit(root)||root;
+      else if(par&&!Array.isArray(par)&&par.title){var gi=path[path.length-2];t=(/^[①-⑳]/.test(par.title)?'':(typeof gi==='number'?(gi+1)+'. ':''))+String(par.title).replace(/<[^>]*>/g,'')}
+      else t=lit(path.join('.'))||KEY[last]||path.join('.');
+      add(t,v,root==='L'?1:0);return;
+    }
+    v.forEach(function(x,i){walk(x,path.concat(i),parents.concat([v]))});return;
+  }
+  if(Object.getPrototypeOf(v)!==Object.prototype)return;
+  Object.keys(v).forEach(function(k){walk(v[k],path.concat(k),parents.concat([v]))});
+}
+names.forEach(function(n){var v;try{v=(0,eval)(n)}catch(e){return}walk(v,[n],[])});
+/* 同一陣列被兩處引用（如 L.ex.mcq＝EXT）只列一次，以課別標題為準；依 L 的課序排在前面 */
+secs.sort(function(a,b){return b.pri-a.pri});
+return secs.map(function(s){return{title:s.title,items:s.items}});
+});</script>
+<!-- /AK -->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+</body>
+</html>

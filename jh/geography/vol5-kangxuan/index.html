@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國三地理段考闖關（康軒）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#2f6b3a; --main-2:#4a9a5a; --accent:#d9a441; --accent-2:#a8741c;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#1f4d2a 0%,#4a9a5a 60%,#d9a441 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#1f4d2a;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+.qword{font-size:1.5rem;letter-spacing:0;line-height:1.5;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word}
+@media(max-width:560px){.opts{grid-template-columns:1fr}.qword{font-size:1.3rem}}
+.bars .b span{line-height:1.35}
+@media(max-width:560px){.bars .b{grid-template-columns:128px 1fr 52px}}
+details.card summary{cursor:pointer}
+@media(max-width:560px){.lessoncards{grid-template-columns:1fr}.lc{min-height:0;gap:8px}}
+/* 表格與圖表（文字放在 HTML，不畫在圖上） */
+.tbl{width:100%;border-collapse:collapse;font-size:1rem;margin:6px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.tbl th{background:#eef5ec;color:var(--main)}
+.tbl td:first-child{white-space:nowrap}
+@media(max-width:560px){.tbl td:first-child{white-space:normal}}
+.figbox{overflow-x:auto;margin-bottom:6px}
+.chip{display:inline-block;color:#fff;border-radius:8px;padding:0 8px}
+.passage{background:#f3f8f1;border-radius:12px;padding:14px 16px;line-height:1.9}
+.scale{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.scale span{flex:1 1 120px;background:#eef5ec;border-radius:12px;padding:8px 10px;text-align:center;font-size:1rem;line-height:1.5}
+.scale span b{color:var(--accent-2)}
+.ramp{display:flex;border-radius:12px;overflow:hidden;margin-top:10px}
+.ramp span{flex:1;color:#fff;text-align:center;padding:6px 0;font-weight:700;font-size:1rem}
+.ladder{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 12px}
+.ladder span{background:var(--main);color:#fff;border-radius:12px;padding:6px 12px;font-weight:700;text-align:center}
+.ladder span.an{background:var(--accent);color:#3b2600}
+.ladder small{display:block;font-size:1rem;font-weight:500}
+/* 地理：鄰國方位圖、比例尺與時差計算機 */
+.compass{display:grid;grid-template-columns:1fr 1.3fr 1fr;grid-template-rows:auto auto auto;gap:8px;text-align:center;margin:6px 0}
+.compass span{background:#eef5ec;border-radius:12px;padding:8px 6px;line-height:1.5}
+.compass .n{grid-column:2;grid-row:1}.compass .w{grid-column:1;grid-row:2}.compass .c{grid-column:2;grid-row:2;background:var(--main);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.compass .e{grid-column:3;grid-row:2}.compass .s{grid-column:1/4;grid-row:3}
+@media(max-width:560px){.compass{grid-template-columns:1fr 1fr}.compass .n{grid-column:1/3;grid-row:1}.compass .w{grid-column:1;grid-row:2}.compass .c{grid-column:1/3;grid-row:3;padding:12px}.compass .e{grid-column:2;grid-row:2}.compass .s{grid-column:1/3;grid-row:4}}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.calc label{font-weight:500}
+.exfig{margin:0 0 10px}.exfig img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;display:block}.exfig figcaption{font-size:1rem;color:var(--muted,#5b6b5e);margin-top:6px;line-height:1.5}
+.calc input,.calc select{display:block;width:100%;font-size:1.1rem;padding:8px 10px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit;background:#fff}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回地理選單</a><span class="tag">康軒版 國三上地理 ｜ 第一次段考</span>
+    <h1>地理段考闖關｜歐洲(一)～歐洲(二)與俄羅斯</h1>
+    <p>先看真實照片動畫弄懂課本，再用遊戲練熟冰河地形、氣候、各國產業、歐盟與俄羅斯，最後做圖表判讀與段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap"><details style="margin-top:8px"><summary>圖片來源與授權</summary>
+  照片皆來自 Wikimedia Commons（CC0／公有領域／CC BY／CC BY-SA），未使用 AI 生成圖：Aletschgletscher-Eggishorn：Tobias Alt, Tobi 87（CC BY-SA 4.0）；CH.VS.Zermatt 2021-10-17 Matterhorn 8726：Roy Egloff（CC BY-SA 4.0）；Geirangerfjord ：Andreas Trepte（CC BY-SA 2.5）；Downtown Kuopio and Kallavesi as seen from Puijo tower, Kuopio, North Savo, Finland, 2023 April：Ximonic (Simo Räsänen)（CC BY-SA 4.0）；Olive groves in Andalucia：Wildmountainscene（CC BY-SA 3.0）；Ría de Vigo Galicia：Enrique Dans（CC BY 2.0）；Monument of Cabo da Roca, Portugal, 20250606 1513 0230：Jakub Hałun（CC BY 4.0）；A lakeside sauna in midsummer 1960 (JOKAMT2Ku64-2)：Erkki Voutilainen（CC BY 4.0）；Ural Mountains, Russia (ASTER)：NASA/METI/AIST/Japan Space Systems, U.S./Japan ASTER Science Team（公有領域）；Lauterbrunnen Valley (58465967)：Paul Stephenson（CC BY 2.0）；Factory 56 Sindelfingen IMG 3662：Alexander Migl（CC BY-SA 4.0）；Palace of Westminster London 2023 01：Julian Herzog（CC BY 4.0）；Rød dansk malkerace RDM：Malene Thyssen（CC BY-SA 3.0）；Pétanque players in Nîmes 01：Palickap（CC BY-SA 4.0）；Ferrari Factory (Maranello, Modena) in 2018.04：CAPTAIN RAJU（CC BY-SA 4.0）；Foxconn Pardubice：Nadkachna（CC BY 3.0）；Hellisheidi Geothermal Power Station：Kevstan（CC BY-SA 4.0）；Self-serve aisle in IKEA Torp Uddevalla 2：W.carter（CC0）；Eiffel Tower and Pont Alexandre III at night：Getfunky Paris（CC BY 2.0）；Attica 06-13 Athens 50 View from Philopappos - Acropolis Hill：A.Savin（CC BY-SA 3.0）；001 Car factory assembly line - Opel factory in Gliwice, Poland：Marek Ślusarczyk (Tupungato)（CC BY 3.0）；APM Terminal Maasvlakte Rotterdam：Spielvogel（CC BY-SA 4.0）；Essen - Zeche Zollverein coal mine - 50300265263：Rutger van der Maar（CC BY 2.0）；Sagrada Familia - Exterior - 004：Américo Toledano（CC BY-SA 4.0）；Jaulas flotantes de salmón, Svolvær, Lofoten, Noruega, 2019-09-05, DD 54：Diego Delso（CC BY-SA 4.0）；White and blue in Santorin：Dinkum（CC0）；Moisson dans le Lauragais, 2015-2：Gyrostat（CC BY-SA 4.0）；"Jean-Luc Lagardère" A380 Final assembly line：Duch.seb（CC BY-SA 3.0）；Berlaymont building in Brussels：almathias（CC0）；Euro coins line：Vander（CC0）；Nicosia view with the European Union flag waving Cyprus presidency of the EU：NewNicosia（CC BY-SA 3.0）；Hunderfossen Dam：Jan Hammershaug（CC BY 2.0）；Border crossing Kruså-Kupfermühle Danmark sign 01：Rémih（CC BY-SA 4.0）；Planta termosolar PS10, 0.1, Sevilla, España, 2015：Benjamín Núñez González（CC BY-SA 4.0）；Middelgrunden offshore wind farm 07：Kritzolina（CC BY-SA 4.0）；Catedral de San Basilio, Moscú, Rusia, 2016-10-03, DD 05-06 HDR：Diego Delso（公有領域）；Port of Murmansk 2022-05 portra800：Svetlov Artem（CC0）；After sunset ... near Oymyakon in Yakutia .. - Flickr - Maarten Takens：Maarten Takens（CC BY-SA 2.0）；Rohre für Nord Stream 2 in Mukran：Gerd Fahrenhorst（CC BY 4.0）；Транссибирска железница：Petar Milošević（CC BY-SA 4.0）；Navy in Sevastopol bay 2012 G02：George Chernilevsky（公有領域）；Saint Petersburg Hermitage from Neva 10：Ad Meskens（CC BY-SA 4.0）；Ergaki, Siberian pine forest, Spruce forest, Taiga, Sayan Mountains, Siberia, Russia：Vyacheslav Argenberg（CC BY 4.0）；A rainbow in tundra：Shtirlitz74（CC BY 4.0）；Overview of Zolotoy Rog：Alan Dooley（公有領域）。</details>
+</div></footer>
+
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料（康軒 國三上地理 第一次段考：第1課＋第2課） =================
+   名詞、數字、定義一律依康軒 115 學年版國中地理3上課本（第1課 歐洲(一)、第2課 歐洲(二)與俄羅斯）。
+   快問快答：[題目, 正解, [3 個誘答], 幾校考過(0＝不標★), 題目提示(可省略)]
+   模擬題：{q, o:[正解, 誘答…], a:0, src, ex}（選項每次洗牌；全部原創改寫，只借各校命題方向與陷阱） */
+const L = {
+/* ---------- 1-1 歐洲的自然環境有何特色？ ---------- */
+a:{
+  no:'1-1', code:1, title:'歐洲的自然環境有何特色？', short:'地形與氣候', color:'linear-gradient(135deg,#1f4d2a,#4a9a5a)',
+  desc:'歐亞界山｜地形三分區｜峽灣・U型谷・冰蝕湖 vs 谷灣｜西風＋北大西洋暖流｜五種氣候',
+  quickAsk:'選出正確的答案', quickTitle:'自然環境快問快答',
+  quick:[
+    ['歐洲東邊與亞洲分界的兩座山脈','烏拉爾山和高加索山',['阿爾卑斯山和庇里牛斯山','斯堪地那維亞山脈和烏拉爾山','喜馬拉雅山和高加索山'],10],
+    ['歐洲南邊隔著哪一個海與非洲相望','地中海',['黑海','北海','波羅的海'],10],
+    ['歐洲位於哪一塊大陸的西北部','歐亞大陸',['非洲大陸','北美大陸','南美大陸'],0],
+    ['山地南北縱貫、受冰河侵蝕而多峽灣與冰蝕湖的半島','斯堪地那維亞半島',['伊比利半島','義大利半島','巴爾幹半島'],6],
+    ['位於阿爾卑斯山以北、平原廣闊的地形區','歐洲大平原',['斯堪地那維亞半島','南歐三大半島','西伯利亞高原'],6],
+    ['南歐三大半島地形崎嶇的主要原因','板塊擠壓',['冰河侵蝕','風力堆積','河川堆積'],9],
+    ['沿海丘陵谷地被上升的海水淹沒，山谷變灣澳、丘陵變島嶼','谷灣',['峽灣','冰蝕湖','U型谷'],7],
+    ['冰河谷延伸至海，冰河消退、海水侵入後形成的狹長海灣','峽灣',['谷灣','潟湖','三角洲'],13],
+    ['冰河在緩坡挖鑿窪地，消融後積水而成的湖泊','冰蝕湖',['堰塞湖','火口湖','牛軛湖'],3],
+    ['厚重的冰河把山谷刻鑿成的谷地形狀','U型谷',['V型谷','峽谷','裂谷'],8],
+    ['冰河消融後，寬平的冰河谷在山區常成為','往來的天然孔道',['大型沙漠','火山口','三角洲'],8],
+    ['芬蘭湖泊眾多，這些湖主要是','冰蝕湖',['堰塞湖','潟湖','火口湖'],3],
+    ['海岸多峽灣、最典型的北歐國家','挪威',['希臘','荷蘭','義大利'],13],
+    ['歐洲西半部年均溫高於同緯度地區的兩大因素','北大西洋暖流與盛行西風',['副熱帶高壓與季風','高山阻擋與焚風','黑潮與東北季風'],15],
+    ['緯度 40～60 度之間盛行西風，這個緯度帶稱為','西風帶',['信風帶','極地東風帶','赤道無風帶'],14],
+    ['分布於西歐與北歐，降水季節平均、年溫差較小的氣候','溫帶海洋性氣候',['溫帶大陸性氣候','溫帶地中海型氣候','高地氣候'],12],
+    ['分布於東歐、歐俄，夏季降水較多、年溫差較大的氣候','溫帶大陸性氣候',['溫帶海洋性氣候','溫帶地中海型氣候','寒帶氣候'],12],
+    ['分布於地中海沿岸，呈現夏乾冬雨的氣候','溫帶地中海型氣候',['溫帶海洋性氣候','溫帶大陸性氣候','熱帶季風氣候'],15],
+    ['地中海沿岸夏季乾燥，是因為受到什麼籠罩','副熱帶高氣壓',['西風帶','北大西洋暖流','極地高氣壓'],15],
+    ['地中海沿岸冬季降雨，是因為什麼移入','西風帶帶來海洋水氣',['副熱帶高氣壓','東北季風','颱風'],15],
+    ['分布於阿爾卑斯山區，由山腳到山頂呈垂直變化的氣候','高地氣候',['寒帶氣候','溫帶大陸性氣候','溫帶海洋性氣候'],9],
+    ['分布於北極圈附近、全年低溫的氣候','寒帶氣候',['高地氣候','溫帶大陸性氣候','溫帶海洋性氣候'],0],
+    ['由西歐往東歐，氣候的變化特徵','西暖溼、東冷乾',['西冷乾、東暖溼','西乾東溼','東西完全相同'],12],
+    ['歐洲整體的氣候分布特徵','南熱北冷、西溼東乾',['北熱南冷、東溼西乾','南冷北熱、西乾東溼','全年高溫多雨'],0],
+    ['芬蘭人冬季用熱蒸氣禦寒、放鬆身體的習慣','桑拿（sauna）',['火炕','窯洞','溫泉泡湯'],0],
+    ['被稱為「大地的盡頭、海洋的開端」的歐亞大陸最西端岬角','羅卡角',['好望角','北角','合恩角'],4],
+    ['歐洲幾乎沒有沙漠氣候，主要因為','受西風與海洋水氣影響、灣澳深入內陸',['緯度低、蒸發旺盛','板塊活動頻繁','位於副熱帶高壓帶'],3],
+  ],
+  words:[
+    ['峽灣','冰河谷被海水侵入的狹長海灣（挪威）'],['冰蝕湖','冰河挖鑿窪地積水成湖（芬蘭）'],['U型谷','冰河刻鑿的寬平谷地，山區天然孔道'],
+    ['谷灣','丘陵谷地被上升海水淹沒（南歐）'],['斯堪地那維亞半島','山地縱貫、冰蝕地形發達'],['歐洲大平原','阿爾卑斯山以北、平原廣闊'],
+    ['南歐三大半島','板塊擠壓、地形崎嶇'],['北大西洋暖流','使歐洲西半部冬季較溫暖'],['西風帶','緯度 40～60 度盛行西風'],
+    ['溫帶地中海型氣候','夏乾冬雨，種橄欖、葡萄'],['溫帶海洋性氣候','降水季節平均、年溫差小'],['溫帶大陸性氣候','夏季降水較多、年溫差大'],
+    ['高地氣候','由山腳到山頂垂直變化'],['烏拉爾山','歐、亞兩洲界山'],
+  ],
+  sorts:[
+    {title:'這是冰河地形嗎？',tip:'冰河三兄弟：峽灣、U型谷、冰蝕湖。谷灣是海平面上升淹沒丘陵谷地，不是冰河造成的。',buckets:['冰河侵蝕地形','不是冰河地形'],items:[
+      ['挪威 蓋倫格峽灣',0],['芬蘭 庫奧皮奧附近的湖群',0,'冰河挖鑿窪地積水成冰蝕湖'],['瑞士 勞特布魯嫩的寬平谷地',0,'U型谷'],['阿爾卑斯山的阿萊奇冰河谷',0],
+      ['希臘、西班牙西北部曲折的灣澳',1,'谷灣：海平面上升，丘陵谷地被淹沒'],['希臘 桑托里尼火山島',1,'板塊擠壓與火山活動'],['歐洲大平原',1],['臺灣中部山區的 V 型谷',1,'V 型谷是河流下切侵蝕']]},
+    {title:'這是哪一種氣候？',tip:'西歐北歐沿海＝海洋性；東歐歐俄＝大陸性；地中海沿岸＝地中海型；阿爾卑斯山＝高地；北極圈附近＝寒帶。',buckets:['溫帶海洋性','溫帶大陸性','溫帶地中海型','高地氣候','寒帶氣候'],items:[
+      ['英國：終年有雨、年溫差小',0],['荷蘭：受西風與暖流影響，溫和溼潤',0],['挪威西岸沿海',0],
+      ['波蘭東部：夏季降水較多',1],['莫斯科：冬季嚴寒、年溫差大',1],['烏克蘭內陸',1],
+      ['希臘雅典：夏乾冬雨',2],['西班牙南部的橄欖園',2],
+      ['瑞士山區：山腳到山頂景觀不同',3],['北極圈附近：全年低溫',4]]},
+    {title:'歐洲地形三分區',tip:'由北到南：斯堪地那維亞半島 → 歐洲大平原 → 阿爾卑斯山 → 南歐三大半島。',buckets:['斯堪地那維亞半島','歐洲大平原','南歐三大半島'],items:[
+      ['山地南北縱貫',0],['峽灣、冰蝕湖多',0],['緯度高，受冰河侵蝕',0],
+      ['平原廣闊',1],['位在阿爾卑斯山以北',1],
+      ['板塊擠壓、地形崎嶇',2],['臨海多丘陵、谷灣發達',2],['位在阿爾卑斯山以南',2]]},
+  ],
+  mcq:[
+    {q:'小禾在地圖上畫出歐洲與亞洲的陸上界線，他應該沿著下列哪兩座山脈描線？',o:['烏拉爾山與高加索山','阿爾卑斯山與庇里牛斯山','斯堪地那維亞山脈與阿爾卑斯山','喜馬拉雅山與天山'],a:0,src:'10 校',ex:'課本：歐洲東以烏拉爾山和高加索山與亞洲為界，南隔地中海與非洲相望。'},
+    {q:'旅人站在 (38.8°N, 9.5°W) 的懸崖上，眼前是浩瀚的大西洋，這裡被稱為「大地的盡頭、海洋的開端」。他最可能在哪一國？',o:['葡萄牙','挪威','瑞士','烏克蘭'],a:0,src:'',ex:'北緯約 39 度、西經約 9 度，是歐亞大陸最西端的羅卡角，位於葡萄牙；挪威緯度太高、瑞士與烏克蘭不臨大西洋。'},
+    {q:'挪威西海岸有許多深入陸地、兩側陡峭的狹長海灣。這種地形最主要是怎麼形成的？',o:['冰河侵蝕出谷地，冰河消退後海水侵入','海平面上升淹沒河流侵蝕的丘陵谷地','斷層陷落後被河水沖刷','海浪長期拍打侵蝕海岸'],a:0,src:'13 校考峽灣',ex:'峽灣＝冰河谷延伸至海，冰河消退、海水侵入。「海平面上升淹沒丘陵谷地」是谷灣的成因。'},
+    {q:'下列地形：峽灣、U 型谷、谷灣、冰蝕湖、三角洲，屬於冰河侵蝕作用形成的共有幾種？',o:['3 種','2 種','4 種','5 種'],a:0,src:'',ex:'峽灣、U 型谷、冰蝕湖是冰河地形；谷灣是海平面上升造成；三角洲是河流堆積。'},
+    {q:'瑞士的阿爾卑斯山區常有鐵路、公路沿著寬平的谷地穿越山脈。這些谷地最可能是什麼地形？',o:['U 型谷','V 型谷','谷灣','峽灣'],a:0,src:'',ex:'冰河把山谷刻鑿成寬平的 U 型谷，冰河消融後常成為山區往來的天然孔道。'},
+    {q:'希臘沿海島嶼眾多、海岸線曲折，灣澳常成為天然良港。這種海岸主要是怎麼形成的？',o:['海平面上升，丘陵谷地被海水淹沒','冰河侵蝕後海水侵入','河流泥沙大量堆積','珊瑚礁長期堆積'],a:0,src:'',ex:'谷灣：山谷變灣澳、丘陵變島嶼。巴爾幹半島（希臘）多谷灣，它不是冰河地形。'},
+    {q:'義大利有維蘇威火山、埃特納火山，地震也頻繁；西班牙地形崎嶇。這些現象最主要的原因是什麼？',o:['歐亞板塊與非洲板塊互相擠壓','終年受西風吹拂','北大西洋暖流經過','第四紀冰河侵蝕'],a:0,src:'9 校',ex:'南歐位於板塊交界附近，受板塊擠壓影響，地形崎嶇，多火山與地震。'},
+    {q:'同樣位於北緯 60 度附近，挪威西岸 1 月均溫在 0℃ 上下，俄羅斯內陸卻低到零下 20℃ 左右。造成差異的主要原因是什麼？',o:['北大西洋暖流與盛行西風帶來溫暖水氣','太陽斜射角度不同','海拔高度差距極大','副熱帶高氣壓籠罩的時間不同'],a:0,src:'',ex:'同緯度太陽照射條件相近；歐洲西半部受暖流與西風影響較溫暖，愈往內陸影響愈弱。'},
+    {q:'某地 1 月均溫 10℃、7 月均溫 27℃；7 月降水只有 6 毫米，12 月降水約 70 毫米。這最可能是哪一種氣候？',o:['溫帶地中海型氣候','溫帶海洋性氣候','溫帶大陸性氣候','高地氣候'],a:0,src:'12 校考氣候圖判讀',ex:'夏季幾乎不下雨、冬季降雨＝夏乾冬雨的地中海型氣候。'},
+    {q:'地中海沿岸夏季乾燥、冬季多雨。下列解釋何者正確？',o:['夏季受副熱帶高氣壓籠罩，冬季西風帶移入帶來水氣','夏季吹乾燥的季風，冬季吹溼潤的季風','夏季受北大西洋暖流影響，冬季受寒流影響','夏季日照短，冬季日照長'],a:0,src:'',ex:'課本圖 1-1-8：西風帶季節移動。夏季副熱帶高壓北移籠罩，冬季西風帶南移帶來降水。'},
+    {q:'葡萄牙的森林消防隊一年之中最需要提高警戒、加派人力巡邏防火的是哪個季節？',o:['夏季','冬季','初春','全年都一樣'],a:0,src:'野火題方向',ex:'地中海型氣候夏乾冬雨，夏季高溫又少雨、植被乾燥，最容易發生森林大火。'},
+    {q:'一位貨車司機冬天從荷蘭 鹿特丹出發，沿著歐洲大平原一路往東開到俄羅斯 莫斯科。他最可能有什麼感受？',o:['愈往東冬天愈冷，當地的年溫差也愈大','愈往東愈溫暖溼潤','愈往東降水愈多、年溫差愈小','沿途氣溫都差不多，因為緯度相近'],a:0,src:'7 校考西暖溼東冷乾',ex:'愈往內陸，海洋水氣與暖流的影響減弱，年均溫、年降水遞減，年溫差變大。'},
+    {q:'英國 愛丁堡和俄羅斯 莫斯科都位在北緯約 56 度，1 月均溫卻相差約 10℃，愛丁堡比較溫暖。主要原因為何？',o:['愛丁堡臨海，受北大西洋暖流與盛行西風調節','愛丁堡的海拔比莫斯科高很多','愛丁堡位在副熱帶高壓帶','愛丁堡的工廠較多，排放大量熱能'],a:0,src:'同緯度溫差題方向',ex:'同緯度太陽照射條件相近；愛丁堡臨大西洋，受暖流與西風調節，冬季較溫和；莫斯科深居內陸，冬季嚴寒。'},
+    {q:'歐洲是幾乎沒有沙漠氣候的一洲。下列哪一項「不是」原因？',o:['板塊擠壓使南歐地形崎嶇','大部分地區終年受西風吹拂','北大西洋暖流帶來溫暖水氣','海灣深入內陸、海陸交錯'],a:0,src:'',ex:'西風、暖流與灣澳深入內陸，讓海洋水氣可以進入；板塊擠壓只影響地形，和沒有沙漠無關。'},
+    {q:'芬蘭人有用熱蒸氣禦寒的桑拿習慣，洗完常跳進湖裡或在雪地打滾。這反映北歐哪一種自然環境？',o:['位居高緯，冬季嚴寒而漫長','夏乾冬雨，需要灌溉','終年高溫多雨','地勢高聳，空氣稀薄'],a:0,src:'課本圖 1-1-6',ex:'北歐地處高緯，冬季嚴寒漫長，桑拿可以放鬆身體、促進血液循環。'},
+    {q:'登山客從瑞士的山腳搭登山鐵路到山頂，沿途由草原、森林到冰雪景觀。這種現象屬於哪一種氣候的特徵？',o:['高地氣候','寒帶氣候','溫帶大陸性氣候','溫帶地中海型氣候'],a:0,src:'9 校',ex:'阿爾卑斯山區屬高地氣候，氣候特徵由山腳到山頂呈垂直變化。'},
+    {q:'由北往南穿越歐洲，依序會經過哪些地形？',o:['斯堪地那維亞半島 → 歐洲大平原 → 阿爾卑斯山 → 南歐三大半島','歐洲大平原 → 斯堪地那維亞半島 → 南歐三大半島 → 阿爾卑斯山','南歐三大半島 → 阿爾卑斯山 → 歐洲大平原 → 斯堪地那維亞半島','阿爾卑斯山 → 歐洲大平原 → 斯堪地那維亞半島 → 南歐三大半島'],a:0,src:'',ex:'課本：歐洲地形由北向南分三部分，阿爾卑斯山是歐洲大平原與南歐的分界。'},
+  ],
+},
+/* ---------- 1-2 人口與產業＋1-3 西歐 ---------- */
+b:{
+  no:'1-2', code:2, title:'歐洲的人口與產業＋工商發達的西歐', short:'人口產業與西歐', color:'linear-gradient(135deg,#24506b,#4a8fb0)',
+  desc:'人口分布最平均｜1950 已高齡化｜糧食出口與 G7｜英國・法國・德國・荷蘭',
+  quickAsk:'選出正確的答案', quickTitle:'人口產業＋西歐快問快答',
+  quick:[
+    ['世界上人口分布最平均的一洲','歐洲',['亞洲','非洲','大洋洲'],4],
+    ['歐洲人口分布平均的主要原因','大部分位於溫帶，自然環境適合人居',['礦產平均分布','政府強制分配人口','全境都是平原'],4],
+    ['由 1950 年的人口金字塔可知，當時歐洲已經','進入高齡化社會',['人口快速成長','以幼年人口為主','即將邁入高齡化社會'],11],
+    ['歐洲大部分國家人口成長緩慢、甚至負成長的主因','長期出生率偏低',['移出率很高','戰爭頻繁','死亡率急遽上升'],11],
+    ['歐洲人口老化愈趨嚴重的兩個原因','出生率偏低＋平均壽命較長',['出生率上升＋死亡率上升','移民大量移入＋戰爭','糧食不足＋醫療落後'],11],
+    ['歐洲在全球的農業地位','世界重要的糧食出口地區之一',['糧食需大量進口','只生產熱帶作物','幾乎沒有農業'],0],
+    ['課本表格中，歐洲出口量占世界比例最高的作物','馬鈴薯',['黃豆','玉米','稻米'],0],
+    ['七大工業國組織（G7）中，位於歐洲的國家有幾個','4 個',['2 個','5 個','7 個'],0],
+    ['歐洲西半部平均國民所得較高，多採行哪種經濟制度','市場經濟制度',['計畫經濟制度','封建制度','自給自足經濟'],6],
+    ['歐洲工業發展程度最高、水陸交通最繁忙的核心地帶','西歐',['東歐','南歐','北歐'],0],
+    ['位於萊因河出海口、歐洲最大的港口','荷蘭 鹿特丹',['德國 漢堡','英國 倫敦','法國 馬賽'],9],
+    ['工業革命的發源地、曾有「日不落國」之稱','英國',['法國','德國','荷蘭'],12],
+    ['帶動英國早期工業發展的煤礦產地','本寧山區',['阿爾卑斯山區','庇里牛斯山區','烏拉爾山區'],12],
+    ['英國在 1960 年代於哪一片海域發現石油','北海',['波羅的海','地中海','黑海'],12],
+    ['北海石油對英國的重要性','產業升級與高科技工業的資金來源',['帶動工業革命','使英國成為日不落國','使英國脫離歐盟'],0],
+    ['蘊藏豐富鐵礦、以鋼鐵與高速鐵路聞名的國家','法國',['德國','英國','荷蘭'],8],
+    ['號稱「世界時尚之都」的城市','巴黎',['倫敦','柏林','鹿特丹'],8],
+    ['法國在服裝設計與化妝品引領世界流行，屬於哪一種產業','時尚產業',['重工業','漁業','煉鋁業'],8],
+    ['煤礦豐富、水運便捷、歐洲工業產值最高的國家','德國',['英國','法國','義大利'],13],
+    ['寶馬（BMW）與賓士（Benz）汽車是哪一國的品牌','德國',['義大利','瑞典','法國'],13],
+    ['德國享有品質優越聲譽的工業','汽車、機械、化工、光學儀器',['服裝、化妝品','家具、林業','煉鋁、溫室農業'],13],
+    ['西歐成為工業核心的條件','位置優越、地形平坦、礦產豐富',['氣候乾燥、礦產缺乏','地形崎嶇、勞力低廉','計畫經濟、重視國防'],0],
+    ['人均 GDP 地圖上，所得較高的國家多分布在','歐洲西半部',['歐洲東半部','巴爾幹半島','俄羅斯西伯利亞'],6],
+  ],
+  words:[
+    ['鹿特丹','萊因河出海口、歐洲最大港'],['本寧山區','英國煤礦，帶動早期工業'],['北海','英國 1960 年代發現石油'],
+    ['法國','鐵礦、高速鐵路、時尚'],['巴黎','世界時尚之都'],['德國','煤礦＋水運，工業產值最高'],
+    ['英國','工業革命發源地、日不落國'],['市場經濟','歐洲西半部，所得較高'],['計畫經濟','歐洲東半部曾採行'],
+    ['G7','七大工業國，四國在歐洲'],['高齡化社會','1950 年歐洲已進入'],['西歐','歐洲工業核心、交通最繁忙'],
+  ],
+  sorts:[
+    {title:'西歐四國特色歸屬',tip:'英國：煤＋北海石油；法國：鐵礦＋時尚；德國：煤＋水運、工業產值最高；荷蘭：鹿特丹。',buckets:['英國','法國','德國','荷蘭'],items:[
+      ['本寧山區的煤礦',0],['1960 年代北海石油',0],['日不落國',0],['工業革命發源地',0],
+      ['豐富的鐵礦',1],['世界時尚之都',1],['高速鐵路、航空工業',1],
+      ['賓士、BMW 汽車',2],['光學儀器、化工',2],['歐洲工業產值最高',2],
+      ['鹿特丹港',3],['萊因河出海口',3]]},
+    {title:'歐洲的人口與產業：對還是錯？',tip:'歐洲人口分布最平均、1950 年就已高齡化；人口成長慢是出生率低，不是移出率高。',buckets:['正確','錯誤'],items:[
+      ['是世界人口分布最平均的一洲',0],['1950 年已進入高齡化社會',0],['長期出生率偏低',0],['衛生醫療進步、平均壽命較長',0],['是世界重要的糧食出口地區之一',0],
+      ['人口成長緩慢是因為大量人口移出',1,'主因是出生率偏低'],['2025 年才「即將」進入高齡化社會',1,'1950 年就已經是了'],['歐洲東半部平均國民所得較高',1,'西半部較高'],['歐洲人口正快速增加',1]]},
+  ],
+  mcq:[
+    {q:'歐洲是世界上人口分布最平均的一洲。下列哪一項是最主要的原因？',o:['大部分位於溫帶，自然環境適合人居','礦產資源平均分布在每個國家','政府規定人民平均居住','全洲沒有任何山地'],a:0,src:'',ex:'課本：歐洲大部分位於溫帶地區，因自然環境適合人居，是人口分布最平均的一洲。'},
+    {q:'比較歐洲 1950、2000、2025 年的人口金字塔：底部（幼年人口）愈來愈窄，頂端（65 歲以上）愈來愈寬。下列推論何者最合理？',o:['平均壽命延長','人口總數一定逐年減少','歐洲到 2025 年才進入高齡化社會','幼年人口比例愈來愈高'],a:0,src:'6 校',ex:'頂端變寬代表老年人口變多、平均壽命延長；1950 年歐洲就已是高齡化社會。金字塔看比例，不能直接推出總數一定減少。'},
+    {q:'歐洲大部分國家人口成長緩慢，有些甚至負成長。主要原因是什麼？',o:['長期出生率偏低','大量人口移出到其他洲','死亡率突然大幅上升','戰爭使人口大量減少'],a:0,src:'',ex:'課本：因長期出生率偏低，人口成長緩慢甚至負成長；不是移出率高。'},
+    {q:'課本統計：歐洲出口的大麥、馬鈴薯分別占世界出口量一半以上。這說明歐洲的哪個特色？',o:['農產豐富，是世界重要的糧食出口地區之一','糧食不足，必須大量進口','農業以熱帶栽培業為主','只發展工業、不發展農業'],a:0,src:'課本圖 1-1-12',ex:'歐洲農產豐富，是世界重要的糧食出口地區之一，工業也十分發達。'},
+    {q:'七大工業國組織（G7）由經濟發達的已開發國家組成。下列哪一組國家都屬於 G7 中的歐洲國家？',o:['英國、法國、德國、義大利','英國、波蘭、挪威、希臘','法國、瑞典、捷克、西班牙','德國、荷蘭、冰島、葡萄牙'],a:0,src:'課本圖 1-1-13',ex:'G7 中有四國位於歐洲：英國、法國、德國、義大利（另三國是美國、加拿大、日本）。'},
+    {q:'歐洲人均 GDP 地圖上，西半部顏色較深（所得高）、東半部較淺。造成差異的主要背景是什麼？',o:['東半部曾採行計畫經濟制度，經濟發展較緩慢','東半部全是沙漠，無法發展','西半部礦產比東半部豐富很多','東半部人口太少，沒有勞力'],a:0,src:'6 校',ex:'課本：西半部多為民主國家、市場經濟；東半部曾採行計畫經濟，平均國民所得相對較低。'},
+    {q:'荷蘭的某座港口位於萊因河出海口，是歐洲最大的港口，貨物可沿河深入德國。這座港口是哪裡？',o:['鹿特丹','阿姆斯特丹','漢堡','馬賽'],a:0,src:'',ex:'課本圖 1-1-16：鹿特丹位於萊因河出海口，是歐洲最大的港口。'},
+    {q:'英國是工業革命的發源地。下列哪一項資源最能說明英國早期工業發展的條件？',o:['本寧山區豐富的煤礦','阿爾卑斯山的水力','北海的天然氣','地中海的漁業'],a:0,src:'12 校',ex:'本寧山區的煤礦帶動英國早期工業發展；北海石油是 1960 年代以後才發現，用於產業升級。'},
+    {q:'1960 年代北海發現豐富油田，下列哪一國「最不可能」參與北海油田的開採？',o:['西班牙','英國','挪威','丹麥'],a:0,src:'',ex:'北海位於英國、挪威、丹麥、荷蘭、德國之間；西班牙位於伊比利半島，不臨北海。'},
+    {q:'小晴在法國旅遊時，看到高速鐵路往來各大城、巴黎街頭精品林立。下列哪一項最符合課本對法國的描述？',o:['鐵礦豐富，以鋼鐵、汽車、高鐵、航空聞名，並引領時尚','工業產值是歐洲第一，以光學儀器最著名','是工業革命的發源地，靠本寧山煤礦發展','利用峽灣發展漁業、造船與航運'],a:0,src:'8 校',ex:'法國：鐵礦→鋼鐵、汽車、高速鐵路、航空與通訊；巴黎是世界時尚之都。工業產值最高的是德國。'},
+    {q:'某半導體大廠選擇在德國東部的德勒斯登設廠，看重當地完整的工業基礎。下列關於德國的敘述何者正確？',o:['煤礦豐富、水運便捷，是歐洲工業產值最高的國家','以豐富的鐵礦與時尚產業聞名','靠北海石油成為工業革命發源地','以低工資勞力吸引外資代工'],a:0,src:'13 校',ex:'德國煤礦豐富、水運網路便捷，汽車、機械、化工、光學儀器聞名，是歐洲工業產值最高的國家。'},
+    {q:'把下列資源配給國家，何者正確？',o:['德國—煤礦；法國—鐵礦；英國—北海石油','德國—鐵礦；法國—北海石油；英國—煤礦','德國—北海石油；法國—煤礦；英國—鐵礦','德國—鐵礦；法國—煤礦；英國—地熱'],a:0,src:'高頻陷阱（13 校考德國）',ex:'德國煤礦豐富；法國蘊藏豐富鐵礦；英國除了本寧山煤礦，1960 年代在北海發現石油。'},
+    {q:'西歐是歐洲工業發展程度最高的核心地帶。下列何者「不是」課本提到的發展條件？',o:['工資比東歐低廉','地理位置優越','地形平坦','礦產資源豐富'],a:0,src:'課本 1-3 西歐',ex:'西歐的條件：位置優越、地形平坦、礦產豐富、水陸交通繁忙。工資低廉是東歐的優勢。'},
+    {q:'英國工廠排放的空氣汙染物，最可能隨盛行風往哪個方向飄散？',o:['往東，飄向歐陸','往西，飄向大西洋','往南，飄向非洲','停在原地不動'],a:0,src:'',ex:'歐洲位在西風帶，盛行風由西向東吹，汙染物會往東飄向歐洲大陸。'},
+    {q:'荷蘭全年降水平均、氣候溫和溼潤，適合發展畜牧與園藝。下列何者是荷蘭氣候溼潤的主要原因？',o:['位於西風帶，終年有海洋水氣吹入','位於副熱帶高壓帶','受東南季風影響','地勢高聳、地形雨多'],a:0,src:'',ex:'荷蘭屬溫帶海洋性氣候：終年受西風吹拂，加上北大西洋暖流帶來水氣。荷蘭地勢低平，不是地形雨。'},
+  ],
+},
+/* ---------- 1-3 南歐・北歐・東歐 ---------- */
+c:{
+  no:'1-3', code:3, title:'歐洲各區有何區域特色？（南歐・北歐・東歐）', short:'南歐・北歐・東歐', color:'linear-gradient(135deg,#7a5a14,#d9a441)',
+  desc:'地中海型農業｜西葡義希｜丹麥・瑞典・挪威・冰島・芬蘭｜計畫經濟轉型、波蘭・捷克',
+  quickAsk:'選出正確的答案', quickTitle:'南歐・北歐・東歐快問快答',
+  quick:[
+    ['南歐的三大半島','伊比利、義大利、巴爾幹',['斯堪地那維亞、伊比利、義大利','巴爾幹、克里米亞、伊比利','日德蘭、義大利、巴爾幹'],6],
+    ['南歐受夏乾冬雨影響形成、是歐洲重要蔬果產區的農業','地中海型農業',['酪農業','游牧業','熱帶栽培業'],12],
+    ['地中海型農業的典型作物','柑橘、葡萄、橄欖',['稻米、甘蔗、茶','甜菜、裸麥、馬鈴薯','咖啡、可可、橡膠'],12],
+    ['地中海型農業多種耐旱作物並倚賴灌溉，是因為','作物生長季和雨季不能配合',['土壤太貧瘠','冬季太寒冷','全年都乾燥'],12],
+    ['曾是海權強國、殖民歷史造就多元文化的兩國','西班牙與葡萄牙',['義大利與希臘','英國與法國','荷蘭與比利時'],11],
+    ['巴塞隆納的聖家堂位於哪一國','西班牙',['義大利','葡萄牙','希臘'],0],
+    ['工藝技術精良、設計創意出色，是南歐工業最發達的國家','義大利',['西班牙','希臘','葡萄牙'],11],
+    ['法拉利（Ferrari）汽車是哪一國的品牌','義大利',['德國','法國','西班牙'],0],
+    ['歐洲文明的搖籃、奧林匹克運動會的發源地','希臘',['義大利','西班牙','法國'],11],
+    ['桑托里尼島藍白色建築位於哪一國','希臘',['義大利','西班牙','葡萄牙'],6],
+    ['氣候溼涼、穀類種植與酪農並重的「歐洲牧場」','丹麥',['瑞典','挪威','芬蘭'],12],
+    ['擁有豐富鐵礦與森林，奠定汽車與家具業基礎的國家','瑞典',['丹麥','冰島','挪威'],12],
+    ['宜家家居（IKEA）是哪一國的家具品牌','瑞典',['丹麥','芬蘭','德國'],0],
+    ['瀕臨北大西洋航線、利用峽灣良港發展漁業、造船與航運','挪威',['丹麥','芬蘭','冰島'],12],
+    ['善用峽灣養殖、成為世界重要鮭魚出口國的是','挪威',['冰島','瑞典','丹麥'],0],
+    ['運用地熱發電，推動溫室農業與煉鋁工業的國家','冰島',['挪威','丹麥','芬蘭'],9],
+    ['冰島不產鋁礦卻發展煉鋁，是看中哪一種工業區位','動力（電力便宜）',['原料','勞力','市場'],5],
+    ['北歐社會福利完善，但居民也必須','繳納高額稅金',['自費所有醫療','放棄退休金','只能住在鄉村'],11],
+    ['連續數年在「世界幸福報告」蟬聯第一、課本舉例的北歐國家','芬蘭',['波蘭','希臘','葡萄牙'],0],
+    ['烏克蘭、波蘭、捷克皆是哪兩種礦產的重要產地','煤、鐵',['石油、天然氣','金、銀','鋁、銅'],0],
+    ['東歐早期國民所得偏低，受到哪一種制度限制','計畫經濟制度',['市場經濟制度','社會福利制度','申根制度'],6],
+    ['東歐各國在 1990 年代後逐步轉型為','自由市場經濟',['計畫經濟','封建經濟','自給自足經濟'],6],
+    ['東歐發展代工工業最主要的優勢','工資低於西歐的勞動力',['能源充足','位在北極圈內','海運最便利'],17],
+    ['已成為家電與汽車生產重鎮的東歐國家','波蘭',['捷克','烏克蘭','希臘'],12],
+    ['鄰近西歐、成為企業進入歐洲市場據點，鴻海在此設廠的國家','捷克',['波蘭','挪威','西班牙'],9],
+  ],
+  words:[
+    ['地中海型農業','柑橘、葡萄、橄欖，倚賴灌溉'],['西班牙','聖家堂、昔日海權強國'],['義大利','南歐工業最發達、法拉利'],['希臘','歐洲文明搖籃、奧運發源地'],
+    ['丹麥','歐洲牧場：穀類＋酪農'],['瑞典','鐵礦森林→汽車、家具（IKEA）'],['挪威','峽灣良港：漁業、造船、航運'],['冰島','地熱發電→溫室農業、煉鋁'],
+    ['芬蘭','從搖籃到墳墓的社會福利'],['波蘭','家電與汽車生產重鎮'],['捷克','鄰近西歐、鴻海設廠'],['自由市場經濟','東歐 1990 年代後轉型的方向'],
+  ],
+  sorts:[
+    {title:'歐洲四區特色歸屬',tip:'西歐工商科技；南歐文化觀光；北歐善用環境＋社會福利；東歐工業轉型＋低工資。',buckets:['西歐','南歐','北歐','東歐'],items:[
+      ['歐洲工業發展程度最高的核心',0],['工業革命發源地',0],['歐洲最大港鹿特丹',0],
+      ['地中海型農業的蔬果產區',1],['歐洲文明的搖籃',1],['豐富古蹟帶動觀光業',1],
+      ['從搖籃到墳墓的社會福利、高稅金',2],['峽灣良港發展漁業航運',2],['地熱發電煉鋁',2],
+      ['早期受計畫經濟限制',3],['低工資代工工業',3],['鴻海在此設廠',3]]},
+    {title:'北歐五國產業配對',tip:'丹麥牧場、瑞典鐵礦森林、挪威峽灣、冰島地熱、芬蘭福利與桑拿。',buckets:['丹麥','瑞典','挪威','冰島','芬蘭'],items:[
+      ['歐洲牧場（酪農）',0],['穀類種植',0],['鐵礦與森林資源',1],['汽車與家具業（IKEA）',1],
+      ['峽灣養殖鮭魚',2],['造船與航運業',2],['地熱發電',3],['溫室農業與煉鋁',3],['世界幸福報告蟬聯第一',4],['桑拿禦寒',4]]},
+    {title:'工業區位判讀',tip:'原料＝靠近礦產；動力＝電力便宜；勞力＝工資低；市場＝靠近消費者。',buckets:['原料','動力','勞力','市場'],items:[
+      ['冰島地熱電價便宜，發展煉鋁',1,'冰島不產鋁，靠的是便宜的電'],['烏拉爾山附近礦產豐富，形成工業區',0],['瑞典鐵礦豐富，發展汽車工業',0],
+      ['臺商到東歐設廠：工資低於西歐',2],['波蘭汽車廠：勞動力成本較低',2],
+      ['捷克鄰近西歐，產品可快速進入歐洲市場',3],['莫斯科工業區：人口多、市場廣大',3]]},
+  ],
+  mcq:[
+    {q:'南歐的作物生長季和雨季不能配合，為什麼仍能成為歐洲重要的蔬果產區？',o:['氣候溫暖、陽光充足，並種植耐旱作物、倚賴灌溉','夏季多雨，水源充足','冬季寒冷，病蟲害少','位在熱帶，全年高溫多雨'],a:0,src:'',ex:'南歐緯度較低、陽光充足；夏乾冬雨，所以種柑橘、葡萄、橄欖等耐旱作物並倚賴灌溉。'},
+    {q:'西班牙南部的柑橘果農說：「一年中最仰賴灌溉渠道送水的，就是這個季節。」他說的最可能是哪個季節？',o:['夏季','冬季','雨季剛開始的秋末','全年都一樣'],a:0,src:'水庫水位題方向',ex:'地中海型氣候夏乾冬雨，作物生長季和雨季不能配合：夏季作物需水最多卻幾乎不下雨，最依賴灌溉。'},
+    {q:'建築系學生要在希臘海島設計一棟符合當地傳統的民宿，希望夏天室內不要太悶熱。外牆最適合怎麼處理？',o:['漆成白色，反射強烈的陽光','漆成深色，吸收更多熱能','加裝厚重保溫層，抵禦嚴寒','把地板架高，防止淹水'],a:0,src:'',ex:'地中海型氣候夏季乾燥炎熱、日照強，白色牆面可反射陽光、減少吸熱。'},
+    {q:'旅行日記：「我抵達被視為歐洲文明搖籃的國家，近距離觀察古老的神廟，也看了奧林匹克運動會的發源地。」他最可能在哪一國？',o:['希臘','挪威','荷蘭','英國'],a:0,src:'課本習作改寫',ex:'希臘是歐洲文明的搖籃、奧運發源地，雅典衛城的神廟每年吸引大量觀光客。'},
+    {q:'關於南歐國家的敘述，下列何者正確？',o:['西班牙、葡萄牙：曾是海權強國，殖民歷史造就多元文化','義大利：歐洲工業產值最高的國家','希臘：南歐工業最發達的國家','葡萄牙：歐洲最大港口所在地'],a:0,src:'11 校考南歐各國',ex:'義大利是「南歐」工業最發達；歐洲工業產值最高是德國；歐洲最大港是荷蘭鹿特丹。'},
+    {q:'米蘭的時裝週、法拉利跑車、精緻的皮件工藝，最能代表哪一國？',o:['義大利','德國','法國','瑞典'],a:0,src:'',ex:'義大利工藝技術精良、設計創意出色，是南歐工業最發達的國家；法拉利是著名汽車品牌。'},
+    {q:'挪威的鮭魚在全世界餐桌上都很常見。挪威能發展漁業與航運，最主要的自然條件是什麼？',o:['峽灣形成天然良港，且瀕臨北大西洋航線','平原廣闊、適合酪農','地熱豐富、電價便宜','陽光充足、夏乾冬雨'],a:0,src:'',ex:'挪威利用峽灣形成的天然良港，發展漁業、造船與航運業，也是世界重要的鮭魚出口國。'},
+    {q:'冰島本身不產鋁礦，卻發展出煉鋁工業。最主要的區位因素是什麼？',o:['動力：地熱發電使電價便宜','原料：境內鋁礦豐富','勞力：工資比東歐低','市場：人口眾多、需求大'],a:0,src:'',ex:'煉鋁非常耗電，冰島運用地熱發電、電價便宜，屬動力區位；把它當成原料區位是常見錯誤。'},
+    {q:'北歐國家「從搖籃到墳墓」的社會福利，近年面臨稅收壓力。下列哪一項最可能是原因？',o:['人口老化，領養老金的人增加、繳稅的勞動人口比例減少','人口快速增加，學生太多','礦產資源用完','居民大量移往南歐'],a:0,src:'',ex:'福利需要高額稅金支撐；人口老化使退休金、醫療支出增加，勞動人口比例下降。'},
+    {q:'某國氣候溼涼，穀類種植和酪農並重，有「歐洲牧場」之稱，近海還有大型離岸風電。這是哪一國？',o:['丹麥','瑞典','芬蘭','西班牙'],a:0,src:'',ex:'丹麥是歐洲牧場；它也是風力發電比例很高的國家。'},
+    {q:'瑞典成為汽車與家具大國，和下列哪一項自然資源最有關係？',o:['豐富的鐵礦與森林','豐富的地熱與火山','廣大的峽灣漁場','地中海型氣候的陽光'],a:0,src:'課本 1-3 北歐',ex:'瑞典擁有豐富的鐵礦（汽車）與森林資源（家具，如 IKEA）。'},
+    {q:'關於東歐的敘述，下列何者正確？',o:['1990 年代後逐步由計畫經濟轉型為自由市場經濟','如今仍全面實施計畫經濟','因工資比西歐高而吸引外資','礦產貧乏，只能發展觀光'],a:0,src:'',ex:'東歐早期受計畫經濟限制，1990 年代後轉型；如今以低於西歐的工資發展代工。煤、鐵資源豐富。'},
+    {q:'許多臺灣企業到東歐設廠。依工業區位判斷，下列哪一項「不是」主要考量？',o:['動力：當地能源特別便宜充足','勞力：工資低於西歐','市場：鄰近西歐，容易打入歐洲市場','政策：當地歡迎外資投資'],a:0,src:'12 校',ex:'課本探究答案：勞力、市場、政策。把東歐優勢說成「能源充足、礦產豐富、海運便利」都是常見誘答。'},
+    {q:'鴻海科技集團在捷克設立電子產品生產加工廠。捷克吸引外資的條件，下列何者最正確？',o:['鄰近西歐的優越位置，加上工資相對低','擁有歐洲最大港口','是歐洲工業產值最高的國家','境內地熱豐富、電價便宜'],a:0,src:'',ex:'捷克是內陸國，因鄰近西歐，成為全球企業進入歐洲市場的重要據點，勞力也比西歐便宜。'},
+    {q:'某東歐國家礦產資源豐富、工業發展條件佳，已成為家電與汽車的生產重鎮。這最可能是哪一國？',o:['波蘭','希臘','挪威','葡萄牙'],a:0,src:'12 校考波蘭',ex:'課本圖 1-1-30：波蘭礦產資源豐富，成為歐洲汽車生產要地。'},
+    {q:'北歐國家冬季漫長、日照短。下列哪一種綠能「最不適合」作為北歐的主力？',o:['太陽能','水力','風力','地熱'],a:0,src:'',ex:'北歐地處高緯，冬季日照少；挪威用水力、丹麥用風力、冰島用地熱。太陽能適合陽光充足的南歐。'},
+  ],
+},
+/* ---------- 2-1 歐盟＋探究：綠能 ---------- */
+d:{
+  no:'2-1', code:4, title:'歐洲國家為何要組成歐盟？＋歐洲發展綠能', short:'歐盟與綠能', color:'linear-gradient(135deg,#1d3a7a,#3f6ac0)',
+  desc:'1993 成立、27 國｜布魯塞爾｜12 金星｜申根區・歐元區｜空中巴士｜脫歐・疫情・難民｜綠能配對',
+  quickAsk:'選出正確的答案', quickTitle:'歐盟＋綠能快問快答',
+  quick:[
+    ['歐洲聯盟（歐盟）正式成立的年分','西元 1993 年',['西元 1945 年','西元 2002 年','西元 2020 年'],5],
+    ['目前歐盟的會員國數（課本）','27 國',['12 國','28 國','15 國'],11],
+    ['歐盟總部所在的城市','比利時 布魯塞爾',['法國 巴黎','德國 柏林','荷蘭 阿姆斯特丹'],11],
+    ['歐盟盟旗上的「12」顆金星象徵','完美',['12 個會員國','12 個創始國','一年 12 個月'],11],
+    ['歐盟盟旗上金星組成的圓環代表','各國合作統一',['地球','太陽','和平鴿'],0],
+    ['歐元紙鈔與硬幣的設計方式','紙鈔各國統一，硬幣一面由各國設計',['紙鈔、硬幣都各國自行設計','紙鈔、硬幣兩面完全統一','只有硬幣、沒有紙鈔'],8],
+    ['彼此開放邊境、促進人員自由流動的區域','申根區',['歐元區','金磚國家','G7'],8],
+    ['統一使用歐元、深化經濟整合的區域','歐元區',['申根區','金磚國家','北約'],8],
+    ['歐盟會員國之間買賣貨物','免除關稅',['加倍課稅','只能用美元','必須申請簽證'],0],
+    ['一位擁有合格工作資格的德國人，在其他會員國','可以工作（勞力流動）',['完全不能工作','只能觀光','必須放棄國籍'],0],
+    ['歐盟跨國技術整合、合作生產最著名的產業','飛機製造業',['汽車業','紡織業','造船業'],3],
+    ['空中巴士由多國分工生產，最後在哪一國組裝','法國',['德國','英國','西班牙'],3],
+    ['因貨幣與貿易政策與歐盟立場不同，於 2020 年脫離歐盟的國家','英國',['挪威','瑞士','希臘'],8],
+    ['2020 年新冠疫情時，申根國家因缺乏統一防疫政策而','關閉邊境、爭奪資源',['全部統一封城','取消歐元','解散歐盟'],7],
+    ['歐盟各國對是否收容哪裡來的難民立場不同','西亞與北非',['北美與南美','東亞與大洋洲','北歐'],5],
+    ['瑞士、挪威、冰島不是歐盟會員國，但可以加入','申根區',['歐元區','歐盟議會','G7'],8],
+    ['歐盟會員國約占歐洲多少比例的人口','約 70％',['約 40％','約 20％','約 95％'],0],
+    ['課本探究：地熱能使用比例最高的國家','冰島',['法國','丹麥','義大利'],9],
+    ['課本探究：水力使用比例最高的國家','挪威',['冰島','德國','西班牙'],9],
+    ['課本探究：風力使用比例最高的國家','丹麥',['英國','德國','挪威'],10],
+    ['課本探究：太陽能使用比例最高的國家','西班牙',['英國','法國','義大利'],9],
+    ['丹麥發展風力發電的條件','位在西風帶，盛行風穩定',['火山活動頻繁','高山落差大','緯度低、日照充足'],10],
+    ['挪威發展水力發電的條件','高山水資源與地形落差',['盛行風向','火山與地熱','日光充足'],9],
+    ['歐盟 2019 年發表、要求降低碳排放的政策','歐洲綠色協議',['申根公約','京都議定書','金磚+'],0],
+    ['歐洲國家組成歐盟最主要的目的','相互合作、提升整體競爭力',['統一宗教','建立單一國家','共同發展核武'],11],
+  ],
+  words:[
+    ['歐盟','1993 年成立，目前 27 國'],['布魯塞爾','歐盟總部（比利時首都）'],['12 顆金星','象徵完美，不是會員國數'],
+    ['申根區','開放邊境、人員自由流動'],['歐元區','統一貨幣'],['空中巴士','跨國分工、法國組裝'],
+    ['英國脫歐','2020 年正式脫離'],['新冠疫情','申根國家關閉邊境、爭奪資源'],['國際難民','來自西亞與北非'],
+    ['地熱能','冰島：火山活動'],['水力','挪威：高山水資源與落差'],['風力','丹麥：盛行風向'],['太陽能','西班牙：緯度低、日光充足'],
+    ['歐洲綠色協議','2019 年，降低碳排放'],
+  ],
+  sorts:[
+    {title:'歐盟、申根區、歐元區：三個圈圈不一樣',tip:'歐盟會員不一定用歐元；不是歐盟也能加入申根；英國 2020 年已脫歐。',buckets:['歐盟＋申根＋歐元','歐盟但不用歐元','申根但不是歐盟','已脫離歐盟'],items:[
+      ['德國',0],['法國',0],['義大利',0],['西班牙',0],
+      ['波蘭',1],['捷克',1],['丹麥',1],['瑞典',1],
+      ['瑞士',2],['挪威',2],['冰島',2],['英國',3]]},
+    {title:'綠能配對：誰用什麼？靠什麼條件？',tip:'冰島地熱（火山）、挪威水力（高山落差）、丹麥風力（盛行風）、西班牙太陽能（緯度低、日光足）。',buckets:['地熱能','水力','風力','太陽能'],items:[
+      ['冰島',0],['火山活動與豐沛的地熱',0],['挪威',1],['高山水資源與地形落差',1],
+      ['丹麥',2],['盛行風向（西風）',2],['北海的離岸風場',2],['西班牙',3],['緯度較低、日光充足',3]]},
+    {title:'歐盟的挑戰',tip:'課本圖 1-2-6：會員國退盟、突發事件的矛盾、國際難民爭議。',buckets:['會員國退盟','突發事件的矛盾','國際難民爭議'],items:[
+      ['英國 2020 年脫離歐盟',0],['在貨幣與貿易政策上與歐盟立場不同',0],
+      ['新冠疫情時申根國家關閉邊境',1],['各國爭奪防疫資源',1],
+      ['是否收容西亞、北非來的人',2],['有些國家只提供經濟援助',2],['地中海上的移民船',2]]},
+  ],
+  mcq:[
+    {q:'關於歐洲聯盟的敘述，下列何者正確？',o:['會員國之間人員、商品、資金可以自由流通','總部設在德國柏林','盟旗上的 12 顆星代表 12 個會員國','所有會員國都使用歐元'],a:0,src:'11 校',ex:'總部在比利時布魯塞爾；12 象徵完美；不是所有會員國都用歐元（如波蘭、捷克、丹麥）。'},
+    {q:'小雨從德國開車進入瑞士，邊界沒有護照檢查。瑞士不是歐盟會員國，這是因為兩國都加入了什麼？',o:['申根區','歐元區','金磚國家','七大工業國組織'],a:0,src:'',ex:'申根區彼此開放邊境、人員自由流動；非歐盟國（瑞士、挪威、冰島）也可以加入。瑞士使用瑞士法郎，不是歐元區。'},
+    {q:'法國的商人到義大利進貨，不必換錢、也不用付關稅。這主要是歐盟哪兩項措施的效果？',o:['單一貨幣與免除關稅','開放邊境與勞力流動','共同國防與統一語言','社會福利與高稅金'],a:0,src:'',ex:'兩國都用歐元，減少匯兌成本；會員國之間買賣貨物免除關稅。'},
+    {q:'英國脫歐後，某臺灣企業原本想在英國設廠、把產品賣到歐盟各國。脫歐對這個計畫最可能的影響是什麼？',o:['產品從英國進入歐盟可能要課關稅','英國將改用歐元','英國人可以免簽證到歐盟工作','產品可在歐盟各國免稅販售'],a:0,src:'',ex:'英國已不在歐盟，無法享有歐盟會員國之間免關稅的優惠。'},
+    {q:'空中巴士的機翼、機身由法國、英國、德國、西班牙分別生產，最後送到法國組裝。這種生產方式最主要的目的為何？',o:['整合各國技術優勢，提升國際競爭力','讓每一國都能獨立造出整架飛機','降低運輸距離','避免使用歐元'],a:0,src:'',ex:'課本：歐盟建立高度技術整合的跨國合作生產模式，其中以飛機製造業最著名。'},
+    {q:'2020 年新冠疫情爆發，部分申根國家突然關閉邊境、爭搶口罩。這反映歐盟面臨的哪一種挑戰？',o:['突發事件時，各國缺乏統一政策、難以達成共識','會員國數量太少','歐元幣值太高','俄羅斯加入歐盟'],a:0,src:'7 校考歐盟挑戰',ex:'課本圖 1-2-6「突發事件的矛盾」：申根國家缺乏統一防疫政策，出現關閉邊境或爭奪資源。'},
+    {q:'新聞：「一艘載滿移民的船在地中海翻覆。」這些移民最可能來自哪裡？',o:['西亞與北非','北美洲','北歐','大洋洲'],a:0,src:'',ex:'歐盟各國對是否收容來自西亞與北非的難民立場不同，這是歐盟的挑戰之一。'},
+    {q:'下列哪一項「不是」課本列出的歐盟挑戰？',o:['會員國之間的宗教戰爭','會員國退盟','突發事件時難有共識','國際難民爭議'],a:0,src:'',ex:'課本列的是：英國退盟、新冠疫情時的矛盾、難民收容爭議，沒有宗教戰爭。'},
+    {q:'冰島利用地熱發電，還帶動溫室農業與觀光。冰島發展地熱的條件是什麼？',o:['火山活動頻繁、地熱豐沛','緯度低、日照充足','位於西風帶、風力穩定','地勢平坦、河流平緩'],a:0,src:'',ex:'冰島位在板塊交界、火山活動頻繁，地熱豐沛（藍湖就是地熱溫泉）。'},
+    {q:'丹麥的風力發電比例在歐洲名列前茅，北海上有大型離岸風場。丹麥發展風電最主要的條件是什麼？',o:['位於西風帶，盛行風強且穩定','位於副熱帶高壓帶，晴天多','地熱豐富','高山多、地形落差大'],a:0,src:'',ex:'丹麥位於緯度 40～60 度的西風帶，盛行西風穩定，又鄰近北海可設離岸風場。'},
+    {q:'下列綠能與國家的配對，何者錯誤？',o:['瑞典—太陽能（日照最充足）','冰島—地熱能','挪威—水力','西班牙—太陽能'],a:0,src:'',ex:'瑞典地處高緯、冬季日照少，不是太陽能大國；陽光充足的是南歐（西班牙、義大利）。'},
+    {q:'歐洲國家積極發展水力、風力、太陽能等再生能源。下列哪一項「不是」主要目的？',o:['提高電價、增加政府收入','因應氣候變遷','降低碳排放量','追求能源效率與安全'],a:0,src:'課本探究',ex:'課本：歐盟「歐洲綠色協議」要求降低碳排放，同時追求能源效率與安全，以因應氣候變遷。'},
+    {q:'課本核心問題提到：歐洲必須從鄰近國家進口大量天然氣與石油。為了降低對進口能源的依賴，歐洲國家主要採取什麼作法？',o:['憑藉先進技術，研發各種替代性能源','全面停止工業生產','改用林木生火取暖','全部改用核能並禁止進口'],a:0,src:'課本核心問題',ex:'課本：為了降低對進口能源的依賴，歐洲國家致力於各種替代性能源（綠能）的研發。'},
+    {q:'有同學說：「捷克可以多蓋潮汐發電廠。」這個說法最大的問題是什麼？',o:['捷克是內陸國，沒有海岸','捷克地勢太平坦','捷克位在副熱帶高壓帶','捷克是申根區國家'],a:0,src:'',ex:'潮汐發電要有海岸與潮差；捷克是內陸國家，不可能發展潮汐發電。'},
+    {q:'課本說：歐盟會員國約占歐洲 40％ 的土地、70％ 的人口、77.5％ 的 GDP。由這些數字可以推論什麼？',o:['歐盟會員國是歐洲人口與經濟的主體','歐盟會員國多為面積廣大、人口稀少的國家','歐盟的經濟規模比非會員國小','歐盟土地占歐洲大部分'],a:0,src:'課本圖 1-2-2',ex:'土地只占四成，人口卻占七成、GDP 占近八成，表示人口稠密、經濟發達的國家多是會員國（俄羅斯面積大但不是會員）。'},
+    {q:'波蘭是歐盟會員國，但目前仍使用自己的貨幣茲羅提。由這個例子可以知道什麼？',o:['歐盟會員國不一定加入歐元區','加入歐盟就必須使用歐元','波蘭不是申根區國家','歐元區只有西歐國家'],a:0,src:'',ex:'歐盟、申根區、歐元區的範圍不同；波蘭、捷克、丹麥、瑞典是歐盟會員，但沒有使用歐元。'},
+  ],
+},
+/* ---------- 2-2～2-3 俄羅斯 ---------- */
+e:{
+  no:'2-2', code:5, title:'俄羅斯的自然環境、區域發展與經濟', short:'俄羅斯', color:'linear-gradient(135deg,#5a2a2a,#b0574a)',
+  desc:'面積世界第一｜歐俄平原・西伯利亞｜冷極與年溫差｜苔原・針葉林｜三大港｜天然氣管線｜金磚・克里米亞',
+  quickAsk:'選出正確的答案', quickTitle:'俄羅斯快問快答',
+  quick:[
+    ['世界上面積最大的國家','俄羅斯',['加拿大','中國','美國'],4],
+    ['俄羅斯國土以哪一座山脈分成歐、亞兩部分','烏拉爾山',['高加索山','阿爾卑斯山','天山'],10],
+    ['烏拉爾山以西、屬於歐洲大平原一部分的地形區','歐俄平原',['西伯利亞西部平原','中部高原','東部山地'],9],
+    ['西伯利亞地區由西到東的地形','西部平原→中部高原→東部山地',['東部平原→中部高原→西部山地','西部山地→中部平原→東部高原','全部都是高原'],9],
+    ['俄羅斯國土多位於北緯幾度以北','50° N',['30° N','23.5° N','10° N'],0],
+    ['北半球冬季最寒冷的地區','西伯利亞東部',['歐俄平原','克里米亞半島','波羅的海沿岸'],5],
+    ['1 月均溫接近零下 40℃、魚貨可直接擺在戶外的城市','雅庫次克',['聖彼得堡','莫斯科','莫曼斯克'],3],
+    ['世界年溫差最大、曾測得零下 67.8℃ 的地方','維科揚斯克',['雅庫次克','莫曼斯克','夫拉迪沃斯托克'],3],
+    ['俄羅斯境內受海洋水氣調節、降水稍多、屬溫帶的兩區','歐俄平原與太平洋沿岸',['西伯利亞東部與北極海沿岸','中部高原與東部山地','烏拉爾山與北極海'],0],
+    ['俄羅斯太平洋沿岸夏季迎風面多雨，是受到','東南季風',['西風','北大西洋暖流','副熱帶高壓'],2],
+    ['俄羅斯西部降水量向內陸遞減，是因為','西風吹拂與距海遠近',['地勢西高東低','緯度由西向東升高','東南季風'],0],
+    ['俄羅斯境內最主要的天然植被','針葉林',['熱帶雨林','闊葉林','熱帶草原'],5],
+    ['北極海沿岸樹木難以生長，夏季地面長出苔蘚的景觀','苔原',['針葉林','沙漠','熱帶草原'],5],
+    ['俄羅斯人口最多的民族','斯拉夫民族',['日耳曼民族','拉丁民族','蒙古族'],11],
+    ['俄羅斯居民多信仰的宗教','東正教',['天主教','伊斯蘭教','佛教'],11],
+    ['有洋蔥式圓頂的聖瓦西里主教座堂位於','莫斯科',['聖彼得堡','夫拉迪沃斯托克','基輔'],0],
+    ['俄羅斯人口約有多少','約 1.4 億',['約 14 億','約 3 億','約 5,000 萬'],0],
+    ['俄羅斯人口、都市、產業最集中的地區','歐俄平原南部',['西伯利亞北部','北極海沿岸','東部山地'],11],
+    ['西伯利亞的人口多分布在','交通便利的鐵路沿線',['北極海沿岸','東部山地','苔原地區'],7],
+    ['連結歐俄平原與太平洋沿岸、長達九千餘公里的鐵路','西伯利亞鐵路',['青藏鐵路','東方快車','歐洲之星'],9],
+    ['瀕臨波羅的海、曾為首都的俄羅斯第二大城','聖彼得堡',['莫曼斯克','夫拉迪沃斯托克','莫斯科'],5],
+    ['受北大西洋暖流影響，北極圈內少數終年不凍港','莫曼斯克',['聖彼得堡','夫拉迪沃斯托克','雅庫次克'],6],
+    ['位於西伯利亞東南端太平洋岸、進出遠東的重要海港','夫拉迪沃斯托克',['莫曼斯克','聖彼得堡','雅庫次克'],5],
+    ['俄羅斯國家經濟的主體','大量出口天然資源以獲取外匯',['發展觀光業','大量出口稻米','電子代工'],13],
+    ['俄羅斯的天然氣主要利用什麼輸送到歐洲與亞洲','管線',['油輪','卡車','飛機'],8],
+    ['巴西、俄羅斯、印度、中國、南非組成的鬆散經濟聯盟','金磚國家（BRICS）',['歐盟','G7','申根區'],1],
+    ['俄羅斯在 2014 年占領烏克蘭的哪裡','克里米亞',['基輔','莫曼斯克','聖彼得堡'],3],
+    ['克里米亞的港口瀕臨哪一個水域','黑海',['裏海','北極海','地中海'],7],
+    ['俄羅斯占領克里米亞的主要原因之一','取得全年可通航的不凍港',['取得煤礦','發展太陽能','取得稻米產地'],8],
+    ['1990 年代後，烏克蘭被視為歐、俄之間的','緩衝地帶',['歐元區','申根區','自由貿易區'],3],
+  ],
+  words:[
+    ['烏拉爾山','俄羅斯的歐、亞分界'],['歐俄平原','人口、產業最集中'],['西伯利亞東部','北半球冬季最寒冷'],['維科揚斯克','世界年溫差最大'],
+    ['苔原','北極海沿岸，夏季長苔蘚'],['針葉林','西伯利亞南部，林業資源'],['斯拉夫民族','俄羅斯主要民族'],['東正教','洋蔥式圓頂教堂'],
+    ['西伯利亞鐵路','九千餘公里，連結東西'],['聖彼得堡','波羅的海、曾為首都'],['莫曼斯克','北極圈內的不凍港'],['夫拉迪沃斯托克','太平洋岸、進出遠東'],
+    ['金磚國家','新興工業國的經濟聯盟'],['克里米亞','黑海、2014 年被占領'],['緩衝地帶','烏克蘭位於歐、俄之間'],
+  ],
+  sorts:[
+    {title:'俄羅斯三大海港',tip:'聖彼得堡：波羅的海、曾為首都；莫曼斯克：北極圈不凍港；夫拉迪沃斯托克：太平洋、鐵路東端。',buckets:['聖彼得堡','莫曼斯克','夫拉迪沃斯托克'],items:[
+      ['瀕臨波羅的海',0],['曾為俄羅斯首都',0],['俄羅斯第二大城',0],
+      ['受北大西洋暖流影響',1],['位在北極圈內',1],['終年不凍港',1],
+      ['西伯利亞東南端的太平洋岸',2],['西伯利亞鐵路的東端',2],['進出遠東地區的海港',2]]},
+    {title:'俄羅斯的現象：是什麼造成的？',tip:'氣候寒冷 → 人口、農業受限；資源豐富 → 出口原物料；追求不凍港 → 克里米亞。',buckets:['氣候寒冷','資源豐富','追求不凍港'],items:[
+      ['農業生產受到限制',0],['人口集中在歐俄平原南部',0],['北極海沿岸形成苔原',0],['多數地區冰雪封凍期達半年以上',0],
+      ['大量出口天然氣、石油',1],['在礦區發展出大型工業區',1],['經濟容易受國際原物料價格波動影響',1],
+      ['2014 年占領克里米亞',2],['爭取在黑海部署艦隊的港口',2]]},
+    {title:'俄羅斯地形區',tip:'以烏拉爾山為界：以西歐俄平原；以東西伯利亞分西部平原、中部高原、東部山地。',buckets:['歐俄平原','西伯利亞西部平原','中部高原','東部山地'],items:[
+      ['烏拉爾山以西',0],['歐洲大平原的一部分',0],['人口、都市、交通最集中',0],
+      ['烏拉爾山以東的低平地區',1],['溼地多，曾挖出猛獁象化石',1,'西伯利亞平原溼地多'],
+      ['西伯利亞中部、地勢較高而起伏和緩',2],
+      ['太平洋沿岸，多火山與地震',3,'堪察加半島位於板塊交界'],['等高線最密、地勢最高',3]]},
+  ],
+  mcq:[
+    {q:'關於俄羅斯的敘述，下列何者正確？',o:['是世界面積最大的國家，國土以烏拉爾山分屬歐、亞兩洲','是世界面積第二大的國家','首都莫斯科是俄羅斯第一大港','居民多信仰天主教'],a:0,src:'',ex:'俄羅斯面積世界第一；莫斯科是首都但不是港口城市；居民以斯拉夫民族為主，多信仰東正教。'},
+    {q:'小凱搭西伯利亞鐵路由夫拉迪沃斯托克一路往西到莫斯科，依序經過的地形最可能是什麼？',o:['東部山地 → 中部高原 → 西部平原 → 烏拉爾山 → 歐俄平原','西部平原 → 中部高原 → 東部山地 → 烏拉爾山 → 歐俄平原','歐俄平原 → 烏拉爾山 → 西部平原 → 中部高原 → 東部山地','中部高原 → 東部山地 → 西部平原 → 歐俄平原 → 烏拉爾山'],a:0,src:'',ex:'西伯利亞由西到東是平原→高原→山地；題目由東往西，要倒過來排。'},
+    {q:'俄羅斯人口大部分集中在歐俄平原南部，廣大的西伯利亞人煙稀少。造成這種分布最主要的原因是什麼？',o:['氣候：歐俄平原南部較溫暖、受海洋水氣調節','地形：西伯利亞全是高山','宗教：西伯利亞居民不信東正教','政策：政府禁止人民移居西伯利亞'],a:0,src:'11 校',ex:'俄羅斯緯度高，氣候寒冷是限制人口分布的主因；西伯利亞西部也有平原，所以主因不是地形。'},
+    {q:'西伯利亞的人口多沿著南部的西伯利亞鐵路呈帶狀分布。下列哪一項是主要原因？',o:['南部較溫暖，加上鐵路沿線交通便利','北部有大量港口','鐵路沿線是苔原，適合耕作','南部地勢最高，空氣最好'],a:0,src:'',ex:'課本：西伯利亞地區受氣候限制，人口稀少，多分布於交通便利的鐵路沿線（位於較南、較溫暖的地方）。'},
+    {q:'莫曼斯克位於北極圈內（約 69°N），卻是終年不凍港。主要是受到什麼影響？',o:['北大西洋暖流','黑潮','東南季風','副熱帶高氣壓'],a:0,src:'6 校',ex:'課本圖 1-2-13：莫曼斯克受北大西洋暖流影響，為北極圈內少數的終年不凍港。'},
+    {q:'某地 1 月均溫約零下 46℃、7 月均溫約 16℃，冬季極為乾冷。這個地點最可能在哪裡？',o:['西伯利亞東部的維科揚斯克','莫斯科','聖彼得堡','克里米亞'],a:0,src:'',ex:'年溫差超過 60℃、冬季嚴寒，是西伯利亞東部的特徵；維科揚斯克是世界年溫差最大的地方。'},
+    {q:'由聖彼得堡往東經莫斯科、到西伯利亞東部的雅庫次克，年溫差會怎麼變化？為什麼？',o:['愈來愈大，因為離海愈來愈遠','愈來愈小，因為緯度愈來愈低','不變，因為緯度相近','愈來愈小，因為西風愈來愈強'],a:0,src:'',ex:'愈往內陸，海洋水氣的調節作用愈弱，冬季愈冷、年溫差愈大。'},
+    {q:'從北極海沿岸往南走，植被景觀會怎麼變化？',o:['苔原 → 針葉林','針葉林 → 苔原','熱帶雨林 → 針葉林','闊葉林 → 苔原'],a:0,src:'',ex:'北極海沿岸氣候酷寒、樹木難以生長形成苔原；往南到西伯利亞南部是廣大的針葉林。'},
+    {q:'俄羅斯出口大量鋸木材。依俄羅斯的植被判斷，這些木材主要來自什麼樹林？',o:['針葉林','闊葉林','熱帶雨林','苔原'],a:0,src:'',ex:'俄羅斯天然植被以針葉林為主；「鋸木材以闊葉林為原料」是兩校都出過的錯誤選項。'},
+    {q:'俄羅斯的出口商品以石油、天然氣、煤等燃料能源與礦產為主。這種經濟結構最可能有什麼缺點？',o:['容易受國際原物料價格波動影響','容易受電子產品景氣影響','需要大量進口石油','出口量太少、賺不到外匯'],a:0,src:'',ex:'依賴原物料出口，國際能源價格大跌時，國家收入就會大受影響。'},
+    {q:'俄烏戰爭爆發初期，部分歐洲國家擔心遭到俄羅斯「制裁」。下列何者最可能是這種制裁手段？',o:['關閉通往歐洲的天然氣管線','停止出口稻米到歐洲','禁止歐洲人到北極海旅遊','停止向歐洲出口電子產品'],a:0,src:'課本習作改寫、等',ex:'俄羅斯是全球石油與天然氣出口大國，天然氣多以管線輸往歐洲；歐洲深受能源依賴的制裁威脅。'},
+    {q:'俄羅斯在 2014 年占領克里米亞，原因之一是取得部署海軍艦隊的港口。這個港口瀕臨哪一個水域？',o:['黑海','裏海','北極海','波羅的海'],a:0,src:'8 校',ex:'克里米亞半島位於黑海北岸；俄羅斯境內大部分港口冬季封凍，所以追求全年通航的不凍港。'},
+    {q:'烏克蘭長期被視為歐洲與俄羅斯之間的「緩衝地帶」。下列解釋何者最合理？',o:['位置在歐、俄之間，國內同時有親歐派與親俄派','烏克蘭是歐盟最早的會員國','烏克蘭位於北極圈內','烏克蘭與俄羅斯完全沒有文化關聯'],a:0,src:'課本俄烏衝突',ex:'烏克蘭位於歐洲與俄羅斯交界處，種族文化與俄羅斯相近，國內有親歐、親俄兩派勢力。'},
+    {q:'關於金磚國家（BRICS）的敘述，下列何者正確？',o:['由巴西、俄羅斯、印度、中國、南非等新興工業國組成的鬆散經濟聯盟','是歐盟內部的貨幣聯盟','成員都是已開發國家','總部設在布魯塞爾'],a:0,src:'課本 2-3',ex:'金磚國家是工業成長快速的新興工業化國家組成的鬆散經濟聯盟；2017 年提出「金磚+」，參與國家逐步增加。'},
+    {q:'俄羅斯烏拉爾山附近礦產豐富，發展出大型工業區。這個工業區主要屬於哪一種區位？',o:['原料區位','動力區位','勞力區位','市場區位'],a:0,src:'',ex:'靠近礦產原料產地＝原料區位；冰島煉鋁才是動力區位。'},
+    {q:'俄羅斯太平洋沿岸夏季的迎風面降水較多。主要受到什麼風的影響？',o:['東南季風','盛行西風','東北信風','焚風'],a:0,src:'課本圖 1-2-10',ex:'課本：夏季受東南季風影響，太平洋沿岸迎風面多雨；俄羅斯西部則是西風帶來水氣、向內陸遞減。'},
+    {q:'科學家在西伯利亞某處低平的溼地裡發現保存完整的猛獁象。這個地點最可能位於哪一個地形區？',o:['西伯利亞西部平原','東部山地','中部高原','歐俄平原'],a:0,src:'',ex:'烏拉爾山以東的西伯利亞西部是平原，地勢低平、溼地沼澤多，凍土中保存了猛獁象。'},
+  ],
+},
+};
+
+/* ================= 綜合：時間軸・排序（交卷 code 7） ================= */
+const SEQ=[
+  {title:'歐洲與俄羅斯大事時間軸',tip:'1950 年歐洲已是高齡化社會 → 1960 年代北海石油 → 1993 歐盟成立 → 2014 克里米亞 → 2022 俄烏戰爭。',buckets:['第1','第2','第3','第4','第5'],items:[
+    ['人口金字塔顯示歐洲已進入高齡化社會（1950）',0],['英國在北海發現石油',1],['歐洲聯盟正式成立',2],['俄羅斯占領克里米亞',3],['俄羅斯對烏克蘭發動軍事行動',4]]},
+  {title:'歐盟與國際新聞時間軸',tip:'1993 歐盟 → 2017 金磚+ → 2019 歐洲綠色協議 → 2020 英國脫歐 → 2022 俄烏戰爭。',buckets:['第1','第2','第3','第4','第5'],items:[
+    ['歐洲聯盟正式成立（1993）',0],['金磚國家提出「金磚+」（2017）',1],['歐盟發表歐洲綠色協議（2019）',2],['英國正式脫離歐盟（2020）',3],['俄烏戰爭爆發，部分輸歐管線關閉（2022）',4]]},
+  {title:'搭西伯利亞鐵路：由東往西',tip:'從太平洋岸出發往西：東部山地 → 中部高原 → 西部平原 → 烏拉爾山 → 歐俄平原。',buckets:['第1','第2','第3','第4','第5'],items:[
+    ['夫拉迪沃斯托克附近的東部山地',0],['中部高原',1],['西伯利亞西部平原',2],['烏拉爾山',3],['歐俄平原上的莫斯科',4]]},
+  {title:'由西往東：年溫差由小到大',tip:'愈往內陸，海洋調節愈弱，年溫差愈大。',buckets:['最小','第2','第3','第4','最大'],items:[
+    ['英國 倫敦',0],['德國 柏林',1],['波蘭 華沙',2],['俄羅斯 莫斯科',3],['西伯利亞東部 雅庫次克',4]]},
+  {title:'峽灣是怎麼形成的？',tip:'積雪壓密成冰 → 冰河移動侵蝕 → 刻出 U 型谷 → 冰河消退 → 海水侵入。',buckets:['第1步','第2步','第3步','第4步','第5步'],items:[
+    ['高緯或高山的積雪經長時間壓密成冰',0],['冰河受重力牽引緩慢移動、侵蝕岩層',1],['山谷被刻鑿成 U 型谷',2],['冰河消退',3],['海水侵入，形成深入陸地的峽灣',4]]},
+];
+
+/* ================= 綜合：圖表判讀（交卷 code 7；fig 為 HTML，文字不畫在圖上） ================= */
+const CHART=[
+  {title:'① 三座城市的氣候資料',src:'12 校考氣候圖判讀',
+   fig:'<table class="tbl"><tr><th>城市</th><th>1 月均溫</th><th>7 月均溫</th><th>1 月降水</th><th>7 月降水</th><th>降水特色</th></tr><tr><td>甲</td><td>5℃</td><td>18℃</td><td>55 毫米</td><td>45 毫米</td><td>每個月都差不多</td></tr><tr><td>乙</td><td>-7℃</td><td>19℃</td><td>40 毫米</td><td>85 毫米</td><td>夏季較多</td></tr><tr><td>丙</td><td>10℃</td><td>28℃</td><td>55 毫米</td><td>5 毫米</td><td>冬多夏少</td></tr></table><p class="muted">三城分別是倫敦、莫斯科、雅典（順序未依代號）。數值為約略值。</p>',
+   qs:[
+    {q:'哪一座城市屬於溫帶地中海型氣候？',o:['丙','甲','乙','三座都是'],ex:'丙夏季幾乎不下雨、冬季降雨＝夏乾冬雨。'},
+    {q:'哪一座城市的年溫差最大？',o:['乙（26℃）','甲（13℃）','丙（18℃）','三座一樣'],ex:'乙：19－(－7)＝26℃；深居內陸、溫帶大陸性氣候的莫斯科。'},
+    {q:'甲城市終年有雨、年溫差小，最主要的原因是什麼？',o:['終年受西風吹拂，加上北大西洋暖流','夏季受副熱帶高壓籠罩','受東南季風影響','地勢高、氣溫垂直變化'],ex:'甲是倫敦，溫帶海洋性氣候：西風＋暖流帶來水氣，降水季節平均、年溫差小。'}]},
+  {title:'② 歐洲人口結構（各年齡層占總人口比例）',src:'6 校同題型：人口金字塔',
+   fig:'<table class="tbl"><tr><th>年分</th><th>0～14 歲</th><th>15～64 歲</th><th>65 歲以上</th></tr><tr><td>1950</td><td>約 26％</td><td>約 66％</td><td>約 8％</td></tr><tr><td>2000</td><td>約 17％</td><td>約 68％</td><td>約 15％</td></tr><tr><td>2025</td><td>約 15％</td><td>約 64％</td><td>約 21％</td></tr></table><p class="muted">高齡化社會：65 歲以上＞7％；高齡社會：＞14％；超高齡社會：＞20％。數值為約略值。</p>',
+   qs:[
+    {q:'依表格判斷，下列敘述何者正確？',o:['1950 年歐洲已進入高齡化社會','歐洲到 2025 年才即將進入高齡化社會','幼年人口比例愈來愈高','老年人口比例愈來愈低'],ex:'1950 年 65 歲以上約 8％，已超過 7％，課本也說當時歐洲已進入高齡化社會。'},
+    {q:'造成 65 歲以上比例一路上升的原因，下列何者最合理？',o:['長期出生率偏低，且衛生醫療進步、平均壽命延長','大量年輕人移入歐洲','死亡率不斷上升','戰爭使老年人口增加'],ex:'出生率低（幼年比例下降）＋平均壽命長（老年比例上升）→ 人口老化。'},
+    {q:'只看這張比例表，下列哪一項「無法」直接判斷？',o:['歐洲人口總數逐年減少','老年人口比例增加','幼年人口比例減少','2025 年已達超高齡社會門檻'],ex:'表中只有比例，沒有人口總數，不能推論總數減少（這是 6 校同題的陷阱選項）。'}]},
+  {title:'③ 工業區位六要素',src:'10 校考工業區位',
+   fig:'<table class="tbl"><tr><th>案例</th><th>說明</th></tr><tr><td>甲</td><td>冰島沒有鋁礦，卻利用地熱發電、電價便宜，發展煉鋁工業</td></tr><tr><td>乙</td><td>臺灣企業到捷克、波蘭設廠：工資比西歐低，產品能快速銷往西歐，政府也歡迎外資</td></tr><tr><td>丙</td><td>俄羅斯烏拉爾山一帶礦產豐富，形成大型工業區</td></tr></table><p class="muted">區位要素：原料、動力、勞力、市場、交通、政策。</p>',
+   qs:[
+    {q:'甲案例最主要的區位因素是什麼？',o:['動力','原料','勞力','市場'],ex:'煉鋁極耗電，冰島靠的是便宜的地熱電力＝動力區位。'},
+    {q:'乙案例中，「不屬於」臺灣企業考量的是哪一項？',o:['動力：當地能源特別便宜','勞力','市場','政策'],ex:'課本探究答案：勞力、市場、政策；東歐的優勢不是能源。'},
+    {q:'丙案例最主要的區位因素是什麼？',o:['原料','動力','勞力','政策'],ex:'工業區靠近礦產產地＝原料區位。'}]},
+  {title:'④ 歐盟、申根區、歐元區比一比',src:'',
+   fig:'<table class="tbl"><tr><th>國家</th><th>歐盟</th><th>申根區</th><th>歐元區</th></tr><tr><td>德國</td><td>✔</td><td>✔</td><td>✔</td></tr><tr><td>波蘭</td><td>✔</td><td>✔</td><td>✘</td></tr><tr><td>丹麥</td><td>✔</td><td>✔</td><td>✘</td></tr><tr><td>瑞士</td><td>✘</td><td>✔</td><td>✘</td></tr><tr><td>挪威</td><td>✘</td><td>✔</td><td>✘</td></tr><tr><td>英國</td><td>✘（2020 年脫歐）</td><td>✘</td><td>✘</td></tr></table>',
+   qs:[
+    {q:'依表格，下列敘述何者正確？',o:['不是歐盟會員國也可以加入申根區','歐盟會員國一定使用歐元','加入申根區就一定是歐盟會員國','英國仍是歐盟會員國'],ex:'瑞士、挪威不是歐盟會員，卻在申根區；波蘭、丹麥是歐盟會員，卻不用歐元。'},
+    {q:'從德國到波蘭出差，下列哪一項最可能發生？',o:['不用邊境檢查，但要把歐元換成波蘭的貨幣','要辦簽證，也要換錢','不用檢查，也不用換錢','要課高額關稅才能帶貨物'],ex:'兩國都在申根區（免邊檢）；波蘭不在歐元區，要換錢；歐盟內貨物免關稅。'},
+    {q:'哪一國的產品若要賣到歐盟，「可能」要付關稅？',o:['英國','德國','波蘭','丹麥'],ex:'英國已脫離歐盟，不再享有會員國間免關稅的優惠。'}]},
+  {title:'⑤ 歐洲部分國家發電能源（綠能）',src:'9 校考綠能配對（課本探究）',
+   fig:'<table class="tbl"><tr><th>綠能種類</th><th>在課本比較的國家中，使用比例最高的國家</th><th>發展條件</th></tr><tr><td>地熱能</td><td>甲</td><td>？</td></tr><tr><td>水力</td><td>乙</td><td>？</td></tr><tr><td>風力</td><td>丙</td><td>？</td></tr><tr><td>太陽能</td><td>丁</td><td>？</td></tr></table><p class="muted">條件選項：（A）盛行風向（B）高山水資源與地形落差（C）火山活動與豐沛的地熱（D）緯度較低，日光充足</p>',
+   qs:[
+    {q:'甲、乙、丙、丁最可能依序是哪四國？',o:['冰島、挪威、丹麥、西班牙','挪威、冰島、西班牙、丹麥','丹麥、西班牙、冰島、挪威','西班牙、丹麥、挪威、冰島'],ex:'冰島地熱、挪威水力、丹麥風力、西班牙太陽能。'},
+    {q:'丙國發展這種綠能的條件是哪一項？',o:['盛行風向','高山水資源與地形落差','火山活動與豐沛的地熱','緯度較低，日光充足'],ex:'丹麥位在西風帶，盛行西風穩定，北海還有離岸風場。'},
+    {q:'歐盟推動「歐洲綠色協議」發展綠能，主要目標不包括哪一項？',o:['增加化石燃料的使用','降低碳排放量','追求能源效率與安全','因應氣候變遷'],ex:'燃燒煤、石油、天然氣會使二氧化碳濃度上升；發展綠能正是要減少化石燃料。'}]},
+  {title:'⑥ 俄羅斯主要出口商品',src:'',
+   fig:'<table class="tbl"><tr><th>出口商品</th><th>約占出口值</th></tr><tr><td>礦物燃料（石油、天然氣、煤）</td><td>約五成以上</td></tr><tr><td>金屬與礦產</td><td>約一成</td></tr><tr><td>穀物等農產品</td><td>約一成</td></tr><tr><td>化學製品</td><td>約一成以下</td></tr><tr><td>木材（鋸木材等）</td><td>少量</td></tr></table><p class="muted">依課本圖 1-2-15 的特徵改寫，數字為約略值。</p>',
+   qs:[
+    {q:'由表可知，俄羅斯的經濟有什麼特色？',o:['以出口原物料為主，易受國際價格波動影響','以出口高科技電子產品為主','出口以服務業為主','幾乎不出口能源'],ex:'課本：俄羅斯資源豐富，透過大量出口以獲取外匯，成為國家經濟的主體。'},
+    {q:'表中的木材（鋸木材）主要來自哪一種林木？',o:['針葉林','闊葉林','熱帶雨林','紅樹林'],ex:'俄羅斯天然植被以廣闊的針葉林為主。'},
+    {q:'礦物燃料中的天然氣，主要用什麼方式輸往歐洲？',o:['管線','鐵路貨車','飛機','卡車'],ex:'課本圖 1-2-16：天然氣多利用管線輸送；受俄烏戰爭影響，許多通往歐洲的管線已關閉。'}]},
+  {title:'⑦ 經緯度定位',src:'7 校考經緯度定位',
+   fig:'<table class="tbl"><tr><th>代號</th><th>經緯度（約）</th></tr><tr><td>甲</td><td>38.8°N，9.5°W</td></tr><tr><td>乙</td><td>59.9°N，10.7°E</td></tr><tr><td>丙</td><td>69.0°N，33.1°E</td></tr><tr><td>丁</td><td>43.1°N，131.9°E</td></tr></table><p class="muted">四地是：挪威 奧斯陸、葡萄牙 羅卡角、俄羅斯 莫曼斯克、俄羅斯 夫拉迪沃斯托克（順序未依代號）。</p>',
+   qs:[
+    {q:'甲是歐亞大陸最西端的岬角，位於哪一國？',o:['葡萄牙','挪威','俄羅斯','西班牙'],ex:'西經約 9.5 度、北緯約 39 度＝葡萄牙羅卡角。'},
+    {q:'哪一地位在北極圈內，卻因北大西洋暖流而終年不凍？',o:['丙','甲','乙','丁'],ex:'北極圈約在 66.5°N；丙 69°N 是莫曼斯克。'},
+    {q:'丁位於太平洋岸，是哪一條鐵路的東端？',o:['西伯利亞鐵路','東方快車','歐洲之星','青藏鐵路'],ex:'丁（東經約 132 度）是夫拉迪沃斯托克，西伯利亞鐵路東端、俄羅斯進出遠東的海港。'}]},
+];
+
+/* ================= 延伸（少數校考／舊版課本考點，交卷 code 10） ================= */
+const EXT=[
+  {q:'萊因河與多瑙河都是歐洲重要河川。下列比較何者正確？',o:['萊因河注入北海、出海口鹿特丹，航運價值較高','多瑙河注入北海，航運價值最高','萊因河注入黑海，出口方向不佳','兩條河都注入地中海'],a:0,src:'舊版課本考點',ex:'萊因河流經工業發達的西歐、注入北海，出海口鹿特丹是歐洲最大港；多瑙河注入黑海，出口方向不佳。'},
+  {q:'多瑙河流經多國，但航運價值比萊因河低。最主要的原因是什麼？',o:['注入黑海，出海後還要經過狹窄海峽才能到大洋','河流太短','全年結冰','流經沙漠，水量太少'],a:0,src:'',ex:'多瑙河出口在黑海，往世界各地要再經海峽與地中海，出口方向不佳。'},
+  {q:'西伯利亞的大河多由南往北流入北極海。春天時常在中下游發生氾濫，原因是什麼？',o:['上游（南方）先融冰，下游（北方）仍結冰，河水宣洩不及','夏季颱風帶來大雨','冬季西風帶來大雪','河流太短，坡度太陡'],a:0,src:'他版 15 校',ex:'河川由南向北流：南邊上游先解凍，北邊下游還冰封，河水被冰塞擋住而氾濫（春汛）。'},
+  {q:'西伯利亞河川航運不發達。下列哪一項「不是」原因？',o:['河川流經的國家太多','注入北極海，出海方向不佳','冬季冰封期長','沿岸人口稀少'],a:0,src:'',ex:'西伯利亞河川大多在俄羅斯境內，流經國家多並不是原因。'},
+  {q:'以溫室栽種鬱金香等花卉、發展園藝農業，並用航空把鮮花運往世界的國家是哪一個？',o:['荷蘭','烏克蘭','希臘','挪威'],a:0,src:'',ex:'荷蘭地勢低平、溫和溼潤，園藝農業發達；烏克蘭以小麥等穀物著名。'},
+  {q:'俄烏戰爭期間曾有「黑海穀物倡議」，讓烏克蘭的糧食能經海運出口。這些船隻主要經過哪一個水域？',o:['黑海','波羅的海','北海','北極海'],a:0,src:'',ex:'烏克蘭南臨黑海，是重要的小麥出口國，穀物從黑海港口運出。'},
+  {q:'瑞典北部夏季會出現太陽整天不落下的「永晝」。這個現象主要是什麼原因造成的？',o:['地軸傾斜加上地球公轉','全球暖化','北大西洋暖流','盛行西風'],a:0,src:'',ex:'北極圈以北因地軸傾斜與公轉，夏季出現永晝、冬季出現永夜；和全球暖化無關。'},
+  {q:'歐元在 2002 年開始於多國流通。使用歐元後，對區域內旅遊與貿易最直接的好處是什麼？',o:['減少換匯的麻煩與匯兌成本','所有商品價格都變成一樣','不再需要繳稅','可以不用護照'],a:0,src:'補充',ex:'單一貨幣可減少匯兌成本與換錢的不便；免護照是申根區的效果。'},
+];
+
+/* ================= 考點雷達（17 校康軒卷） ================= */
+const RADAR={
+  n:17, other:42,
+  schools:'',
+  topics:[['東歐：計畫經濟轉型、低工資代工',17],['地圖定位（國家、海域、河川）',16],['冰河地形（峽灣、U型谷、冰蝕湖）',16],['北大西洋暖流＋盛行西風',15],['地中海型氣候（夏乾冬雨）',15],
+    ['氣候圖／統計圖判讀',14],['俄羅斯資源出口與天然氣管線',13],['德國（煤、汽車、工業產值最高）',13],['北歐各國產業',12],['英國（工業革命、北海石油）',12],['南歐地中海型農業',12],
+    ['西暖溼東冷乾、年溫差',12],['工業區位判讀',12],['南歐各國特色',11],['歐盟成立、盟旗、總部',11],['俄羅斯人口分布與民族宗教',11],['人口老化與人口金字塔',11],
+    ['歐亞界山（烏拉爾山、高加索山）',10],['俄羅斯地形分區',9],['荷蘭（鹿特丹、萊因河）',9],['歐洲綠能配對',9],['南歐板塊擠壓：谷灣、火山',9],['阿爾卑斯山與瑞士',9],
+    ['俄烏衝突（克里米亞、黑海）',8],['法國（鐵礦、時尚）',8],['申根區',8],['北歐社會福利',8],['歐元區',8],['英國脫歐',8],['西伯利亞鐵路',7],['歐盟的挑戰',7]],
+  graphs:[['氣候圖（海洋性／大陸性／地中海型）',12],['工業區位圖',10],['歐洲分區圖配對特色',9],['俄羅斯地形分區圖／等高線',8],['經緯度定位表',7],['人口金字塔 1950／2000／2025',6],['俄羅斯出口商品比例圖',6],['歐盟、申根區、歐元區分布圖',5]],
+  words:[['歐盟',16],['盛行西風／西風帶',14],['峽灣',13],['阿爾卑斯山',12],['波蘭',12],['天然氣',12],['冰河',11],['歐元',11],['社會福利',11],['北海',10],
+    ['風力發電',10],['工業區位',10],['烏拉爾山',9],['西伯利亞鐵路',9],['捷克',9],['冰島',9],['烏克蘭',9],['板塊',9],['U型谷',8],['巴黎',8],['英國脫歐',8],['管線',8],['谷灣',7],['北大西洋暖流',6],['不凍港',6]],
+  common:[['歐盟（盟旗、總部、申根、歐元）',11,29],['英國工業革命、北海石油',12,26],['東歐低工資設廠',17,22],['南歐各國特色',11,22],['俄羅斯資源出口與管線',13,19],['南歐地中海型農業',12,18],
+    ['德國工業',13,18],['法國',8,17],['冰河地形',16,16],['人口老化／金字塔',11,16],['工業區位判讀',12,15],['俄羅斯人口分布',11,15],['歐洲綠能',9,14],['西伯利亞鐵路',7,13],['俄烏戰爭',8,12]],
+};
+
+const TABS=[['home','🏠 考點雷達'],['a','🏔️ 1-1 自然環境'],['b','🏭 1-2 人口產業＋西歐'],['c','🫒 1-3 南・北・東歐'],['d','🇪🇺 2-1 歐盟＋綠能'],['e','❄️ 2-2 俄羅斯'],['mix','📊 綜合＋總測驗']];
+
+/* ================= 注釋配對 ================= */
+function renderMatch(el,pairs){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0,miss=0;
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 注釋配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${miss<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3><p>配錯 ${miss} 次</p><button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div>`;$('#ag',el).onclick=()=>renderMatch(el,pairs)}
+  draw();
+}
+
+/* ================= 分類 ================= */
+function renderSort(el,so){
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w[0])}」→ <b>${so.buckets[w[1]]}</b>${w[2]?'：'+esc(w[2]):''}`).join('<br>')}</div>`:''}
+      <button class="btn" style="margin-top:12px">再玩一次</button></div>`;
+      el.querySelector('.btn').onclick=()=>renderSort(el,so);return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push(it)}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+/* ================= 選擇題 ================= */
+function renderMCQ(el,qs){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}<span class="src">${q.src}</span></div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(+b.dataset.k===q.a){got++;sOK()}else{b.classList.add('bad');sBAD()}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderMCQ(el,qs);
+}
+
+/* ================= 翻卡 ================= */
+function renderCards(el,cards){
+  el.innerHTML=`<div class="card"><h3>🃏 十五種標點翻卡</h3><p class="muted">點卡片翻面看用法。重點：分號、破折號、引號、書名號、刪節號。</p>
+  <div class="flips">${cards.map(c=>`<div class="flip"><div class="in"><div class="f"><div class="sym">${esc(c[1])}</div><b>${c[0]}</b></div><div class="bk2">${esc(c[2])}</div></div></div>`).join('')}</div></div>`;
+  el.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('on'));
+}
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、geo9-kangxuan-1（例 chinese8-1）、地理 國三上第一次段考（康軒）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'geo9-kangxuan-1',
+  site:'地理 國三上第一次段考（康軒）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('geo9-kangxuan-1_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('geo9-kangxuan-1_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${(d&&d.quickTitle)||'名詞快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽（地理 國三上 第一次段考・康軒） ================= */
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+document.body.insertAdjacentHTML('beforeend','<button class="bgm" id="bgmBtn"></button>');
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};
+
+const ANIM={a:animA,b:animB,c:animC,d:animD,e:animE};
+const UNITS=['a','b','c','d','e'];
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 快問快答'],['match','🔗 名詞配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel');
+  const title=`${d.no} ${d.short}`;
+  if(s==='anim') ANIM[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">本單元 ${d.mcq.length} 題，全部依各校命題方向原創改寫。點選答案後才會出現解析；做完可以交卷給老師。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const N=RADAR.n;
+  const bar=arr=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  app.innerHTML=`
+  <h2>📡 第一次段考考點雷達</h2>
+  
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${UNITS.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].short}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+    <div class="lc" style="background:linear-gradient(135deg,#5a4a12,#d9a441)" data-k="mix"><div><div class="n">綜合</div><div class="t">圖表判讀＋總測驗</div></div><div class="d">氣候資料｜人口結構｜工業區位｜三個圈圈｜綠能｜出口｜經緯度｜時間軸排序｜延伸｜跨課總測驗</div></div>
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（${N} 校中幾校考過）</h3>${bar(RADAR.topics)}
+  <p class="muted" style="margin-top:10px">⚠️ <b>東歐低工資設廠 17 校全考</b>，是單一最高頻考點；冰河地形、西風＋暖流、地中海型氣候也都超過 15 校。<br>⚠️ 第2課俄羅斯題集中在 14 校，<b>天然氣管線、人口集中歐俄、三大港</b>最常出。</p></div>
+  <div class="card"><h3>🗺️ 最常出現的圖表（幾校考過）</h3>${bar(RADAR.graphs)}
+  <p class="muted" style="margin-top:10px">這些圖表都改寫成「📊 綜合」的圖表判讀題（文字放在表格裡，不畫在圖上）。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>高頻名詞（★ 快問快答會標）</h3><div class="chips">${RADAR.words.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">名詞以康軒 115 版課本為準：「<b>夫拉迪沃斯托克</b>」「<b>雅庫次克</b>」「<b>維科揚斯克</b>」「<b>宜家家居（IKEA）</b>」「<b>鴻海科技集團</b>」「<b>緩衝地帶</b>」。</p></div>
+    <div class="card"><h3>🔢 一定要會的數字</h3>
+    <p><span class="pill">40～60°</span>西風帶的緯度</p>
+    <p><span class="pill">1950</span>歐洲已進入高齡化社會</p>
+    <p><span class="pill">1960 年代</span>英國在北海發現石油</p>
+    <p><span class="pill">1990 年代</span>東歐轉型自由市場經濟；烏克蘭成為緩衝地帶</p>
+    <p><span class="pill">1993／27</span>歐盟成立／目前 27 個會員國</p>
+    <p><span class="pill">12</span>盟旗金星，象徵「完美」，不是會員國數</p>
+    <p><span class="pill">2014／2020／2022</span>占領克里米亞／英國脫歐、新冠疫情／俄烏戰爭</p>
+    <p><span class="pill">50°N／1.4 億</span>俄羅斯國土多在 50°N 以北；人口約 1.4 億</p>
+    <p><span class="pill">-67.8℃</span>維科揚斯克：世界年溫差最大</p></div>
+  </div>
+  <div class="card"><h3>🪤 最常錯的 8 個陷阱</h3>
+    <p><span class="pill">1</span>冰河地形只有<b>峽灣、U 型谷、冰蝕湖</b>；谷灣是<b>海平面上升</b>，不是冰河。</p>
+    <p><span class="pill">2</span>東歐吸引外資靠<b>勞力（低工資）</b>＋市場＋政策，不是能源、礦產或海運；「如今仍計畫經濟」是錯的。</p>
+    <p><span class="pill">3</span>冰島煉鋁＝<b>動力</b>區位；烏拉爾山工業區＝<b>原料</b>區位。</p>
+    <p><span class="pill">4</span>德國＝<b>煤</b>＋水運、工業產值最高；法國＝<b>鐵礦</b>＋時尚；英國＝本寧山煤＋<b>北海石油</b>。</p>
+    <p><span class="pill">5</span>歐盟總部在<b>布魯塞爾</b>；12 星＝完美；會員國<b>不一定用歐元</b>；非歐盟也能加入<b>申根</b>。</p>
+    <p><span class="pill">6</span>莫曼斯克不凍＝<b>北大西洋暖流</b>；莫斯科<b>不是</b>港口城市。</p>
+    <p><span class="pill">7</span>俄羅斯人口集中歐俄，主因是<b>氣候</b>不是地形；鋸木材來自<b>針葉林</b>不是闊葉林。</p>
+    <p><span class="pill">8</span>夫拉迪沃斯托克往莫斯科（東→西）是<b>山地→高原→平原</b>，要倒過來排。</p></div>
+  <div class="card"><h3>🌏 不分版本的共通考點（他版卷）</h3>
+  <p class="muted">tcool 另有翰林、南一等他版卷 ${RADAR.other} 校（翰林國三上第1～2課同樣是歐洲與俄羅斯），重疊的考點（康軒校數／他版校數）：</p>
+  <div class="chips">${RADAR.common.map(([w,a,b])=>`<span>${w} <b>${a}／${b}</b></span>`).join('')}</div>
+  <p class="muted" style="margin-top:10px">他版常考<b>萊因河 vs 多瑙河、西伯利亞河川北流與春汛</b>，康軒 115 版課本已淡化，放在「📊 綜合 → 🚀 延伸」。</p></div>
+  <div class="card"><h3>💡 意外發現</h3>
+  <p>📰 <b>時事題比例高</b>：俄烏戰爭、黑海、台積電德勒斯登、鴻海捷克，至少 12 校出現。</p>
+  <p>🏭 <b>工業區位判讀</b>是跨國題組常客（10 校），雖然課本只在探究活動出現。</p>
+  <p>🧭 <b>經緯度定位</b>（羅卡角、奧斯陸、莫曼斯克）7 校考。</p>
+  <p class="muted">→ 都放進「📊 綜合」的圖表判讀。</p></div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每單元先看 <b>🎬 動畫導覽</b>，用真實照片弄懂課本 → ② <b>⚡ 快問快答</b>、<b>🔗 配對</b>練熟名詞與數字 → ③ <b>🎯 分類挑戰</b>破解冰河 vs 谷灣、四區特色、三個圈圈 → ④ <b>📝 段考模擬題</b>與 <b>📊 綜合</b>的圖表題、總測驗檢查程度，做完按「📤 交卷給老師」。</p></div>
+  <details class="card"><summary><b>統計限制</b>（給老師看）</summary>
+  </details>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,c.dataset.k==='mix'?undefined:'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 綜合：圖表判讀＋排序＋延伸＋總測驗 ================= */
+function renderMix(app){
+  const s=curSub.mix||'chart';
+  const subs=[['chart','📊 圖表判讀'],['seq','🔢 時間軸・排序'],['ext','🚀 延伸'],['total','🏁 總測驗']];
+  app.innerHTML=`<h2>📊 綜合：圖表判讀＋排序＋總測驗</h2>
+  <p class="muted">17 校最愛考「氣候資料、工業區位、三個圈圈、經緯度」。這裡把高頻圖表改寫成題組，再加上時間軸排序、少數校考的延伸題，最後用跨課總測驗檢查程度。</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div><div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub.mix=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='chart'){
+    p.innerHTML=CHART.map((c,k)=>`<div class="card"><h3>${c.title}</h3><div class="figbox">${c.fig}</div><div id="cq${k}"></div></div>`).join('');
+    CHART.forEach((c,k)=>renderMCQ($('#cq'+k),c.qs.map(q=>({a:0,...q,src:c.src})),7,`綜合 ${c.title.replace(/^[①-⑨]\s*/,'')}`));
+    return;
+  }
+  if(s==='seq'){
+    p.innerHTML=`<p class="muted">把每一項放到正確的順位。</p>`+SEQ.map((_,i)=>`<div class="card" id="st${i}"></div>`).join('');
+    SEQ.forEach((so,i)=>{SORTCTX={code:7,title:'綜合 時間軸・排序'};renderSort($('#st'+i),so)});SORTCTX=null;
+    return;
+  }
+  if(s==='ext'){
+    p.innerHTML=`<div class="card"><h3>🚀 延伸：舊版課本與他版常考（少數校考）</h3>
+    <div class="grid2">
+      <figure class="exfig"><img src="img/e2_rotterdam.jpg" alt="鹿特丹港的貨櫃碼頭" loading="lazy"><figcaption>鹿特丹港：萊因河出海口，歐洲最大港</figcaption></figure>
+      <figure class="exfig"><img src="img/r_tundra.jpg" alt="苔原上的彩虹" loading="lazy"><figcaption>北極海沿岸的苔原：西伯利亞大河向北流入北極海</figcaption></figure>
+    </div>
+    <p><span class="pill">萊因河</span>注入<b>北海</b>，流經工業發達的西歐，出海口鹿特丹，航運價值最高。</p>
+    <p><span class="pill">多瑙河</span>注入<b>黑海</b>，出口方向不佳，航運價值較低。</p>
+    <p><span class="pill">西伯利亞河川</span>由南向北流入<b>北極海</b>；春天上游（南）先融冰、下游（北）仍結冰 → 氾濫（春汛）；冰封期長，航運不發達。</p>
+    <p><span class="pill">荷蘭</span>地勢低平、溫和溼潤，園藝（花卉）與酪農發達；<span class="pill">烏克蘭</span>小麥出口，經<b>黑海</b>運出。</p>
+    </div><div id="eq"></div>`;
+    renderMCQ($('#eq'),EXT,10,'延伸 舊版與他版考點');
+    return;
+  }
+  const pool=[];
+  UNITS.forEach(k=>L[k].mcq.forEach(q=>pool.push({...q,unit:L[k].no,src:`${L[k].no}｜${q.src||''}`})));
+  const n=25,pick=shuf(pool).slice(0,n);
+  p.innerHTML=`<div class="card"><h3>🏁 跨課總測驗</h3><p>從五個單元的段考模擬題（共 ${pool.length} 題）隨機抽 ${n} 題。按「重新抽題」會換一批題目。</p>
+    <div class="row"><button class="btn ghost" id="redraw">🔀 重新抽題</button></div></div><div id="tq"></div>`;
+  $('#redraw').onclick=()=>render();
+  renderMCQ($('#tq'),pick,9,'總測驗（跨課隨機）');
+}
+
+/* ================= 共用：動畫外框 ================= */
+function stage(p,extra){p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${extra||''}`}
+
+/* ================= 1-1 歐洲的自然環境有何特色？ ================= */
+function animA(p){
+  stage(p,`<div class="card"><h3>🗺️ 歐洲地形三分區（由北到南）</h3>
+  <div class="ladder"><span>斯堪地那維亞半島<small>山地縱貫、冰蝕地形</small></span><b>→</b><span>歐洲大平原<small>平原廣闊</small></span><b>→</b><span class="an">阿爾卑斯山<small>歐洲屋脊</small></span><b>→</b><span>南歐三大半島<small>板塊擠壓、谷灣</small></span></div>
+  <p><span class="pill">冰河三兄弟</span>峽灣（挪威）、U 型谷（阿爾卑斯山孔道）、冰蝕湖（芬蘭）</p>
+  <p><span class="pill">不是冰河</span>谷灣（海平面上升淹沒丘陵谷地）、V 型谷（河流下切）</p></div>
+  <div class="card"><h3>🌦️ 歐洲五種氣候一張表</h3>
+  <table class="tbl"><tr><th>氣候</th><th>分布</th><th>特徵</th></tr>
+  <tr><td>溫帶海洋性</td><td>西歐、北歐沿海</td><td>西風＋北大西洋暖流；降水季節平均、年溫差較小</td></tr>
+  <tr><td>溫帶大陸性</td><td>東歐、歐俄</td><td>海洋水氣減弱；夏季降水較多、年溫差較大</td></tr>
+  <tr><td>溫帶地中海型</td><td>地中海沿岸</td><td>夏受副熱帶高壓籠罩、冬季西風帶移入 → <b>夏乾冬雨</b></td></tr>
+  <tr><td>高地氣候</td><td>阿爾卑斯山區</td><td>由山腳到山頂垂直變化</td></tr>
+  <tr><td>寒帶氣候</td><td>北極圈附近</td><td>全年低溫</td></tr></table>
+  <p class="muted" style="margin-top:10px">整體：南熱北冷、西溼東乾；由西歐到東歐「西暖溼、東冷乾」。</p></div>`);
+  const steps=[
+    {label:'① 位置與界山',imgs:[{img:'e1_ural',tag:'烏拉爾山（衛星影像）：歐、亞兩洲的界山',fit:'contain',bg:'#1d2a1d'},{img:'e1_roca',tag:'葡萄牙 羅卡角：歐亞大陸最西端'}],poem:'歐洲位於<b>歐亞大陸西北部</b>，西濱<b>大西洋</b>，東以<b>烏拉爾山和高加索山</b>與亞洲為界，南隔<b>地中海</b>與非洲相望。北部與南部多半島及島嶼，海灣深入內陸、海岸線綿長，有利<b>航運與貿易</b>。',key:'歐亞界山＝<b>烏拉爾山＋高加索山</b>（10 校考）；羅卡角（38.8°N, 9.5°W）在<b>葡萄牙</b>。'},
+    {label:'② 冰河地形',imgs:[{img:'e1_aletsch',tag:'瑞士 阿萊奇冰河：阿爾卑斯山面積最大的冰河'},{img:'e1_uvalley',tag:'瑞士 勞特布魯嫩：寬平的 U 型谷'},{img:'e1_fjord',tag:'挪威 蓋倫格峽灣'},{img:'e1_lakes',tag:'芬蘭 庫奧皮奧附近的湖群：冰蝕湖'}],poem:'積雪長時間壓密成冰，受重力牽引緩慢移動，形成<b>冰河</b>。冰河把山谷刻鑿成 <b>U 型谷</b>，消融後常成為山區往來的天然孔道；冰河谷延伸至海、海水侵入形成<b>峽灣</b>；在緩坡挖鑿窪地、積水形成<b>冰蝕湖</b>。',key:'16 校考冰河地形！斯堪地那維亞半島<b>緯度高</b>、阿爾卑斯山<b>地勢高</b>，所以都有冰河地形。'},
+    {label:'③ 南歐：板塊擠壓與谷灣',imgs:[{img:'e1_ria',tag:'西班牙 維哥灣：沿海谷地被海水淹沒'},{img:'e2_santorini',tag:'希臘 桑托里尼：火山島上的藍白建築'}],poem:'<b>南歐三大半島</b>位於阿爾卑斯山以南，因<b>板塊擠壓</b>，地形崎嶇；臨海多丘陵，海岸線曲折，<b>谷灣</b>地形發達：海平面上升，山谷變灣澳、丘陵變島嶼。',key:'谷灣<b>不是</b>冰河地形（7 校陷阱）；南歐多火山、地震＝<b>歐亞板塊與非洲板塊</b>擠壓。'},
+    {label:'④ 西風＋北大西洋暖流',imgs:[{img:'e2_bigben',tag:'倫敦泰晤士河畔：溫帶海洋性氣候'}],poem:'歐洲位於中緯度地區，因<b>灣澳深入內陸</b>，加上<b>北大西洋暖流</b>與<b>盛行西風</b>的影響，歐洲西半部的年均溫<b>高於同緯度其他地區</b>。西歐與北歐沿海屬<b>溫帶海洋性氣候</b>：雨水較多、降水季節平均、年溫差較小。',key:'緯度 <b>40～60 度</b>盛行西風＝西風帶（14 校）。愈往東，暖流與西風影響愈弱 → 東歐、歐俄屬<b>溫帶大陸性氣候</b>、年溫差較大。'},
+    {label:'⑤ 夏乾冬雨的地中海型氣候',imgs:[{img:'e1_olive',tag:'西班牙 安達魯西亞的橄欖園'}],poem:'地中海沿岸<b>夏季受副熱帶高氣壓籠罩</b>，降水較少；<b>冬季西風帶移入</b>，帶來海洋水氣形成降水，呈現<b>夏乾冬雨</b>。作物生長季和雨季不能配合，傳統農業多種植<b>耐旱作物</b>並倚賴<b>灌溉</b>。',key:'15 校考地中海型氣候；看到「橄欖、葡萄、柑橘、夏季野火」就選<b>夏乾冬雨</b>的氣候圖。'},
+    {label:'⑥ 高地與嚴寒的北方',imgs:[{img:'e1_alps',tag:'瑞士 馬特洪峰：氣候由山腳到山頂垂直變化'},{img:'e1_sauna',tag:'芬蘭湖畔的桑拿小屋（1960 年）'}],poem:'<b>阿爾卑斯山區</b>屬<b>高地氣候</b>，氣候特徵由山腳至山頂呈垂直變化。<b>北極圈附近</b>屬寒帶氣候，全年低溫。歐洲東部與北部<b>較為寒冷且冬季漫長</b>，芬蘭人習慣以<b>桑拿</b>來禦寒。',key:'整體：<b>南熱北冷、西溼東乾</b>。歐洲幾乎沒有沙漠：西風與海洋水氣深入，<b>和板塊無關</b>（3 校考「不包括」）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 1-2 人口與產業＋1-3 西歐 ================= */
+function animB(p){
+  stage(p,`<div class="card"><h3>🏭 西歐四國一張表</h3>
+  <table class="tbl"><tr><th>國家</th><th>資源／條件</th><th>產業特色</th></tr>
+  <tr><td>英國</td><td>本寧山區煤礦；1960 年代北海石油</td><td>工業革命發源地、日不落國；石油成為產業升級資金</td></tr>
+  <tr><td>法國</td><td>豐富鐵礦</td><td>鋼鐵、汽車、高速鐵路、航空、通訊；巴黎＝世界時尚之都</td></tr>
+  <tr><td>德國</td><td>煤礦豐富、水運便捷</td><td>汽車、機械、化工、光學儀器；<b>歐洲工業產值最高</b></td></tr>
+  <tr><td>荷蘭</td><td>萊因河出海口</td><td>鹿特丹＝歐洲最大港</td></tr></table></div>
+  <div class="card"><h3>📊 歐洲東西兩半部</h3>
+  <p><span class="pill">西半部</span>多為民主國家、<b>市場經濟</b>，平均國民所得普遍較高</p>
+  <p><span class="pill">東半部</span>曾採行<b>計畫經濟</b>，經濟發展較緩慢，所得相對較低</p>
+  <p class="muted">G7 七大工業國中有 <b>4 國</b>在歐洲：英、法、德、義。</p></div>`);
+  const steps=[
+    {label:'① 人口分布平均、老化嚴重',imgs:[{img:'e2_elderly',tag:'法國 尼姆：公園裡玩滾球的居民'}],poem:'歐洲大部分位於溫帶，自然環境適合人居，是世界上<b>人口分布最平均</b>的一洲。由 <b>1950 年</b>的人口金字塔可知，當時已進入<b>高齡化社會</b>。因長期<b>出生率偏低</b>，人口成長緩慢甚至負成長，加上衛生醫療進步、平均壽命較長，<b>人口老化</b>愈趨嚴重。',key:'人口金字塔 1950→2025 正解是「<b>平均壽命延長</b>」（6 校同題）；成長慢是出生率低，<b>不是移出率高</b>。'},
+    {label:'② 農產豐富、工業發達',imgs:[{img:'e2_wheat',tag:'法國 洛拉蓋地區的小麥收割'}],poem:'歐洲的農產豐富，是世界重要的<b>糧食出口地區</b>之一（小麥、玉米、大麥、馬鈴薯）；工業也十分發達，其中又以<b>歐洲西半部</b>的經濟發展程度較高。',key:'歐洲是最早<b>工業化</b>的地區；G7 有 4 國在歐洲。東西半部所得差異來自<b>市場經濟 vs 計畫經濟</b>。'},
+    {label:'③ 西歐：交通最繁忙的核心',imgs:[{img:'e2_rotterdam',tag:'荷蘭 鹿特丹港的貨櫃碼頭'}],poem:'西歐<b>地理位置優越、地形平坦、礦產資源豐富</b>，是歐洲工業發展程度最高的核心地帶，也是水陸交通最繁忙的地區，如荷蘭 <b>鹿特丹</b>位於萊因河出海口，是歐洲最大的港口。',key:'鹿特丹＝<b>萊因河</b>出海口、歐洲最大港（9 校考荷蘭）。'},
+    {label:'④ 英國：工業革命發源地',imgs:[{img:'e2_bigben',tag:'英國 倫敦西敏宮'}],poem:'<b>英國</b>是工業革命的發源地，曾因殖民地遍布全球而有「<b>日不落國</b>」之稱。<b>本寧山區</b>豐富的煤礦帶動早期工業發展；<b>1960 年代</b>在<b>北海</b>發現石油後，成為產業升級與高科技工業發展的重要資金來源。',key:'工業革命靠<b>煤</b>，不是石油；北海油田國家有英國、挪威、丹麥，<b>不可能是西班牙</b>。'},
+    {label:'⑤ 法國：鐵礦與時尚',imgs:[{img:'e2_paris',tag:'巴黎 艾菲爾鐵塔與塞納河'}],poem:'<b>法國</b>蘊藏豐富的<b>鐵礦</b>資源，以鋼鐵、汽車、高速鐵路、航空與通訊等工業聞名，並在服裝設計與化妝品等<b>時尚產業</b>中引領世界流行風潮；巴黎號稱「<b>世界時尚之都</b>」。',key:'法國＝<b>鐵礦</b>；德國＝<b>煤</b>。時尚之都是巴黎，不是倫敦。'},
+    {label:'⑥ 德國：工業產值第一',imgs:[{img:'e2_ruhr',tag:'德國 埃森的關稅同盟煤礦（今為世界遺產）'},{img:'e2_benz',tag:'德國 辛德芬根的賓士汽車廠'}],poem:'<b>德國</b>煤礦資源豐富，水運網路便捷，在<b>汽車、機械、化工、光學儀器</b>等工業享有品質優越的聲譽，是<b>歐洲工業產值最高</b>的國家，寶馬（BMW）與賓士（Benz）是世界著名的汽車品牌。',key:'13 校考德國：歐洲最大經濟體；台積電德勒斯登設廠的時事題也指向德國。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 1-3 南歐・北歐・東歐 ================= */
+function animC(p){
+  stage(p,`<div class="card"><h3>🧭 歐洲四區一張表</h3>
+  <table class="tbl"><tr><th>區域</th><th>關鍵字</th><th>代表國家</th></tr>
+  <tr><td>西歐</td><td>工商發達、科技進步</td><td>英、法、德、荷</td></tr>
+  <tr><td>南歐</td><td>文化豐富、觀光興盛、地中海型農業</td><td>西、葡、義、希</td></tr>
+  <tr><td>北歐</td><td>善用環境、重視社會福利（高稅金）</td><td>丹、瑞典、挪、冰、芬</td></tr>
+  <tr><td>東歐</td><td>工業轉型、經濟崛起、低工資代工</td><td>烏克蘭、波蘭、捷克</td></tr></table></div>
+  <div class="card"><h3>🍼 從搖籃到墳墓（芬蘭）</h3>
+  <p><span class="pill">出生</span>孕婦有生育津貼，父母各有帶薪育嬰假</p>
+  <p><span class="pill">求學</span>免費受教育，繼續升學可領學習補助金</p>
+  <p><span class="pill">工作</span>失業可領失業津貼</p>
+  <p><span class="pill">退休</span>領養老金，享健康與居家護理服務</p>
+  <p class="muted">代價：納稅人要繳<b>高額稅金</b>；人口老化會加重負擔。</p></div>`);
+  const steps=[
+    {label:'① 南歐：地中海型農業',imgs:[{img:'e1_olive',tag:'西班牙 安達魯西亞的橄欖園'}],poem:'南歐氣候較溫暖且陽光充足，包括<b>伊比利、義大利、巴爾幹</b>三大半島。受氣候影響，形成<b>地中海型農業區</b>，是歐洲重要的<b>蔬果產區</b>，典型作物有<b>柑橘、葡萄、橄欖</b>。',key:'作物生長季和雨季<b>不能配合</b> → 耐旱作物＋灌溉（12 校考）。'},
+    {label:'② 西班牙與葡萄牙',imgs:[{img:'e2_sagrada',tag:'西班牙 巴塞隆納的聖家堂'},{img:'e1_roca',tag:'葡萄牙 羅卡角：昔日航海家由此出航'}],poem:'<b>西班牙與葡萄牙</b>曾是<b>海權強國</b>，殖民的歷史造就了多元的文化發展，也積累豐富的人文資產，成為觀光發展的重要特色。巴塞隆納的聖家堂設計風格獨特，是世界上最高的天主教教堂。',key:'伊比利半島與非洲之間是<b>直布羅陀海峽</b>（控制地中海出入）。'},
+    {label:'③ 義大利與希臘',imgs:[{img:'e2_ferrari',tag:'義大利 馬拉內羅的法拉利工廠'},{img:'e2_parthenon',tag:'希臘 雅典衛城'},{img:'e2_santorini',tag:'希臘 桑托里尼的藍白建築'}],poem:'<b>義大利</b>工藝技術精良、設計創意出色，是<b>南歐工業最發達</b>的國家。<b>希臘</b>是<b>歐洲文明的搖籃</b>，也是<b>奧林匹克運動會</b>的發源地，豐富的古蹟與藍白色調的建築，每年吸引大量觀光客。',key:'「南歐」工業最發達＝義大利；「歐洲」工業產值最高＝德國。白牆可<b>反射陽光</b>，因應夏季炎熱。'},
+    {label:'④ 北歐：丹麥與瑞典',imgs:[{img:'e2_cows',tag:'丹麥紅牛：「歐洲牧場」的酪農業'},{img:'e2_ikea',tag:'瑞典 IKEA 賣場的自助倉儲區',fit:'contain',bg:'#2a2a2a'}],poem:'北歐地處高緯，各國<b>善用當地自然資源</b>。<b>丹麥</b>氣候溼涼，穀類種植與酪農並重，是著名的「<b>歐洲牧場</b>」。<b>瑞典</b>擁有豐富的<b>鐵礦與森林</b>資源，為其<b>汽車工業與家具業</b>奠定基礎。',key:'北歐社會福利完善、居民幸福感高，但要繳<b>高額稅金</b>（11 校考）。'},
+    {label:'⑤ 北歐：挪威與冰島',imgs:[{img:'e2_salmon',tag:'挪威 羅弗敦群島的鮭魚養殖網箱'},{img:'e2_iceland',tag:'冰島 赫利斯黑迪地熱發電廠'}],poem:'<b>挪威</b>瀕臨繁忙的北大西洋航線，利用<b>峽灣</b>形成的天然良港，發展<b>漁業、造船與航運業</b>，是重要的鮭魚出口國。<b>冰島</b>則運用<b>地熱發電</b>，推動<b>溫室農業與煉鋁工業</b>的發展。',key:'冰島不產鋁卻煉鋁＝<b>動力區位</b>（電價便宜），不是原料區位（6 校陷阱）。'},
+    {label:'⑥ 東歐：工業轉型',imgs:[{img:'e2_poland',tag:'波蘭 格利維采的汽車組裝線'},{img:'e2_foxconn',tag:'捷克 帕爾杜比采的富士康（鴻海）工廠'}],poem:'東歐礦產資源豐富，烏克蘭、波蘭、捷克皆為<b>煤、鐵</b>重要產地；早期受<b>計畫經濟</b>制度限制，國民所得偏低，<b>1990 年代</b>後逐步轉型為<b>自由市場經濟</b>。近年憑藉<b>低於西歐工資</b>的勞動力，發展以<b>代工</b>為主的工業：<b>波蘭</b>成為家電與汽車生產重鎮；<b>捷克</b>因鄰近西歐，成為企業進入歐洲市場的據點。',key:'<b>17 校全考！</b>臺商赴東歐＝勞力＋市場＋政策；「能源充足」「如今仍計畫經濟」都是錯的。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-1 歐盟＋探究：綠能 ================= */
+function animD(p){
+  stage(p,`<div class="card"><h3>🇪🇺 歐盟一張表</h3>
+  <table class="tbl"><tr><th>項目</th><th>內容</th></tr>
+  <tr><td>成立</td><td>西元 <b>1993</b> 年；目前 <b>27</b> 個會員國</td></tr>
+  <tr><td>盟旗</td><td>藍底＋12 顆金星圓環：「12」象徵<b>完美</b>，圓環是各國合作統一</td></tr>
+  <tr><td>貨幣</td><td>歐元：紙鈔圖案各國統一，硬幣<b>一面由各國設計</b></td></tr>
+  <tr><td>總部</td><td>比利時首都 <b>布魯塞爾</b></td></tr>
+  <tr><td>互惠</td><td>勞力流動、單一貨幣、免除關稅</td></tr>
+  <tr><td>規模</td><td>約占歐洲 40％ 土地、70％ 人口、77.5％ GDP</td></tr></table>
+  <p class="muted" style="margin-top:10px">歐盟 ≠ 申根區 ≠ 歐元區：瑞士、挪威、冰島在申根但不是歐盟；波蘭、捷克、丹麥、瑞典是歐盟但不用歐元。</p></div>
+  <div class="card"><h3>⚡ 綠能配對（課本探究）</h3>
+  <table class="tbl"><tr><th>綠能</th><th>比例最高的國家</th><th>條件</th></tr>
+  <tr><td>地熱能</td><td>冰島</td><td>火山活動與豐沛的地熱</td></tr>
+  <tr><td>水力</td><td>挪威</td><td>高山水資源與地形落差</td></tr>
+  <tr><td>風力</td><td>丹麥</td><td>盛行風向（西風）</td></tr>
+  <tr><td>太陽能</td><td>西班牙</td><td>緯度較低，日光充足</td></tr></table></div>`);
+  const steps=[
+    {label:'① 歐盟的成立',imgs:[{img:'e3_berlay',tag:'布魯塞爾 貝爾萊蒙大樓：歐盟執委會所在地'},{img:'e3_flag',tag:'賽普勒斯 尼古西亞街頭飄揚的歐盟旗'}],poem:'歐洲各國的資源與條件不同，為了<b>提升整體競爭力</b>而相互合作，於西元 <b>1993 年</b>正式成立<b>歐洲聯盟</b>，目前共有 <b>27</b> 個會員國，總部位於比利時的首都<b>布魯塞爾</b>。',key:'總部不在柏林、阿姆斯特丹；盟旗 12 顆星＝<b>完美</b>，不是會員國數（11 校考）。'},
+    {label:'② 單一貨幣：歐元',imgs:[{img:'e3_euro',tag:'歐元硬幣：共同面圖案相同，另一面由各國設計',fit:'contain',bg:'#ffffff'}],poem:'歐洲各國成立<b>歐元區</b>，統一貨幣，深化區域內的經濟整合。歐元的<b>紙鈔圖案各國統一</b>；<b>硬幣則有一面由各國設計</b>。',key:'「歐盟會員國都使用歐元」是錯的；使用歐元可<b>減少匯兌成本</b>。'},
+    {label:'③ 開放邊境：申根區',imgs:[{img:'e3_schengen',tag:'德國與丹麥邊界：只立了一塊國名牌'}],poem:'以歐盟為基礎成立<b>申根區</b>，彼此<b>開放邊境</b>以促進人員自由流動。歐盟會員國之間還有<b>勞力流動</b>（有合格資格就能到他國工作）與<b>免除關稅</b>（貨物自由通過國境、不被課稅）。',key:'瑞士、挪威、冰島<b>不是歐盟</b>，但在申根區（8 校考）。'},
+    {label:'④ 跨國分工：空中巴士',imgs:[{img:'e3_airbus',tag:'法國 土魯斯的空中巴士 A380 總裝廠'}],poem:'歐盟建立高度技術整合的<b>跨國合作生產模式</b>，以<b>飛機製造業</b>最著名：法國、英國、德國、西班牙等國以合資與分工方式生產，最後於<b>法國</b>進行組裝。',key:'目的是<b>整合各國技術優勢、提升國際競爭力</b>。'},
+    {label:'⑤ 歐盟的挑戰',imgs:[{img:'e2_bigben',tag:'倫敦西敏宮：英國國會所在地'}],poem:'各會員國發展程度不同，遇到重大議題難以達成共識：<b>英國</b>在貨幣與貿易等政策上與歐盟立場不同，於 <b>2020 年脫離歐盟</b>；<b>2020 年新冠疫情</b>時，申根國家出現關閉邊境、爭奪資源；各國對是否收容<b>西亞與北非的難民</b>立場不同。',key:'英國脫歐後，在英國設廠的產品進入歐盟<b>可能要課關稅</b>；挑戰「不包括」宗教戰爭。'},
+    {label:'⑥ 探究：歐洲發展綠能',imgs:[{img:'e3_wind',tag:'丹麥 哥本哈根外海的離岸風場'},{img:'e3_hydro',tag:'挪威 洪德福森水壩'},{img:'e2_iceland',tag:'冰島 地熱發電廠'},{img:'e3_solar',tag:'西班牙 塞維亞的太陽能塔'}],poem:'歐洲能源礦產分布不均，必須從俄羅斯及西亞進口大量天然氣與石油。為了<b>降低對進口能源的依賴</b>、因應氣候變遷，歐盟於 <b>2019 年</b>發表<b>歐洲綠色協議</b>，要求降低碳排放，並追求能源效率與安全。',key:'配對：<b>冰島地熱、挪威水力、丹麥風力、西班牙太陽能</b>；瑞典（高緯、日照少）不是太陽能大國（9 校考）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-2～2-3 俄羅斯 ================= */
+function animE(p){
+  stage(p,`<div class="card"><h3>🗺️ 俄羅斯地形（以烏拉爾山為界）</h3>
+  <div class="ladder"><span>歐俄平原<small>烏拉爾山以西</small></span><b>｜</b><span>西部平原<small>西伯利亞</small></span><b>→</b><span>中部高原</span><b>→</b><span class="an">東部山地<small>太平洋沿岸</small></span></div>
+  <p class="muted">搭鐵路由夫拉迪沃斯托克往莫斯科（東→西）：山地 → 高原 → 平原 → 烏拉爾山 → 歐俄平原。</p></div>
+  <div class="card"><h3>⚓ 三大海港</h3>
+  <table class="tbl"><tr><th>港口</th><th>位置</th><th>特色</th></tr>
+  <tr><td>聖彼得堡</td><td>波羅的海</td><td>曾為首都，第二大城、重要港口</td></tr>
+  <tr><td>莫曼斯克</td><td>北極圈內</td><td>受<b>北大西洋暖流</b>影響，終年不凍港</td></tr>
+  <tr><td>夫拉迪沃斯托克</td><td>西伯利亞東南端太平洋岸</td><td>進出遠東的海港；西伯利亞鐵路東端</td></tr></table></div>
+  <div class="card"><h3>⚔️ 俄烏衝突</h3>
+  <p><span class="pill">2014</span>占領烏克蘭的<b>克里米亞</b>（黑海）：取得全年通航的<b>不凍港</b>與艦隊港口</p>
+  <p><span class="pill">2022</span>對烏克蘭發動軍事行動；歐洲受<b>能源依賴</b>的制裁威脅，許多輸歐管線關閉</p>
+  <p><span class="pill">緩衝地帶</span>烏克蘭位於歐、俄之間，國內有親歐派與親俄派（1990 年代後）</p></div>`);
+  const steps=[
+    {label:'① 面積最大、地形單調',imgs:[{img:'e1_ural',tag:'烏拉爾山：俄羅斯的歐、亞分界',fit:'contain',bg:'#1d2a1d'}],poem:'俄羅斯國土橫跨歐、亞兩洲，是<b>世界面積最大</b>的國家。以<b>烏拉爾山</b>為界，以西為<b>歐俄平原</b>（歐洲大平原的一部分）；以東為<b>西伯利亞</b>，又分為西部平原、中部高原與東部山地。',key:'面積世界<b>第一</b>（不是第二）；東→西是<b>山地→高原→平原</b>（5 校考等高線）。'},
+    {label:'② 天寒地凍的氣候',imgs:[{img:'r_oymyakon',tag:'西伯利亞東部 奧伊米亞康附近的冬日'}],poem:'國土多位於 <b>50°N 以北</b>，冬季漫長而嚴寒，多數地區冰雪封凍期達半年以上，<b>西伯利亞東部是北半球冬季最寒冷的地區</b>：<b>雅庫次克</b> 1 月均溫接近零下 40℃；<b>維科揚斯克</b>是世界年溫差最大的地方（曾測得零下 67.8℃）。只有<b>歐俄平原</b>與<b>太平洋沿岸</b>受海洋水氣調節，屬溫帶氣候。',key:'西部降水靠<b>西風</b>、向內陸遞減；太平洋沿岸夏季靠<b>東南季風</b>。由西往東年溫差<b>愈來愈大</b>。'},
+    {label:'③ 針葉林與苔原',imgs:[{img:'r_taiga',tag:'西伯利亞南部 薩彥嶺的針葉林（雲杉、西伯利亞松）'},{img:'r_tundra',tag:'亞馬爾半島（北極海沿岸）的苔原'}],poem:'受氣候寒冷影響，俄羅斯的天然植被以廣闊的<b>針葉林</b>為主，為俄羅斯帶來豐富的林業資源；北部更寒冷的<b>北極海沿岸</b>，樹木難以生長，短暫夏季冰雪融化、地面長出苔蘚，形成<b>苔原</b>景觀。',key:'北→南：<b>苔原→針葉林</b>；出口鋸木材來自<b>針葉林</b>，不是闊葉林（2 校同題陷阱）。'},
+    {label:'④ 人口與交通',imgs:[{img:'r_basil',tag:'莫斯科 聖瓦西里主教座堂：洋蔥式圓頂',fit:'contain',bg:'#1b1712'},{img:'r_rail',tag:'西伯利亞鐵路沿線的車站月台'}],poem:'俄羅斯以<b>斯拉夫民族</b>為主，多信仰<b>東正教</b>，人口約 <b>1.4 億</b>，大部分集中在<b>歐俄平原南部</b>。廣大的西伯利亞人煙稀少，多分布於交通便利的<b>鐵路沿線</b>；長達<b>九千餘公里</b>的<b>西伯利亞鐵路</b>連結歐俄平原與太平洋沿岸。',key:'人口集中歐俄的主因是<b>氣候</b>（較溫暖、降水較多），不是地形（11 校考）。'},
+    {label:'⑤ 三大海港',imgs:[{img:'r_spb',tag:'聖彼得堡：涅瓦河畔的冬宮'},{img:'r_murmansk',tag:'莫曼斯克港：北極圈內的不凍港'},{img:'r_vlad',tag:'夫拉迪沃斯托克的金角灣'}],poem:'俄羅斯藉由東、西兩側及通往黑海的港口，積極參與國際事務：<b>聖彼得堡</b>瀕臨波羅的海，曾為首都、第二大城；<b>莫曼斯克</b>受北大西洋暖流影響，是北極圈內少數的<b>終年不凍港</b>；<b>夫拉迪沃斯托克</b>位於太平洋岸，是進出遠東的重要海港。',key:'莫曼斯克不凍＝<b>北大西洋暖流</b>（不是黑潮）；莫斯科<b>不是</b>港口（2 校陷阱）。'},
+    {label:'⑥ 資源出口與俄烏衝突',imgs:[{img:'r_pipe',tag:'德國 穆克蘭港堆放的天然氣管'},{img:'r_sevast',tag:'克里米亞 塞瓦斯托波爾灣的艦艇（2012）'}],poem:'俄羅斯氣候寒冷、農業受限，但<b>資源豐富</b>，透過<b>大量出口</b>獲取外匯，成為國家經濟的主體；天然氣多利用<b>管線</b>輸送到歐洲與亞洲。俄羅斯也與巴西、印度、中國、南非組成<b>金磚國家（BRICS）</b>。為了尋求<b>不凍港</b>，2014 年占領<b>克里米亞</b>，2022 年對烏克蘭發動軍事行動。',key:'經濟易受<b>原物料價格波動</b>影響；歐洲擔心的制裁手段＝<b>關閉天然氣管線</b>（13 校考）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2f6b3a;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2f6b3a;background:#e8effa}
+  #penBar button.mode{background:#2f6b3a;color:#fff;border-color:#2f6b3a}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+
+<!-- AK:answer-key -->
+<style id="ak-style">#ak-btn{position:fixed;left:14px;bottom:14px;z-index:9990;font:600 16px/1 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:#1f4e79;color:#fff;border:0;border-radius:999px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer}#ak-btn:hover{background:#163a5c}#ak-box{display:none;position:fixed;inset:0;z-index:9995;background:rgba(15,25,40,.45);padding:16px;overflow:auto}#ak-box.show{display:block}#ak-box .ak-card{max-width:960px;margin:20px auto;background:#fff;color:#1d2733;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:16px/1.6 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;text-align:left}#ak-box .ak-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #e3e8ef;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}#ak-box .ak-head b{font-size:18px;color:#1f4e79}#ak-box .ak-head button{font:inherit;font-size:16px;margin-left:8px;border:1px solid #c9d3df;background:#f4f7fb;color:#1d2733;border-radius:8px;padding:6px 12px;cursor:pointer}#ak-box .ak-body{padding:6px 18px 18px}#ak-box h3{font-size:17px;margin:16px 0 6px;color:#1f4e79}#ak-box .ak-t{border-collapse:collapse;width:100%;margin:6px 0;table-layout:fixed}#ak-box .ak-t th,#ak-box .ak-t td{border:1px solid #cfd8e3;padding:5px 2px;text-align:center;font-size:16px;word-break:break-all}#ak-box .ak-t th{background:#eef3f9;color:#1f4e79;font-weight:600}#ak-box .ak-t th:first-child{width:3.6em}#ak-box .ak-t td{font-weight:700}#ak-box .ak-list{columns:2 300px;margin:6px 0;padding-left:0;list-style:none}#ak-box .ak-list li{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e3e8ef}@media print{#ak-btn{display:none!important}html:not(.ak-on) #ak-box{display:none!important}html.ak-on body>*:not(#ak-box){display:none!important}html.ak-on #ak-box{position:static;background:none;padding:0;display:block!important;overflow:visible}html.ak-on #ak-box .ak-card{box-shadow:none;margin:0;max-width:none}html.ak-on #ak-box .ak-head button{display:none}html.ak-on #ak-box .ak-head{position:static}}</style>
+<script id="ak-core">(function(){
+if(window.AK)return;
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function norm(secs){
+ if(!secs)return[];
+ if(!Array.isArray(secs[0]&&secs[0].items)&&Array.isArray(secs))secs=[{title:'',items:secs}];
+ return secs.map(function(s){return{title:s.title||'',items:(s.items||[]).map(function(x,i){return Array.isArray(x)?[x[0],x[1]]:[i+1,x]})}}).filter(function(s){return s.items.length});
+}
+function table(s){
+ var long=s.items.some(function(x){return String(x[1]).length>3});
+ var h=s.title?'<h3>'+esc(s.title)+'</h3>':'';
+ if(long){
+  return h+'<ol class="ak-list">'+s.items.map(function(x){return'<li><b>'+esc(x[0])+'.</b> '+esc(x[1])+'</li>'}).join('')+'</ol>';
+ }
+ var out=h;
+ for(var i=0;i<s.items.length;i+=10){
+  var r=s.items.slice(i,i+10);
+  out+='<table class="ak-t"><tr><th>題號</th>'+r.map(function(x){return'<th>'+esc(x[0])+'</th>'}).join('')+'</tr><tr><th>答案</th>'+r.map(function(x){return'<td>'+esc(x[1])+'</td>'}).join('')+'</tr></table>';
+ }
+ return out;
+}
+window.AK=function(fn){
+ function run(){
+  var secs;
+  try{secs=norm(typeof fn==='function'?fn():fn)}catch(e){console.warn('AK',e);return}
+  window.__AK_DATA=secs;
+  if(!secs.length)return;
+  var n=secs.reduce(function(a,s){return a+s.items.length},0);
+  var btn=document.createElement('button');btn.id='ak-btn';btn.type='button';btn.textContent='📋 答案總表';if(window.AK_BTN_STYLE)btn.style.cssText=window.AK_BTN_STYLE;
+  var box=document.createElement('div');box.id='ak-box';
+  box.innerHTML='<div class="ak-card" role="dialog" aria-label="答案總表"><div class="ak-head"><b>📋 答案總表（教師用，共 '+n+' 題）</b><span><button type="button" class="ak-p">🖨 列印答案</button><button type="button" class="ak-x" aria-label="關閉">✕</button></span></div><div class="ak-body">'+secs.map(table).join('')+'</div></div>';
+  document.body.appendChild(btn);document.body.appendChild(box);
+  function close(){box.classList.remove('show');document.documentElement.classList.remove('ak-on')}
+  btn.onclick=function(){box.classList.add('show');document.documentElement.classList.add('ak-on')};
+  box.querySelector('.ak-x').onclick=close;
+  box.onclick=function(e){if(e.target===box)close()};
+  box.querySelector('.ak-p').onclick=function(){window.print()};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+ }
+ if(document.readyState==='complete')setTimeout(run,0);else window.addEventListener('load',function(){setTimeout(run,0)});
+};
+})();</script>
+<script>AK(function(){
+if(!/[?&]teacher\b/.test(location.search))return [];
+/* 段考闖關站（chinese/civics/geography/history/science-site 的 volX_ 的 index.html）共用 adapter。
+   資料：頂層 const（L 各課 .mcq/.ext、RIDDLE/EXT/SCEN/CHART…）裡的選擇題物件 {q,o,a}。
+   renderMCQ 題序固定、但「選項每次洗牌」，所以答案列「正解選項文字」而非字母。
+   快問快答／配對／分類挑戰（題目隨機抽）與總測驗（pool/pick 隨機抽題）都不是頂層 {q,o,a} 陣列，不會被列入。 */
+window.AK_BTN_STYLE='left:14px;bottom:76px;font-size:20px;padding:12px 18px';
+(function(){
+  if(document.getElementById('ak-big'))return;
+  var s=document.createElement('style');s.id='ak-big';
+  s.textContent='html body #ak-box .ak-card{font-size:20px}html body #ak-box .ak-head b{font-size:22px}html body #ak-box .ak-head button{font-size:20px}html body #ak-box h3{font-size:21px}html body #ak-box .ak-list li{font-size:20px}html body #ak-box .ak-t th,html body #ak-box .ak-t td{font-size:20px}html body #ak-box .ak-note{font-size:20px;color:#5a6878;margin:10px 0 0}@media(max-width:600px){html body #ak-box{padding:6px}html body #ak-box .ak-card{margin:6px auto}html body #ak-box .ak-body{padding:6px 12px 14px}html body #ak-box .ak-list{columns:1}}';
+  document.head.appendChild(s);
+  setTimeout(function(){var b=document.querySelector('html body #ak-box .ak-body');if(b&&!b.querySelector('.ak-note')){var p=document.createElement('p');p.className='ak-note';p.textContent='※ 題號＝各練習頁上的題號；選項每次會重新洗牌，故列「正確選項的內容」。快問快答、配對、分類挑戰、總測驗為隨機出題，不列。';b.insertBefore(p,b.firstChild)}},50);
+})();
+var src=[].slice.call(document.querySelectorAll('script:not([src])')).filter(function(x){return x.id!=='ak-core'&&x.textContent.indexOf('AK(function')<0}).map(function(x){return x.textContent}).join('\n');
+var names=[];src.replace(/^(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=/gm,function(_,n){if(names.indexOf(n)<0)names.push(n)});
+var isQ=function(x){return x&&typeof x==='object'&&typeof x.q==='string'&&Array.isArray(x.o)};
+var clean=function(t){t=String(t).replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();return t.length>60?t.slice(0,60)+'…':t};
+var lit=function(expr){var re=new RegExp('renderMCQ\\([^,]+,\\s*'+expr.replace(/[.$[\]]/g,'\\$&')+'\\s*,\\s*[^,]+,\\s*([\'"`])([^\'"`$]*)\\1');var m=src.match(re);return m?m[2]:''};
+var KEY={mcq:'📝 段考模擬題',ext:'延伸題',graph:'綜合 圖表判讀',calc:'綜合 計算練習'};
+var secs=[];
+function add(title,arr,pri){for(var j=0;j<secs.length;j++)if(secs[j].arr===arr){if(pri>secs[j].pri){secs[j].title=title;secs[j].pri=pri}return}secs.push({arr:arr,pri:pri,title:title,items:arr.map(function(q,i){return[i+1,clean(q.o[q.a==null?0:q.a])]})})}
+function walk(v,path,parents){
+  if(!v||typeof v!=='object'||path.length>6||v instanceof Node||v===window)return;
+  if(Array.isArray(v)){
+    if(v.length&&v.every(isQ)){
+      var root=path[0],last=path[path.length-1],par=parents[parents.length-1],t;
+      if(root==='L'&&path.length===3){var d=parents[1];t=[d.no,d.title||d.name].filter(Boolean).join(' ')+'｜'+(KEY[last]||last)}
+      else if(path.length===1)t=lit(root)||root;
+      else if(par&&!Array.isArray(par)&&par.title){var gi=path[path.length-2];t=(/^[①-⑳]/.test(par.title)?'':(typeof gi==='number'?(gi+1)+'. ':''))+String(par.title).replace(/<[^>]*>/g,'')}
+      else t=lit(path.join('.'))||KEY[last]||path.join('.');
+      add(t,v,root==='L'?1:0);return;
+    }
+    v.forEach(function(x,i){walk(x,path.concat(i),parents.concat([v]))});return;
+  }
+  if(Object.getPrototypeOf(v)!==Object.prototype)return;
+  Object.keys(v).forEach(function(k){walk(v[k],path.concat(k),parents.concat([v]))});
+}
+names.forEach(function(n){var v;try{v=(0,eval)(n)}catch(e){return}walk(v,[n],[])});
+/* 同一陣列被兩處引用（如 L.ex.mcq＝EXT）只列一次，以課別標題為準；依 L 的課序排在前面 */
+secs.sort(function(a,b){return b.pri-a.pri});
+return secs.map(function(s){return{title:s.title,items:s.items}});
+});</script>
+<!-- /AK -->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+</body>
+</html>

@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國三歷史段考闖關（翰林）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#7a4a2a; --main-2:#a8693c; --accent:#e0a84a; --accent-2:#b8642a;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#4a2a14 0%,#a8693c 60%,#e0a84a 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#4a2a14;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+.qword{font-size:1.5rem;letter-spacing:0;line-height:1.5;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word}
+@media(max-width:560px){.opts{grid-template-columns:1fr}.qword{font-size:1.3rem}}
+.bars .b span{line-height:1.35}
+@media(max-width:560px){.bars .b{grid-template-columns:128px 1fr 52px}}
+details.card summary{cursor:pointer}
+@media(max-width:560px){.lessoncards{grid-template-columns:1fr}.lc{min-height:0;gap:8px}}
+/* 表格與圖表（文字放在 HTML，不畫在圖上） */
+.tbl{width:100%;border-collapse:collapse;font-size:1rem;margin:6px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.tbl th{background:#f6ece0;color:var(--main)}
+.tbl td:first-child{white-space:nowrap}
+.figbox{overflow-x:auto;margin-bottom:6px}
+.chip{display:inline-block;color:#fff;border-radius:8px;padding:0 8px}
+.passage{background:#faf3ea;border-radius:12px;padding:14px 16px;line-height:1.9}
+.scale{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.scale span{flex:1 1 120px;background:#f6ece0;border-radius:12px;padding:8px 10px;text-align:center;font-size:1rem;line-height:1.5}
+.scale span b{color:var(--accent-2)}
+.ramp{display:flex;border-radius:12px;overflow:hidden;margin-top:10px}
+.ramp span{flex:1;color:#fff;text-align:center;padding:6px 0;font-weight:700;font-size:1rem}
+.ladder{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 12px}
+.ladder span{background:var(--main);color:#fff;border-radius:12px;padding:6px 12px;font-weight:700;text-align:center}
+.ladder span.an{background:var(--accent);color:#3b2600}
+.ladder small{display:block;font-size:1rem;font-weight:500}
+/* 暖棕配色覆蓋 */
+.caption .poem{background:#faf3ea}
+.chips span{background:#f4ece2}
+.sortcard{background:#faf3ea}
+footer{color:#f1e4d4}
+.ladder small{opacity:.92}
+/* 移玻片遊戲 */
+.fieldwrap{display:flex;flex-direction:column;align-items:center;margin:12px 0}
+.field{position:relative;width:min(240px,70vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#fffdf3 60%,#efe6c8);border:6px solid #2d3a36;overflow:hidden}
+.field .dot{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#d9534f;box-shadow:0 0 0 4px rgba(217,83,79,.25)}
+.field .cross{position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border:2px dashed #8a948f;border-radius:50%}
+.dirpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:330px;margin:0 auto}
+.dirpad .btn{padding:10px 4px}
+/* 熱量計算機 */
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.calc label{font-weight:500}
+.calc input{display:block;width:100%;font-size:1.1rem;padding:8px 10px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回歷史選單</a><span class="tag">翰林版 國三上歷史 ｜ 115 學年第一次段考</span>
+    <h1>歷史段考闖關｜古代文明的誕生～古希臘羅馬文化</h1>
+    <p>先看文物與古蹟照片動畫弄懂課本，再用遊戲練熟考點，最後做段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap"><details style="margin-top:8px"><summary>圖片來源與授權</summary>
+  照片、文物與古畫皆來自 Wikimedia Commons（CC0／公有領域／CC BY／CC BY-SA），未使用 AI 生成圖：Sumerian Cuneiform Clay Tablet (27673705074)：Gary Todd from Xinzheng, China（CC0）；ISS067-E-299695 - View of Syria - Aleppo - Euphrates - Lake Assad (Reservoir Al-Asad) - Syrian desert (cropped)：Earth Science and Remote Sensing Unit, L（公有領域）；British Museum Flood Tablet：BabelStone（CC0）；Code of Hammurabi (Louvre Sb 8)-31434550325：Fred Romero from Paris, France（CC BY 2.0）；Ishtar Gate in the Pergamon Museum -：Kurt Kaiser（CC0）；Babylonian Map of the World, 700-500 BC：Gary Todd（CC0）；Persepolis – Gate of All Nations 01：Skot（CC BY-SA 4.0）；Standing Male Worshiper：Metropolitan Museum of Art（CC0）；Closeup of Torah Scroll：Jacob Gucker（CC0）；Zoroastrian Fire Temple, Yazd 01：Bernard Gagnon（CC BY-SA 4.0）；Templo de Ramsés II, Abu Simbel, Egipto, 2022-04-02, DD 03：Diego Delso（CC BY-SA 4.0）；Karnak temple wall hieroglyphic script：Mmelouk（CC BY-SA 4.0）；The judgement of the dead in the presence of Osiris：Hunefer（公有領域）；Egyptian Mummy & Coffin (36601190865)：Gary Todd from Xinzheng, China（CC0）；Nile River, Aswan, Egypt：Vyacheslav Argenberg（CC BY 4.0）；Nile Delta (MODIS 2026-01-04)：MODIS Land Rapid Response Team, NASA GSF（公有領域）；Statue du dieu Osiris：Photographie André ALLIOT（CC0）；The Giza Plateau - Flickr - Mustang Joe：Mustang Joe（CC0）；Rosetta Stone, British Museum：APK（CC BY 4.0）；Lion Capital of Ashoka 3：Apurv013（CC0）；Mahabodhi Temple Complex, Bodhgaya (8716403651)：Matt Stabile（CC BY 2.0）；Borobudur-Temple-Park Indonesia Stupas-of-Borobudur-01：CEphoto, Uwe Aranas（CC BY-SA 3.0）；Gandhara Buddha (tnm)：World Imaging（公有領域）；Varanasi, India, Ganges River, ghats, temples and embankments：Vyacheslav Argenberg（CC BY 4.0）；Great Bath, Mohenjo-daro 20160806 ARN-09：Aakashaliraza（CC BY-SA 4.0）；Ashoka pillar at Vaishali, Bihar, India：Bpilgrim (talk · contribs)（CC BY-SA 2.5）；Lord Shiva Nataraja at the British Museum：Sanjay ach（CC BY-SA 4.0）；Alexander and Bucephalus - Battle of Issus mosaic - Museo Archeologico Nazionale - Naples BW：Unknown creatorUnknown creator（公有領域）；"The School of Athens" by Raffaello Sanzio da Urbino：Raphael（公有領域）；Discobolus in National Roman Museum Palazzo Massimo alle Terme：Livioandronico2013（CC BY-SA 4.0）；P. Oxy. I 29：Euclid（公有領域）；Ancient Olympic Stadium Entrance (5987161338)：Erik Drost（CC BY 2.0）；Ostraka in the Ancient Agora Museum 01：Dorieo（CC BY-SA 4.0）；Acropolis Parthenon Athens Greece：Jebulon（CC0）；Statue of a hoplite known as Leonidas 480-470 BCE Sparta Acropolis Sanctuary of Athena Chalkioikos 01：Mary Harrsch（CC BY-SA 4.0）；Giovanni Domenico Tiepolo - The Procession of the Trojan Horse in Troy - WGA22382：Giovanni Domenico Tiepolo（公有領域）；Greek-Persian duel 1：Unknown（CC0）；Whole world - land and oceans 12000：NASA Goddard Space Flight Center（公有領域）；Aqueduct of Segovia 08：Bernard Gagnon（CC BY-SA 3.0）；Statue-Augustus：Till Niermann（公有領域）；Retrato de Julio César (26724093101) (cropped)：Ángel M. Felicísimo from Mérida, España（公有領域）；Rome Colosseum exterior 2：Nicholas Hartmann（CC BY-SA 4.0）；Capitol of Dougga：Dennis G. Jarvis（CC BY-SA 2.0）；Roman Forum looking East panorama：Nicholas Hartmann（CC BY-SA 4.0）；Hagia Sophia February 2013 02：Arild Vågen（CC BY-SA 3.0）；Tombstone of Julius Alpinus Classicianus, procurator of Britannia after the Boudican revolt, found in pieces built into a tower of the Roman walls of London near Tower Hill, British Museum, London (38914731580)：Carole Raddato from FRANKFURT, Germany（CC BY-SA 2.0）；Forum (Pompeii) and the Vesuvio：Commonists（CC BY-SA 4.0）；Xii leges：Sebastian Sapia（公有領域）；Capitoline she-wolf Musei Capitolini MC1181：Unknown artistUnknown artist（公有領域）。</details>
+</div></footer>
+
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料（翰林 國三上歷史 第一次段考：第1章 古代文明的誕生＋第2章 古希臘羅馬文化的開展） =================
+   名詞、年代、人名、地名一律依翰林國三上歷史課本（目前手上最新為 114 年版 3上L01、3上L02）。
+   快問快答：[題目, 正解, [3 個誘答], 幾校考過(0＝不標★)]
+   模擬題：{q, o:[正解, 誘答…], a:0, src, ex}（選項每次洗牌；全部原創改寫，只借 23 校命題方向與陷阱） */
+const L = {
+/* ---------- 1-1 西亞古文明 ---------- */
+c1:{
+  no:'1-1', code:1, title:'西亞古文明', short:'西亞古文明', color:'linear-gradient(135deg,#6b3f22,#a8693c)',
+  desc:'蘇美人・巴比倫人・希伯來人・波斯人｜楔形文字、漢摩拉比法典、猶太教、祆教',
+  quickAsk:'選出正確的答案', quickTitle:'西亞古文明快問快答',
+  quick:[
+    ['「兩河之間的土地」指的是哪裡','美索不達米亞',['巴勒斯坦','小亞細亞','伊朗高原'],17],
+    ['兩河流域是哪兩條河流經的地帶','幼發拉底河、底格里斯河',['尼羅河、約旦河','印度河、恆河','臺伯河、多瑙河'],17],
+    ['兩河流域地勢平坦、缺少天然屏障，因此','容易受外族入侵、政權交替頻繁',['長期由同一政權統治','與外界隔絕、文化單一','發展出種姓制度'],2],
+    ['約西元前3500年首先在兩河流域建立城邦的民族','蘇美人',['巴比倫人','波斯人','希伯來人'],19],
+    ['目前所知最早發明文字的民族','蘇美人',['埃及人','巴比倫人','腓尼基人'],6],
+    ['以蘆葦桿壓刻在泥板上、筆畫狀如楔子的文字','楔形文字',['象形文字','拉丁文','拼音字母'],18],
+    ['蘇美人制定、一年分為十二個月的曆法','陰曆',['太陽曆','儒略曆','希臘曆'],9],
+    ['今日時間、角度單位仍沿用的蘇美人數學成就','六十進位法',['十進位法','幾何學','二進位法'],11],
+    ['以城牆包圍的城市為核心、內政與外交獨立自主','城邦',['帝國','王朝','行省'],22],
+    ['兩河流域商貿繁盛，因此重視契約與法律觀念的民族','巴比倫人',['蘇美人','希伯來人','波斯人'],19],
+    ['「以牙還牙，以眼還眼」出自哪一部法典','漢摩拉比法典',['十二銅表法','死者之書','荷馬史詩'],21],
+    ['漢摩拉比法典強調的法律原則','報復原則',['人人平等','無罪推定','眾生平等'],14],
+    ['制定漢摩拉比法典的是哪一民族的國王','巴比倫人',['蘇美人','波斯人','腓尼基人'],21],
+    ['希伯來人又稱為','猶太人',['腓尼基人','阿利安人','蘇美人'],20],
+    ['希伯來人居住的地區','地中海東岸的巴勒斯坦',['伊朗高原','尼羅河下游','義大利半島'],5],
+    ['猶太教唯一的真神','耶和華',['耶穌','宙斯','太陽神'],19],
+    ['希伯來人相信自己是','上帝的選民',['太陽神之子','第一公民','最高的祭司階級'],12],
+    ['猶太教的一神信仰影響了後來的哪兩個宗教','基督教和伊斯蘭教',['佛教和印度教','婆羅門教和祆教','佛教和祆教'],17],
+    ['波斯人居住的地區','伊朗高原',['兩河流域','巴爾幹半島','印度河流域'],4],
+    ['波斯帝國建立的時間','西元前6世紀',['西元前4世紀','西元前3500年','西元前27年'],0],
+    ['歷史上第一個橫跨歐、亞、非三洲的大帝國','波斯帝國',['亞歷山大帝國','羅馬帝國','巴比倫王國'],23],
+    ['波斯人信仰、崇拜光明及火的宗教','祆教',['猶太教','婆羅門教','佛教'],16],
+    ['祆教相信宇宙間存在什麼','善惡兩股對立勢力，善神必勝',['唯一真神耶和華','因果報應與靈魂輪迴','死後審判與復活'],16],
+    ['描述蘇美君王追求永生、以楔形文字記在泥板上的史詩','吉爾伽美什史詩',['荷馬史詩','死者之書','伊里亞德'],4],
+  ],
+  words:[
+    ['美索不達米亞','意為「兩河之間的土地」'],['城邦','城牆圍起的城市為核心，內政外交獨立'],['蘇美人','最早發明文字、建立城邦'],
+    ['楔形文字','蘆葦桿壓刻在泥板上'],['陰曆','依月亮圓缺，一年分十二個月'],['六十進位法','今日時間、角度單位沿用'],
+    ['漢摩拉比法典','以牙還牙的報復原則'],['巴比倫人','商貿繁盛，重視契約與法律'],['猶太教','一神信仰，唯一真神耶和華'],
+    ['巴勒斯坦','希伯來人認為是上帝賜給他們的土地'],['波斯帝國','第一個橫跨歐亞非三洲的帝國'],['祆教','崇拜光明及火，善惡二元'],
+  ],
+  sorts:[
+    {title:'這是哪一個民族的成就或特色？',tip:'西亞四大民族：蘇美人、巴比倫人在兩河流域；希伯來人在巴勒斯坦；波斯人在伊朗高原。',buckets:['蘇美人','巴比倫人','希伯來人','波斯人'],items:[
+      ['發明楔形文字',0,'目前所知最早發明文字的民族'],['制定陰曆，一年十二個月',0],['數學有六十進位法',0],['約西元前3500年在兩河流域建城邦',0],
+      ['國王漢摩拉比制定法典',1],['以牙還牙的報復原則',1],['商貿繁盛，重視契約',1],
+      ['以耶和華為唯一真神',2],['相信自己是上帝的選民',2],['居住在地中海東岸的巴勒斯坦',2],
+      ['信仰祆教，崇拜光明及火',3],['第一個橫跨歐亞非三洲的帝國',3],['居住在伊朗高原',3],['征服兩河流域與埃及',3]]},
+    {title:'文物與史料：屬於哪一個地區？',tip:'先看文字（楔形→兩河）、再看信仰（一神→希伯來；拜火→波斯）。',buckets:['兩河流域','希伯來人','波斯'],items:[
+      ['刻滿三角形刻痕的泥板',0],['黑色玄武岩法典石柱',0,'漢摩拉比法典，以楔形文字刻成'],['吉爾伽美什史詩泥板',0],['巴比倫世界地圖泥板',0],['蘇美人的祝禱雕像',0],
+      ['經文：「除了我以外，你不可以有別的神」',1,'一神信仰＝猶太教'],['手抄的希伯來文經卷',1],['挪亞方舟的洪水故事（上帝懲罰不義）',1],
+      ['伊朗亞茲德的火神廟',2],['波斯波利斯的萬國之門',2],['善神終將戰勝惡神',2,'祆教的善惡二元']]},
+  ],
+  mcq:[
+    {q:'某古文明位於兩條大河之間的廣大平原，四周缺少高山或沙漠作為屏障。依此環境特色，最可能推論出該地區有何種歷史發展？',o:['外族不斷入侵，政權交替頻繁','長期由單一王朝統治','與外界隔絕，文化單一','發展出世襲的種姓制度'],a:0,src:'方向',ex:'兩河流域地形平坦、缺少天然屏障，容易受外來民族入侵，政權交替頻繁，也因此文化多元豐富。種姓制度是印度。'},
+    {q:'博物館展出一塊泥板，上面布滿用蘆葦桿壓出的三角形刻痕。關於發明這種文字的民族，下列敘述何者正確？',o:['是目前所知最早發明文字的民族','以紙草作為書寫材料','居住在伊朗高原','改良埃及表音符號傳入歐洲'],a:0,src:'楔形文字判讀（12 校）',ex:'楔形文字是蘇美人所創，蘇美人是目前所知最早發明文字的民族。紙草是埃及；伊朗高原是波斯；改良表音符號的是腓尼基人。'},
+    {q:'小華說：「一小時有六十分鐘、圓周有三百六十度，都和某個古代民族的數學有關。」這個民族還有哪一項成就？',o:['依月亮圓缺制定陰曆','為測量氾濫後的土地發展幾何','制定太陽曆','建立種姓制度'],a:0,src:'蘇美人成就（15 校）',ex:'六十進位法是蘇美人的成就，蘇美人也制定陰曆、一年分十二個月。太陽曆、幾何測量是古埃及。'},
+    {q:'某古代法典條文：「如果有貴族打斷另一位貴族的骨頭，他的骨頭也要被打斷。」這條文最能反映哪一種精神？',o:['報復原則','無罪推定','法律之前人人平等','眾生平等'],a:0,src:'漢摩拉比法典（18 校）',ex:'這是漢摩拉比法典「以牙還牙，以眼還眼」的報復原則。無罪推定是羅馬十二銅表法；眾生平等是佛教。'},
+    {q:'承上，同一部法典中，貴族打傷平民只需賠償銀子，打傷貴族卻要受同樣的傷害。由此可知這部法典的特色是？',o:['懲罰會因當事人的身分而不同','所有人受到完全相同的懲罰','以宗教戒律為主要內容','只處理商業糾紛'],a:0,src:'方向',ex:'漢摩拉比法典依身分不同而有不同懲罰，並不是「法律之前人人平等」，這是常見陷阱。'},
+    {q:'巴比倫人的法典中有許多「買賣貨物須取得蓋章的收據」之類的條文。這與兩河流域何種背景最有關？',o:['商貿繁盛，重視契約與法律','尼羅河定期氾濫','種姓制度森嚴','實施民主政治'],a:0,src:'課本實作題方向',ex:'課本：兩河流域商貿繁盛，因此巴比倫人重視契約與法律觀念。'},
+    {q:'關於漢摩拉比法典石柱的敘述，下列何者錯誤？',o:['由最早發明文字的蘇美人國王編纂','以楔形文字刻成','強調以牙還牙的報復原則','是兩河流域的文物'],a:0,src:'找錯題（多校）',ex:'漢摩拉比是巴比倫的國王，不是蘇美人。法典以楔形文字刻在石柱上（不是泥板）。'},
+    {q:'「除了我以外，你不可以有別的神。」這句經文最可能出自哪一個民族的信仰？',o:['希伯來人','波斯人','蘇美人','埃及人'],a:0,src:'方向',ex:'只承認唯一真神＝一神信仰，是希伯來人（猶太人）的猶太教，真神是耶和華。波斯祆教是善惡二元，蘇美、埃及是多神信仰。'},
+    {q:'關於猶太教的敘述，下列何者正確？',o:['一神信仰影響了後來的基督教和伊斯蘭教','崇拜光明與火','相信靈魂會依因果不斷輪迴','認為國王是太陽神之子'],a:0,src:'希伯來人與猶太教（17 校）',ex:'猶太教以耶和華為唯一真神，對基督教和伊斯蘭教影響很大。崇拜火是祆教；輪迴是婆羅門教；太陽神之子是埃及法老。'},
+    {q:'甲說：「第一個橫跨歐亞非三洲的帝國是亞歷山大帝國。」乙說：「是羅馬帝國。」丙說：「是波斯帝國。」誰說得對？該帝國發源於何處？',o:['丙；伊朗高原','甲；馬其頓','乙；義大利半島','丙；兩河流域'],a:0,src:'陷阱（6 校）',ex:'波斯人居住在伊朗高原，西元前6世紀建立波斯帝國，是歷史上第一個橫跨歐、亞、非三洲的大帝國。波斯在伊朗高原，不在兩河流域。'},
+    {q:'一位古代旅人從伊朗高原出發，經過兩河流域、小亞細亞，最後抵達尼羅河畔，一路都在同一個帝國境內。這位旅人最可能生活在？',o:['西元前6世紀以後的波斯帝國','西元前3500年的蘇美城邦時代','西元前1500年阿利安人入侵印度時','西元前8世紀羅馬王政時期'],a:0,src:'帝國疆域判讀方向',ex:'波斯帝國於西元前6世紀建立，征服兩河流域、埃及等地，疆域包含伊朗高原、兩河、小亞細亞與埃及。'},
+    {q:'某宗教相信宇宙中善與惡兩股力量不斷對立，善神最後必定戰勝惡神，並以火象徵光明。信仰此宗教的民族是？',o:['波斯人','希伯來人','巴比倫人','阿利安人'],a:0,src:'祆教（13 校）',ex:'祆教是波斯人的信仰，崇拜光明及火，相信善惡二元、善神必勝。'},
+    {q:'伊朗中部的亞茲德有一座火神廟，據說廟中聖火已燃燒上千年。這座廟宇屬於哪一個宗教？',o:['祆教','猶太教','佛教','婆羅門教'],a:0,src:'方向',ex:'伊朗高原是祆教發源地，祆教崇拜光明及火。'},
+    {q:'蘇美人常把雙手合握、睜大雙眼的小雕像放在神廟中，代替主人日夜向神祈禱。這最能反映蘇美人對神明的何種態度？',o:['虔誠而戒慎恐懼','輕忽怠慢','相信人可以修行成神','相信死後必能復活'],a:0,src:'課本歷史探查',ex:'課本「古代文明比一比」：蘇美祝禱群像呈現兩河流域人民對神明戒慎恐懼、虔誠祈禱的態度。'},
+    {q:'吉爾伽美什史詩中，主角找到長生草卻被蛇偷吃；古埃及歐西里斯的故事中，國王死後被妻子尋回遺體而復活。比較兩則故事，可看出什麼差異？',o:['古西亞對永生較不抱期望，古埃及相信死後可以復活','古西亞相信輪迴，古埃及相信報應','兩地都認為永生不可能','古西亞信一神，古埃及信善惡二神'],a:0,src:'課本歷史探查',ex:'兩則故事都追求永生，但西亞的主角終究失敗；埃及則相信死後復活，所以製作木乃伊。'},
+    {q:'下列關於西亞古代民族與成就的配對，何者錯誤？',o:['腓尼基人－制定陰曆','蘇美人－楔形文字','巴比倫人－漢摩拉比法典','波斯人－祆教'],a:0,src:'配對找錯（多校）',ex:'陰曆是蘇美人制定的。腓尼基人的貢獻是改良埃及表音符號，成為西方拼音文字的基礎。'},
+    {q:'地圖上標出三處：甲在伊朗高原、乙在地中海東岸南段、丙在兩河流域下游。下列配對何者正確？',o:['甲－波斯人；乙－希伯來人；丙－蘇美人','甲－希伯來人；乙－波斯人；丙－蘇美人','甲－蘇美人；乙－波斯人；丙－希伯來人','甲－波斯人；乙－蘇美人；丙－希伯來人'],a:0,src:'古文明位置地圖（14 校）',ex:'波斯＝伊朗高原；希伯來人＝地中海東岸的巴勒斯坦；蘇美人＝兩河流域下游（今伊拉克南部）。'},
+  ],
+},
+
+/* ---------- 1-2 埃及古文明 ---------- */
+c2:{
+  no:'1-2', code:2, title:'埃及古文明', short:'埃及古文明', color:'linear-gradient(135deg,#8a5a1c,#d19a3c)',
+  desc:'尼羅河的贈禮｜法老・金字塔｜太陽神、尼羅河神、死後審判｜象形文字→腓尼基',
+  quickAsk:'選出正確的答案', quickTitle:'埃及古文明快問快答',
+  quick:[
+    ['史家說：「埃及是____的贈禮」','尼羅河',['幼發拉底河','印度河','臺伯河'],15],
+    ['尼羅河每年如何氾濫','定期氾濫，帶來肥沃淤泥',['不定期氾濫，難以預測','從不氾濫','百年才氾濫一次'],7],
+    ['埃及四周有沙漠與高山屏障，因此政治','發展穩定，不易被外來政權入侵',['政權交替頻繁','城邦林立','長期分裂'],7],
+    ['古埃及出現中央集權統一政權的時間','約西元前3100年',['約西元前3500年','約西元前1500年','西元前6世紀'],0],
+    ['西元前6世紀征服古埃及的帝國','波斯帝國',['羅馬帝國','亞歷山大帝國','巴比倫王國'],5],
+    ['「法老」原本的意思','大房子（王宮）',['太陽之子','第一公民','神聖至尊'],12],
+    ['古埃及的宇宙主宰','太陽神',['尼羅河神','冥界之神','耶和華'],13],
+    ['法老以哪一位神之子的身分統治人間','太陽神',['尼羅河神','冥界之神','戰神'],13],
+    ['古埃及代表循環不息再生力量的神','尼羅河神',['太陽神','冥界之神','善神'],5],
+    ['古埃及的宗教信仰屬於','多神信仰',['一神信仰','善惡二元','無神論'],0],
+    ['古埃及人認為人死後靈魂必須','接受審判，通過者才能復活',['依因果輪迴轉世','直接升天','化為星辰'],14],
+    ['古埃及人製作木乃伊的目的','復活時靈魂能與身體結合',['展示法老的財富','計算氾濫時間','記錄法律條文'],13],
+    ['描繪死者心臟放上天平接受審判的古埃及文獻','死者之書',['吉爾伽美什史詩','漢摩拉比法典','荷馬史詩'],14],
+    ['古埃及由圖像與表音符號構成的文字','象形文字',['楔形文字','拉丁文','梵文'],14],
+    ['古埃及人一般把文字寫在','紙草製的紙面上',['泥板上','竹簡上','銅板上'],0],
+    ['改良埃及表音符號、透過貿易傳入歐洲的民族','腓尼基人',['希伯來人','蘇美人','巴比倫人'],16],
+    ['腓尼基人居住的地區','地中海東岸',['伊朗高原','尼羅河上游','義大利半島'],0],
+    ['腓尼基人改良的表音符號後來成為','西方拼音文字的基礎',['楔形文字的基礎','中國文字的基礎','象形文字的起源'],16],
+    ['為了計算尼羅河氾濫的時間，古埃及人制定','太陽曆',['陰曆','六十進位法','十二銅表法'],8],
+    ['為了測量氾濫後的土地範圍，古埃及人發展','測量與幾何學',['六十進位法','哲學','民主政治'],12],
+    ['金字塔的用途','法老的陵墓',['神廟','糧倉','天文臺'],12],
+    ['以人獸合一形象展現法老權威的雕像','獅身人面像',['金字塔','擲鐵餅者','屋大維雕像'],2],
+    ['從木乃伊的製作技術可看出古埃及人哪方面很進步','解剖學、醫學',['哲學','法律','民主政治'],0],
+    ['為宣揚國威而建、供奉法老拉美西斯二世的神殿','阿布辛貝神殿',['帕德嫩神廟','摩訶菩提寺','火神廟'],0],
+  ],
+  words:[
+    ['尼羅河的贈禮','定期氾濫帶來沃土，發展農業'],['法老','原意「大房子」，古埃及國王尊稱'],['太陽神','宇宙主宰，法老是祂的兒子'],
+    ['尼羅河神','代表循環不息的再生力量'],['木乃伊','讓復活時靈魂與身體結合'],['死者之書','描繪靈魂接受審判的文獻'],
+    ['象形文字','圖像＋表音符號，寫在紙草上'],['腓尼基人','改良表音符號傳入歐洲'],['太陽曆','為計算尼羅河氾濫時間'],
+    ['金字塔','法老的陵墓'],['獅身人面像','人獸合一，展現法老權威'],['阿布辛貝神殿','供奉拉美西斯二世，因建水壩遷到高處'],
+  ],
+  sorts:[
+    {title:'兩河流域 vs 古埃及',tip:'最常對調的兩組：陰曆／太陽曆、楔形文字／象形文字。',buckets:['兩河流域（古西亞）','古埃及'],items:[
+      ['楔形文字',0],['象形文字',1],['陰曆',0],['太陽曆',1],['六十進位法',0],['為測量土地發展幾何學',1],
+      ['寫在泥板上',0],['寫在紙草上',1],['地勢平坦、缺少屏障',0],['有沙漠、高山屏障',1],
+      ['河水靠高山融雪、水源不穩定',0],['河水定期氾濫',1],['吉爾伽美什追求長生失敗',0],['歐西里斯死後復活',1],
+      ['對神明戒慎恐懼、對永生較無期望',0],['相信死後復活、死後世界祥和',1]]},
+    {title:'古埃及的神明與信仰',tip:'太陽神＝宇宙主宰；尼羅河神＝再生力量；死後審判＝復活的關卡。',buckets:['太陽神','尼羅河神','死後審判'],items:[
+      ['宇宙的主宰',0],['法老是祂的兒子',0],['代表循環不息的再生力量',1],['和每年定期漲退的河水有關',1],
+      ['心臟放在天平上秤重',2],['罪惡深重者心臟被怪獸吞噬',2],['通過者由冥界之神宣判復活',2],['家屬準備死者之書',2],['把遺體製成木乃伊',2]]},
+  ],
+  mcq:[
+    {q:'「這條河每年定時漲水，退去後留下黑色沃土，人們便依它安排耕種。」這段描述最適合用來說明哪一句話？',o:['埃及是尼羅河的贈禮','美索不達米亞意為兩河之間的土地','希臘因多山而城邦林立','條條大路通羅馬'],a:0,src:'尼羅河的贈禮（15 校）',ex:'尼羅河每年定期氾濫，帶來肥沃淤泥，埃及人引水灌溉發展農業，所以史家稱「埃及是尼羅河的贈禮」。'},
+    {q:'古西亞與古埃及都發源於大河流域，但古埃及政權較穩定。主要原因是？',o:['四周有沙漠與高山屏障，不易被入侵','實施民主政治','以種姓制度維持秩序','發明了六十進位法'],a:0,src:'環境比較（多校）',ex:'埃及四周有沙漠與高山屏障，不易受外來政權入侵；兩河流域則地形平坦、缺少屏障。'},
+    {q:'古代天文學家發現：天狼星和太陽一起升起時，大河就要開始氾濫，於是訂出一年 365 天。這項成就屬於哪一個文明？',o:['古埃及的太陽曆','蘇美人的陰曆','巴比倫人的法典','希臘化時代的幾何學'],a:0,src:'方向',ex:'古埃及人為了計算尼羅河氾濫的時間制定太陽曆。兩河流域的蘇美人制定的是陰曆（常被對調）。'},
+    {q:'某古文明的國王被尊為「太陽神之子」，國王稱號原意是「大房子」。關於這個文明，下列何者正確？',o:['相信人死後靈魂須接受審判','以楔形文字記錄法典','信仰唯一真神','依種姓制度劃分階級'],a:0,src:'埃及宗教（17 校）',ex:'「法老」原意是大房子，以太陽神之子身分統治——這是古埃及。古埃及人相信死後審判。'},
+    {q:'一幅古埃及畫作中，死者的心臟放在天平一端，旁邊有怪獸等待著。這幅畫反映古埃及人的何種觀念？',o:['死後要接受審判，通過者才能復活','靈魂依因果不斷輪迴','人人生而平等','善神必將戰勝惡神'],a:0,src:'死者之書（8 校）',ex:'天平平衡代表無罪，冥界之神宣判復活；不平衡則心臟被怪獸吞噬。選「輪迴」是陷阱，輪迴是印度婆羅門教。'},
+    {q:'下列哪一段話最可能出現在古埃及《死者之書》中？',o:['「我沒有讓任何人受苦，我沒有在氾濫期攔水。」','「如果有人偷了牛，要賠償三十倍。」','「眾生平等，修行可以脫離輪迴。」','「我們的城邦由全體男性公民決定大事。」'],a:0,src:'課後閱讀方向',ex:'死者之書中，死者在審判時逐一否認生前犯過的錯（含不攔水，顯示重視尼羅河），反映重視道德與死後審判。'},
+    {q:'古埃及人把死者製成木乃伊，與下列哪個觀念最相關？',o:['復活時靈魂要與身體結合','要讓靈魂轉世成動物','為了研究醫學解剖','為了展示法老財富'],a:0,src:'木乃伊（13 校）',ex:'古埃及人相信通過審判者才能復活，所以製作木乃伊，讓復活時靈魂能和身體相結合。木乃伊技術也顯示醫學進步，但那是結果不是目的。'},
+    {q:'關於古埃及神明的敘述，何者錯誤？',o:['太陽神代表循環不息的再生力量','太陽神是宇宙的主宰','尼羅河神是主要信仰對象之一','古埃及人為多神信仰'],a:0,src:'陷阱（5 校）',ex:'代表循環不息再生力量的是尼羅河神；太陽神是宇宙主宰，法老是太陽神之子。'},
+    {q:'某字母演變示意圖：「埃及象形文字中的表音符號 → X 民族改良 → 希臘字母 → 拉丁字母」。X 最可能是？',o:['腓尼基人','希伯來人','蘇美人','波斯人'],a:0,src:'字母演變圖（7 校）',ex:'居住地中海東岸的腓尼基人改良埃及表音符號，經貿易傳入歐洲，成為西方拼音文字的基礎。不是希伯來人。'},
+    {q:'承上，X 民族能把文字傳到歐洲，最主要依靠什麼？',o:['海上貿易','武力征服','傳教活動','民族通婚'],a:0,src:'方向',ex:'課本：表音符號經腓尼基人改良後，「透過貿易」傳入歐洲。腓尼基人是航行地中海的商業民族。'},
+    {q:'古埃及人在測量、幾何學、建築學方面成就很高，最主要的需求來自？',o:['氾濫後要重新測量土地，並興建金字塔等工程','要計算城邦公民人數','要刻寫漢摩拉比法典','要翻譯希臘哲學著作'],a:0,src:'埃及成就（14 校）',ex:'為了計算氾濫時間、測量氾濫後的土地範圍，以及興建金字塔和神廟，古埃及在太陽曆、測量、幾何、建築上有很高成就。'},
+    {q:'關於金字塔與獅身人面像，下列敘述何者正確？',o:['金字塔是法老陵墓，獅身人面像展現法老權威','兩者都是神廟','獅身人面像是法老的陵墓','金字塔是觀測星象的天文臺'],a:0,src:'方向',ex:'金字塔是法老的陵墓；獅身人面像以人獸合一的形象展現法老的權威，不是陵墓。'},
+    {q:'某古文明在西元前6世紀被外族征服，此後不斷被外來政權統治，古文明逐漸沒落。這個文明與最先征服它的勢力是？',o:['古埃及；波斯帝國','古印度；阿利安人','古希臘；馬其頓','兩河流域；羅馬'],a:0,src:'埃及被外族統治（5 校）',ex:'課本：西元前6世紀，古埃及被波斯帝國征服，此後不斷被外來政權統治。'},
+    {q:'若把統治過古埃及的外來勢力依先後排列，下列何者正確？',o:['波斯帝國→亞歷山大帝國→羅馬','羅馬→波斯帝國→亞歷山大帝國','亞歷山大帝國→波斯帝國→羅馬','波斯帝國→羅馬→亞歷山大帝國'],a:0,src:'方向',ex:'西元前6世紀波斯→西元前4世紀亞歷山大東征（之後部將建立托勒密王朝）→西元前30年起併入羅馬。'},
+    {q:'小明整理古埃及成就：「(甲)象形文字寫在泥板上 (乙)制定太陽曆 (丙)木乃伊顯示醫學進步 (丁)建造金字塔」。哪一項有誤？',o:['甲','乙','丙','丁'],a:0,src:'找錯題',ex:'象形文字一般寫在紙草製的紙面上；寫在泥板上的是兩河流域的楔形文字。'},
+    {q:'1960 年代埃及興建大型水壩，為了不讓一座供奉法老拉美西斯二世的神殿被淹沒，把它整座遷到高處並照原樣復原。這座神殿是？',o:['阿布辛貝神殿','帕德嫩神廟','烏爾的金字形神塔','摩訶菩提寺'],a:0,src:'課本章首圖',ex:'阿布辛貝神殿為宣揚國威而建，供奉拉美西斯二世；因興建水壩遷至高處。'},
+  ],
+},
+
+/* ---------- 1-3 印度古文明 ---------- */
+c3:{
+  no:'1-3', code:3, title:'印度古文明', short:'印度古文明', color:'linear-gradient(135deg,#9a4a2a,#d27a4a)',
+  desc:'摩亨佐達羅｜阿利安人・婆羅門教・種姓制度｜釋迦牟尼與佛教｜阿育王',
+  quickAsk:'選出正確的答案', quickTitle:'印度古文明快問快答',
+  quick:[
+    ['約西元前2300年印度河流域文明的著名遺址','摩亨佐達羅',['巴比倫','亞歷山卓','波斯波利斯'],7],
+    ['從摩亨佐達羅出土的遺跡可知','城市規畫完善',['已使用拉丁文','實施民主政治','信仰佛教'],7],
+    ['約西元前1500年從西北方入侵印度的民族','阿利安人',['波斯人','蘇美人','馬其頓人'],13],
+    ['阿利安人信仰的宗教','婆羅門教',['佛教','印度教','祆教'],18],
+    ['婆羅門教相信','因果報應與靈魂輪迴',['唯一真神','善惡二元','死後審判復活'],18],
+    ['阿利安人發展種姓制度的目的','維持人數較少的阿利安人的統治地位',['促進民族融合','推廣佛教','發展海上貿易'],13],
+    ['種姓制度地位最高的階級','祭司',['貴族與武士','平民','奴隸'],21],
+    ['種姓制度的四個階級依序是','祭司、貴族與武士、平民、奴隸',['貴族、祭司、平民、奴隸','祭司、平民、武士、奴隸','國王、祭司、商人、奴隸'],21],
+    ['種姓制度的特色','身分職業世襲，各階級互不通婚',['可自由通婚','依考試決定身分','以抽籤決定職業'],21],
+    ['佛教的創立者','釋迦牟尼',['阿育王','漢摩拉比','亞歷山大'],20],
+    ['佛教興起的時間','西元前6世紀',['西元前3世紀','西元前1500年','西元前2300年'],0],
+    ['釋迦牟尼出家前的身分','印度北部小國的王子',['祭司','平民','奴隸'],4],
+    ['佛教打破種姓階級觀念的主張','眾生平等',['報復原則','上帝的選民','以牙還牙'],9],
+    ['佛教認為人可藉由什麼脫離生死輪迴','修行',['祭祀','通婚','征戰'],10],
+    ['傳說釋迦牟尼在哪一種樹下冥思開悟','菩提樹',['橄欖樹','棕櫚樹','松樹'],0],
+    ['紀念釋迦牟尼開悟、由阿育王所建的佛寺','摩訶菩提寺',['阿布辛貝神殿','帕德嫩神廟','火神廟'],0],
+    ['西元前3世紀提倡佛教、派高僧向外弘法的君王','阿育王',['釋迦牟尼','漢摩拉比','亞歷山大'],17],
+    ['阿育王對佛教的貢獻','整理教義和戒律，派高僧向外弘法',['創立佛教','使佛教成為羅馬國教','建立種姓制度'],17],
+    ['阿育王死後，佛教在印度境內','日漸式微',['成為唯一宗教','取代了印度教','傳入歐洲'],7],
+    ['今日印度信仰人口最多的宗教','印度教',['佛教','婆羅門教','祆教'],7],
+    ['佛教後來廣為流傳、成為重要信仰的地區','東亞、東南亞',['西歐','北非','美洲'],6],
+    ['佛教傳入中國約在哪一個朝代','漢代',['唐代','魏晉南北朝','宋代'],3],
+    ['代表破壞與再生的婆羅門教主要神祇','濕婆',['宙斯','耶和華','歐西里斯'],0],
+  ],
+  words:[
+    ['摩亨佐達羅','印度河下游遺址，城市規畫完善'],['阿利安人','約前1500年由西北入侵印度'],['婆羅門教','因果報應、靈魂輪迴'],
+    ['種姓制度','身分職業世襲、互不通婚'],['祭司','種姓制度最高階級'],['釋迦牟尼','原為王子，創立佛教'],
+    ['眾生平等','佛教打破階級觀念'],['阿育王','前3世紀提倡佛教、派高僧弘法'],['印度教','今日印度信仰人口最多'],
+    ['濕婆','代表破壞與再生的神祇'],['摩訶菩提寺','紀念釋迦牟尼開悟之地'],['菩提樹','釋迦牟尼冥思開悟之處'],
+  ],
+  sorts:[
+    {title:'婆羅門教、佛教，還是兩者都有？',tip:'兩者都相信因果與輪迴；佛教的不同是「眾生平等」「修行可脫離輪迴」。',buckets:['婆羅門教','佛教','兩者都有'],items:[
+      ['是種姓制度的依據',0],['阿利安人的信仰',0],['祭司的地位最高',0],
+      ['主張眾生平等',1],['人可藉修行脫離生死輪迴',1],['由釋迦牟尼創立',1],['阿育王大力提倡',1],['在東亞、東南亞廣為流傳',1],
+      ['相信因果報應',2,'常考陷阱：佛教也相信因果'],['相信生死輪迴',2],['起源於印度',2]]},
+    {title:'印度古文明時間軸',tip:'先後順序：印度河文明 → 阿利安人 → 佛教 → 阿育王 → 今日印度教。',buckets:['約前2300年','約前1500年','前6世紀','前3世紀','今日'],items:[
+      ['摩亨佐達羅城市興盛',0],['印度河流域發展出文明',0],['阿利安人從西北方入侵',1],['建立種姓制度',1],
+      ['釋迦牟尼創立佛教',2],['反對婆羅門教的聲浪出現',2],['阿育王派高僧向外弘法',3],['整理佛教教義和戒律',3],
+      ['印度教是印度信仰人口最多的宗教',4],['仍有達利特（賤民）受歧視的新聞',4]]},
+  ],
+  mcq:[
+    {q:'考古學家在印度河下游發現一座古城，有整齊的街道、排水設施與大浴池。這座古城是？',o:['摩亨佐達羅','巴比倫','亞歷山卓','龐貝'],a:0,src:'印度河文明（5 校）',ex:'摩亨佐達羅位於印度河下游，出土遺跡顯示城市規畫完善。龐貝是義大利的羅馬城市。'},
+    {q:'約西元前1500年，某民族從西北方進入印度建立政權。他們為了維持統治地位而發展的是？',o:['種姓制度','城邦民主','共和政治','十二銅表法'],a:0,src:'種姓制度（20 校）',ex:'人數較少的阿利安人依婆羅門教教義發展出種姓制度，以維持統治地位。'},
+    {q:'印度某村落中，一名青年一出生就只能從事和父親相同的職業，也不能和其他階級的人結婚。這反映哪一種制度？',o:['種姓制度','雅典民主制度','羅馬共和制度','希臘城邦制度'],a:0,src:'種姓制度情境題',ex:'種姓制度：身分、職業世襲，各階級之間互不通婚。'},
+    {q:'新聞報導：印度至今仍有被稱為「達利特」的群體受到歧視，很難改變職業。這種現象的歷史根源是？',o:['阿利安人依婆羅門教發展的種姓制度','波斯人的祆教','亞歷山大的融合政策','佛教的眾生平等'],a:0,src:'方向',ex:'種姓制度源自阿利安人統治時期，影響延續至今。佛教的眾生平等正是反對階級觀念。'},
+    {q:'關於婆羅門教與佛教的比較，下列何者正確？',o:['兩者都相信因果與輪迴','兩者都支持種姓制度','佛教信仰唯一真神','婆羅門教主張眾生平等'],a:0,src:'陷阱（5 校）',ex:'兩者都相信因果與輪迴；佛教主張眾生平等、可藉修行脫離輪迴，反對種姓階級。'},
+    {q:'釋迦牟尼原本是印度北部小國的王子。依種姓制度，他原屬哪一階級？',o:['貴族與武士','祭司','平民','奴隸'],a:0,src:'方向',ex:'王子屬於「貴族與武士」階級，不是祭司（陷阱）。'},
+    {q:'釋迦牟尼的哪一項主張，與婆羅門教的觀念最為衝突？',o:['眾生平等，人可以藉由修行脫離輪迴','相信因果報應','重視道德修養','認為人生有生老病死之苦'],a:0,src:'課本實作題方向',ex:'婆羅門教支持階級森嚴的種姓制度；佛教主張眾生平等，打破階級觀念，並認為修行可脫離生死輪迴。'},
+    {q:'某君王在西元前3世紀統治印度，他整理佛教教義與戒律，並派遣高僧向外弘法。他是？',o:['阿育王','釋迦牟尼','亞歷山大','漢摩拉比'],a:0,src:'阿育王（16 校）',ex:'阿育王提倡佛教、派高僧弘法；佛教的創立者是釋迦牟尼，不要混淆。'},
+    {q:'今日印度宗教人口中，印度教約占八成、伊斯蘭教約占一成多，佛教不到百分之一。根據這項資料與所學，下列推論何者正確？',o:['佛教雖起源於印度，今日在印度已經式微','佛教是今日印度信仰人口最多的宗教','婆羅門教仍是印度人口最多的宗教','阿育王死後佛教在印度更加興盛'],a:0,src:'宗教人口表（7 校）',ex:'阿育王死後佛教在印度日漸式微，印度教興起成為今日印度信仰人口最多的宗教；佛教則在東亞、東南亞廣為流傳。'},
+    {q:'佛教傳播路線圖顯示，佛教從印度北部向外傳到中國、朝鮮、日本與東南亞。佛教約在何時傳入中國？',o:['漢代','唐代','宋代','明代'],a:0,src:'方向',ex:'佛教約於漢代傳入中國，不是唐代（陷阱）。'},
+    {q:'印尼爪哇島上有一座巨大的古代佛教遺址，層層平臺上排列著鐘形佛塔。這最能說明？',o:['佛教在東南亞廣為流傳','婆羅門教傳入了希臘','祆教在東南亞盛行','佛教起源於東南亞'],a:0,src:'課外情境（婆羅浮屠）',ex:'佛教起源於印度，後來在東亞、東南亞廣為流傳，成為當地重要信仰。'},
+    {q:'關於印度古文明的發展順序，何者正確？',o:['印度河流域文明→阿利安人入侵→佛教興起→阿育王提倡佛教','阿利安人入侵→印度河流域文明→阿育王→佛教興起','佛教興起→阿利安人入侵→阿育王→印度河流域文明','印度河流域文明→佛教興起→阿利安人入侵→阿育王'],a:0,src:'時間排序',ex:'約前2300年印度河文明→約前1500年阿利安人→前6世紀佛教→前3世紀阿育王。'},
+    {q:'大英博物館收藏一尊在火焰圓環中起舞的青銅神像，象徵破壞與再生。這尊神像屬於哪一個宗教系統？',o:['婆羅門教（後來的印度教）','佛教','祆教','猶太教'],a:0,src:'課本圖 濕婆',ex:'濕婆是婆羅門教主要神祇之一，代表破壞與再生。'},
+    {q:'下列關於種姓制度的敘述，何者錯誤？',o:['平民可以透過考試成為祭司','祭司的地位最高','身分和職業世襲','各階級之間互不通婚'],a:0,src:'找錯題',ex:'種姓制度身分世襲，不能靠考試改變階級。'},
+    {q:'傳說釋迦牟尼在一棵樹下冥思開悟，後來阿育王在當地建寺紀念。這座寺院是？',o:['摩訶菩提寺','帕德嫩神廟','阿布辛貝神殿','聖索菲亞大教堂'],a:0,src:'課本圖',ex:'摩訶菩提寺位於印度東北，傳說釋迦牟尼在當地菩提樹下開悟。'},
+    {q:'阿利安人人數較少，卻能長期統治印度。最主要的方法是？',o:['依婆羅門教教義建立世襲的種姓制度','推行希臘語文','建立民主政治','與當地人大量通婚'],a:0,src:'因果推論（5 校）',ex:'為維持統治地位，阿利安人依婆羅門教發展出階級森嚴的種姓制度。'},
+  ],
+},
+
+/* ---------- 2-1 希臘的古典文化 ---------- */
+g:{
+  no:'2-1', code:4, title:'希臘的古典文化', short:'希臘古典文化', color:'linear-gradient(135deg,#5a4a2a,#9c7c3c)',
+  desc:'城邦・雅典民主・斯巴達｜波希戰爭｜神話、荷馬、三哲人、帕德嫩｜亞歷山大與希臘化文化',
+  quickAsk:'選出正確的答案', quickTitle:'希臘古典文化快問快答',
+  quick:[
+    ['西元前2000年出現、希臘古典文化的源頭','愛琴海文明',['兩河流域文明','印度河流域文明','尼羅河流域文明'],7],
+    ['希臘地形多山崎嶇、缺少大平原，因此','城邦林立、各自獨立',['建立中央集權帝國','發展種姓制度','長期由外族統治'],5],
+    ['以民主政治聞名、被視為民主政治起源的城邦','雅典',['斯巴達','馬其頓','特洛伊'],18],
+    ['雅典能參與政治活動的是','男性公民',['所有居民','女性與奴隸','外邦商人'],5],
+    ['雅典選出官員的方式','抽籤',['世襲','考試','國王任命'],5],
+    ['雅典公民把可能危害城邦者的名字刻在陶片上投票','陶片放逐法',['十二銅表法','漢摩拉比法典','種姓制度'],3],
+    ['以勇武著稱、實施軍事統治的城邦','斯巴達',['雅典','奧林匹亞','特洛伊'],19],
+    ['斯巴達男性公民從小要接受','嚴格的軍事訓練',['哲學辯論教育','抽籤選官','宗教修行'],19],
+    ['西元前5世紀雅典領導希臘各城邦擊敗波斯的戰爭','波希戰爭',['特洛伊戰爭','羅馬內戰','亞歷山大東征'],9],
+    ['波希戰爭勝利後開啟了','雅典的黃金時代',['斯巴達的黃金時代','羅馬和平','希臘化時代'],9],
+    ['雅典與斯巴達爭霸、兩敗俱傷，趁勢而起的是','希臘北方的馬其頓王國',['波斯帝國','羅馬共和','腓尼基人'],16],
+    ['古希臘每四年在奧林匹亞舉辦盛大祭典，目的是','敬神，以運動競賽取悅神明',['訓練士兵','紀念波希戰爭','選出官員'],10],
+    ['古希臘奧林匹亞的敬神祭典，成為今天的','奧林匹克運動會',['馬拉松比賽','世界盃足球賽','國際博覽會'],10],
+    ['希臘神話中諸神的特色','和人一樣有喜怒哀樂',['完全沒有情感','只有一位真神','代表善惡二元'],17],
+    ['結合神話與英雄故事，是西方文藝重要靈感源頭','荷馬史詩',['死者之書','吉爾伽美什史詩','幾何原本'],19],
+    ['荷馬史詩《伊里亞德》的背景戰爭','特洛伊戰爭',['波希戰爭','羅馬內戰','亞歷山大東征'],19],
+    ['希臘式建築藝術的代表','帕德嫩神廟',['羅馬圓形競技場','金字塔','阿布辛貝神殿'],9],
+    ['古希臘藝術講求','均衡、對稱、和諧',['巨大、華麗、神祕','人獸合一','誇張扭曲'],8],
+    ['被稱為「希臘三哲人」的是','蘇格拉底、柏拉圖、亞里斯多德',['荷馬、歐幾里德、亞歷山大','凱撒、屋大維、君士坦丁','釋迦牟尼、阿育王、漢摩拉比'],14],
+    ['古希臘哲學家著重探討','倫理道德與人生意義',['法律條文','天文曆法','建築工程'],14],
+    ['西元前4世紀統一希臘各邦的王國','馬其頓',['斯巴達','雅典','波斯'],16],
+    ['亞歷山大征服西亞、埃及、波斯後，帝國橫跨','歐、亞、非三洲',['歐、亞兩洲','亞、非兩洲','只在歐洲'],20],
+    ['亞歷山大在各地推行的融合政策（任選其一）','鼓勵民族通婚',['實施種姓隔離','實行陶片放逐','推行一神信仰'],13],
+    ['亞歷山大東征後，希臘文化與西亞、埃及文化融合形成','希臘化文化',['羅馬文化','拜占庭文化','印度教文化'],17],
+    ['希臘化文化的年代','西元前323～前30年',['西元前753～前509年','西元前27～後180年','西元前492～前479年'],17],
+    ['希臘化文化成就最突出的是','科學',['法律','民主政治','史詩'],17],
+    ['歐幾里德所著、後世幾何學的重要教材','幾何原本',['伊里亞德','死者之書','十二銅表法'],13],
+  ],
+  words:[
+    ['城邦','希臘多山崎嶇而林立，各自獨立'],['雅典','民主政治的起源，男性公民參政'],['斯巴達','軍事統治，重紀律與服從'],
+    ['陶片放逐法','把危害城邦者的名字刻在陶片上投票'],['波希戰爭','雅典領導希臘擊敗波斯'],['馬其頓','趁雅典斯巴達爭霸而統一希臘'],
+    ['奧林匹亞祭典','以運動競賽取悅神明'],['荷馬史詩','結合神話與英雄故事'],['帕德嫩神廟','希臘式建築代表，均衡對稱'],
+    ['希臘三哲人','蘇格拉底、柏拉圖、亞里斯多德'],['亞歷山大','建希臘式城市、鼓勵民族通婚'],['希臘化文化','希臘＋西亞＋埃及，科學最突出'],
+    ['幾何原本','歐幾里德的著作'],
+  ],
+  sorts:[
+    {title:'雅典還是斯巴達？',tip:'雅典＝民主、抽籤、陶片放逐；斯巴達＝軍事統治、從小軍訓。',buckets:['雅典','斯巴達'],items:[
+      ['被視為民主政治的起源',0],['以抽籤方式選出官員',0],['陶片放逐法',0],['男性公民均可參與政治',0],['帕德嫩神廟所在',0],['波希戰爭後進入黃金時代',0],
+      ['實施軍事統治',1],['男性公民從小接受嚴格軍訓',1],['重視紀律與服從',1],['以勇武著稱',1],['特洛伊故事中海倫王后的家鄉',1,'課本閱讀：斯巴達王后海倫']]},
+    {title:'古希臘文化特色：宗教、文學、哲學、藝術',tip:'課本把古希臘文化分成四類，段考常考「哪一項屬於哪一類」。',buckets:['宗教','文學','哲學','藝術'],items:[
+      ['多神信仰',0],['每四年舉辦奧林匹亞敬神祭典',0],['以運動競賽取悅神明',0],
+      ['荷馬史詩',1],['特洛伊木馬屠城的故事',1],['諸神和人一樣有喜怒哀樂的神話',1],
+      ['蘇格拉底',2],['柏拉圖、亞里斯多德',2],['探討倫理道德與人生意義',2],
+      ['帕德嫩神廟',3],['擲鐵餅者雕像',3],['講求均衡、對稱、和諧',3]]},
+    {title:'古典希臘，還是希臘化時代？',tip:'亞歷山大東征（前4世紀）之後才是希臘化時代（前323～前30年）。',buckets:['古典希臘（亞歷山大之前）','希臘化時代'],items:[
+      ['波希戰爭',0],['陶片放逐法',0],['蘇格拉底',0],['雅典與斯巴達爭霸',0],['帕德嫩神廟（前5世紀）',0],
+      ['歐幾里德寫幾何原本',1],['各地興建希臘式城市',1],['希臘文化與西亞、埃及文化融合',1],['以科學成就最突出',1]]},
+  ],
+  mcq:[
+    {q:'希臘半島多山、海岸曲折、缺乏大平原。這樣的地理環境對古希臘最主要的影響是？',o:['形成許多獨立自主的城邦','建立中央集權的大帝國','發展出世襲的種姓制度','與外界隔絕、少有往來'],a:0,src:'方向',ex:'希臘多山崎嶇，交通不便，形成許多以城市為核心、內政外交獨立的城邦。'},
+    {q:'某城邦的政治運作：成年男性公民組成公民大會決定大事，大多數官員以抽籤產生。這個城邦是？',o:['雅典','斯巴達','馬其頓','羅馬'],a:0,src:'政治運作示意圖（會考改寫方向，4 校）',ex:'男性公民參政、抽籤選官是雅典民主的特色。'},
+    {q:'承上，下列哪一種人可以參加這個城邦的公民大會？',o:['成年男性公民','城邦中的女性','奴隸','來經商的外邦人'],a:0,src:'陷阱（5 校）',ex:'雅典民主只限男性公民參與，女性、奴隸、外邦人都不能參政。'},
+    {q:'考古學家在雅典出土大量刻有人名的陶器碎片。這些陶片最可能的用途是？',o:['投票決定是否放逐可能危害城邦的人','記錄商業契約','抄寫荷馬史詩','計算尼羅河氾濫日期'],a:0,src:'陶片放逐法',ex:'陶片放逐法：雅典公民把可能危害城邦的人名刻在陶片上，投票表決是否放逐他。'},
+    {q:'一名少年從小就離家接受團體軍事訓練，學習服從、忍耐與作戰。他最可能生活在哪一個城邦？',o:['斯巴達','雅典','奧林匹亞','特洛伊'],a:0,src:'斯巴達（19 校）',ex:'斯巴達實施軍事統治，男性公民從小接受嚴格軍事訓練，重視紀律與服從。'},
+    {q:'今日的馬拉松賽跑，據說是紀念一位傳令兵跑回城邦報捷。這場勝利屬於哪一場戰爭？戰後的影響為何？',o:['波希戰爭；開啟雅典的黃金時代','特洛伊戰爭；希臘化時代開始','波希戰爭；斯巴達統一希臘','羅馬內戰；羅馬進入帝國時期'],a:0,src:'方向',ex:'波希戰爭（前492～前479年）由雅典領導希臘各城邦擊敗波斯，開啟雅典黃金時代。'},
+    {q:'兩個強者互相爭鬥、兩敗俱傷，結果讓旁邊的第三者坐收好處。下列哪一段歷史最符合這種情形？',o:['雅典與斯巴達爭霸，馬其頓趁勢統一希臘','羅馬人推翻外族王政','阿利安人入侵印度','波斯帝國征服埃及'],a:0,src:'因果（6 校）',ex:'雅典與斯巴達爭霸兩敗俱傷，給了希臘北方的馬其頓王國趁勢而起的機會。'},
+    {q:'關於古代奧林匹亞的祭典，下列何者正確？',o:['每四年舉辦一次，以運動競賽取悅神明','為了紀念波希戰爭的勝利','主要目的在訓練斯巴達士兵','由羅馬皇帝主持'],a:0,src:'陷阱（4 校）',ex:'古希臘人是多神信仰，每四年在奧林匹亞舉辦敬神祭典，以運動競賽取悅神明，不是軍訓或紀念戰爭。'},
+    {q:'希臘神話中，天后、愛神、戰神為了「誰最美麗」爭執不下，還請凡人來評判。這反映希臘諸神的何種特色？',o:['和人一樣有喜怒哀樂與虛榮','公正仁慈、毫無私心','是唯一的真神','代表善惡二元對立'],a:0,src:'課後閱讀方向',ex:'希臘神話中的諸神和人一樣有喜怒哀樂，也會虛榮、善妒。'},
+    {q:'西方有句諺語「小心希臘人送的禮物」，典故出自哪一個故事？',o:['特洛伊戰爭的木馬屠城','波希戰爭的馬拉松','亞歷山大東征','羅馬建城的母狼傳說'],a:0,src:'荷馬史詩與特洛伊（13 校）',ex:'荷馬史詩《伊里亞德》背景是特洛伊戰爭，希臘聯軍以木馬藏伏兵攻破特洛伊。'},
+    {q:'關於古希臘文化的敘述，下列何者錯誤？',o:['柏拉圖寫下荷馬史詩','帕德嫩神廟講求均衡、對稱','蘇格拉底、柏拉圖、亞里斯多德合稱希臘三哲人','古希臘人是多神信仰'],a:0,src:'陷阱（5 校）',ex:'荷馬史詩是荷馬的作品；柏拉圖是哲學家。'},
+    {q:'一幅16世紀的畫作描繪許多古希臘思想家在學院中討論，畫面中央兩人一位手指向天、一位手掌向地。畫中央兩人最可能是？',o:['柏拉圖與亞里斯多德','凱撒與屋大維','荷馬與歐幾里德','漢摩拉比與阿育王'],a:0,src:'課本圖 雅典學園',ex:'〈雅典學園〉描繪古希臘思想家，畫中有蘇格拉底、柏拉圖和亞里斯多德。'},
+    {q:'亞歷山大在征服地區興建希臘式城市、推行希臘語言文字，並鼓勵民族通婚。他這麼做最可能的目的是？',o:['促進民族與文化融合，以利統治','建立種姓制度','推廣一神信仰','恢復城邦民主'],a:0,src:'亞歷山大帝國（16 校）',ex:'這些政策促成希臘文化與西亞、埃及文化的融合，形成希臘化文化。'},
+    {q:'亞歷山大鼓勵民族通婚的政策，與中國歷史上哪一位君主的作為最相似？',o:['北魏孝文帝鼓勵胡漢通婚','秦始皇統一文字','漢武帝派張騫出使西域','唐太宗被尊為天可汗'],a:0,src:'跨冊連結（多校）',ex:'北魏孝文帝推行漢化、鼓勵胡漢通婚，與亞歷山大的融合政策相似。'},
+    {q:'關於希臘化文化的敘述，下列何者正確？',o:['是希臘文化與西亞、埃及文化的融合，以科學成就最突出','以羅馬法律為核心','形成於波希戰爭之前','範圍以義大利半島為中心'],a:0,src:'希臘化文化（20 校）',ex:'亞歷山大東征後三百年間（前323～前30年），希臘文化與西亞、埃及文化融合，科學最突出。範圍不含義大利半島。'},
+    {q:'明朝徐光啟與利瑪竇合譯《幾何原本》前六卷。這本書的原作者屬於哪一個時代？',o:['希臘化時代','雅典黃金時代','羅馬共和時期','蘇美城邦時代'],a:0,src:'陷阱（5 校）',ex:'歐幾里德的《幾何原本》是希臘化時代的科學成就，不是雅典黃金時代或羅馬。'},
+    {q:'某帝國的疆域西起希臘、東達印度河，南邊包含埃及，但沒有義大利半島。這個帝國最可能是？',o:['亞歷山大帝國','羅馬帝國','巴比倫王國','斯巴達城邦'],a:0,src:'帝國疆域圖（12 校）',ex:'到印度河、含埃及與希臘＝亞歷山大帝國；含義大利、西班牙、北非、不列顛＝羅馬帝國。'},
+  ],
+},
+
+/* ---------- 2-2 羅馬的政治與文化發展 ---------- */
+r:{
+  no:'2-2', code:5, title:'羅馬的政治與文化發展', short:'羅馬的政治與文化', color:'linear-gradient(135deg,#7a2e1e,#b8562f)',
+  desc:'王政→共和→帝國｜元老院、執政官、凱撒、屋大維｜羅馬和平｜分裂與滅亡｜拉丁文・十二銅表法・公共建築',
+  quickAsk:'選出正確的答案', quickTitle:'羅馬政治與文化快問快答',
+  quick:[
+    ['西元前8世紀拉丁人在哪一條河畔建立羅馬城','臺伯河',['尼羅河','幼發拉底河','印度河'],4],
+    ['羅馬城位於','義大利半島中部',['巴爾幹半島南端','小亞細亞','伊朗高原'],4],
+    ['古羅馬三個政治時期的先後順序','王政→共和→帝國',['共和→王政→帝國','帝國→共和→王政','王政→帝國→共和'],5],
+    ['羅馬王政時期，羅馬由誰統治','外族國王',['元老院','執政官','皇帝'],12],
+    ['羅馬人推翻外族王政、改行共和是在','西元前6世紀末',['西元前8世紀','西元前27年','西元395年'],12],
+    ['共和時期由貴族組成、掌握政治權力的機構','元老院',['公民大會','陶片放逐會議','種姓會議'],22],
+    ['共和時期負責執行元老院決議的是','執政官',['法老','皇帝','祭司'],22],
+    ['羅馬版圖第一次橫跨歐、亞、非三洲是在','共和時期',['王政時期','帝國時期才開始','希臘化時期'],5],
+    ['共和後期實行獨裁、後來遇刺身亡的將領','凱撒',['屋大維','君士坦丁','亞歷山大'],13],
+    ['結束內戰、接受元老院獻上「奧古斯都」尊號的是','屋大維',['凱撒','君士坦丁','漢摩拉比'],18],
+    ['羅馬進入帝國時期的年代','西元前27年',['西元前509年','西元前753年','西元476年'],18],
+    ['「奧古斯都」的意思','神聖、至尊、偉大者',['大房子','第一個國王','上帝的選民'],12],
+    ['奧古斯都集於一身的權力','行政、立法、司法、宗教大權',['只有軍事大權','只有宗教大權','只有司法大權'],12],
+    ['羅馬帝國兩百年的安定繁榮，史稱','羅馬和平',['雅典黃金時代','希臘化時代','三世紀危機'],6],
+    ['「羅馬和平」與中國哪一個朝代遙相輝映','漢朝',['唐朝','秦朝','周朝'],12],
+    ['4世紀初在東方的拜占庭另建新都的羅馬皇帝','君士坦丁',['屋大維','凱撒','漢摩拉比'],10],
+    ['羅馬帝國分裂為東、西二部是在','4世紀末',['西元476年','西元1453年','西元前27年'],0],
+    ['西元476年滅亡西羅馬帝國的是','日耳曼民族',['鄂圖曼土耳其人','波斯人','馬其頓人'],11],
+    ['東羅馬帝國在哪一年滅亡','西元1453年',['西元476年','西元395年','西元前30年'],7],
+    ['滅亡東羅馬帝國的是','鄂圖曼土耳其人',['日耳曼民族','馬其頓人','腓尼基人'],7],
+    ['隨帝國擴張，成為中世紀西歐通用文字的是','拉丁文',['希臘文','楔形文字','象形文字'],15],
+    ['羅馬最早的成文法','十二銅表法',['漢摩拉比法典','死者之書','幾何原本'],15],
+    ['十二銅表法中顯示進步法律精神的概念','無罪推定',['報復原則','以牙還牙','身分世襲'],4],
+    ['國家以文字頒布的法律稱為','成文法',['習慣法','不成文法','宗教戒律'],0],
+    ['輸送用水、使城市可以遠離水源地發展的羅馬建設','引水道',['競技場','劇場','神廟'],17],
+    ['用於武士格鬥、軍事操演，可容納數萬名觀眾的建築','圓形競技場',['帕德嫩神廟','引水道','公共澡堂'],17],
+    ['傳說用乳汁餵養羅馬人祖先的動物','母狼',['母獅','母鹿','老鷹'],0],
+    ['中國史書稱羅馬帝國為','大秦',['安息','大宛','天竺'],12],
+  ],
+  words:[
+    ['臺伯河','拉丁人在河畔建立羅馬城'],['王政時期','外族國王統治'],['元老院','貴族組成，掌握共和時期政權'],
+    ['執政官','執行元老院的決議'],['凱撒','共和後期獨裁，遇刺身亡'],['屋大維','前27年獲奧古斯都尊號'],
+    ['奧古斯都','神聖、至尊、偉大者'],['羅馬和平','帝國兩百年安定繁榮'],['君士坦丁','4世紀初在拜占庭另建新都'],
+    ['日耳曼民族','476年滅西羅馬'],['鄂圖曼土耳其人','1453年滅東羅馬'],['拉丁文','中世紀西歐通用文字'],
+    ['十二銅表法','羅馬最早的成文法'],['無罪推定','十二銅表法的進步精神'],['引水道','讓城市遠離水源地發展'],
+  ],
+  sorts:[
+    {title:'羅馬的哪一個時期？',tip:'王政＝外族國王；共和＝元老院決議、執政官執行；帝國＝皇帝（奧古斯都）專制。',buckets:['王政時期','共和時期','帝國時期'],items:[
+      ['外族國王統治羅馬',0],['拉丁人在臺伯河畔建羅馬城',0],
+      ['元老院決議、執政官執行',1],['制定十二銅表法',1],['版圖首次橫跨歐亞非三洲',1],['凱撒的獨裁',1],['「地中海是我們的海」',1],
+      ['屋大維獲奧古斯都尊號',2],['羅馬和平',2],['與中國漢朝遙相輝映',2],['君士坦丁在拜占庭另建新都',2],['皇帝專制',2],['龐貝城被火山灰掩埋（79年）',2]]},
+    {title:'羅馬的文化成就：文字、法律、建築',tip:'羅馬三大成就＝拉丁文、羅馬法、公共建築。',buckets:['文字','法律','建築'],items:[
+      ['拉丁文',0],['倫敦出土的拉丁文石碑',0],['成為中世紀西歐的通用文字',0],
+      ['十二銅表法',1],['羅馬最早的成文法',1],['無罪推定',1],['成為歐洲各國制定法律的參考',1],
+      ['引水道',2],['圓形競技場',2],['公共澡堂',2],['公路',2],['劇場',2]]},
+    {title:'西羅馬帝國還是東羅馬帝國？',tip:'西羅馬 476 年亡於日耳曼；東羅馬 1453 年亡於鄂圖曼土耳其。',buckets:['西羅馬帝國','東羅馬帝國'],items:[
+      ['西元476年滅亡',0],['被日耳曼民族所滅',0],['包含羅馬城',0],
+      ['西元1453年滅亡',1],['被鄂圖曼土耳其人所滅',1],['首都位於拜占庭（君士坦丁堡）',1],['首都即今日的伊斯坦堡',1],['延續時間較長',1]]},
+  ],
+  mcq:[
+    {q:'資料一：「外族國王施行苛政，我們把他趕走了！」資料二：「重大事務先由元老院決議，再交給執政官執行。」資料三：「元老院獻給我『奧古斯都』的尊號。」三則資料依時間先後排列應為？',o:['一→二→三','二→一→三','三→二→一','一→三→二'],a:0,src:'羅馬分期排序（6 校）',ex:'推翻外族王政（前6世紀末）→共和時期元老院與執政官→前27年屋大維獲奧古斯都尊號、進入帝國。注意看清資料編號。'},
+    {q:'承上，資料三的人物是誰？從此羅馬進入哪個時期？',o:['屋大維；帝國時期','凱撒；共和時期','君士坦丁；帝國時期','屋大維；共和時期'],a:0,src:'凱撒、屋大維（11 校）',ex:'屋大維於西元前27年接受元老院獻上的「奧古斯都」尊號，羅馬從此進入帝國時期。'},
+    {q:'關於羅馬共和時期，下列敘述何者正確？',o:['版圖已橫跨歐、亞、非三洲','由皇帝專制統治','由外族國王統治','享有兩百年的羅馬和平'],a:0,src:'陷阱（5 校）',ex:'共和時期羅馬積極向外擴張，版圖已橫跨三洲；羅馬和平屬帝國時期。'},
+    {q:'羅馬共和後期，一位將領實行獨裁，最後被政敵刺殺，政敵還鑄造紀念幣慶祝。這位將領是？',o:['凱撒','屋大維','君士坦丁','亞歷山大'],a:0,src:'課本實作題方向',ex:'凱撒因專制獨裁被政敵所殺；之後屋大維崛起，開啟帝國時期。'},
+    {q:'某同學說：「凱撒是羅馬帝國的開創者。」這句話錯在哪裡？',o:['羅馬帝國始於屋大維接受奧古斯都尊號','凱撒是希臘人','凱撒是王政時期的國王','羅馬沒有經歷帝國時期'],a:0,src:'陷阱（6 校）',ex:'凱撒是共和後期的獨裁者；帝國開創者是屋大維（奧古斯都）。'},
+    {q:'中國史書記載，東漢時班超曾派甘英出使「大秦」。當時的大秦處於什麼時期？',o:['羅馬帝國時期','羅馬王政時期','希臘化時代','雅典黃金時代'],a:0,src:'跨冊連結（5 校）',ex:'大秦是中國對羅馬帝國的稱呼；東漢（1世紀）正值羅馬帝國時期，兩者遙相輝映。'},
+    {q:'羅馬帝國後期政治腐敗、經濟惡化，又有日耳曼民族入侵。下列何者是隨後發生的事？',o:['君士坦丁在拜占庭另建新都，帝國後來分裂為東西二部','羅馬人推翻外族王政','屋大維接受奧古斯都尊號','羅馬人制定十二銅表法'],a:0,src:'羅馬分裂與滅亡（12 校）',ex:'4世紀初君士坦丁在東方拜占庭另建新都，4世紀末帝國分裂，476年西羅馬亡。'},
+    {q:'今日土耳其的伊斯坦堡，在羅馬時代後期曾是哪一個政權的首都？',o:['東羅馬帝國','西羅馬帝國','波斯帝國','馬其頓王國'],a:0,src:'課外情境（伊斯坦堡）',ex:'君士坦丁在拜占庭另建新都（君士坦丁堡），即今伊斯坦堡，後為東羅馬帝國首都。'},
+    {q:'下列事件依時間先後排列，何者正確？',o:['羅馬建城→改行共和→進入帝國→西羅馬滅亡','改行共和→羅馬建城→西羅馬滅亡→進入帝國','羅馬建城→進入帝國→改行共和→東羅馬滅亡','進入帝國→羅馬建城→改行共和→西羅馬滅亡'],a:0,src:'時間排序',ex:'前8世紀建城→前6世紀末共和→前27年帝國→476年西羅馬亡→1453年東羅馬亡。'},
+    {q:'下列關於羅馬帝國滅亡的配對，何者正確？',o:['西羅馬－476年－日耳曼民族','西羅馬－1453年－鄂圖曼土耳其','東羅馬－476年－日耳曼民族','東羅馬－1453年－亞歷山大帝國'],a:0,src:'陷阱（6 校）',ex:'西羅馬476年亡於日耳曼民族；東羅馬1453年亡於鄂圖曼土耳其人。'},
+    {q:'在英國倫敦發現刻有拉丁文的古代石碑。這最能說明？',o:['拉丁文隨羅馬帝國擴張傳到西歐','腓尼基人在英國建城','希臘化文化以英國為中心','英國是羅馬建城之地'],a:0,src:'拉丁文（7 校）',ex:'羅馬人使用的拉丁文隨著帝國擴張傳至各地，後來成為中世紀西歐的通用文字。'},
+    {q:'某古代法律刻在銅板上公告人民，強調「未經證明有罪，不得認定有罪」。這種精神與下列何者相同？',o:['十二銅表法的無罪推定','漢摩拉比法典的報復原則','種姓制度的世襲','雅典的陶片放逐'],a:0,src:'十二銅表法（9 校）',ex:'十二銅表法是羅馬共和時期最早的成文法，其中「無罪推定」顯示進步的法律精神。'},
+    {q:'比較漢摩拉比法典與十二銅表法，下列何者正確？',o:['兩者都是以文字公布的成文法','兩者都在羅馬共和時期制定','兩者都強調無罪推定','兩者都刻在泥板上'],a:0,src:'法典比較（多校）',ex:'兩部法典都以文字頒布。漢摩拉比法典屬巴比倫、強調報復原則、刻在石柱；十二銅表法屬羅馬、刻在銅板、有無罪推定。'},
+    {q:'西班牙中部至今仍保留一座古羅馬時期的石造高架水道，仍可輸水。這類建設的主要作用是？',o:['把遠方的水送進城市，讓城市可遠離水源地發展','舉辦武士格鬥','供奉多神信仰的神明','防禦外族入侵'],a:0,src:'羅馬公共建設（15 校）',ex:'課本：引水道的建設使城市可遠離水源地發展。'},
+    {q:'北非突尼西亞、英國巴斯等地都留有古羅馬神廟與浴場遺跡。這最能說明？',o:['羅馬擴張後常在統治地區興建大型公共建築','羅馬王政時期已統治北非與英國','希臘人在當地建立城邦','這些地區是羅馬人的發源地'],a:0,src:'方向',ex:'羅馬擴張到西班牙、北非、英國等地，經常在統治地區興建神廟、公共澡堂、劇場等公共建築。'},
+    {q:'義大利龐貝古城在西元79年被維蘇威火山灰掩埋。當時羅馬處於哪一個時期？',o:['帝國時期','王政時期','共和時期','希臘化時期'],a:0,src:'陷阱（3 校）',ex:'西元前27年起羅馬已進入帝國時期，西元79年屬帝國時期（羅馬和平期間）。'},
+    {q:'下列關於羅馬文化的敘述，何者錯誤？',o:['羅馬文化與希臘文化毫無關係','羅馬承繼了希臘文化與希臘化文化','羅馬法成為歐洲各國制定法律的參考','羅馬城市街道整齊，公共建築很多'],a:0,src:'找錯題',ex:'課本：羅馬文化承繼希臘文化與希臘化文化，並將希臘文化傳播到歐洲許多地區。'},
+  ],
+},
+};
+
+/* ================= 綜合：史料／圖表判讀（文字放在 HTML，不畫在圖上） ================= */
+const CHART=[
+  {title:'① 古西亞 vs 古埃及 比較表（找錯）',src:'比較表找錯（10 校）',
+   fig:`<table class="tbl"><tr><th>項目</th><th>古西亞（兩河流域）</th><th>古埃及</th></tr>
+   <tr><td>甲 地形</td><td>廣闊平原，缺少屏障</td><td>有高山、沙漠、海洋屏障</td></tr>
+   <tr><td>乙 河水</td><td>定期氾濫，規律可預期</td><td>不定期氾濫，水源不穩</td></tr>
+   <tr><td>丙 文字</td><td>楔形文字，寫在泥板</td><td>象形文字，寫在紙草</td></tr>
+   <tr><td>丁 曆法</td><td>陰曆</td><td>太陽曆</td></tr></table>`,
+   qs:[
+    {q:'表中哪一列的內容左右對調了？',o:['乙 河水','甲 地形','丙 文字','丁 曆法'],a:0,ex:'兩河流域靠高山融雪、水源不穩定；尼羅河才是定期氾濫、規律可預期。'},
+    {q:'依表中正確的資料推論，哪一個文明的政治比較穩定、較少外族入侵？',o:['古埃及','古西亞','兩者一樣','無法判斷'],a:0,ex:'古埃及受高山、沙漠、海洋保護，長期免於外來政權侵略。'},
+   ]},
+  {title:'② 帝國比較表：亞歷山大帝國 vs 羅馬帝國',src:'方向',
+   fig:`<table class="tbl"><tr><th>項目</th><th>亞歷山大帝國</th><th>羅馬帝國</th></tr>
+   <tr><td>甲 發源地</td><td>希臘北方的馬其頓</td><td>義大利半島中部臺伯河畔</td></tr>
+   <tr><td>乙 疆域</td><td>東達印度河，含埃及</td><td>環繞地中海，含西班牙、北非、不列顛</td></tr>
+   <tr><td>丙 統治政策</td><td>建希臘式城市、鼓勵民族通婚</td><td>修築公路、引水道，傳播拉丁文</td></tr>
+   <tr><td>丁 文化成就</td><td>建築、法律、拉丁文</td><td>希臘與西亞、埃及文化融合，科學突出</td></tr></table>`,
+   qs:[
+    {q:'表中哪一項的內容兩欄對調了？',o:['丁 文化成就','甲 發源地','乙 疆域','丙 統治政策'],a:0,ex:'亞歷山大帝國→希臘化文化（融合、科學突出）；羅馬→建築、法律、拉丁文。考卷最愛把這兩格對調。'},
+    {q:'這兩個帝國有什麼共同點？',o:['都曾橫跨歐、亞、非三洲','都是第一個跨三洲的帝國','都以伊朗高原為中心','都信仰祆教'],a:0,ex:'兩者都橫跨三洲，但第一個跨三洲的是波斯帝國。'},
+   ]},
+  {title:'③ 古文明位置圖（代號題）',src:'古文明位置地圖（14 校）',
+   fig:`<p class="muted">（為了手機好讀，地圖改用文字描述位置）</p>
+   <table class="tbl"><tr><th>代號</th><th>位置</th></tr>
+   <tr><td>甲</td><td>尼羅河下游，非洲東北部</td></tr><tr><td>乙</td><td>幼發拉底河、底格里斯河之間（今伊拉克）</td></tr>
+   <tr><td>丙</td><td>伊朗高原</td></tr><tr><td>丁</td><td>地中海東岸南段（巴勒斯坦）</td></tr>
+   <tr><td>戊</td><td>巴爾幹半島南端</td></tr><tr><td>己</td><td>義大利半島中部</td></tr><tr><td>庚</td><td>印度河下游</td></tr></table>`,
+   qs:[
+    {q:'「崇拜光明及火、相信善惡二元」的民族發源於哪一個代號？',o:['丙','乙','丁','甲'],a:0,ex:'祆教是波斯人的信仰，波斯在伊朗高原（丙），不是兩河流域。'},
+    {q:'「最早發明文字、制定陰曆」的民族在哪一個代號？',o:['乙','甲','丙','庚'],a:0,ex:'蘇美人在兩河流域（乙）。'},
+    {q:'陶片放逐法與帕德嫩神廟所在的地區是哪一個代號？',o:['戊','己','丁','丙'],a:0,ex:'雅典在巴爾幹半島南端的希臘（戊）；己是羅馬。'},
+    {q:'摩亨佐達羅遺址位於哪一個代號？',o:['庚','乙','甲','丙'],a:0,ex:'摩亨佐達羅在印度河下游（庚）。'},
+   ]},
+  {title:'④ 史料閱讀：三則古代文獻',src:'史料／引文閱讀（46 題）',
+   fig:`<div class="passage"><b>資料A</b>　「如果一個人偷了神廟的牛，他要賠償三十倍；如果他無力賠償，就要被處死。」<br>
+   <b>資料B</b>　「我沒有搶奪別人的財物，我沒有讓任何人挨餓，我沒有說謊……我是清白的！」<br>
+   <b>資料C</b>　「你們要遵守我的誡命，因為除了我以外，你們不可以有別的神。」</div>`,
+   qs:[
+    {q:'資料A最可能出自哪一個文明？',o:['兩河流域的巴比倫','古埃及','古印度','古羅馬'],a:0,ex:'重罰、賠償與報復精神的法典條文，最符合巴比倫的漢摩拉比法典（兩河流域商貿繁盛、重視法律）。'},
+    {q:'資料B是死者在神明面前的辯詞，反映的信仰是？',o:['古埃及的死後審判','婆羅門教的輪迴','祆教的善惡二元','猶太教的選民觀念'],a:0,ex:'逐一否認罪行以通過審判＝古埃及《死者之書》，通過者才能復活。'},
+    {q:'資料C的信仰對後世哪些宗教影響很大？',o:['基督教和伊斯蘭教','佛教和印度教','祆教和婆羅門教','希臘多神信仰'],a:0,ex:'資料C是希伯來人的一神信仰（猶太教），對後來的基督教和伊斯蘭教影響很大。'},
+   ]},
+  {title:'⑤ 洪水神話比一比（課本實作改寫）',src:'課本實作與練習',
+   fig:`<div class="passage"><b>神話一</b>　眾神嫌人間太吵鬧，害他們睡不好，於是一起決定降下大洪水。<br>
+   <b>神話二</b>　唯一的上帝見人類行為敗壞、多行不義，於是降下洪水，只讓一位正直的人造船逃生。</div>`,
+   qs:[
+    {q:'哪一則神話最可能來自猶太教？判斷依據為何？',o:['神話二；只有唯一的上帝，符合一神信仰','神話一；有眾神，符合一神信仰','神話二；提到洪水，所以是埃及','神話一；與吵鬧有關，所以是希臘'],a:0,ex:'猶太教是一神信仰；神話一有「眾神」是多神信仰（蘇美神話）。'},
+    {q:'古代許多民族都有洪水神話，最合理的解釋是？',o:['早期文明多在大河旁發展，先民常經歷洪水','神話都是同一個人寫的','古人都信仰同一個神','洪水只發生在埃及'],a:0,ex:'古代文明多誕生於大河流域，先民傍水而居、常受洪水威脅。'},
+   ]},
+];
+
+/* 時間軸與位置分類（綜合頁） */
+const TIMES=[
+  {title:'上古到古典時代：放進正確的時段',tip:'先記關鍵年代：前3500 蘇美、前6世紀（波斯／佛教／羅馬共和）、前5世紀波希戰爭、前4世紀亞歷山大、前27 屋大維、476、1453。',buckets:['前3500～前1500年','前6世紀','前5～前4世紀','前3～前1世紀','西元後'],items:[
+    ['蘇美人建立城邦',0],['古埃及出現統一政權',0],['摩亨佐達羅城市興盛',0],['阿利安人入侵印度',0],
+    ['波斯帝國建立',1],['釋迦牟尼創立佛教',1],['羅馬推翻外族王政、改行共和',1],['波斯征服埃及',1],
+    ['波希戰爭',2],['雅典的黃金時代',2],['馬其頓統一希臘',2],['亞歷山大東征',2],
+    ['阿育王提倡佛教',3],['屋大維獲奧古斯都尊號',3],['希臘化時代結束（前30年）',3],
+    ['君士坦丁在拜占庭另建新都',4],['西羅馬帝國滅亡',4],['東羅馬帝國滅亡',4]]},
+  {title:'橫跨歐、亞、非三洲的帝國先後',tip:'波斯（第一個）→亞歷山大→羅馬（共和時期就已跨三洲）。',buckets:['第一個','第二個','第三個'],items:[
+    ['波斯帝國',0],['從伊朗高原崛起',0],['西元前6世紀建立',0],
+    ['亞歷山大帝國',1],['從希臘北方的馬其頓崛起',1],['西元前4世紀建立',1],
+    ['羅馬',2],['從義大利半島的臺伯河畔崛起',2],['共和時期版圖已跨三洲',2]]},
+  {title:'在地圖上的哪裡？',tip:'兩河＝今伊拉克；巴勒斯坦與腓尼基在地中海東岸；希臘在巴爾幹半島南端；羅馬在義大利半島中部。',buckets:['兩河流域','尼羅河流域','地中海東岸','巴爾幹半島南端','義大利半島'],items:[
+    ['蘇美人',0],['巴比倫人',0],['漢摩拉比法典',0],
+    ['法老',1],['金字塔',1],['阿布辛貝神殿',1],
+    ['希伯來人',2],['腓尼基人',2],
+    ['雅典',3],['斯巴達',3],['奧林匹亞',3],
+    ['臺伯河畔的羅馬城',4],['龐貝古城',4]]},
+];
+
+/* ================= 延伸（課外情境，少數校考） ================= */
+const EXT=[
+  {q:'大英博物館的一塊黑色石碑上，同時刻有埃及象形文字、埃及草書與希臘文三種文字，幫助後人破解象形文字。這塊石碑最可能出現在哪一個時代？',o:['希臘化時代（托勒密王朝統治埃及）','蘇美城邦時代','羅馬王政時期','阿利安人入侵印度時'],a:0,src:'延伸：羅塞塔石碑（3 校）',ex:'羅塞塔石碑是托勒密王朝時期的詔書，同時有希臘文與埃及文字，反映希臘化時代希臘與埃及文化交融。'},
+  {q:'巴基斯坦、阿富汗一帶出土的佛像，有深目高鼻、波浪捲髮、衣褶像希臘雕像的特色。這種「犍陀羅藝術」的形成與哪一事件最有關？',o:['亞歷山大東征，希臘文化傳到印度河一帶','阿育王派高僧到希臘','羅馬帝國征服印度','腓尼基人航海到印度'],a:0,src:'延伸：犍陀羅藝術（4 校）',ex:'亞歷山大東征到達印度河，希臘雕刻風格與佛教結合，形成希臘式佛教藝術。'},
+  {q:'亞歷山大在埃及建立的城市，後來設有大型圖書館，成為希臘化時代的學術中心。這座城市是？',o:['亞歷山卓（亞歷山大城）','雅典','羅馬','巴比倫'],a:0,src:'延伸：亞歷山卓（5 校）',ex:'亞歷山卓位於埃及，是亞歷山大建立的希臘式城市之一，以圖書館與學術聞名。'},
+  {q:'埃及女王克麗奧佩脫拉死後，埃及在西元前30年被併入羅馬。這一年同時代表什麼的結束？',o:['希臘化時代','羅馬和平','雅典黃金時代','王政時期'],a:0,src:'延伸：托勒密王朝（4 校）',ex:'希臘化時代為前323～前30年；托勒密王朝滅亡、埃及併入羅馬，希臘化時代結束。'},
+  {q:'一塊西元前6世紀前後的泥板上，畫著圓形大地、中央有巴比倫城與幼發拉底河，周圍環繞著「苦水」。這件文物最可能使用哪一種文字標註？',o:['楔形文字','象形文字','拉丁文','希臘字母'],a:0,src:'延伸：巴比倫世界地圖（會考改寫方向）',ex:'泥板＋兩河流域＝楔形文字。巴比倫世界地圖常被拿來考文字判讀。'},
+  {q:'伊斯坦堡的聖索菲亞大教堂建於東羅馬帝國時期，1453年後被改為清真寺。造成這個轉變的事件是？',o:['鄂圖曼土耳其人滅東羅馬帝國','日耳曼民族滅西羅馬帝國','屋大維建立羅馬帝國','亞歷山大東征'],a:0,src:'延伸：伊斯坦堡（課外情境）',ex:'1453年東羅馬帝國被鄂圖曼土耳其人所滅，首都君士坦丁堡成為伊斯坦堡。'},
+  {q:'電影描寫三百名斯巴達戰士在溫泉關抵擋波斯大軍。這場戰役屬於哪一場戰爭？',o:['波希戰爭','特洛伊戰爭','羅馬內戰','亞歷山大東征'],a:0,src:'延伸：課外情境（電影）',ex:'溫泉關戰役（前480年）屬於波希戰爭，波斯入侵希臘，最後希臘城邦獲勝。'},
+  {q:'中國隋代的虞弘墓石槨上，雕刻著人身鳥足的祭司守護聖火的圖案。這反映哪一種宗教曾傳入中國？',o:['祆教','猶太教','婆羅門教','希臘多神信仰'],a:0,src:'延伸：虞弘墓聖火（多校）',ex:'守護聖火＝崇拜光明及火的祆教，源自伊朗高原，經絲路傳入中國。'},
+];
+
+/* ================= 考點雷達（23 校翰林卷） ================= */
+const RADAR={
+  n:23,
+  schools:'',
+  topics:[['希臘化文化（39 題）',20],['婆羅門教與種姓制度',20],['巴比倫與漢摩拉比法典',18],['埃及宗教（太陽神、死後審判）',17],['希伯來人與猶太教',17],
+    ['亞歷山大帝國',16],['雅典民主',16],['阿育王與佛教傳播',16],['波斯帝國（第一個跨三洲）',15],['佛教興起',15],['蘇美人成就',15],['羅馬公共建設',15],
+    ['埃及成就（象形、太陽曆、幾何）',14],['希臘宗教與奧林匹亞祭典',14],['羅馬共和（元老院、執政官）',14],['祆教',13],['腓尼基人與字母',13],['荷馬史詩與特洛伊',13],
+    ['羅馬分裂與滅亡',12],['楔形文字判讀',12],['凱撒、屋大維與奧古斯都',11],['希臘三哲人',11],['帝國比較（波斯／亞歷山大／羅馬）',10],['羅馬和平與漢朝',10]],
+  basics:[['波斯帝國',23],['城邦',22],['元老院／執政官',22],['種姓制度',21],['漢摩拉比法典',21],['希伯來人',20],['釋迦牟尼',20],['亞歷山大',20],
+    ['蘇美人',19],['斯巴達',19],['荷馬史詩',19],['雅典民主',18],['屋大維／奧古斯都',18],['楔形文字',18],['婆羅門教',18]],
+  words:[['希臘化文化',17],['羅馬公共建設',17],['阿育王',17],['祆教',16],['腓尼基人',16],['馬其頓',16],['尼羅河的贈禮',15],['十二銅表法',15],['拉丁文',15],
+    ['死者之書',14],['報復原則',14],['象形文字',14],['希臘三哲人',14],['凱撒',13],['民族通婚',13],['幾何原本',13],['阿利安人',13],['太陽神',13],['木乃伊',13]],
+  qtypes:[['地圖題',90],['圖表／圖片／比較表',52],['找錯（何者錯誤）',50],['史料／引文閱讀',46],['因果推論',22],['時間排序',12]],
+};
+
+const TABS=[['home','🏠 考點雷達'],['c1','🏺 1-1 西亞'],['c2','🔺 1-2 埃及'],['c3','🪷 1-3 印度'],['g','🏛️ 2-1 希臘'],['r','🦅 2-2 羅馬'],['mix','📊 綜合＋總測驗']];
+
+/* ================= 注釋配對 ================= */
+function renderMatch(el,pairs){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0,miss=0;
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 注釋配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${miss<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3><p>配錯 ${miss} 次</p><button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div>`;$('#ag',el).onclick=()=>renderMatch(el,pairs)}
+  draw();
+}
+
+/* ================= 分類 ================= */
+function renderSort(el,so){
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w[0])}」→ <b>${so.buckets[w[1]]}</b>${w[2]?'：'+esc(w[2]):''}`).join('<br>')}</div>`:''}
+      <button class="btn" style="margin-top:12px">再玩一次</button></div>`;
+      el.querySelector('.btn').onclick=()=>renderSort(el,so);return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push(it)}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+/* ================= 選擇題 ================= */
+function renderMCQ(el,qs){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}<span class="src">${q.src}</span></div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(+b.dataset.k===q.a){got++;sOK()}else{b.classList.add('bad');sBAD()}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderMCQ(el,qs);
+}
+
+/* ================= 翻卡 ================= */
+function renderCards(el,cards){
+  el.innerHTML=`<div class="card"><h3>🃏 十五種標點翻卡</h3><p class="muted">點卡片翻面看用法。重點：分號、破折號、引號、書名號、刪節號。</p>
+  <div class="flips">${cards.map(c=>`<div class="flip"><div class="in"><div class="f"><div class="sym">${esc(c[1])}</div><b>${c[0]}</b></div><div class="bk2">${esc(c[2])}</div></div></div>`).join('')}</div></div>`;
+  el.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('on'));
+}
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、his9-hanlin-1（例 chinese8-1）、歷史 國三上第一次段考（翰林）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'his9-hanlin-1',
+  site:'歷史 國三上第一次段考（翰林）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('his9-hanlin-1_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('his9-hanlin-1_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${(d&&d.quickTitle)||'名詞快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽（歷史 國三上 第一次段考：翰林） ================= */
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+document.body.insertAdjacentHTML('beforeend','<button class="bgm" id="bgmBtn"></button>');
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};
+
+const ANIM={c1:animC1,c2:animC2,c3:animC3,g:animG,r:animR};
+const UNITS=['c1','c2','c3','g','r'];
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 名詞快問快答'],['match','🔗 名詞配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel');
+  const title=`${d.no} ${d.short}`;
+  if(s==='anim') ANIM[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">本節 ${d.mcq.length} 題，全部依各校命題方向原創改寫。點選答案後才會出現解析；做完可以交卷給老師。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const N=RADAR.n;
+  const bar=arr=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  app.innerHTML=`
+  <h2>📡 第一次段考考點雷達</h2>
+  <p class="muted">整理 ${N} 所學校的<b>翰林版</b>國三上歷史第一次段考卷。範圍：第1章 古代文明的誕生（1-1～1-3）＋第2章 古希臘羅馬文化的開展（2-1～2-2）。</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${UNITS.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].short}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+    <div class="lc" style="background:linear-gradient(135deg,#4a3a2a,#8c6a3c)" data-k="mix"><div><div class="n">綜合</div><div class="t">史料圖表＋總測驗</div></div><div class="d">時間軸排序｜比較表找錯｜地圖代號｜史料閱讀｜課外延伸｜總測驗</div></div>
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（${N} 校中幾校考過）</h3>${bar(RADAR.topics)}
+  <p class="muted" style="margin-top:10px">⚠️ 第一名是<b>希臘化文化</b>（20 校、39 題）：幾何原本、犍陀羅、亞歷山卓都被拿來出情境題。<br>⚠️ 地圖題約 90 題，常一張「甲～庚古文明位置圖」連出 5～7 題，一定要會在地圖上指出每個文明。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>基本分必拿（幾校考過）</h3><div class="chips">${RADAR.basics.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">最穩的分數：<b>第一個跨三洲＝波斯</b>、<b>蘇美＝楔形文字＋陰曆＋六十進位</b>、<b>埃及＝象形文字＋太陽曆</b>、<b>前27年屋大維→帝國</b>。</p></div>
+    <div class="card"><h3>高頻名詞（★ 快問快答會標）</h3><div class="chips">${RADAR.words.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">名詞以翰林課本為準：寫「<b>祆教</b>」「<b>希臘化文化</b>」「<b>十二銅表法</b>」「<b>奧古斯都</b>」。</p></div>
+  </div>
+  <div class="card"><h3>🪤 最常錯的 8 個陷阱</h3>
+    <p><span class="pill">1</span>第一個橫跨歐亞非三洲的是<b>波斯</b>，不是亞歷山大或羅馬；波斯在<b>伊朗高原</b>，不在兩河流域。</p>
+    <p><span class="pill">2</span>兩河（蘇美）用<b>陰曆</b>、埃及用<b>太陽曆</b>；楔形文字寫在<b>泥板</b>、象形文字寫在<b>紙草</b>。</p>
+    <p><span class="pill">3</span>代表循環再生的是<b>尼羅河神</b>；太陽神是宇宙主宰，法老是太陽神之子。</p>
+    <p><span class="pill">4</span>改良埃及表音符號的是<b>腓尼基人</b>，不是希伯來人。</p>
+    <p><span class="pill">5</span>婆羅門教和佛教<b>都相信因果輪迴</b>；今天印度信仰人口最多的是<b>印度教</b>。</p>
+    <p><span class="pill">6</span>雅典民主只限<b>男性公民</b>、官員<b>抽籤</b>；奧林匹亞祭典是<b>敬神</b>不是軍訓。</p>
+    <p><span class="pill">7</span>《幾何原本》屬<b>希臘化時代</b>；帝國開創者是<b>屋大維</b>，凱撒是共和後期獨裁者。</p>
+    <p><span class="pill">8</span>羅馬<b>共和時期</b>就已橫跨三洲；西羅馬 <b>476</b> 亡於日耳曼、東羅馬 <b>1453</b> 亡於鄂圖曼土耳其。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>✍️ 題型分布（題數）</h3><div class="chips">${RADAR.qtypes.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">全部是單選題（含題組）。地圖、比較表、史料閱讀合計超過一半，請到「📊 綜合」練習。</p></div>
+    <div class="card"><h3>💡 意外發現</h3>
+    
+    <p>📋 <b>亞歷山大帝國 vs 羅馬帝國比較表</b>「文化成就對調」至少 4 校重複出現。</p>
+    <p>🎬 課外情境很多：伊斯坦堡、克麗奧佩脫拉、婆羅浮屠、達利特新聞、亞茲德火神廟、電影《300壯士》。</p>
+    <p>🔗 跨冊連結：亞歷山大通婚↔北魏孝文帝；羅馬↔漢朝（大秦、班超）；幾何原本↔徐光啟、利瑪竇。</p>
+    <p class="muted">→ 都放在「📊 綜合」的延伸與總測驗。</p></div>
+  </div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每節先看 <b>🎬 動畫導覽</b>，用真實文物、古蹟照片弄懂課本 → ② <b>⚡ 名詞快問快答</b>、<b>🔗 配對</b>練熟基本分 → ③ <b>🎯 分類挑戰</b>破解「誰的成就」「哪個時期」 → ④ <b>📝 段考模擬題</b>，最後到 <b>📊 綜合</b>做時間軸、史料圖表與總測驗，做完按「📤 交卷給老師」。</p>
+  <p class="muted">有學校實際只出第1章。請依自己學校的範圍準備。</p></div>
+  <details class="card"><summary><b>統計限制</b>（給老師看）</summary>
+  </details>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,c.dataset.k==='mix'?undefined:'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 綜合：時間軸＋史料圖表＋延伸＋總測驗 ================= */
+function renderMix(app){
+  const s=curSub.mix||'time';
+  const subs=[['time','⏳ 時間軸與地圖分類'],['chart','📊 史料圖表判讀'],['ext','🚀 課外延伸'],['exam','🏁 總測驗']];
+  app.innerHTML=`<h2>📊 綜合：時間軸、史料圖表、延伸與總測驗</h2>
+  <p class="muted">各校最愛的跨課題型：時間排序、比較表找錯、古文明位置圖、史料閱讀。總測驗每次從五節題庫隨機抽 30 題。</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div><div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub.mix=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='time'){
+    p.innerHTML=`<div class="card"><h3>⏳ 古羅馬分期一張圖</h3>
+      <div class="ladder"><span>前753年<small>建羅馬城</small></span>→<span>前509年<small>改行共和</small></span>→<span class="an">前27年<small>進入帝國</small></span>→<span>395年<small>分裂東西</small></span>→<span>476年<small>西羅馬亡</small></span>→<span>1453年<small>東羅馬亡</small></span></div>
+      <p class="muted">世界歷史分期：上古（約前3500～前500）→ 古典（約前500～500）→ 中世紀（約500～1500）。第1章多屬上古，第2章屬古典時期。</p></div>`+
+      TIMES.map((_,i)=>`<div class="card" id="tm${i}"></div>`).join('');
+    TIMES.forEach((so,i)=>{SORTCTX={code:7,title:'綜合 時間軸與地圖分類'};renderSort($('#tm'+i),so)});SORTCTX=null;
+    return;
+  }
+  if(s==='chart'){
+    p.innerHTML=CHART.map((c,k)=>`<div class="card"><h3>${c.title}</h3><div class="figbox">${c.fig}</div><div id="cq${k}"></div></div>`).join('');
+    CHART.forEach((c,k)=>renderMCQ($('#cq'+k),c.qs.map(q=>({...q,src:c.src})),7,`綜合 ${c.title.replace(/^[①-⑨]\s*/,'')}`));
+    return;
+  }
+  if(s==='ext'){
+    stage(p,`<div class="card"><h3>🚀 課外延伸重點（少數校考）</h3>
+      <p><span class="pill">羅塞塔石碑</span>托勒密王朝詔書，刻有希臘文與埃及文字 → 希臘化時代文化交融。</p>
+      <p><span class="pill">犍陀羅藝術</span>希臘式佛教藝術（深目高鼻、捲髮）→ 與亞歷山大東征有關。</p>
+      <p><span class="pill">亞歷山卓</span>亞歷山大在埃及建立的城市，圖書館、學術中心。</p>
+      <p><span class="pill">克麗奧佩脫拉</span>托勒密王朝最後的女王；前30年埃及併入羅馬＝希臘化時代結束。</p>
+      <p><span class="pill">伊斯坦堡</span>拜占庭→君士坦丁堡（東羅馬首都）→1453 後為鄂圖曼土耳其的伊斯坦堡。</p></div>
+      <div id="eq"></div>`);
+    const steps=[
+      {label:'① 羅塞塔石碑',imgs:[{img:'c2_rosetta',tag:'羅塞塔石碑（大英博物館）',fit:'contain'}],poem:'石碑上半部是埃及象形文字，中段是埃及草書，下段是<b>希臘文</b>；學者靠希臘文破解象形文字。',key:'三種文字並列＝<b>希臘化時代</b>希臘人統治埃及（托勒密王朝）。'},
+      {label:'② 犍陀羅佛像',imgs:[{img:'c3_buddha',tag:'犍陀羅風格的佛陀立像',fit:'contain'}],poem:'深目高鼻、波浪捲髮、衣褶像希臘雕像的佛像，稱為<b>犍陀羅藝術</b>。',key:'形成原因是<b>亞歷山大東征</b>到印度河，不是阿育王。'},
+      {label:'③ 巴比倫世界地圖',imgs:[{img:'c1_mapworld',tag:'巴比倫世界地圖泥板',fit:'contain'}],poem:'泥板上畫著圓形大地，中央是巴比倫城與幼發拉底河。',key:'泥板＋兩河流域＝<b>楔形文字</b>（會考考過文字判讀）。'},
+      {label:'④ 聖索菲亞大教堂',imgs:[{img:'r_hagia',tag:'伊斯坦堡的聖索菲亞大教堂'}],poem:'建於東羅馬帝國時期的大教堂，1453 年後改為清真寺。',key:'君士坦丁堡（今伊斯坦堡）是<b>東羅馬</b>首都；1453 年亡於<b>鄂圖曼土耳其</b>。'},
+    ];
+    stepper(p,steps,i=>showPhoto(steps[i]),8000);
+    renderMCQ($('#eq'),EXT,8,'延伸 課外情境');
+    return;
+  }
+  /* 總測驗 */
+  const pool=[];UNITS.forEach(k=>shuf(L[k].mcq).slice(0,6).forEach(q=>pool.push({...q,unit:`${L[k].no} ${L[k].short}`})));
+  const qs=shuf(pool);
+  p.innerHTML=`<div class="card"><h3>🏁 第一次段考總測驗（30 題）</h3><p class="muted">從 1-1～2-2 每節隨機抽 6 題，順序與選項都會打亂。像真的段考一樣做完再交卷，錯題會標示是哪一節。</p>
+    <button class="btn ghost" id="newExam">🔄 換一份新題目</button></div><div id="exq"></div>`;
+  $('#newExam').onclick=()=>render();
+  renderMCQ($('#exq'),qs,9,'總測驗');
+}
+
+/* ================= 共用：動畫外框 ================= */
+function stage(p,extra){p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${extra||''}`}
+
+/* ================= 1-1 西亞古文明 ================= */
+function animC1(p){
+  stage(p,`<div class="card"><h3>🗺️ 西亞四個民族一張表</h3>
+  <table class="tbl"><tr><th>民族</th><th>地區</th><th>重點</th></tr>
+  <tr><td>蘇美人</td><td>兩河流域</td><td>約前3500年建城邦；<b>最早發明文字</b>（楔形文字）、<b>陰曆</b>（一年十二個月）、<b>六十進位法</b></td></tr>
+  <tr><td>巴比倫人</td><td>兩河流域</td><td>商貿繁盛→重視契約與法律；<b>漢摩拉比法典</b>「以牙還牙，以眼還眼」報復原則</td></tr>
+  <tr><td>希伯來人</td><td>地中海東岸巴勒斯坦</td><td>又稱猶太人；<b>猶太教</b>一神信仰（耶和華）、上帝的選民 → 影響基督教、伊斯蘭教</td></tr>
+  <tr><td>波斯人</td><td>伊朗高原</td><td>前6世紀建<b>波斯帝國</b>，征服兩河、埃及，<b>第一個跨歐亞非三洲</b>；信<b>祆教</b>（光明、火、善惡二元）</td></tr></table></div>`);
+  const steps=[
+    {label:'① 兩河流域',imgs:[{img:'c1_euphrates',tag:'太空中看幼發拉底河與周圍的沙漠'},{img:'m_map',tag:'地中海到伊朗高原：古文明的舞臺'}],poem:'幼發拉底河和底格里斯河流經的地帶稱為<b>兩河流域</b>，又稱「<b>美索不達米亞</b>」（意為兩河之間的土地）。<br>兩河流域地形平坦，<b>缺少天然屏障</b>。',key:'缺屏障 → <b>容易受外族入侵、政權交替頻繁</b> → 文化多元豐富。'},
+    {label:'② 蘇美人',imgs:[{img:'c1_cuneiform',tag:'刻著楔形文字的泥板'},{img:'c1_gilgamesh',tag:'記載洪水故事的吉爾伽美什史詩泥板',fit:'contain'},{img:'c1_sumer',tag:'蘇美人的祝禱雕像：雙手合握、睜大雙眼',fit:'contain'}],poem:'約西元前3500年，<b>蘇美人</b>首先在兩河流域建立城邦。<br>蘇美人是目前所知<b>最早發明文字</b>的民族，以蘆葦桿在泥板上壓刻出<b>楔形文字</b>；制定<b>陰曆</b>，一年分十二個月；數學有<b>六十進位法</b>。',key:'最早發明文字的是<b>蘇美人</b>不是巴比倫人；陰曆是兩河、太陽曆是埃及（常對調）。'},
+    {label:'③ 巴比倫人',imgs:[{img:'c1_hammurabi',tag:'漢摩拉比法典石柱（羅浮宮）',fit:'contain'},{img:'c1_lamassu',tag:'巴比倫城的伊什塔爾城門（復原）'}],poem:'兩河流域商貿繁盛，因此<b>巴比倫人</b>重視契約與法律觀念。國王<b>漢摩拉比</b>制定的<b>漢摩拉比法典</b>，強調「以牙還牙，以眼還眼」的<b>報復原則</b>。',key:'報復原則 ≠ 人人平等（懲罰依身分不同）；法典以楔形文字刻在<b>石柱</b>上。'},
+    {label:'④ 希伯來人',imgs:[{img:'c1_torah',tag:'手抄的希伯來文經卷'}],poem:'<b>希伯來人</b>（又稱猶太人）住在地中海東岸的<b>巴勒斯坦</b>。他們創立<b>猶太教</b>，以上帝<b>耶和華</b>為唯一真神，相信自己是「<b>上帝的選民</b>」。',key:'一神信仰對後來的<b>基督教和伊斯蘭教</b>影響很大；「除了我以外不可有別的神」＝猶太教。'},
+    {label:'⑤ 波斯帝國',imgs:[{img:'c1_persepolis',tag:'波斯波利斯的萬國之門'}],poem:'<b>波斯人</b>住在<b>伊朗高原</b>，西元前6世紀建立<b>波斯帝國</b>，征服兩河流域、埃及等地，是歷史上<b>第一個橫跨歐、亞、非三洲</b>的大帝國。',key:'23 校全考！第一個跨三洲＝<b>波斯</b>（不是亞歷山大、羅馬）；波斯在伊朗高原，不在兩河流域。'},
+    {label:'⑥ 祆教',imgs:[{img:'c1_yazd',tag:'伊朗亞茲德的火神廟'}],poem:'波斯人信仰<b>祆教</b>，崇拜<b>光明及火</b>，相信宇宙間存在著<b>善惡兩股對立勢力</b>，善神必將戰勝惡神。',key:'拜火＋善惡二元＝祆教；別和猶太教（一神）、婆羅門教（輪迴）搞混。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 1-2 埃及古文明 ================= */
+function animC2(p){
+  stage(p,`<div class="card"><h3>🔺 古埃及一張圖</h3>
+  <table class="tbl"><tr><th>面向</th><th>重點</th></tr>
+  <tr><td>環境</td><td>尼羅河<b>定期氾濫</b>帶來沃土 →「埃及是尼羅河的贈禮」；四周沙漠、高山屏障 → 政治穩定</td></tr>
+  <tr><td>政治</td><td>約前3100年中央集權統一政權、建金字塔；前6世紀被<b>波斯</b>征服後逐漸沒落</td></tr>
+  <tr><td>宗教</td><td>多神信仰：<b>太陽神</b>＝宇宙主宰（法老是太陽神之子）；<b>尼羅河神</b>＝循環再生；死後審判、<b>木乃伊</b></td></tr>
+  <tr><td>文字</td><td><b>象形文字</b>（圖像＋表音符號，寫在紙草）→ 表音符號經<b>腓尼基人</b>改良傳入歐洲</td></tr>
+  <tr><td>科學</td><td><b>太陽曆</b>、測量、幾何學、建築學；木乃伊顯示解剖學、醫學進步</td></tr></table></div>`);
+  const steps=[
+    {label:'① 尼羅河的贈禮',imgs:[{img:'c2_nilesat',tag:'衛星影像：沙漠中一條綠色的尼羅河谷與三角洲',fit:'contain'},{img:'c2_nile',tag:'亞斯文的尼羅河'}],poem:'埃及位於非洲東北部的沙漠地帶，但尼羅河每年<b>定期氾濫</b>，帶來肥沃淤泥，埃及人引水灌溉、發展農業，所以史家稱「<b>埃及是尼羅河的贈禮</b>」。',key:'埃及四周有沙漠與高山屏障，<b>不易受外來政權入侵</b>，政治穩定（和兩河流域相反）。'},
+    {label:'② 統一與金字塔',imgs:[{img:'c2_pyr',tag:'吉薩的金字塔群'}],poem:'約西元前3100年，古埃及出現<b>中央集權的統一政權</b>，在國力富強下動員人力建造<b>金字塔</b>。<br>金字塔是<b>法老的陵墓</b>，獅身人面像則以人獸合一的形象展現法老的權威。',key:'金字塔＝陵墓；獅身人面像<b>不是</b>陵墓。西元前6世紀埃及被<b>波斯</b>征服。'},
+    {label:'③ 法老與太陽神',imgs:[{img:'c2_abusimbel',tag:'阿布辛貝神殿：供奉拉美西斯二世'}],poem:'古埃及人是<b>多神信仰</b>，以太陽神與尼羅河神為主。<b>太陽神</b>是宇宙的主宰，<b>法老</b>即以太陽神之子的身分統治人間；<b>尼羅河神</b>代表循環不息的再生力量。',key:'「法老」原意是「<b>大房子</b>」（王宮）。代表再生的是<b>尼羅河神</b>不是太陽神。'},
+    {label:'④ 死後審判',imgs:[{img:'c2_judgment',tag:'死者之書：心臟放上天平接受審判',fit:'contain',bg:'#e9dcc0'},{img:'c2_osiris',tag:'冥界之神歐西里斯',fit:'contain'}],poem:'古埃及人認為人死後靈魂須<b>接受審判</b>：天平平衡，冥界之神宣判死者復活重生；天平不平衡，心臟就被怪獸吞噬，無法復活。',key:'死後審判→通過才能<b>復活</b>；不是「輪迴」（輪迴是印度）。'},
+    {label:'⑤ 木乃伊',imgs:[{img:'c2_mummy',tag:'木乃伊與彩繪人形棺'}],poem:'通過審判者才能復活，所以把死者製成「<b>木乃伊</b>」，以便復活時<b>靈魂能和身體相結合</b>。木乃伊的製作技術也顯示古埃及人在<b>解剖學、醫學</b>上已相當進步。',key:'目的＝讓靈魂與身體結合；附帶顯示醫學進步。'},
+    {label:'⑥ 象形文字',imgs:[{img:'c2_hiero',tag:'卡納克神廟牆上的象形文字'}],poem:'古埃及人發明的<b>象形文字</b>由圖像與表音符號構成，一般寫在<b>紙草</b>製的紙面上。其中的表音符號經地中海東岸的<b>腓尼基人</b>改良後，透過貿易傳入歐洲，成為<b>西方拼音文字</b>的基礎。',key:'改良者是<b>腓尼基人</b>（不是希伯來人）；為計算氾濫時間制定<b>太陽曆</b>、為測量土地發展<b>幾何</b>。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 1-3 印度古文明 ================= */
+function animC3(p){
+  stage(p,`<div class="card"><h3>🪷 種姓制度（由高到低）</h3>
+  <div class="ladder"><span>祭司</span>›<span>貴族與武士</span>›<span>平民</span>›<span>奴隸</span></div>
+  <p class="muted">身分、職業<b>世襲</b>，各階級之間<b>互不通婚</b>。釋迦牟尼原是王子＝貴族與武士。</p>
+  <table class="tbl"><tr><th></th><th>婆羅門教</th><th>佛教</th></tr>
+  <tr><td>信仰者／創立</td><td>阿利安人</td><td>釋迦牟尼（前6世紀）</td></tr>
+  <tr><td>因果、輪迴</td><td>相信</td><td>也相信</td></tr>
+  <tr><td>對階級</td><td>種姓制度的依據</td><td><b>眾生平等</b>，打破階級</td></tr>
+  <tr><td>解脫</td><td>—</td><td>藉<b>修行</b>脫離生死輪迴</td></tr>
+  <tr><td>今日</td><td>演變為<b>印度教</b>，印度信仰人口最多</td><td>在印度式微；流傳於東亞、東南亞</td></tr></table></div>`);
+  const steps=[
+    {label:'① 印度河流域文明',imgs:[{img:'c3_mohenjo',tag:'摩亨佐達羅的大浴池遺址'}],poem:'約西元前2300年，印度河流域發展出文明。<b>摩亨佐達羅</b>遺址位於印度河下游，從出土的遺跡可知其<b>城市規畫完善</b>。',key:'摩亨佐達羅在<b>印度河</b>，不是恆河；地圖題常考位置。'},
+    {label:'② 阿利安人與婆羅門教',imgs:[{img:'c3_shiva',tag:'濕婆神像：代表破壞與再生'},{img:'c3_ganga',tag:'恆河畔的瓦拉納西'}],poem:'約西元前1500年，來自西北方的<b>阿利安人</b>入侵印度建立政權。阿利安人信仰<b>婆羅門教</b>，相信<b>因果報應與靈魂輪迴</b>。',key:'濕婆是婆羅門教主要神祇之一，代表破壞與再生。'},
+    {label:'③ 種姓制度',imgs:[{img:'c3_ganga',tag:'印度社會至今仍受種姓制度影響'}],poem:'人數較少的阿利安人，為了<b>維持統治地位</b>，依婆羅門教教義發展出階級森嚴的「<b>種姓制度</b>」，把人民分成<b>祭司、貴族與武士、平民、奴隸</b>四個階級。',key:'21 校考！身分職業<b>世襲</b>、<b>互不通婚</b>；今日「達利特」受歧視的新聞就是它的影響。'},
+    {label:'④ 佛教興起',imgs:[{img:'c3_bodh',tag:'摩訶菩提寺：紀念釋迦牟尼開悟',fit:'contain'}],poem:'西元前6世紀，<b>釋迦牟尼</b>創立佛教，主張<b>眾生平等</b>，打破婆羅門教的階級觀念，認為人可以藉由<b>修行脫離生死輪迴</b>。',key:'釋迦牟尼原是<b>王子</b>（貴族與武士），不是祭司；佛教也相信因果輪迴。'},
+    {label:'⑤ 阿育王',imgs:[{img:'c3_pillar',tag:'阿育王石柱（毘舍離）'},{img:'c3_ashoka',tag:'阿育王石柱的獅子柱頭'}],poem:'西元前3世紀，<b>阿育王</b>提倡佛教，整理佛教基本教義和戒律，又派遣<b>高僧向外弘法</b>。',key:'阿育王是<b>提倡者</b>，不是創立者。'},
+    {label:'⑥ 佛教向外流傳',imgs:[{img:'c3_boro',tag:'印尼的婆羅浮屠佛塔'},{img:'c3_buddha',tag:'犍陀羅風格佛像',fit:'contain'}],poem:'阿育王死後，佛教在印度境內<b>日漸式微</b>，而後<b>印度教</b>興起，成為今日印度信仰人口最多的宗教。佛教則在<b>東亞、東南亞</b>廣為流傳。',key:'今日印度最大宗教是<b>印度教</b>；佛教約在<b>漢代</b>傳入中國。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-1 希臘的古典文化 ================= */
+function animG(p){
+  stage(p,`<div class="card"><h3>🏛️ 雅典 vs 斯巴達</h3>
+  <table class="tbl"><tr><th></th><th>雅典</th><th>斯巴達</th></tr>
+  <tr><td>政治</td><td><b>民主政治</b>，男性公民可參政；官員<b>抽籤</b>選出；陶片放逐法</td><td><b>軍事統治</b></td></tr>
+  <tr><td>特色</td><td>民主政治的起源；波希戰爭後黃金時代</td><td>男性公民從小嚴格軍訓，重紀律與服從，武力強大</td></tr></table>
+  <p style="margin-top:10px"><span class="pill">希臘化文化</span>亞歷山大東征後三百年間（<b>前323～前30年</b>），希臘文化與西亞、埃及等地文化融合；成就以<b>科學</b>最突出，如歐幾里德《<b>幾何原本</b>》。</p></div>`);
+  const steps=[
+    {label:'① 城邦與雅典民主',imgs:[{img:'g_ostraka',tag:'雅典出土的陶片：刻著人名'}],poem:'早在西元前2000年，<b>愛琴海</b>地區就出現燦爛文明，是希臘古典文化的源頭。希臘多山崎嶇，形成許多獨立的<b>城邦</b>。<br><b>雅典</b>以民主政治聞名，<b>男性公民</b>均可參與政治，以<b>抽籤</b>方式選出官員，被視為民主政治的起源。',key:'<b>陶片放逐法</b>在雅典；女性、奴隸、外邦人不能參政。'},
+    {label:'② 斯巴達',imgs:[{img:'g_sparta',tag:'斯巴達戰士雕像',fit:'contain'}],poem:'<b>斯巴達</b>以勇武著稱，在政治上實施<b>軍事統治</b>，男性公民從小就要接受嚴格的軍事訓練，重視紀律與服從，因此武力強大。',key:'軍訓＝斯巴達；陶片放逐≠斯巴達。'},
+    {label:'③ 波希戰爭',imgs:[{img:'g_vase',tag:'描繪希臘戰士與波斯人交戰的陶杯',fit:'contain'}],poem:'西元前5世紀，<b>雅典</b>領導希臘各城邦在<b>波希戰爭</b>中擊敗波斯，開啟了<b>雅典的黃金時代</b>。後來雅典與斯巴達互相爭霸、兩敗俱傷，給了希臘北方的<b>馬其頓</b>趁勢而起的機會。',key:'馬拉松＝波希戰爭；雅典、斯巴達相爭→馬其頓得利（鷸蚌相爭）。'},
+    {label:'④ 宗教與文學',imgs:[{img:'g_olympia',tag:'古奧林匹亞運動場的入口'},{img:'g_troy',tag:'畫作：特洛伊木馬入城',fit:'contain'}],poem:'古希臘人是<b>多神信仰</b>，每四年在<b>奧林匹亞</b>舉辦盛大的<b>敬神祭典</b>，以運動競賽取悅神明，成為現代奧運的起源。<br>希臘神話中諸神和人一樣有喜怒哀樂；<b>荷馬史詩</b>結合神話與英雄故事，是西方文藝的重要靈感源頭。',key:'奧林匹亞祭典是<b>敬神</b>，不是軍訓、不是紀念戰爭；《伊里亞德》背景是<b>特洛伊戰爭</b>。'},
+    {label:'⑤ 哲學與藝術',imgs:[{img:'g_athens',tag:'〈雅典學園〉：古希臘思想家齊聚'},{img:'g_parthenon',tag:'雅典衛城上的帕德嫩神廟'},{img:'g_disco',tag:'擲鐵餅者：崇尚力與美',fit:'contain'}],poem:'古希臘哲學家著重探討<b>倫理道德與人生意義</b>，最著名的是<b>蘇格拉底、柏拉圖和亞里斯多德</b>，有「希臘三哲人」之稱。<br>古希臘人注重<b>均衡、對稱、和諧</b>，<b>帕德嫩神廟</b>是希臘式建築藝術的代表。',key:'荷馬寫史詩；三哲人是哲學家（不是民主開創者、不是希臘化人物）。'},
+    {label:'⑥ 亞歷山大與希臘化',imgs:[{img:'g_alex',tag:'龐貝出土的亞歷山大鑲嵌畫（課本稱壁畫）'},{img:'g_euclid',tag:'古代紙草上的《幾何原本》殘頁',fit:'contain',bg:'#fff'}],poem:'西元前4世紀，<b>馬其頓</b>統一希臘，繼任的<b>亞歷山大</b>征服西亞、埃及、波斯，建立橫跨歐亞非的大帝國；在各地建立<b>希臘式城市</b>、推行希臘語文、鼓勵<b>民族通婚</b>。<br>東征後三百年間形成「<b>希臘化文化</b>」（323～30 B.C.），以<b>科學</b>最突出。',key:'20 校考希臘化！範圍＝希臘＋西亞＋埃及（到印度河），<b>不含義大利</b>；《幾何原本》屬希臘化時代。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-2 羅馬的政治與文化發展 ================= */
+function animR(p){
+  stage(p,`<div class="card"><h3>🦅 古羅馬分期</h3>
+  <div class="ladder"><span>王政<small>前753～前509</small></span>→<span>共和<small>前509～前27</small></span>→<span class="an">帝國<small>前27 起</small></span>→<span>395 分裂<small>西 476 亡／東 1453 亡</small></span></div>
+  <table class="tbl"><tr><th>時期</th><th>誰掌權</th><th>重點</th></tr>
+  <tr><td>王政</td><td>國王（外族）</td><td>拉丁人在臺伯河畔建羅馬城；前6世紀末推翻外族</td></tr>
+  <tr><td>共和</td><td>元老院決議、執政官執行</td><td>十二銅表法；版圖已<b>跨三洲</b>；後期凱撒獨裁</td></tr>
+  <tr><td>帝國</td><td>皇帝專制</td><td>前27年屋大維＝奧古斯都；<b>羅馬和平</b>（前27～後180）對照漢朝</td></tr></table></div>`);
+  const steps=[
+    {label:'① 建城與王政',imgs:[{img:'r_wolf',tag:'母狼哺育羅馬始祖的青銅像'}],poem:'西元前8世紀，<b>拉丁人</b>在義大利半島中部的<b>臺伯河</b>畔建立羅馬城。<b>王政時期</b>羅馬由<b>外族</b>統治，西元前6世紀末，羅馬人推翻外族的王政體制，改行<b>共和</b>。',key:'王政時期的「外族」不是日耳曼；建城是「西元<b>前</b>8世紀」。'},
+    {label:'② 共和時期',imgs:[{img:'r_forum',tag:'羅馬廣場遺址'},{img:'r_caesar',tag:'凱撒雕像',fit:'contain'}],poem:'共和時期由貴族組成的<b>元老院</b>掌握政治權力，重大事務經元老院決議後，再交給<b>執政官</b>執行。羅馬積極向外擴張，版圖<b>橫跨歐、亞、非三洲</b>。<br>共和後期發生內戰，先有<b>凱撒的獨裁</b>，後有屋大維崛起。',key:'22 校考元老院／執政官；共和時期<b>已跨三洲</b>。凱撒不是帝國開創者。'},
+    {label:'③ 帝國時期',imgs:[{img:'r_augustus',tag:'屋大維（奧古斯都）雕像',fit:'contain'},{img:'r_pompeii',tag:'龐貝古城廣場與維蘇威火山'}],poem:'西元前27年，<b>屋大維</b>結束內戰，接受元老院獻上的「<b>奧古斯都</b>」尊號（神聖、至尊、偉大者），集行政、立法、司法、宗教大權於一身，羅馬進入<b>帝國時期</b>。<br>羅馬帝國享有兩百年的安定與繁榮，史稱「<b>羅馬和平</b>」（27 B.C.～A.D.180），與中國<b>漢朝</b>遙相輝映。',key:'中國史書稱羅馬為<b>大秦</b>；龐貝 79 年被掩埋時屬帝國時期。'},
+    {label:'④ 分裂與滅亡',imgs:[{img:'r_hagia',tag:'伊斯坦堡（古稱君士坦丁堡）的聖索菲亞大教堂'}],poem:'帝國後期政治腐敗、經濟惡化、<b>日耳曼民族</b>入侵。4世紀初，皇帝<b>君士坦丁</b>在東方的<b>拜占庭</b>另建新都；4世紀末帝國分為東、西二部。<br><b>476年</b>西羅馬帝國被日耳曼民族所滅，東羅馬帝國延續至 <b>1453年</b>，才被<b>鄂圖曼土耳其人</b>滅亡。',key:'西 476／日耳曼；東 1453／鄂圖曼土耳其——兩組不要交叉。'},
+    {label:'⑤ 文字與法律',imgs:[{img:'r_latin',tag:'倫敦出土的拉丁文墓碑'},{img:'r_tables',tag:'16世紀木刻版畫：手持法律銅表的羅馬立法者（LEGES XII TAB.＝十二銅表法）',fit:'contain',bg:'#fff'}],poem:'羅馬人使用的<b>拉丁文</b>隨帝國擴張傳至各地，成為中世紀西歐的通用文字。<br>共和時期制訂「<b>十二銅表法</b>」，是羅馬最早的<b>成文法</b>，其中「<b>無罪推定</b>」顯示進步的法律精神；羅馬法後來成為歐洲各國制訂法律的參考。',key:'十二銅表法＝共和時期、最早成文法、無罪推定；「以牙還牙」是漢摩拉比法典。'},
+    {label:'⑥ 公共建築',imgs:[{img:'r_aqueduct',tag:'西班牙塞哥維亞的羅馬引水道'},{img:'r_colosseum',tag:'羅馬圓形競技場'},{img:'r_dougga',tag:'突尼西亞杜加的古羅馬神廟遺跡'}],poem:'羅馬的城市設計良好、街道整齊，有<b>公路、引水道、公共澡堂、劇場和競技場</b>等公共建築。<b>引水道</b>使城市可以遠離水源地發展；<b>圓形競技場</b>用於武士格鬥、軍事操演。',key:'西班牙、北非、英國都有羅馬遺跡 → 羅馬擴張的證據（共和時期起向外擴張、帝國時期大興公共建築；不是王政）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+
+<!-- AK:answer-key -->
+<style id="ak-style">#ak-btn{position:fixed;left:14px;bottom:14px;z-index:9990;font:600 16px/1 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:#1f4e79;color:#fff;border:0;border-radius:999px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer}#ak-btn:hover{background:#163a5c}#ak-box{display:none;position:fixed;inset:0;z-index:9995;background:rgba(15,25,40,.45);padding:16px;overflow:auto}#ak-box.show{display:block}#ak-box .ak-card{max-width:960px;margin:20px auto;background:#fff;color:#1d2733;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:16px/1.6 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;text-align:left}#ak-box .ak-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #e3e8ef;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}#ak-box .ak-head b{font-size:18px;color:#1f4e79}#ak-box .ak-head button{font:inherit;font-size:16px;margin-left:8px;border:1px solid #c9d3df;background:#f4f7fb;color:#1d2733;border-radius:8px;padding:6px 12px;cursor:pointer}#ak-box .ak-body{padding:6px 18px 18px}#ak-box h3{font-size:17px;margin:16px 0 6px;color:#1f4e79}#ak-box .ak-t{border-collapse:collapse;width:100%;margin:6px 0;table-layout:fixed}#ak-box .ak-t th,#ak-box .ak-t td{border:1px solid #cfd8e3;padding:5px 2px;text-align:center;font-size:16px;word-break:break-all}#ak-box .ak-t th{background:#eef3f9;color:#1f4e79;font-weight:600}#ak-box .ak-t th:first-child{width:3.6em}#ak-box .ak-t td{font-weight:700}#ak-box .ak-list{columns:2 300px;margin:6px 0;padding-left:0;list-style:none}#ak-box .ak-list li{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e3e8ef}@media print{#ak-btn{display:none!important}html:not(.ak-on) #ak-box{display:none!important}html.ak-on body>*:not(#ak-box){display:none!important}html.ak-on #ak-box{position:static;background:none;padding:0;display:block!important;overflow:visible}html.ak-on #ak-box .ak-card{box-shadow:none;margin:0;max-width:none}html.ak-on #ak-box .ak-head button{display:none}html.ak-on #ak-box .ak-head{position:static}}</style>
+<script id="ak-core">(function(){
+if(window.AK)return;
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function norm(secs){
+ if(!secs)return[];
+ if(!Array.isArray(secs[0]&&secs[0].items)&&Array.isArray(secs))secs=[{title:'',items:secs}];
+ return secs.map(function(s){return{title:s.title||'',items:(s.items||[]).map(function(x,i){return Array.isArray(x)?[x[0],x[1]]:[i+1,x]})}}).filter(function(s){return s.items.length});
+}
+function table(s){
+ var long=s.items.some(function(x){return String(x[1]).length>3});
+ var h=s.title?'<h3>'+esc(s.title)+'</h3>':'';
+ if(long){
+  return h+'<ol class="ak-list">'+s.items.map(function(x){return'<li><b>'+esc(x[0])+'.</b> '+esc(x[1])+'</li>'}).join('')+'</ol>';
+ }
+ var out=h;
+ for(var i=0;i<s.items.length;i+=10){
+  var r=s.items.slice(i,i+10);
+  out+='<table class="ak-t"><tr><th>題號</th>'+r.map(function(x){return'<th>'+esc(x[0])+'</th>'}).join('')+'</tr><tr><th>答案</th>'+r.map(function(x){return'<td>'+esc(x[1])+'</td>'}).join('')+'</tr></table>';
+ }
+ return out;
+}
+window.AK=function(fn){
+ function run(){
+  var secs;
+  try{secs=norm(typeof fn==='function'?fn():fn)}catch(e){console.warn('AK',e);return}
+  window.__AK_DATA=secs;
+  if(!secs.length)return;
+  var n=secs.reduce(function(a,s){return a+s.items.length},0);
+  var btn=document.createElement('button');btn.id='ak-btn';btn.type='button';btn.textContent='📋 答案總表';if(window.AK_BTN_STYLE)btn.style.cssText=window.AK_BTN_STYLE;
+  var box=document.createElement('div');box.id='ak-box';
+  box.innerHTML='<div class="ak-card" role="dialog" aria-label="答案總表"><div class="ak-head"><b>📋 答案總表（教師用，共 '+n+' 題）</b><span><button type="button" class="ak-p">🖨 列印答案</button><button type="button" class="ak-x" aria-label="關閉">✕</button></span></div><div class="ak-body">'+secs.map(table).join('')+'</div></div>';
+  document.body.appendChild(btn);document.body.appendChild(box);
+  function close(){box.classList.remove('show');document.documentElement.classList.remove('ak-on')}
+  btn.onclick=function(){box.classList.add('show');document.documentElement.classList.add('ak-on')};
+  box.querySelector('.ak-x').onclick=close;
+  box.onclick=function(e){if(e.target===box)close()};
+  box.querySelector('.ak-p').onclick=function(){window.print()};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+ }
+ if(document.readyState==='complete')setTimeout(run,0);else window.addEventListener('load',function(){setTimeout(run,0)});
+};
+})();</script>
+<script>AK(function(){
+if(!/[?&]teacher\b/.test(location.search))return [];
+/* 段考闖關站（chinese/civics/geography/history/science-site 的 volX_ 的 index.html）共用 adapter。
+   資料：頂層 const（L 各課 .mcq/.ext、RIDDLE/EXT/SCEN/CHART…）裡的選擇題物件 {q,o,a}。
+   renderMCQ 題序固定、但「選項每次洗牌」，所以答案列「正解選項文字」而非字母。
+   快問快答／配對／分類挑戰（題目隨機抽）與總測驗（pool/pick 隨機抽題）都不是頂層 {q,o,a} 陣列，不會被列入。 */
+window.AK_BTN_STYLE='left:14px;bottom:76px;font-size:20px;padding:12px 18px';
+(function(){
+  if(document.getElementById('ak-big'))return;
+  var s=document.createElement('style');s.id='ak-big';
+  s.textContent='html body #ak-box .ak-card{font-size:20px}html body #ak-box .ak-head b{font-size:22px}html body #ak-box .ak-head button{font-size:20px}html body #ak-box h3{font-size:21px}html body #ak-box .ak-list li{font-size:20px}html body #ak-box .ak-t th,html body #ak-box .ak-t td{font-size:20px}html body #ak-box .ak-note{font-size:20px;color:#5a6878;margin:10px 0 0}@media(max-width:600px){html body #ak-box{padding:6px}html body #ak-box .ak-card{margin:6px auto}html body #ak-box .ak-body{padding:6px 12px 14px}html body #ak-box .ak-list{columns:1}}';
+  document.head.appendChild(s);
+  setTimeout(function(){var b=document.querySelector('html body #ak-box .ak-body');if(b&&!b.querySelector('.ak-note')){var p=document.createElement('p');p.className='ak-note';p.textContent='※ 題號＝各練習頁上的題號；選項每次會重新洗牌，故列「正確選項的內容」。快問快答、配對、分類挑戰、總測驗為隨機出題，不列。';b.insertBefore(p,b.firstChild)}},50);
+})();
+var src=[].slice.call(document.querySelectorAll('script:not([src])')).filter(function(x){return x.id!=='ak-core'&&x.textContent.indexOf('AK(function')<0}).map(function(x){return x.textContent}).join('\n');
+var names=[];src.replace(/^(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=/gm,function(_,n){if(names.indexOf(n)<0)names.push(n)});
+var isQ=function(x){return x&&typeof x==='object'&&typeof x.q==='string'&&Array.isArray(x.o)};
+var clean=function(t){t=String(t).replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();return t.length>60?t.slice(0,60)+'…':t};
+var lit=function(expr){var re=new RegExp('renderMCQ\\([^,]+,\\s*'+expr.replace(/[.$[\]]/g,'\\$&')+'\\s*,\\s*[^,]+,\\s*([\'"`])([^\'"`$]*)\\1');var m=src.match(re);return m?m[2]:''};
+var KEY={mcq:'📝 段考模擬題',ext:'延伸題',graph:'綜合 圖表判讀',calc:'綜合 計算練習'};
+var secs=[];
+function add(title,arr,pri){for(var j=0;j<secs.length;j++)if(secs[j].arr===arr){if(pri>secs[j].pri){secs[j].title=title;secs[j].pri=pri}return}secs.push({arr:arr,pri:pri,title:title,items:arr.map(function(q,i){return[i+1,clean(q.o[q.a==null?0:q.a])]})})}
+function walk(v,path,parents){
+  if(!v||typeof v!=='object'||path.length>6||v instanceof Node||v===window)return;
+  if(Array.isArray(v)){
+    if(v.length&&v.every(isQ)){
+      var root=path[0],last=path[path.length-1],par=parents[parents.length-1],t;
+      if(root==='L'&&path.length===3){var d=parents[1];t=[d.no,d.title||d.name].filter(Boolean).join(' ')+'｜'+(KEY[last]||last)}
+      else if(path.length===1)t=lit(root)||root;
+      else if(par&&!Array.isArray(par)&&par.title){var gi=path[path.length-2];t=(/^[①-⑳]/.test(par.title)?'':(typeof gi==='number'?(gi+1)+'. ':''))+String(par.title).replace(/<[^>]*>/g,'')}
+      else t=lit(path.join('.'))||KEY[last]||path.join('.');
+      add(t,v,root==='L'?1:0);return;
+    }
+    v.forEach(function(x,i){walk(x,path.concat(i),parents.concat([v]))});return;
+  }
+  if(Object.getPrototypeOf(v)!==Object.prototype)return;
+  Object.keys(v).forEach(function(k){walk(v[k],path.concat(k),parents.concat([v]))});
+}
+names.forEach(function(n){var v;try{v=(0,eval)(n)}catch(e){return}walk(v,[n],[])});
+/* 同一陣列被兩處引用（如 L.ex.mcq＝EXT）只列一次，以課別標題為準；依 L 的課序排在前面 */
+secs.sort(function(a,b){return b.pri-a.pri});
+return secs.map(function(s){return{title:s.title,items:s.items}});
+});</script>
+<!-- /AK -->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+</body>
+</html>

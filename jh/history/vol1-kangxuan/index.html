@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國一歷史段考闖關（康軒）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#7a4a2a; --main-2:#a8693c; --accent:#f2a541; --accent-2:#e07a2f;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#4e2d17 0%,#a8693c 60%,#e0a84a 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#4e2d17;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+.qword{font-size:1.5rem;letter-spacing:0;line-height:1.5;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word}
+@media(max-width:560px){.opts{grid-template-columns:1fr}.qword{font-size:1.3rem}}
+.bars .b span{line-height:1.35}
+@media(max-width:560px){.bars .b{grid-template-columns:128px 1fr 52px}}
+details.card summary{cursor:pointer}
+@media(max-width:560px){.lessoncards{grid-template-columns:1fr}.lc{min-height:0;gap:8px}}
+/* 表格與圖表（文字放在 HTML，不畫在圖上） */
+.tbl{width:100%;border-collapse:collapse;font-size:1rem;margin:6px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.tbl th{background:#f5ebe0;color:var(--main)}
+.tbl td:first-child{white-space:nowrap}
+@media(max-width:560px){.tbl td:first-child{white-space:normal}}
+.figbox{overflow-x:auto;margin-bottom:6px}
+.chip{display:inline-block;color:#fff;border-radius:8px;padding:0 8px}
+.passage{background:#faf4ec;border-radius:12px;padding:14px 16px;line-height:1.9}
+.scale{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.scale span{flex:1 1 120px;background:#f7efe6;border-radius:12px;padding:8px 10px;text-align:center;font-size:1rem;line-height:1.5}
+.scale span b{color:var(--accent-2)}
+.ramp{display:flex;border-radius:12px;overflow:hidden;margin-top:10px}
+.ramp span{flex:1;color:#fff;text-align:center;padding:6px 0;font-weight:700;font-size:1rem}
+.ladder{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 12px}
+.ladder span{background:var(--main);color:#fff;border-radius:12px;padding:6px 12px;font-weight:700;text-align:center}
+.ladder span.an{background:var(--accent);color:#3b2600}
+.ladder small{display:block;font-size:1rem;font-weight:500}
+/* 歷史：南島語族方位圖、荷西分占圖、年表 */
+.compass{display:grid;grid-template-columns:1fr 1.3fr 1fr;grid-template-rows:auto auto auto;gap:8px;text-align:center;margin:6px 0}
+.compass span{background:#f7efe6;border-radius:12px;padding:8px 6px;line-height:1.5}
+.compass .n{grid-column:2;grid-row:1}.compass .w{grid-column:1;grid-row:2}.compass .c{grid-column:2;grid-row:2;background:var(--main);color:#fff}
+.compass .e{grid-column:3;grid-row:2}.compass .s{grid-column:2;grid-row:3}
+.twmap{display:flex;flex-direction:column;gap:10px;max-width:520px;margin:6px auto}
+.twmap div{border-radius:14px;padding:10px 14px;line-height:1.7}
+.twmap .north{background:#e8eef7;border-left:8px solid #3f6aa8}
+.twmap .south{background:#f7ece0;border-left:8px solid #a8693c}
+.tline{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}
+.tline span{flex:1 1 130px;background:#f7efe6;border-radius:12px;padding:8px 10px;text-align:center;line-height:1.5}
+.tline span b{display:block;color:var(--main);font-size:1.15rem}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回歷史選單</a><span class="tag">康軒版 國一上歷史 ｜ 第一次段考</span>
+    <h1>歷史段考闖關｜史前文化～大航海時代</h1>
+    <p>先看文物、古蹟與古地圖動畫弄懂課本，再用遊戲練熟年代與名詞，最後做史料判讀與段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap"><details style="margin-top:8px"><summary>圖片來源與授權</summary>
+  照片皆來自 Wikimedia Commons（CC0／公有領域／CC BY／CC BY-SA），未使用 AI 生成圖：Map of the Austronesian language distribution (language neutral)：Alexandre Juster（CC BY 4.0）；Bashian Caves 01：Bernard Gagnon（CC BY-SA 3.0）；Excavation of the Peinan Site：Benson KC Fang（CC BY-SA 3.0）；Paleolithic Stone Chopper：Gary Todd（CC0）；侈口縮頸單把折肩束腰圈足罐（人面陶罐） (cropped)：氏子（CC BY-SA 4.0）；卑南遺址人獸形玉玦：Pbdragonwang（CC BY-SA 4.0）；Taiwan indigenous people distribution 1936：臺灣總督府警務局理蕃課（公有領域）；PaSta’ay：maya（CC BY-SA 4.0）；卑南遺址公園月形石柱：Outlookxp（CC BY 4.0）；A Clay Pot on Display in Shihsanhang Museum of Archaeology：H. H. Tsai（CC BY-SA 4.0）；十三行文化聚落模型：氏子（CC BY-SA 4.0）；Te Paranihi - Māori waka taua (war canoe) from the Otago Museum 02：Obsidian Soul（CC0）；圓山遺址2：林高志（CC BY-SA 4.0）；台灣城殘蹟（安平古堡殘蹟）-6：WEI, WAN-CHEN（魏琬臻）（CC BY-SA 4.0）；Andries Beeckman - The Castle of Batavia, Seen from Kali Besar West - WGA1557：Andries Beeckman（公有領域）；Chihkan Tower 54507-Tainan (43946438085)：xiquinhosilva（CC BY 2.0）；台南孔廟「全臺首學」：Ynto5304（CC BY-SA 4.0）；Formosan sika deer of Daqiu：SuOllie（CC BY-SA 4.0）；DejimaInNagasakiBay：PHGCOM（公有領域）；Portrait of Zheng Chenggong：Huang Zi 黃梓 (17th century)（公有領域）；鹿耳門溪：Pbdragonwang（CC BY-SA 4.0）；The Ruins of St. Pauls, Macau (6847680308)：Michal Osmenda from Brussels, Belgium（CC BY 2.0）；Manila, Fort Santiago, Walled city of Intramuros, Philippines：Vyacheslav Argenberg（CC BY 4.0）；Bowl, made in China for export and collected in the Philippines, 15th century, porcelain with underglaze cobalt blue floral design：Hiart（CC0）；紅毛城 Fort San Domingo - panoramio (2)：lienyuan lee（CC BY 3.0）；澎湖天后宮｜沈有容諭退紅毛番：舟集 Toadboat（CC BY-SA 4.0）；A Castro, Lorenzo - A Dutch East-Indiaman off Hoorn - Google Art Project：a Castro, Lorenzo (Active c. 1664 - died（公有領域）；Sugarcane Field in Huwei, Taiwan：Alexander Synaptic（CC BY-SA 4.0）；Atlas Blaeu-Van der Hem - Taioan：Joan Blaeu（公有領域）；VOC flag (Amsterdam)：Martinvl（CC BY-SA 4.0）；Tainan Taiwan Fort-Zeelandia-01：CEphoto, Uwe Aranas（CC BY-SA 3.0）；左營舊城門.國定古蹟：邱文強（CC BY-SA 4.0）；Jiaobei and joss papers beside Chinese lunar calendar booklets at Jindun Chenghuang Temple, as taken on 11 January 2021：Kai3952（CC BY-SA 4.0）；Heji 37986 Ganzhi table (cropped)：rotated and cropped by Kanguole（CC0）；Kangxi Emperor：清宮廷畫家（佚名）（公有領域）；Giotto - Scrovegni - -17- - Nativity, Birth of Jesus：Giotto（公有領域）。</details>
+</div></footer>
+
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料（康軒 國一上歷史 第一次段考） =================
+   人名、地名、年代、名詞一律依康軒 115 年版課本（第1課、第2課）；序章依統計與通用紀年知識。
+   快問快答：[題目, 正解, [3 個誘答], 幾校考過(0＝不標★)]
+   模擬題：{q, o:[正解, 誘答…], a:0, src, ex}（選項每次洗牌；全部原創改寫，只借各校命題方向與陷阱） */
+const L = {
+/* ---------- 序章 歷史與時間 ---------- */
+s:{
+  no:'序章', code:1, title:'歷史與時間：紀年、世紀、史料', short:'紀年・世紀・史料', color:'linear-gradient(135deg,#4a2c16,#a86b3c)',
+  desc:'西元・民國・年號・干支｜世紀換算｜史前 vs 歷史時代｜史料與立場',
+  quickAsk:'選出正確的答案', quickTitle:'紀年＋史料快問快答',
+  quick:[
+    ['以耶穌誕生那一年為元年的紀年方式','西元紀年',['民國紀年','年號紀年','干支紀年'],6],
+    ['西元紀年源自哪一種宗教','基督教',['佛教','道教','伊斯蘭教'],6],
+    ['民國元年是西元哪一年','1912 年',['1911 年','1900 年','1949 年'],6],
+    ['民國 114 年換算成西元是','2025 年',['2024 年','2026 年','2014 年'],6],
+    ['「康熙」「永曆」這類紀年屬於','年號紀年',['干支紀年','民國紀年','西元紀年'],6],
+    ['天干配地支、60 年一循環的紀年','干支紀年',['年號紀年','西元紀年','民國紀年'],6],
+    ['西元 2025 年的干支','乙巳年',['甲辰年','丙午年','甲子年'],6],
+    ['西元 2026 年的干支','丙午年',['乙巳年','丁未年','甲午年'],6],
+    ['西元 2025 年屬於第幾世紀','21 世紀',['20 世紀','22 世紀','25 世紀'],3],
+    ['西元 1624 年（荷蘭占大員）屬於','17 世紀',['16 世紀','18 世紀','15 世紀'],3],
+    ['西元 1601～1700 年是','17 世紀',['16 世紀','18 世紀','17 世紀前期'],3],
+    ['西元 1900 年屬於','19 世紀',['20 世紀','18 世紀','21 世紀'],3],
+    ['一個世紀是幾年','100 年',['60 年','10 年','1000 年'],0],
+    ['區分「史前時代」與「歷史時代」的依據','有沒有文字紀錄',['有沒有使用鐵器','有沒有農業','有沒有國家'],7],
+    ['臺灣大約從何時進入有大量文字紀錄的歷史時代','17 世紀（大航海時代）',['5 萬年前','19 世紀末','民國以後'],7],
+    ['研究歷史所依據的材料（文獻、文物、口述、圖像）','史料',['史觀','年表','傳說'],10],
+    ['荷蘭長官揆一把鄭成功寫得很殘暴，主要是因為','雙方立場不同',['揆一沒見過鄭成功','荷蘭人不會寫字','鄭成功真的不存在'],11],
+    ['原住民族沒有文字，傳承歷史主要靠','神話與口述傳說',['石碑','族譜','官方檔案'],5],
+    ['西元 2026 年換算成民國是','民國 115 年',['民國 114 年','民國 116 年','民國 105 年'],6],
+    ['「乙巳」「丙午」這類名稱，是由什麼組合而成','天干與地支',['皇帝年號','西元數字','星座'],6],
+    ['考古出土的石器、陶片屬於哪一類史料','實物史料',['文字史料','口述史料','圖像史料'],10],
+    ['同一位歷史人物在不同史料中評價不同，最常見的原因','記錄者的立場不同',['史料一定有錯字','人物有兩個','年代算錯'],11],
+  ],
+  words:[
+    ['西元紀年','以耶穌誕生那年為元年'],['民國紀年','民國元年＝西元 1912 年'],['年號紀年','依帝王年號紀年，如康熙'],
+    ['干支紀年','天干配地支，60 年一循環'],['世紀','每 100 年為一個世紀'],['史前時代','沒有文字紀錄的時代'],
+    ['歷史時代','有文字紀錄以後的時代'],['史料','研究歷史的材料'],['考古遺址','古人活動留下的地點'],
+    ['口述傳說','沒有文字的族群傳承歷史的方式'],
+  ],
+  sorts:[
+    {title:'這是哪一種紀年？',tip:'西元＝耶穌誕生；民國＝1912 起算；年號＝帝王；干支＝天干＋地支。',buckets:['西元','民國','年號','干支'],items:[
+      ['2025 年',0],['A.D. 1662',0],['114 年',1,'民國 114 年＝2025'],['民國八十年代',1],
+      ['康熙二十二年',2],['永曆十五年',2,'南明年號，鄭成功沿用'],['乙巳年',3],['甲子年',3,'干支不是年號！'],['丙午年',3]]},
+    {title:'這一年屬於第幾世紀？',tip:'世紀＝（西元年的百位以上數字）＋1；但整百年（如 1700）屬於前一世紀。',buckets:['16 世紀','17 世紀','18 世紀','21 世紀'],items:[
+      ['1571 年',0],['1604 沈有容勸退荷蘭',1],['1624 荷蘭占大員',1],['1661 鄭成功登陸鹿耳門',1],['1683 施琅攻臺',1],
+      ['1700 年',1,'整百年屬於前一世紀'],['1701 年',2],['2025 年',3]]},
+    {title:'史前時代還是歷史時代？',tip:'看「有沒有文字紀錄」。',buckets:['史前時代','歷史時代'],items:[
+      ['長濱文化的打製石器',0],['卑南遺址的石板棺',0],['十三行人的煉鐵作坊',0,'金屬器時代仍是史前時代'],
+      ['荷蘭人寫的《熱蘭遮城日誌》',1],['澎湖天后宮的沈有容石碑',1],['鄭荷和約',1]]},
+  ],
+  mcq:[
+    {q:'小美在日曆上看到「中華民國一一四年　歲次乙巳」。下列敘述何者正確？',o:['「乙巳」是干支紀年，60 年一循環','「乙巳」是皇帝的年號','這一年是西元 2024 年','這一年屬於 20 世紀'],a:0,src:'6 校考紀年',ex:'民國 114＋1911＝西元 2025 年，屬 21 世紀；乙巳是干支，不是年號。'},
+    {q:'西元紀年最初是依據哪一個事件訂定元年？',o:['耶穌誕生','佛陀誕生','中華民國建立','秦始皇統一中國'],a:0,src:'',ex:'西元紀年源自基督教，以耶穌誕生那一年為元年。'},
+    {q:'鄭成功於西元 1661 年率軍登陸鹿耳門，這一年屬於哪一世紀？',o:['17 世紀','16 世紀','18 世紀','19 世紀'],a:0,src:'世紀換算（他版 40 校）',ex:'1601～1700 年都屬於 17 世紀。'},
+    {q:'某段史料記載「康熙二十二年，施琅率軍攻取臺灣」。這段史料使用的是哪一種紀年？',o:['年號紀年','干支紀年','民國紀年','西元紀年'],a:0,src:'',ex:'康熙是清朝皇帝的年號；康熙二十二年＝西元 1683 年。'},
+    {q:'歷史學上區分「史前時代」與「歷史時代」的主要依據是什麼？',o:['是否有文字紀錄','是否使用金屬器','是否發展農業','是否建立國家'],a:0,src:'7 校考',ex:'沒有文字紀錄的時代稱史前時代；使用金屬器的十三行文化仍屬史前時代。'},
+    {q:'下列哪一個年分和其他三個屬於「不同」的世紀？',o:['1701 年','1601 年','1662 年','1700 年'],a:0,src:'世紀陷阱題',ex:'1601～1700 年都屬 17 世紀（整百年 1700 屬於前一世紀）；1701 年才進入 18 世紀。'},
+    {q:'研究臺灣原住民族早期歷史時，最難取得下列哪一類史料？',o:['原住民族自己書寫的文字紀錄','考古遺址出土的石器與陶器','族人代代相傳的口述傳說','部落至今仍舉行的祭典儀式'],a:0,src:'',ex:'臺灣原住民族最初沒有發展出文字，主要靠神話與口述傳說傳承歷史，所以缺少自己書寫的文字紀錄。'},
+    {q:'荷蘭長官揆一寫鄭成功「下令屠殺俘虜」；清康熙皇帝卻稱讚他是「海外孤忠」。下列解讀何者最恰當？',o:['立場不同，對同一人物的評價可能不同','兩則資料互相矛盾，所以都不能用','敵人寫的資料完全不可信','皇帝寫的資料一定正確'],a:0,src:'11 校考鄭成功史料',ex:'課本探究活動：政治立場不同導致評價差異；研究時要比對多種史料，不是直接全盤否定。'},
+    {q:'清廷在鄭氏投降前稱鄭成功為「叛賊」，投降後康熙卻寫輓聯稱他「孤忠」。造成改變的原因最可能是？',o:['政治局勢改變，康熙想攏絡漢人','鄭成功晚年主動歸順清朝','康熙不知道鄭成功曾經抗清','荷蘭人要求清廷改變說法'],a:0,src:'',ex:'鄭成功從未歸順清朝；評價改變反映政治局勢變化與攏絡漢人的需要。'},
+    {q:'關於「民國紀年」的換算，下列何者正確？',o:['西元年＝民國年＋1911','西元年＝民國年＋1912','民國年＝西元年＋1911','民國元年＝西元 1911 年'],a:0,src:'6 校考民國紀年',ex:'民國元年＝1912 年，所以西元年＝民國年＋1911（例：114＋1911＝2025）。'},
+    {q:'民間傳說鄭成功「拔劍一指，泉水湧出」。對歷史研究來說，這則傳說最合理的用法是？',o:['反映民間對鄭成功的尊崇','證明鄭成功真的有神力','證明鄭軍一定到過該地','傳說不可信，完全沒有價值'],a:0,src:'課本探究活動',ex:'傳說不能當成史實，但可以反映人們的想法與情感，仍是有價值的史料。'},
+    {q:'2026 年是丙午年，那麼下一個「丙午年」是西元哪一年？',o:['2086 年','2036 年','2126 年','2076 年'],a:0,src:'干支 60 年一循環',ex:'干支 60 年一循環：2026＋60＝2086。'},
+    {q:'考古學家在遺址中挖到陶片、石器與燒過的獸骨。這些東西屬於哪一類史料？',o:['實物史料（遺物）','文字史料','口述史料','官方檔案'],a:0,src:'史料類型',ex:'考古出土的器物是實物史料，可以補足沒有文字的史前時代。'},
+    {q:'下列四則紀錄，哪一則「不是」使用年號紀年？',o:['歲次丙午','康熙二十二年','永曆十五年','康熙三十八年'],a:0,src:'干支 vs 年號（6 校）',ex:'丙午是干支紀年；康熙、永曆都是帝王年號。干支不是年號，是最常見的陷阱。'},
+    {q:'小華說：「十三行人已經會煉鐵，所以十三行文化屬於歷史時代。」這句話錯在哪裡？',o:['史前、歷史時代以有無文字紀錄區分，十三行仍屬史前時代','十三行人其實只會使用銅器，不會煉鐵','十三行文化距今約五萬年，屬於舊石器時代','十三行文化是荷蘭人來臺後才出現的文化'],a:0,src:'史前分期陷阱',ex:'金屬器時代仍屬史前時代；判斷史前或歷史時代看有無文字紀錄，史前分期才看器物材質與製作方式。'},
+    {q:'臺灣在 17 世紀才有較多文字紀錄，主要是因為什麼？',o:['荷蘭人、西班牙人等來臺，留下大量文獻','原住民族在這時發明文字，開始記錄歷史','清朝在臺灣廣設學校，培養大量讀書人','日本人來臺開辦報紙，留下許多新聞紀錄'],a:0,src:'史前與歷史時代分界',ex:'大航海時代外來者（荷、西、漢人）留下大量紀錄，臺灣進入歷史時代。'},
+  ],
+},
+/* ---------- 第1課 史前文化與原住民族 ---------- */
+l1:{
+  no:'第1課', code:2, title:'史前文化與原住民族', short:'史前文化與原住民族', color:'linear-gradient(135deg,#5b3a1e,#c08a4e)',
+  desc:'長濱・大坌坑・圓山・卑南・十三行｜南島語族｜名稱演變',
+  quickAsk:'選出正確的答案', quickTitle:'史前文化＋原住民族快問快答',
+  quick:[
+    ['考古學家把史前時代分期的依據','器物的材質與製作方式',['有沒有文字','距今年代長短','有沒有國家'],4],
+    ['臺灣目前發現最早的舊石器時代文化','長濱文化',['大坌坑文化','圓山文化','十三行文化'],12],
+    ['長濱文化最初發現的地點','臺東縣長濱鄉八仙洞',['新北市八里區','臺北盆地','臺南市安平'],12],
+    ['長濱文化距今約','五萬年到五千年前',['七千年到兩千年前','兩千年到四百年前','四百年前'],12],
+    ['長濱人製作石器的方式','敲打（打製石器）',['磨製','鑄造','燒製'],10],
+    ['臺灣新石器早期文化，以粗繩紋陶著稱','大坌坑文化',['長濱文化','卑南文化','十三行文化'],8],
+    ['留下貝塚、是「臺北湖」存在證據的文化','圓山文化',['卑南文化','長濱文化','大坌坑文化'],13],
+    ['出土石板棺與人獸形玉器的文化','卑南文化',['圓山文化','十三行文化','長濱文化'],11],
+    ['卑南文化的玉器也在哪裡被發現，證實與島外往來','東南亞',['日本','歐洲','美洲'],7],
+    ['臺灣金屬器時代的代表文化','十三行文化',['卑南文化','圓山文化','大坌坑文化'],13],
+    ['十三行遺址出土「鐵渣、煉鐵作坊」說明','可能已使用鐵製工具',['已有文字','已建立國家','與荷蘭人貿易'],7],
+    ['十三行出土玻璃手環、瑪瑙珠、銅錢，顯示','與其他地區有貿易往來',['已建立國家','會製作玉器','住在洞穴中'],7],
+    ['新石器時代出現的重大變革','農業、磨製石器、陶器、飼養家畜',['用火、打製石器','煉鐵、銅錢','文字、國家'],7],
+    ['臺灣原住民族屬於哪一個語族','南島語族',['漢藏語族','阿爾泰語族','印歐語族'],15],
+    ['南島語族分布的最北端','臺灣',['日本','夏威夷','菲律賓'],15],
+    ['南島語族分布的最南端','紐西蘭',['澳洲','印尼','馬達加斯加'],15],
+    ['南島語族分布的最西端','馬達加斯加',['印度','非洲南端','斯里蘭卡'],15],
+    ['南島語族分布的最東端','復活節島',['夏威夷','紐西蘭','臺灣'],15],
+    ['清帝國把原住民分為熟番、生番，依據是','是否納稅、服勞役',['居住在山地或平地','語言不同','人口多寡'],11],
+    ['日治時期官方把原住民分為','平埔族、高砂族',['熟番、生番','山地同胞、平地同胞','原住民族'],14],
+    ['中華民國政府初期稱高砂族為','山地同胞',['熟番','原住民族','平埔族'],4],
+    ['政府在何時將其統稱為「原住民族」','民國八十年代',['清帝國時期','日治時期','民國三十年代'],14],
+    ['目前官方認定的臺灣原住民族有幾族','16 族',['9 族','10 族','20 族'],0],
+    ['泰雅族以什麼說明族群起源','岩石誕生始祖的傳說',['洪水傳說','矮人傳說','射日傳說'],5],
+    ['布農族的洪水傳說講述了','族群的遷徙過程',['煉鐵技術','與荷蘭的戰爭','文字的發明'],5],
+    ['有專屬矮靈祭典的原住民族','賽夏族',['泰雅族','布農族','阿美族'],0],
+    ['史前文化通常以什麼來命名','首先發現遺址的較小地名',['發現者的姓名','出土的器物','所在縣市'],1],
+    ['文化層中，一般越下層的年代','越早',['越晚','一樣','無法判斷'],4],
+  ],
+  words:[
+    ['長濱文化','舊石器晚期、八仙洞、打製石器'],['大坌坑文化','新石器早期、粗繩紋陶'],['圓山文化','新石器晚期、貝塚'],
+    ['卑南文化','石板棺、人獸形玉器'],['十三行文化','金屬器時代、煉鐵、外來器物'],['貝塚','食用貝肉後丟棄的貝殼堆積'],
+    ['南島語族','臺灣原住民族所屬的語族'],['熟番／生番','清帝國依納稅服勞役分類'],['平埔族／高砂族','日治時期的官方分類'],
+    ['山地同胞','中華民國初期對高砂族的稱呼'],['原住民族','民國八十年代起的統稱'],['矮靈祭','賽夏族的祭典'],
+    ['文化層','越下層年代越早'],['打製石器','用敲打方式製作，舊石器時代'],['磨製石器','新石器時代'],
+  ],
+  sorts:[
+    {title:'這屬於哪一個時代？',tip:'看器物的材質與製作方式：打製→舊石器；磨製、陶器、農業→新石器；煉鐵→金屬器。',buckets:['舊石器時代','新石器時代','金屬器時代'],items:[
+      ['長濱文化',0],['打製石器',0],['住在海邊洞穴、已知用火',0],['大坌坑文化',1],['圓山文化',1],['卑南文化',1],
+      ['粗繩紋陶器',1],['開始農耕、定居',1],['十三行文化',2],['煉鐵作坊、鐵渣',2],['玻璃手環、銅錢',2,'外來器物→貿易']]},
+    {title:'出土物是哪一個文化？',tip:'記關鍵字：八仙洞／粗繩紋陶／貝塚／石板棺／煉鐵。',buckets:['長濱','大坌坑','圓山','卑南','十三行'],items:[
+      ['臺東八仙洞',0],['以敲打製作的石器',0],['新北八里，新石器早期',1],['粗繩紋陶器',1],['貝塚（臺北湖的證據）',2],
+      ['臺北盆地，新石器晚期',2],['石板棺',3],['人獸形玉器',3],['新北八里，金屬器時代',4],['人面陶罐',4],['瑪瑙珠、玻璃手環',4]]},
+    {title:'這個名稱出自哪一個時期？',tip:'清→日治→民國初期→民國八十年代。',buckets:['清帝國','日治時期','民國初期','民國八十年代起'],items:[
+      ['熟番',0],['生番',0,'依是否納稅、服勞役'],['平埔族',1],['高砂族',1],['山地同胞',2],['原住民族',3]]},
+    {title:'是平埔族嗎？',tip:'常考的平埔族：凱達格蘭、噶瑪蘭、西拉雅、馬卡道、巴布拉。',buckets:['平埔族','不是平埔族'],items:[
+      ['凱達格蘭族',0],['噶瑪蘭族',0],['西拉雅族',0],['馬卡道族',0],['巴布拉族',0],['泰雅族',1],['布農族',1],['賽夏族',1],['達悟族',1]]},
+  ],
+  mcq:[
+    {q:'考古學家把臺灣史前時代分成舊石器、新石器、金屬器三個時代，主要依據是什麼？',o:['人類使用器具的材質和製作方式','有沒有文字紀錄','距今年代的長短','人口的多寡'],a:0,src:'',ex:'課本：依「器具的材質和製作方式」分期。「有無文字」是史前／歷史時代的分界，不是史前分期的依據。'},
+    {q:'某遺址位於海邊洞穴，出土以敲打方式製成的石器、火塘與魚骨，但沒有陶器。此遺址最可能屬於哪一個文化？',o:['長濱文化','大坌坑文化','圓山文化','十三行文化'],a:0,src:'16 校都考「依出土物判斷時代」',ex:'洞穴＋打製石器＋用火，沒有陶器與農業→舊石器時代長濱文化（臺東八仙洞）。'},
+    {q:'某遺址出土鐵渣、煉鐵作坊，也挖到中國與東南亞的銅錢、瑪瑙珠。下列推論何者最適當？',o:['屬金屬器時代，且與其他地區有貿易往來','屬舊石器時代，居民以採集為生','屬新石器時代，已有文字','居民是南島語族的起源'],a:0,src:'16 校都考；十三行 13 校',ex:'鐵渣、煉鐵→金屬器時代（十三行文化）；外來的銅錢、瑪瑙珠→貿易往來。'},
+    {q:'承上，若要判斷該遺址「屬於哪一個時代」，下列哪一項證據最有力？',o:['煉鐵爐殘渣','繩紋陶器','碳化稻米','各種獸骨'],a:0,src:'課本探究題型',ex:'陶器、稻米在新石器時代就有了；只有煉鐵證據能指出金屬器時代。'},
+    {q:'某遺址出土兩千多具石板棺，陪葬品中有人獸形玉器，而且東南亞也發現類似玉器。關於此文化，何者正確？',o:['屬新石器晚期，與島外早有互動','屬舊石器時代，住在洞穴','屬金屬器時代，已會煉鐵','是臺灣最早的史前文化'],a:0,src:'文化 11 校',ex:'卑南文化（臺東）：石板棺、人獸形玉器；東南亞出土同類玉器→與島外往來。'},
+    {q:'圓山遺址出土大量貝殼堆積成的貝塚。這項發現最能說明什麼？',o:['當時臺北盆地曾有大片水域（臺北湖）','當時人已會煉鐵、使用鐵製工具','當時人住在海邊洞穴、靠漁撈維生','當時已與歐洲人有貿易往來'],a:0,src:'圓山文化 13 校',ex:'課本：人們食用貝肉後丟棄貝殼形成貝塚，是臺北湖存在的證據。'},
+    {q:'下列臺灣史前文化依「年代由早到晚」排列，何者正確？',o:['長濱→大坌坑→卑南→十三行','大坌坑→長濱→十三行→卑南','長濱→十三行→大坌坑→卑南','十三行→卑南→大坌坑→長濱'],a:0,src:'10 校考史前文化先後',ex:'舊石器（長濱）→新石器早期（大坌坑）→新石器晚期（圓山、卑南）→金屬器（十三行）。'},
+    {q:'某地層由下而上依序挖到：粗繩紋陶片、貝塚、煉鐵遺跡。這三層文化最可能依序是？',o:['大坌坑→圓山→十三行','十三行→圓山→大坌坑','圓山→大坌坑→十三行','長濱→卑南→十三行'],a:0,src:'',ex:'文化層越下層越早：粗繩紋陶（大坌坑）→貝塚（圓山）→煉鐵（十三行）。'},
+    {q:'新石器時代和舊石器時代相比，最大的變革是什麼？',o:['出現農業、磨製石器、陶器與飼養家畜','開始用火烤熟食物、取暖','開始用敲打方式製作石器','開始用文字記錄生活與祭典'],a:0,src:'7 校考新石器革命',ex:'用火、打製石器在舊石器時代就有；新石器時代出現農業與定居生活。'},
+    {q:'紐西蘭的毛利人到臺東參訪，發現自己的語言和文物與臺灣原住民族相似。這反映了什麼？',o:['臺灣原住民族與毛利人同屬南島語族','毛利人是漢人的後代','臺灣原住民族起源於紐西蘭','兩地在日治時期有移民往來'],a:0,src:'15 校都考南島語族',ex:'臺灣原住民族屬南島語族；學者推測原住民族可能數千年前移居臺灣，再往外擴散。'},
+    {q:'關於南島語族的分布範圍，下列何者正確？',o:['北到臺灣、南到紐西蘭、西到馬達加斯加、東到復活節島','北到日本、南到澳洲、西到印度、東到夏威夷','北到臺灣、南到印尼、西到非洲、東到夏威夷','北到韓國、南到紐西蘭、西到斯里蘭卡、東到智利'],a:0,src:'12 校考分布圖',ex:'臺灣是南島語族分布的最北端（不是最南）；最東是復活節島（不是夏威夷）。'},
+    {q:'清帝國將原住民分為「熟番」與「生番」，分類的依據是什麼？',o:['是否納稅、服勞役','住在山地還是平地','說哪一種語言','是否信仰基督教'],a:0,src:'11 校考熟番生番',ex:'課本：清帝國依是否納稅、服勞役分類；平埔族／高砂族才是日治時期的分類。'},
+    {q:'臺灣原住民族的稱呼，依「統治政權的先後」排列，何者正確？',o:['熟番、生番→平埔族、高砂族→山地同胞→原住民族','平埔族、高砂族→熟番、生番→原住民族→山地同胞','山地同胞→熟番、生番→平埔族、高砂族→原住民族','熟番、生番→山地同胞→平埔族、高砂族→原住民族'],a:0,src:'14 校都考名稱演變',ex:'清（熟番／生番）→日治（平埔族／高砂族）→中華民國初期（山地同胞）→民國八十年代（原住民族）。'},
+    {q:'中華民國政府初期稱高砂族為「山地同胞」，當時部分平埔族未被視為原住民。主要原因是什麼？',o:['部分平埔族漢化較深','平埔族人口太多','平埔族居住在山地','平埔族拒絕被稱為原住民'],a:0,src:'',ex:'課本：因部分平埔族漢化較深，未被視為原住民。'},
+    {q:'下列哪一組全部都是平埔族？',o:['凱達格蘭族、西拉雅族、噶瑪蘭族','泰雅族、西拉雅族、達悟族','賽夏族、布農族、馬卡道族','阿美族、排灣族、凱達格蘭族'],a:0,src:'11 校考平埔族',ex:'泰雅、達悟、賽夏、布農、阿美、排灣都不是平埔族。'},
+    {q:'臺灣原住民族透過神話與口述傳說傳承歷史。下列對這些傳說的看法，何者最恰當？',o:['可以反映族群的起源、遷徙與環境變動','全部都是真實發生的歷史事件','沒有文字記載，所以沒有研究價值','只是娛樂用的故事'],a:0,src:'5 校考傳說的意義',ex:'課本：傳說透露昔日曾遭遇天災等環境變動，是認識起源、遷徙與生活調適的重要資料。'},
+    {q:'「史前文化通常以首先發現遺址的較小地名命名」。下列何者符合這個原則？',o:['長濱文化最初發現於臺東縣長濱鄉八仙洞','卑南文化是依發現者卑南先生命名','十三行文化是因為出土十三種器物','圓山文化是因為遺址呈圓形'],a:0,src:'他版 9 校',ex:'課本小百科：以鄉鎮名、村名等較小地名命名，例如長濱鄉→長濱文化。'},
+    {q:'下列器物與文化的配對，何者正確？',o:['人面陶罐－十三行文化','人獸形玉器－長濱文化','粗繩紋陶器－十三行文化','石板棺－圓山文化'],a:0,src:'混搭選項',ex:'人面陶罐出自十三行；人獸形玉器、石板棺出自卑南；粗繩紋陶器是大坌坑文化。'},
+  ],
+},
+/* ---------- 第2課 大航海時代各方勢力在臺灣 ---------- */
+l2:{
+  no:'第2課', code:3, title:'大航海時代各方勢力在臺灣', short:'大航海時代各方勢力',color:'linear-gradient(135deg,#6b3f1d,#d39a4f)',
+  desc:'海禁・海商・荷西・鎖國｜熱蘭遮城｜鄭成功・陳永華・軍屯',
+  quickAsk:'選出正確的答案', quickTitle:'大航海時代快問快答',
+  quick:[
+    ['歐洲人東來的主要目的','商業利益與傳教',['尋找移民土地','躲避戰爭','學習中文'],3],
+    ['明朝實行海禁的主要原因','防備倭寇',['打擊鄭氏','防止荷蘭人','保護漁業'],10],
+    ['清帝國實行海禁的主要原因','打擊鄭氏',['防備倭寇','防止鴉片','保護茶葉'],7],
+    ['明朝加強澎湖防務後，海商活動轉移到','臺灣',['日本','菲律賓','琉球'],0],
+    ['17 世紀初帶領漢人開墾雲林、嘉義一帶的海商','顏思齊',['鄭芝龍','郭懷一','陳永華'],13],
+    ['獨霸中國東南沿海、日本、東南亞貿易的海上勢力','鄭芝龍',['顏思齊','施琅','沈有容'],12],
+    ['日本人對臺灣的稱呼','高山國',['福爾摩沙','大員','東寧'],3],
+    ['航經臺灣的歐洲人稱臺灣為「美麗之島」','福爾摩沙',['高山國','大員','巴達維亞'],1],
+    ['葡萄牙人在東亞的據點','澳門',['馬尼拉','巴達維亞','長崎'],10],
+    ['西班牙人在東亞的據點','菲律賓馬尼拉',['澳門','巴達維亞','大員'],10],
+    ['荷蘭聯合東印度公司的亞洲總部','巴達維亞（今印尼雅加達）',['澳門','馬尼拉','大員'],11],
+    ['勸退占領澎湖的荷蘭人的明朝將領','沈有容',['施琅','鄭芝龍','顏思齊'],9],
+    ['碑文「諭退紅毛番」中的紅毛番是指','荷蘭人',['西班牙人','葡萄牙人','日本人'],9],
+    ['荷蘭人再度占領澎湖失敗，轉往臺灣南部是西元','1624 年',['1604 年','1626 年','1642 年'],3],
+    ['荷蘭人在大員興建、作為統治中心的城堡','熱蘭遮城',['普羅民遮城','聖多明哥城','紅毛城'],11],
+    ['荷蘭人在赤崁一帶興建的城堡','普羅民遮城',['熱蘭遮城','聖薩爾瓦多城','承天府'],9],
+    ['西班牙人進占臺灣北部雞籠、淡水是西元','1626 年',['1624 年','1642 年','1661 年'],8],
+    ['西班牙人減少駐臺守軍的原因','日本鎖國，對日貿易受挫',['被鄭成功打敗','明朝海禁','郭懷一反抗'],12],
+    ['日本鎖國後只准哪兩國到指定港口貿易','中國、荷蘭',['葡萄牙、西班牙','英國、荷蘭','中國、西班牙'],11],
+    ['荷蘭人驅離西班牙人是西元','1642 年',['1626 年','1652 年','1662 年'],2],
+    ['淡水紅毛城的「紅毛」是指','荷蘭人',['西班牙人','英國人','日本人'],0],
+    ['荷蘭時期臺灣出口的商品','稻米、糖、鹿皮',['絲織品、瓷器','香料、白銀','茶、樟腦'],9],
+    ['荷蘭時期經臺灣轉運的商品','絲織品、瓷器、香料',['稻米、糖、鹿皮','茶、樟腦','鴉片'],9],
+    ['荷蘭人召募漢人來臺開墾的目的','增加米、糖產量',['抵抗西班牙','傳教','建立學校'],4],
+    ['荷治時期規模最大的漢人反抗事件','郭懷一事件（1652）',['顏思齊事件','麻豆社事件','沈有容事件'],11],
+    ['荷蘭人所說的「國姓爺」是指','鄭成功',['鄭芝龍','鄭經','鄭克塽'],9],
+    ['鄭成功攻臺的登陸地點','鹿耳門',['雞籠','淡水','打狗（今高雄）'],3],
+    ['鄭成功攻臺的主要目的','取得長期抗清所需的糧食與裝備',['協助荷蘭人','傳播基督教','開採金礦'],9],
+    ['鄭成功在臺灣的施政中心','承天府（今臺南市）',['巴達維亞','澳門','雞籠'],0],
+    ['軍隊平時耕種、戰時作戰的制度','軍屯（寓兵於農）',['海禁','鎖國','特許公司'],10],
+    ['與鄭氏軍屯有關的地名','左營、新營',['淡水、雞籠','大員、赤崁','巴達維亞'],9],
+    ['協助鄭經提倡文教、設立孔廟的人','陳永華',['施琅','顏思齊','沈有容'],11],
+    ['臺南孔廟「全臺首學」的意義','臺灣第一座孔廟',['臺灣第一所大學','荷蘭人建的學校','清朝的官署'],6],
+    ['西元 1683 年攻取臺灣、結束鄭氏統治的清將','施琅',['沈有容','陳永華','鄭芝龍'],11],
+    ['鄭氏時期突破清廷封鎖的貿易方式','在中國沿海走私',['只和荷蘭貿易','停止所有貿易','向清朝進貢'],14],
+    ['與鄭氏建立貿易關係的國家','英國、日本、東南亞國家',['荷蘭、西班牙','葡萄牙、法國','美國、俄國'],14],
+    ['鄭氏時期主要出口商品','糖、鹿皮',['稻米、糖','絲綢、瓷器','茶、樟腦'],14],
+    ['鄭氏時期主要進口商品','抗清所需的軍用物資',['稻米','鹿皮','鴉片'],14],
+  ],
+  words:[
+    ['海禁','明朝為防倭寇，禁止人民出海'],['倭寇','亦盜亦商，成員多為中國人'],['顏思齊','帶漢人開墾雲林、嘉義'],
+    ['鄭芝龍','鄭成功之父，海上霸主，後降清'],['高山國','日本對臺灣的稱呼'],['福爾摩沙','歐洲人稱臺灣「美麗之島」'],
+    ['聯合東印度公司','荷蘭特許公司，可宣戰、談和'],['巴達維亞','荷蘭在亞洲的總部'],['沈有容','勸退占領澎湖的荷蘭人'],
+    ['熱蘭遮城','荷蘭在大員的統治中心'],['普羅民遮城','荷蘭在赤崁興建的城堡'],['鎖國','日本只准中國、荷蘭貿易'],
+    ['郭懷一事件','荷治時期最大漢人反抗'],['軍屯','寓兵於農，留下「營」字地名'],['陳永華','協助鄭經設孔廟、提倡文教'],
+    ['施琅','1683 年率清軍攻取臺灣'],
+  ],
+  sorts:[
+    {title:'這是哪一方勢力？',tip:'荷蘭在南、西班牙在北；鄭氏在臺南建承天府。',buckets:['荷蘭','西班牙','鄭氏','明朝／清朝'],items:[
+      ['興建熱蘭遮城',0],['在赤崁建普羅民遮城',0],['召募漢人種米、糖',0],['1642 年驅逐對手',0],
+      ['1626 年進占雞籠、淡水',1],['以馬尼拉為據點',1],['因日本鎖國而減兵',1],
+      ['實行軍屯',2],['設立孔廟',2],['與英國通商',2],['沈有容勸退紅毛番',3],['為打擊鄭氏實行海禁',3]]},
+    {title:'東亞貿易據點配對',tip:'葡澳門、西馬尼拉、荷巴達維亞（＋大員）。',buckets:['葡萄牙','西班牙','荷蘭'],items:[
+      ['澳門',0],['最早在東亞建立貿易據點、掌控香料貿易',0],['菲律賓馬尼拉',1],['臺灣北部雞籠',1],['淡水聖多明哥城',1],
+      ['巴達維亞（今雅加達）',2],['臺灣南部大員',2],['日本鎖國後仍可到長崎貿易',2]]},
+    {title:'荷蘭時期還是鄭氏時期？',tip:'鄭氏時期出口「沒有稻米」（糧食自用），並和英國通商。',buckets:['荷蘭時期（1624–1662）','鄭氏時期（1662–1683）','兩個時期都有'],items:[
+      ['出口稻米',0],['轉運中國絲織品、瓷器到日本、巴達維亞',0],['郭懷一事件',0],['統治中心在熱蘭遮城',0],
+      ['與英國建立貿易關係',1],['進口抗清軍用物資',1],['實行軍屯',1],['陳永華建孔廟',1],['在中國沿海走私',1],
+      ['出口糖、鹿皮',2],['臺灣成為貿易轉運站',2]]},
+    {title:'原因還是結果？（因果配對）',tip:'先想「因為…所以…」。',buckets:['原因','結果'],items:[
+      ['明朝加強澎湖防務',0,'→ 海商轉到臺灣'],['海商活動轉移到臺灣',1],['日本鎖國',0,'→ 西班牙對日貿易受挫、減兵'],
+      ['1642 年西班牙被荷蘭驅離',1],['荷蘭對漢人管制嚴格、稅重',0],['1652 年郭懷一事件',1],
+      ['清帝國實施海禁',0],['鄭氏在中國沿海走私、與英日貿易',1],['鄭氏糧食不足',0],['實施軍屯，留下「營」字地名',1]]},
+  ],
+  mcq:[
+    {q:'15 世紀末到 17 世紀，歐洲人積極前往東亞的主要目的是什麼？',o:['取得香料、絲綢等商品賺取高額利潤，並傳教','尋找可以讓大量人口移民的新土地','逃離歐洲各國之間長年的戰亂','向中國學習科舉考試與官僚制度'],a:0,src:'他版 29 校',ex:'課本：基於商業利益及傳教目的紛紛東來。'},
+    {q:'「最初指日本海盜，但後來成員絕大多數是中國人，學者因其亦盜亦商稱為海商。」這段描述的是？',o:['倭寇','荷蘭東印度公司','鄭氏軍屯','原住民族'],a:0,src:'8 校考倭寇',ex:'明朝官方仍統稱為倭寇；為防倭寇實行海禁。'},
+    {q:'16 世紀後海商常到澎湖活動，後來卻漸漸轉移到臺灣。主要原因是什麼？',o:['明朝加強澎湖的防務','澎湖發生大地震','荷蘭人占領澎湖不走','日本人把澎湖買下'],a:0,src:'15 校考此因果',ex:'課本：隨著明朝加強澎湖的防務，海商活動漸轉移到臺灣。'},
+    {q:'下列關於顏思齊與鄭芝龍的敘述，何者正確？',o:['顏思齊帶漢人開墾雲林、嘉義；鄭芝龍是後起的海上霸主','顏思齊是鄭成功的父親，後來投降清帝國','鄭芝龍帶兵驅逐荷蘭人，建立承天府','兩人都是荷蘭聯合東印度公司派駐臺灣的長官'],a:0,src:'13 校考顏思齊',ex:'鄭芝龍是鄭成功之父，後來投降清帝國；驅逐荷蘭的是鄭成功。'},
+    {q:'下列「歐洲國家－東亞據點」的配對，何者正確？',o:['葡萄牙－澳門','西班牙－巴達維亞','荷蘭－馬尼拉','英國－大員'],a:0,src:'13 校考據點',ex:'葡萄牙＝澳門、西班牙＝馬尼拉、荷蘭＝巴達維亞（亞洲總部）＋臺灣大員。'},
+    {q:'「西元 1602 年由數家公司合併，政府特許經營亞洲貿易，並賦予對外宣戰、談和及任命官員的特權。」這是指？',o:['荷蘭聯合東印度公司','西班牙馬尼拉總督府','葡萄牙澳門商會','英國皇家海軍'],a:0,src:'12 校考 VOC',ex:'荷蘭聯合東印度公司（VOC），亞洲總部在巴達維亞。'},
+    {q:'澎湖天后宮保存一塊石碑，上刻「沈有容諭退紅毛番韋麻郎等」。這塊碑記錄的是？',o:['明朝將領勸退占領澎湖的荷蘭人','明朝將領以武力殲滅西班牙艦隊','鄭成功驅逐荷蘭人','清朝將領攻取臺灣'],a:0,src:'沈有容碑 8 校',ex:'紅毛番＝荷蘭；「諭退」＝勸退，不是打仗打贏。'},
+    {q:'荷蘭人占臺初期，在大員興建熱蘭遮城。大員是今天的哪裡？',o:['臺南市安平區','新北市淡水區','基隆市和平島','高雄市左營區'],a:0,src:'11 校考熱蘭遮城',ex:'熱蘭遮城在大員（今臺南安平），是荷蘭的統治中心；普羅民遮城在赤崁。'},
+    {q:'西元 1626 年起西班牙人進占臺灣北部，主要目的是什麼？',o:['與荷蘭人競爭東亞貿易的航路','協助明朝打擊倭寇','幫助原住民族對抗荷蘭','尋找黃金'],a:0,src:'10 校考西班牙占北臺',ex:'荷蘭占大員威脅西班牙馬尼拉與中、日間的航線，西班牙因此進占雞籠、淡水。'},
+    {q:'日本實施鎖國政策後，對臺灣局勢造成什麼影響？',o:['西班牙對日貿易受挫而減兵，最後被荷蘭驅離','荷蘭失去對日貿易，因此放棄臺灣南部','鄭成功被迫退出臺灣，轉往日本發展','日本趁機出兵，占領臺灣北部的雞籠'],a:0,src:'13 校考此因果',ex:'鎖國只准中國、荷蘭到指定港口貿易，西班牙減少駐臺守軍，1642 年被荷蘭驅離。'},
+    {q:'關於日本鎖國政策，下列何者正確？',o:['只准中國人、荷蘭人到指定港口與日本貿易','完全不和任何外國貿易','只准葡萄牙、西班牙貿易','只禁止中國人前往日本'],a:0,src:'12 校考鎖國',ex:'鎖國後荷蘭仍能和日本貿易，這是荷蘭勝過西班牙的重要原因。'},
+    {q:'淡水紅毛城的名稱由來為何？',o:['荷蘭人在西班牙的聖多明哥城附近重建城堡，漢人稱荷蘭人為紅毛','漢人稱西班牙人為紅毛，此城是西班牙人所建','城牆用紅色磚塊砌成，名稱和哪國人無關','英國人在 19 世紀來臺時才新建這座城堡'],a:0,src:'課本圖 2-2-6',ex:'漢人稱荷蘭人為「紅毛」，所以荷蘭人重建的城堡稱紅毛城。'},
+    {q:'荷蘭統治時期，臺灣在國際貿易中扮演什麼角色？',o:['轉運站：出口米、糖、鹿皮，轉運絲織品、瓷器、香料','只進口歐洲商品、不出口任何物產的市場','只和歐洲國家往來、不和亞洲貿易的殖民地','因明朝海禁而完全不參與國際貿易'],a:0,src:'荷蘭貿易 9 校；貿易路線圖 11 校',ex:'課本：以臺灣作為國際貿易轉運站，聯結中國、日本與巴達維亞。'},
+    {q:'荷蘭人召募漢人來臺開墾，卻在 1652 年爆發郭懷一事件。最主要的原因是？',o:['荷蘭人對漢人管制嚴格、稅金繁重','漢人想協助西班牙人','鄭成功派郭懷一攻臺','原住民族唆使漢人反抗'],a:0,src:'6 校考郭懷一',ex:'漢人難以承擔繁重稅金，郭懷一發動反抗但失敗，是荷治時期規模最大的反抗事件。'},
+    {q:'鄭成功決定攻取臺灣的主要原因是什麼？',o:['獲得長期抗清所需的糧食與裝備','協助荷蘭人對抗西班牙','奉清朝皇帝命令','想要開採臺灣的金礦'],a:0,src:'9 校考鄭成功攻臺（他版 36 校）',ex:'明亡後鄭芝龍降清，鄭成功持續抗清，為了糧食與裝備攻臺。'},
+    {q:'關於鄭成功驅逐荷蘭人的過程，下列何者正確？',o:['1661 年自鹿耳門登陸，圍熱蘭遮城，次年荷蘭議和撤離','1642 年自淡水登陸，趕走西班牙人','1683 年自澎湖出兵，消滅荷蘭艦隊','1624 年占領大員，興建熱蘭遮城'],a:0,src:'鄭成功史料 11 校',ex:'1661 鹿耳門登陸→先攻普羅民遮城、圍熱蘭遮城→1662 年簽和約，荷蘭撤離。'},
+    {q:'鄭荷和約允許荷蘭士兵「全身武裝、擊鼓列隊上船」，並准許帶走文書與返航糧食。由此最能推論？',o:['雙方以談判方式結束戰爭，荷蘭保有尊嚴撤離','荷蘭軍隊在戰鬥中全部陣亡，沒有人撤離','鄭成功沒收荷蘭官員所有的私人財產','這份和約是清帝國與荷蘭雙方簽訂的'],a:0,src:'',ex:'這是臺灣史上第一份國際和約；城堡與公司財產交給國姓爺，但荷蘭人有尊嚴地撤離。'},
+    {q:'鄭氏時期實施「寓兵於農」的軍屯，最主要是為了解決什麼問題？',o:['糧食問題','語言問題','宗教問題','海盜問題'],a:0,src:'10 校考軍屯',ex:'軍隊平時耕種、農暇訓練、戰時作戰；今日新營、左營等地名與軍屯有關。'},
+    {q:'「漢人的典章制度開始在臺灣奠基」，最直接相關的措施是？',o:['鄭經在陳永華協助下提倡文教、設立孔廟','荷蘭人召募漢人來臺開墾','鄭成功實施軍屯','顏思齊開墾雲林、嘉義'],a:0,src:'11 校考陳永華',ex:'典章制度＝文教、孔廟（全臺首學）；開墾、軍屯是經濟措施，不是典章制度。'},
+    {q:'清帝國實施海禁打擊鄭氏，鄭氏如何因應？',o:['在中國沿海走私，並與英國、日本、東南亞貿易','向清帝國投降，停止所有的對外貿易','改和荷蘭人結盟，只和巴達維亞貿易','完全靠種稻自給自足，不再和外國貿易'],a:0,src:'14 校考鄭氏貿易',ex:'英國、日本及東南亞為取得中國商品，紛紛與鄭氏貿易；貿易收入是對抗清帝國的重要財源。'},
+    {q:'比較荷蘭時期與鄭氏時期的對外貿易，下列何者正確？',o:['荷蘭時期出口稻米，鄭氏時期出口以糖、鹿皮為主','兩個時期都大量出口稻米到日本、中國','鄭氏時期只和荷蘭聯合東印度公司貿易','荷蘭時期最主要的貿易對象是英國'],a:0,src:'荷鄭比較 10 校',ex:'鄭氏時期出口沒有稻米（糧食要自用），並進口抗清的軍用物資。'},
+    {q:'下列事件依時間先後排列，何者正確？',o:['沈有容勸退荷蘭→荷蘭占大員→西班牙占雞籠→荷蘭驅逐西班牙','荷蘭占大員→沈有容勸退荷蘭→荷蘭驅逐西班牙→西班牙占雞籠','西班牙占雞籠→荷蘭占大員→沈有容勸退荷蘭→郭懷一事件','荷蘭驅逐西班牙→西班牙占雞籠→荷蘭占大員→鄭成功攻臺'],a:0,src:'15 校考年表排序',ex:'1604 沈有容→1624 荷占大員→1626 西占雞籠→1642 荷逐西→1652 郭懷一→1661/62 鄭成功→1683 施琅。'},
+    {q:'西元 1683 年，清帝國派誰攻取臺灣，結束鄭氏統治？',o:['鄭氏降將施琅','明朝將領沈有容','海商顏思齊','荷蘭長官揆一'],a:0,src:'11 校考 1683',ex:'鄭經死後幼子鄭克塽繼位，政權衰敗；1683 年施琅攻臺，鄭克塽降清。'},
+  ],
+},
+};
+
+/* ================= 綜合：時間軸排序（code 7） ================= */
+const SEQ=[
+  {title:'史前文化由早到晚',tip:'舊石器→新石器早期→新石器晚期→金屬器→原住民族。（10 校考）',buckets:['第1','第2','第3','第4'],items:[
+    ['長濱文化（約 5 萬～5 千年前）',0],['大坌坑文化（新石器早期）',1],['圓山文化、卑南文化（新石器晚期）',2],['十三行文化（約 2 千～4 百年前）',3]]},
+  {title:'原住民族名稱演變',tip:'依統治政權：清→日治→民國初期→民國八十年代。（14 校考）',buckets:['第1','第2','第3','第4'],items:[
+    ['熟番、生番',0],['平埔族、高砂族',1],['山地同胞',2],['原住民族',3]]},
+  {title:'大航海時代年表（前半）',tip:'1604→1624→1626→1642',buckets:['第1','第2','第3','第4'],items:[
+    ['沈有容勸退占領澎湖的荷蘭人',0],['荷蘭人轉往大員，築熱蘭遮城',1],['西班牙人進占雞籠、淡水',2],['荷蘭人驅離西班牙人',3]]},
+  {title:'大航海時代年表（後半）',tip:'1652→1661→1662→1683',buckets:['第1','第2','第3','第4'],items:[
+    ['郭懷一事件',0],['鄭成功自鹿耳門登陸',1],['鄭荷簽訂和約，荷蘭撤離',2],['施琅攻臺，鄭克塽降清',3]]},
+  {title:'臺灣統治者更迭',tip:'16 校都考：原住民族→荷西分占→荷蘭獨占→鄭氏→清帝國',buckets:['第1','第2','第3','第4','第5'],items:[
+    ['原住民族各自生活',0],['荷蘭（南）、西班牙（北）分占',1],['荷蘭獨占臺灣',2],['鄭氏政權',3],['清帝國',4]]},
+];
+
+/* ================= 綜合：地圖與史料判讀（code 7） =================
+   fig＝HTML 圖表（文字放在 HTML，不畫在圖上）、qs＝選擇題 */
+const CHART=[
+  {title:'① 遺址出土物判斷時代',src:'16 校都考',
+   fig:'<table class="tbl"><tr><th>遺址</th><th>出土情形</th></tr><tr><td>甲</td><td>海邊洞穴；以敲打製作的石器、火塘、魚骨；沒有陶器</td></tr><tr><td>乙</td><td>石板棺兩千多具；人獸形玉器；陶器、磨製石器</td></tr><tr><td>丙</td><td>鐵渣、煉鐵作坊；玻璃手環、瑪瑙珠、外地銅錢；碳化稻米</td></tr></table>',
+   qs:[
+    {q:'甲、乙、丙三個遺址依年代由早到晚排列為何？',o:['甲→乙→丙','乙→甲→丙','丙→乙→甲','甲→丙→乙'],ex:'甲舊石器（長濱）→乙新石器晚期（卑南）→丙金屬器（十三行）。'},
+    {q:'丙遺址的碳化稻米、陶器都不能單獨證明它屬於金屬器時代，最關鍵的證據是？',o:['鐵渣、煉鐵作坊','碳化稻米','玻璃手環','魚骨'],ex:'稻米、陶器在新石器時代就出現了；煉鐵才是金屬器時代的證據。'},
+    {q:'乙遺址的玉器在東南亞也有發現，代表什麼？',o:['臺灣與島外早有互動往來','乙遺址的人來自歐洲','東南亞人到臺灣建立國家','當時已有文字'],ex:'卑南文化玉器在東南亞出土，證實臺灣與島外早有往來。'}]},
+  {title:'② 南島語族分布',src:'南島語族 15 校；分布圖 12 校',
+   fig:'<div class="compass"><span class="n">北端<br><b>臺灣</b></span><span class="w">西端<br><b>馬達加斯加</b></span><span class="c">南島語族<br>（太平洋、印度洋島嶼）</span><span class="e">東端<br><b>復活節島</b></span><span class="s">南端<br><b>紐西蘭</b></span></div>',
+   qs:[
+    {q:'依上圖，臺灣在南島語族分布範圍中的位置是？',o:['最北端','最南端','最東端','最西端'],ex:'臺灣是南島語族分布的最北端。'},
+    {q:'一位來自紐西蘭的毛利青年和一位阿美族青年互相比對數字的念法，發現很相似。最合理的解釋是？',o:['兩者同屬南島語族','兩者都曾被荷蘭統治','阿美族是毛利人的移民','都是日治時期學會的'],ex:'語言相似反映同屬南島語族。'},
+    {q:'學者推測臺灣可能是南島語族擴散的重要起點。這個說法屬於？',o:['根據研究提出的推論','已被文字史料完全證實的事實','原住民族的神話','官方規定'],ex:'課本用「根據學者研究……可能」，是推論，不是定論。'}]},
+  {title:'③ 歐洲人在東亞的貿易據點',src:'據點地圖 12 校',
+   fig:'<table class="tbl"><tr><th>代號</th><th>地圖上的位置</th><th>特色</th></tr><tr><td>甲</td><td>中國廣東珠江口</td><td>最早在東亞建立據點的國家所占</td></tr><tr><td>乙</td><td>菲律賓呂宋島</td><td>最重要的貿易對象是日本，後因日本鎖國受挫</td></tr><tr><td>丙</td><td>印尼爪哇島</td><td>聯合東印度公司的亞洲總部</td></tr><tr><td>丁</td><td>臺灣南部</td><td>1624 年後興建熱蘭遮城</td></tr></table>',
+   qs:[
+    {q:'甲、乙、丙依序是哪一國的據點？',o:['葡萄牙、西班牙、荷蘭','西班牙、葡萄牙、荷蘭','荷蘭、西班牙、葡萄牙','葡萄牙、荷蘭、西班牙'],ex:'甲澳門（葡）、乙馬尼拉（西）、丙巴達維亞（荷）。'},
+    {q:'丁地和哪一個據點屬於同一個國家？',o:['丙','甲','乙','都不是'],ex:'丁是大員，屬荷蘭，和巴達維亞（丙）相同。'},
+    {q:'乙國後來減少在臺灣北部的駐軍，最主要的原因是？',o:['日本實施鎖國，對日貿易受挫','被鄭成功擊敗','明朝實施海禁','郭懷一事件'],ex:'西班牙最重要的貿易對象是日本，鎖國後利益大減，1642 年被荷蘭驅離。'}]},
+  {title:'④ 荷西分占臺灣南北',src:'荷西分占地圖 8 校',
+   fig:'<div class="twmap"><div class="north"><b>北部</b>：雞籠（聖薩爾瓦多城）、淡水（聖多明哥城）<br>1626～1642 年</div><div class="south"><b>南部</b>：大員（熱蘭遮城）、赤崁（普羅民遮城）<br>1624～1662 年</div></div>',
+   qs:[
+    {q:'圖中北部與南部分別由哪一國占領？',o:['北部西班牙、南部荷蘭','北部荷蘭、南部西班牙','北部葡萄牙、南部荷蘭','北部荷蘭、南部鄭氏'],ex:'西班牙占雞籠、淡水；荷蘭占大員、赤崁。'},
+    {q:'結束「南北分占」局面的是哪一個事件？',o:['1642 年荷蘭人驅離西班牙人','1661 年鄭成功登陸鹿耳門','1683 年施琅攻臺','1604 年沈有容勸退荷蘭'],ex:'1642 年荷蘭驅逐西班牙，獨占臺灣；不是鄭成功。'},
+    {q:'今天淡水的紅毛城，與圖中哪一座城有關？',o:['聖多明哥城','熱蘭遮城','普羅民遮城','聖薩爾瓦多城'],ex:'荷蘭人占領西班牙的聖多明哥城後，在附近重建城堡，稱紅毛城。'}]},
+  {title:'⑤ 荷蘭與鄭氏時期比較表',src:'荷鄭比較 10 校',
+   fig:'<table class="tbl"><tr><th>項目</th><th>甲時期</th><th>乙時期</th></tr><tr><td>年代</td><td>1624～1662</td><td>1662～1683</td></tr><tr><td>統治中心</td><td>熱蘭遮城（大員）</td><td>承天府</td></tr><tr><td>出口</td><td>稻米、糖、鹿皮</td><td>糖、鹿皮</td></tr><tr><td>貿易對象</td><td>中國、日本、巴達維亞</td><td>中國沿海（走私）、英國、日本、東南亞</td></tr></table>',
+   qs:[
+    {q:'甲、乙兩時期分別是？',o:['荷蘭時期、鄭氏時期','鄭氏時期、荷蘭時期','西班牙時期、荷蘭時期','明朝、清朝'],ex:'熱蘭遮城＝荷蘭；承天府＝鄭氏。'},
+    {q:'乙時期出口品中沒有稻米，最可能的原因是？',o:['大量軍隊需要糧食，稻米要自用','臺灣在乙時期不能種稻','清朝規定不能賣米','稻米全部賣給荷蘭'],ex:'鄭氏軍糧不足，所以還實施軍屯；稻米不外銷。'},
+    {q:'乙時期必須走私並和英國貿易，背景是什麼？',o:['清帝國實施海禁打擊鄭氏','日本實施鎖國','明朝為防倭寇實施海禁','荷蘭封鎖臺灣海峽'],ex:'清朝海禁是為了打擊鄭氏；明朝海禁是為了防倭寇，別搞混。'}]},
+  {title:'⑥ 鄭成功的兩則史料',src:'鄭成功史料 11 校',
+   fig:'<div class="passage"><b>資料一</b>（荷蘭長官揆一等人所寫）：國姓爺勃然大怒，下令屠殺男性俘虜……<br><b>資料二</b>（清康熙皇帝輓聯，1699）：「諸王無寸土，一隅抗志，方知海外有孤忠。」</div>',
+   qs:[
+    {q:'兩則資料對鄭成功的評價依序為？',o:['負面、正面','正面、負面','都是正面','都是負面'],ex:'資料一寫殘暴（負面），資料二稱孤忠（正面）。'},
+    {q:'造成兩則資料評價差異最主要的原因是？',o:['作者的政治立場不同','鄭成功晚年改變個性','資料二是荷蘭人翻譯錯誤','兩則資料寫的是不同的人'],ex:'揆一是戰敗的敵人；康熙在鄭氏投降後想攏絡漢人。'},
+    {q:'對於資料一，最恰當的態度是？',o:['可以使用，但要與其他史料比對','因為是敵人寫的，完全不可信','一定是真的，因為是親身經歷','與歷史研究無關'],ex:'有立場的史料仍有價值，要交叉比對。'}]},
+  {title:'⑦ 荷蘭在臺灣的對外貿易',src:'荷蘭貿易路線圖 11 校',
+   fig:'<table class="tbl"><tr><th>路線</th><th>商品</th></tr><tr><td>臺灣 → 日本</td><td>鹿皮、糖、中國絲織品</td></tr><tr><td>中國 → 臺灣</td><td>絲織品、瓷器</td></tr><tr><td>臺灣 → 巴達維亞</td><td>糖、瓷器</td></tr><tr><td>巴達維亞 → 臺灣</td><td>香料</td></tr></table>',
+   qs:[
+    {q:'依表，臺灣本地生產並出口的商品是？',o:['鹿皮、糖','絲織品、瓷器','香料','白銀'],ex:'絲織品、瓷器來自中國，香料來自東南亞，都是轉運品；鹿皮、糖、稻米才是臺灣出口品。'},
+    {q:'這張表最能說明臺灣當時的角色是？',o:['國際貿易的轉運站','荷蘭的農業殖民地，不參與貿易','只和中國貿易','歐洲商品的主要市場'],ex:'臺灣聯結中國、日本與巴達維亞，是轉運站。'},
+    {q:'鹿皮主要賣到哪裡？',o:['日本','中國','歐洲','巴達維亞'],ex:'鹿皮主要銷往日本。'}]},
+];
+
+/* ================= 綜合：情境題（code 7） ================= */
+const SCEN=[
+  {q:'【時空旅行】你穿越回到一個村落：大家用磨製石斧開墾、種植根莖作物，用粗繩紋陶罐煮食，但沒有人會煉鐵。你最可能在哪個文化？',o:['大坌坑文化','長濱文化','十三行文化','鄭氏軍屯'],a:0,src:'依出土物判斷時代',ex:'磨製石器＋粗繩紋陶＋農業→新石器早期的大坌坑文化。'},
+  {q:'【博物館導覽】展櫃標示「出土於臺東，石板棺陪葬，東南亞也有同類器物」。導覽員最可能介紹的是？',o:['人獸形玉器','人面陶罐','打製石器','荷蘭銀幣'],a:0,src:'文化',ex:'卑南文化：石板棺＋人獸形玉器。'},
+  {q:'【老照片與舊文件】一位阿公翻出家中的舊戶籍資料，上面把他的族群登記為「高砂族」。這份資料最可能是哪一個時期登記的？',o:['日治時期','清帝國時期','中華民國初期','民國八十年代以後'],a:0,src:'名稱演變 14 校',ex:'高砂族是日治時期的分類；清帝國分熟番、生番，中華民國初期稱山地同胞，民國八十年代才統稱原住民族。'},
+  {q:'【17 世紀商人日記】「今年我從大員出發，船上滿載鹿皮，準備賣到長崎；但聽說西班牙船已不准進港。」這段日記最可能寫於哪段期間？',o:['日本鎖國後、荷蘭統治臺灣南部時','鄭氏政權統治臺灣、與英國通商時','清帝國實施海禁、打擊鄭氏時','西班牙人剛進占雞籠、淡水時'],a:0,src:'鎖國＋荷蘭貿易',ex:'大員＝荷蘭據點；鎖國後只准中國、荷蘭到長崎。西班牙剛占雞籠（1626）時日本還沒鎖國，西班牙船仍能去日本。'},
+  {q:'【地名偵探】小明住在臺南「新營」，同學住在高雄「左營」。這兩個地名最可能源自？',o:['鄭氏時期的軍屯','荷蘭人的城堡','西班牙的傳教站','史前遺址的命名'],a:0,src:'軍屯 10 校',ex:'鄭成功實施軍屯，留下營、鎮等地名。'},
+  {q:'【校外教學】同學在臺南孔廟看到「全臺首學」匾額。這個地方最能說明鄭氏時期的哪一項發展？',o:['漢人典章制度與文教在臺奠基','臺灣成為貿易轉運站','荷蘭人傳教','原住民族正名'],a:0,src:'陳永華 11 校',ex:'鄭經在陳永華協助下提倡文教、設孔廟。'},
+  {q:'【新聞標題】「英國商船抵臺，以槍砲火藥交換糖與鹿皮」。這則新聞最可能發生在？',o:['鄭氏時期','荷蘭時期','長濱文化時期','明朝海禁防倭寇時'],a:0,src:'鄭氏貿易 14 校',ex:'鄭氏與英國通商，出口糖、鹿皮，進口軍用物資。'},
+  {q:'【辯論賽】正方說：「鄭成功是英雄。」反方拿出荷蘭人揆一的書說：「他很殘暴。」身為評審，你最恰當的說法是？',o:['兩方史料立場不同，應比對更多史料','荷蘭人是敵人，寫的書一定是假的','皇帝的話最有權威，說的一定是對的','歷史人物已經過世，沒有評價的必要'],a:0,src:'史料解釋 10 校',ex:'立場影響評價；判斷時要交叉比對。'},
+  {q:'【澎湖旅遊】導遊指著天后宮的古碑說：「這是臺灣現存最早的碑之一。」碑上記的是哪件事？',o:['明將沈有容勸退荷蘭人','鄭成功自鹿耳門登陸攻臺','施琅率清軍攻取臺灣','西班牙人進占雞籠、淡水'],a:0,src:'沈有容碑 8 校',ex:'1604 年沈有容諭退紅毛番韋麻郎。'},
+  {q:'【戰略會議】若你是 1661 年的鄭成功幕僚，主張攻臺的最好理由是？',o:['取得長期抗清所需的糧食與裝備','協助荷蘭人抵抗西班牙','回應日本鎖國','到臺灣尋找南島語族起源'],a:0,src:'鄭成功攻臺',ex:'課本：為了獲得長期抗清所需的糧食與裝備。'},
+];
+
+/* ================= 考點雷達（16 校康軒卷） ================= */
+const RADAR={
+  n:16, other:41,
+  schools:'',
+  topics:[['南島語族',15],['鄭氏對外貿易（走私、英日東南亞）',14],['原住民名稱演變',14],['歐洲人東亞據點',13],['日本鎖國',12],['荷蘭東印度公司',12],
+    ['平埔族族名',11],['陳永華與孔廟',11],['熱蘭遮城與普羅民遮城',11],['西班牙占北臺',10],['明朝海禁',10],['荷鄭比較表',10],['史料解釋',10],['鄭氏軍屯',10],
+    ['鄭成功攻臺',9],['荷蘭在臺貿易',9],['長濱文化',9],['沈有容勸退荷蘭',9],['依出土物判斷時代',8],['倭寇與海商',8]],
+  graphs:[['依遺址出土物判斷時代',16],['歐洲人東亞據點地圖',12],['南島語族分布',12],['史前文化時空架構圖',11],['荷蘭貿易路線與商品',11],['鄭成功相關史料',11],['沈有容碑',8],['荷西分占南北地圖',8]],
+  words:[['南島語族',15],['原住民族正名',14],['十三行',13],['明朝海禁',13],['顏思齊',13],['圓山',13],['東印度公司',12],['長濱',12],['鄭芝龍',12],['熟番生番',11],['鎖國',11],['卑南',11],['施琅 1683',11],['郭懷一',11],['巴達維亞',11],['平埔族',11]],
+  common:[['世紀換算',3,40],['南島語族',15,37],['十三行文化',7,37],['鄭成功攻臺',9,36],['原住民名稱演變',14,35],['熱蘭遮城與普羅民遮城',11,35],['卑南文化',7,32],['歐洲人東亞據點',13,31],['荷蘭東印度公司',12,31],['明朝海禁',10,31]],
+};
+
+const TABS=[['home','🏠 考點雷達'],['s','🗓️ 序章 紀年'],['l1','🏺 第1課 史前'],['l2','⛵ 第2課 大航海'],['mix','🧭 綜合題型']];
+
+/* ================= 注釋配對 ================= */
+function renderMatch(el,pairs){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0,miss=0;
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 注釋配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${miss<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3><p>配錯 ${miss} 次</p><button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div>`;$('#ag',el).onclick=()=>renderMatch(el,pairs)}
+  draw();
+}
+
+/* ================= 分類 ================= */
+function renderSort(el,so){
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w[0])}」→ <b>${so.buckets[w[1]]}</b>${w[2]?'：'+esc(w[2]):''}`).join('<br>')}</div>`:''}
+      <button class="btn" style="margin-top:12px">再玩一次</button></div>`;
+      el.querySelector('.btn').onclick=()=>renderSort(el,so);return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push(it)}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+/* ================= 選擇題 ================= */
+function renderMCQ(el,qs){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}<span class="src">${q.src}</span></div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(+b.dataset.k===q.a){got++;sOK()}else{b.classList.add('bad');sBAD()}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderMCQ(el,qs);
+}
+
+/* ================= 翻卡 ================= */
+function renderCards(el,cards){
+  el.innerHTML=`<div class="card"><h3>🃏 十五種標點翻卡</h3><p class="muted">點卡片翻面看用法。重點：分號、破折號、引號、書名號、刪節號。</p>
+  <div class="flips">${cards.map(c=>`<div class="flip"><div class="in"><div class="f"><div class="sym">${esc(c[1])}</div><b>${c[0]}</b></div><div class="bk2">${esc(c[2])}</div></div></div>`).join('')}</div></div>`;
+  el.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('on'));
+}
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、his7-kangxuan-1（例 chinese8-1）、歷史 國一上第一次段考（康軒）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'his7-kangxuan-1',
+  site:'歷史 國一上第一次段考（康軒）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('his7-kangxuan-1_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('his7-kangxuan-1_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${(d&&d.quickTitle)||'名詞快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽（歷史 國一上 第一次段考・康軒） ================= */
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+document.body.insertAdjacentHTML('beforeend','<button class="bgm" id="bgmBtn"></button>');
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};
+
+const ANIM={s:animS,l1:animL1,l2:animL2};
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 快問快答'],['match','🔗 名詞配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel');
+  const title=`${d.no} ${d.short}`;
+  if(s==='anim') ANIM[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">本單元 ${d.mcq.length} 題，全部依各校命題方向原創改寫。點選答案後才會出現解析；做完可以交卷給老師。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const N=RADAR.n;
+  const bar=arr=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  const cards=['s','l1','l2'];
+  app.innerHTML=`
+  <h2>📡 第一次段考考點雷達</h2>
+  <p class="muted">整理 ${N} 所學校的<b>康軒版</b>國一上歷史第一次段考卷。<br>範圍：第1課 史前文化與原住民族＋第2課 大航海時代各方勢力在臺灣（16 校全考）；其中 4 校另考序章（紀年、世紀、史料）。</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${cards.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].short}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+    <div class="lc" style="background:linear-gradient(135deg,#7a4a2a,#e0a84a)" data-k="mix"><div><div class="n">綜合</div><div class="t">時間軸＋史料＋總測驗</div></div><div class="d">年表排序｜地圖與史料判讀｜情境題｜跨課總測驗</div></div>
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（${N} 校中幾校考過）</h3>${bar(RADAR.topics)}
+  <p class="muted" style="margin-top:10px">⚠️ 16 校共 317 題歷史題，<b>58% 是圖表、地圖或史料題</b>，只背名詞不夠，要會「看資料判斷」。<br>⚠️ 第2課（大航海時代）題數最多：約 179 題，第1課約 117 題，序章約 29 題。</p></div>
+  <div class="card"><h3>🗺️ 最常出現的圖表與史料（幾校考過）</h3>${bar(RADAR.graphs)}
+  <p class="muted" style="margin-top:10px">這些題型都在「🧭 綜合」的地圖與史料判讀練習（文字放在表格裡，不畫在圖上）。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>高頻名詞（★ 快問快答會標）</h3><div class="chips">${RADAR.words.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">名詞以康軒 115 年版課本為準：寫「<b>聯合東印度公司</b>」「<b>普羅民遮城</b>」「<b>軍屯</b>」「<b>原住民族</b>」。</p></div>
+    <div class="card"><h3>📅 一定要會的年代</h3>
+    <p><span class="pill">1604</span>沈有容勸退荷蘭（澎湖）</p><p><span class="pill">1624</span>荷蘭占大員，築熱蘭遮城</p>
+    <p><span class="pill">1626</span>西班牙占雞籠、淡水</p><p><span class="pill">1642</span>荷蘭驅離西班牙</p>
+    <p><span class="pill">1652</span>郭懷一事件</p><p><span class="pill">1661</span>鄭成功自鹿耳門登陸</p>
+    <p><span class="pill">1662</span>鄭荷議和，荷蘭撤離</p><p><span class="pill">1683</span>施琅攻臺，鄭氏結束</p></div>
+  </div>
+  <div class="card"><h3>🪤 最常錯的 8 個陷阱</h3>
+    <p><span class="pill">1</span>史前<b>分期</b>看「器物材質與製作方式」；史前／歷史時代的<b>分界</b>才看「有沒有文字」。</p>
+    <p><span class="pill">2</span>人獸形玉器、石板棺＝<b>卑南</b>；人面陶罐、煉鐵、玻璃手環＝<b>十三行</b>；粗繩紋陶＝<b>大坌坑</b>；貝塚＝<b>圓山</b>。</p>
+    <p><span class="pill">3</span>南島語族：臺灣是<b>最北</b>端，最東是<b>復活節島</b>（不是夏威夷）。</p>
+    <p><span class="pill">4</span>熟番／生番是<b>清帝國</b>分類（依納稅、服勞役）；平埔族／高砂族是<b>日治</b>分類。</p>
+    <p><span class="pill">5</span>紅毛番＝<b>荷蘭</b>；沈有容是<b>勸退</b>，不是打贏。</p>
+    <p><span class="pill">6</span>1642 年趕走西班牙的是<b>荷蘭</b>，不是鄭成功。</p>
+    <p><span class="pill">7</span>明朝海禁為<b>防倭寇</b>；清朝海禁為<b>打擊鄭氏</b>。</p>
+    <p><span class="pill">8</span>荷蘭時期出口有<b>稻米</b>；鄭氏時期出口<b>糖、鹿皮</b>（沒有稻米），並和<b>英國</b>通商。</p></div>
+  <div class="card"><h3>🌏 不分版本的共通考點（他版卷）</h3>
+  <p class="muted">tcool 另有翰林、南一等他版卷 ${RADAR.other} 校，只用關鍵字比對是否考到同一主題（康軒校數／他版校數）：</p>
+  <div class="chips">${RADAR.common.map(([w,a,b])=>`<span>${w} <b>${a}／${b}</b></span>`).join('')}</div></div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每課先看 <b>🎬 動畫導覽</b>，用真實照片、文物與古地圖弄懂課本 → ② <b>⚡ 快問快答</b>、<b>🔗 配對</b>練熟名詞與年代 → ③ <b>🎯 分類挑戰</b>破解時代歸屬與因果 → ④ <b>📝 段考模擬題</b>與 <b>🧭 綜合</b>的史料題、總測驗檢查程度，做完按「📤 交卷給老師」。</p>
+  <p class="muted">序章（紀年、世紀、史料）只有 4 校列入範圍，但「史料立場」10 校都考，請依自己學校的範圍準備。</p></div>
+  <details class="card"><summary><b>統計限制</b>（給老師看）</summary>
+  <p class="muted">主題題數為逐題人工判讀後歸類，是近似值；各校卷的「第2課 大航海時代各方勢力在臺灣」對應康軒 115 年版課本第2課；麻豆社事件、大肚王、新港文書屬第3課，本次範圍未考。</p></details>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,c.dataset.k==='mix'?undefined:'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 綜合：時間軸＋史料判讀＋情境＋總測驗 ================= */
+function renderMix(app){
+  const s=curSub.mix||'seq';
+  const subs=[['seq','⏳ 時間軸排序'],['chart','🗺️ 地圖與史料判讀'],['scen','🎭 情境題'],['total','🏁 總測驗']];
+  app.innerHTML=`<h2>🧭 綜合：時間軸＋史料判讀＋總測驗</h2>
+  <p class="muted">16 校最愛考「排順序」與「看資料判斷」。這裡把高頻年表、地圖與史料改寫成練習，最後用跨課總測驗檢查程度。</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div><div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub.mix=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='seq'){
+    p.innerHTML=`<div class="card"><h3>⏳ 大航海時代年表</h3><div class="tline">${[['1604','沈有容勸退荷蘭'],['1624','荷蘭占大員'],['1626','西班牙占雞籠'],['1642','荷蘭驅離西班牙'],['1652','郭懷一事件'],['1661','鄭成功登陸鹿耳門'],['1662','荷蘭議和撤離'],['1683','施琅攻臺']].map(([y,t])=>`<span><b>${y}</b>${t}</span>`).join('')}</div>
+    <p class="muted">下面每一題把事件放到正確的順位（第1＝最早）。</p></div>`+SEQ.map((_,i)=>`<div class="card" id="st${i}"></div>`).join('');
+    SEQ.forEach((so,i)=>{SORTCTX={code:7,title:'綜合 時間軸排序'};renderSort($('#st'+i),so)});SORTCTX=null;
+    return;
+  }
+  if(s==='chart'){
+    p.innerHTML=CHART.map((c,k)=>`<div class="card"><h3>${c.title}</h3><div class="figbox">${c.fig}</div><div id="cq${k}"></div></div>`).join('');
+    CHART.forEach((c,k)=>renderMCQ($('#cq'+k),c.qs.map(q=>({a:0,...q,src:c.src})),7,`綜合 ${c.title.replace(/^[①-⑨]\s*/,'')}`));
+    return;
+  }
+  if(s==='scen'){
+    p.innerHTML=`<p class="muted">把課本知識放進生活情境：時空旅行、博物館、地名偵探……</p><div id="sq"></div>`;
+    renderMCQ($('#sq'),SCEN,7,'綜合 情境題');
+    return;
+  }
+  const pool=[];
+  ['s','l1','l2'].forEach(k=>L[k].mcq.forEach(q=>pool.push({...q,unit:L[k].no,src:`${L[k].no}｜${q.src||''}`})));
+  const n=25,pick=shuf(pool).slice(0,n);
+  p.innerHTML=`<div class="card"><h3>🏁 跨課總測驗</h3><p>從三個單元的段考模擬題隨機抽 ${n} 題（序章約佔 1/5）。按「重新抽題」會換一批題目。</p>
+    <div class="row"><button class="btn ghost" id="redraw">🔀 重新抽題</button></div></div><div id="tq"></div>`;
+  $('#redraw').onclick=()=>render();
+  renderMCQ($('#tq'),pick,9,'總測驗（跨課隨機）');
+}
+
+/* ================= 共用：動畫外框 ================= */
+function stage(p,extra){p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${extra||''}`}
+
+/* ================= 序章 歷史與時間 ================= */
+function animS(p){
+  stage(p,`<div class="card"><h3>🗓️ 四種紀年一張表</h3>
+  <table class="tbl"><tr><th>紀年</th><th>怎麼算</th><th>例子</th></tr>
+  <tr><td>西元</td><td>以耶穌誕生那年為元年（源自基督教）</td><td>2025 年</td></tr>
+  <tr><td>民國</td><td>民國元年＝西元 1912 年；<b>西元＝民國＋1911</b></td><td>民國 114 年＝2025 年</td></tr>
+  <tr><td>年號</td><td>依帝王年號計算</td><td>康熙二十二年＝1683 年</td></tr>
+  <tr><td>干支</td><td>天干配地支，<b>60 年一循環</b></td><td>2025 乙巳、2026 丙午</td></tr></table>
+  <p class="muted" style="margin-top:10px">世紀：每 100 年一世紀，西元 1601～1700 年＝17 世紀（整百年屬於前一世紀）；2025 年屬於 21 世紀。</p></div>`);
+  const steps=[
+    {label:'① 西元紀年',imgs:[{img:'s_nativity',tag:'喬托〈耶穌誕生〉（14 世紀壁畫）'}],poem:'<b>西元紀年</b>以耶穌誕生的那一年為元年，源自<b>基督教</b>，是今天世界通用的紀年方式。',key:'西元和佛教無關（6 校考紀年）。西元 2025 年屬於 <b>21 世紀</b>，不是 20 世紀。'},
+    {label:'② 民國與干支',imgs:[{img:'s_almanac',tag:'廟裡供人索取的農民曆（書中同時標示民國年與干支）'},{img:'s_ganzhi',tag:'商代甲骨上刻的干支表',fit:'contain',bg:'#efe9df'}],poem:'<b>民國紀年</b>：民國元年＝西元 1912 年，所以<b>西元年＝民國年＋1911</b>。<br><b>干支紀年</b>：十天干配十二地支，<b>60 年一循環</b>；2025 年是乙巳年、2026 年是丙午年。',key:'「歲次乙巳」是<b>干支</b>，不是年號！民國 115 年＝西元 2026 年。'},
+    {label:'③ 年號紀年',imgs:[{img:'s_kangxi',tag:'清康熙皇帝畫像',fit:'contain',bg:'#2b2118'}],poem:'<b>年號紀年</b>依帝王年號計算，例如「康熙二十二年」＝西元 1683 年（施琅攻取臺灣）；鄭氏沿用南明「永曆」年號。',key:'年號會隨皇帝改變，換算時要查對照表；干支 60 年就重複一次，單看干支無法確定是哪一年。'},
+    {label:'④ 世紀',imgs:[{img:'l2_taioan',tag:'17 世紀荷蘭人繪製的大員（今臺南安平）'}],poem:'每 100 年為一個<b>世紀</b>：西元 1～100 年是 1 世紀，<b>1601～1700 年是 17 世紀</b>。荷蘭、西班牙、鄭氏在臺灣的活動都在 17 世紀。',key:'算法：去掉後兩位再＋1；但<b>整百年</b>（1700、2000）屬於前一世紀。'},
+    {label:'⑤ 史前與歷史時代',split:[{img:'l1_baxian',tag:'史前：八仙洞只有遺物，沒有文字'},{img:'l2_shen',tag:'歷史：有文字紀錄的石碑'}],poem:'沒有文字紀錄的時代稱<b>史前時代</b>，只能根據遺址和遺物推測；有文字紀錄以後是<b>歷史時代</b>。臺灣大約在 17 世紀大航海時代，外來者留下大量文字紀錄後，進入歷史時代。',key:'分界看「<b>有沒有文字</b>」；十三行人會煉鐵，仍屬史前時代（7 校考）。'},
+    {label:'⑥ 史料與立場',imgs:[{img:'l2_kox',tag:'鄭成功畫像（17 世紀，黃梓繪）',fit:'contain',bg:'#2b2118'},{img:'l2_chihkan',tag:'臺南赤崁樓前的鄭荷議和雕像'}],poem:'荷蘭長官揆一寫鄭成功下令屠殺俘虜（殘暴）；康熙皇帝的輓聯卻稱他「海外有孤忠」。<b>政治立場不同，對歷史人物的評價也不同</b>。',key:'有立場的史料仍有價值，要<b>交叉比對</b>；民間「拔劍出泉」的傳說不能當史實，但能反映人們對他的尊崇（10 校考史料）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 第1課 史前文化與原住民族 ================= */
+function animL1(p){
+  stage(p,`<div class="card"><h3>🏺 臺灣史前文化一張表（課本表）</h3>
+  <table class="tbl"><tr><th>分期</th><th>距今</th><th>代表文化</th><th>特色</th></tr>
+  <tr><td>舊石器時代</td><td>約 5 萬～5 千年</td><td>長濱文化（臺東八仙洞）</td><td>打製石器、用火、採集狩獵漁撈、住洞穴</td></tr>
+  <tr><td>新石器時代</td><td>約 7 千～2 千年</td><td>大坌坑（早期，新北八里）<br>圓山、卑南（晚期）</td><td>農業、磨製石器、陶器、飼養家畜、定居<br>粗繩紋陶／貝塚／石板棺、人獸形玉器</td></tr>
+  <tr><td>金屬器時代</td><td>約 2 千～4 百年</td><td>十三行文化（新北八里）</td><td>鐵渣、煉鐵作坊；玻璃手環、瑪瑙珠、銅錢＝貿易</td></tr></table>
+  <p class="muted" style="margin-top:10px">文化層：一般<b>越下層越早</b>。史前文化以首先發現遺址的<b>較小地名</b>命名（例：長濱鄉→長濱文化）。</p></div>
+  <div class="card"><h3>🏷️ 原住民族名稱演變</h3>
+  <div class="ladder"><span>熟番／生番<small>清帝國</small></span><b>→</b><span>平埔族／高砂族<small>日治</small></span><b>→</b><span>山地同胞<small>中華民國初期</small></span><b>→</b><span class="an">原住民族<small>民國八十年代</small></span></div></div>`);
+  const steps=[
+    {label:'① 舊石器：長濱文化',imgs:[{img:'l1_baxian',tag:'臺東長濱八仙洞：長濱文化最初發現地'},{img:'l1_chopper',tag:'以敲打製成的砍器（中國出土，示意打製石器）'}],poem:'考古學家根據遠古人類使用器具的<b>材質和製作方式</b>，把史前時代分為舊石器、新石器、金屬器三個階段。<br>臺灣最早的舊石器文化是<b>長濱文化</b>，距今約<b>五萬年到五千年前</b>；當時人已知<b>用火</b>，以<b>敲打</b>的方式製作石器，靠採集、狩獵、漁撈維生。',key:'長濱文化<b>沒有農業、沒有陶器</b>；住海邊洞穴（12 校考長濱）。分期依據不是「有無文字」！'},
+    {label:'② 新石器：大坌坑與圓山',imgs:[{img:'l1_yuanshan',tag:'圓山遺址的貝塚（貝殼堆積層）'}],poem:'新石器時代距今約<b>七千年到兩千年前</b>，出現<b>農業生產、磨製石器、燒製陶器、飼養家畜</b>等重大變革。早期是新北八里的<b>大坌坑文化</b>（粗繩紋陶），晚期有臺北盆地的<b>圓山文化</b>與臺東的<b>卑南文化</b>。',key:'圓山人吃完貝肉丟棄貝殼堆成<b>貝塚</b>，是<b>臺北湖</b>存在的證據（13 校考圓山）。'},
+    {label:'③ 新石器晚期：卑南文化',imgs:[{img:'l1_beinandig',tag:'卑南遺址發掘現場的石板棺'},{img:'l1_jade',tag:'卑南遺址出土的人獸形玉器',fit:'contain',bg:'#f4f1ea'},{img:'l1_pillar',tag:'卑南遺址公園的月形石柱'}],poem:'卑南文化遺址出土的<b>石板棺</b>，以及作為陪葬品的<b>玉器</b>，展現當時的工藝水準。在<b>東南亞</b>地區也發現卑南文化的玉器，證實臺灣與島外早有互動往來。',key:'人獸形玉器、石板棺＝<b>卑南</b>；別和十三行的人面陶罐搞混（11 校考卑南）。'},
+    {label:'④ 金屬器：十三行文化',imgs:[{img:'l1_facejar',tag:'十三行遺址的人面陶罐',fit:'contain',bg:'#f4f1ea'},{img:'l1_sshvillage',tag:'十三行博物館的聚落模型'},{img:'l1_sshpot',tag:'十三行博物館展示的陶罐'}],poem:'金屬器時代距今約<b>兩千年到四百年前</b>，以新北八里的<b>十三行文化</b>為代表。遺址出土的<b>鐵渣、煉鐵作坊</b>，說明可能已使用鐵製工具；<b>玻璃手環、瑪瑙珠飾、銅錢</b>等外來器物，顯示當時與其他地區有<b>貿易往來</b>。',key:'判斷金屬器時代的關鍵證據是<b>煉鐵</b>；陶器、稻米在新石器時代就有了（16 校考「依出土物判斷時代」）。'},
+    {label:'⑤ 南島語族與傳說',imgs:[{img:'l1_austro',tag:'南島語族分布範圍（藍色區域）',fit:'contain',bg:'#dfeef7'},{img:'l1_waka',tag:'紐西蘭毛利人的獨木舟：南島語族善於航海'},{img:'l1_pasta',tag:'賽夏族矮靈祭'}],poem:'臺灣原住民各族群屬於<b>南島語族</b>，可能在數千年前移居臺灣，再往其他地區擴散遷徙。原住民族最初沒有文字，透過<b>神話與口述傳說</b>傳承歷史，例如泰雅族的岩石誕生始祖、布農族的洪水傳說。',key:'分布：<b>北臺灣、南紐西蘭、西馬達加斯加、東復活節島</b>（15 校考）。傳說能反映起源、遷徙與天災，也是史料。'},
+    {label:'⑥ 原住民族名稱演變',imgs:[{img:'l1_map1936',tag:'日治時期（1936）高砂族分布圖',fit:'contain',bg:'#efe6d2'}],poem:'清帝國依<b>是否納稅、服勞役</b>分為「熟番」「生番」；日治時期分為「<b>平埔族</b>」「<b>高砂族</b>」；中華民國稱高砂族為<b>山地同胞</b>，部分平埔族因漢化較深未被視為原住民；直到<b>民國八十年代</b>才統稱為<b>原住民族</b>。目前官方認定 16 族。',key:'熟番生番是<b>清</b>的分類，不是日治（14 校考）。凱達格蘭、噶瑪蘭、西拉雅、馬卡道是平埔族；泰雅、賽夏、達悟不是。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 第2課 大航海時代各方勢力在臺灣 ================= */
+function animL2(p){
+  stage(p,`<div class="card"><h3>⛵ 各方勢力一張表</h3>
+  <table class="tbl"><tr><th>勢力</th><th>在臺據點／時間</th><th>重點</th></tr>
+  <tr><td>漢人海商</td><td>澎湖→臺灣；雲林、嘉義</td><td>明朝海禁防倭寇；顏思齊開墾；鄭芝龍海上霸主</td></tr>
+  <tr><td>日本</td><td>稱臺灣「高山國」</td><td>17 世紀中期<b>鎖國</b>，只准中國、荷蘭貿易</td></tr>
+  <tr><td>荷蘭</td><td>大員、赤崁（1624～1662）</td><td>熱蘭遮城、普羅民遮城；出口米、糖、鹿皮；1652 郭懷一</td></tr>
+  <tr><td>西班牙</td><td>雞籠、淡水（1626～1642）</td><td>與荷蘭競爭航路；鎖國後減兵，被荷蘭驅離</td></tr>
+  <tr><td>鄭氏</td><td>承天府（1662～1683）</td><td>軍屯；陳永華建孔廟；走私、與英日東南亞貿易</td></tr></table></div>
+  <div class="card"><h3>🔁 兩次海禁別搞混</h3>
+  <p><span class="pill">明朝</span>為防<b>倭寇</b>，禁止人民出海 → 海商轉往澎湖、臺灣。</p>
+  <p><span class="pill">清朝</span>為打擊<b>鄭氏</b>，禁止沿海人民與鄭氏往來 → 鄭經走私，並與英國、日本、東南亞貿易。</p></div>`);
+  const steps=[
+    {label:'① 海商與歐洲人東來',imgs:[{img:'l2_porcelain',tag:'明代中國外銷瓷器',fit:'contain',bg:'#2f4a46'},{img:'l2_macau',tag:'澳門：葡萄牙人的據點'},{img:'l2_manila',tag:'馬尼拉：西班牙人的據點'}],poem:'十五世紀末至十七世紀稱為<b>大航海時代</b>，歐洲人為了取得<b>香料及絲綢</b>，基於<b>商業利益及傳教</b>目的紛紛東來。明朝為防備<b>倭寇</b>實行<b>海禁</b>；後來明朝加強澎湖防務，海商轉移到臺灣，<b>顏思齊</b>帶漢人開墾雲林、嘉義，<b>鄭芝龍</b>獨霸東亞海上貿易。',key:'葡萄牙＝<b>澳門</b>、西班牙＝<b>馬尼拉</b>；歐洲人稱臺灣「福爾摩沙」，日本人稱「高山國」（13 校考據點）。'},
+    {label:'② 聯合東印度公司與沈有容',imgs:[{img:'l2_voc',tag:'荷蘭聯合東印度公司（VOC）旗幟'},{img:'l2_shen',tag:'澎湖天后宮「沈有容諭退紅毛番韋麻郎等」碑',fit:'contain',bg:'#3a2a1a'},{img:'l2_batavia',tag:'17 世紀的巴達維亞城（今印尼雅加達）'}],poem:'<b>荷蘭聯合東印度公司</b>（1602 年成立）獲政府特許經營亞洲貿易，可對外<b>宣戰、談和</b>、任命官員。17 世紀初荷蘭曾占領澎湖，被明朝將領<b>沈有容勸退</b>；之後在<b>巴達維亞</b>設亞洲總部。1624 年再占澎湖失敗，轉往臺灣南部。',key:'紅毛番＝<b>荷蘭</b>；「諭退」是勸退不是打贏（9 校考沈有容）。巴達維亞是 VOC 總部，不是在臺統治中心。'},
+    {label:'③ 荷蘭占領臺灣南部',imgs:[{img:'l2_taioan',tag:'17 世紀荷蘭人繪製的大員與熱蘭遮城'},{img:'l2_zeefort',tag:'今日臺南安平古堡（熱蘭遮城遺址）'},{img:'l2_anping',tag:'安平古堡內的古砲'}],poem:'荷蘭人占臺初期，在<b>大員</b>（今臺南市安平區）興建<b>熱蘭遮城</b>作為<b>統治中心</b>；又在今<b>赤崁</b>一帶建立商業市街「普羅民遮」，後來興建<b>普羅民遮城</b>。',key:'熱蘭遮城＝大員（安平）＝統治中心；普羅民遮城＝赤崁（11 校考）。'},
+    {label:'④ 荷西爭北部與日本鎖國',imgs:[{img:'l2_sando',tag:'淡水紅毛城：荷蘭人在聖多明哥城附近重建'},{img:'l2_dejima',tag:'日本長崎出島：鎖國時期荷蘭人的貿易地'}],poem:'1626 年起，<b>西班牙</b>人為與荷蘭人競爭東亞貿易航路，進占臺灣北部<b>雞籠、淡水</b>，形成荷、西分占南北。日本實施<b>鎖國</b>後，西班牙對日貿易受挫，減少駐臺守軍；<b>1642 年荷蘭人驅離西班牙人</b>。',key:'鎖國只准<b>中國人、荷蘭人</b>到指定港口貿易；趕走西班牙的是荷蘭，不是鄭成功（12 校考鎖國）。'},
+    {label:'⑤ 荷蘭的經濟活動',imgs:[{img:'l2_ship',tag:'17 世紀荷蘭東印度公司的商船'},{img:'l2_deer',tag:'臺灣梅花鹿：鹿皮是重要出口品'},{img:'l2_sugar',tag:'雲林虎尾的甘蔗田：糖是重要出口品'}],poem:'荷蘭人以臺灣作為國際貿易的<b>轉運站</b>，出口<b>稻米、糖、鹿皮</b>，轉運<b>絲織品、瓷器、香料</b>，聯結中國、日本與巴達維亞。為增加米、糖產量，<b>召募漢人</b>來臺開墾，但管制嚴格，<b>1652 年郭懷一事件</b>規模最大。',key:'鹿皮、糖是<b>出口品</b>不是進口品；絲、瓷、香料是<b>轉運品</b>（荷蘭貿易 9 校、貿易路線圖 11 校）。'},
+    {label:'⑥ 鄭成功驅逐荷蘭',imgs:[{img:'l2_kox',tag:'鄭成功畫像（17 世紀）',fit:'contain',bg:'#2b2118'},{img:'l2_luermen',tag:'今日的鹿耳門溪一帶'},{img:'l2_chihkan',tag:'赤崁樓前的鄭荷議和雕像'}],poem:'明亡後<b>鄭芝龍降清</b>，其子<b>鄭成功</b>持續抗清，為了獲得長期抗清所需的<b>糧食與裝備</b>決定攻臺。<b>1661 年</b>自<b>鹿耳門</b>登陸，圍攻熱蘭遮城；<b>次年（1662）</b>荷蘭人議和撤離，簽下臺灣史上第一份國際和約。',key:'荷蘭人稱鄭成功「<b>國姓爺</b>」（Koxinga）；降清的是鄭芝龍，驅荷的是鄭成功（9 校考）。'},
+    {label:'⑦ 鄭氏治臺與對外貿易',imgs:[{img:'l2_zuoying',tag:'高雄左營：地名與鄭氏軍屯有關（城牆為清代所建）'},{img:'l2_conf',tag:'臺南孔廟「全臺首學」'}],poem:'鄭成功以<b>承天府</b>為施政中心，實行<b>軍屯</b>達到「寓兵於農」，留下<b>新營、左營</b>等地名。鄭經在<b>陳永華</b>協助下提倡文教、設立<b>孔廟</b>，將漢人典章制度移植臺灣。清帝國實施<b>海禁</b>打擊鄭氏，鄭氏走私並與<b>英國、日本、東南亞</b>貿易，出口<b>糖、鹿皮</b>、進口軍用物資。<b>1683 年施琅</b>攻取臺灣。',key:'「漢人典章制度奠基」答<b>陳永華建孔廟</b>，不是軍屯或召募漢人（11 校考）；鄭氏出口<b>沒有稻米</b>（14 校考鄭氏貿易）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+
+<!-- AK:answer-key -->
+<style id="ak-style">#ak-btn{position:fixed;left:14px;bottom:14px;z-index:9990;font:600 16px/1 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:#1f4e79;color:#fff;border:0;border-radius:999px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer}#ak-btn:hover{background:#163a5c}#ak-box{display:none;position:fixed;inset:0;z-index:9995;background:rgba(15,25,40,.45);padding:16px;overflow:auto}#ak-box.show{display:block}#ak-box .ak-card{max-width:960px;margin:20px auto;background:#fff;color:#1d2733;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:16px/1.6 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;text-align:left}#ak-box .ak-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #e3e8ef;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}#ak-box .ak-head b{font-size:18px;color:#1f4e79}#ak-box .ak-head button{font:inherit;font-size:16px;margin-left:8px;border:1px solid #c9d3df;background:#f4f7fb;color:#1d2733;border-radius:8px;padding:6px 12px;cursor:pointer}#ak-box .ak-body{padding:6px 18px 18px}#ak-box h3{font-size:17px;margin:16px 0 6px;color:#1f4e79}#ak-box .ak-t{border-collapse:collapse;width:100%;margin:6px 0;table-layout:fixed}#ak-box .ak-t th,#ak-box .ak-t td{border:1px solid #cfd8e3;padding:5px 2px;text-align:center;font-size:16px;word-break:break-all}#ak-box .ak-t th{background:#eef3f9;color:#1f4e79;font-weight:600}#ak-box .ak-t th:first-child{width:3.6em}#ak-box .ak-t td{font-weight:700}#ak-box .ak-list{columns:2 300px;margin:6px 0;padding-left:0;list-style:none}#ak-box .ak-list li{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e3e8ef}@media print{#ak-btn{display:none!important}html:not(.ak-on) #ak-box{display:none!important}html.ak-on body>*:not(#ak-box){display:none!important}html.ak-on #ak-box{position:static;background:none;padding:0;display:block!important;overflow:visible}html.ak-on #ak-box .ak-card{box-shadow:none;margin:0;max-width:none}html.ak-on #ak-box .ak-head button{display:none}html.ak-on #ak-box .ak-head{position:static}}</style>
+<script id="ak-core">(function(){
+if(window.AK)return;
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function norm(secs){
+ if(!secs)return[];
+ if(!Array.isArray(secs[0]&&secs[0].items)&&Array.isArray(secs))secs=[{title:'',items:secs}];
+ return secs.map(function(s){return{title:s.title||'',items:(s.items||[]).map(function(x,i){return Array.isArray(x)?[x[0],x[1]]:[i+1,x]})}}).filter(function(s){return s.items.length});
+}
+function table(s){
+ var long=s.items.some(function(x){return String(x[1]).length>3});
+ var h=s.title?'<h3>'+esc(s.title)+'</h3>':'';
+ if(long){
+  return h+'<ol class="ak-list">'+s.items.map(function(x){return'<li><b>'+esc(x[0])+'.</b> '+esc(x[1])+'</li>'}).join('')+'</ol>';
+ }
+ var out=h;
+ for(var i=0;i<s.items.length;i+=10){
+  var r=s.items.slice(i,i+10);
+  out+='<table class="ak-t"><tr><th>題號</th>'+r.map(function(x){return'<th>'+esc(x[0])+'</th>'}).join('')+'</tr><tr><th>答案</th>'+r.map(function(x){return'<td>'+esc(x[1])+'</td>'}).join('')+'</tr></table>';
+ }
+ return out;
+}
+window.AK=function(fn){
+ function run(){
+  var secs;
+  try{secs=norm(typeof fn==='function'?fn():fn)}catch(e){console.warn('AK',e);return}
+  window.__AK_DATA=secs;
+  if(!secs.length)return;
+  var n=secs.reduce(function(a,s){return a+s.items.length},0);
+  var btn=document.createElement('button');btn.id='ak-btn';btn.type='button';btn.textContent='📋 答案總表';if(window.AK_BTN_STYLE)btn.style.cssText=window.AK_BTN_STYLE;
+  var box=document.createElement('div');box.id='ak-box';
+  box.innerHTML='<div class="ak-card" role="dialog" aria-label="答案總表"><div class="ak-head"><b>📋 答案總表（教師用，共 '+n+' 題）</b><span><button type="button" class="ak-p">🖨 列印答案</button><button type="button" class="ak-x" aria-label="關閉">✕</button></span></div><div class="ak-body">'+secs.map(table).join('')+'</div></div>';
+  document.body.appendChild(btn);document.body.appendChild(box);
+  function close(){box.classList.remove('show');document.documentElement.classList.remove('ak-on')}
+  btn.onclick=function(){box.classList.add('show');document.documentElement.classList.add('ak-on')};
+  box.querySelector('.ak-x').onclick=close;
+  box.onclick=function(e){if(e.target===box)close()};
+  box.querySelector('.ak-p').onclick=function(){window.print()};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+ }
+ if(document.readyState==='complete')setTimeout(run,0);else window.addEventListener('load',function(){setTimeout(run,0)});
+};
+})();</script>
+<script>AK(function(){
+if(!/[?&]teacher\b/.test(location.search))return [];
+/* 段考闖關站（chinese/civics/geography/history/science-site 的 volX_ 的 index.html）共用 adapter。
+   資料：頂層 const（L 各課 .mcq/.ext、RIDDLE/EXT/SCEN/CHART…）裡的選擇題物件 {q,o,a}。
+   renderMCQ 題序固定、但「選項每次洗牌」，所以答案列「正解選項文字」而非字母。
+   快問快答／配對／分類挑戰（題目隨機抽）與總測驗（pool/pick 隨機抽題）都不是頂層 {q,o,a} 陣列，不會被列入。 */
+window.AK_BTN_STYLE='left:14px;bottom:76px;font-size:20px;padding:12px 18px';
+(function(){
+  if(document.getElementById('ak-big'))return;
+  var s=document.createElement('style');s.id='ak-big';
+  s.textContent='html body #ak-box .ak-card{font-size:20px}html body #ak-box .ak-head b{font-size:22px}html body #ak-box .ak-head button{font-size:20px}html body #ak-box h3{font-size:21px}html body #ak-box .ak-list li{font-size:20px}html body #ak-box .ak-t th,html body #ak-box .ak-t td{font-size:20px}html body #ak-box .ak-note{font-size:20px;color:#5a6878;margin:10px 0 0}@media(max-width:600px){html body #ak-box{padding:6px}html body #ak-box .ak-card{margin:6px auto}html body #ak-box .ak-body{padding:6px 12px 14px}html body #ak-box .ak-list{columns:1}}';
+  document.head.appendChild(s);
+  setTimeout(function(){var b=document.querySelector('html body #ak-box .ak-body');if(b&&!b.querySelector('.ak-note')){var p=document.createElement('p');p.className='ak-note';p.textContent='※ 題號＝各練習頁上的題號；選項每次會重新洗牌，故列「正確選項的內容」。快問快答、配對、分類挑戰、總測驗為隨機出題，不列。';b.insertBefore(p,b.firstChild)}},50);
+})();
+var src=[].slice.call(document.querySelectorAll('script:not([src])')).filter(function(x){return x.id!=='ak-core'&&x.textContent.indexOf('AK(function')<0}).map(function(x){return x.textContent}).join('\n');
+var names=[];src.replace(/^(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=/gm,function(_,n){if(names.indexOf(n)<0)names.push(n)});
+var isQ=function(x){return x&&typeof x==='object'&&typeof x.q==='string'&&Array.isArray(x.o)};
+var clean=function(t){t=String(t).replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();return t.length>60?t.slice(0,60)+'…':t};
+var lit=function(expr){var re=new RegExp('renderMCQ\\([^,]+,\\s*'+expr.replace(/[.$[\]]/g,'\\$&')+'\\s*,\\s*[^,]+,\\s*([\'"`])([^\'"`$]*)\\1');var m=src.match(re);return m?m[2]:''};
+var KEY={mcq:'📝 段考模擬題',ext:'延伸題',graph:'綜合 圖表判讀',calc:'綜合 計算練習'};
+var secs=[];
+function add(title,arr,pri){for(var j=0;j<secs.length;j++)if(secs[j].arr===arr){if(pri>secs[j].pri){secs[j].title=title;secs[j].pri=pri}return}secs.push({arr:arr,pri:pri,title:title,items:arr.map(function(q,i){return[i+1,clean(q.o[q.a==null?0:q.a])]})})}
+function walk(v,path,parents){
+  if(!v||typeof v!=='object'||path.length>6||v instanceof Node||v===window)return;
+  if(Array.isArray(v)){
+    if(v.length&&v.every(isQ)){
+      var root=path[0],last=path[path.length-1],par=parents[parents.length-1],t;
+      if(root==='L'&&path.length===3){var d=parents[1];t=[d.no,d.title||d.name].filter(Boolean).join(' ')+'｜'+(KEY[last]||last)}
+      else if(path.length===1)t=lit(root)||root;
+      else if(par&&!Array.isArray(par)&&par.title){var gi=path[path.length-2];t=(/^[①-⑳]/.test(par.title)?'':(typeof gi==='number'?(gi+1)+'. ':''))+String(par.title).replace(/<[^>]*>/g,'')}
+      else t=lit(path.join('.'))||KEY[last]||path.join('.');
+      add(t,v,root==='L'?1:0);return;
+    }
+    v.forEach(function(x,i){walk(x,path.concat(i),parents.concat([v]))});return;
+  }
+  if(Object.getPrototypeOf(v)!==Object.prototype)return;
+  Object.keys(v).forEach(function(k){walk(v[k],path.concat(k),parents.concat([v]))});
+}
+names.forEach(function(n){var v;try{v=(0,eval)(n)}catch(e){return}walk(v,[n],[])});
+/* 同一陣列被兩處引用（如 L.ex.mcq＝EXT）只列一次，以課別標題為準；依 L 的課序排在前面 */
+secs.sort(function(a,b){return b.pri-a.pri});
+return secs.map(function(s){return{title:s.title,items:s.items}});
+});</script>
+<!-- /AK -->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+</body>
+</html>

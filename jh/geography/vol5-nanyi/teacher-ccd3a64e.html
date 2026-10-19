@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>段考闖關老師端</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--main:#2b4c7e;--main-2:#3f6aa8;--accent:#f2a541;--accent-2:#e07a2f;--bg:#f6f4ef;--card:#fff;--ink:#23303f;--muted:#6b7686;--line:#e3e0d8;
+  --ok:#2e9e6b;--ok-bg:#e3f5ec;--bad:#d9534f;--bad-bg:#fbe7e6;--hi:#fff4d6;--shadow:0 4px 18px rgba(30,45,70,.08)}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button,input,select{font-family:inherit;font-size:1rem}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(135deg,#1e4a27,#4a9a5a);color:#fff;padding:26px 0}
+header h1{margin:0;font-size:1.6rem}
+header p{margin:4px 0 0;opacity:.9}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:20px;margin:20px 0}
+h2{font-size:1.3rem;color:var(--main);margin:0 0 10px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input,select{padding:8px 12px;border:2px solid var(--line);border-radius:10px;background:#fff}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 18px;border-radius:12px;font-weight:700;cursor:pointer}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.btn.alt{background:var(--accent);color:#3b2600}
+.muted{color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat{background:#f3f6fb;border-radius:14px;padding:14px;text-align:center}
+.stat b{display:block;font-size:1.8rem;color:var(--main)}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th,.tbl td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl th{color:var(--muted);font-weight:500;white-space:nowrap}
+.tbl tr.stu{cursor:pointer}
+.tbl tr.stu:hover{background:#f7f9fc}
+.sc{font-weight:900}
+.sc.g{color:var(--ok)}.sc.m{color:var(--accent-2)}.sc.b{color:var(--bad)}
+.detail td{background:#fbfaf7}
+.att{border-left:4px solid var(--main-2);padding:6px 12px;margin:8px 0;background:#fff;border-radius:8px}
+.wq{margin:6px 0 0 0;padding:0;list-style:none}
+.wq li{padding:6px 0;border-top:1px dashed var(--line)}
+.wq .my{color:var(--bad)}.wq .an{color:var(--ok);font-weight:700}
+.rank{counter-reset:r}
+.rk{display:grid;grid-template-columns:44px 1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.rk .n{font-size:1.4rem;font-weight:900;color:var(--accent-2);text-align:center}
+.rk .who{color:var(--muted)}
+.pill{display:inline-block;padding:0 10px;border-radius:99px;background:var(--hi);color:#8a5a00;font-weight:700;margin-right:6px}
+.err{color:var(--bad);font-weight:700}
+.scroll{overflow-x:auto}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+select{max-width:100%}
+.wq li{font-size:1.1rem;line-height:1.75}
+.rk{font-size:1.1rem}
+@media(max-width:640px){.tbl .hide-s{display:none}.rk{grid-template-columns:36px 1fr}.rk .cnt{grid-column:2}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>📊 國三地理第一次段考｜老師端</h1><p>南一 單元1～2 漠南非洲（含延伸）：學生交卷的姓名、分數與錯題（開啟即自動讀取）</p></div></header>
+<main class="wrap">
+  <div class="card"><div class="row"><button class="btn" id="load">🔄 讀取最新成績</button><a class="btn alt" href="./" style="text-decoration:none;display:inline-block">📝 學生題目</a>
+<a class="btn alt" href="./?teacher" style="text-decoration:none;display:inline-block">📋 答案總表</a></div>
+    <p class="muted" id="msg" style="margin:10px 0 0">讀取中…（約需 5～10 秒）</p></div>
+  <div id="out"></div>
+</main>
+<script>
+const ENDPOINT='https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec';
+const SUBJECT='geo9-nanyi-1';
+const KEY='qk-a24d325f02cc7da5';  /* 段考闖關成績後端的讀取密鑰（Code.gs 的 READ_KEY） */
+const UNIT={"1": "單元1 漠南非洲的自然環境和文化發展", "2": "單元2 漠南非洲的經濟發展", "7": "綜合 圖表題組＋排序", "8": "延伸 時事與課外地名", "9": "總測驗"};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+let ROWS=[];
+
+/* 讀取：先用 fetch（平板、手機較穩），失敗再改用 JSONP；兩種都有逾時，不會一直卡在「讀取中」 */
+function jsonp(url,cb){
+  const fn='t_'+Math.random().toString(36).slice(2),s=document.createElement('script');let done=false;
+  const end=d=>{if(done)return;done=true;try{delete window[fn]}catch(e){}s.remove();cb(d)};
+  window[fn]=end;s.onerror=()=>end(null);s.src=url+'&callback='+fn;
+  document.body.appendChild(s);setTimeout(()=>end(null),15000);
+}
+function fetchRows(key,cb){
+  const url=`${ENDPOINT}?key=${encodeURIComponent(key)}&subject=${SUBJECT}&t=${Date.now()}`;
+  const ctl=window.AbortController?new AbortController():null,tm=setTimeout(()=>ctl&&ctl.abort(),15000);
+  fetch(url,{cache:'no-store',signal:ctl&&ctl.signal}).then(r=>r.json()).then(d=>{clearTimeout(tm);cb(d)})
+    .catch(()=>{clearTimeout(tm);jsonp(url,d=>cb(d||{ok:false,err:'連不上成績資料庫。請確認網路，或換用 Chrome／Safari 開啟後按「讀取最新成績」。'}))});
+}
+function parse(r){
+  const ans=Array.isArray(r.ans)?r.ans:[];
+  let meta={};const wrong=[];
+  ans.forEach(a=>{
+    if(a&&typeof a==='object'){if(a.meta)meta=a;else wrong.push(a);return}
+    const t=String(a);
+    if(t.startsWith('【交卷】')){const p=t.slice(4).split('｜');meta={unit:p[0],type:p[1]};return}
+    const m=t.match(/^✗ 題目：(.*?)｜學生答：(.*?)｜正解：(.*?)(?:｜單元：(.*))?$/);
+    if(m)wrong.push({q:m[1],my:m[2],a:m[3],u:m[4]});else wrong.push({q:t,my:'',a:''});
+  });
+  const code=Math.floor(r.round/10),type=r.round%10;
+  return {date:new Date(r.date),name:String(r.name||''),code,type,
+    unit:meta.unit||UNIT[code]||('單元'+code),kind:meta.type||(['段考模擬題','快問快答','分類挑戰','配對'][type]||'練習'),
+    score:r.score,total:r.total,correct:r.correct,blank:r.blank,wrong};
+}
+$('#load').onclick=load;
+function load(){
+  $('#msg').textContent='讀取中…（約需 5～10 秒）';
+  fetchRows(KEY,d=>{
+    if(!d||!d.ok){$('#msg').innerHTML=`<span class="err">❌ ${esc(d&&d.err||'讀取失敗')}</span>`;return}
+    ROWS=d.rows.map(parse).sort((a,b)=>b.date-a.date);
+    $('#msg').textContent=`✅ 共 ${ROWS.length} 筆交卷紀錄（更新時間 ${new Date().toLocaleTimeString()}）`;
+    draw();
+  });
+}
+function fmt(d){return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`}
+function scls(s){return s>=85?'g':s>=60?'m':'b'}
+function draw(){
+  const lesson=u=>String(u).split(' ／ ')[0].replace(/（只練錯題）$/,'');const units=[...new Set(ROWS.map(r=>lesson(r.unit)))];
+  $('#out').innerHTML=`
+  <div class="card"><div class="row">
+    <span>篩選：</span>
+    <select id="fu"><option value="">全部單元</option>${units.map(u=>`<option>${esc(u)}</option>`).join('')}</select>
+    <select id="fk"><option value="">全部題型</option><option>段考模擬題</option><option>快問快答</option><option>分類挑戰</option><option>配對</option></select>
+    <select id="fd"><option value="">全部日期</option><option value="today">只看今天</option><option value="7">最近 7 天</option></select>
+    <button class="btn ghost" id="rf">🔄 重新整理</button><button class="btn alt" id="csv">⬇️ 匯出 CSV</button>
+  </div></div>
+  <div id="body"></div>`;
+  ['#fu','#fk','#fd'].forEach(s=>$(s).onchange=body);
+  $('#rf').onclick=load;$('#csv').onclick=csv;
+  body();
+}
+function filtered(){
+  const u=$('#fu').value,k=$('#fk').value,dd=$('#fd').value,now=new Date();
+  return ROWS.filter(r=>(!u||String(r.unit).split(' ／ ')[0].replace(/（只練錯題）$/,'')===u)&&(!k||r.kind===k)&&(!dd||(dd==='today'?r.date.toDateString()===now.toDateString():(now-r.date)<7*864e5)));
+}
+function body(){
+  const rs=filtered();
+  if(!rs.length){$('#body').innerHTML='<div class="card"><p class="muted">目前沒有符合條件的交卷紀錄。</p></div>';return}
+  const byStu={};
+  rs.forEach(r=>{const k=r.name;(byStu[k]=byStu[k]||{name:r.name,list:[]}).list.push(r)});
+  const stus=Object.values(byStu).sort((a,b)=>a.name.localeCompare(b.name,'zh-Hant'));
+  const avg=Math.round(rs.reduce((s,r)=>s+(+r.score||0),0)/rs.length);
+  /* 錯題排行：同單元同題目合併 */
+  const miss={};
+  rs.forEach(r=>r.wrong.forEach(w=>{const unit=w.u?w.u:r.unit,k=unit+'||'+w.q;
+    (miss[k]=miss[k]||{unit,q:w.q,a:w.a,who:new Set(),picks:{}}).who.add(r.name);
+    miss[k].picks[w.my]=(miss[k].picks[w.my]||0)+1}));
+  const rank=Object.values(miss).sort((a,b)=>b.who.size-a.who.size).slice(0,30);
+  $('#body').innerHTML=`
+  <div class="card"><h2>🎯 最該重講的題目（錯的人最多）</h2>
+    ${rank.length?rank.map((m,i)=>{const top=Object.entries(m.picks).sort((a,b)=>b[1]-a[1])[0];
+      return `<div class="rk"><div class="n">${i+1}</div><div><span class="pill">${esc(m.unit)}</span>${esc(m.q)}<br>
+      <span class="an" style="color:var(--ok);font-weight:700">✓ ${esc(m.a)}</span>　<span class="muted">最多人選：${esc(top[0])}（${top[1]} 人）</span><br>
+      <span class="who">答錯：${[...m.who].map(esc).join('、')}</span></div><div class="cnt"><b style="font-size:1.4rem;color:var(--bad)">${m.who.size}</b> 人錯</div></div>`}).join(''):'<p class="muted">目前沒有錯題。</p>'}
+  </div>
+  <div class="card"><div class="stats">
+    <div class="stat"><b>${stus.length}</b>交卷人數</div><div class="stat"><b>${rs.length}</b>交卷次數</div>
+    <div class="stat"><b>${avg}</b>平均分數</div><div class="stat"><b>${rs.filter(r=>r.score<60).length}</b>不及格次數</div></div></div>
+  <div class="card"><h2>📋 每次交卷的錯題（最新在上）</h2>
+    ${rs.map(r=>`<div class="att"><b style="font-size:1.1rem">${esc(r.name)}</b>　${esc(r.unit)}　<span class="pill">${esc(r.kind)}</span><span class="sc ${scls(r.score)}">${r.score} 分</span>
+      <span class="muted">（答對 ${r.correct}/${r.total}${r.blank?`，空白 ${r.blank}`:''}）${fmt(r.date)}</span>
+      ${r.wrong.length?`<ol class="wq" style="padding-left:1.4em;list-style:decimal">${r.wrong.map(w=>`<li>${w.u?`<span class="pill">${esc(w.u)}</span>`:''}${esc(w.q)}<br><span class="my">✗ 學生答：${esc(w.my)}</span>　<span class="an">✓ 正解：${esc(w.a)}</span></li>`).join('')}</ol>`:'<p class="muted" style="margin:6px 0 0">🏆 全對</p>'}</div>`).join('')}
+  </div>
+  <div class="card"><h2>👩‍🎓 學生名單（點一下看每次的錯題）</h2><div class="scroll"><table class="tbl">
+    <tr><th>姓名</th><th>次數</th><th>最近一次</th><th>分數</th><th class="hide-s">平均</th></tr>
+    ${stus.map((s,i)=>{const last=s.list[0],a=Math.round(s.list.reduce((x,r)=>x+(+r.score||0),0)/s.list.length);
+      return `<tr class="stu" data-i="${i}"><td><b>${esc(s.name)}</b></td><td>${s.list.length}</td>
+      <td>${esc(last.unit)}<br><span class="muted">${esc(last.kind)}｜${fmt(last.date)}</span></td>
+      <td class="sc ${scls(last.score)}">${last.score}</td><td class="hide-s">${a}</td></tr>
+      <tr class="detail" id="d${i}" style="display:none"><td colspan="5">${s.list.map(r=>`
+        <div class="att"><b>${esc(r.unit)}</b>　<span class="pill">${esc(r.kind)}</span><span class="sc ${scls(r.score)}">${r.score} 分</span>
+        <span class="muted">（${r.correct}/${r.total}${r.blank?`，空白 ${r.blank}`:''}）${fmt(r.date)}</span>
+        ${r.wrong.length?`<ul class="wq">${r.wrong.map(w=>`<li>${w.u?`<span class="pill">${esc(w.u)}</span>`:''}${esc(w.q)}<br><span class="my">✗ ${esc(w.my)}</span>　<span class="an">✓ ${esc(w.a)}</span></li>`).join('')}</ul>`:'<p class="muted" style="margin:6px 0 0">🏆 全對</p>'}</div>`).join('')}</td></tr>`}).join('')}
+  </table></div></div>
+`;
+  document.querySelectorAll('tr.stu').forEach(tr=>tr.onclick=()=>{const d=$('#d'+tr.dataset.i);d.style.display=d.style.display==='none'?'':'none'});
+}
+function csv(){
+  const rs=filtered(),q=s=>'"'+String(s==null?'':s).replace(/"/g,'""')+'"';
+  const lines=[['時間','姓名','單元','題型','分數','答對','總題數','空白','錯題（題目｜學生答案｜正解）'].map(q).join(',')];
+  rs.forEach(r=>lines.push([r.date.toLocaleString(),r.name,r.unit,r.kind,r.score,r.correct,r.total,r.blank,
+    r.wrong.map(w=>`${w.q}｜${w.my}｜${w.a}`).join('\n')].map(q).join(',')));
+  const blob=new Blob(['﻿'+lines.join('\n')],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`段考闖關成績_國二國文.csv`;a.click();
+}
+load();
+</script>
+<script>/* PEN */
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+</script>
+<script>/* NOBR */
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+</script>
+</body>
+</html>

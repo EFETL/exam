@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國二公民段考闖關</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#1f4e8c; --main-2:#3a72c0; --accent:#f0a03c; --accent-2:#d9822b;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#173c6e 0%,#3a72c0 60%,#f0a03c 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#173c6e;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+.qword{font-size:1.4rem;letter-spacing:0;line-height:1.55;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word}
+@media(max-width:560px){.opts{grid-template-columns:1fr}.qword{font-size:1.25rem}}
+.bars .b span{line-height:1.35}
+@media(max-width:560px){.bars .b{grid-template-columns:128px 1fr 60px}}
+details.card summary{cursor:pointer}
+@media(max-width:560px){.lessoncards{grid-template-columns:1fr}.lc{min-height:0;gap:8px}}
+/* 表格與圖表（文字放在 HTML，不畫在圖上） */
+.tbl{width:100%;border-collapse:collapse;font-size:1rem;margin:6px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.tbl th{background:#eaf1fb;color:var(--main)}
+.figbox{overflow-x:auto;margin-bottom:6px}
+.passage{background:#f1f5fb;border-radius:12px;padding:14px 16px;line-height:1.9}
+.ladder{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 12px}
+.ladder span{background:var(--main);color:#fff;border-radius:12px;padding:6px 12px;font-weight:700;text-align:center}
+.ladder span.an{background:var(--accent);color:#3b2600}
+.ladder small{display:block;font-size:1rem;font-weight:500}
+/* 同心圓（國民與公民） */
+.ring{margin:6px 0 10px}
+.ring-o{border:3px solid var(--main-2);background:#eaf1fb;border-radius:28px;padding:14px 16px}
+.ring-i{margin-top:10px;border:3px solid var(--accent);background:#fff4e2;border-radius:22px;padding:12px 14px}
+/* 聊天室 */
+.chat p{background:#f1f5fb;border-radius:14px;padding:8px 14px;margin:8px 0;line-height:1.7}
+.chat p:nth-child(even){background:#fff4e2}
+/* 流程圖 */
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.flow span{flex:1 1 140px;background:#eaf1fb;border:2px solid var(--main-2);border-radius:12px;padding:8px 10px;text-align:center;font-weight:700;line-height:1.5}
+.flow b{color:var(--accent-2)}
+@media(max-width:560px){.flow{flex-direction:column;align-items:stretch}.flow span{flex:none}.flow b{text-align:center;transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回公民選單</a><span class="tag">翰林版 國二上公民 ｜ 第一次段考</span>
+    <h1>公民段考闖關｜第 1 章 國家與民主政治＋第 2 章 憲法與權利保障</h1>
+    <p>先看真實照片動畫弄懂課本，再用遊戲練熟考點，最後做段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap"><details style="margin-top:8px"><summary>圖片來源與授權</summary>
+  照片皆來自 Wikimedia Commons（CC0／公有領域／CC BY／CC BY-SA），未使用 AI 生成圖：主席簽署憲法：《國防部公報》（1946-1948）（公有領域）；Interior in Constitutional Court, Judicial Yuan 20090706：Jiang（CC BY-SA 3.0）；ICCK and Jhongjheng 4th Road zebra crossing (47271298682)：玄史生（CC0）；Taipei Taiwan Judicial-Yuan-01：CEphoto, Uwe Aranas（CC BY-SA 3.0）；Legislative Yuan Building 20240626：Yu tptw（CC BY-SA 4.0）；Vote for 18！十八歲公民權 05：Yu tptw（CC BY-SA 4.0）；Classroom with students in Baozhong Junior High School 20130308：褒忠國中 雲端網（CC BY 2.0）；Indigenous group dancers at Amis Music Festival 2016 IMF0954：HaeB（CC BY-SA 4.0）；Ximen Employment Service Station, Taipei City Employment Services Office 20170624：Solomon203（CC BY-SA 4.0）；2010-10-16 newsstand at Taipei：tomscoffin（CC BY 2.0）；Taiwan LGBT Pride - Parade through the Taipei Main Station：Adsa562 (Tsuna Lu)（CC BY-SA 4.0）；Lungshan Temple：Rutger van der Maar（CC BY 2.0）；Patrol vessel PP-3582 of Coast Guard Administration 20191206：總統府（CC BY 2.0）；Crowds in front of Exit 2, Taipei City Hall Station 20090101：H.T. Yu（CC BY-SA 2.0）；Presidential office building (Taipei, Taiwan 2017) (38638559425)：Paul Arps from The Netherlands（CC BY 2.0）；09.15 國軍部隊在屏東救災 (29656557176)：總統府（CC BY 2.0）；Taiwan NASA Terra MODIS 2022-07-21：Original image: NASA Earth Observatory/T（公有領域）；05.03 總統見證《中華民國(臺灣)政府與史瓦帝尼王國政府關務互助協定》簽署儀式及簽署聯合公報 - 55243919037：Taiwan Presidential Office（CC BY 4.0）；Aerial view of Tuvalu’s capital, Funafuti, 2011. Tuvalu is a remote country of low lying atolls, making it vulnerable to climate change. Photo- Lily-Anne Homasi - DFAT (12779656093)：Lily-Anne Homasi/DFAT（CC BY 2.0）；11.24 107年地方公職人員選舉投票 (44206090440)：總統府（CC BY 2.0）；立法院內政委員會針對《政黨法》立法舉行公聽會：國會無雙（CC BY-SA 4.0）；20251010 Shigeru Ishiba press conference 1：Cabinet Secretariat（CC BY 4.0）；立法院議場：林高志（CC BY-SA 4.0）；TCPD Traffic Police Control Traffic at Intersection of Xindong Street and Section 5, Minsheng East Road Taipei 20160630：玄史生（CC0）；Portrait of Lord Acton：作者不詳（19 世紀肖像照）（公有領域）；Portret van Charles de Montesquieu Montesquieu (titel op object), RP-P-1997-8：Rijksmuseum（CC0）。</details>
+</div></footer>
+
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料（翰林 國二上公民 第一次段考） =================
+   名詞、定義、法律名稱一律依翰林國二上社會課本（第四篇 民主政治的運作 第1～2章）。
+   手邊只有 114 學年版翰林課本 WORD（2上L01、2上L02，檔號 114f409558／114f409559），115 學年版待老師確認是否有改動。
+   快問快答：[題目, 正解, [3 個誘答], 幾校考過(0＝不標★；只標 ≥2 校), 題目提示(可省略)]
+   模擬題：{q, o:[正解, 誘答…], a:0, src, ex}（選項每次洗牌；全部原創改寫，只借 30 校的命題方向與陷阱） */
+const L = {
+/* ---------- 1-1 什麼是國家？ ---------- */
+n1:{
+  no:'1-1', code:1, title:'什麼是國家？（四要素・國家功能・國家與政府）', short:'國家四要素', color:'linear-gradient(135deg,#1f4e8c,#3a72c0)',
+  desc:'人民・領土・政府・主權｜領海 12 浬、經濟海域 200 浬｜保護安全 vs 增進福祉｜國家 vs 政府',
+  quickAsk:'選出正確的答案', quickTitle:'國家四要素快問快答',
+  quick:[
+    ['國家由哪四種要素組成？','人民、領土、政府、主權',['人民、領土、國旗、國歌','政府、軍隊、憲法、主權','人民、土地、國花、國慶日'],25],
+    ['國旗、國歌在國家中扮演的角色','國家的象徵，不是國家要素',['國家的第五要素','屬於主權要素','屬於政府要素'],4],
+    ['國家的組成分子；擁有該國國籍者即為該國國民','人民',['領土','政府','主權'],25],
+    ['國家統治權所能支配的地理區域','領土',['主權','政府','經濟海域'],21],
+    ['領土包括哪三部分？','領陸、領海、領空',['領陸、領海、經濟海域','領陸、公海、領空','領陸、領海、外太空'],21],
+    ['我國領海的範圍','領海基線向外 12 浬',['領海基線向外 200 浬','領海基線向外 24 浬','到公海為止'],10],
+    ['領空是指哪裡的上空？','領陸與領海的上空',['經濟海域的上空','公海的上空','可無限往上延伸的太空'],23],
+    ['領海基線外 200 浬內，國家只對自然資源有專屬權利的海域','專屬經濟海域',['領海','公海','領空'],13],
+    ['專屬經濟海域「算不算」國家的領土？','不算，只有資源的專屬權利',['算，屬於領海','算，屬於領空','要看有沒有駐軍'],13],
+    ['國家的統治機關，管理與分配國家資源、行使公權力','政府',['主權','人民','領土'],20],
+    ['國家最高的統治權力','主權',['政府','公權力','法律'],19],
+    ['主權「對內」具有什麼特性？','最高性',['獨立性','持續性','原則性'],17],
+    ['主權「對外」具有什麼特性？','獨立性',['最高性','固定性','穩定性'],17],
+    ['國家能與他國簽訂條約、建立平等的國際關係，展現的是主權的','對外獨立性',['對內最高性','對內獨立性','對外最高性'],6],
+    ['國家「最主要」的功能','保護人民的安全',['發展經濟','促進文化','實施福利'],15],
+    ['組織軍隊、拓展外交，屬於哪一項國家功能？','保護人民的安全',['維護秩序','發展經濟','實施福利'],21],
+    ['警察取締酒駕、查緝詐騙集團，屬於哪一項國家功能？','維護秩序',['保護人民的安全','促進文化','實施福利'],21],
+    ['發放老人年金、低收入戶補助，屬於哪一項國家功能？','實施福利',['發展經濟','維護秩序','保障人權'],21],
+    ['國家「擁有」主權；政府則是以什麼來執行政策？','公權力',['主權','人民','領土'],20],
+    ['具有「穩定性與持續性」的是','國家',['政府','執政黨','內閣'],20],
+    ['會隨制度變遷或政權轉移而改變的是','政府',['國家','主權','領土'],20],
+    ['依課本，中華民國創建於哪一年？','1912 年',['1949 年','1947 年','1996 年'],0],
+    ['某國海平面上升、國土可能消失，最受威脅的是哪一項國家要素？','領土',['人民','政府','主權'],4],
+    ['某地區有人民、土地與政府，但不被國際社會承認、不能參與國際事務，最欠缺的是','主權',['人民','領土','政府'],19],
+  ],
+  words:[
+    ['人民','國家的組成分子，擁有該國國籍'],['領土','國家統治權所能支配的地理區域'],['政府','國家的統治機關，行使公權力'],
+    ['主權','國家最高的統治權力'],['對內最高性','享有決策與執行政策的權力'],['對外獨立性','不受他國或國際組織干涉'],
+    ['領海','領海基線外 12 浬'],['領空','領陸與領海的上空'],['專屬經濟海域','基線外 200 浬，只有資源專屬權'],
+    ['保護人民的安全','組織軍隊、拓展外交'],['維護秩序','警察維持治安、執行法令'],['實施福利','照顧弱勢、提供社會救助'],
+    ['國家的持續性','不因政權轉移而改變'],['政府的變動性','隨制度變遷或政權轉移而改變'],
+  ],
+  sorts:[
+    {title:'這個新聞在說哪一項國家要素？',tip:'人口、國籍→人民；土地、海域→領土；部會、公權力→政府；外交承認、不受干涉→主權。',buckets:['人民','領土','政府','主權'],items:[
+      ['某國少子化嚴重，人口逐年減少',0],['新生兒依父母國籍取得我國國籍',0],['太平洋島國因海平面上升，陸地面積縮小',1,'吐瓦魯的例子'],
+      ['外國軍機闖入我國領海上空',1,'領空屬於領土'],['某國內戰後中央機關全面瓦解，無法提供公共服務',2,'索馬利亞曾長期缺乏有效政府'],
+      ['新內閣上任，各部會首長宣誓就職',2],['某地區宣布獨立，但多數國家拒絕承認',3],['我國與友邦平等簽署合作協定',3,'對外獨立性'],
+      ['某國拒絕外國干涉其內政決策',3,'不受任何國家或國際組織干涉']]},
+    {title:'這件事展現哪一項國家功能？',tip:'最主要＝保護人民的安全（軍隊、外交）；增進福祉＝維護秩序、保障人權、發展經濟、促進文化、實施福利。',buckets:['保護人民的安全','維護秩序','發展經濟','促進文化','實施福利'],items:[
+      ['恢復一年義務役、強化國防',0],['國軍協助颱風災區搶救',0,'軍隊保國衛民，考卷多歸保護安全'],['外交部協助受困海外的國人返國',0,'拓展外交'],
+      ['海巡署驅離越界捕魚的外國漁船',0],['警察加強取締闖紅燈與酒駕',1],['查緝演唱會黃牛票',1],
+      ['政府推動半導體產業、吸引外資投資',2],['補助地方舉辦傳統藝術節、發放文化幣',3],['發放身心障礙者生活補助',4],['興建社會住宅給弱勢家庭',4]]},
+    {title:'國家 or 政府？',tip:'國家：範圍大、擁有主權、穩定持續；政府：只是要素之一、用公權力執行、會更替。',buckets:['國家','政府'],items:[
+      ['由人民、領土、政府、主權組成',0],['只是國家的組成要素之一',1],['擁有主權',0,'政府沒有主權'],['以公權力執行政策',1],
+      ['具有穩定性與持續性',0],['會因政權轉移而被取代',1],['選舉後換人執政，它換了',1,'換政府不等於換國家'],['選舉後換人執政，它仍然不變',0]]},
+  ],
+  mcq:[
+    {q:'下列哪一組完整列出構成國家的四種要素？',o:['人民、領土、政府、主權','人民、領土、國旗、國歌','政府、軍隊、主權、憲法','人民、國籍、國旗、主權'],a:0,src:'25 校考四要素',ex:'國家是由人民、領土、政府、主權四種要素組合而成的政治實體，缺一不可。國旗、國歌只是國家的象徵。'},
+    {q:'學校升旗典禮上，同學問：「國旗是不是國家的要素？」下列回答何者正確？',o:['不是，國旗是國家的象徵；國家要素是人民、領土、政府、主權','是，沒有國旗就不能成為國家','是，國旗屬於主權要素','是，國旗屬於政府要素'],a:0,src:'',ex:'課本「想一想」：國旗代表國家，是國家的象徵，但不是組成國家的四要素之一。'},
+    {q:'海巡艦艇在我國「領海基線外 30 浬」處發現外國漁船捕魚。下列判斷何者正確？',o:['此處屬於專屬經濟海域，我國對其中的自然資源享有專屬權利，但它不是領土','此處屬於領海，是我國領土','此處屬於公海，任何國家都能捕魚','此處屬於領空範圍'],a:0,src:'13 校考經濟海域',ex:'領海＝基線外 12 浬；專屬經濟海域＝基線外 200 浬內，國家只對資源有專屬權，不是領土。'},
+    {q:'關於「領空」的範圍，下列敘述何者正確？',o:['是領陸與領海的上空','包含專屬經濟海域的上空','可以無限往上延伸到外太空','只包含領陸的上空'],a:0,src:'23 校考領空',ex:'領空＝領陸與領海的上空；經濟海域及其上空都不是領土，領空也不能無限往上延伸。'},
+    {q:'太平洋島國吐瓦魯因海平面上升，國土可能被淹沒。若未來國民遷居他國，但政府仍運作、仍被各國承認，下列推論何者最合理？',o:['它面臨的主要是「領土」要素的威脅','它已經失去「主權」要素','它已經沒有「人民」要素','它的「政府」要素已經消失'],a:0,src:'4 校',ex:'海平面上升威脅的是領土；只要人民、政府、主權仍在，國家地位不會立即改變。'},
+    {q:'某地區有自己的人民、土地與運作中的政府，但多數國家不承認它，也無法加入聯合國。這個地區最欠缺哪一項國家要素？',o:['主權','人民','領土','政府'],a:0,src:'19 校考主權',ex:'未獲國際承認、無法平等參與國際事務，表示對外獨立性受限，欠缺的是主權。'},
+    {q:'「我國與友邦簽署合作協定，雙方以平等地位往來。」這最能說明主權的哪一項特性？',o:['對外具有獨立性','對內具有最高性','對外具有最高性','對內具有獨立性'],a:0,src:'',ex:'主權對內最高（決策與執行政策）、對外獨立（不受他國干涉、能與他國建立平等關係）。「對外最高、對內獨立」是故意對調的陷阱。'},
+    {q:'政府決定一項全國性的政策後，全國各地都必須遵行，沒有任何團體能凌駕其上。這展現的是什麼？',o:['主權對內具有最高性','主權對外具有獨立性','政府擁有主權','國家具有持續性'],a:0,src:'',ex:'國家主權對內具有最高性，享有決策與執行政策的權力；政府是透過公權力去執行，主權屬於國家。'},
+    {q:'國軍官兵在颱風過後開著裝甲車進入淹水災區救援受困民眾。這主要展現哪一項國家功能？',o:['保護人民的安全','發展經濟','促進文化','實施福利'],a:0,src:'21 校考國家功能',ex:'國家最主要的功能是保護人民的安全，透過組織軍隊、拓展外交保國衛民。'},
+    {q:'下列哪一項政府作為，最符合國家「維護秩序」的功能？',o:['警察依法取締酒後駕車','國軍進行年度演習','外交部爭取加入國際組織','文化部補助電影拍攝'],a:0,src:'',ex:'警察維持治安＝維護秩序；軍隊、外交屬於保護人民的安全；補助電影屬於促進文化。'},
+    {q:'政府為弱勢家庭興建社會住宅、提供租金補貼。這屬於國家的哪一項功能？',o:['實施福利','保護人民的安全','維護秩序','發展經濟'],a:0,src:'國家功能（21 校）',ex:'照顧弱勢、提供社會救助，屬於增進人民福祉中的「實施福利」。'},
+    {q:'總統大選後，新政府上任、部會首長全部更換。下列敘述何者正確？',o:['政府更替了，但國家仍是同一個國家','國家換了，主權也跟著改變','政府沒有改變，只有國家改變','人民的國籍會跟著改變'],a:0,src:'20 校考國家與政府',ex:'國家具有穩定性與持續性；政府會隨制度變遷或政權轉移而改變。新政府不代表新國家。'},
+    {q:'下表比較國家與政府，哪一格寫錯了？【國家】範圍：人民、領土、政府、主權；權力：擁有主權；持續性：穩定、持續。【政府】範圍：國家的組成要素之一；權力：擁有主權；持續性：會隨政權轉移而改變。',o:['政府的「權力」欄：應為以公權力執行政策','國家的「範圍」欄','國家的「持續性」欄','政府的「持續性」欄'],a:0,src:'比較表找錯（6 校）',ex:'主權屬於國家，政府是透過公權力去執行；「政府擁有主權」是最常見的錯誤。'},
+    {q:'關於「人民」這項國家要素，下列敘述何者正確？',o:['擁有該國國籍的人民即為該國國民','住在該國領土上的人都是該國國民','人口少於十萬人就不算有人民要素','只有成年人才算人民'],a:0,src:'26 校考人民／國民',ex:'課本：擁有該國國籍的人民即為該國國民，應受國家保護、享有權利並負擔義務。人口很少（如梵蒂岡）仍有人民要素。'},
+    {q:'小威在總統府網站看到「全國人口大約 2,300 萬」「有效管轄土地面積 3 萬 6,197 平方公里」「建立與邦交國永續夥伴關係」。這三句依序主要對應哪些國家要素？',o:['人民、領土、主權','人民、政府、主權','政府、領土、人民','主權、領土、政府'],a:0,src:'翰林課本實作與練習改寫',ex:'人口＝人民；土地面積＝領土；與邦交國往來＝主權（對外獨立）。'},
+    {q:'外國軍機未經許可，飛進我國領海的上空。下列敘述何者正確？',o:['侵犯了我國的領空，也就是侵犯領土與主權','只要沒有降落，就不算侵犯領土','領海上空不屬於我國','這是經濟海域的問題，與主權無關'],a:0,src:'釣魚台、台灣海峽題（6 校）',ex:'領空＝領陸與領海的上空，屬於領土；未經許可進入即侵犯國家主權。'},
+  ]
+},
+
+/* ---------- 1-2 民主政治的特色 ---------- */
+n2:{
+  no:'1-2', code:2, title:'民主政治的特色（民意・責任・法治・政黨）', short:'民主政治四特色', color:'linear-gradient(135deg,#173c6e,#2f62a8)',
+  desc:'公聽會＝民意｜辭職下臺＝政治責任、違法＝法律責任｜依法行政＝法治｜執政黨・在野黨・政黨輪替',
+  quickAsk:'選出正確的答案', quickTitle:'民主政治快問快答',
+  quick:[
+    ['民主政治強調「主權在民」，政府運作須考量民意，稱為','民意政治',['責任政治','法治政治','政黨政治'],28],
+    ['政府制定政策前舉辦公聽會、說明會，體現哪一項特色？','民意政治',['法治政治','責任政治','政黨政治'],20],
+    ['政府施政須向人民或國會負責，稱為','責任政治',['民意政治','法治政治','政黨政治'],26],
+    ['官員因政策失敗、引發民怨而辭職下臺，負的是什麼責任？','政治責任',['法律責任','民事責任','刑事責任'],22],
+    ['官員違法收賄被起訴、判刑，負的是什麼責任？','法律責任',['政治責任','道德責任','連帶責任'],13],
+    ['政府運作受法律限制，人民守法、政府依法行政，稱為','法治政治',['民意政治','責任政治','政黨政治'],27],
+    ['警察取締違規停車，必須依據法律開罰單，體現哪一項特色？','法治政治',['責任政治','民意政治','政黨政治'],21],
+    ['人民組織政黨，透過定期選舉公平競爭取得執政權，稱為','政黨政治',['民意政治','法治政治','責任政治'],28],
+    ['在大選中獲勝、負責組織政府與執行政策的政黨','執政黨',['在野黨','反對黨','少數黨'],22],
+    ['沒有取得執政地位、負責監督政府施政的政黨','在野黨',['執政黨','聯合政府','國會'],22],
+    ['執政黨敗選成為在野黨、在野黨勝選成為執政黨，此過程稱為','政黨輪替',['政黨政治','輪流執政','政變'],23],
+    ['政黨輪替最重要的意義','和平轉移政府權力',['國家主權因此改變','依法律規定輪流執政','人民失去結社自由'],23],
+    ['我國總統民選從哪一年開始？','1996 年',['2000 年','1947 年','1912 年'],0],
+    ['我國第一次政黨輪替發生在哪一年？','2000 年',['1996 年','2008 年','2016 年'],26],
+    ['我國第二次政黨輪替發生在哪一年？','2008 年',['2000 年','2004 年','2016 年'],26],
+    ['我國第三次政黨輪替發生在哪一年？','2016 年',['2008 年','2012 年','2020 年'],26],
+    ['執政黨在總統大選中「連任」，算不算政黨輪替？','不算，執政權沒有轉移',['算，每次選舉都算','算，只要換了總統就算','要看立委席次'],4],
+    ['民主國家的政府統治權從哪裡來？','人民的定期授予',['軍隊的支持','法律規定世襲','國際組織的委任'],8],
+    ['政黨能政黨輪替，是因為人民享有組織政黨的','結社自由',['居住遷徙自由','祕密通訊自由','信仰宗教自由'],4],
+    ['課本舉例：長期由軍人掌權、選舉後軍方再度發動政變的國家','緬甸',['日本','美國','臺灣'],0],
+    ['民主政治能成為現代國家發展的主要趨勢，主要原因之一','透過選舉和平轉移政權，避免動盪',['政府權力不受任何限制','由少數菁英決定一切','不需要定期選舉'],0],
+    ['政府設置公共政策網路參與平台，讓民眾提出建議，體現哪一項特色？','民意政治',['法治政治','責任政治','政黨政治'],3],
+  ],
+  words:[
+    ['民意政治','主權在民，施政考量民意'],['責任政治','施政須向人民或國會負責'],['法治政治','政府運作受法律限制'],
+    ['政黨政治','政黨透過定期選舉公平競爭'],['政治責任','政策失敗引發民怨，辭職下臺'],['法律責任','官員違法須接受法律處罰'],
+    ['依法行政','警察須依法開單，不得隨意開罰'],['公聽會','邀請專家與民眾表達意見'],['執政黨','組織政府、執行政策'],
+    ['在野黨','監督政府施政'],['政黨輪替','政權在不同政黨間和平轉移'],['主權在民','人民是國家的主人'],
+  ],
+  sorts:[
+    {title:'這則新聞展現哪一項民主政治特色？',tip:'考量民意→民意；負責、辭職、受處罰→責任；依法、受法律限制→法治；選舉、執政黨在野黨→政黨。',buckets:['民意政治','責任政治','法治政治','政黨政治'],items:[
+      ['交通部推動新政策前，在各縣市舉辦說明會',0],['環保署擬定新法規前舉辦公聽會，邀請學者與居民發言',0],['市府依民調結果調整公車路線',0],
+      ['食安事件延燒，衛生部門首長下臺負責',1],['列車重大事故後，交通部長請辭',1],['涉嫌收賄的官員被起訴判刑',1,'違法＝法律責任，也屬於責任政治'],
+      ['警察必須持搜索票才能進入民宅搜索',2],['主管機關依《食品安全衛生管理法》對業者裁罰',2],['政府依法編列預算，不得任意挪用',2],
+      ['在野黨在立法院質詢、監督行政部門',3],['總統大選後，在野黨勝選取得執政權',3],['新政黨成立並推派候選人參選',3]]},
+    {title:'政治責任 or 法律責任？',tip:'政策失敗、引發民怨、被罷免→政治責任；違法、濫權、貪汙、被起訴判刑→法律責任。',buckets:['政治責任','法律責任'],items:[
+      ['政策推動失敗，部長公開道歉並辭職',0],['首相因執政黨選舉大敗而宣布辭職',0],['立委因表現不佳遭選民罷免',0,'罷免是政治上的究責'],
+      ['官員出國考察坐商務艙引發民怨而下臺',0],['員警收受賄賂遭判刑',1],['卸任總統因貪汙罪被起訴',1],['公務員洩漏國家機密遭法院判決',1],
+      ['官員因濫用權力被逮捕偵辦',1]]},
+    {title:'這是民主國家的作法嗎？',tip:'民主：主權在民、政府受法律限制、定期選舉、和平轉移政權。',buckets:['✅ 符合民主政治','❌ 不符合民主政治'],items:[
+      ['定期舉辦選舉，由人民決定執政者',0],['敗選的政黨和平交出政權',0],['軍隊不滿選舉結果而發動政變',1,'課本舉緬甸為例'],
+      ['統治者可以不受法律約束',1],['只允許一個政黨存在，沒有在野黨',1],['政府施政前廣泛蒐集民意',0],['領導人修法取消任期限制、無限連任',1]]},
+  ],
+  mcq:[
+    {q:'市政府計畫在河濱興建大型停車場，先邀請居民、學者與環保團體參加公聽會，再決定是否推動。這主要展現民主政治的哪一項特色？',o:['民意政治','法治政治','責任政治','政黨政治'],a:0,src:'20 校考民意政治',ex:'民主政治強調主權在民，政府制定政策前應透過公聽會、說明會讓民眾表達意見，以民意為依歸。'},
+    {q:'某國首相所屬政黨在國會選舉中大敗，首相隨後宣布辭職。這是民主政治中哪一種表現？',o:['責任政治中的政治責任','責任政治中的法律責任','法治政治','民意政治中的公聽會'],a:0,src:'日本首相辭職題（4 校）',ex:'政策失敗、失去民意支持而辭職下臺＝負政治責任。違法被追訴才是法律責任。'},
+    {q:'某市長卸任後被查出任內收受廠商賄賂，遭法院判刑確定。這屬於哪一種責任？',o:['法律責任','政治責任','道德責任而已','不需要負任何責任'],a:0,src:'',ex:'政府官員若違法，須負起法律責任，接受法律處罰；卸任後也一樣。'},
+    {q:'警察在路邊發現違規停車，必須依據《道路交通管理處罰條例》開單，不能憑心情決定罰多少。這體現哪一項特色？',o:['法治政治','責任政治','民意政治','政黨政治'],a:0,src:'21 校考法治政治',ex:'法治政治：政府運作須受法律限制，人民必須守法、政府必須依法行政（課本圖：警察取締違規停車須依法）。'},
+    {q:'「主管機關依《食品安全衛生管理法》，對違規業者處以罰鍰。」最能說明民主政治的哪一項特色？',o:['法治政治','責任政治','民意政治','政黨政治'],a:0,src:'',ex:'看到「依○○法裁罰」＝依法行政＝法治政治；不要和責任政治的「法律責任」（官員本身違法）搞混。'},
+    {q:'關於「執政黨」與「在野黨」的角色，下列何者正確？',o:['執政黨組織政府、執行政策；在野黨監督政府施政','在野黨也負責執行政策','執政黨負責監督政府','在野黨的意見完全不能表達'],a:0,src:'',ex:'大選中獲勝的執政黨負責組織政府、執行政策；在野黨負責監督。勝選的執政黨無法同時扮演監督角色。'},
+    {q:'關於我國的政黨輪替，下列敘述何者正確？',o:['政權和平轉移，國家主權不因此改變','法律規定各政黨要輪流執政','政黨輪替後國家就換了一個','政黨輪替代表民主制度不健全'],a:0,src:'23 校考政黨輪替',ex:'政黨輪替是由在野黨勝選接替執政，代表政權和平轉移、民主成熟；並不是法律規定的輪流執政，國家與主權也不會改變。'},
+    {q:'下表是某國歷屆總統大選「得票最高的政黨」：第 1 屆甲黨、第 2 屆甲黨、第 3 屆乙黨、第 4 屆乙黨、第 5 屆甲黨、第 6 屆丙黨。這段期間共發生幾次政黨輪替？',o:['3 次','2 次','4 次','5 次'],a:0,src:'得票率表判讀（4 校）',ex:'執政黨換人才算輪替：甲→乙（第 3 屆）、乙→甲（第 5 屆）、甲→丙（第 6 屆），共 3 次；同黨連任不算。'},
+    {q:'我國從 1996 年開始總統直選以來，歷經三次政黨輪替。下列年份何者正確？',o:['2000、2008、2016 年','1996、2000、2008 年','2000、2004、2012 年','2008、2016、2024 年'],a:0,src:'26 校考政黨輪替年份',ex:'第一次 2000 年（民進黨）、第二次 2008 年（國民黨）、第三次 2016 年（民進黨）；2024 年是同黨連任，不算輪替。'},
+    {q:'某國長期由軍方掌權，雖然舉辦過選舉，但軍方不滿結果又發動政變。這個國家最缺乏民主政治的哪一個條件？',o:['透過選舉和平轉移政權','政府設有各部會','國家有自己的領土','人民擁有國籍'],a:0,src:'翰林課後閱讀（緬甸）改寫',ex:'民主政治透過定期選舉和平轉移政權，避免國家陷入動盪；軍隊干政使政權無法和平轉移。'},
+    {q:'某國只允許一個政黨存在，選舉時反對者無法組黨參選。下列敘述何者正確？',o:['不符合政黨政治，因為沒有公平競爭與在野黨監督','符合政黨政治，因為仍有一個政黨','符合法治政治，所以就是民主國家','符合民意政治，因為有舉辦選舉'],a:0,src:'',ex:'政黨政治的核心是人民可以組黨、透過定期選舉公平競爭；一黨專政沒有真正的在野黨。'},
+    {q:'選民不滿某立委表現，發起罷免並通過，該立委因此去職。從民主政治特色來看，最能說明什麼？',o:['人民透過罷免追究民意代表的政治責任','立委負起了法律責任','這是法治政治中的依法行政','這是政黨輪替'],a:0,src:'罷免題',ex:'罷免是人民對失職的民意代表究責，屬於政治責任；並沒有違法，所以不是法律責任。'},
+    {q:'政府設立「公共政策網路參與平台」，民眾可提出建議，附議達一定人數時，主管機關須回應。這個平台的設立最能展現哪一項特色？',o:['民意政治','法治政治','政黨政治','責任政治中的法律責任'],a:0,src:'延後上課提案（3 校）',ex:'政府設立管道蒐集、回應民意＝民意政治。至於民眾個人提出建議，則是在行使請願權。'},
+    {q:'下列哪一項敘述最符合「民主國家的政府統治權」的來源？',o:['來自人民的定期授予','來自軍隊的支持','來自統治者家族的世襲','來自國際組織的任命'],a:0,src:'翰林課本 1-2',ex:'在民主國家中人民是國家的主人，政府的統治權來自人民的定期授予（定期選舉）。'},
+    {q:'某部長在記者會上說：「這次政策造成許多民眾權益受損，我深感抱歉，決定請辭。」他的行為與下列哪一項最相關？',o:['責任政治','法治政治','政黨政治','主權的對外獨立性'],a:0,src:'22 校考責任政治',ex:'政策失敗導致人民權益受損，官員承擔責難甚至辭職下臺＝負起政治責任（責任政治）。'},
+    {q:'關於民主政治的敘述，下列何者最正確？',o:['民主政治並非萬能，但體現人人平等與尊重人權','民主國家的政府不必遵守法律','民主政治保證每一項政策都正確','民主國家只能有一個政黨'],a:0,src:'翰林課本 1-2',ex:'課本：民主政治雖非萬能，但體現人人平等與尊重人權，並透過選舉和平轉移政權，成為現代國家發展的主要趨勢。'},
+  ]
+},
+
+/* ---------- 2-1 法律的位階 ---------- */
+k1:{
+  no:'2-1', code:3, title:'法律的位階（憲法・法律・命令）', short:'法律位階與憲法', color:'linear-gradient(135deg,#9a5a10,#f0a03c)',
+  desc:'法・律・條例・通則＝法律｜規程・規則・細則・辦法・綱要・標準・準則＝命令｜最高性・原則性・固定性｜修憲程序',
+  quickAsk:'選出正確的答案', quickTitle:'法律位階快問快答',
+  quick:[
+    ['「廣義的法律」包括哪三者？','憲法、法律、命令',['憲法、法律、判決','法律、命令、條約','憲法、命令、習慣'],28],
+    ['「狹義的法律」是指','立法院三讀通過、總統公布的法律',['行政院訂定的命令','憲法本文','憲法增修條文'],28],
+    ['法律位階由高到低的順序','憲法＞法律＞命令',['法律＞憲法＞命令','命令＞法律＞憲法','憲法＞命令＞法律'],28],
+    ['法律可以定名為哪四種？','法、律、條例、通則',['法、規則、細則、辦法','條例、通則、辦法、標準','法、律、準則、綱要'],27],
+    ['命令可以稱為哪七種？','規程、規則、細則、辦法、綱要、標準、準則',['法、律、條例、通則','規則、細則、辦法、條例','標準、準則、通則、規程'],28],
+    ['《道路交通管理處罰條例》屬於哪一個位階？','法律',['命令','憲法','判決'],27],
+    ['《道路交通安全規則》屬於哪一個位階？','命令',['法律','憲法','條約'],28],
+    ['《國民教育法施行細則》屬於哪一個位階？','命令',['法律','憲法','條例'],28],
+    ['《○○組織通則》屬於哪一個位階？','法律',['命令','憲法','規程'],27],
+    ['命令通常由誰訂定？','各行政機關依法律授權訂定',['立法院三讀通過','制憲國民大會','憲法法庭'],28],
+    ['狹義的法律由哪個機關制定、修正？','立法院',['行政院','總統府','憲法法庭'],19],
+    ['位階低的法規牴觸位階高的法規，結果是','無效',['仍然有效','兩者並存','由命令優先'],26],
+    ['我國憲法包括哪兩部分？','憲法本文與憲法增修條文',['憲法與法律','憲法與命令','憲法與判決'],4],
+    ['法律與命令都不可以牴觸憲法，是憲法的哪一項特性？','最高性',['原則性','固定性','持續性'],26],
+    ['憲法被稱為「萬法之母、眾法之源」，內容簡潔扼要，是哪一項特性？','原則性',['最高性','固定性','獨立性'],24],
+    ['憲法變動不宜太頻繁、修正過程困難繁複，是哪一項特性？','固定性',['原則性','最高性','普遍性'],26],
+    ['法律或命令有牴觸憲法的疑慮時，由哪裡審理判決？','憲法法庭',['最高法院','立法院','行政院'],21],
+    ['依憲法增修條文，憲法修正案由哪個機關提出？','立法院',['行政院','總統','國民大會'],20],
+    ['立法院提出憲法修正案後，要公告多久？','半年',['一年','兩年','三個月'],20],
+    ['公告期滿後，修憲案交由誰複決？','中華民國自由地區選舉人',['國民大會','立法委員','大法官'],20],
+    ['修憲複決通過的門檻','有效同意票超過選舉人總額的半數',['同意票多於不同意票即可','投票率超過三成','立法院出席委員過半同意'],13],
+    ['2022 年 18 歲公民權修憲案沒有通過，最能說明憲法的哪一項特性？','固定性',['最高性','原則性','普遍性'],15],
+    ['民法舊條文「父母意見不一致時由父行使」違反男女平等而限期失效，凸顯憲法的','最高性',['原則性','固定性','公平性'],0],
+    ['國民教育法第 3 條規定「6 歲至 15 歲之國民應受國民教育」，它屬於哪一個位階？','法律',['憲法','命令','判決'],0],
+  ],
+  words:[
+    ['廣義的法律','憲法、法律、命令'],['狹義的法律','立法院三讀通過、總統公布'],['憲法','由制憲國民大會制定，位階最高'],
+    ['法律的名稱','法、律、條例、通則'],['命令的名稱','規程、規則、細則、辦法、綱要、標準、準則'],['命令','行政機關依法律授權訂定'],
+    ['最高性','法律、命令牴觸憲法即無效'],['原則性','萬法之母、眾法之源，內容簡潔扼要'],['固定性','修正過程困難繁複'],
+    ['憲法法庭','審理法規是否違憲'],['修憲提案','由立法院提出'],['修憲複決','公告半年後交選舉人投票'],
+  ],
+  sorts:[
+    {title:'這部法規屬於哪一個位階？',tip:'先看名稱最後幾個字：法、律、條例、通則＝法律；規程、規則、細則、辦法、綱要、標準、準則＝命令。',buckets:['憲法','法律','命令'],items:[
+      ['中華民國憲法增修條文',0,'增修條文屬於憲法位階'],['性別平等工作法',1],['道路交通管理處罰條例',1],['地方制度法',1],
+      ['國民教育法施行細則',2,'名稱有「法」，但「施行細則」是命令'],['工作場所性騷擾防治措施準則',2],['道路交通安全規則',2],
+      ['公職人員選舉罷免法',1],['公民投票法',1,'公投法也低於憲法'],['建築技術規則',2],['國家公園法',1],['原住民族基本法',1],['公司登記辦法',2]]},
+    {title:'這則新聞在說憲法的哪一項特性？',tip:'牴觸、違憲、無效→最高性；只寫原則、細節另訂法律→原則性；難修改、門檻高→固定性。',buckets:['最高性','原則性','固定性'],items:[
+      ['憲法法庭判決某法律條文違憲，須限期修正',0],['大法官宣告某命令因違反平等權而失效',0],['某市的自治條例牴觸憲法，因此無效',0],
+      ['憲法只寫「人民有服兵役之義務」，役期等細節由兵役法規定',1],['憲法規定人民有受國民教育之權利與義務，入學年齡寫在施行細則',1],
+      ['憲法內容簡潔扼要，被稱為萬法之母',1],['18 歲公民權修憲案因同意票未達選舉人總額半數而未通過',2],
+      ['修憲要立法院提案、公告半年，再交選舉人複決',2],['我國自 2005 年後再沒有修憲成功',2]]},
+    {title:'修憲程序：第幾步？',tip:'立委提議→立法院決議提出→公告半年→選舉人複決→通過。',buckets:['第1步','第2步','第3步','第4步'],items:[
+      ['立法委員四分之一提議',0],['立法院四分之三出席、出席委員四分之三決議，提出修正案',1],['公告半年',2],
+      ['中華民國自由地區選舉人投票複決',3]]},
+  ],
+  mcq:[
+    {q:'下列哪一部法規是由「立法院三讀通過、總統公布」的狹義法律？',o:['道路交通管理處罰條例','道路交通安全規則','國民教育法施行細則','工作場所性騷擾防治措施準則'],a:0,src:'28 校考名稱辨識',ex:'「條例」屬於法律；規則、細則、準則都是命令，由行政機關依法律授權訂定。'},
+    {q:'某校公民老師在黑板寫下：「甲、建築技術規則　乙、博物館法　丙、○○組織規程　丁、○○組織通則」。屬於「法律」位階的是哪些？',o:['乙、丁','甲、乙','丙、丁','甲、丙'],a:0,src:'',ex:'法、通則屬於法律；規則、規程屬於命令。'},
+    {q:'關於「廣義的法律」與「狹義的法律」，下列敘述何者正確？',o:['憲法屬於廣義的法律，但不是狹義的法律','憲法增修條文屬於狹義的法律','命令屬於狹義的法律','狹義的法律包含憲法、法律、命令'],a:0,src:'',ex:'廣義＝憲法、法律、命令；狹義＝立法院三讀通過、總統公布的法律。憲法與增修條文都不是狹義法律。'},
+    {q:'《國民教育法施行細則》名稱中有「法」字，它的位階為何？',o:['命令，由行政機關依法律授權訂定','法律，由立法院三讀通過','憲法，與國民教育法同位階','法律，因為名稱有「法」字'],a:0,src:'名稱陷阱（多校）',ex:'看名稱最後的字：「施行細則」是細則，屬於命令；它是為了落實國民教育法而訂定的。'},
+    {q:'依法律位階圖，甲是憲法、乙是法律、丙是命令。下列敘述何者正確？',o:['丙由各行政機關訂定，不能牴觸甲和乙','乙由行政院訂定，再由總統公布','甲由立法院制定','丙的效力高於乙'],a:0,src:'法律位階圖（14 校）',ex:'憲法由制憲國民大會制定；法律由立法院制定、總統公布；命令由行政機關依授權訂定，效力最低。'},
+    {q:'網路上流傳：「公投結果可以推翻憲法，因為公投代表最高民意。」依法律位階判斷，這說法為什麼有問題？',o:['公民投票法屬於法律，位階低於憲法，不能牴觸憲法','公民投票法屬於命令，效力最低','公投結果的位階高於憲法','公投由憲法法庭舉辦'],a:0,src:'網路謠言題',ex:'公民投票法是立法院通過的法律，位階低於憲法；任何法律、命令都不可牴觸憲法（最高性）。'},
+    {q:'憲法法庭判決某國家考試規則中「限制報考者身高」的規定違憲，該規定因此失效。這最能說明憲法的哪一項特性？',o:['最高性','原則性','固定性','持續性'],a:0,src:'25 校考最高性／違憲審查',ex:'法律與命令不可以牴觸憲法，否則無效；由憲法法庭審理判決，確保憲法的最高性。考試規則屬於命令，同樣不能牴觸憲法。'},
+    {q:'某條命令被認為可能牴觸憲法，應由哪個機關審理、判決？',o:['憲法法庭','最高法院','立法院','行政院'],a:0,src:'',ex:'課本：法律與命令有牴觸憲法的疑慮時，由憲法法庭審理判決。最高法院是陷阱。'},
+    {q:'憲法第 21 條只寫「人民有受國民教育之權利與義務」，至於幾歲入學、要讀幾年，則由國民教育法及其施行細則規定。這最能說明憲法的哪一項特性？',o:['原則性','最高性','固定性','普遍性'],a:0,src:'14 校考原則性',ex:'憲法是萬法之母、眾法之源，內容簡潔扼要；詳細規定與實施方法由法律或命令具體規範。'},
+    {q:'有人主張：「發生新型態的跟蹤騷擾事件，直接引用憲法條文處罰就好。」下列回應何者最恰當？',o:['憲法多為原則性規定，處罰要依具體的法律（如跟蹤騷擾防制法）','憲法有詳細的罰則，可以直接適用','應由憲法法庭直接判刑','命令位階最高，應用命令處罰'],a:0,src:'',ex:'憲法具原則性，不會規定細節與罰則；具體的處罰要由立法院制定法律來規範。'},
+    {q:'依我國憲法增修條文，關於修憲程序的敘述何者正確？',o:['由立法院提出修正案，公告半年後交由選舉人複決','由行政院提案，公告一年後交國民大會複決','由總統提案，立法院表決通過即可','由公民團體連署，直接交大法官審查'],a:0,src:'15 校考修憲程序',ex:'課本：憲法的修正須經立法院的提案，並公告半年後，交由選舉人複決。行政院、國民大會、公告一年都是陷阱。'},
+    {q:'2022 年 18 歲公民權修憲案複決時，同意票約 564 萬、不同意票約 501 萬，但修憲案仍未通過。原因為何？',o:['有效同意票沒有超過選舉人總額的半數（約 962 萬）','同意票少於不同意票','沒有經過立法院提案','沒有經過總統同意'],a:0,src:'15 校考 18 歲公民權修憲',ex:'修憲複決要「有效同意票超過選舉人總額的半數」才通過；只比不同意票多並不夠。這也說明憲法的固定性。'},
+    {q:'承上題，這次修憲失敗，最能說明我國憲法的哪一項特性？',o:['固定性','最高性','原則性','獨立性'],a:0,src:'固定性（20 校）',ex:'為了國家政治局勢的穩定，憲法變動不宜太頻繁，修正過程困難繁複＝固定性。'},
+    {q:'新聞：「政府修正《工作場所性騷擾防治措施準則》，以配合《性別平等工作法》的修法。」下列判斷何者正確？',o:['準則是命令，由行政機關修正；性別平等工作法是法律，由立法院修正','兩者都由立法院三讀修正','兩者都是命令','準則的位階高於性別平等工作法'],a:0,src:'翰林課本實作與練習改寫',ex:'準則屬於命令，效力低於法律；法律由立法院制定、修正。'},
+    {q:'阿明說：「我國憲法歷經 7 次修憲，所以憲法其實很容易修改。」這個推論有什麼問題？',o:['修憲次數多不代表容易；修正程序困難繁複，展現固定性','憲法本來就不能修改','修憲只要行政院同意即可','7 次修憲都是由國民大會在 2022 年完成'],a:0,src:'',ex:'憲法由制憲國民大會制定、歷經 7 次修憲；但修正程序困難繁複，最近一次修憲在 2005 年，之後再沒有成功過。'},
+    {q:'某縣政府訂定的規定，被發現與立法院通過的法律互相牴觸。依法律位階，結果應為何？',o:['位階較低的規定無效','兩者同時有效','以縣政府的規定為準','由縣議會決定哪個有效'],a:0,src:'26 校考位階效力',ex:'法律位階愈高效力愈強，位階低者牴觸位階高者，則無效。'},
+  ]
+},
+
+/* ---------- 2-2 憲法保障的基本權利 ---------- */
+k2:{
+  no:'2-2', code:4, title:'憲法保障的基本權利（平等・自由・受益・參政）', short:'基本權利', color:'linear-gradient(135deg,#2a6a5e,#3fa08a)',
+  desc:'平等權｜六大自由｜生存・工作・財產＋請願・訴願・訴訟＋國民教育｜選罷創複＋應考試服公職｜新興權利',
+  quickAsk:'選出正確的答案', quickTitle:'基本權利快問快答',
+  quick:[
+    ['憲法又被稱為人民的什麼？','權利的保障書',['義務的說明書','政府的命令書','法律的施行細則'],6],
+    ['「人民無分男女、宗教、種族、階級、黨派，在法律上一律平等」是哪一種權利？','平等權',['自由權','受益權','參政權'],27],
+    ['人民可以「消極」防止國家公權力不當侵害的權利','自由權',['受益權','參政權','平等權'],19],
+    ['人民可以「積極」要求國家有所作為、享受特定利益的權利','受益權',['自由權','平等權','參政權'],15],
+    ['除了現行犯，警察不得隨意逮捕、拘禁人民，保障的是','人身自由',['居住及遷徙自由','表現自由','集會及結社自由'],19],
+    ['因為換工作而搬家到新竹，行使的是','居住及遷徙自由',['人身自由','工作權','表現自由'],7],
+    ['表現自由包含哪些？','言論、講學、著作、出版',['集會、結社、遊行、請願','居住、遷徙、旅遊、搬家','選舉、罷免、創制、複決'],12],
+    ['參加遊行、組織社團或政黨，行使的是','集會及結社自由',['表現自由','參政權','受益權'],20],
+    ['書信、通話內容不受非法拆閱或監聽，保障的是','祕密通訊自由',['表現自由','人身自由','集會及結社自由'],5],
+    ['憲法保障的受益權中，國家需保障人民的哪三種權利？','生存權、工作權、財產權',['言論權、工作權、財產權','生存權、選舉權、財產權','平等權、自由權、參政權'],18],
+    ['參加勞動部提供的職業訓練，屬於哪一種權利的保障？','受益權（工作權）',['自由權','參政權','平等權'],11],
+    ['受國民教育是','權利也是義務',['只是權利','只是義務','參政權'],13],
+    ['向行政機關或民意機關提出建議、表達訴求','請願',['訴願','訴訟','複決'],26],
+    ['不服行政機關違法或不當的處分，向原處分機關或上級機關請求撤銷或變更','訴願',['請願','訴訟','罷免'],27],
+    ['權益受到不法侵害，向法院提起','訴訟',['請願','訴願','創制'],26],
+    ['請願、訴願、訴訟都屬於哪一種權利？','受益權',['參政權','自由權','平等權'],22],
+    ['被環保局開罰而不服，應提起','訴願',['請願','創制','罷免'],15],
+    ['參政權中「對人」的是','選舉、罷免',['創制、複決','應考試、服公職','請願、訴願'],21],
+    ['參政權中「對法案」的是','創制、複決',['選舉、罷免','請願、訴願','言論、出版'],21],
+    ['人民主動提出立法原則或制定政策的權利','創制',['複決','罷免','請願'],8],
+    ['人民以投票方式，對既有的法律或政策表達同意或反對','複決',['創制','選舉','訴願'],8],
+    ['參加國家考試擔任公務人員，屬於哪一種權利？','參政權（應考試、服公職）',['受益權','平等權','自由權'],19],
+    ['參加全國性公民投票，屬於哪一種權利？','參政權',['自由權','受益權','平等權'],12],
+    ['隨著社會進步而擴充的「新興權利」，課本舉了哪三個例子？','隱私權、環境權、多元文化權',['生存權、工作權、財產權','選舉權、罷免權、創制權','言論、講學、出版'],13],
+  ],
+  words:[
+    ['平等權','無分男女、宗教、種族、階級、黨派'],['人身自由','警察須依法定程序逮捕'],['居住及遷徙自由','自由選擇住處、往來各地'],
+    ['表現自由','言論、講學、著作、出版'],['集會及結社自由','參加遊行、組織團體'],['祕密通訊自由','通信內容不被非法拆閱'],
+    ['生存權','國家照顧弱勢，維持最低生活'],['工作權','就業服務、職業訓練'],['請願','向行政或民意機關表達願望'],
+    ['訴願','向原處分機關或上級機關要求撤銷處分'],['訴訟','向法院提起'],['創制','主動提出立法原則或政策'],
+    ['複決','投票表達同意或反對既有法律'],['應考試、服公職','參加國家考試擔任公務人員'],['新興權利','隱私權、環境權、多元文化權'],
+  ],
+  sorts:[
+    {title:'這是哪一種基本權利？',tip:'不受歧視→平等；防止公權力侵害→自由；要求國家給予→受益；參與政治→參政。',buckets:['平等權','自由權','受益權','參政權'],items:[
+      ['男女在職場上有相同的升遷機會',0],['考場為身障考生提供無障礙試場',0],['不分黨派，在法律上一律平等',0],
+      ['警察必須依照法定程序逮捕嫌犯',1],['和朋友一起到總統府前參加遊行',1,'集會自由'],['在網路論壇發表對時事的看法',1,'表現自由，不是參政權'],
+      ['同學們組成熱舞社',1,'結社自由'],['失業後申請失業給付',2],['參加勞動部的職業訓練課程',2,'工作權'],['不服環保局的罰鍰處分提起訴願',2],
+      ['參加國家考試成為公務員',3,'應考試，不是受益權'],['參加全國性公民投票',3],['投票罷免表現不佳的議員',3]]},
+    {title:'請願、訴願，還是訴訟？',tip:'表達願望→請願（行政或民意機關）；不服行政處分→訴願（原處分或上級機關）；找法院→訴訟。',buckets:['請願','訴願','訴訟'],items:[
+      ['居民向市議會陳情，希望增設公園',0],['學生到網路平台提議延後上學時間',0,'表達願望'],['向市府表達希望改善路口設計',0],
+      ['被環保局開罰，認為處分不當，向環保局提出',1],['不服縣政府的處分，向中央主管部會提出',1,'向上級機關＝訴願'],['不服衛生局的停業處分，向原處分機關請求撤銷',1],
+      ['作品被盜用，向法院控告對方侵害著作權',2],['車禍後向法院請求對方賠償',2],['人民控告政府機關，請法院判決',2,'訴訟不限人民之間']]},
+    {title:'自由權大集合：是哪一種自由？',tip:'六種自由：人身、居住及遷徙、表現、祕密通訊、信仰宗教、集會及結社。',buckets:['人身自由','居住及遷徙自由','表現自由','祕密通訊自由','信仰宗教自由'],items:[
+      ['警察要有拘票才能拘提人民',0],['除現行犯外，不得隨意逮捕',0],['畢業後搬到臺中工作',1],['暑假出國自助旅行',1],
+      ['出版一本批評時政的書',2],['在大學講台講授自己的研究',2],['檢警要有法院核發的通訊監察書才能監聽',3],
+      ['寄出的信件不會被別人拆開',3],['自由選擇信仰或不信仰任何宗教',4],['到廟宇參加祭典',4]]},
+  ],
+  mcq:[
+    {q:'憲法規定：「中華民國人民，無分男女、宗教、種族、階級、黨派，在法律上一律平等。」下列哪一項最能體現這個條文的精神？',o:['公司給予男女員工同工同酬','警察依法定程序逮捕嫌犯','人民參加國家考試','人民搬家到外縣市'],a:0,src:'27 校考平等權',ex:'不因性別而有差別待遇＝平等權。逮捕程序屬人身自由；國家考試屬參政權；搬家屬遷徙自由。'},
+    {q:'小涵和同學一起到市政府前參加集會遊行，表達對政策的意見。她行使的是哪一種權利？',o:['自由權','受益權','平等權','參政權中的創制權'],a:0,src:'20 校考集會結社',ex:'參加集會遊行、組織團體＝集會及結社自由，屬於自由權。'},
+    {q:'關於自由權與受益權的差別，下列敘述何者正確？',o:['自由權是消極防止國家侵害；受益權是積極要求國家有所作為','自由權是積極要求國家給予；受益權是消極防止侵害','兩者都是參與政治的權利','兩者都是不受歧視的權利'],a:0,src:'消極／積極對調',ex:'課本：人民可消極防止政府權力的侵害（自由權），也可積極向國家請求權利（受益權）。'},
+    {q:'阿德失業後，到政府設置的就業服務站登記求職，並參加職業訓練。他主要享有哪一種權利的保障？',o:['受益權中的工作權','自由權中的居住及遷徙自由','參政權中的服公職','平等權'],a:0,src:'11 校考失業給付／職業訓練',ex:'政府設置就業服務站、提供職業訓練，是保障人民的工作權，屬於受益權。'},
+    {q:'美淑被環保局以「違規丟棄垃圾」開罰，她認為事實認定錯誤，想請求撤銷這個處分。她應該行使哪一種權利？',o:['向環保局或其上級機關提起訴願','向立法院請願撤銷罰單','直接向憲法法庭聲請判決','向市議會提起訴願'],a:0,src:'27 校考訴願',ex:'不服行政機關的處分，可向原處分機關或上級機關提起訴願，要求撤銷或變更。立法院、議會不能受理訴願。'},
+    {q:'關於請願與訴願的比較，下列何者正確？',o:['請願僅為願望的陳述；訴願是要求撤銷或變更原處分','兩者的受理機關都是法院','請願屬於參政權，訴願屬於自由權','訴願可向立法院或議會提出'],a:0,src:'請願訴願比較表（多校）',ex:'請願：向行政機關或民意機關，僅為願望的陳述。訴願：向原處分機關或上級機關，要求撤銷或變更原處分。兩者都屬受益權。'},
+    {q:'網紅小吳發現自己的影片被人盜用牟利，決定到法院控告對方。下列敘述何者正確？',o:['他行使的是受益權中的訴訟權','他行使的是參政權','他行使的是請願權','訴訟只能由政府向人民提起'],a:0,src:'網紅著作權案（8 校）',ex:'人民的權益受到不法侵害，可以向法院提起訴訟；訴訟屬於受益權，人民之間、人民對政府都可以提起。'},
+    {q:'下列哪一組權利都屬於「參政權」？',o:['參加國家考試、參與公民投票','參加職業訓練、申請失業給付','提起訴願、提起訴訟','出版書籍、組織政黨'],a:0,src:'權利配對（20 校）',ex:'參政權＝選舉、罷免、創制、複決、應考試、服公職；公投屬複決。職訓、訴願、訴訟都是受益權；出版、組黨屬自由權。'},
+    {q:'選民對某議員表現不滿，連署並投票讓他提前下臺。這屬於參政權中的哪一項？',o:['罷免','選舉','創制','複決'],a:0,src:'2025 大罷免題（16 校）',ex:'選舉、罷免是對「人」；創制、複決是對「法案」。投票使民意代表下臺＝罷免。'},
+    {q:'政府針對一項已經通過的法律舉辦全國性公民投票，讓人民投票表達是否同意。這比較接近參政權中的哪一項？',o:['複決','創制','選舉','罷免'],a:0,src:'核三公投題（8 校）',ex:'複決：人民以投票方式，對既有的法律或政策表達同意或反對；創制是主動提出立法原則或政策。'},
+    {q:'國家考試規則規定消防警察報考人員身高必須達一定標準，經憲法法庭判決違憲。此案最可能同時涉及哪些權利與憲法特性？',o:['平等權、參政權（應考試服公職）；憲法最高性','自由權、受益權；憲法原則性','受益權、參政權；憲法固定性','祕密通訊自由；憲法原則性'],a:0,src:'113 憲判字第 6 號（5 校）',ex:'不合理的身高限制造成差別待遇（平等權），也影響報考公職（參政權）；違憲而失效說明最高性。'},
+    {q:'下列哪一項屬於「受益權」的行使？',o:['低收入戶向政府申請生活扶助','參加縣長選舉投票','參加學校社團','發表網路文章'],a:0,src:'受益權（15 校）',ex:'政府提供生活物資給弱勢民眾、維持最低生活水準，是保障生存權（受益權）。'},
+    {q:'關於「受國民教育」，下列敘述何者正確？',o:['是人民的權利，也是人民的義務','只是權利，可以自由選擇不受教育','只是義務，與權利無關','屬於參政權'],a:0,src:'13 校考國民教育',ex:'憲法第 21 條：人民有受國民教育之權利與義務。它屬於受益權。'},
+    {q:'檢警想監聽犯罪嫌疑人的電話，必須先向法院聲請通訊監察書。這項程序主要保障哪一種自由？',o:['祕密通訊自由','表現自由','居住及遷徙自由','信仰宗教自由'],a:0,src:'祕密通訊（5 校）',ex:'通訊內容不受非法侵害＝祕密通訊自由；搜索票、拘票則保障人身自由與居住安全。'},
+    {q:'隨著社會進步，「隱私權、環境權、多元文化權」被提出並受到重視。下列敘述何者正確？',o:['這些是隨社會進步而擴充的新興權利','這些權利憲法本文都已逐條列出','這些權利只屬於公務員','這些權利與義務無關，不需履行任何義務'],a:0,src:'權利（13 校）',ex:'課本：隨著社會進步，基本權利的內涵也不斷擴充，例如隱私權、環境權、多元文化權；權利與義務應當並重。'},
+    {q:'為什麼憲法又被稱為「人民權利的保障書」？',o:['把人民的權利規定在憲法中，提高保障效力，並限制政府權力','憲法規定人民只有義務沒有權利','憲法由人民自行訂定罰則','憲法的位階低於法律，所以容易保障權利'],a:0,src:'翰林課本 2-2',ex:'多數民主國家將人民的權利規定於憲法中，以提高保障效力；人民可消極防止政府侵害，也可積極向國家請求權利。'},
+  ]
+},
+};
+
+/* ================= 綜合：圖表題組（交卷 code 7） ================= */
+const CHART=[
+  {title:'① 領土範圍示意圖',src:'領土示意圖 13 校（改編 105、112 會考）',
+   fig:'<div class="flow"><span>甲<br>領陸</span><b>→</b><span>乙<br>基線外 0～12 浬</span><b>→</b><span>丙<br>基線外 12～200 浬</span><b>→</b><span>丁<br>200 浬以外</span></div><p class="muted">由陸地往外海依序排列；另有「戊＝甲、乙的上空」「己＝丙的上空」。</p>',
+   qs:[
+    {q:'圖中屬於我國「領土」的有哪些？',o:['甲、乙、戊','甲、乙、丙','甲、乙、丙、戊、己','甲、戊、己'],a:0,ex:'領土＝領陸（甲）＋領海（乙，基線外 12 浬）＋兩者的上空（戊）。丙是專屬經濟海域，己是其上空，都不是領土。'},
+    {q:'「丙」區域的名稱與我國在此的權利，何者正確？',o:['專屬經濟海域；只對自然資源享有專屬權利','領海；享有完整主權','公海；任何國家都不能進入','領空；可以禁止任何飛機通過'],a:0,ex:'基線外 200 浬內是專屬經濟海域，國家只對漁業、能源等自然資源有專屬權。'},
+    {q:'「丁」區域屬於什麼？',o:['公海','領海','專屬經濟海域','領土'],a:0,ex:'公海在專屬經濟海域（200 浬）以外，不屬於任何國家。'}]},
+  {title:'② 法律位階金字塔',src:'法律位階圖 14 校',
+   fig:'<div class="ladder"><span>甲<small>位階最高</small></span><b>＞</b><span>乙<small>立法院制定</small></span><b>＞</b><span class="an">丙<small>行政機關訂定</small></span></div><table class="tbl"><tr><th>位階</th><th>舉例</th></tr><tr><td>甲</td><td>第 21 條：人民有受國民教育之權利與義務</td></tr><tr><td>乙</td><td>第 3 條：6 歲至 15 歲之國民，應受國民教育</td></tr><tr><td>丙</td><td>第 7 條：入學年齡以入學當年度 9 月 1 日滿 6 歲者</td></tr></table>',
+   qs:[
+    {q:'甲、乙、丙依序最可能是哪三部法規？',o:['憲法、國民教育法、國民教育法施行細則','國民教育法、憲法、施行細則','憲法、施行細則、國民教育法','施行細則、國民教育法、憲法'],a:0,ex:'憲法（甲）→法律（乙，國民教育法）→命令（丙，施行細則）。'},
+    {q:'下列哪一部法規與「丙」屬於同一個位階？',o:['道路交通安全規則','道路交通管理處罰條例','性別平等工作法','地方稅法通則'],a:0,ex:'丙是命令；規則屬於命令。條例、法、通則都屬於法律（乙）。'},
+    {q:'從甲到丙的規定越來越詳細，最能說明憲法的哪一項特性？',o:['原則性','最高性','固定性','持續性'],a:0,ex:'憲法只做原則性規定，詳細規定與實施方法由法律或命令具體規範。'}]},
+  {title:'③ 憲法修正程序',src:'修憲程序圖 5 校',
+   fig:'<div class="flow"><span>（甲）<br>四分之一提議、四分之三出席、出席四分之三決議</span><b>→</b><span>公告（乙）</span><b>→</b><span>（丙）投票複決</span><b>→</b><span>有效同意票超過選舉人總額半數→通過</span></div>',
+   qs:[
+    {q:'（甲）應填入哪個機關？',o:['立法院','行政院','國民大會','憲法法庭'],a:0,ex:'依憲法增修條文，修憲案由立法院提出。'},
+    {q:'（乙）（丙）應分別填入什麼？',o:['半年；中華民國自由地區選舉人','一年；國民大會代表','兩年；立法委員','三個月；大法官'],a:0,ex:'課本：公告半年後，交由選舉人複決。'},
+    {q:'這個程序設計得這麼繁複，主要是為了展現憲法的哪一項特性？',o:['固定性','原則性','最高性','普遍性'],a:0,ex:'為了國家政治局勢的穩定，憲法變動不宜太過頻繁，修正過程困難繁複＝固定性。'}]},
+  {title:'④ 我國歷屆總統選舉：當選者的政黨',src:'總統得票表判讀 4 校',
+   fig:'<table class="tbl"><tr><th>選舉年</th><th>任別</th><th>當選者所屬政黨</th></tr><tr><td>1996</td><td>第 9 任</td><td>中國國民黨</td></tr><tr><td>2000</td><td>第 10 任</td><td>民主進步黨</td></tr><tr><td>2004</td><td>第 11 任</td><td>民主進步黨</td></tr><tr><td>2008</td><td>第 12 任</td><td>中國國民黨</td></tr><tr><td>2012</td><td>第 13 任</td><td>中國國民黨</td></tr><tr><td>2016</td><td>第 14 任</td><td>民主進步黨</td></tr><tr><td>2020</td><td>第 15 任</td><td>民主進步黨</td></tr><tr><td>2024</td><td>第 16 任</td><td>民主進步黨</td></tr></table>',
+   qs:[
+    {q:'依表，1996 年以來我國共發生幾次政黨輪替？',o:['3 次','2 次','4 次','7 次'],a:0,ex:'2000（國→民）、2008（民→國）、2016（國→民），共 3 次；同黨連任不算。'},
+    {q:'下列哪一次選舉「不算」政黨輪替？',o:['2024 年第 16 任','2000 年第 10 任','2008 年第 12 任','2016 年第 14 任'],a:0,ex:'2024 年由同一政黨連續執政，執政權沒有轉移，不算政黨輪替。'},
+    {q:'從表中可以看出我國民主政治的哪一項特色？',o:['政黨透過定期選舉公平競爭，政權和平轉移','法律規定各政黨每 8 年輪流執政','國家主權每次選舉都會改變','只有一個政黨能參選'],a:0,ex:'每 4 年定期選舉、勝選政黨執政＝政黨政治；並非法律規定輪流執政，主權也不會改變。'}]},
+  {title:'⑤ 國家與政府比較表（找錯）',src:'比較表找錯 6 校',
+   fig:'<table class="tbl"><tr><th></th><th>國家</th><th>政府</th></tr><tr><td>範圍</td><td>人民、領土、政府、主權</td><td>（甲）僅是國家組成要素之一</td></tr><tr><td>權力</td><td>（乙）以公權力執行政策</td><td>（丙）擁有主權</td></tr><tr><td>持續性</td><td>（丁）具持續性、穩定性</td><td>隨制度變遷或政權轉移而改變</td></tr></table>',
+   qs:[
+    {q:'表中哪兩格「寫反了」？',o:['（乙）和（丙）','（甲）和（丁）','（甲）和（乙）','（丙）和（丁）'],a:0,ex:'國家擁有主權（對內最高、對外獨立）；政府以公權力執行政策。乙、丙兩格對調了。'},
+    {q:'依正確的比較表，下列推論何者正確？',o:['新政府上任，不代表新國家成立','換了政府，國家的主權就改變','政府的範圍比國家大','國家會隨每次選舉而改變'],a:0,ex:'國家具持續性、穩定性；政府才會隨政權轉移而改變。'}]},
+  {title:'⑥ 基本權利分類表',src:'權利分類表 5 校',
+   fig:'<table class="tbl"><tr><th>類別</th><th>內容</th></tr><tr><td>（甲）</td><td>無分男女、宗教、種族、階級、黨派，在法律上一律平等</td></tr><tr><td>（乙）</td><td>人身、居住及遷徙、表現、祕密通訊、信仰宗教、集會及結社</td></tr><tr><td>（丙）</td><td>生存權、工作權、財產權；請願、訴願、訴訟；受國民教育</td></tr><tr><td>（丁）</td><td>選舉、罷免、創制、複決；應考試、服公職</td></tr></table>',
+   qs:[
+    {q:'「參加國家考試成為公務人員」屬於表中哪一類？',o:['（丁）','（丙）','（甲）','（乙）'],a:0,ex:'應考試、服公職屬於參政權（丁）。誤選受益權是最常見的錯誤。'},
+    {q:'「不服國稅局補稅處分而提起訴願」屬於表中哪一類？',o:['（丙）','（丁）','（乙）','（甲）'],a:0,ex:'請願、訴願、訴訟都屬於受益權（丙）。'},
+    {q:'「組織政黨參與選舉」中的「組織政黨」屬於表中哪一類？',o:['（乙）','（丁）','（丙）','（甲）'],a:0,ex:'組織政黨是結社自由，屬於自由權（乙）；投票參選才是參政權。'}]},
+  {title:'⑦ 18 歲公民權修憲案複決結果（示意）',src:'修憲結果圖 6 校',
+   fig:'<table class="tbl"><tr><th>項目</th><th>票數（約）</th></tr><tr><td>有效同意票</td><td>564 萬</td></tr><tr><td>有效不同意票</td><td>501 萬</td></tr><tr><td>選舉人總額</td><td>1,924 萬</td></tr><tr><td>通過門檻（選舉人總額半數）</td><td>962 萬</td></tr></table><p class="muted">說明：數字依課本課後閱讀與各校考卷引用的整數約數。</p>',
+   qs:[
+    {q:'依表，這次修憲案的結果為何？',o:['未通過，因同意票未超過選舉人總額半數','通過，因同意票多於不同意票','通過，因投票率超過五成','未通過，因不同意票較多'],a:0,ex:'564 萬＜962 萬，未達門檻；同意票多於不同意票並不夠。'},
+    {q:'這次修憲失敗後，選舉權年齡仍維持幾歲？',o:['20 歲','18 歲','16 歲','23 歲'],a:0,ex:'課本：修憲複決不通過，決定選舉權年齡維持 20 歲。'}]},
+];
+
+/* 綜合：排序與跨課分類（交卷 code 7） */
+const STEPS=[
+  {title:'時間軸排排站',tip:'1912 中華民國創建；1996 總統直選；2000、2008、2016 三次政黨輪替；2005 最近一次修憲；2022 18 歲公民權修憲複決。',buckets:['1950 年以前','1950～1999','2000～2009','2010～2019','2020 年以後'],items:[
+    ['中華民國創建（亞洲第一個民主共和國）',0],['中華民國政府遷臺（1949 年 12 月）',0],['第一次公民直接選舉總統、副總統（1996）',1],
+    ['第一次政黨輪替（2000）',2],['最近一次修憲成功並提高修憲門檻（2005）',2],['第二次政黨輪替（2008）',2],
+    ['第三次政黨輪替（2016）',3],['18 歲公民權修憲案交選舉人複決（2022）',4],['不暫停讓行人最高可罰 6,000 元新制上路（2023）',4]]},
+  {title:'權利救濟的順序：第幾步？',tip:'以「報考公職被不合理限制」為例：行政處分→訴願→行政訴訟→聲請憲法法庭判決。',buckets:['第1步','第2步','第3步','第4步'],items:[
+    ['主管機關作出不予錄取的處分',0],['向原處分機關或上級機關提起訴願',1],['訴願被駁回，向法院提起行政訴訟',2],['聲請憲法法庭判決相關法規是否違憲',3]]},
+  {title:'跨課大混戰：屬於哪一個概念？',tip:'第 1 章：國家要素、民主政治；第 2 章：法律位階、基本權利。',buckets:['國家要素','民主政治特色','法律位階','憲法特性','基本權利'],items:[
+    ['主權',0],['領海 12 浬',0],['公聽會',1],['政黨輪替',1],['條例、通則',2],['規則、細則',2],
+    ['最高性',3],['修憲門檻高',3],['訴願',4],['集會及結社自由',4]]},
+];
+
+/* 延伸：第 3 章 人治與法治（少數校加考，code 8） */
+const EXT=[
+  {q:'【第 3 章】統治者依自己的好惡統治人民，法律只用來鞏固統治者權力、統治者自己不必遵守。這是哪一種治理方式？',o:['人治','法治','權力分立','責任政治'],a:0,src:'113 學年，加考 L3',ex:'人治：統治者的意思就是法律，法律是限制人民的工具，人民權利無法獲得保障。'},
+  {q:'【第 3 章】下列何者最符合「法治」的精神？',o:['人民與政府都必須受到法律的約束','統治者可以依需要隨時修改法律','法律只用來限制人民','政府不需依法行政'],a:0,src:'翰林課本 3-1',ex:'法治：人民選出代表制定法律，以法律限制政府權力；政府只是法律的執行者，必須依法行政。'},
+  {q:'【第 3 章】「人民有拒絕警察非法拘禁、逮捕的權益」與「政府對違法者開罰」分別屬於什麼？',o:['權利；權力','權力；權利','權利；權利','權力；權力'],a:0,src:'權力與權利',ex:'權利（right）：法律保障人民不受任意侵害的權益；權力（power）：以強制力量影響他人行為，例如政府的公權力。'},
+  {q:'【第 3 章】英國艾克頓爵士說：「權力使人腐化，絕對的權力，絕對的腐化。」這句話最支持哪一種政府設計？',o:['權力分立、相互制衡','把權力集中在一人手中','取消定期選舉','讓統治者不受法律限制'],a:0,src:'翰林課本 3-2',ex:'權力不能集中在同一群人手中，以免被濫用，因此現代國家多以權力分立為原則，達到分權制衡。'},
+  {q:'【第 3 章】某國領導人修法延長總統任期，之後又取消任期限制。依課本觀點，這最可能帶來什麼問題？',o:['同一人掌權過久，違背民主的基本理念','政黨輪替變得更頻繁','人民的參政權擴大','權力分立更加落實'],a:0,src:'翰林課後閱讀改寫',ex:'多數民主國家為避免同一人掌權過久，會限制領導人任期；我國總統最多只能連任一屆。'},
+  {q:'【第 3 章】我國規定總統最多可以連任幾次？',o:['一次（連任一屆）','不能連任','兩次','沒有限制'],a:0,src:'翰林課後閱讀',ex:'課本：我國規定總統最多只能連任一屆；南韓與菲律賓規定總統不可連任。'},
+];
+
+/* ================= 考點雷達（30 校翰林卷） ================= */
+const RADAR={
+  n:30,
+  schools:'',
+  topics:[['民主政治四特色（122 題）',30],['法律位階（80 題）',30],['國家四要素（94 題）',29],['基本權利（131 題）',28],['憲法三特性＋違憲審查',28],
+    ['法律名稱辨識',28],['政黨政治／政黨輪替',23],['請願・訴願・訴訟',22],['國家功能',21],['領土範圍（12／200 浬）',21],['法治政治',21],['責任政治',21],
+    ['民意政治',20],['國家與政府差別',20],['自由權',19],['主權特性',19],['參政權',18],['平等權',16],['受益權',15],['修憲程序',15]],
+  basics:[['命令七名稱',28],['法律四名稱',27],['訴願＝原處分或上級機關',27],['平等權五個「無分」',27],['最高性',26],['固定性',26],['政黨輪替 2000／2008／2016',26],
+    ['國家四要素',25],['原則性',24],['領空＝領陸＋領海上空',23],['修憲：立法院提案→公告半年→選舉人複決',20],['狹義法律＝三讀＋總統公布',19],['主權：對內最高、對外獨立',17],['962 萬門檻',13]],
+  words:[['民意政治',28],['政黨政治',28],['法治政治',27],['訴願',27],['平等權',27],['請願',26],['訴訟',26],['責任政治',26],['執政黨／在野黨',22],
+    ['憲法法庭',21],['創制、複決',21],['集會及結社自由',20],['應考試、服公職',19],['人身自由',19],['專屬經濟海域',13],['新興權利',13]],
+  charts:[['法律位階圖（金字塔）',14],['領土範圍示意圖',13],['國家與政府比較表',6],['修憲或公投結果圖',6],['修憲程序圖',5],['基本權利分類表',5],['總統得票率表',4],['法律制定程序圖',3],['請願訴願訴訟比較表',2]],
+};
+
+const TABS=[['home','🏠 考點雷達'],['n1','🏛️ 1-1 國家'],['n2','🗳️ 1-2 民主'],['k1','📜 2-1 位階'],['k2','⚖️ 2-2 權利'],['mix','📊 綜合＋總測驗']];
+
+/* ================= 注釋配對 ================= */
+function renderMatch(el,pairs){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0,miss=0;
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 注釋配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${miss<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3><p>配錯 ${miss} 次</p><button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div>`;$('#ag',el).onclick=()=>renderMatch(el,pairs)}
+  draw();
+}
+
+/* ================= 分類 ================= */
+function renderSort(el,so){
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w[0])}」→ <b>${so.buckets[w[1]]}</b>${w[2]?'：'+esc(w[2]):''}`).join('<br>')}</div>`:''}
+      <button class="btn" style="margin-top:12px">再玩一次</button></div>`;
+      el.querySelector('.btn').onclick=()=>renderSort(el,so);return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push(it)}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+/* ================= 選擇題 ================= */
+function renderMCQ(el,qs){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}<span class="src">${q.src}</span></div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(+b.dataset.k===q.a){got++;sOK()}else{b.classList.add('bad');sBAD()}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderMCQ(el,qs);
+}
+
+/* ================= 翻卡 ================= */
+function renderCards(el,cards){
+  el.innerHTML=`<div class="card"><h3>🃏 十五種標點翻卡</h3><p class="muted">點卡片翻面看用法。重點：分號、破折號、引號、書名號、刪節號。</p>
+  <div class="flips">${cards.map(c=>`<div class="flip"><div class="in"><div class="f"><div class="sym">${esc(c[1])}</div><b>${c[0]}</b></div><div class="bk2">${esc(c[2])}</div></div></div>`).join('')}</div></div>`;
+  el.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('on'));
+}
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、civ8-hanlin-1（例 chinese8-1）、公民 國二上第一次段考（翰林）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'civ8-hanlin-1',
+  site:'公民 國二上第一次段考（翰林）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('civ8-hanlin-1_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('civ8-hanlin-1_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${(d&&d.quickTitle)||'名詞快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽（公民 國二上 第一次段考・翰林） ================= */
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+document.body.insertAdjacentHTML('beforeend','<button class="bgm" id="bgmBtn"></button>');
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};
+
+const ANIM={n1:animN1,n2:animN2,k1:animK1,k2:animK2};
+const MATCHNAME={n1:'🔗 要素↔意義配對',n2:'🔗 特色↔例子配對',k1:'🔗 位階↔名稱配對',k2:'🔗 權利↔內容配對'};
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 快問快答'],['match',MATCHNAME[cur]],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel');
+  const title=`${d.no} ${d.short}`;
+  if(s==='anim') ANIM[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">本節 ${d.mcq.length} 題，全部依 30 校命題方向原創改寫。點選答案後才會出現解析；做完可以交卷給老師。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const N=RADAR.n;
+  const bar=arr=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  const cards=['n1','n2','k1','k2'];
+  app.innerHTML=`
+  <h2>📡 第一次段考考點雷達</h2>
+  <p class="muted">整理 ${N} 所學校的<b>翰林版</b>國二上公民第一次段考卷（共 614 題）。範圍：第 1 章 國家與民主政治、第 2 章 憲法與權利保障。</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${cards.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].short}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+    <div class="lc" style="background:linear-gradient(135deg,#b36b12,#f0a03c)" data-k="mix"><div><div class="n">綜合</div><div class="t">圖表＋總測驗</div></div><div class="d">領土示意圖｜位階金字塔｜修憲程序｜政黨輪替表｜時間軸｜總測驗｜延伸第 3 章</div></div>
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（${N} 校中幾校考過）</h3>${bar(RADAR.topics)}
+  <p class="muted" style="margin-top:10px">⚠️ <b>法律名稱辨識</b>是全卷最高頻：28 校、48 題，幾乎每校必考「條例、通則＝法律；細則、辦法、規則、準則、標準＝命令」。<br>⚠️ <b>基本權利</b>題數最多（131 題）：國家考試＝參政權、請願訴願訴訟＝受益權、公投＝參政權最容易混。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>基本分必拿（幾校考過）</h3><div class="chips">${RADAR.basics.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">最穩的分數：<b>領海 12 浬、經濟海域 200 浬不是領土</b>、<b>主權對內最高、對外獨立</b>、<b>辭職＝政治責任、違法＝法律責任</b>、<b>修憲公告半年、選舉人複決</b>。</p></div>
+    <div class="card"><h3>高頻名詞（★ 快問快答會標）</h3><div class="chips">${RADAR.words.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">名詞以翰林課本為準：「<b>憲法法庭</b>」審理違憲、「<b>原處分機關或上級機關</b>」受理訴願、「<b>專屬經濟海域</b>」。</p></div>
+  </div>
+  <div class="card"><h3>📊 常考圖表（幾校考過）</h3>${bar(RADAR.charts)}
+  <p class="muted" style="margin-top:10px">→ 前 7 種都改寫成「📊 綜合」頁的圖表題組；文字放在表格裡，手機也看得清楚。</p></div>
+  <div class="card"><h3>🪤 最常錯的 8 個陷阱</h3>
+    <p><span class="pill">1</span>領土＝領陸＋領海（<b>12 浬</b>）＋兩者上空；<b>專屬經濟海域（200 浬）與其上空不是領土</b>，公海在 200 浬外。</p>
+    <p><span class="pill">2</span>主權<b>對內最高、對外獨立</b>，題目常故意寫成「對外最高、對內獨立」；<b>政府沒有主權</b>，是用公權力執行。</p>
+    <p><span class="pill">3</span>新政府上任<b>不等於</b>新國家；政黨輪替不改變主權，也<b>不是</b>法律規定的輪流執政；<b>連任不算</b>輪替。</p>
+    <p><span class="pill">4</span>政策失敗、民怨辭職、被罷免＝<b>政治責任</b>；違法貪汙被判刑＝<b>法律責任</b>；「依○○法裁罰」＝<b>法治政治</b>。</p>
+    <p><span class="pill">5</span>「○○法<b>施行細則</b>」名稱有「法」，但它是<b>命令</b>；<b>條例、通則</b>是法律；憲法增修條文<b>不是</b>狹義法律。</p>
+    <p><span class="pill">6</span>修憲：<b>立法院</b>提案→<b>公告半年</b>→<b>選舉人</b>複決，同意票要超過<b>選舉人總額半數</b>（不是行政院、不是一年、不是國民大會）。</p>
+    <p><span class="pill">7</span>違憲由<b>憲法法庭</b>判決，不是最高法院；宣告違憲失效＝<b>最高性</b>；修憲失敗＝<b>固定性</b>；細節另訂法律＝<b>原則性</b>。</p>
+    <p><span class="pill">8</span>參加國家考試、公投＝<b>參政權</b>；請願、訴願、訴訟、職業訓練＝<b>受益權</b>；組黨＝<b>結社自由</b>；不服罰單是<b>訴願</b>不是請願。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>💡 意外發現</h3>
+    <p>📰 <b>時事比例很高</b>：立委大罷免、核三公投、日本首相辭職、颱風救災、義務役一年都入題。</p>
+    <p>⚖️ <b>釋憲案大量出現</b>：25 校考違憲審查或最高性，「消防員身高限制」案就有 5 校。</p>
+    <p>🔢 <b>18 歲公民權修憲案</b>（同意約 564 萬、門檻約 962 萬）約 15 校考，是固定性必背數字。</p>
+    <p>🧭 <b>答案不一致</b>：「大眾運輸多語廣播」有校答多元文化權、有校答平等權；「視障按摩案」有校答平等權、有校答工作權。本站避開爭議題，作答請看清題目問哪個面向。</p></div>
+    <div class="card"><h3>🌏 不分版本的共通考點（他版 26 校）</h3>
+    <div class="chips"><span>國家四要素／主權 ×26</span><span>民主政治四特色 ×26</span><span>國家功能 ×15</span><span>基本權利 ×14</span><span>法律位階／憲法特性 ×13</span><span>國家與政府 ×10</span></div>
+    <p class="muted" style="margin-top:10px">康軒第 2 章是「公共意見與媒體」，<b>翰林這次不考</b>，本站沒有收錄；南一第 1～2 章和翰林幾乎完全重疊。</p></div>
+  </div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每節先看 <b>🎬 動畫導覽</b>，用真實照片弄懂課本 → ② <b>⚡ 快問快答</b>、<b>🔗 配對</b>練熟基本分 → ③ <b>🎯 分類挑戰</b>破解情境題 → ④ <b>📝 段考模擬題</b>、<b>📊 綜合圖表題</b>和<b>總測驗</b>檢查程度，做完按「📤 交卷給老師」。</p>
+  <p class="muted"></p></div>
+  <details class="card"><summary><b>統計限制</b>（給老師看）</summary>
+  </details>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,c.dataset.k==='mix'?undefined:'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 綜合：圖表判讀＋排序＋總測驗＋延伸 ================= */
+function renderMix(app){
+  const s=curSub.mix||'chart';
+  const subs=[['chart','📊 圖表判讀題組'],['steps','🧩 時間軸・流程・跨課分類'],['total','🏁 總測驗'],['ext','🚀 延伸：第 3 章']];
+  app.innerHTML=`<h2>📊 綜合：圖表＋時間軸＋總測驗</h2>
+  <p class="muted">各校最常出的 7 種圖表（領土示意圖、位階金字塔、修憲程序、總統選舉表、國家與政府比較表、權利分類表、修憲結果），全部改寫成原創題組；文字都放在表格裡，手機也看得清楚。</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div><div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub.mix=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='chart'){
+    p.innerHTML=CHART.map((c,k)=>`<div class="card"><h3>${c.title}</h3><div class="figbox">${c.fig}</div><div id="cq${k}"></div></div>`).join('');
+    CHART.forEach((c,k)=>renderMCQ($('#cq'+k),c.qs.map(q=>({...q,src:c.src})),7,`綜合 ${c.title.replace(/^[①-⑨]\s*/,'')}`));
+    return;
+  }
+  if(s==='steps'){
+    p.innerHTML=STEPS.map((_,i)=>`<div class="card" id="st${i}"></div>`).join('');
+    STEPS.forEach((so,i)=>{SORTCTX={code:7,title:'綜合 時間軸與跨課分類'};renderSort($('#st'+i),so)});SORTCTX=null;
+    return;
+  }
+  if(s==='total'){
+    const units=['n1','n2','k1','k2'];
+    const pool=units.flatMap(k=>shuf(L[k].mcq).slice(0,5).map(q=>({...q,unit:`${L[k].no} ${L[k].short}`})));
+    const qs=shuf(pool.concat(shuf(CHART.flatMap(c=>c.qs.map(q=>({...q,src:c.src,unit:'綜合 圖表'})))).slice(0,5)));
+    p.innerHTML=`<div class="card"><h3>🏁 總測驗（${qs.length} 題）</h3><p class="muted">每節隨機抽 5 題＋圖表題 5 題，模擬一份段考公民卷。每次進來題目都不同；做完按「📤 交卷給老師」。</p></div><div id="tq"></div>`;
+    renderMCQ($('#tq'),qs,9,'總測驗（第 1～2 章）');
+    return;
+  }
+  p.innerHTML=`<div class="card"><h3>🚀 延伸：第 3 章 法治與權力分立（少數校加考）</h3>
+    <div class="grid2" style="margin:6px 0"><div><img src="img/x_acton.jpg" alt="艾克頓爵士肖像" style="width:100%;border-radius:12px;display:block"><p class="muted">艾克頓爵士：「權力使人腐化，絕對的權力，絕對的腐化。」</p></div>
+    <div><img src="img/x_montesquieu.jpg" alt="孟德斯鳩肖像" style="width:100%;border-radius:12px;display:block"><p class="muted">孟德斯鳩：提出三權分立的法國思想家（版畫肖像）。</p></div></div>
+    <p><span class="pill">人治</span>統治者依自己的好惡統治，統治者的意思就是法律；法律是限制人民的工具，統治者不需遵守。</p>
+    <p><span class="pill">法治</span>人民與政府都受法律約束；人民選出代表制定法律，以法律限制政府權力，政府必須依法行政。</p>
+    <p><span class="pill">權利</span>法律保障人民不受任意侵害、追求某種利益的權益（例：拒絕非法拘禁）。</p>
+    <p><span class="pill">權力</span>以強制力量影響他人行為的能力（例：政府對違法者開罰的公權力）。</p>
+    <p class="muted">其他學校第一次段考只考到第 2 章。</p></div>
+    <div id="eq"></div>`;
+  renderMCQ($('#eq'),EXT,8,'延伸 第3章 人治與法治');
+}
+
+/* ================= 共用：動畫外框 ================= */
+function stage(p,extra){p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${extra||''}`}
+
+/* ================= 1-1 什麼是國家？ ================= */
+function animN1(p){
+  stage(p,`<div class="card"><h3>🏛️ 國家四要素一張表</h3>
+  <table class="tbl"><tr><th>要素</th><th>課本定義</th><th>常考情境</th></tr>
+  <tr><td>人民</td><td>國家的組成分子，擁有該國國籍者即為國民</td><td>少子化、國籍取得</td></tr>
+  <tr><td>領土</td><td>國家統治權所能支配的地理區域：領陸、領海、領空</td><td>海平面上升、領空入侵</td></tr>
+  <tr><td>政府</td><td>國家的統治機關，管理與分配資源、行使公權力</td><td>內戰後中央政府瓦解</td></tr>
+  <tr><td>主權</td><td>國家最高的統治權力：對內最高、對外獨立</td><td>不被承認、簽訂條約</td></tr></table>
+  <div class="flow" style="margin-top:12px"><span>領陸</span><b>→</b><span>領海<br>基線外 12 浬</span><b>→</b><span>專屬經濟海域<br>基線外 200 浬內（不是領土）</span><b>→</b><span>公海</span></div>
+  <p class="muted" style="margin-top:8px">領空＝領陸與領海的上空；經濟海域的上空不算領空。</p></div>
+  <div class="card"><h3>⚖️ 國家 vs 政府（課本表4-1-1）</h3>
+  <table class="tbl"><tr><th></th><th>國家</th><th>政府</th></tr>
+  <tr><td>範圍</td><td>人民、領土、政府、主權</td><td>僅是國家組成要素之一</td></tr>
+  <tr><td>權力</td><td>擁有主權（對外獨立、對內最高）</td><td>以公權力執行政策</td></tr>
+  <tr><td>持續性</td><td>具持續性、穩定性</td><td>隨制度變遷或政權轉移而改變</td></tr></table></div>`);
+  const steps=[
+    {label:'① 人民',imgs:[{img:'n1_crowd',tag:'臺北捷運市政府站外的人潮：國家由人民組成'}],poem:'國家是由<b>人民、領土、政府、主權</b>四種要素組合而成的政治實體，缺一不可。<b>人民</b>是國家的組成分子，擁有該國國籍的人民即為該國國民，應受國家保護、享有權利並負擔義務。',key:'國旗、國歌、國花、國慶日是國家的<b>象徵</b>，不是要素（4 校陷阱）。人口很少的國家（梵蒂岡）仍有人民要素。'},
+    {label:'② 領土：領陸・領海・領空',imgs:[{img:'n1_sat',tag:'衛星看臺灣：領陸是領土的一部分',fit:'contain',bg:'#0b1d33'},{img:'n1_cga',tag:'海巡署巡防艇：守護我國海域'}],poem:'<b>領土</b>是國家統治權所能支配的地理區域，包括該國的<b>領陸、領海與領空</b>。領海為領海基線外 <b>12 浬</b>；領空是領陸與領海的上空。',key:'<b>專屬經濟海域（200 浬）不是領土</b>，國家只有資源專屬權；領空也不能無限往上延伸（21 校考領土範圍）。'},
+    {label:'③ 政府',imgs:[{img:'n1_gov',tag:'臺北的總統府：政府是國家的統治機關'}],poem:'<b>政府</b>是國家的統治機關，透過專業的政府組織可以<b>管理與分配國家資源</b>，並<b>行使公權力</b>治理國家。',key:'各部會（外交部、國防部）都屬於政府；<b>政府不擁有主權</b>，主權屬於國家（20 校考國家與政府）。'},
+    {label:'④ 主權',imgs:[{img:'n1_treaty',tag:'我國元首與友邦國王簽署協定：主權對外獨立'}],poem:'<b>主權</b>是國家的統治權力。<b>對內具有最高性</b>，享有決策與執行政策的權力；<b>對外具有獨立性</b>，不受任何國家或國際組織的干涉，並能與他國建立平等的國際關係。',key:'「對外最高、對內獨立」是故意對調的陷阱（19 校考主權）。不被國際承認的地區＝最欠缺主權。'},
+    {label:'⑤ 四要素情境題',imgs:[{img:'n1_tuvalu',tag:'吐瓦魯首都富納富提的環礁：海平面上升威脅國土'}],poem:'太平洋島國<b>吐瓦魯</b>因海平面上升，陸地可能被淹沒——受威脅的是<b>領土</b>；但只要人民、政府、主權仍在，國家地位不會立即消失。',key:'未獲承認→<b>主權</b>；中央政府瓦解→<b>政府</b>；國土爭議或消失→<b>領土</b>；少子化→<b>人民</b>（19 校考情境判斷）。'},
+    {label:'⑥ 國家的功能',imgs:[{img:'n1_relief',tag:'國軍出動裝甲車協助淹水災區'}],poem:'國家最主要功能為<b>保護人民的安全</b>，透過<b>組織軍隊、拓展外交</b>，保國衛民以避免外來侵略。為了增進人民福祉，還有<b>維護秩序、保障人權、發展經濟、促進文化、實施福利</b>等功能。',key:'軍隊、外交、國軍救災、恢復一年義務役＝<b>保護人民安全</b>；警察取締、查緝黃牛＝<b>維護秩序</b>（21 校考國家功能）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 1-2 民主政治的特色 ================= */
+function animN2(p){
+  stage(p,`<div class="card"><h3>🗳️ 民主政治四特色一張表</h3>
+  <table class="tbl"><tr><th>特色</th><th>課本重點</th><th>常考例子</th></tr>
+  <tr><td>民意政治</td><td>主權在民，政府運作須考量民意</td><td>公聽會、說明會、網路參與平台</td></tr>
+  <tr><td>責任政治</td><td>施政須向人民或國會負責</td><td>政策失敗辭職＝政治責任；違法判刑＝法律責任</td></tr>
+  <tr><td>法治政治</td><td>政府運作受法律限制，依法行政</td><td>警察依法開單、持搜索票、依○○法裁罰</td></tr>
+  <tr><td>政黨政治</td><td>組黨，透過定期選舉公平競爭取得執政權</td><td>執政黨執政、在野黨監督、政黨輪替</td></tr></table>
+  <div class="ladder" style="margin-top:12px"><span>1996<small>首次總統直選</small></span><b>→</b><span class="an">2000<small>第一次政黨輪替</small></span><b>→</b><span class="an">2008<small>第二次</small></span><b>→</b><span class="an">2016<small>第三次</small></span></div>
+  <p class="muted">同一政黨連任（如 2004、2012、2020、2024）不算政黨輪替。</p></div>`);
+  const steps=[
+    {label:'① 民意政治',imgs:[{img:'n2_hearing',tag:'立法院委員會為法案舉辦公聽會'}],poem:'民主政治強調<b>主權在民</b>的理念，政府的運作須考量民意。政府在制定政策前，應透過舉辦<b>公聽會、說明會</b>等方式，讓民眾在資訊充分的情況下形成共識。',key:'公聽會、說明會、民調、公共政策網路參與平台＝<b>民意政治</b>（20 校）。「依法舉辦公聽會」可能同時考法治與民意。'},
+    {label:'② 責任政治：政治責任',imgs:[{img:'n2_ishiba',tag:'日本首相召開記者會（首相因選舉失利請辭曾入題）'}],poem:'民主國家的政府施政須<b>向人民或國會負責</b>。政策違背民意引發民怨，或政策失敗導致人民權益受損，官員須承擔責難，甚至<b>辭職下臺，負起政治責任</b>。',key:'辭職下臺、被罷免＝<b>政治責任</b>；常被誤選成民意政治（22 校考責任政治）。'},
+    {label:'③ 責任政治：法律責任',imgs:[{img:'n1_gov',tag:'政府官員處理公務也必須守法'}],poem:'政府官員處理公務時也應守法；官員若<b>違法</b>，則須負起<b>法律責任</b>，接受法律的處罰。',key:'貪汙、濫權被起訴判刑＝<b>法律責任</b>；不要和「法治政治」混在一起（13 校考政治 vs 法律責任）。'},
+    {label:'④ 法治政治',imgs:[{img:'n2_police',tag:'交通警察在路口依法執勤'}],poem:'民主國家的政府運作須<b>受到法律的限制</b>，法律制定後，人民必須守法，政府必須<b>依法行政</b>。警察取締違規停車時，必須依據法律，不得隨意開立罰單。',key:'「依○○法裁罰」「持搜索票、拘票」＝<b>法治政治</b>（21 校）；搜索票、拘票同時保障人身自由。'},
+    {label:'⑤ 政黨政治',imgs:[{img:'n2_ballot',tag:'定期選舉：人民投票授予執政權'},{img:'n2_ly',tag:'立法院議場：在野黨在這裡監督政府'}],poem:'人民有組織政黨的權利，政黨透過<b>定期選舉公平競爭</b>取得執政權。勝選的<b>執政黨</b>負責組織政府、執行政策；沒有取得執政地位的<b>在野黨</b>負責監督政府施政。',key:'在野黨<b>不負責</b>執行政策；勝選的執政黨<b>無法</b>扮演監督角色；一黨專政不符合政黨政治。'},
+    {label:'⑥ 政黨輪替',imgs:[{img:'n2_ballot',tag:'我國每四年舉行總統選舉'}],poem:'執政黨因敗選轉為在野黨、在野黨因勝選成為執政黨，稱為<b>政黨輪替</b>。我國總統民選從 <b>1996</b> 年開始，出現過三次政黨輪替：<b>2000、2008、2016</b> 年，政權都和平轉移。',key:'政黨輪替＝<b>和平轉移政府權力</b>；不是法律規定的輪流執政，<b>國家主權不會改變</b>（23 校）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-1 法律的位階 ================= */
+function animK1(p){
+  stage(p,`<div class="card"><h3>📜 法律位階一張圖（課本圖4-2-1）</h3>
+  <div class="ladder"><span>憲法<small>含本文、增修條文</small></span><b>＞</b><span>法律<small>法・律・條例・通則</small></span><b>＞</b><span class="an">命令<small>規程・規則・細則・辦法・綱要・標準・準則</small></span></div>
+  <table class="tbl"><tr><th>位階</th><th>誰制定</th><th>課本例子</th></tr>
+  <tr><td>憲法</td><td>制憲國民大會制定，歷經 7 次修憲</td><td>第 21 條：人民有受國民教育之權利與義務</td></tr>
+  <tr><td>法律</td><td>立法院三讀通過、總統公布</td><td>國民教育法：6 歲至 15 歲應受國民教育</td></tr>
+  <tr><td>命令</td><td>各行政機關依法律授權訂定</td><td>國民教育法施行細則：入學年齡計算</td></tr></table>
+  <p class="muted" style="margin-top:8px">位階愈高效力愈強；位階低者牴觸位階高者，無效。</p></div>
+  <div class="card"><h3>🔧 憲法三特性</h3>
+  <p><span class="pill">最高性</span>法律與命令不可牴觸憲法，否則無效 → 憲法法庭審理判決。</p>
+  <p><span class="pill">原則性</span>萬法之母、眾法之源；簡潔扼要，細節由法律、命令規範。</p>
+  <p><span class="pill">固定性</span>修正困難繁複：立法院提案 → 公告半年 → 選舉人複決。</p></div>`);
+  const steps=[
+    {label:'① 廣義與狹義的法律',imgs:[{img:'k1_lyb',tag:'立法院：狹義的法律在這裡三讀通過'}],poem:'「<b>廣義的法律</b>」是指<b>憲法、法律、命令</b>三者；「<b>狹義的法律</b>」則是專指<b>立法院三讀通過，總統公布</b>的法律。法律位階由高到低分別是憲法、法律與命令。',key:'憲法、憲法增修條文都<b>不是</b>狹義的法律（28 校考位階）。'},
+    {label:'② 憲法',imgs:[{img:'k1_const',tag:'史料照片：國民政府主席簽署憲法（國防部公報）',fit:'contain',bg:'#efe8d8'}],poem:'我國憲法包括<b>憲法本文與憲法增修條文</b>，主要規範人民基本的權利與義務、政府的組織與職權等。由制憲國民大會制定，歷經 7 次修憲。',key:'憲法具有<b>最高性、原則性、固定性</b>三大特性。增修條文也屬憲法位階。'},
+    {label:'③ 法律 vs 命令',imgs:[{img:'k1_cross',tag:'斑馬線：條例定罰則（法律），規則定細節（命令）'}],poem:'<b>法律</b>可定名為<b>法、律、條例或通則</b>；<b>命令</b>依其性質可稱為<b>規程、規則、細則、辦法、綱要、標準、準則</b>，由各行政機關基於法律授權而制定，以補充法律的不足。',key:'《道路交通管理處罰<b>條例</b>》＝法律；《道路交通安全<b>規則</b>》＝命令。「○○法施行細則」有「法」字但是<b>命令</b>（28 校）。'},
+    {label:'④ 最高性與違憲審查',imgs:[{img:'k1_court',tag:'司法院內的憲法法庭'},{img:'k1_jy',tag:'司法院大樓'}],poem:'法律與命令不可以牴觸憲法，若有牴觸則會無效。若有牴觸憲法的疑慮，由<b>憲法法庭</b>審理判決；經判決違憲，則必須<b>廢除或修正</b>，以確保憲法的<b>最高性</b>。',key:'民法舊規定「父母意見不一致由父行使」被宣告限期失效＝<b>最高性</b>。審理機關是憲法法庭，<b>不是最高法院</b>（25 校）。'},
+    {label:'⑤ 原則性',imgs:[{img:'k2_class',tag:'國中課堂：受國民教育的細節由法律與命令規定'}],poem:'憲法是「<b>萬法之母、眾法之源</b>」，規定的內容多為重要且具有原則性的事項，因此多半簡潔扼要；詳細規定與實施方法，則由<b>法律或命令</b>做具體的規範。',key:'憲法第 21 條→國民教育法→施行細則；服兵役→兵役法；跟騷事件要靠專法處理＝<b>原則性</b>（14 校）。'},
+    {label:'⑥ 固定性與修憲',imgs:[{img:'k1_ref',tag:'人行道上的「18 歲公民權」修憲宣傳字樣'}],poem:'為了國家政治局勢的穩定，憲法變動不宜太過頻繁，修正過程較為困難與繁複。憲法的修正須經<b>立法院的提案</b>，並<b>公告半年</b>後，交由<b>選舉人複決</b>。',key:'2022 年 18 歲公民權修憲案：同意票約 564 萬，未達選舉人總額半數（約 962 萬）→ 未通過＝<b>固定性</b>（15 校）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-2 憲法保障的基本權利 ================= */
+function animK2(p){
+  stage(p,`<div class="card"><h3>⚖️ 四大基本權利一張表</h3>
+  <table class="tbl"><tr><th>權利</th><th>課本內容</th><th>判斷口訣</th></tr>
+  <tr><td>平等權</td><td>無分男女、宗教、種族、階級、黨派，在法律上一律平等</td><td>不受歧視、不享特權</td></tr>
+  <tr><td>自由權</td><td>人身、居住及遷徙、表現、祕密通訊、信仰宗教、集會及結社</td><td>消極防止公權力侵害</td></tr>
+  <tr><td>受益權</td><td>生存權、工作權、財產權；請願、訴願、訴訟；受國民教育</td><td>積極要求國家有所作為</td></tr>
+  <tr><td>參政權</td><td>選舉、罷免（對人）；創制、複決（對法案）；應考試、服公職</td><td>參與政治</td></tr></table></div>
+  <div class="card"><h3>📮 請願・訴願・訴訟</h3>
+  <table class="tbl"><tr><th></th><th>向誰</th><th>目的</th></tr>
+  <tr><td>請願</td><td>行政機關或民意機關</td><td>僅為願望的陳述</td></tr>
+  <tr><td>訴願</td><td>原處分機關或上級機關</td><td>要求撤銷或變更原處分</td></tr>
+  <tr><td>訴訟</td><td>法院</td><td>權益受不法侵害，請求判決</td></tr></table>
+  <p class="muted" style="margin-top:8px">三者都屬於<b>受益權</b>。不服行政機關的處分（例如環保局開的罰鍰）要提「訴願」，不能向立法院或議會提訴願。</p></div>`);
+  const steps=[
+    {label:'① 平等權',imgs:[{img:'k2_pride',tag:'臺北街頭的遊行：爭取平等，也是行使集會自由'}],poem:'為保障每個人在法律上均享有同等的權利、擔負同等的義務，不得有所歧視或享有特權，憲法明文規定「中華民國人民，<b>無分男女、宗教、種族、階級、黨派</b>，在法律上一律平等。」',key:'同工同酬、身障考場、法院通譯＝<b>平等權</b>（16 校）；不合理的身高限制、同婚釋憲都曾以平等權入題。'},
+    {label:'② 自由權：表現・信仰',imgs:[{img:'k2_press',tag:'臺北的書報攤：出版自由屬於表現自由'},{img:'k2_temple',tag:'臺北龍山寺：信仰宗教自由'}],poem:'為防止國家公權力對人民的不當作為，憲法規定人民有<b>人身自由、居住及遷徙自由、表現自由（言論、講學、著作、出版）、祕密通訊自由、信仰宗教自由、集會及結社自由</b>。',key:'在網路論壇發表意見＝<b>表現自由</b>，不是參政權；組政黨、組社團＝<b>結社自由</b>（19 校考自由權）。'},
+    {label:'③ 自由權：人身・集會',imgs:[{img:'n2_police',tag:'除現行犯外，警察不得隨意逮捕、拘禁人民'}],poem:'除現行犯之外，警察不得隨意逮捕、拘禁人民（<b>人身自由</b>）；人民有自由選擇住居處所、來往各地旅遊的權利（<b>居住及遷徙自由</b>），也有參加集會遊行及組織團體的自由。',key:'警察要依法定程序逮捕＝人身自由；搬家、旅遊＝遷徙自由；上街遊行＝集會自由。'},
+    {label:'④ 受益權',imgs:[{img:'k2_job',tag:'臺北市西門就業服務站：保障工作權'},{img:'k2_class',tag:'受國民教育：是權利也是義務'}],poem:'人民有<b>積極要求國家有所作為</b>而享受特定利益的權利：國家需保障人民的<b>生存權、工作權及財產權</b>；人民有<b>請願、訴願及訴訟</b>的權利；人民有<b>受國民教育的權利與義務</b>。',key:'失業給付、職業訓練、災民救助、社會住宅＝受益權；<b>參加國家考試不是受益權</b>（是參政權）。'},
+    {label:'⑤ 參政權',imgs:[{img:'n2_ballot',tag:'投票：行使選舉、罷免或公民投票'}],poem:'為保障人民參與政治的權利，憲法規定人民有<b>選舉、罷免、創制、複決</b>，以及<b>應考試與服公職</b>的權利。選舉、罷免是對人；創制、複決是對法案（公民投票）。',key:'國家考試、公投、罷免都是<b>參政權</b>；公投不是自由權（18 校）。創制＝主動提出；複決＝對既有法律表態。'},
+    {label:'⑥ 新興權利與義務',imgs:[{img:'k2_indig',tag:'阿美族音樂節：多元文化權受到重視'}],poem:'隨著社會進步，基本權利的內涵也不斷擴充，例如<b>隱私權、環境權、多元文化權</b>等。此外，<b>權利與義務應當並重</b>，享受權利的同時也應履行義務。',key:'日照、空氣品質＝環境權；指紋、個資＝隱私權；原住民族語、正名＝多元文化權（13 校）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+
+<!-- AK:answer-key -->
+<style id="ak-style">#ak-btn{position:fixed;left:14px;bottom:14px;z-index:9990;font:600 16px/1 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:#1f4e79;color:#fff;border:0;border-radius:999px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer}#ak-btn:hover{background:#163a5c}#ak-box{display:none;position:fixed;inset:0;z-index:9995;background:rgba(15,25,40,.45);padding:16px;overflow:auto}#ak-box.show{display:block}#ak-box .ak-card{max-width:960px;margin:20px auto;background:#fff;color:#1d2733;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:16px/1.6 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;text-align:left}#ak-box .ak-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #e3e8ef;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}#ak-box .ak-head b{font-size:18px;color:#1f4e79}#ak-box .ak-head button{font:inherit;font-size:16px;margin-left:8px;border:1px solid #c9d3df;background:#f4f7fb;color:#1d2733;border-radius:8px;padding:6px 12px;cursor:pointer}#ak-box .ak-body{padding:6px 18px 18px}#ak-box h3{font-size:17px;margin:16px 0 6px;color:#1f4e79}#ak-box .ak-t{border-collapse:collapse;width:100%;margin:6px 0;table-layout:fixed}#ak-box .ak-t th,#ak-box .ak-t td{border:1px solid #cfd8e3;padding:5px 2px;text-align:center;font-size:16px;word-break:break-all}#ak-box .ak-t th{background:#eef3f9;color:#1f4e79;font-weight:600}#ak-box .ak-t th:first-child{width:3.6em}#ak-box .ak-t td{font-weight:700}#ak-box .ak-list{columns:2 300px;margin:6px 0;padding-left:0;list-style:none}#ak-box .ak-list li{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e3e8ef}@media print{#ak-btn{display:none!important}html:not(.ak-on) #ak-box{display:none!important}html.ak-on body>*:not(#ak-box){display:none!important}html.ak-on #ak-box{position:static;background:none;padding:0;display:block!important;overflow:visible}html.ak-on #ak-box .ak-card{box-shadow:none;margin:0;max-width:none}html.ak-on #ak-box .ak-head button{display:none}html.ak-on #ak-box .ak-head{position:static}}</style>
+<script id="ak-core">(function(){
+if(window.AK)return;
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function norm(secs){
+ if(!secs)return[];
+ if(!Array.isArray(secs[0]&&secs[0].items)&&Array.isArray(secs))secs=[{title:'',items:secs}];
+ return secs.map(function(s){return{title:s.title||'',items:(s.items||[]).map(function(x,i){return Array.isArray(x)?[x[0],x[1]]:[i+1,x]})}}).filter(function(s){return s.items.length});
+}
+function table(s){
+ var long=s.items.some(function(x){return String(x[1]).length>3});
+ var h=s.title?'<h3>'+esc(s.title)+'</h3>':'';
+ if(long){
+  return h+'<ol class="ak-list">'+s.items.map(function(x){return'<li><b>'+esc(x[0])+'.</b> '+esc(x[1])+'</li>'}).join('')+'</ol>';
+ }
+ var out=h;
+ for(var i=0;i<s.items.length;i+=10){
+  var r=s.items.slice(i,i+10);
+  out+='<table class="ak-t"><tr><th>題號</th>'+r.map(function(x){return'<th>'+esc(x[0])+'</th>'}).join('')+'</tr><tr><th>答案</th>'+r.map(function(x){return'<td>'+esc(x[1])+'</td>'}).join('')+'</tr></table>';
+ }
+ return out;
+}
+window.AK=function(fn){
+ function run(){
+  var secs;
+  try{secs=norm(typeof fn==='function'?fn():fn)}catch(e){console.warn('AK',e);return}
+  window.__AK_DATA=secs;
+  if(!secs.length)return;
+  var n=secs.reduce(function(a,s){return a+s.items.length},0);
+  var btn=document.createElement('button');btn.id='ak-btn';btn.type='button';btn.textContent='📋 答案總表';if(window.AK_BTN_STYLE)btn.style.cssText=window.AK_BTN_STYLE;
+  var box=document.createElement('div');box.id='ak-box';
+  box.innerHTML='<div class="ak-card" role="dialog" aria-label="答案總表"><div class="ak-head"><b>📋 答案總表（教師用，共 '+n+' 題）</b><span><button type="button" class="ak-p">🖨 列印答案</button><button type="button" class="ak-x" aria-label="關閉">✕</button></span></div><div class="ak-body">'+secs.map(table).join('')+'</div></div>';
+  document.body.appendChild(btn);document.body.appendChild(box);
+  function close(){box.classList.remove('show');document.documentElement.classList.remove('ak-on')}
+  btn.onclick=function(){box.classList.add('show');document.documentElement.classList.add('ak-on')};
+  box.querySelector('.ak-x').onclick=close;
+  box.onclick=function(e){if(e.target===box)close()};
+  box.querySelector('.ak-p').onclick=function(){window.print()};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+ }
+ if(document.readyState==='complete')setTimeout(run,0);else window.addEventListener('load',function(){setTimeout(run,0)});
+};
+})();</script>
+<script>AK(function(){
+if(!/[?&]teacher\b/.test(location.search))return [];
+/* 段考闖關站（chinese/civics/geography/history/science-site 的 volX_ 的 index.html）共用 adapter。
+   資料：頂層 const（L 各課 .mcq/.ext、RIDDLE/EXT/SCEN/CHART…）裡的選擇題物件 {q,o,a}。
+   renderMCQ 題序固定、但「選項每次洗牌」，所以答案列「正解選項文字」而非字母。
+   快問快答／配對／分類挑戰（題目隨機抽）與總測驗（pool/pick 隨機抽題）都不是頂層 {q,o,a} 陣列，不會被列入。 */
+window.AK_BTN_STYLE='left:14px;bottom:76px;font-size:20px;padding:12px 18px';
+(function(){
+  if(document.getElementById('ak-big'))return;
+  var s=document.createElement('style');s.id='ak-big';
+  s.textContent='html body #ak-box .ak-card{font-size:20px}html body #ak-box .ak-head b{font-size:22px}html body #ak-box .ak-head button{font-size:20px}html body #ak-box h3{font-size:21px}html body #ak-box .ak-list li{font-size:20px}html body #ak-box .ak-t th,html body #ak-box .ak-t td{font-size:20px}html body #ak-box .ak-note{font-size:20px;color:#5a6878;margin:10px 0 0}@media(max-width:600px){html body #ak-box{padding:6px}html body #ak-box .ak-card{margin:6px auto}html body #ak-box .ak-body{padding:6px 12px 14px}html body #ak-box .ak-list{columns:1}}';
+  document.head.appendChild(s);
+  setTimeout(function(){var b=document.querySelector('html body #ak-box .ak-body');if(b&&!b.querySelector('.ak-note')){var p=document.createElement('p');p.className='ak-note';p.textContent='※ 題號＝各練習頁上的題號；選項每次會重新洗牌，故列「正確選項的內容」。快問快答、配對、分類挑戰、總測驗為隨機出題，不列。';b.insertBefore(p,b.firstChild)}},50);
+})();
+var src=[].slice.call(document.querySelectorAll('script:not([src])')).filter(function(x){return x.id!=='ak-core'&&x.textContent.indexOf('AK(function')<0}).map(function(x){return x.textContent}).join('\n');
+var names=[];src.replace(/^(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=/gm,function(_,n){if(names.indexOf(n)<0)names.push(n)});
+var isQ=function(x){return x&&typeof x==='object'&&typeof x.q==='string'&&Array.isArray(x.o)};
+var clean=function(t){t=String(t).replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();return t.length>60?t.slice(0,60)+'…':t};
+var lit=function(expr){var re=new RegExp('renderMCQ\\([^,]+,\\s*'+expr.replace(/[.$[\]]/g,'\\$&')+'\\s*,\\s*[^,]+,\\s*([\'"`])([^\'"`$]*)\\1');var m=src.match(re);return m?m[2]:''};
+var KEY={mcq:'📝 段考模擬題',ext:'延伸題',graph:'綜合 圖表判讀',calc:'綜合 計算練習'};
+var secs=[];
+function add(title,arr,pri){for(var j=0;j<secs.length;j++)if(secs[j].arr===arr){if(pri>secs[j].pri){secs[j].title=title;secs[j].pri=pri}return}secs.push({arr:arr,pri:pri,title:title,items:arr.map(function(q,i){return[i+1,clean(q.o[q.a==null?0:q.a])]})})}
+function walk(v,path,parents){
+  if(!v||typeof v!=='object'||path.length>6||v instanceof Node||v===window)return;
+  if(Array.isArray(v)){
+    if(v.length&&v.every(isQ)){
+      var root=path[0],last=path[path.length-1],par=parents[parents.length-1],t;
+      if(root==='L'&&path.length===3){var d=parents[1];t=[d.no,d.title||d.name].filter(Boolean).join(' ')+'｜'+(KEY[last]||last)}
+      else if(path.length===1)t=lit(root)||root;
+      else if(par&&!Array.isArray(par)&&par.title){var gi=path[path.length-2];t=(/^[①-⑳]/.test(par.title)?'':(typeof gi==='number'?(gi+1)+'. ':''))+String(par.title).replace(/<[^>]*>/g,'')}
+      else t=lit(path.join('.'))||KEY[last]||path.join('.');
+      add(t,v,root==='L'?1:0);return;
+    }
+    v.forEach(function(x,i){walk(x,path.concat(i),parents.concat([v]))});return;
+  }
+  if(Object.getPrototypeOf(v)!==Object.prototype)return;
+  Object.keys(v).forEach(function(k){walk(v[k],path.concat(k),parents.concat([v]))});
+}
+names.forEach(function(n){var v;try{v=(0,eval)(n)}catch(e){return}walk(v,[n],[])});
+/* 同一陣列被兩處引用（如 L.ex.mcq＝EXT）只列一次，以課別標題為準；依 L 的課序排在前面 */
+secs.sort(function(a,b){return b.pri-a.pri});
+return secs.map(function(s){return{title:s.title,items:s.items}});
+});</script>
+<!-- /AK -->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+</body>
+</html>

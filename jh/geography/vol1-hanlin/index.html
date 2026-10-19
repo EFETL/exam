@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國一地理段考闖關（翰林）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#2f6b3a; --main-2:#4a9a5a; --accent:#d9a441; --accent-2:#b07d24;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#1f4a28 0%,#4a9a5a 60%,#d9a441 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#1f4a28;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(15,35,20,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+.qword{font-size:1.4rem;letter-spacing:0;line-height:1.5;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word}
+@media(max-width:560px){.opts{grid-template-columns:1fr}.qword{font-size:1.25rem}}
+.bars .b span{line-height:1.35}
+@media(max-width:560px){.bars .b{grid-template-columns:128px 1fr 52px}}
+details.card summary{cursor:pointer}
+@media(max-width:560px){.lessoncards{grid-template-columns:1fr}.lc{min-height:0;gap:8px}}
+/* 表格、圖表（文字放在 HTML，不畫在圖上） */
+.tbl{width:100%;border-collapse:collapse;font-size:1rem;margin:6px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.tbl th{background:#e8f3ea;color:var(--main)}
+.tbl td:first-child{white-space:nowrap}
+.figbox{overflow-x:auto;margin-bottom:6px}
+.passage{background:#f4f9f1;border-left:5px solid var(--accent);border-radius:12px;padding:14px 16px;line-height:1.9}
+.scale{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.scale span{flex:1 1 120px;background:#e8f3ea;border-radius:12px;padding:8px 10px;text-align:center;font-size:1rem;line-height:1.5}
+.scale span b{color:var(--accent-2)}
+.ladder{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 12px}
+.ladder span{background:var(--main);color:#fff;border-radius:12px;padding:6px 12px;font-weight:700;text-align:center}
+.ladder span.an{background:var(--accent);color:#3b2600}
+.ladder small{display:block;font-size:1rem;font-weight:500}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.calc label{font-weight:500}
+.calc input,.calc select{display:block;width:100%;font-size:1.1rem;padding:8px 10px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit;background:#fff}
+.meaning b{color:var(--main)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回地理選單</a><span class="tag">翰林版 國一上地理 ｜ 第一次段考</span>
+    <h1>地理段考闖關｜第1章 認識位置與地圖＋第2章 世界中的臺灣</h1>
+    <p>先看真實照片動畫弄懂課本，再用遊戲練熟經緯線、時差、比例尺與臺灣的位置，最後做段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap"><details style="margin-top:8px"><summary>圖片來源與授權</summary>
+  照片、衛星影像與古地圖皆來自 Wikimedia Commons（CC0／公有領域／CC BY／CC BY-SA），未使用 AI 生成圖：Automotive navigation system Navigon NVG7100-1067：Raimond Spekking（CC BY-SA 4.0）；Map Reading in prep for hike (51872822222)：Forest Service - Northern Region（公有領域）；1904 missionary map of Taiwan by Landis：Henry M. Landis, lithographed by Hoeisha（公有領域）；Taiwan NASA Terra MODIS 23791：Jeff Schmaltz, MODIS Rapid Response Team（公有領域）；Handheld compass with a magnetic needle：Sneha G Gupta（CC BY-SA 4.0）；Equator Monument Mitad del Mundo Ecuador DSC00138 ad：Adavyd（CC BY-SA 4.0）；Globe with yellow background 1：Wendy Cope（CC BY 2.0）；Tourists taking pictures at Prime Meridian monument, Greenwich Observatory, London：Daniel Case（CC BY-SA 3.0）；Hanoi classroom, summer 2003：Syced（CC0）；Beeston pedestrian directions signpost - geograph.org.uk - 1756367：David Lally（CC BY-SA 2.0）；Tropic of Cancer Monument in Chiayi Taiwan 02：chia ying Yang（CC BY 2.0）；2021 Ao Di Fishing Port at Gongliao District New Taipei Taiwan xx：Taiwankengo（CC BY-SA 4.0）；ISS-64 Dongsha Atoll National Park, Taiwan：NASA（公有領域）；Eluanbi Lighthouse 02：Bernard Gagnon（CC BY-SA 3.0）；Juguang Tower 20180727：姜 明雄（CC0）；坂里村 - Banli Village - 2014.04 - panoramio：rheins（CC BY 3.0）；Chixi Columnar Basalt in Taiwan Penghu 澎湖池西岩瀑：Rick888chen（CC BY-SA 4.0）；Taiping Island and Zhongzhou Reef ISS：NASA（公有領域）；Blue Tears in the Matsu Islands：e_ella（CC BY-SA 2.0）；Penguins moving on ice Coral Princess Antarctica：amanderson2（CC BY 2.0）；Rambutri Lukas Bergstrom：Lukas Bergstrom（CC BY 2.0）；Coventry Time Zone Clock：Cmglee（CC BY-SA 3.0）；New Year fireworks in 2014 at Taipei 101：Sinchen.Lin（CC BY 2.0）；London, March 18 2018 01：No Swan So Fine（CC BY-SA 4.0）；Sunrise at the Sansiantai：白士 李（CC BY 2.0）；Grey-faced Buzzard Butastur indicus：Ron Knight（CC BY 2.0）；Blue Marble Eastern Hemisphere：NASA（Reto Stöckli 製作）（公有領域）；The Blue Marble, AS17-148-22727：Harrison Schmitt / Apollo 17（公有領域）；2014-03-30 Syrmaticus mikado (Mikado Pheasant) 04：Cataloging Nature（CC BY 2.0）；Qingshui Cliff 清水斷崖 - panoramio (3)：lienyuan lee（CC BY 3.0）；Oncorhynchus masou formosanus 2005：Colinwen.tw（CC BY-SA 3.0）；Formosan Sika Deer Rest beside Wall in Taipei Zoo 20131002：玄史生（CC BY-SA 3.0）；Black-faced Spoonbill Platalea minor 1：TANAKA Juuyoh (田中十洋)（CC BY 2.0）；ANA aircraft and EGAS vehicles at Taiwan Taoyuan International Airport 20091231：takuma mori（CC BY 2.0）。</details>
+</div></footer>
+
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料（翰林 國一上地理 第一次段考） =================
+   範圍：第1章 認識位置與地圖（1-1～1-4）＋第2章 世界中的臺灣（2-1～2-3）。
+   名詞、數字、地名一律依翰林國中社會 1 上地理課本（課本 WORD 檔 114f396352／114f396353，p.8～33）。
+   快問快答：[題目, 正解, [3 個誘答], 幾校考過(0＝不標★), 題目提示(可省略)]
+   模擬題：{q, o:[正解, 誘答…], a:0, src, ex}（選項每次洗牌；全部原創改寫，只借 38 校翰林卷的命題方向與陷阱）
+   時差題一律「以經度計算時區、不考慮日光節約時間」。 */
+const L = {
+/* ---------- 1-1 如何表示位置＋1-2 經緯線網格 ---------- */
+a1:{
+  no:'1-1・1-2', code:1, title:'如何表示位置＋經緯線網格', short:'位置與經緯線', color:'linear-gradient(135deg,#1f4a28,#3f8a4e)',
+  desc:'相對位置 vs 絕對位置｜八方位｜經線・緯線比較表｜本初經線・赤道｜經緯度座標判讀',
+  quickAsk:'選出正確的答案', quickTitle:'位置＋經緯線快問快答',
+  quick:[
+    ['以某地點為基準，說出目標的方位和距離','相對位置',['絕對位置','經緯度座標','網格座標'],31],
+    ['用一組座標（橫座標＋縱座標）表示位置','絕對位置',['相對位置','方向標','比例尺'],31],
+    ['「在便利商店東南方 100 公尺」屬於','相對位置',['絕對位置','經緯度座標','圖例'],31],
+    ['「教室第四排第三列」屬於','絕對位置',['相對位置','方位','比例尺'],31],
+    ['「位於太平洋西側、亞洲大陸東側」屬於','相對位置',['絕對位置','經緯度座標','時區'],6],
+    ['（121E，25N）這種表示法屬於','絕對位置',['相對位置','比例尺','圖例'],23],
+    ['東、西、南、北再細分，課本稱為','八方位',['六方位','十二方位','十六方位'],24],
+    ['地圖上沒有方向標時，通常哪一方是北方','上方',['下方','左方','右方'],24],
+    ['連接南、北兩極點的地球表面半圓弧線','經線',['緯線','赤道','回歸線'],23],
+    ['與地軸垂直的平面，在地球表面切出的圓圈','緯線',['經線','本初經線','國際換日線'],23],
+    ['經線的方向是','南北向',['東西向','東北—西南向','沒有固定方向'],23],
+    ['緯線的方向是','東西向',['南北向','西北—東南向','沒有固定方向'],23],
+    ['東經、西經各有幾度','180 度',['90 度','360 度','23.5 度'],23],
+    ['南緯、北緯各有幾度','90 度',['180 度','360 度','66.5 度'],23],
+    ['哪一條緯線最長','赤道（0 度緯線）',['北回歸線','北極圈','每條都一樣長'],23],
+    ['經線的長度','每條都一樣長',['本初經線最長','愈靠近赤道愈短','180 度經線最長'],23],
+    ['1884 年國際同意的 0 度經線通過哪裡','英國倫敦格林威治天文臺',['法國巴黎鐵塔','美國紐約','臺灣嘉義'],17],
+    ['0 度經線又稱為','本初經線',['赤道','國際換日線','北回歸線'],17],
+    ['把地球平分成南、北半球的是','赤道',['本初經線','北回歸線','180 度經線'],30],
+    ['0 度經線以東為東半球，經度稱為','東經（E）',['西經（W）','北緯（N）','南緯（S）'],12],
+    ['赤道以南為南半球，緯度稱為','南緯（S）',['北緯（N）','東經（E）','西經（W）'],12],
+    ['東經 180 度和西經 180 度是','同一條經線',['兩條平行的經線','赤道的兩端','南北回歸線'],15],
+    ['緯線彼此之間的關係是','互相平行、不相交',['在兩極交會','在赤道交會','互相垂直'],23],
+    ['由赤道往兩極，緯線長度會','愈來愈短',['愈來愈長','都一樣長','先短後長'],12],
+    ['所有經線在哪裡交會','南、北兩極',['赤道','回歸線','本初經線'],23],
+    ['地球繞著哪一條假想的直線自轉','地軸',['赤道','本初經線','北回歸線'],0],
+  ],
+  words:[
+    ['相對位置','以某地點為基準，說方位和距離'],['絕對位置','以一組座標系統表示'],['經線','連接南北兩極的半圓弧線'],
+    ['緯線','與地軸垂直的平面切出的圓圈'],['本初經線','通過格林威治天文臺的 0 度經線'],['赤道','最長的緯線，分南北半球'],
+    ['地軸','通過南北兩極的假想直線'],['東經（E）','0 度經線以東'],['西經（W）','0 度經線以西'],
+    ['北緯（N）','赤道以北'],['南緯（S）','赤道以南'],['經緯線網格','地表定位的座標系統'],['八方位','四大基本方位再細分'],
+  ],
+  sorts:[
+    {title:'絕對位置還是相對位置？',tip:'有「一組座標」（排＋列、經度＋緯度、編號）＝絕對；以地標為基準說方位距離＝相對。',buckets:['絕對位置','相對位置'],items:[
+      ['（121.5E，25N）',0],['教室第三排第二列',0],['電影票「7 排 12 號」',0],['電線桿上的電力座標',0,'電力座標是網格座標，屬於絕對位置'],['棋盤上的「C5」格',0],
+      ['在學校正門對面',1],['捷運站出口往北走 200 公尺',1],['位於太平洋西側、亞洲大陸東側',1],['在便利商店的東南方',1],['小天在老師的西南方',1]]},
+    {title:'經線還是緯線？',tip:'經線：半圓弧、南北向、東西各 180 度、等長。緯線：圓圈、東西向、南北各 90 度、赤道最長。',buckets:['經線','緯線'],items:[
+      ['連接南北兩極的半圓弧線',0],['與地軸垂直的平面切出的圓圈',1],['南北向',0],['東西向',1],['東、西各 180 度',0],['南、北各 90 度',1],
+      ['每一條都一樣長',0],['赤道最長，愈往兩極愈短',1],['彼此平行、不相交',1],['在南北兩極交會',0],['本初經線',0],['北回歸線',1]]},
+    {title:'這一點在哪兩個半球？',tip:'E＝東半球、W＝西半球；N＝北半球、S＝南半球。',buckets:['東＋北半球','西＋北半球','東＋南半球','西＋南半球'],items:[
+      ['（120E，23N）',0,'臺灣'],['（139E，35N）',0,'日本東京附近'],['（75W，40N）',1,'美國紐約附近'],['（100W，40N）',1],
+      ['（150E，33S）',2,'澳洲雪梨附近'],['（18E，34S）',2,'南非開普敦附近'],['（60W，23S）',3,'臺灣的對蹠點附近'],['（47W，15S）',3]]},
+  ],
+  mcq:[
+    {q:'小翔說：「我家在捷運站 2 號出口往北走約 200 公尺的地方。」他是用哪一種方式描述位置？',o:['相對位置','絕對位置','經緯度座標','網格座標'],a:0,src:'31 校考位置判別',ex:'以捷運站出口為基準，說出方位與距離，就是相對位置。'},
+    {q:'下列哪一種位置描述屬於絕對位置？',o:['電影票上的「7 排 12 號」','在學校正門對面','在公園的西北方','在超商旁邊'],a:0,src:'絕對／相對判別',ex:'排與號是一組座標（橫座標＋縱座標），屬於絕對位置；其他都是以某地為基準的相對位置。'},
+    {q:'電線桿上常掛著一塊寫有編號的「電力座標」牌，維修人員看編號就能找到確切位置。電力座標屬於哪一種位置表示法？',o:['絕對位置','相對位置','比例尺','圖例'],a:0,src:'電力座標',ex:'電力座標把地圖切成網格，用編號定出每一格，和經緯度一樣是座標系統，屬於絕對位置。'},
+    {q:'有關經線的敘述，何者正確？',o:['連接南北兩極，每條長度都相同','與地軸垂直，赤道最長','東西向延伸，南北各有 90 度','本初經線是最長的經線'],a:0,src:'經緯線比較 23 校',ex:'經線是連接兩極的半圓弧，南北向、東西經各 180 度、每條一樣長；與地軸垂直、赤道最長是緯線的特性。'},
+    {q:'老師把經緯線比較表的某一格寫錯了，請找出錯誤的敘述。',o:['經線：南、北各有 90 度','經線：方向為南北向','緯線：赤道最長','緯線：彼此平行'],a:0,src:'11 校考比較表找錯',ex:'「南、北各 90 度」講的是緯度；經度是東、西經各 180 度。'},
+    {q:'1884 年國際上同意以通過哪裡的經線為 0 度經線？',o:['英國倫敦格林威治天文臺','法國巴黎天文臺','美國華盛頓','厄瓜多赤道紀念碑'],a:0,src:'本初經線 17 校',ex:'通過英國倫敦格林威治天文臺的經線定為 0 度經線，稱為本初經線。'},
+    {q:'劃分東、西半球的分界線是下列哪一條？',o:['本初經線（與 180 度經線）','赤道','北回歸線','北極圈'],a:0,src:'陷阱：用赤道分東西',ex:'0 度經線以東為東半球、以西為西半球（另一端是 180 度經線）；赤道分的是南、北半球。'},
+    {q:'甲地位於（30E，60N），乙地位於（30E，10N）。下列敘述何者正確？',o:['甲地緯度較高，位置較偏北','乙地緯度較高','兩地緯度相同','甲地在南半球'],a:0,src:'7 校考緯度高低',ex:'兩地經度相同；60N 比 10N 離赤道遠，緯度較高、位置較北。'},
+    {q:'某船從（150E，20N）航行到（160E，20N），這艘船往哪個方向航行？',o:['東','西','南','北'],a:0,src:'20 校考經緯度判方位',ex:'緯度不變，東經數字變大＝往東移動。'},
+    {q:'某颱風中心從（125E，15N）移動到（122E，20N），颱風大致往哪個方向前進？',o:['西北','東北','西南','東南'],a:0,src:'颱風路徑題（樺加沙等）',ex:'東經數字變小＝往西；北緯數字變大＝往北，合起來是往西北。'},
+    {q:'在西經地區，愈往東走，經度數字會如何變化？',o:['愈來愈小','愈來愈大','不變','先變大再變小'],a:0,src:'經度增減陷阱',ex:'西經是從 0 度往西數，往東走就是往 0 度經線靠近，數字變小。'},
+    {q:'四架飛機同時從同一條經線出發，分別沿赤道、北緯 30 度、北緯 60 度、北緯 80 度向東繞地球一圈。若速度相同，哪一架最先回到出發點？',o:['沿北緯 80 度','沿赤道','沿北緯 30 度','四架同時'],a:0,src:'12 校考緯線長短應用',ex:'緯度愈高緯線愈短，沿北緯 80 度繞一圈的路程最短，最先回到原點；赤道最長最慢。'},
+    {q:'甲、乙兩架飛機同時從赤道上相鄰的兩條經線出發，以相同速度一直向北飛，兩機的距離會如何變化？',o:['愈來愈近','愈來愈遠','保持不變','先近後遠'],a:0,src:'經線間距題',ex:'經線在兩極交會，往北飛時兩條經線愈靠愈近，所以兩機距離縮小。'},
+    {q:'小美在經緯網格圖上找到一點：往東經度數字變大、往北緯度數字也變大。這一點位在哪兩個半球？',o:['東半球、北半球','西半球、北半球','東半球、南半球','西半球、南半球'],a:0,src:'12 校考半球判斷',ex:'往東數字變大＝東經；往北數字變大＝北緯，所以在東半球、北半球。'},
+    {q:'下列哪一個座標位於南半球、西半球？',o:['（60W，23S）','（60E，23N）','（120E，23S）','（60W，23N）'],a:0,src:'對蹠點、半球判斷',ex:'W 表示西經（西半球）、S 表示南緯（南半球）。'},
+    {q:'「地球上任何一個地點，都可以用經線和緯線交織出的網格找到明確座標。」這段話說明經緯線網格的什麼功能？',o:['作為地表定位的座標系統','計算兩地的時差','畫分氣候帶','表示地圖的比例'],a:0,src:'課本 1-2',ex:'課本：經線和緯線交織出的網格，可作為地表定位的座標系統，讓每個地點都有明確的絕對位置。'},
+    {q:'小莊說：「從圖書館看，體育館在東北方。」若改從體育館看圖書館，應該怎麼說？',o:['圖書館在體育館的西南方','圖書館在體育館的東北方','圖書館在體育館的東南方','圖書館在體育館的西北方'],a:0,src:'8 校考相對方位',ex:'換了基準點，方位要完全相反：東北的相反是西南。'},
+  ]
+},
+/* ---------- 1-3 位置與生活的關聯 ---------- */
+a2:{
+  no:'1-3', code:2, title:'位置與生活的關聯（經度與時區・緯度與氣候）', short:'時區與氣候', color:'linear-gradient(135deg,#25563a,#4a9a5a)',
+  desc:'每 15 度一時區｜GMT+8｜時差計算｜東邊先跨年｜回歸線・極圈分氣候帶｜南北半球季節相反',
+  quickAsk:'選出正確的答案', quickTitle:'時區＋氣候快問快答',
+  quick:[
+    ['地球自轉一周 360 度需要多少時間','24 小時',['12 小時','365 天','1 小時'],34],
+    ['地球平均每小時自轉幾度','15 度',['1 度','24 度','30 度'],34],
+    ['地球自轉的方向','由西向東',['由東向西','由南向北','由北向南'],20],
+    ['一般每幾度經度定為一個時區','15 度',['10 度','23.5 度','30 度'],34],
+    ['全球共分為幾個時區','24 個',['12 個','15 個','36 個'],12],
+    ['相鄰時區相差多少時間','1 小時',['15 分鐘','2 小時','30 分鐘'],34],
+    ['國際標準時間以哪裡的時間為準','格林威治時間（GMT）',['臺北時間','紐約時間','東京時間'],12],
+    ['臺北的標準時間是','GMT+8',['GMT-8','GMT+12','GMT+1'],22],
+    ['臺北的標準時間以哪一條經線為準','東經 120 度',['東經 135 度','東經 105 度','0 度經線'],22],
+    ['臺北（120E）與倫敦（0 度）相差幾小時','8 小時',['7 小時','12 小時','15 小時'],34],
+    ['倫敦晚上 12 點時，臺北是幾點','隔天上午 8 點',['前一天下午 4 點','當天晚上 8 點','隔天中午 12 點'],34],
+    ['日本東京（135E）比臺北','快 1 小時',['慢 1 小時','快 2 小時','時間相同'],34],
+    ['在東半球，愈往西邊，時間會','愈晚',['愈早','都一樣','先早後晚'],34],
+    ['曼谷在臺北西邊，跨年時間比臺北','晚 1 小時',['早 1 小時','同時','晚 8 小時'],12],
+    ['經度最主要影響一地的','時間（時區）',['氣溫','降雨','海拔'],22],
+    ['緯度最主要影響一地的','氣溫（氣候）',['時間','日期','時區'],22],
+    ['緯度愈高，陽光照射角度','愈斜，氣候愈寒冷',['愈直，氣候愈炎熱','都一樣','愈直，氣候愈寒冷'],22],
+    ['回歸線的緯度是','23.5 度',['66.5 度','0 度','45 度'],21],
+    ['極圈的緯度是','66.5 度',['23.5 度','90 度','45 度'],11],
+    ['熱帶與溫帶的分界線','回歸線',['極圈','赤道','本初經線'],22],
+    ['溫帶與寒帶的分界線','極圈',['回歸線','赤道','180 度經線'],22],
+    ['南、北回歸線之間屬於','熱帶',['溫帶','寒帶','極地'],30],
+    ['地軸傾斜約幾度','23.5 度',['66.5 度','15 度','90 度'],9],
+    ['太陽直射的範圍在哪兩條線之間來回移動','南、北回歸線',['南、北極圈','赤道與北極圈','本初經線與 180 度經線'],9],
+    ['南、北半球的季節','相反',['相同','只差 1 個月','都沒有季節'],17],
+    ['臺灣有北回歸線標誌的地方','嘉義與花蓮',['臺北與宜蘭','高雄與屏東','澎湖與金門'],10,'【延伸・課本沒寫】選出正確的答案'],
+  ],
+  words:[
+    ['時區','每 15 度經度為一區'],['時差','經度差 ÷ 15 度'],['GMT','格林威治標準時間'],['GMT+8','臺北的標準時間'],
+    ['地球自轉','由西向東，24 小時一周'],['回歸線','緯度 23.5 度'],['極圈','緯度 66.5 度'],['熱帶','南北回歸線之間'],
+    ['溫帶','回歸線到極圈之間'],['寒帶','極圈到極點'],['地軸傾斜','約 23.5 度，形成季節'],['太陽直射','在南北回歸線間移動'],
+  ],
+  sorts:[
+    {title:'是經度還是緯度造成的？',tip:'經度→時間（時區、時差、跨年先後、日出早晚）；緯度→氣候（冷熱、穿著、氣候帶）。',buckets:['經度（時間）','緯度（氣候）'],items:[
+      ['臺北比倫敦早 8 小時跨年',0],['曼谷人跨年穿短袖，臺北人穿羽絨衣',1],['臺東比澎湖早一點看到日出',0],['愈往兩極，陽光照射角度愈斜',1],
+      ['日本比臺灣快 1 小時',0],['熱帶、溫帶、寒帶的畫分',1],['看維也納新年音樂會轉播要換算時間',0],['北極圈內冬天天寒地凍',1]]},
+    {title:'熱帶、溫帶還是寒帶？',tip:'0～23.5 度熱帶；23.5～66.5 度溫帶；66.5～90 度寒帶。南緯也一樣。',buckets:['熱帶','溫帶','寒帶'],items:[
+      ['新加坡（約 1N）',0],['泰國曼谷（約 14N）',0],['臺灣高雄（約 22.6N）',0,'在北回歸線以南'],['英國倫敦（約 51N）',1],['日本東京（約 36N）',1],
+      ['臺灣臺北（約 25N）',1,'在北回歸線以北'],['澳洲雪梨（約 34S）',1,'南半球也用回歸線、極圈畫分'],['南極點（90S）',2],['格陵蘭北部（約 80N）',2]]},
+    {title:'比臺北（120E）早還是晚？',tip:'在東半球，愈東愈早、愈西愈晚；西半球的城市都比臺北晚。',buckets:['比臺北早（快）','比臺北晚（慢）'],items:[
+      ['日本東京（135E）',0],['澳洲雪梨（150E）',0],['紐西蘭（約 175E）',0],['泰國曼谷（約 100E）',1],['奧地利維也納（15E）',1],['英國倫敦（0 度）',1],['美國紐約（75W）',1]]},
+  ],
+  mcq:[
+    {q:'臺灣（120E）的跨年煙火結束時，住在倫敦（0 度）的表哥說他那邊還要很久才跨年。兩地時差多少？',o:['8 小時，臺灣較早','8 小時，倫敦較早','12 小時，臺灣較早','2 小時，倫敦較早'],a:0,src:'34 校考時差',ex:'(120－0)÷15＝8 小時；地球由西向東自轉，東邊的臺灣時間較早。'},
+    {q:'某場在維也納（約 15E）舉行的音樂會，當地元旦上午 11:15 開演，全長約 2 小時 30 分。在臺灣（120E）看直播的人，會在臺灣時間幾點看到演出結束？',o:['1 月 1 日 20:45','1 月 1 日 13:45','1 月 1 日 06:45','12 月 31 日 20:45'],a:0,src:'新年音樂會 3 校',ex:'演出在維也納時間 13:45 結束；(120－15)÷15＝7 小時，臺灣在東邊、時間快 7 小時：13:45＋7＝20:45，仍是 1 月 1 日。'},
+    {q:'日本東京位於東經 135 度。臺灣晚上 8 點時，東京是幾點？',o:['晚上 9 點','晚上 7 點','晚上 8 點','隔天上午 8 點'],a:0,src:'時差計算',ex:'(135－120)÷15＝1 小時；東京在臺灣東邊，時間快 1 小時。'},
+    {q:'棒球比賽在日本東京（135E）晚上 7 點開打，在美國洛杉磯（120W）的球迷要在當地幾點收看直播？',o:['同一天凌晨 2 點','同一天晚上 11 點','隔天凌晨 2 點','前一天中午 12 點'],a:0,src:'12 強棒球時事題組',ex:'東京 GMT+9、洛杉磯 GMT－8，相差 17 小時，洛杉磯較晚；19 點減 17 小時＝當天凌晨 2 點。'},
+    {q:'元旦跨年時，下列哪一座城市最早迎接新年？',o:['紐西蘭威靈頓（約 175E）','日本東京（135E）','臺灣臺北（120E）','英國倫敦（0 度）'],a:0,src:'12 校考跨年先後',ex:'地球由西向東自轉，東邊先跨年；在東半球，東經數字愈大愈早。'},
+    {q:'阿美在臺北 101 看跨年煙火時，人在泰國曼谷的阿明說還要再 1 小時才跨年。最主要的原因是什麼？',o:['曼谷在臺北的西邊，時間較晚','曼谷緯度較低，天氣較熱','曼谷在南半球','曼谷使用的地圖比例尺不同'],a:0,src:'課本課後閱讀',ex:'課本：在東半球愈往西邊、時間愈晚，曼谷在臺灣西邊，所以比臺北晚跨年。'},
+    {q:'承上，阿明在曼谷跨年只穿短袖，臺北的阿美卻要穿羽絨外套。造成兩人穿著不同的主要因素是什麼？',o:['緯度','經度','時區','海陸分布'],a:0,src:'22 校考緯度與氣候',ex:'曼谷位於低緯度熱帶，四季炎熱；臺北緯度較高，冬天較冷。緯度影響氣候、經度影響時間。'},
+    {q:'臺灣東部的臺東比西部的澎湖早一些看到日出，最主要的原因是什麼？',o:['地球由西向東自轉，東邊先轉到面向太陽','臺東的緯度比較高','澎湖在南半球','臺東的海拔比較高'],a:0,src:'4 校考日出先後',ex:'地球由西向東自轉，東邊的地方先迎來日出；看的是經度，不是緯度。'},
+    {q:'下列哪兩個地點之間的時差最接近 0？',o:['（120E，25N）與（120E，40S）','（120E，25N）與（60E，25N）','（120E，25N）與（120W，25N）','（0，51N）與（90E，51N）'],a:0,src:'陷阱：同緯度≠無時差',ex:'時差看經度，經度相同就沒有時差，不論緯度差多少。'},
+    {q:'下列有關「經度、緯度與生活」的敘述，何者正確？',o:['經度影響時間，緯度影響氣溫','經度影響氣溫，緯度影響時間','經度和緯度都只影響時間','經度愈高氣溫愈低'],a:0,src:'陷阱：用經度推氣候',ex:'經度→時區、時差；緯度→陽光照射角度→氣溫、氣候帶。'},
+    {q:'熱帶與溫帶的分界是哪一條線？',o:['回歸線（23.5 度）','極圈（66.5 度）','赤道（0 度）','本初經線（0 度）'],a:0,src:'陷阱：回歸線、極圈對調',ex:'以回歸線和極圈為界，南北半球都可分成熱帶、溫帶、寒帶；回歸線是熱帶與溫帶的分界。'},
+    {q:'下列哪一座城市最可能整年都很炎熱？',o:['新加坡（約 1N）','英國倫敦（約 51N）','加拿大溫哥華（約 49N）','挪威奧斯陸（約 60N）'],a:0,src:'緯度與氣候帶',ex:'緯度愈低陽光愈直射、氣候愈炎熱；新加坡接近赤道，屬熱帶。'},
+    {q:'臺灣 7 月是炎熱的夏季，同一時間到澳洲雪梨（約 34S）旅遊，最適合帶哪種衣物？',o:['保暖的外套','短袖與泳衣','雨林探險裝','什麼都不用帶，雪梨沒有季節'],a:0,src:'17 校考季節相反',ex:'南、北半球季節相反；臺灣夏天時，南半球的雪梨是冬天。'},
+    {q:'南、北半球季節相反，主要是什麼原因造成的？',o:['地軸傾斜 23.5 度，加上地球繞太陽公轉','地球由西向東自轉','南半球海洋較多','南半球比較靠近太陽'],a:0,src:'9 校考公轉與季節',ex:'課本：受地軸傾斜影響，太陽直射範圍在南北回歸線之間移動，形成季節變化，南北半球季節相反。自轉造成的是時差。'},
+    {q:'某國家隊要選冬季移地訓練的地點，條件是「與臺灣時差不超過 2 小時」「冬天也溫暖」。下列哪一個地點最符合？',o:['菲律賓馬尼拉（約 121E，15N）','加拿大溫哥華（約 123W，49N）','俄羅斯莫斯科（約 38E，56N）','日本札幌（約 141E，43N）'],a:0,src:'訓練地條件題',ex:'馬尼拉經度和臺灣相近、幾乎沒有時差，緯度低屬熱帶；札幌時差雖小，但緯度高、冬天寒冷。'},
+    {q:'從臺灣搭飛機到倫敦，抵達時是當地早上 7 點。此時臺灣是幾點？',o:['同一天下午 3 點','同一天晚上 11 點','同一天早上 7 點','前一天晚上 11 點'],a:0,src:'時差計算',ex:'臺灣比倫敦快 8 小時：7＋8＝15 點，也就是下午 3 點。'},
+  ]
+},
+/* ---------- 1-4 如何閱讀地圖 ---------- */
+a3:{
+  no:'1-4', code:3, title:'如何閱讀地圖', short:'閱讀地圖', color:'linear-gradient(135deg,#2f6b3a,#6aa84f)',
+  desc:'圖名・圖例・方向標・比例尺｜比例尺計算與三種表示法｜大小比例尺｜電子地圖與 GPS',
+  quickAsk:'選出正確的答案', quickTitle:'地圖＋比例尺快問快答',
+  quick:[
+    ['說明地圖類型或主要內容的地圖要素','圖名',['圖例','方向標','比例尺'],10],
+    ['代表各種地表現象的符號','圖例',['圖名','方向標','比例尺'],11],
+    ['標示方向的指標','方向標',['圖例','比例尺','圖名'],12],
+    ['表示地圖與地表間長度比例關係的要素','比例尺',['圖例','方向標','經緯線'],36],
+    ['比例尺的算法','圖上距離 ÷ 實際距離',['實際距離 ÷ 圖上距離','圖上距離 × 實際距離','面積 ÷ 距離'],20],
+    ['比例尺 1/10,000：圖上 1 公分代表實際','100 公尺',['10 公尺','1 公里','10 公里'],20],
+    ['「1：10,000」屬於哪一種比例尺表示法','數字表示法',['文字表示法','圖示法','經緯度法'],5],
+    ['「一萬分之一」屬於哪一種比例尺表示法','文字表示法',['數字表示法','圖示法','網格法'],5],
+    ['地圖影印放大後，仍能表示正確比例的是','圖示法',['數字表示法','文字表示法','三種都可以'],5],
+    ['範圍小、內容詳細的是','大比例尺地圖',['小比例尺地圖','世界地圖','衛星影像'],33],
+    ['範圍大、內容簡略的是','小比例尺地圖',['大比例尺地圖','校園平面圖','街道圖'],33],
+    ['1/5,000 和 1/50,000 相比，比例尺較大的是','1/5,000',['1/50,000','兩者一樣大','無法比較'],33],
+    ['課本舉例的大比例尺地圖是','屏東縣地圖',['臺灣行政區圖','世界地圖','亞洲地圖'],0],
+    ['課本舉例的小比例尺地圖是','臺灣行政區圖',['屏東縣地圖','校園平面圖','社區街道圖'],0],
+    ['電子地圖按「＋」放大後，比例尺會','變大',['變小','不變','先變小再變大'],33],
+    ['電子地圖放大後，顯示的範圍會','變小',['變大','不變','變成全世界'],33],
+    ['地圖放大或縮小時，兩地的實際距離','不會改變',['跟著變長','跟著變短','變成 0'],33],
+    ['電子地圖可以搭配哪一種系統規畫導航路線','全球定位系統（GPS）',['羅盤','經緯儀','氣象雷達'],10],
+    ['只呈現單一主題的地圖，例如自行車道路線圖','主題地圖',['普通地圖','衛星影像','地形剖面圖'],1],
+    ['同樣圖上長度，比例尺愈小，代表的實際距離','愈長',['愈短','不變','一定是 0'],7],
+    ['比例尺 1/25,000 上量得 4 公分，實際距離是','1 公里',['10 公里','100 公尺','4 公里'],20],
+    ['比較不同時期的地圖，可以看出','環境的變遷',['未來的天氣','兩地的時差','人口的年齡'],0],
+    ['課本比較 1904 年與 2017 年地圖，基隆河部分河段因防洪而','截彎取直',['填平消失','改流向東海','變成湖泊'],0],
+  ],
+  words:[
+    ['圖名','地圖的類型或主要內容'],['圖例','代表地表現象的符號'],['方向標','標示方向的指標'],['比例尺','地圖與地表的長度比例'],
+    ['數字表示法','1：10,000'],['文字表示法','一萬分之一'],['圖示法','畫出線段刻度，縮放後仍正確'],['大比例尺地圖','範圍小、內容詳細'],
+    ['小比例尺地圖','範圍大、內容簡略'],['電子地圖','可搜尋、縮放、快速更新'],['GPS','全球定位系統，可導航'],['主題地圖','只呈現單一主題'],
+  ],
+  sorts:[
+    {title:'大比例尺還是小比例尺？',tip:'範圍小、內容詳細＝大比例尺；範圍大、內容簡略＝小比例尺。分母愈小，比例尺愈大。',buckets:['大比例尺','小比例尺'],items:[
+      ['校園平面圖',0],['屏東縣地圖',0,'課本的大比例尺例子'],['社區街道圖',0],['1/5,000 的地圖',0],['電子地圖按「＋」放大之後',0],
+      ['臺灣行政區圖',1,'課本的小比例尺例子'],['世界地圖',1],['亞洲地形圖',1],['1/1,000,000 的地圖',1],['電子地圖按「－」縮小之後',1]]},
+    {title:'這是哪一個地圖要素？',tip:'圖名＝標題；圖例＝符號說明；方向標＝指北；比例尺＝算距離。',buckets:['圖名','圖例','方向標','比例尺'],items:[
+      ['「新北市板橋區江子翠地區地圖」',0],['「臺東縣公車路線圖」',0],['綠色色塊代表公園',1],['粉紅色色塊代表學校',1],['☆ 代表捷運站',1],
+      ['畫著 N 的箭頭',2],['「1：10,000」',3],['標著 0、100、200 公尺的線段',3]]},
+    {title:'電子地圖還是紙本地圖的特色？',tip:'課本：電子地圖可搜尋位置、彈性縮放比例尺、快速更新資料，並可搭配 GPS 導航。',buckets:['電子地圖','紙本地圖'],items:[
+      ['可以輸入地名搜尋位置',0],['可以彈性放大、縮小比例尺',0],['資料能快速更新',0],['搭配 GPS 規畫導航路線',0],
+      ['沒有電、沒有網路也能看',1],['印好之後比例尺就固定',1],['資料要重新印製才能更新',1]]},
+  ],
+  mcq:[
+    {q:'小明用手機地圖查詢學校，從「顯示整個臺灣」一直按「＋」放大到「學校附近街道」。下列敘述何者正確？',o:['比例尺變大，範圍變小，內容更詳細','比例尺變小，範圍變大，內容更詳細','比例尺變大，範圍變大，內容更簡略','比例尺不變，只有字變大'],a:0,src:'33 校考大小比例尺',ex:'放大地圖＝比例尺變大；顯示的範圍縮小、內容更詳細。'},
+    {q:'承上，手機地圖放大後，小明家到學校的實際距離會怎樣？',o:['不變','變長','變短','變成原來的一半'],a:0,src:'陷阱：縮放改變實際距離',ex:'縮放只改變圖上的長度，地表上的實際距離不會變。'},
+    {q:'一張地圖的比例尺為 1：50,000，圖上兩地相距 3 公分，實際距離是多少？',o:['1.5 公里','15 公里','150 公尺','3 公里'],a:0,src:'20 校考比例尺計算',ex:'3×50,000＝150,000 公分＝1,500 公尺＝1.5 公里。'},
+    {q:'兩地實際相距 2 公里，畫在比例尺 1/20,000 的地圖上，圖上距離應是幾公分？',o:['10 公分','1 公分','100 公分','4 公分'],a:0,src:'比例尺計算',ex:'2 公里＝200,000 公分；200,000÷20,000＝10 公分。'},
+    {q:'老師把一張同時標有「1：10,000」和圖示比例尺的地圖放大 2 倍影印。影印後哪一種比例尺仍然正確？',o:['圖示法','數字法','文字法','三種都正確'],a:0,src:'5 校考表示法',ex:'圖示法的線段會跟著地圖一起放大，比例仍正確；數字法、文字法的數字不會變，就不正確了。'},
+    {q:'甲地圖比例尺 1/5,000，乙地圖比例尺 1/50,000，兩張紙張一樣大。下列比較何者正確？',o:['甲的比例尺較大，涵蓋範圍較小','甲的比例尺較小，涵蓋範圍較大','乙的內容較詳細','兩張涵蓋的範圍一樣'],a:0,src:'陷阱：分母大＝比例尺大',ex:'分母愈小比例尺愈大；大比例尺範圍小、內容詳細。'},
+    {q:'在甲（1/5,000）、乙（1/50,000）兩張地圖上，都量到一座公園長 2 公分。哪一張地圖上的公園實際較大？',o:['乙','甲','一樣大','無法判斷'],a:0,src:'7 校考面積比較',ex:'同樣圖上長度，比例尺愈小（分母愈大）代表的實際距離愈長，面積也愈大。'},
+    {q:'下列哪一種情況最適合使用大比例尺地圖？',o:['在遊樂園內找廁所','規畫環遊世界的航線','比較七大洲的面積','觀察颱風在西太平洋的路徑'],a:0,src:'大小比例尺應用',ex:'遊樂園範圍小、需要詳細內容，適合大比例尺地圖；其他需要大範圍，適合小比例尺。'},
+    {q:'地圖上沒有畫方向標時，通常如何判斷方位？',o:['以上方代表北方','以下方代表北方','以左方代表北方','完全無法判斷方位'],a:0,src:'24 校考方位',ex:'課本小幫手：若地圖無方向標，通常以上方代表北方，也可以藉由經緯度判斷方向。'},
+    {q:'某校園地圖（上方為北）中，圖書館在正中央，體育館在圖書館的左下方。體育館位於圖書館的哪一個方位？',o:['西南方','東北方','西北方','東南方'],a:0,src:'方位判讀',ex:'上北下南、左西右東；左下就是西南方。'},
+    {q:'藏寶圖寫著：「寶藏在港口的西北方約 200 公尺。」地圖比例尺為 1/10,000，上方為北。從港口在圖上應往哪裡量幾公分？',o:['往左上方量 2 公分','往右下方量 2 公分','往左上方量 20 公分','往右上方量 2 公分'],a:0,src:'寶藏圖題',ex:'西北＝左上；200 公尺＝20,000 公分，20,000÷10,000＝2 公分。'},
+    {q:'下列哪一項是電子地圖比紙本地圖更有優勢的地方？',o:['可以搜尋地點、快速更新資料','不需要比例尺','不需要圖例','永遠不會出錯'],a:0,src:'9 校考電子地圖',ex:'課本：電子地圖可搜尋位置、彈性縮放比例尺、快速更新資料，並可搭配 GPS 規畫導航路線。'},
+    {q:'某張地圖只畫出「淡水河河濱自行車道的路線與休息站」，這類地圖屬於哪一種？',o:['主題地圖','普通地圖','衛星影像','地形剖面圖'],a:0,src:'地圖種類',ex:'只呈現單一主題（自行車道）的地圖是主題地圖。'},
+    {q:'比較臺北 1904 年與 2017 年的地圖，發現許多稻田變成住宅區。這說明不同時期的地圖可以幫助我們了解什麼？',o:['環境的變遷','兩地的時差','當地的經緯度','全球海陸分布比例'],a:0,src:'課本課後閱讀',ex:'課本：不同時期的地圖像時空切片，可看出地理環境的變遷。'},
+    {q:'下列哪一組全部都是地圖的主要要素？',o:['圖名、圖例、方向標、比例尺','圖名、經度、緯度、海拔','圖例、照片、等高線、時區','方向標、羅盤、GPS、比例尺'],a:0,src:'10 校考四要素',ex:'課本：地圖主要包含圖名、圖例、方向標、比例尺等要素。'},
+    {q:'一張比例尺 1/100,000 的地圖上，量得兩車站距離 5 公分。若騎腳踏車時速 10 公里，大約要騎多久？',o:['30 分鐘','5 小時','3 分鐘','50 分鐘'],a:0,src:'比例尺計算延伸',ex:'5×100,000＝500,000 公分＝5 公里；5÷10＝0.5 小時＝30 分鐘。'},
+  ]
+},
+/* ---------- 2-1 全球海陸分布 ---------- */
+b1:{
+  no:'2-1', code:4, title:'全球海陸分布', short:'全球海陸分布', color:'linear-gradient(135deg,#1d5560,#3f8f8a)',
+  desc:'陸海約 3：7｜北半球陸 39%、南半球陸 19%｜三大洋七大洲｜歐亞大陸｜橫跨南北半球的洲',
+  quickAsk:'選出正確的答案', quickTitle:'海陸分布快問快答',
+  quick:[
+    ['地球表面總面積約','5.1 億平方公里',['3.6 萬平方公里','51 億平方公里','5100 萬平方公里'],5],
+    ['陸地約占地球表面的','29%',['71%','50%','39%'],16],
+    ['陸地與海洋的面積比大約是','3：7',['7：3','1：1','1：9'],16],
+    ['北半球陸地與海洋的比例','陸 39%、海 61%',['陸 61%、海 39%','陸 19%、海 81%','陸 50%、海 50%'],16],
+    ['南半球陸地與海洋的比例','陸 19%、海 81%',['陸 39%、海 61%','陸 81%、海 19%','陸 29%、海 71%'],16],
+    ['陸地面積較大的是','北半球',['南半球','一樣大','無法比較'],16],
+    ['全球人口較集中在','北半球',['南半球','南極洲','赤道上'],16],
+    ['北半球的陸地和海洋，何者面積較大','海洋',['陸地','一樣大','無法比較'],16],
+    ['約占全球海洋總面積一半的大洋','太平洋',['大西洋','印度洋','北極海'],32],
+    ['課本說地表上有幾大洋','三大洋',['五大洋','七大洋','四大洋'],23],
+    ['課本說地表上有幾大洲','七大洲',['五大洲','六大洲','八大洲'],10],
+    ['面積最大的洲','亞洲',['非洲','北美洲','大洋洲'],10],
+    ['歐洲和亞洲相連，經常合稱為','歐亞大陸',['美洲大陸','非洲大陸','大洋洲'],7],
+    ['全球最大的陸塊','歐亞大陸',['非洲','北美洲','南極洲'],7],
+    ['臺灣位於哪一洲','亞洲',['大洋洲','北美洲','歐洲'],10],
+    ['從歐洲搭船到北美洲，主要橫渡哪一個大洋','大西洋',['太平洋','印度洋','北極海'],22],
+    ['從臺灣搭船往東到美國西岸，主要橫渡','太平洋',['大西洋','印度洋','北極海'],23],
+    ['位於非洲、亞洲與澳洲之間的大洋','印度洋',['大西洋','太平洋','北極海'],21],
+    ['下列哪一洲完全在南半球','南極洲',['亞洲','非洲','中南美洲'],13],
+    ['赤道「沒有」經過哪一洲','歐洲',['非洲','中南美洲','亞洲'],13],
+    ['課本說地球可說是個','水世界',['陸世界','冰世界','沙世界'],0],
+    ['地圖習慣把北方放上方，和哪個事實有關','陸地與人口多在北半球',['南半球比較冷','北極比較明亮','赤道在北邊'],0],
+  ],
+  words:[
+    ['三大洋','太平洋、大西洋、印度洋'],['太平洋','約占全球海洋的一半'],['亞洲','面積最大的洲'],['歐亞大陸','全球最大陸塊'],
+    ['北半球','陸地約 39%'],['南半球','海洋約 81%'],['3：7','全球陸地與海洋面積比'],['南極洲','完全位於南半球'],
+    ['大西洋','歐洲、非洲與美洲之間'],['印度洋','非洲、亞洲與澳洲之間'],['5.1 億平方公里','地球表面總面積'],['中南美洲','橫跨南北半球的美洲部分'],
+  ],
+  sorts:[
+    {title:'哪些洲橫跨南、北半球？',tip:'課本：亞洲、非洲、大洋洲、中南美洲橫跨南北半球；南極洲全在南半球。',buckets:['橫跨南北半球','只在北半球','只在南半球'],items:[
+      ['亞洲',0],['非洲',0],['大洋洲',0],['中南美洲',0],['歐洲',1],['北美洲',1],['南極洲',2]]},
+    {title:'北半球還是南半球？',tip:'北半球陸 39%、海 61%；南半球陸 19%、海 81%。北半球陸地多、人口多，但海洋仍比陸地多。',buckets:['北半球','南半球'],items:[
+      ['陸地約占 39%',0],['海洋約占 81%',1],['陸地面積較大',0],['人口較集中',0],['海洋比例較高',1],['南極洲所在',1],['歐洲、北美洲所在',0]]},
+    {title:'這條航線主要經過哪一個大洋？',tip:'美洲與亞洲之間＝太平洋；歐洲、非洲與美洲之間＝大西洋；非洲、亞洲、澳洲之間＝印度洋。',buckets:['太平洋','大西洋','印度洋'],items:[
+      ['臺灣 → 美國洛杉磯',0],['日本 → 夏威夷',0],['智利 → 紐西蘭',0],['英國 → 美國紐約',1],['西班牙 → 巴西',1],['印度 → 南非',2],['澳洲伯斯 → 斯里蘭卡',2]]},
+  ],
+  mcq:[
+    {q:'地球表面約 5.1 億平方公里，其中陸地與海洋的面積比大約是多少？',o:['3：7','7：3','1：1','1：4'],a:0,src:'16 校考海陸比',ex:'課本：陸地約占 29%，其餘為海洋，陸地與海洋面積大致是 3：7。'},
+    {q:'有關北半球海陸分布的敘述，何者正確？',o:['北半球的海洋面積仍大於陸地','北半球陸地面積大於海洋','北半球陸地約占 61%','北半球和南半球陸地一樣多'],a:0,src:'陷阱：北半球陸地大於海洋',ex:'北半球陸 39%、海 61%，海洋仍較多；只是陸地比南半球（19%）多很多。'},
+    {q:'全球人口較集中在北半球，最主要的原因是什麼？',o:['北半球的陸地面積遠大於南半球','北半球比較靠近太陽','北半球沒有沙漠','南半球全部是寒帶'],a:0,src:'課本 2-1',ex:'陸地是人類主要的活動空間，北半球陸地多，人口也就集中在北半球。'},
+    {q:'科博館有一座直徑 173 公分的球形銀幕，播放從太空看地球的畫面。觀眾最可能觀察到什麼現象？',o:['地球表面大部分是海洋','地球表面大部分是陸地','南半球的陸地比北半球多','海洋只分布在南半球'],a:0,src:'球形銀幕題 3 校',ex:'地球海洋約占 71%，從太空看多是藍色，課本說地球可說是個水世界。'},
+    {q:'約占全球海洋總面積一半的是哪一個大洋？',o:['太平洋','大西洋','印度洋','北極海'],a:0,src:'32 校出現太平洋',ex:'課本：三大洋中，太平洋約占全球海洋總面積的一半。'},
+    {q:'15 世紀末，哥倫布從歐洲向西航行抵達美洲，他橫渡的是哪一個大洋？',o:['大西洋','太平洋','印度洋','北極海'],a:0,src:'23 校考航線經過的海洋',ex:'歐洲與美洲之間是大西洋。'},
+    {q:'麥哲倫船隊繞過南美洲南端後，繼續向西航行很久才到達菲律賓。這段航程主要經過哪一個大洋？',o:['太平洋','大西洋','印度洋','北極海'],a:0,src:'麥哲倫航線',ex:'美洲與亞洲之間是面積最大的太平洋。'},
+    {q:'一艘巨型貨輪曾卡在埃及的蘇伊士運河。這條運河連接紅海與地中海，讓亞洲與歐洲之間的船不必繞過哪一洲的南端？',o:['非洲','南美洲','大洋洲','南極洲'],a:0,src:'長賜號時事',ex:'沒有運河時，亞洲到歐洲的航線要繞過非洲南端。'},
+    {q:'下列哪一洲完全位於北半球？',o:['北美洲','非洲','亞洲','大洋洲'],a:0,src:'13 校考跨南北半球',ex:'課本：亞洲、非洲、大洋洲、中南美洲橫跨南北半球；北美洲、歐洲在北半球，南極洲在南半球。'},
+    {q:'下列哪一組洲「都」橫跨南、北半球？',o:['亞洲、非洲','歐洲、非洲','北美洲、亞洲','南極洲、大洋洲'],a:0,src:'課本想一想',ex:'橫跨南北半球的是亞洲、非洲、大洋洲、中南美洲。'},
+    {q:'赤道沒有經過下列哪一洲？',o:['北美洲','非洲','中南美洲','亞洲'],a:0,src:'13 校考赤道經過的洲',ex:'赤道經過非洲、中南美洲、亞洲（印尼）等地；北美洲、歐洲、南極洲都沒有。'},
+    {q:'歐洲與亞洲經常合稱為「歐亞大陸」，原因是什麼？',o:['兩洲陸地相連','兩洲語言相同','兩洲都在南半球','兩洲面積相同'],a:0,src:'課本 2-1',ex:'課本：歐洲與亞洲相連，經常合稱為歐亞大陸，是全球最大陸塊。'},
+    {q:'大多數人看的世界地圖，北極海都畫在上方。課本認為這和什麼有關？',o:['陸地與人口多在北半球','北極海面積最大','南半球沒有國家','北方比較溫暖'],a:0,src:'課本想一想',ex:'課本：陸地多位於北半球、北半球人口也較多，間接影響人們繪製地圖時把北方放在上方。'},
+    {q:'臺灣位於哪一個大陸和哪一個海洋之間？',o:['歐亞大陸、太平洋','非洲大陸、大西洋','北美洲、太平洋','歐亞大陸、印度洋'],a:0,src:'課本第 2 章開頭',ex:'課本：臺灣地處全球最大陸地（歐亞大陸）與最大海洋（太平洋）之間。'},
+    {q:'「尼莫點」是地球上離陸地最遠的海洋地點，大約在（123W，49S）附近。它位於哪一個大洋？',o:['太平洋','大西洋','印度洋','北極海'],a:0,src:'尼莫點',ex:'西經 123 度、南緯 49 度在南美洲西方、紐西蘭東方的南太平洋。'},
+    {q:'從澳洲西岸搭船一路向西航行到非洲東岸，會經過哪一個大洋？',o:['印度洋','大西洋','太平洋','北極海'],a:0,src:'航線經過的海洋',ex:'印度洋位於非洲、亞洲與澳洲之間。'},
+  ]
+},
+/* ---------- 2-2 臺灣的位置及其影響 ---------- */
+b2:{
+  no:'2-2', code:5, title:'臺灣的位置及其影響', short:'臺灣的位置', color:'linear-gradient(135deg,#3b6b2a,#7aa63f)',
+  desc:'120～122E、22～25N｜太平洋西側、亞洲大陸東側｜交通樞紐｜候鳥中繼站｜特有種',
+  quickAsk:'選出正確的答案', quickTitle:'臺灣位置快問快答',
+  quick:[
+    ['臺灣島大約位於東經幾度之間','120～122 度',['100～102 度','130～132 度','22～25 度'],15],
+    ['臺灣島大約位於北緯幾度之間','22～25 度',['120～122 度','30～35 度','10～15 度'],15],
+    ['從相對位置來看，臺灣位在太平洋的','西側',['東側','南側','北側'],6],
+    ['從相對位置來看，臺灣位在亞洲大陸的','東側',['西側','南側','北側'],6],
+    ['臺灣東邊臨','太平洋',['臺灣海峽','東海','南海'],32],
+    ['臺灣西邊隔著臺灣海峽與哪國相望','中國',['日本','菲律賓','越南'],25],
+    ['臺灣北邊以東海銜接','日本',['菲律賓','越南','印尼'],28],
+    ['臺灣南邊隔著巴士海峽與哪國相鄰','菲律賓',['日本','中國','南韓'],28],
+    ['西太平洋上一系列火山島嶼的統稱','東亞島弧',['歐亞大陸','中南半島','環太平洋航線'],10],
+    ['東亞島弧中，位在臺灣北邊相鄰的是','琉球群島',['菲律賓群島','印尼群島','阿留申群島'],10],
+    ['東亞島弧中，位在臺灣南邊相鄰的是','菲律賓群島',['琉球群島','日本群島','千島群島'],10],
+    ['外籍班機飛越本國空中須繳交的費用','過境航路服務費',['機場建設費','關稅','漁業權利金'],14],
+    ['「過境航路服務費」收入高，顯示臺灣是重要的','交通樞紐',['生物中繼站','特有種寶庫','經濟海域'],23],
+    ['民國 112 年過境臺灣的班機約多少架次','18.9 萬架次',['1.89 萬架次','189 萬架次','18.9 億架次'],14],
+    ['臺灣的緯度位於哪兩種氣候的過渡帶','溫帶與熱帶',['寒帶與溫帶','熱帶與寒帶','沙漠與草原'],27],
+    ['南北遷徙的候鳥以臺灣為休息、補充體力的','中繼站',['繁殖地','終點站','起點'],17],
+    ['冬天飛到臺南沿海過冬、黑臉長扁嘴的著名候鳥','黑面琵鷺',['櫻花鉤吻鮭','黑長尾雉','臺灣梅花鹿'],15],
+    ['冰河時期海水面下降，臺灣與哪裡相通','亞洲大陸',['日本','菲律賓','澳洲'],15],
+    ['冰河時期結束，海水面上升，隔開臺灣與大陸的是','臺灣海峽',['巴士海峽','東海','太平洋'],15],
+    ['在獨立的島嶼中逐漸演化出的特有物種，稱為','特有種',['候鳥','外來種','留鳥'],21],
+    ['又稱「臺灣鮭魚」、冰河時期遺留下來的物種','櫻花鉤吻鮭',['黑面琵鷺','灰面鵟鷹','黑長尾雉'],7],
+    ['又名「帝雉」、棲息在中高海拔森林的特有種','黑長尾雉',['黑面琵鷺','灰面鵟鷹','櫻花鉤吻鮭'],7],
+    ['臺灣梅花鹿現今多分布在','墾丁與綠島',['合歡山與雪山','臺北與基隆','澎湖與金門'],3],
+    ['黑面琵鷺的繁殖地在臺灣的哪一方','北方',['南方','東方','西方'],15],
+    ['臺灣特有種多，最主要和哪一個條件有關','孤立的島嶼環境',['溫帶與熱帶過渡帶','東亞島弧交通樞紐','位於大西洋西側'],12],
+  ],
+  words:[
+    ['交通樞紐','北接東北亞、南連東南亞'],['過境航路服務費','外籍班機飛越領空的費用'],['中繼站','候鳥遷徙途中休息補充體力'],
+    ['過渡帶','溫帶與熱帶氣候之間'],['特有種','在獨立島嶼中演化出的物種'],['冰河時期','海水面下降、臺灣與大陸相通'],
+    ['東亞島弧','西太平洋一系列火山島嶼'],['黑面琵鷺','冬季來臺過冬的候鳥'],['櫻花鉤吻鮭','又稱臺灣鮭魚'],
+    ['黑長尾雉','又名帝雉'],['臺灣梅花鹿','現多分布於墾丁與綠島'],['巴士海峽','臺灣與菲律賓之間'],
+  ],
+  sorts:[
+    {title:'是哪一種位置帶來的影響？',tip:'交通樞紐←東亞島弧、北接東北亞南連東南亞；中繼站←溫帶與熱帶過渡帶；特有種←冰河期後成為孤立島嶼。',buckets:['交通樞紐','候鳥中繼站','特有種多'],items:[
+      ['民國 112 年過境班機約 18.9 萬架次',0],['昔日是商船往來的貿易據點',0],['北接東北亞、南連東南亞',0],
+      ['黑面琵鷺到臺南沿海過冬',1],['灰面鵟鷹春秋兩季過境',1],['位於溫帶與熱帶氣候的過渡帶',1],
+      ['櫻花鉤吻鮭只生活在臺灣',2],['冰河期後海水面上升，臺灣成為獨立島嶼',2],['新臺幣千元鈔背面的帝雉',2]]},
+    {title:'臺灣特有種還是候鳥？',tip:'黑面琵鷺、灰面鵟鷹會南北遷徙，是候鳥，不是特有種。',buckets:['臺灣特有種','候鳥'],items:[
+      ['櫻花鉤吻鮭',0],['黑長尾雉（帝雉）',0],['臺灣梅花鹿',0,'課本列為臺灣特有動物'],['臺灣獼猴',0],['藍腹鷴',0],
+      ['黑面琵鷺',1,'冬候鳥，繁殖地在東北亞'],['灰面鵟鷹',1,'春秋過境，俗稱清明鳥、國慶鳥'],['紅尾伯勞',1]]},
+    {title:'在臺灣的哪一邊？',tip:'東臨太平洋；西以臺灣海峽與中國相望；北以東海銜接日本；南以巴士海峽與菲律賓相鄰。',buckets:['東：太平洋','西：臺灣海峽','南：巴士海峽','北：東海'],items:[
+      ['隔海與中國相望',1],['隔海與菲律賓相鄰',2],['銜接日本',3],['廣闊的大洋',0],['花蓮清水斷崖外的海',0],['澎湖群島所在的海峽',1],['颱風從菲律賓北方穿過、進入南海的海峽',2]]},
+  ],
+  mcq:[
+    {q:'從絕對位置來看，臺灣島大約位於哪個範圍？',o:['東經 120～122 度、北緯 22～25 度','西經 120～122 度、北緯 22～25 度','東經 22～25 度、北緯 120～122 度','東經 120～122 度、南緯 22～25 度'],a:0,src:'15 校考經緯度範圍',ex:'臺灣在東半球、北半球；經度約 120～122E、緯度約 22～25N。緯度不可能超過 90 度。'},
+    {q:'下列哪一句是用「相對位置」描述臺灣？',o:['位在太平洋西側、亞洲大陸東側','位於東經 120～122 度之間','位於北緯 22～25 度之間','位在 GMT+8 的時區'],a:0,src:'6 校考臺灣相對位置',ex:'以太平洋、亞洲大陸為基準來描述，是相對位置；經緯度是絕對位置。'},
+    {q:'課本說臺灣「位在世界上最大海洋與最大陸地的交會帶上」，這裡的最大海洋與最大陸地分別是什麼？',o:['太平洋、歐亞大陸','大西洋、非洲','印度洋、亞洲','太平洋、北美洲'],a:0,src:'課本 2-2',ex:'最大海洋是太平洋，最大陸塊是歐亞大陸（亞洲大陸）。'},
+    {q:'民國 112 年約有 18.9 萬架次班機飛越臺灣上空，政府收取大量過境航路服務費。這最能說明臺灣位置的哪一項優勢？',o:['重要的交通樞紐','生物遷徙的中繼站','多元的生態環境','位於熱帶，終年炎熱'],a:0,src:'23 校考交通樞紐',ex:'臺灣位於東亞島弧上，北接東北亞、南連東南亞，是往來的交通樞紐。'},
+    {q:'往返東北亞與東南亞的班機常飛越臺灣上空，主要原因是什麼？',o:['臺灣位於東亞島弧中段，北接東北亞、南連東南亞','臺灣位在大西洋航線上','臺灣是溫帶與寒帶的交界','臺灣與歐洲距離最近'],a:0,src:'交通樞紐原因',ex:'課本：臺灣位於東亞島弧上，北接東北亞地區，南連東南亞各國。'},
+    {q:'每年秋冬，黑面琵鷺從北方飛到臺南沿海過冬，春天再北返。臺灣能成為牠們的中繼站或過冬地，主要是什麼原因？',o:['臺灣位於溫帶與熱帶氣候的過渡帶','臺灣是孤立的島嶼','臺灣有國際機場','臺灣位於歐亞大陸西側'],a:0,src:'18 校考中繼站',ex:'課本：臺灣緯度位於溫帶與熱帶的過渡帶，南北遷徙的候鳥以臺灣為中繼站，甚至在臺灣過冬。'},
+    {q:'下列哪一種生物「不是」臺灣特有種？',o:['黑面琵鷺','櫻花鉤吻鮭','黑長尾雉','臺灣梅花鹿'],a:0,src:'陷阱：黑面琵鷺當特有種',ex:'黑面琵鷺是冬候鳥，繁殖地在東北亞，不是臺灣特有種。'},
+    {q:'新臺幣 500、1000、2000 元背面分別印著梅花鹿、帝雉、櫻花鉤吻鮭。這些臺灣特有動物的形成，與下列何者最相關？',o:['冰河時期後海水面上升，臺灣成為獨立的島嶼','臺灣位於溫帶與熱帶的過渡帶','臺灣是東亞的交通樞紐','臺灣位在太平洋西側，颱風多'],a:0,src:'26 校考特有種',ex:'冰河期結束、海水面上升，臺灣與亞洲大陸被分隔，生物在獨立的島嶼中演化出特有種。'},
+    {q:'依課本說明排列特有種形成的先後：甲、海水面上升，臺灣與亞洲大陸分隔／乙、冰河時期氣溫降低，海水面下降／丙、亞洲大陸的物種遷徙到臺灣／丁、生物在獨立的島嶼逐漸演化。順序為何？',o:['乙→丙→甲→丁','甲→乙→丙→丁','丙→乙→丁→甲','乙→甲→丙→丁'],a:0,src:'14 校考冰河期',ex:'海水面下降→臺灣與大陸相通→物種遷入→冰河期結束、海水面上升而分隔→獨立演化成特有種。'},
+    {q:'課本有一張「海水面下降 65 公尺後的臺灣」示意圖，臺灣海峽的海水退去。這張圖最能用來解釋什麼？',o:['臺灣許多物種源自亞洲大陸','臺灣是候鳥的中繼站','臺灣的經濟海域很大','臺灣與日本沒有時差'],a:0,src:'課本圖 1-2-8',ex:'冰河時期海水面下降，臺灣與亞洲大陸相連，源自亞洲大陸的物種因此遷徙到臺灣。'},
+    {q:'灰面鵟鷹每年春天北返、秋天南下時大量過境臺灣，被稱為「清明鳥」「國慶鳥」。牠們選擇經過臺灣的原因最接近下列何者？',o:['臺灣位於溫帶與熱帶的過渡帶，適合作為遷徙中繼站','牠們是只生活在臺灣的特有種','臺灣的過境航路服務費較便宜','臺灣位於南半球，季節相反'],a:0,src:'灰面鵟鷹',ex:'候鳥經過臺灣是因為臺灣位於溫帶與熱帶的過渡帶；過境航路服務費是飛機的事。'},
+    {q:'下列哪一組依「由北而南」排列東亞島弧，順序正確？',o:['日本群島→琉球群島→臺灣→菲律賓群島','菲律賓群島→臺灣→琉球群島→日本群島','琉球群島→日本群島→臺灣→印尼群島','日本群島→臺灣→琉球群島→菲律賓群島'],a:0,src:'東亞島弧',ex:'由北而南：阿留申群島、千島群島、日本群島、琉球群島、臺灣、菲律賓群島、印尼群島。'},
+    {q:'某強烈颱風中心從菲律賓東方海面向西北移動，穿過臺灣與菲律賓之間的海峽進入南海。這個海峽是什麼？',o:['巴士海峽','臺灣海峽','對馬海峽','麻六甲海峽'],a:0,src:'樺加沙颱風題組',ex:'課本：臺灣南以巴士海峽與菲律賓相鄰。'},
+    {q:'臺灣「溫暖溼潤的氣候適合動植物生長，物種非常豐富」，主要與臺灣位在何處有關？',o:['溫帶與熱帶氣候的過渡帶','東亞島弧的最北端','大西洋的西側','北極圈附近'],a:0,src:'27 校出現過渡帶',ex:'課本：臺灣的緯度位於溫帶與熱帶氣候的過渡帶，溫暖溼潤，物種豐富。'},
+    {q:'黑面琵鷺冬天在臺灣度過，到了春天會怎麼做？',o:['北返到東北亞的小島繁殖','南下到澳洲度過夏天','留在臺灣繁殖後代','飛往歐洲過冬'],a:0,src:'課本課後閱讀',ex:'課本：牠們每年 5～6 月在亞洲東北方海域的小島繁殖，冬天飛到溫暖的低緯度地區過冬，春天再北返。'},
+    {q:'下列哪一項「不是」課本 2-2 提到的臺灣位置帶來的影響？',o:['擁有廣大的經濟海域資源','重要的交通樞紐','生物遷徙的中繼站','多元的生態環境'],a:0,src:'三大影響',ex:'課本 2-2 的三項影響是交通樞紐、生物遷徙的中繼站、多元的生態環境；經濟海域是 2-3 臺灣地區範圍的內容。'},
+  ]
+},
+/* ---------- 2-3 臺灣地區的範圍 ---------- */
+b3:{
+  no:'2-3', code:6, title:'臺灣地區的範圍（陸域・海域）', short:'臺灣地區的範圍', color:'linear-gradient(135deg,#1e5a4a,#3c9a7a)',
+  desc:'臺澎金馬、釣魚臺、南海離島約 36,000 km²｜太平島屬高雄｜領海 12 浬｜經濟海域 200 浬｜重疊糾紛',
+  quickAsk:'選出正確的答案', quickTitle:'陸域＋海域快問快答',
+  quick:[
+    ['臺灣地區的陸域面積約','36,000 平方公里',['3,600 平方公里','360,000 平方公里','5.1 億平方公里'],1],
+    ['南沙群島中最大的島嶼','太平島',['東沙島','蘭嶼','龜山島'],9],
+    ['太平島由哪個直轄市管轄','高雄市',['臺南市','屏東縣','澎湖縣'],9],
+    ['由領海基線向外推移 12 浬的海域','領海',['經濟海域','公海','臺灣海峽'],24],
+    ['由領海基線向外推至 200 浬的海域範圍','經濟海域',['領海','公海','內陸湖泊'],24],
+    ['領海的寬度是','12 浬',['12 公里','200 浬','24 公里'],24],
+    ['經濟海域是由領海基線向外推至','200 浬',['12 浬','200 公里','100 浬'],12],
+    ['1 浬約等於','1.852 公里',['1 公里','1.6 公里','18.52 公里'],7],
+    ['可視為國家領土、具有軍事管轄權的海域','領海',['經濟海域','公海','國際海峽'],24],
+    ['擁有漁、礦等資源開發與管理權利的海域','經濟海域',['領海','公海','內陸湖泊'],24],
+    ['領海與經濟海域的規定依據','聯合國海洋法公約',['南極條約','巴黎協定','日內瓦公約'],0],
+    ['臺灣漁船在巴士海峽捕魚，最可能與哪國發生糾紛','菲律賓',['日本','南韓','越南'],16],
+    ['臺灣漁船在東海捕魚，可能與哪國經濟海域重疊','日本',['菲律賓','印尼','泰國'],16],
+    ['鄰國經濟海域重疊時，容易發生','海洋資源的糾紛',['時差計算錯誤','候鳥減少','比例尺變小'],16],
+    ['位在臺灣海峽中、以柱狀玄武岩聞名的群島','澎湖群島',['馬祖列嶼','釣魚臺列嶼','東沙群島'],13,'【延伸・課本沒寫】選出正確的答案'],
+    ['位於臺灣東北方、屬於臺灣地區範圍的列嶼','釣魚臺列嶼',['澎湖群島','金門列嶼','南沙群島'],5],
+    ['緊鄰中國福建廈門的離島','金門列嶼',['澎湖群島','綠島','蘭嶼'],14],
+    ['以「藍眼淚」聞名、靠近福州的離島','馬祖列嶼',['金門列嶼','澎湖群島','小琉球'],15,'【延伸・課本沒寫】選出正確的答案'],
+    ['課本說中國面積約為臺灣的幾倍','270 倍',['10 倍','27 倍','2700 倍'],0],
+    ['課本說日本面積約為臺灣的幾倍','10 倍',['270 倍','2 倍','100 倍'],0],
+    ['臺灣本島最南端的岬角與燈塔','鵝鑾鼻',['富貴角','三貂角','國聖港'],4,'【延伸・課本沒寫】選出正確的答案'],
+    ['課本 2023 年表中，我國面積排名約第幾','135 名',['13 名','35 名','231 名'],0],
+    ['經濟海域以外、各國都能自由利用的海域','公海',['領海','經濟海域','內水'],5,'【延伸・課本沒寫】選出正確的答案'],
+    ['東沙島與太平島都位在哪一片海域','南海',['東海','臺灣海峽','太平洋'],9],
+  ],
+  words:[
+    ['陸域','臺、澎、金、馬、釣魚臺與南海離島'],['領海','12 浬，可視為國家領土'],['經濟海域','200 浬，資源開發與管理權'],['公海','經濟海域以外的海域'],
+    ['領海基線','計算領海與經濟海域的起點'],['浬','約 1.852 公里'],['太平島','南沙群島最大島，屬高雄市'],['東沙島','南海的離島，屬高雄市'],
+    ['澎湖群島','臺灣海峽中的玄武岩群島'],['金門列嶼','緊鄰廈門'],['馬祖列嶼','春夏夜晚有藍眼淚'],['聯合國海洋法公約','規定領海與經濟海域'],
+  ],
+  sorts:[
+    {title:'領海、經濟海域還是公海？',tip:'由領海基線算起：12 浬內＝領海；12～200 浬＝經濟海域；200 浬外＝公海。',buckets:['領海','經濟海域','公海'],items:[
+      ['距領海基線 5 浬',0],['距領海基線 10 浬',0],['可視為國家領土、有軍事管轄權',0],['距領海基線 50 浬',1],['距領海基線 150 浬',1],
+      ['只擁有漁、礦資源開發與管理權',1],['距領海基線 250 浬',2],['各國船隻都可以自由航行、捕魚',2]]},
+    {title:'屬不屬於臺灣地區的範圍？',tip:'課本：臺灣島、澎湖群島、釣魚臺列嶼、金門列嶼、馬祖列嶼及南海的其他離島（東沙島、太平島）。',buckets:['屬於臺灣地區','不屬於臺灣地區'],items:[
+      ['澎湖群島',0],['金門列嶼',0],['馬祖列嶼',0],['釣魚臺列嶼',0],['東沙島',0],['太平島',0,'屬高雄市管轄'],['蘭嶼',0],
+      ['琉球群島（沖繩）',1,'屬日本'],['海南島',1],['呂宋島',1,'屬菲律賓']]},
+  ],
+  mcq:[
+    {q:'下列何者「不」屬於臺灣地區的陸域範圍？',o:['琉球群島','澎湖群島','釣魚臺列嶼','金門列嶼'],a:0,src:'13 校考陸域範圍',ex:'臺灣地區陸域：臺灣島、澎湖群島、釣魚臺列嶼、金門列嶼、馬祖列嶼及南海的離島。琉球群島屬日本。'},
+    {q:'太平島是南沙群島中最大的島嶼，它由哪一個地方政府管轄？',o:['高雄市','屏東縣','臺南市','澎湖縣'],a:0,src:'太平島 9 校',ex:'課本：太平島屬於高雄市管轄，是南沙群島中最大的島嶼。'},
+    {q:'依《聯合國海洋法公約》，「領海」的範圍是什麼？',o:['由領海基線向外推移 12 浬','由海岸線向外 12 公里','由領海基線向外推至 200 浬','由海岸線向外 200 公里'],a:0,src:'11 校考定義',ex:'領海：領海基線向外 12 浬（1 浬約 1.852 公里），單位是浬，不是公里。'},
+    {q:'某國軍艦未經允許駛入臺灣領海基線外 8 浬處。這片海域對臺灣的意義是什麼？',o:['可視為國家領土，臺灣具有軍事管轄權','臺灣只有漁業資源的開發權','屬於公海，各國都能自由進出','屬於對方國家的經濟海域'],a:0,src:'領海的權利',ex:'8 浬在 12 浬內，屬於領海，可視為國家領土，具有軍事管轄權。'},
+    {q:'在臺灣領海基線外 100 浬處發現海底油氣。依規定，臺灣擁有什麼權利？',o:['開發與管理這些資源的權利','完整的領土主權','不能開發，因為那裡是公海','必須和所有國家平分'],a:0,src:'經濟海域的權利',ex:'100 浬在 200 浬內，屬經濟海域，擁有漁、礦等資源的開發與管理權。'},
+    {q:'一張海域剖面圖中，▲代表油氣區，分別位在距領海基線 5 浬、40 浬、150 浬、210 浬、260 浬處。該國依規定可以開採的有幾處？',o:['3 處','2 處','1 處','5 處'],a:0,src:'6 校考數油氣區',ex:'200 浬內（含領海）都有資源開發權：5、40、150 浬共 3 處；210、260 浬已超出經濟海域。'},
+    {q:'課本實作：臺灣的漁船若在巴士海峽捕魚，最有可能和哪一個國家發生糾紛？',o:['菲律賓','日本','南韓','越南'],a:0,src:'16 校考經濟海域重疊',ex:'巴士海峽位於臺灣與菲律賓之間，兩國經濟海域重疊。'},
+    {q:'臺灣漁船常被鄰國以「侵犯經濟海域」為由扣留，最主要的原因是什麼？',o:['臺灣與鄰國距離近，經濟海域重疊','臺灣沒有經濟海域','臺灣漁船都在公海作業','臺灣的領海特別寬'],a:0,src:'課本實作',ex:'課本：臺灣與鄰國相近，經濟海域重疊問題嚴重，容易發生海洋資源糾紛。'},
+    {q:'若兩國經濟海域高度重疊，下列哪一種做法最能和平處理紛爭？',o:['協議劃定界線或共同開發資源','直接派軍艦驅離對方漁船','禁止本國漁民出海','把經濟海域改成領海'],a:0,src:'課本實作',ex:'課本：可與有重疊經濟海域的國家協議界線、使用年限或共同開發原則。'},
+    {q:'阿華說：「經濟海域和領海一樣，都可視為國家的領土。」這句話錯在哪裡？',o:['經濟海域只有資源開發與管理權，不是領土','經濟海域比領海小','領海沒有軍事管轄權','經濟海域只有 12 浬'],a:0,src:'陷阱：經濟海域當領土',ex:'只有領海可視為國家領土；經濟海域只擁有漁、礦等資源的開發與管理權。'},
+    {q:'臺灣地區的陸域面積約 36,000 平方公里。依課本課後閱讀，下列敘述何者正確？',o:['日本約為臺灣的 10 倍大','中國約為臺灣的 10 倍大','新加坡比臺灣大','臺灣面積是世界第 13 名'],a:0,src:'課本課後閱讀',ex:'課本：中國約為臺灣 270 倍、日本約 10 倍；新加坡只有臺灣的 0.02 倍；我國面積排名約 135 名。'},
+    {q:'某人從臺灣本島出發，依序拜訪「以柱狀玄武岩聞名的群島」→「緊鄰廈門、有莒光樓的列嶼」→「看得到藍眼淚的列嶼」。他依序到了哪裡？',o:['澎湖→金門→馬祖','金門→澎湖→馬祖','馬祖→金門→澎湖','澎湖→馬祖→金門'],a:0,src:'延伸｜離島辨識',ex:'澎湖以玄武岩聞名；金門緊鄰廈門、有莒光樓；馬祖以藍眼淚聞名。'},
+    {q:'2016 年南海仲裁案的裁決認定太平島屬於「岩礁」。若依這個看法，太平島只能主張哪一種海域？',o:['12 浬的領海','200 浬的經濟海域','整個南海','完全沒有海域'],a:0,src:'延伸｜、 南海仲裁',ex:'被認定為岩礁只能主張 12 浬領海，不能主張 200 浬經濟海域；我國不接受這項裁決。'},
+    {q:'東沙島與太平島都屬於臺灣地區的範圍，它們位於哪一片海域？',o:['南海','東海','臺灣海峽','巴士海峽'],a:0,src:'南海離島',ex:'課本：陸域包括「南海海域在內的其他離島」，東沙島、太平島都在南海。'},
+    {q:'臺灣本島四端點燈塔中，位在最南端的是哪一座？',o:['鵝鑾鼻燈塔','富貴角燈塔','三貂角燈塔','國聖港燈塔'],a:0,src:'延伸｜、考四極點',ex:'極南鵝鑾鼻（屏東）、極北富貴角（新北）、極東三貂角（新北）、極西國聖港（臺南）。'},
+  ]
+},
+};
+
+/* ================= 綜合：圖表判讀（題組，交卷 code 7） ================= */
+const CHART=[
+  {title:'① 經緯網格上的四個點',src:'經緯度座標判讀 23 校',
+   fig:'<table class="tbl"><tr><th>代號</th><th>座標</th></tr><tr><td>甲</td><td>（121E，25N）</td></tr><tr><td>乙</td><td>（75W，40N）</td></tr><tr><td>丙</td><td>（150E，33S）</td></tr><tr><td>丁</td><td>（0，51N）</td></tr></table>',
+   qs:[
+    {q:'甲～丁中，哪一點位於西半球、北半球？',o:['乙','甲','丙','丁'],a:0,ex:'W＝西經（西半球）、N＝北緯（北半球）。丁在 0 度經線上，不屬於西經。'},
+    {q:'甲與丁兩地的時差大約多少？',o:['8 小時，甲較早','8 小時，丁較早','4 小時，甲較早','沒有時差'],a:0,ex:'甲約 120E、丁在 0 度：120÷15＝8 小時；甲在東邊，時間較早。'},
+    {q:'甲地是 7 月的夏天時，哪一地正值冬季？',o:['丙','乙','丁','甲'],a:0,ex:'南北半球季節相反；只有丙（33S）在南半球。'}]},
+  {title:'② 經緯線比較表找錯',src:'比較表找錯 11 校',
+   fig:'<table class="tbl"><tr><th></th><th>定義</th><th>方向</th><th>度數</th><th>長度</th></tr><tr><td>經線</td><td>連接南北兩極的半圓弧線</td><td>南北向</td><td>（甲）南、北各 90 度</td><td>每條一樣長</td></tr><tr><td>緯線</td><td>與地軸垂直的平面切出的圓圈</td><td>東西向</td><td>南、北各 90 度</td><td>（乙）每條一樣長</td></tr></table>',
+   qs:[
+    {q:'表中哪幾格寫錯了？',o:['甲和乙都錯','只有甲錯','只有乙錯','都沒有錯'],a:0,ex:'經線的度數是東、西各 180 度；緯線的長度是赤道最長、往兩極愈短。'},
+    {q:'乙格應改成什麼才正確？',o:['赤道最長，緯度愈高愈短','本初經線最長','愈靠近兩極愈長','南北回歸線最長'],a:0,ex:'課本表 1-1-1：0 度緯線（赤道）最長，緯度愈高，緯線愈短。'}]},
+  {title:'③ 世界時鐘（以經度計算時區）',src:'時差 34 校、跨年 12 校',
+   fig:'<table class="tbl"><tr><th>城市</th><th>經度</th><th>標準時間</th></tr><tr><td>紐西蘭威靈頓</td><td>約 175E</td><td>GMT+12</td></tr><tr><td>日本東京</td><td>135E</td><td>GMT+9</td></tr><tr><td>臺灣臺北</td><td>120E</td><td>GMT+8</td></tr><tr><td>英國倫敦</td><td>0 度</td><td>GMT</td></tr><tr><td>美國紐約</td><td>75W</td><td>GMT－5</td></tr><tr><td>美國洛杉磯</td><td>120W</td><td>GMT－8</td></tr></table>',
+   qs:[
+    {q:'臺北 1 月 1 日 0 時跨年時，紐約是幾月幾日幾時？',o:['12 月 31 日 11 時','1 月 1 日 13 時','12 月 31 日 13 時','1 月 1 日 11 時'],a:0,ex:'臺北 +8、紐約 －5，相差 13 小時，紐約較晚：0 時往前推 13 小時是前一天 11 時。'},
+    {q:'表中哪一座城市與臺北相差 16 小時？',o:['洛杉磯','紐約','倫敦','威靈頓'],a:0,ex:'+8 與 －8 相差 16 小時。'},
+    {q:'表中六座城市，最晚迎接新年的是哪裡？',o:['洛杉磯','紐約','倫敦','威靈頓'],a:0,ex:'由東向西依序跨年；西半球最西邊的洛杉磯最晚。'}]},
+  {title:'④ 三張比例尺不同的地圖',src:'大小比例尺 33 校、計算 20 校',
+   fig:'<table class="tbl"><tr><th>地圖</th><th>比例尺</th></tr><tr><td>甲</td><td>1/10,000</td></tr><tr><td>乙</td><td>1/100,000</td></tr><tr><td>丙</td><td>1/1,000,000</td></tr></table><p class="muted">三張地圖紙張大小相同。</p>',
+   qs:[
+    {q:'哪一張地圖的內容最詳細？',o:['甲','乙','丙','一樣詳細'],a:0,ex:'分母最小＝比例尺最大＝範圍最小、內容最詳細。'},
+    {q:'在甲圖上量得兩地相距 5 公分，實際距離是多少？',o:['500 公尺','5 公里','50 公尺','50 公里'],a:0,ex:'5×10,000＝50,000 公分＝500 公尺。'},
+    {q:'想看「全臺灣的高速公路路網」，最適合用哪一張？',o:['丙','甲','乙','三張都一樣'],a:0,ex:'範圍大的需求用小比例尺地圖；丙的比例尺最小、涵蓋範圍最大。'}]},
+  {title:'⑤ 海陸面積比例（課本表 1-2-1）',src:'海陸分布 16 校',
+   fig:'<table class="tbl"><tr><th></th><th>陸地</th><th>海洋</th></tr><tr><td>北半球</td><td>39%</td><td>61%</td></tr><tr><td>南半球</td><td>19%</td><td>81%</td></tr></table>',
+   qs:[
+    {q:'根據此表，下列敘述何者正確？',o:['南、北半球都是海洋面積大於陸地','北半球陸地面積大於海洋','南半球陸地比北半球多','全球陸地約占 71%'],a:0,ex:'兩個半球都是海洋比較多；全球陸地約占 29%。'},
+    {q:'由此表最能推論出什麼現象？',o:['全球人口較集中在北半球','南半球的國家比較多','北半球比較寒冷','南半球沒有人居住'],a:0,ex:'陸地是人類主要活動空間，北半球陸地多，人口也較集中於北半球。'}]},
+  {title:'⑥ 海域範圍示意',src:'海域範圍圖 17 校',
+   fig:'<div class="ladder"><span>海岸<small>領海基線</small></span><b>→</b><span>甲區<small>0～12 浬</small></span><b>→</b><span>乙區<small>12～200 浬</small></span><b>→</b><span class="an">丙區<small>200 浬以外</small></span></div>',
+   qs:[
+    {q:'甲區的名稱與權利何者正確？',o:['領海，可視為國家領土','經濟海域，只有資源開發權','公海，各國可自由利用','領海，只有漁業權'],a:0,ex:'12 浬內是領海，可視為國家領土，具有軍事管轄權。'},
+    {q:'乙區內發現天然氣，這個國家有什麼權利？',o:['開發與管理資源','完整的領土主權','不能開採','只能由聯合國開採'],a:0,ex:'乙區是經濟海域，擁有漁、礦等資源的開發與管理權。'},
+    {q:'把示意圖中的「12 浬」換算成公里，大約是多少？',o:['約 22 公里','約 12 公里','約 6 公里','約 200 公里'],a:0,ex:'1 浬約 1.852 公里：12×1.852≈22.2 公里。'}]},
+  {title:'⑦ 新聞裡的座標：離哪裡最近？',src:'地震、颱風、船難座標題',
+   fig:'<table class="tbl"><tr><th>新聞</th><th>座標</th></tr><tr><td>甲 地震震央</td><td>（121.6E，24.0N）</td></tr><tr><td>乙 船隻求救</td><td>（118.3E，24.4N）</td></tr><tr><td>丙 颱風中心</td><td>（120.3E，22.6N）</td></tr><tr><td>丁 遊艇擱淺</td><td>（121.5E，25.2N）</td></tr></table><p class="muted">提示：臺灣本島約 120～122E、22～25N；經度愈大愈東，緯度愈大愈北。</p>',
+   qs:[
+    {q:'甲（121.6E，24.0N）最靠近哪一個縣市？',o:['花蓮縣','臺南市','金門縣','新北市'],a:0,ex:'121.6E 在臺灣東部、24N 在中段偏北，是花蓮一帶。'},
+    {q:'乙（118.3E，24.4N）經度明顯小於臺灣本島，最可能在哪一個離島附近？',o:['金門','蘭嶼','綠島','龜山島'],a:0,ex:'經度約 118E，比臺灣本島（120～122E）更西，靠近中國福建沿岸，是金門一帶。'},
+    {q:'丙與丁相比，下列敘述何者正確？',o:['丁位置較北、較東','丙位置較北、較東','兩者緯度相同','丙在南半球'],a:0,ex:'丁的緯度（25.2N）與經度（121.5E）都比丙（22.6N、120.3E）大，所以丁較北也較東。'}]},
+  {title:'⑧ 三則報導，是哪一種位置影響？',src:'三大影響互換 23＋18＋26 校',
+   fig:'<div class="passage">甲：「今年冬天，台江、七股濕地再次湧進上千隻從東北亞南下的水鳥。」<br>乙：「交通部統計，民國 112 年過境我國飛航情報區的班機約 18.9 萬架次。」<br>丙：「研究人員在中高海拔森林拍到黑長尾雉，牠是全世界只有臺灣才有的鳥類。」</div>',
+   qs:[
+    {q:'甲則報導反映出臺灣位置的哪一項影響？',o:['生物遷徙的中繼站','重要的交通樞紐','孤立島嶼形成特有種','經濟海域重疊'],a:0,ex:'冬候鳥（黑面琵鷺）南下過冬，因為臺灣位於溫帶與熱帶的過渡帶。'},
+    {q:'乙則報導反映出臺灣位置的哪一項影響？',o:['重要的交通樞紐','生物遷徙的中繼站','多元的生態環境','領海範圍'],a:0,ex:'過境班機多、過境航路服務費收入高，說明臺灣是交通樞紐。'},
+    {q:'丙則報導中的鳥類形成原因是什麼？',o:['冰河期後臺灣成為獨立島嶼，生物獨立演化','臺灣位於溫帶與熱帶的過渡帶','臺灣位於東亞島弧中段','臺灣在太平洋西側'],a:0,ex:'黑長尾雉（帝雉）是特有種，與孤立島嶼的演化有關。'}]},
+];
+
+/* 排序挑戰（綜合頁分類，交卷 code 7） */
+const STEPS=[
+  {title:'誰先跨年？（由早到晚）',tip:'地球由西向東自轉，東邊先跨年：威靈頓→東京→臺北→倫敦→紐約。',buckets:['第1','第2','第3','第4','第5'],items:[
+    ['紐西蘭威靈頓（約 175E）',0],['日本東京（135E）',1],['臺灣臺北（120E）',2],['英國倫敦（0 度）',3],['美國紐約（75W）',4]]},
+  {title:'東亞島弧（由北而南）',tip:'阿留申→千島→日本→琉球→臺灣→菲律賓→印尼。',buckets:['第1','第2','第3','第4','第5'],items:[
+    ['千島群島',0],['日本群島',1],['琉球群島',2],['臺灣',3],['菲律賓群島',4]]},
+  {title:'特有種是怎麼形成的？',tip:'氣溫降低→海水面下降→陸地相通→物種遷入→海水面上升隔離→獨立演化。',buckets:['第1','第2','第3','第4','第5'],items:[
+    ['冰河時期氣溫降低，海水面下降',0],['臺灣與亞洲大陸相通',1],['亞洲大陸的物種遷徙到臺灣',2],['冰河時期結束，海水面上升，臺灣海峽把兩地分隔',3],['生物在獨立的島嶼逐漸演化成特有種',4]]},
+  {title:'比例尺由大到小',tip:'分母愈小，比例尺愈大。',buckets:['第1','第2','第3','第4','第5'],items:[
+    ['1/1,000',0],['1/10,000',1],['1/50,000',2],['1/250,000',3],['1/1,000,000',4]]},
+  {title:'由海岸往外海',tip:'領海基線→領海（12 浬）→經濟海域（到 200 浬）→公海。',buckets:['第1','第2','第3','第4'],items:[
+    ['領海基線',0],['領海',1],['經濟海域',2],['公海',3]]},
+  {title:'各洲面積由大到小',tip:'亞洲最大；非洲第二；大洋洲最小。',buckets:['第1','第2','第3','第4','第5'],items:[
+    ['亞洲',0],['非洲',1],['北美洲',2],['南極洲',3],['大洋洲',4]]},
+];
+
+/* 延伸挑戰：課本延伸、少數校加考（交卷 code 10） */
+const EXT=[
+  {q:'國際換日線大致沿著哪一條經線畫設（為避開陸地而有彎曲）？',o:['180 度經線','0 度經線','東經 120 度','西經 90 度'],a:0,src:'換日線 7 校',ex:'國際換日線大致沿 180 度經線；0 度經線是本初經線，兩者常被混淆。'},
+  {q:'一艘船由東半球往東越過國際換日線進入西半球，日期要怎麼調整？',o:['減一天','加一天','不用調整','加一小時'],a:0,src:'陷阱',ex:'由東半球越線進入西半球，日期減一天；反方向（西半球→東半球）加一天。'},
+  {q:'一架飛機在 12 月 31 日由西半球往西飛越國際換日線，進入東半球後日期會變成幾月幾日？',o:['1 月 1 日','12 月 30 日','12 月 31 日','1 月 2 日'],a:0,src:'換日線日期加減',ex:'由西半球進入東半球，日期加一天：12 月 31 日＋1＝1 月 1 日。'},
+  {q:'冬至（約 12 月 22 日）時，太陽直射在哪一條緯線？',o:['南回歸線','北回歸線','赤道','北極圈'],a:0,src:'公轉四季圖 9 校',ex:'春分直射赤道→夏至直射北回歸線→秋分直射赤道→冬至直射南回歸線。'},
+  {q:'夏至（約 6 月 21 日）正午，站在嘉義北回歸線標誌旁，人的影子會怎樣？',o:['幾乎看不到影子','影子最長且指向南方','影子最長且指向北方','影子指向東方'],a:0,src:'北回歸線紀念碑題',ex:'夏至正午太陽直射北回歸線，物體幾乎沒有影子。'},
+  {q:'臺灣（約 120E，23.5N）穿過地心的另一端（對蹠點）大約在哪裡？',o:['（60W，23.5S）南美洲巴拉圭一帶','（120W，23.5N）墨西哥一帶','（60E，23.5S）印度洋','（120E，23.5S）澳洲'],a:0,src:'對蹠點 3 校',ex:'對蹠點經度＝180－120＝60，東經換西經；緯度數字相同，北緯換南緯。'},
+  {q:'在「以北極點為中心」繪製的地圖上，從北極點往任何方向前進，都是朝哪一個方位？',o:['南方','北方','東方','西方'],a:0,src:'極地中心地圖 3 校',ex:'北極點是地球最北的點，離開它往任何方向走都是往南。'},
+  {q:'臺灣本島的四端點中，極東是哪裡？',o:['三貂角','富貴角','鵝鑾鼻','國聖港'],a:0,src:'四極點 2 校',ex:'極東三貂角、極北富貴角、極南鵝鑾鼻、極西國聖港。'},
+];
+
+/* ================= 考點雷達（38 校翰林卷） ================= */
+const RADAR={
+  n:38,
+  schools:'',
+  topics:[['時區與時差計算',34],['大、小比例尺比較',33],['絕對位置 vs 相對位置',31],['地圖方位判讀',24],['經線與緯線特性比較',23],['三大洋與航線',23],
+    ['經緯度座標判讀',23],['交通樞紐（過境航路服務費）',23],['緯度與氣候帶',22],['由經緯度判方位',20],['比例尺計算',20],['候鳥中繼站（過渡帶）',18],
+    ['海域範圍圖判讀',17],['南北半球季節相反',17],['全球海陸分布（3：7）',16],['經濟海域重疊（菲律賓）',16],['臺灣經緯度範圍',15],['重要經緯線',15],
+    ['特有種（孤立島嶼）',14],['冰河期與特有種',14],['臺灣地區範圍與離島',13],['跨南北半球的洲',13],['跨年先後',12],['東西南北半球',12],['緯線長短應用',12],['領海 12 浬・經濟海域 200 浬',11]],
+  basics:[['比例尺',36],['經線',33],['太平洋',32],['赤道',30],['熱帶',30],['溫帶',29],['過渡帶',27],['絕對位置',26],['領海',24],['經濟海域',24],
+    ['相對位置',23],['大西洋',22],['120°E',22],['印度洋',21],['回歸線',21],['特有種',21]],
+  words:[['交通樞紐',20],['候鳥',18],['本初經線',17],['時差',17],['中繼站',17],['黑面琵鷺',15],['寒帶',15],['冰河時期',15],['過境航路服務費',14],['臺灣海峽',14],
+    ['巴士海峽',14],['國際換日線',13],['倫敦',12],['200 浬',12],['時區',12],['方向標',12],['圖例',11],['極圈',11],['東亞島弧',10],['GPS',10],['太平島',9]],
+  maps:[['時區／世界時鐘',34],['大小比例尺地圖',33],['經緯網格座標圖',23],['七大洲三大洋分布圖',23],['候鳥路線圖',18],['海域範圍示意圖',17],['經緯線比較表',11],['臺灣周邊海域圖',11]],
+};
+
+const TABS=[['home','🏠 考點雷達'],['a1','🧭 1-1・1-2 經緯線'],['a2','🕗 1-3 時區氣候'],['a3','🗺️ 1-4 讀地圖'],['b1','🌏 2-1 海陸分布'],['b2','🦅 2-2 臺灣位置'],['b3','🏝️ 2-3 臺灣範圍'],['mix','🧩 綜合＋總測驗']];
+
+/* ================= 注釋配對 ================= */
+function renderMatch(el,pairs){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0,miss=0;
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 注釋配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${miss<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3><p>配錯 ${miss} 次</p><button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div>`;$('#ag',el).onclick=()=>renderMatch(el,pairs)}
+  draw();
+}
+
+/* ================= 分類 ================= */
+function renderSort(el,so){
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w[0])}」→ <b>${so.buckets[w[1]]}</b>${w[2]?'：'+esc(w[2]):''}`).join('<br>')}</div>`:''}
+      <button class="btn" style="margin-top:12px">再玩一次</button></div>`;
+      el.querySelector('.btn').onclick=()=>renderSort(el,so);return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push(it)}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+/* ================= 選擇題 ================= */
+function renderMCQ(el,qs){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}<span class="src">${q.src}</span></div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(+b.dataset.k===q.a){got++;sOK()}else{b.classList.add('bad');sBAD()}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderMCQ(el,qs);
+}
+
+/* ================= 翻卡 ================= */
+function renderCards(el,cards){
+  el.innerHTML=`<div class="card"><h3>🃏 十五種標點翻卡</h3><p class="muted">點卡片翻面看用法。重點：分號、破折號、引號、書名號、刪節號。</p>
+  <div class="flips">${cards.map(c=>`<div class="flip"><div class="in"><div class="f"><div class="sym">${esc(c[1])}</div><b>${c[0]}</b></div><div class="bk2">${esc(c[2])}</div></div></div>`).join('')}</div></div>`;
+  el.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('on'));
+}
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、geo7-hanlin-1（例 chinese8-1）、地理 國一上第一次段考（翰林）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'geo7-hanlin-1',
+  site:'地理 國一上第一次段考（翰林）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('geo7-hanlin-1_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('geo7-hanlin-1_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${(d&&d.quickTitle)||'名詞快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽（地理 國一上 第一次段考・翰林） ================= */
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+document.body.insertAdjacentHTML('beforeend','<button class="bgm" id="bgmBtn"></button>');
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};
+
+const ANIM={a1:animA1,a2:animA2,a3:animA3,b1:animB1,b2:animB2,b3:animB3};
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 快問快答'],['match','🔗 名詞配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel');
+  const title=`${d.no} ${d.short}`;
+  if(s==='anim') ANIM[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">本單元 ${d.mcq.length} 題，全部依各校命題方向原創改寫。點選答案後才會出現解析；做完可以交卷給老師。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const N=RADAR.n;
+  const bar=arr=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  const cards=['a1','a2','a3','b1','b2','b3'];
+  app.innerHTML=`
+  <h2>📡 第一次段考考點雷達</h2>
+  <p class="muted">整理 ${N} 所學校的<b>翰林版</b>國一上地理第一次段考卷（多為社會合卷，只取地理部分）。範圍：第1章 認識位置與地圖＋第2章 世界中的臺灣（課本 p.8～33）。</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${cards.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].short}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+    <div class="lc" style="background:linear-gradient(135deg,#4d3d12,#b8872c)" data-k="mix"><div><div class="n">綜合</div><div class="t">圖表判讀＋總測驗</div></div><div class="d">經緯網格｜比較表找錯｜世界時鐘｜比例尺｜海域範圍｜新聞座標｜排序挑戰｜延伸</div></div>
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（${N} 校中幾校考過）</h3>${bar(RADAR.topics)}
+  <p class="muted" style="margin-top:10px">⚠️ 「時區家族」（時差、跨年、換日線）幾乎每校必考（34/38 校），而且常配時事：新年音樂會、棒球國際賽、跨年煙火。<br>⚠️ 大小比例尺 33 校考，最常見的情境是「手機地圖按＋放大」。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>基本分必拿（幾校考過）</h3><div class="chips">${RADAR.basics.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">最穩的分數：<b>每 15 度差 1 小時、臺北 GMT+8</b>、<b>放大地圖＝比例尺變大、範圍變小</b>、<b>回歸線 23.5、極圈 66.5</b>、<b>領海 12 浬、經濟海域 200 浬</b>。</p></div>
+    <div class="card"><h3>高頻名詞（★ 快問快答會標）</h3><div class="chips">${RADAR.words.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">名詞以翰林課本為準：「<b>本初經線</b>」「<b>過境航路服務費</b>」「<b>生物遷徙的中繼站</b>」「<b>溫帶與熱帶氣候的過渡帶</b>」「<b>經濟海域</b>」。</p></div>
+  </div>
+  <div class="card"><h3>🪤 最常錯的 8 個陷阱</h3>
+    <p><span class="pill">1</span><b>經度→時間</b>、<b>緯度→氣候</b>。用經度推冷熱、用緯度算時差都是錯的。</p>
+    <p><span class="pill">2</span>地球<b>由西向東</b>自轉：東邊先日出、先跨年；在東半球<b>愈往西時間愈晚</b>。臺北比倫敦<b>快 8 小時</b>、比東京<b>慢 1 小時</b>。</p>
+    <p><span class="pill">3</span>放大地圖＝比例尺<b>變大</b>、範圍<b>變小</b>、內容更詳細；<b>實際距離不變</b>。分母愈大，比例尺愈<b>小</b>。</p>
+    <p><span class="pill">4</span>經線<b>每條一樣長</b>、東西各 180 度；緯線<b>赤道最長</b>、南北各 90 度。0 度經線是<b>本初經線</b>，不是國際換日線。</p>
+    <p><span class="pill">5</span><b>回歸線</b>分熱帶／溫帶，<b>極圈</b>分溫帶／寒帶；兩者常被對調。</p>
+    <p><span class="pill">6</span>北半球陸地多（39%），但<b>海洋仍比陸地多</b>（61%）；全球陸海約 <b>3：7</b>。</p>
+    <p><span class="pill">7</span>位置三影響別配錯：<b>交通樞紐</b>←東亞島弧；<b>候鳥中繼站</b>←溫帶熱帶過渡帶；<b>特有種</b>←冰河期後成為孤立島嶼。<b>黑面琵鷺是候鳥，不是特有種</b>。</p>
+    <p><span class="pill">8</span>領海是 <b>12 浬</b>（不是公里），可視為領土；經濟海域 <b>200 浬</b>只有資源開發權。巴士海峽糾紛對象是<b>菲律賓</b>，南韓不重疊。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>🗺️ 地圖與圖表題（幾校出現）</h3><div class="chips">${RADAR.maps.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">地圖、表格判讀比例極高 →「🧩 綜合」頁把它們改寫成表格題組（文字不畫在圖上，手機也看得清楚）。</p></div>
+    <div class="card"><h3>💡 意外發現</h3>
+    <p>📰 <b>時事入題</b>：2025 樺加沙颱風路徑、花蓮堰塞湖救災地圖、世界棒球 12 強、維也納新年音樂會、過境航路服務費調漲。</p>
+    <p>🔌 <b>新題型</b>：電力座標（絕對位置）、對蹠點、環島行車看影子判方位。</p>
+    <p>➕ 約 9 校加考課本延伸的<b>地球公轉與四季</b>、7 校考<b>國際換日線</b> → 放在「延伸挑戰」。</p></div>
+  </div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每單元先看 <b>🎬 動畫導覽</b>，用真實照片弄懂課本 → ② <b>⚡ 快問快答</b>、<b>🔗 配對</b>練熟名詞與數字 → ③ <b>🎯 分類挑戰</b>破解陷阱 → ④ <b>📝 段考模擬題</b>與 <b>🧩 綜合</b>圖表題、總測驗檢查程度，做完按「📤 交卷給老師」。</p></div>
+  <details class="card"><summary><b>統計限制</b>（給老師看）</summary>
+  </details>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,c.dataset.k==='mix'?undefined:'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 綜合：圖表判讀＋排序＋總測驗＋延伸 ================= */
+function renderMix(app){
+  const s=curSub.mix||'chart';
+  const subs=[['chart','📊 圖表判讀題組'],['steps','🔢 排序挑戰'],['exam','🏁 總測驗'],['ext','🚀 延伸挑戰']];
+  app.innerHTML=`<h2>🧩 綜合：圖表判讀＋排序＋總測驗</h2>
+  <p class="muted">各校最愛的經緯網格、比較表、世界時鐘、比例尺與海域圖，這裡改寫成表格題組（不把字畫在圖上，手機也看得清楚）。</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div><div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub.mix=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='chart'){
+    p.innerHTML=CHART.map((c,k)=>`<div class="card"><h3>${c.title}</h3><div class="figbox">${c.fig}</div><div id="cq${k}"></div></div>`).join('');
+    CHART.forEach((c,k)=>renderMCQ($('#cq'+k),c.qs.map(q=>({...q,src:c.src})),7,`綜合 ${c.title.replace(/^[①-⑨]\s*/,'')}`));
+    return;
+  }
+  if(s==='steps'){
+    p.innerHTML=`<p class="muted">每張卡片問「它排第幾」，把它放進正確的順序格。</p>`+STEPS.map((_,i)=>`<div class="card" id="st${i}"></div>`).join('');
+    STEPS.forEach((so,i)=>{SORTCTX={code:7,title:'綜合 排序挑戰'};renderSort($('#st'+i),so)});SORTCTX=null;
+    return;
+  }
+  if(s==='exam'){
+    const keys=['a1','a2','a3','b1','b2','b3'];
+    const pick=keys.flatMap(k=>shuf(L[k].mcq).slice(0,k==='a2'||k==='a3'?6:5).map(q=>({...q,unit:L[k].no,src:`${L[k].no}｜${q.src||''}`})));
+    p.innerHTML=`<div class="card"><h3>🏁 第一次段考總測驗（${pick.length} 題）</h3><p class="muted">從六個單元的模擬題隨機抽題（時區、地圖兩單元各 6 題，其餘各 5 題），每次進來題目都不同。建議 25 分鐘內完成，再按「交卷給老師」。</p>
+    <button class="btn ghost" id="again">🔀 換一份題目</button></div><div id="eq"></div>`;
+    $('#again').onclick=()=>render();
+    renderMCQ($('#eq'),shuf(pick),9,'總測驗（隨機抽題）');
+    return;
+  }
+  p.innerHTML=`<div class="card"><h3>🚀 延伸：換日線、四季與對蹠點</h3>
+    <p class="muted">下面幾項是課本圖說或補充提到、少數學校加考的延伸內容。請依自己學校的範圍準備。</p>
+    <p><span class="pill">180°</span><b>國際換日線</b>大致沿 180 度經線（有彎曲）。東半球→西半球<b>減一天</b>；西半球→東半球<b>加一天</b>。</p>
+    <p><span class="pill">四季</span>地軸傾斜 23.5 度＋公轉：春分直射<b>赤道</b>→夏至（6/21）直射<b>北回歸線</b>→秋分直射<b>赤道</b>→冬至（12/22）直射<b>南回歸線</b>。</p>
+    <p><span class="pill">對蹠</span>臺灣穿過地心的另一端約在（60W，23.5S），南美洲巴拉圭一帶：經度用 180 減、東西互換；緯度數字不變、南北互換。</p>
+    <p><span class="pill">四極</span>臺灣本島：極東<b>三貂角</b>、極西<b>國聖港</b>、極南<b>鵝鑾鼻</b>、極北<b>富貴角</b>。</p></div>
+    <div id="xq"></div>`;
+  renderMCQ($('#xq'),EXT,10,'延伸 換日線與季節');
+}
+
+/* ================= 共用：動畫外框 ================= */
+function stage(p,extra){p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${extra||''}`}
+
+/* ================= 1-1・1-2 位置與經緯線 ================= */
+function animA1(p){
+  stage(p,`<div class="card"><h3>📋 經緯線比較表（課本表 1-1-1）</h3>
+  <table class="tbl"><tr><th></th><th>經線</th><th>緯線</th></tr>
+  <tr><td>定義</td><td>連接南、北兩極點的地球表面<b>半圓弧線</b></td><td>與地軸垂直的平面，在地球表面切出的<b>圓圈</b></td></tr>
+  <tr><td>方向</td><td>南北向</td><td>東西向</td></tr>
+  <tr><td>度數</td><td>東、西經各 <b>180</b> 度</td><td>南、北緯各 <b>90</b> 度</td></tr>
+  <tr><td>長度</td><td><b>每條一樣長</b></td><td><b>赤道最長</b>，緯度愈高愈短</td></tr>
+  <tr><td>0 度</td><td>本初經線（格林威治，1884）</td><td>赤道（分南北半球）</td></tr></table>
+  <p class="muted" style="margin-top:10px">寫法：E 東經、W 西經、N 北緯、S 南緯，例如 A 點（60E，30N）。東經 180 度和西經 180 度是同一條經線。</p></div>
+  <div class="card"><h3>🧮 半球判斷器</h3><p class="muted">輸入經緯度，看看這一點在哪兩個半球。</p>
+  <div class="calc"><label>經度（0～180）<input id="lo" type="number" min="0" max="180" step="0.5" value="121"></label>
+  <label>東經／西經<select id="ew" class="sel"><option value="E">E 東經</option><option value="W">W 西經</option></select></label>
+  <label>緯度（0～90）<input id="la" type="number" min="0" max="90" step="0.5" value="25"></label>
+  <label>北緯／南緯<select id="ns" class="sel"><option value="N">N 北緯</option><option value="S">S 南緯</option></select></label></div>
+  <div class="meaning" id="hout"></div></div>`);
+  const hc=()=>{const lo=+$('#lo').value,la=+$('#la').value,ew=$('#ew').value,ns=$('#ns').value;
+    if(!(lo>=0&&lo<=180)||!(la>=0&&la<=90)){$('#hout').textContent='經度要在 0～180、緯度要在 0～90 之間';return}
+    const h1=lo===0||lo===180?'東、西半球的交界上':(ew==='E'?'東半球':'西半球'),h2=la===0?'赤道上（南北半球交界）':(ns==='N'?'北半球':'南半球');
+    const zone=la<23.5?'熱帶':la<66.5?'溫帶':'寒帶';
+    $('#hout').innerHTML=`（${lo}${ew}，${la}${ns}）→ 位在<b>${h1}</b>、<b>${h2}</b>；依緯度屬於<b>${zone}</b>。`};
+  ['lo','la','ew','ns'].forEach(i=>$('#'+i).oninput=hc);hc();
+  const steps=[
+    {label:'① 相對位置',imgs:[{img:'p_sign',tag:'路標指出警察局、圖書館的方向：以這裡為基準'}],poem:'以某一個地點為基準，表達目標物相對於這一地點的<b>方位和距離</b>，例如：小天在老師的<b>西南方</b>。生活中常以容易辨識的地標，如重要景點、便利商店、速食店為基準。',key:'「在○○旁邊、對面、東南方 100 公尺」「位於太平洋西側」都是相對位置（31 校考判別）。'},
+    {label:'② 絕對位置',imgs:[{img:'p_seat',tag:'教室座位：第幾排第幾列就是一組座標'}],poem:'絕對位置是藉由一組<b>座標系統</b>，由<b>橫座標和縱座標</b>來表示位置，例如：座位圖中第四排第三列的同學是小夢。',key:'座位「第幾排第幾列」、電影票「7 排 12 號」、電力座標、經緯度都是絕對位置。'},
+    {label:'③ 八方位',imgs:[{img:'p_compass',tag:'指北針：確認東西南北'}],poem:'東、西、南、北是四大基本方位，要更精確可細分為<b>八方位</b>。地圖若沒有方向標，通常以<b>上方代表北方</b>，也可以用經緯度判斷方向。',key:'「甲在乙的東北方」＝「乙在甲的西南方」，換了基準點方位要完全相反（8 校）。'},
+    {label:'④ 經線與本初經線',imgs:[{img:'p_greenwich',tag:'英國倫敦格林威治天文臺：本初經線通過這裡'},{img:'p_globe',tag:'地球儀上南北走向的經線'}],poem:'地球繞著假想的<b>地軸</b>自轉。連接南、北兩極的地球表面<b>半圓弧線</b>稱為<b>經線</b>。<b>1884 年</b>國際同意以通過英國倫敦<b>格林威治天文臺</b>的經線為 0 度經線，稱為「<b>本初經線</b>」；以東為東經、以西為西經，各 180 度。',key:'每條經線<b>一樣長</b>、在兩極交會；本初經線<b>不是</b>最長，也不是國際換日線（17 校）。'},
+    {label:'⑤ 緯線與赤道',imgs:[{img:'p_equator',tag:'厄瓜多的赤道紀念碑'}],poem:'與地軸垂直的平面，在地球表面切出的圓圈稱為<b>緯線</b>。<b>赤道</b>是最長的緯線，將地球平分成南、北半球；由赤道往兩極，緯線<b>愈來愈短</b>。南、北緯各 90 度。',key:'緯線彼此<b>平行</b>、不相交；高緯度的緯線短，繞一圈較快回到原點（12 校）。'},
+    {label:'⑥ 經緯線網格',imgs:[{img:'w_east',tag:'從太空看東半球：經緯線是人為畫在地球上的假想線',fit:'contain',bg:'#000'}],poem:'經線和緯線交織出的<b>網格</b>，可作為地表定位的座標系統，讓每個地點都有明確的座標。通常 N 表示北緯、S 南緯、E 東經、W 西經，例如（60E，30N）。',key:'讀座標先找 0 度經線和赤道：往東數字變大＝東經、往北數字變大＝北緯（23 校考座標判讀、20 校考判方位）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 1-3 時區與氣候 ================= */
+const CITY=[['臺北',120],['東京',135],['曼谷',105],['雪梨',150],['威靈頓',175],['維也納',15],['倫敦',0],['紐約',-75],['洛杉磯',-120]];
+function animA2(p){
+  stage(p,`<div class="card"><h3>🕗 時差計算機</h3><p class="muted">以經度計算時區（每 15 度差 1 小時，不考慮日光節約時間）。選兩座城市和甲地的時間。</p>
+  <div class="calc"><label>甲地<select id="ca" class="sel">${CITY.map(([n,l],i)=>`<option value="${i}">${n}（${l===0?'0 度':l>0?l+'E':(-l)+'W'}）</option>`).join('')}</select></label>
+  <label>乙地<select id="cb" class="sel">${CITY.map(([n,l],i)=>`<option value="${i}" ${i===6?'selected':''}>${n}（${l===0?'0 度':l>0?l+'E':(-l)+'W'}）</option>`).join('')}</select></label>
+  <label>甲地時間（0～23 時）<input id="hh" type="number" min="0" max="23" step="1" value="0"></label></div>
+  <div class="meaning" id="tout"></div></div>
+  <div class="card"><h3>🌡️ 緯度與氣候帶（課本圖 1-1-12）</h3>
+  <table class="tbl"><tr><th>氣候區</th><th>緯度範圍</th><th>例子</th></tr>
+  <tr><td>熱帶</td><td>赤道～回歸線（0～23.5 度）</td><td>新加坡、曼谷、高雄</td></tr>
+  <tr><td>溫帶</td><td>回歸線～極圈（23.5～66.5 度）</td><td>臺北、東京、倫敦、雪梨</td></tr>
+  <tr><td>寒帶</td><td>極圈～極點（66.5～90 度）</td><td>格陵蘭北部、南極</td></tr></table>
+  <p class="muted" style="margin-top:10px">南、北半球都用回歸線與極圈畫分。<b>經度→時間</b>、<b>緯度→氣候</b>。</p></div>`);
+  const tc=()=>{const A=CITY[+$('#ca').value],B=CITY[+$('#cb').value];let h=Math.floor(+$('#hh').value);if(!(h>=0&&h<=23))h=0;
+    const za=Math.round(A[1]/15),zb=Math.round(B[1]/15),d=zb-za;let t=h+d,day='同一天';
+    if(t>=24){t-=24;day='隔天'}else if(t<0){t+=24;day='前一天'}
+    $('#tout').innerHTML=d===0?`${A[0]}和${B[0]}在同一時區，<b>沒有時差</b>。`:`${B[0]}比${A[0]}<b>${d>0?'快':'慢'} ${Math.abs(d)} 小時</b>（經度差 ${Math.abs(B[1]-A[1])} 度 ÷ 15）。${A[0]} ${h} 時 → ${B[0]} <b>${day} ${t} 時</b>。`};
+  ['ca','cb','hh'].forEach(i=>$('#'+i).oninput=tc);tc();
+  const steps=[
+    {label:'① 跨年煙火',imgs:[{img:'t_fire',tag:'臺北 101 跨年煙火'}],poem:'地球自轉一周 360 度需要 <b>24 小時</b>，平均每小時由西向東自轉 <b>15 度</b>，所以不同經線上的時間也不盡相同。',key:'臺北跨年時，東邊的東京已經跨年 1 小時；西邊的曼谷還要再等 1 小時。'},
+    {label:'② 時區',imgs:[{img:'t_clock',tag:'英國考文垂的時區鐘'}],poem:'一般將每 <b>15 度經度</b>定為一個時區，全球共分為 <b>24 個時區</b>，相鄰時區相差 1 小時。目前以<b>格林威治時間（GMT）</b>為國際標準時間，臺北比倫敦快 8 小時（<b>GMT+8</b>）。',key:'時差＝經度差 ÷ 15。（臺北 120 度－倫敦 0 度）÷15＝8 小時（34 校必考）。'},
+    {label:'③ 東邊先日出',imgs:[{img:'t_sunrise',tag:'臺東三仙台的日出'}],poem:'地球<b>由西向東</b>自轉，<b>東邊的地方先看到日出</b>、也比較早跨年；在東半球，愈往西邊時間愈晚。',key:'臺東比澎湖早看到日出（4 校）；判斷早晚看<b>經度</b>，不是緯度。'},
+    {label:'④ 緯度與氣溫',split:[{img:'t_bkk',tag:'曼谷：低緯度，四季炎熱'},{img:'t_london',tag:'倫敦：中緯度，冬天會下雪'}],poem:'一地氣溫高低與<b>太陽照射的角度</b>有關：緯度愈高陽光照射角度愈斜，氣候愈寒冷；緯度愈低氣候愈炎熱。因此氣候區的畫分大致依據緯度。',key:'課後閱讀：曼谷跨年穿短袖、臺北穿羽絨外套 → 原因是<b>緯度</b>（22 校考緯度與氣候）。'},
+    {label:'⑤ 回歸線與極圈',imgs:[{img:'p_tropic',tag:'嘉義的北回歸線太陽館與標誌'},{img:'t_arctic',tag:'南極海浮冰上的企鵝：寒帶'}],poem:'以<b>回歸線（緯度 23.5 度）</b>和<b>極圈（緯度 66.5 度）</b>為界，南、北兩半球皆可分為<b>熱帶、溫帶、寒帶</b>。北回歸線通過臺灣，嘉義和花蓮都設有標誌。',key:'回歸線＝熱帶／溫帶分界；極圈＝溫帶／寒帶分界，兩者常被對調。'},
+    {label:'⑥ 南北半球季節相反',imgs:[{img:'w_marble',tag:'從太空看地球：太陽照到的位置隨季節移動',fit:'contain',bg:'#000'}],poem:'受<b>地軸傾斜 23.5 度</b>影響，太陽直射的範圍會在<b>南、北回歸線之間</b>來回移動，形成季節變化，且<b>南、北半球季節相反</b>。',key:'臺灣 7 月是夏天，澳洲雪梨是冬天（17 校）。季節成因是地軸傾斜＋公轉，不是自轉。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 1-4 閱讀地圖 ================= */
+function animA3(p){
+  stage(p,`<div class="card"><h3>📏 比例尺換算機</h3><p class="muted">比例尺＝圖上距離 ÷ 實際距離。輸入比例尺分母與圖上距離。</p>
+  <div class="calc"><label>比例尺 1 /<input id="sd" type="number" min="1" step="1" value="10000"></label>
+  <label>圖上距離（公分）<input id="sc" type="number" min="0" step="0.5" value="1"></label></div>
+  <div class="meaning" id="sout"></div></div>
+  <div class="card"><h3>🔍 大、小比例尺地圖（課本表 1-1-2）</h3>
+  <table class="tbl"><tr><th></th><th>大比例尺地圖</th><th>小比例尺地圖</th></tr>
+  <tr><td>範圍</td><td>小</td><td>大</td></tr><tr><td>內容</td><td>詳細</td><td>簡略</td></tr>
+  <tr><td>課本例子</td><td>屏東縣地圖</td><td>臺灣行政區圖</td></tr></table>
+  <div class="scale"><span>數字表示法<br><b>1：10,000</b></span><span>文字表示法<br><b>一萬分之一</b></span><span>圖示法<br><b>0─100─200 公尺</b></span></div>
+  <p class="muted">影印放大縮小後，只有<b>圖示法</b>仍正確。</p></div>`);
+  const sc=()=>{const d=Math.floor(+$('#sd').value),c=+$('#sc').value;if(!(d>=1)||!(c>=0)){$('#sout').textContent='請輸入正數';return}
+    const cm=d*c,m=cm/100,km=m/1000;
+    $('#sout').innerHTML=`圖上 ${c} 公分 × ${d.toLocaleString()} ＝ 實際 <b>${cm.toLocaleString()} 公分</b> ＝ <b>${m.toLocaleString()} 公尺</b> ＝ <b>${km.toLocaleString()} 公里</b>。`};
+  ['sd','sc'].forEach(i=>$('#'+i).oninput=sc);sc();
+  const steps=[
+    {label:'① 從空中俯視',imgs:[{img:'m_sat',tag:'NASA 衛星影像中的臺灣',fit:'contain',bg:'#0b1a2a'}],poem:'想像從空中俯視大地，地表上的景物清清楚楚。將這俯視景觀以<b>符號、文字或顏色</b>標示，就能構成地圖。',key:'衛星影像是實際的樣子；地圖則用圖例符號把景物簡化表示。'},
+    {label:'② 地圖四要素',imgs:[{img:'m_map',tag:'登山前先讀紙本地圖'},{img:'p_compass',tag:'方向標就像地圖上的指北針'}],poem:'地圖主要包含：<b>圖名</b>（地圖的類型或主要內容）、<b>圖例</b>（代表各種地表現象的符號）、<b>方向標</b>（標示方向的指標）、<b>比例尺</b>（地圖與地表的長度比例，可算出實際距離）。',key:'「綠色＝公園」是圖例；「N 箭頭」是方向標；沒有方向標時以上方為北（10 校考四要素）。'},
+    {label:'③ 比例尺',imgs:[{img:'m_map',tag:'在地圖上量距離，再用比例尺換算'}],poem:'比例尺＝圖上距離 ÷ 實際距離。比例尺 1/10,000 是指地圖上 <b>1 公分</b>代表實際地表距離 <b>10,000 公分（100 公尺）</b>。表示法有數字法、文字法、圖示法。',key:'地圖影印放大或縮小時，只有<b>圖示法</b>仍正確（5 校）。單位換算：100 公分＝1 公尺，1000 公尺＝1 公里。'},
+    {label:'④ 大小比例尺',split:[{img:'m_sat',tag:'看全臺灣：小比例尺'},{img:'m_map',tag:'走登山步道：大比例尺'}],poem:'依目的使用不同比例尺：<b>大比例尺</b>地圖範圍<b>小</b>、內容<b>詳細</b>（屏東縣地圖）；<b>小比例尺</b>地圖範圍<b>大</b>、內容<b>簡略</b>（臺灣行政區圖）。',key:'分母愈小，比例尺愈大。手機地圖按「＋」放大＝比例尺變大、範圍變小（33 校必考）。'},
+    {label:'⑤ 電子地圖與 GPS',imgs:[{img:'m_gps',tag:'汽車導航機：電子地圖＋GPS'}],poem:'電子地圖具有<b>搜尋位置、彈性放大與縮小比例尺</b>等功能，也有<b>快速更新資料</b>的優點，並可搭配<b>全球定位系統（GPS）</b>規畫導航路線。',key:'地圖縮放只改變圖上大小，兩地的<b>實際距離不會改變</b>。'},
+    {label:'⑥ 地圖穿越劇',imgs:[{img:'m_old',tag:'1904 年出版的臺灣地圖',fit:'contain',bg:'#efe6d2'}],poem:'不同時期的地圖像時空的切片：比較 1904 年與 2017 年臺北松山、內湖一帶的地圖，許多稻田變成住宅區，基隆河部分河段因防洪需要而<b>截彎取直</b>。',key:'比較不同年代的地圖，可以看出<b>環境的變遷</b>。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-1 全球海陸分布 ================= */
+function animB1(p){
+  stage(p,`<div class="card"><h3>🌊 海陸面積比例（課本表 1-2-1）</h3>
+  <table class="tbl"><tr><th></th><th>陸地</th><th>海洋</th></tr><tr><td>全球</td><td>29%</td><td>71%</td></tr><tr><td>北半球</td><td>39%</td><td>61%</td></tr><tr><td>南半球</td><td>19%</td><td>81%</td></tr></table>
+  <p class="muted" style="margin-top:10px">北半球陸地遠大於南半球 → 人口集中北半球；但北半球<b>仍是海洋比較多</b>。</p></div>
+  <div class="card"><h3>🗺️ 三大洋、七大洲</h3>
+  <p><span class="pill">三大洋</span>太平洋（約占海洋一半）、大西洋、印度洋，彼此相通。</p>
+  <p><span class="pill">七大洲</span>亞洲（最大）、歐洲、非洲、北美洲、中南美洲、大洋洲、南極洲。歐洲＋亞洲＝<b>歐亞大陸</b>（全球最大陸塊）。</p>
+  <p><span class="pill">跨南北</span>亞洲、非洲、大洋洲、中南美洲；南極洲全在南半球。</p></div>`);
+  const steps=[
+    {label:'① 藍色的水世界',imgs:[{img:'w_marble',tag:'阿波羅 17 號拍下的地球',fit:'contain',bg:'#000'}],poem:'地球表面總面積約 <b>5.1 億平方公里</b>，其中 <b>29%</b> 為陸地，其餘為海洋，陸地與海洋面積大致是 <b>3：7</b>。地球可說是個水世界。',key:'是 3：7，不是 7：3（16 校考海陸分布）。'},
+    {label:'② 北半球陸地多',imgs:[{img:'w_east',tag:'東半球：亞洲大陸在北，南方多是海洋',fit:'contain',bg:'#000'}],poem:'陸地在地表上的分布很不平均，<b>北半球的陸地面積遠大於南半球</b>（北半球陸 39%、南半球陸 19%）。陸地是人類主要活動的空間，因此全球人口較集中於北半球。',key:'陷阱：「北半球陸地大於海洋」是錯的，北半球海洋仍占 61%。'},
+    {label:'③ 三大洋',imgs:[{img:'w_qingshui',tag:'花蓮清水斷崖外，就是廣闊的太平洋'}],poem:'環繞在陸地周圍的<b>三大洋</b>彼此相通，其中<b>太平洋</b>約占全球海洋總面積的一半。',key:'航線題（23 校）：歐洲→北美洲橫渡<b>大西洋</b>；臺灣→美國西岸橫渡<b>太平洋</b>；非洲↔澳洲之間是<b>印度洋</b>。'},
+    {label:'④ 七大洲',imgs:[{img:'w_east',tag:'亞洲：面積最大的洲',fit:'contain',bg:'#000'}],poem:'七大洲有獨立的陸塊，也有彼此相連的洲，例如：<b>歐洲與亞洲相連</b>，經常合稱為<b>歐亞大陸</b>，是全球最大陸塊。臺灣位於<b>亞洲</b>。',key:'課本想一想：臺灣位於<b>歐亞大陸</b>與<b>太平洋</b>之間。'},
+    {label:'⑤ 跨南北半球的洲',imgs:[{img:'t_arctic',tag:'南極洲：完全位在南半球'}],poem:'<b>亞洲、非洲、大洋洲、中南美洲</b>橫跨南、北半球；歐洲、北美洲在北半球；南極洲完全在南半球。',key:'赤道沒有經過歐洲、北美洲、南極洲（13 校）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-2 臺灣的位置及其影響 ================= */
+function animB2(p){
+  stage(p,`<div class="card"><h3>🧩 臺灣位置的三大影響（別配錯！）</h3>
+  <table class="tbl"><tr><th>影響</th><th>原因（位置特性）</th><th>例子</th></tr>
+  <tr><td>重要的交通樞紐</td><td>位於<b>東亞島弧</b>上，北接東北亞、南連東南亞</td><td>過境航路服務費：民國 112 年 18.9 萬架次、18.9 億元</td></tr>
+  <tr><td>生物遷徙的中繼站</td><td>位於<b>溫帶與熱帶氣候的過渡帶</b></td><td>黑面琵鷺、灰面鵟鷹</td></tr>
+  <tr><td>多元的生態環境</td><td>冰河期後海水面上升，成為<b>獨立的島嶼</b></td><td>櫻花鉤吻鮭、黑長尾雉、臺灣梅花鹿</td></tr></table></div>
+  <div class="card"><h3>🧭 臺灣的四周</h3>
+  <div class="scale"><span>東<br><b>太平洋</b></span><span>西<br><b>臺灣海峽</b>→中國</span><span>南<br><b>巴士海峽</b>→菲律賓</span><span>北<br><b>東海</b>→日本</span></div>
+  <div class="ladder"><span>阿留申</span><b>→</b><span>千島</span><b>→</b><span>日本</span><b>→</b><span>琉球</span><b>→</b><span class="an">臺灣</span><b>→</b><span>菲律賓</span><b>→</b><span>印尼</span></div>
+  <p class="muted">東亞島弧由北而南。</p></div>`);
+  const steps=[
+    {label:'① 臺灣在哪裡',imgs:[{img:'m_sat',tag:'衛星影像中的臺灣島',fit:'contain',bg:'#0b1a2a'}],poem:'從<b>絕對位置</b>來看，臺灣島大約位於<b>東經 120～122 度、北緯 22～25 度</b>之間。從<b>相對位置</b>來看，臺灣位在<b>太平洋的西側、亞洲大陸的東側</b>，是世界上最大海洋與最大陸地的交會帶。',key:'經緯度是絕對位置；「太平洋西側」是相對位置。北回歸線通過臺灣（15 校考經緯度範圍）。'},
+    {label:'② 四周的海與鄰國',imgs:[{img:'w_qingshui',tag:'臺灣東臨廣闊的太平洋'}],poem:'臺灣東臨廣闊的<b>太平洋</b>，西以<b>臺灣海峽</b>與中國相望，北以<b>東海</b>銜接日本，南以<b>巴士海峽</b>與菲律賓相鄰。',key:'颱風穿過臺灣與菲律賓之間 → 巴士海峽（樺加沙颱風題組）。'},
+    {label:'③ 交通樞紐',imgs:[{img:'w_tpe',tag:'桃園國際機場'}],poem:'臺灣位於<b>東亞島弧</b>上，北接東北亞、南連東南亞，昔日是商船往來的貿易據點。由「<b>過境航路服務費</b>」來看：民國 112 年共有 <b>18.9 萬架次</b>過境臺灣，收入高達 <b>18.9 億元</b>。',key:'過境航路服務費＝交通樞紐（23 校）；不是「溫帶熱帶交界」。'},
+    {label:'④ 候鳥的中繼站',imgs:[{img:'w_spoon',tag:'黑面琵鷺：冬候鳥，不是特有種',fit:'contain',bg:'#2b2b2b'},{img:'w_buzzard',tag:'灰面鵟鷹：春秋兩季過境臺灣'}],poem:'臺灣的緯度位於<b>溫帶與熱帶氣候的過渡帶</b>，溫暖溼潤、物種豐富。季節轉換時，南北遷徙的候鳥以臺灣為<b>中繼站</b>，休息補充體力，甚至在臺灣過冬，待春天再北返。',key:'黑面琵鷺 5～6 月在東北亞小島繁殖，冬天南下臺灣（18 校考中繼站）。'},
+    {label:'⑤ 特有種',imgs:[{img:'w_salmon',tag:'櫻花鉤吻鮭：又稱臺灣鮭魚'},{img:'w_mikado',tag:'黑長尾雉：又名帝雉'},{img:'w_sika',tag:'臺灣梅花鹿：現多分布於墾丁與綠島'}],poem:'<b>冰河時期</b>氣溫降低、海水面下降，臺灣與亞洲大陸相通，物種遷徙到臺灣；冰河時期結束後海水面上升，分隔臺灣與亞洲大陸，生物在<b>獨立的島嶼</b>中逐漸演化，孕育出許多<b>特有種</b>。',key:'特有種←孤立島嶼；候鳥←過渡帶；交通←島弧。三者互換是最大陷阱（26 校考特有種）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 2-3 臺灣地區的範圍 ================= */
+function animB3(p){
+  stage(p,`<div class="card"><h3>🌊 海域怎麼分？（依聯合國海洋法公約）</h3>
+  <div class="ladder"><span>海岸<small>領海基線</small></span><b>→</b><span>領海<small>12 浬</small></span><b>→</b><span>經濟海域<small>到 200 浬</small></span><b>→</b><span class="an">公海<small>200 浬外</small></span></div>
+  <table class="tbl"><tr><th>海域</th><th>範圍</th><th>權利</th></tr>
+  <tr><td>領海</td><td>領海基線向外 12 浬</td><td>可視為國家領土，具有<b>軍事管轄權</b></td></tr>
+  <tr><td>經濟海域</td><td>領海基線向外到 200 浬</td><td>漁、礦等資源的<b>開發與管理</b>權利</td></tr></table>
+  <p class="muted" style="margin-top:10px">1 浬約 1.852 公里。經濟海域重疊易起糾紛：巴士海峽→<b>菲律賓</b>；東海→<b>日本</b>。</p></div>
+  <div class="card"><h3>🏝️ 陸域範圍</h3>
+  <p>臺灣島、澎湖群島、釣魚臺列嶼、金門列嶼、馬祖列嶼，以及南海海域內的其他離島（東沙島、太平島），面積約 <b>36,000 平方公里</b>。</p>
+  <p class="muted">課後閱讀：中國約為臺灣 270 倍、日本約 10 倍；我國面積排名約第 135 名。</p></div>`);
+  const steps=[
+    {label:'① 澎湖群島',imgs:[{img:'s_penghu',tag:'澎湖池西岩瀑：柱狀玄武岩'}],poem:'臺灣地區的陸域範圍包括<b>臺灣島、澎湖群島、釣魚臺列嶼、金門列嶼、馬祖列嶼</b>等，以及包括南海海域在內的其他離島，面積約 <b>36,000 平方公里</b>。',key:'琉球群島、海南島、呂宋島都<b>不屬於</b>臺灣地區（13 校考陸域範圍）。'},
+    {label:'② 金門與馬祖',imgs:[{img:'s_kinmen',tag:'金門莒光樓'},{img:'s_matsu',tag:'馬祖北竿的坂里村'},{img:'s_tears',tag:'馬祖的藍眼淚'}],poem:'<b>金門列嶼</b>與<b>馬祖列嶼</b>位在臺灣海峽西側，緊鄰中國福建沿海；金門靠近廈門，馬祖靠近福州，春夏夜晚海邊常出現藍眼淚。',key:'經度約 118～120E，比臺灣本島更西（新聞座標題常考）。'},
+    {label:'③ 南海的離島',imgs:[{img:'s_taiping',tag:'太空站拍到的太平島：南沙群島最大島'},{img:'s_dongsha',tag:'太空站拍到的東沙環礁'}],poem:'<b>太平島</b>屬於<b>高雄市</b>管轄，是南沙群島中最大的島嶼；東沙島也位在南海。',key:'（延伸，課本沒寫）南海仲裁案把太平島認定為岩礁 → 只能主張 12 浬領海（段考常考，我國不接受此裁決）。'},
+    {label:'④ 領海 12 浬',imgs:[{img:'s_eluanbi',tag:'鵝鑾鼻燈塔：臺灣本島最南端'}],poem:'依<b>聯合國海洋法公約</b>規定，以<b>領海基線</b>向外推移 <b>12 浬</b>的範圍稱為「<b>領海</b>」，可視為國家領土，具有軍事管轄權。（1 浬約 1.852 公里）',key:'是 12 <b>浬</b>，不是 12 公里（24 校考領海）。'},
+    {label:'⑤ 經濟海域 200 浬',imgs:[{img:'s_boat',tag:'新北貢寮澳底漁港的漁船'}],poem:'由領海基線向外推至 <b>200 浬</b>的海域範圍稱為「<b>經濟海域</b>」，海域內擁有漁、礦等資源的開發與管理權利。臺灣與鄰國相近，經濟海域重疊時易發生海洋資源糾紛。',key:'巴士海峽捕魚→與<b>菲律賓</b>糾紛（16 校）；經濟海域<b>不是</b>領土；數油氣區要把領海內的也算進去。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+
+<!-- AK:answer-key -->
+<style id="ak-style">#ak-btn{position:fixed;left:14px;bottom:14px;z-index:9990;font:600 16px/1 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:#1f4e79;color:#fff;border:0;border-radius:999px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer}#ak-btn:hover{background:#163a5c}#ak-box{display:none;position:fixed;inset:0;z-index:9995;background:rgba(15,25,40,.45);padding:16px;overflow:auto}#ak-box.show{display:block}#ak-box .ak-card{max-width:960px;margin:20px auto;background:#fff;color:#1d2733;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:16px/1.6 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;text-align:left}#ak-box .ak-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #e3e8ef;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}#ak-box .ak-head b{font-size:18px;color:#1f4e79}#ak-box .ak-head button{font:inherit;font-size:16px;margin-left:8px;border:1px solid #c9d3df;background:#f4f7fb;color:#1d2733;border-radius:8px;padding:6px 12px;cursor:pointer}#ak-box .ak-body{padding:6px 18px 18px}#ak-box h3{font-size:17px;margin:16px 0 6px;color:#1f4e79}#ak-box .ak-t{border-collapse:collapse;width:100%;margin:6px 0;table-layout:fixed}#ak-box .ak-t th,#ak-box .ak-t td{border:1px solid #cfd8e3;padding:5px 2px;text-align:center;font-size:16px;word-break:break-all}#ak-box .ak-t th{background:#eef3f9;color:#1f4e79;font-weight:600}#ak-box .ak-t th:first-child{width:3.6em}#ak-box .ak-t td{font-weight:700}#ak-box .ak-list{columns:2 300px;margin:6px 0;padding-left:0;list-style:none}#ak-box .ak-list li{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e3e8ef}@media print{#ak-btn{display:none!important}html:not(.ak-on) #ak-box{display:none!important}html.ak-on body>*:not(#ak-box){display:none!important}html.ak-on #ak-box{position:static;background:none;padding:0;display:block!important;overflow:visible}html.ak-on #ak-box .ak-card{box-shadow:none;margin:0;max-width:none}html.ak-on #ak-box .ak-head button{display:none}html.ak-on #ak-box .ak-head{position:static}}</style>
+<script id="ak-core">(function(){
+if(window.AK)return;
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function norm(secs){
+ if(!secs)return[];
+ if(!Array.isArray(secs[0]&&secs[0].items)&&Array.isArray(secs))secs=[{title:'',items:secs}];
+ return secs.map(function(s){return{title:s.title||'',items:(s.items||[]).map(function(x,i){return Array.isArray(x)?[x[0],x[1]]:[i+1,x]})}}).filter(function(s){return s.items.length});
+}
+function table(s){
+ var long=s.items.some(function(x){return String(x[1]).length>3});
+ var h=s.title?'<h3>'+esc(s.title)+'</h3>':'';
+ if(long){
+  return h+'<ol class="ak-list">'+s.items.map(function(x){return'<li><b>'+esc(x[0])+'.</b> '+esc(x[1])+'</li>'}).join('')+'</ol>';
+ }
+ var out=h;
+ for(var i=0;i<s.items.length;i+=10){
+  var r=s.items.slice(i,i+10);
+  out+='<table class="ak-t"><tr><th>題號</th>'+r.map(function(x){return'<th>'+esc(x[0])+'</th>'}).join('')+'</tr><tr><th>答案</th>'+r.map(function(x){return'<td>'+esc(x[1])+'</td>'}).join('')+'</tr></table>';
+ }
+ return out;
+}
+window.AK=function(fn){
+ function run(){
+  var secs;
+  try{secs=norm(typeof fn==='function'?fn():fn)}catch(e){console.warn('AK',e);return}
+  window.__AK_DATA=secs;
+  if(!secs.length)return;
+  var n=secs.reduce(function(a,s){return a+s.items.length},0);
+  var btn=document.createElement('button');btn.id='ak-btn';btn.type='button';btn.textContent='📋 答案總表';if(window.AK_BTN_STYLE)btn.style.cssText=window.AK_BTN_STYLE;
+  var box=document.createElement('div');box.id='ak-box';
+  box.innerHTML='<div class="ak-card" role="dialog" aria-label="答案總表"><div class="ak-head"><b>📋 答案總表（教師用，共 '+n+' 題）</b><span><button type="button" class="ak-p">🖨 列印答案</button><button type="button" class="ak-x" aria-label="關閉">✕</button></span></div><div class="ak-body">'+secs.map(table).join('')+'</div></div>';
+  document.body.appendChild(btn);document.body.appendChild(box);
+  function close(){box.classList.remove('show');document.documentElement.classList.remove('ak-on')}
+  btn.onclick=function(){box.classList.add('show');document.documentElement.classList.add('ak-on')};
+  box.querySelector('.ak-x').onclick=close;
+  box.onclick=function(e){if(e.target===box)close()};
+  box.querySelector('.ak-p').onclick=function(){window.print()};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+ }
+ if(document.readyState==='complete')setTimeout(run,0);else window.addEventListener('load',function(){setTimeout(run,0)});
+};
+})();</script>
+<script>AK(function(){
+if(!/[?&]teacher\b/.test(location.search))return [];
+/* 段考闖關站（chinese/civics/geography/history/science-site 的 volX_ 的 index.html）共用 adapter。
+   資料：頂層 const（L 各課 .mcq/.ext、RIDDLE/EXT/SCEN/CHART…）裡的選擇題物件 {q,o,a}。
+   renderMCQ 題序固定、但「選項每次洗牌」，所以答案列「正解選項文字」而非字母。
+   快問快答／配對／分類挑戰（題目隨機抽）與總測驗（pool/pick 隨機抽題）都不是頂層 {q,o,a} 陣列，不會被列入。 */
+window.AK_BTN_STYLE='left:14px;bottom:76px;font-size:20px;padding:12px 18px';
+(function(){
+  if(document.getElementById('ak-big'))return;
+  var s=document.createElement('style');s.id='ak-big';
+  s.textContent='html body #ak-box .ak-card{font-size:20px}html body #ak-box .ak-head b{font-size:22px}html body #ak-box .ak-head button{font-size:20px}html body #ak-box h3{font-size:21px}html body #ak-box .ak-list li{font-size:20px}html body #ak-box .ak-t th,html body #ak-box .ak-t td{font-size:20px}html body #ak-box .ak-note{font-size:20px;color:#5a6878;margin:10px 0 0}@media(max-width:600px){html body #ak-box{padding:6px}html body #ak-box .ak-card{margin:6px auto}html body #ak-box .ak-body{padding:6px 12px 14px}html body #ak-box .ak-list{columns:1}}';
+  document.head.appendChild(s);
+  setTimeout(function(){var b=document.querySelector('html body #ak-box .ak-body');if(b&&!b.querySelector('.ak-note')){var p=document.createElement('p');p.className='ak-note';p.textContent='※ 題號＝各練習頁上的題號；選項每次會重新洗牌，故列「正確選項的內容」。快問快答、配對、分類挑戰、總測驗為隨機出題，不列。';b.insertBefore(p,b.firstChild)}},50);
+})();
+var src=[].slice.call(document.querySelectorAll('script:not([src])')).filter(function(x){return x.id!=='ak-core'&&x.textContent.indexOf('AK(function')<0}).map(function(x){return x.textContent}).join('\n');
+var names=[];src.replace(/^(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=/gm,function(_,n){if(names.indexOf(n)<0)names.push(n)});
+var isQ=function(x){return x&&typeof x==='object'&&typeof x.q==='string'&&Array.isArray(x.o)};
+var clean=function(t){t=String(t).replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();return t.length>60?t.slice(0,60)+'…':t};
+var lit=function(expr){var re=new RegExp('renderMCQ\\([^,]+,\\s*'+expr.replace(/[.$[\]]/g,'\\$&')+'\\s*,\\s*[^,]+,\\s*([\'"`])([^\'"`$]*)\\1');var m=src.match(re);return m?m[2]:''};
+var KEY={mcq:'📝 段考模擬題',ext:'延伸題',graph:'綜合 圖表判讀',calc:'綜合 計算練習'};
+var secs=[];
+function add(title,arr,pri){for(var j=0;j<secs.length;j++)if(secs[j].arr===arr){if(pri>secs[j].pri){secs[j].title=title;secs[j].pri=pri}return}secs.push({arr:arr,pri:pri,title:title,items:arr.map(function(q,i){return[i+1,clean(q.o[q.a==null?0:q.a])]})})}
+function walk(v,path,parents){
+  if(!v||typeof v!=='object'||path.length>6||v instanceof Node||v===window)return;
+  if(Array.isArray(v)){
+    if(v.length&&v.every(isQ)){
+      var root=path[0],last=path[path.length-1],par=parents[parents.length-1],t;
+      if(root==='L'&&path.length===3){var d=parents[1];t=[d.no,d.title||d.name].filter(Boolean).join(' ')+'｜'+(KEY[last]||last)}
+      else if(path.length===1)t=lit(root)||root;
+      else if(par&&!Array.isArray(par)&&par.title){var gi=path[path.length-2];t=(/^[①-⑳]/.test(par.title)?'':(typeof gi==='number'?(gi+1)+'. ':''))+String(par.title).replace(/<[^>]*>/g,'')}
+      else t=lit(path.join('.'))||KEY[last]||path.join('.');
+      add(t,v,root==='L'?1:0);return;
+    }
+    v.forEach(function(x,i){walk(x,path.concat(i),parents.concat([v]))});return;
+  }
+  if(Object.getPrototypeOf(v)!==Object.prototype)return;
+  Object.keys(v).forEach(function(k){walk(v[k],path.concat(k),parents.concat([v]))});
+}
+names.forEach(function(n){var v;try{v=(0,eval)(n)}catch(e){return}walk(v,[n],[])});
+/* 同一陣列被兩處引用（如 L.ex.mcq＝EXT）只列一次，以課別標題為準；依 L 的課序排在前面 */
+secs.sort(function(a,b){return b.pri-a.pri});
+return secs.map(function(s){return{title:s.title,items:s.items}});
+});</script>
+<!-- /AK -->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+</body>
+</html>

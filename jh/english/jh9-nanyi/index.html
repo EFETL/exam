@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國三英文段考闖關｜南一</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#18525a; --main-2:#2a8a7e; --accent:#f2a541; --accent-2:#e07a2f;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:18px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#123f45 0%,#2a8a7e 60%,#e0a43a 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#123f45;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;font-size:20px}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+
+.qword.en{font-size:1.9rem;letter-spacing:0;word-break:break-word;font-family:"Nunito","Noto Sans TC",sans-serif}
+.say{border:0;background:#e6f3f1;border-radius:99px;width:48px;height:48px;font-size:1.3rem;vertical-align:middle;margin-left:6px}
+.opt{font-size:1.15rem;word-break:break-word}
+.en{font-family:"Nunito","Noto Sans TC",sans-serif}
+.hunt .en p{font-size:1.15rem;line-height:2;margin:4px 0}
+.hunt span.c.w{padding:2px 3px;border-radius:6px}
+.passage{background:#f3f8f7;border-radius:12px;padding:14px 16px;line-height:1.9;margin-bottom:10px}
+.passage .blank{color:var(--accent-2)}
+.flips.tr .flip{min-height:150px}
+.flips.tr .bk2{display:flex;flex-direction:column;gap:6px;justify-content:center}
+.flips.tr .bk2 .en{font-weight:700;font-size:1.05rem}
+.flips.tr .bk2 small{font-size:1rem;opacity:.85}
+.ps.en{letter-spacing:0;font-size:1.35rem;line-height:1.7}
+.ps.pop{animation:pop .45s ease}
+@keyframes pop{0%{transform:scale(.9);opacity:.3}100%{transform:scale(1);opacity:1}}
+.bk{min-width:0;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回英文選單</a><span class="tag">南一版 國三上（B5） ｜ 第一次段考</span>
+    <h1>英文段考闖關｜Lesson 1～2＋Review 1</h1>
+    <p>先看動畫弄懂課文，再用遊戲練熟單字、現在完成式與被動語態，最後做段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap"><details style="margin-top:8px"><summary>圖片來源與授權</summary>
+  照片與插畫皆來自 Wikimedia Commons：Manhattan Bridge Construction 1909：Irving Underhill（公有領域）；240722 (G)I-DLE (여자)아이들 at Just Me ( )I-dle World Tour in San Francisco 28：Waddlingtwice（CC BY-SA 4.0）；Key chains：Gausanchennai（CC BY-SA 4.0）；Piggy-bank-968302：stevepb（CC0）；Yeh Shuhua of (G)I-DLE in 2020 01：사진기자머길（CC BY 3.0）；220618 (G)I-dle (여자)아이들 at Just Me ( )I-dle World Tour in Seoul 01：lilGB_2（CC BY-SA 4.0）；Runners participate in a race in a busy street during a city event with spectators cheering on the sidelines：Shixart1985（CC BY 2.0）；Halloween Costume Fun Run 2014 141028-F-EO463-525：Staff Sgt. Jonathan Fowler（公有領域）；Brilliant fireworks over the Cinderella castle, Magic Kingdom：Ethically Yours（CC BY-SA 3.0）；NN Wins 2016 Intramural Flag Football Championship (2947310)：U.S. Air Force photo by Tech. Sgt. Sarah（公有領域）；2022 Taipei Freeway Marathon Half-marathon finisher medal：SUNSmania41（CC BY-SA 4.0）；WPAFB Hosts 2016 Air Force Marathon 160917-F-AV193-1011：Wesley Farnsworth（公有領域）；USMC-120415-M-GU618-036：作者不詳（公有領域）；Waterpoint 131027-M-DE426-016：Sgt. Bobby Yarbrough（公有領域）；Zombie Run 2018 (4974360)：U.S. Army USAG-V by Laura Kreider（公有領域）。</details>
+</div></footer>
+
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料 ================= */
+/* 快問快答：[題目, 正解, [3 個誘答], 高頻(≥2 校考過), 題型]
+   題型：e＝看英文選中文、c＝看中文選英文、s＝選出正確拼字、p＝選出正確過去分詞、t＝選出正確的動詞形式（時態） */
+const ASK={e:'選出正確的中文意思',c:'選出正確的英文',s:'選出正確的拼字',p:'選出正確的過去分詞（p.p.）',t:'選出正確的動詞形式'};
+const L = {
+l1:{
+  no:'Lesson 1', code:1, title:'Have You Ever Been to a Concert?', short:'追星與追夢', color:'linear-gradient(135deg,#18525a,#2a8a7e)',
+  desc:'Sandy & Mina 聊演唱會｜舒華的練習生故事｜現在完成式 since / for',
+  quick:[
+    ['cheat','欺騙；作弊',['捐贈','出現','對待'],1,'e'],
+    ['appear','出現',['消失','發生','表演'],1,'e'],
+    ['treat','對待',['欺騙','帶領','表演'],1,'e'],
+    ['raise','舉起；加薪',['獎品','謊言','禮物'],1,'e'],
+    ['lie','說謊；謊話',['燈光','生命','獎品'],1,'e'],
+    ['wise','明智的',['富有的','刻薄的','虛弱的'],1,'e'],
+    ['mean','刻薄的；小氣的',['誠實的','有錢的','明智的'],1,'e'],
+    ['secretary','祕書',['商人','律師','店主'],1,'e'],
+    ['perform','表演',['出現','允許','保護'],0,'e'],
+    ['concert','演唱會',['比賽','會議','節目'],0,'e'],
+    ['challenge','挑戰',['改變','機會','頻道'],0,'e'],
+    ['comment','評論',['商業','共同的','承諾'],0,'e'],
+    ['trainee','練習生',['教練','火車','乘客'],0,'e'],
+    ['lovely','愉快的；可愛的',['孤單的','好笑的','有禮貌的'],0,'e'],
+    ['polite','有禮貌的',['懶惰的','嚴肅的','明智的'],0,'e'],
+    ['lazy','懶惰的',['虛弱的','狂怒的','有禮貌的'],0,'e'],
+    ['eve','（重大事件的）前夕',['夜晚','早晨','假日'],0,'e'],
+    ['donate','捐贈',['欺騙','邀請','借出'],1,'e'],
+    ['charity','慈善機構',['聖誕節','祕書','辦公室'],1,'e'],
+    ['商人','businessman',['secretary','shopkeeper','lawyer'],0,'c'],
+    ['樂團','band',['bend','bang','hand'],0,'c'],
+    ['節目','program',['problem','progress','project'],0,'c'],
+    ['舞臺','stage',['state','stair','stamp'],0,'c'],
+    ['領路；引導（過去式 led）','lead',['lend','leave','load'],1,'c'],
+    ['現在；禮物','present',['prize','presence','pleasant'],1,'c'],
+    ['卡車','truck',['track','trunk','trick'],0,'c'],
+    ['牙科醫生','dentist',['doctor','lawyer','driver'],0,'c'],
+    ['直到……','until',['unless','since','while'],0,'c'],
+    ['自從……','since',['until','for','ago'],1,'c'],
+    ['放棄','give up',['give in','take up','get up'],0,'c'],
+    ['實現；成真','come true',['come back','come out','come over'],0,'c'],
+    ['騙走某人的錢','cheat sb out of money',['cheat sb into money','cheat sb from money','cheat sb off money'],1,'c'],
+    ['捐錢給慈善機構','donate to charity',['donate charity to','donate with charity','donate by charity'],1,'c'],
+    ['write','written',['wrote','writed','writen'],0,'p'],
+    ['become','become',['became','becomed','becamed'],1,'p'],
+    ['win','won',['wan','winned','wun'],0,'p'],
+    ['c h _ _ t（欺騙）','cheat',['cheet','chaet','cheate'],1,'s'],
+    ['a p p _ _ r（出現）','appear',['apear','appare','appeer'],1,'s'],
+    ['c o n c _ r t（演唱會）','concert',['consert','concret','concurt'],0,'s'],
+    ['c h _ l l _ n g e（挑戰）','challenge',['chalenge','challange','chellenge'],0,'s'],
+    ['p e r f _ r m（表演）','perform',['preform','perfrom','perfom'],0,'s'],
+    ['s _ c r _ t _ r y（祕書）','secretary',['secretery','secratary','secertary'],1,'s'],
+    ['b u s _ n _ s s m _ n（商人）','businessman',['busnessman','bussinessman','businesman'],0,'s'],
+    ['C h r _ s t m _ s（聖誕節）','Christmas',['Chrismas','Christmes','Cristmas'],0,'s'],
+    ['d _ n _ t e（捐贈）','donate',['donote','denate','donat'],1,'s'],
+  ],
+  words:[
+    ['be a fan of …','是…的粉絲'],['appear on TV','上電視'],['save money','存錢'],['treat … well','善待…'],['do one\'s best to …','盡全力…'],
+    ['dream of V-ing','夢想做…'],['come true','實現；成真'],['give up','放棄'],['ups and downs','起起落落'],['believe in oneself','相信自己'],
+    ['wake … up','使醒來；使醒悟'],['Christmas Eve','聖誕夜'],['a pay raise','加薪'],['donate … to charity','捐…給慈善機構'],['cheat sb out of …','騙走某人的…'],
+  ],
+  sorts:[
+    {title:'since 還是 for？',tip:'since＋過去的「時間點」或過去式子句；for＋一段「時間長度」',buckets:['since','for'],items:[
+      ['___ more than three years',1],['___ last Christmas',0],['___ 2018',0],['___ a long time',1],['___ she was a child',0,'since 後面可接過去式子句。'],
+      ['___ two weeks',1],['___ this morning',0],['___ months',1],['___ she moved to South Korea',0],['___ yesterday',0],['___ years',1],['___ ten minutes',1]]},
+    {title:'這是誰？Sandy、Mina 還是 Shuhua？',tip:'依南一課本 L1：Sandy 與 Mina 是對話裡的兩位同學；Shuhua（舒華）是閱讀的主角',buckets:['Sandy','Mina','Shuhua'],items:[
+      ['She watched i-dle\'s concert in Taipei last October.',0],['She saved money for months to go to a concert.',0],['Her favorite member is the leader of i-dle.',0],
+      ['She has been a CARAT for more than three years.',1],['She bought a SEVENTEEN key chain for herself.',1],['She will start saving money.',1],
+      ['She has watched the live streams many times.',1],['She moved to South Korea to be a trainee.',2],['She became a member of a girl group in 2018.',2],
+      ['She faces mean comments on the Internet.',2],['She practiced singing and dancing every day.',2]]},
+    {title:'already、yet、ever 還是 never？',tip:'already 肯定句（have 與 p.p. 中間）；yet 否定句／疑問句句尾；ever 疑問句「曾經」；never「從未」本身就是否定',buckets:['already','yet','ever','never'],items:[
+      ['Sandy has ___ been to i-dle\'s concert. She went last October.',0],['Has Mina been to a fan meeting ___?',1],
+      ['Have you ___ been to a concert?',2],['Mina has ___ seen SEVENTEEN live. She really wants to.',3],
+      ['Mina hasn\'t had the chance ___.',1],['I\'ve ___ bought the ticket. Let\'s go!',0],
+      ['Is this the best song you have ___ heard?',2,'最高級＋you have ever p.p.＝你聽過最…的。'],['The leader hasn\'t written a new song ___.',1],
+      ['Shuhua has ___ given up. She keeps trying.',3]]},
+  ],
+  hunt:{label:'🔍 完成式抓抓樂',title:'找出課文中的「現在完成式」（have / has＋p.p.）',tip:'watched、became、gave up 是過去式；has to、can come true 不是完成式！點一下你認為是現在完成式的詞組。',lines:[
+    'Mina: Not yet. I [haven\'t had] the chance.',
+    'Sandy: I [haven\'t seen] SEVENTEEN live, but I watched i-dle\'s concert in Taipei last October.',
+    'Sandy: The leader. She [has written] many songs for the band.',
+    'To make her dream come true, she moved to South Korea to be a trainee.',
+    'She often felt lonely, yet she never gave up.',
+    'Shuhua became a member of the girl group (G)I-DLE in 2018.',
+    'Since 2018, she [has performed] in many shows and concerts and [has won] fans from all over the world.',
+    'Even though i-dle [has become] famous, Shuhua\'s challenges never end.',
+    'She has to improve her Korean, perform better on stage, and practice until late at night.',
+  ]},
+  mcq:[
+    {q:'Mina has been a CARAT ___ more than three years.',o:['for','since','in','ago'],a:0,src:'六校考 since/for（課文句）',ex:'more than three years 是一段時間 → for。since 要接時間點。'},
+    {q:'Shuhua has performed in many shows and concerts ___ 2018.',o:['since','for','in','ago'],a:0,src:'六校考 since/for（課文句）',ex:'2018 是時間起點 → since。'},
+    {q:'Shuhua ___ a member of the girl group in 2018.',o:['became','has become','becomes','has became'],a:0,src:'R1 時態判斷（課文句）',ex:'in 2018 是明確過去時間 → 過去式 became；has became 文法錯（p.p. 是 become）。'},
+    {q:'Shuhua has worked hard ___ she was a child.',o:['since','for','before','until'],a:0,src:'同類題',ex:'since＋過去式子句（she was a child），主要子句用現在完成式。'},
+    {q:'A: How long have you worked in this office? B: ___',o:['Since 2020.','Two years ago.','In 2020.','For 2020.'],a:0,src:'',ex:'How long 問「多久」→ Since＋時間點 或 For＋一段時間。ago、in 2020 是答 When。for 不能接年份。'},
+    {q:'My fish ___ dead for two days.',o:['has been','has died','died','was'],a:0,src:'同類題',ex:'die 是瞬間動詞，不能接一段時間（for two days）；要改成 be dead → has been dead for…。'},
+    {q:'They have ___ on many TV programs.',o:['appeared','been appeared','appearing','appear'],a:0,src:'陷阱（課文句）',ex:'have＋p.p.；appear（出現）是不及物動詞，不能用被動。'},
+    {q:'They ___ fans so well. They always give gifts to fans.',o:['treat','cheat','lead','appear'],a:0,src:'課文句',ex:'treat sb well＝善待某人。'},
+    {q:'My boss loves nothing ___ money. He never gives us a raise.',o:['but','and','or','so'],a:0,src:'',ex:'nothing but＝只有，love nothing but money＝只愛錢。'},
+    {q:'My friend cheated me ___ my money, so I don\'t trust him anymore.',o:['out of','into','from','away'],a:0,src:'',ex:'cheat sb out of sth＝騙走某人的某物。'},
+    {q:'Mr. Lin is very kind. He has donated a lot of money ___ charity.',o:['to','for','at','with'],a:0,src:'六校考 donate',ex:'donate sth to charity＝把某物捐給慈善機構。'},
+    {q:'Kelly works very hard, so she asked her boss for a ___.',o:['raise','prize','lie','charity'],a:0,src:'五校考 raise',ex:'ask for a raise＝要求加薪。prize 是比賽的獎品。'},
+    {q:'Don\'t tell a ___. You should always be honest.',o:['lie','raise','present','charity'],a:0,src:'四校考 lie',ex:'tell a lie＝說謊，和後句 be honest（誠實）相反。'},
+    {q:'A: Have you ever been to a concert? B: ___',o:['Yes, I have.','Yes, I did.','Yes, I was.','Yes, I had.'],a:0,src:'同類題',ex:'Have you…? 用 have / haven\'t 回答。'},
+    {q:'My brother isn\'t home now. He ___ to the post office.',o:['has gone','has been','has been in','goes'],a:0,src:'四校考 been to / gone to',ex:'人不在這裡、已經去了還沒回來 → has gone to。has been to 是「去過、已回來」。'},
+    {q:'I ___ their live streams many times!',o:['have watched','have watch','has watched','watching'],a:0,src:'課文句',ex:'主詞 I → have；many times＝經驗次數，用現在完成式 have＋p.p.。'},
+    {q:'Which is TRUE about the dialogue in Lesson 1?',o:['Mina has been a CARAT for more than three years.','Mina watched i-dle\'s concert last October.','Sandy bought a SEVENTEEN key chain.','Mina has been to a SEVENTEEN concert.'],a:0,src:'課文理解（南一課本）',ex:'看 i-dle 演唱會的是 Sandy；買 SEVENTEEN 鑰匙圈、還沒去過演唱會的是 Mina。段考很愛把人物事實互換！'},
+    {q:'"Shuhua\'s life has a lot of ups and downs." 這句話的意思是？',o:['她的人生起起落落','她常常上樓下樓','她的生活很無聊','她每天都很開心'],a:0,src:'課文理解（南一課本）',ex:'ups and downs＝起起落落、有好有壞。'},
+    {q:'A: Has Sara eaten the cake ___? B: No, not ___.',o:['yet; yet','already; yet','ever; already','yet; already'],a:0,src:'課本 Grammar A',ex:'疑問句、否定句用 yet；not yet＝還沒。'},
+  ]
+},
+l2:{
+  no:'Lesson 2', code:2, title:'Fun Runs Are Held All Around the World', short:'趣味路跑', color:'linear-gradient(135deg,#7a3e65,#c0607a)',
+  desc:'Henry & Lucy 聊路跑｜runDisney 與 Zombie Run｜被動語態 be＋p.p.',
+  quick:[
+    ['prize','獎品',['獎牌','旗子','禮物'],1,'e'],
+    ['sidewalk','人行道',['馬路','側邊','走廊'],1,'e'],
+    ['thirsty','口渴的',['痠痛的','虛弱的','飢餓的'],1,'e'],
+    ['wallet','皮夾',['牆壁','手錶','獎牌'],1,'e'],
+    ['burning','灼熱的',['痠痛的','生氣的','好笑的'],1,'e'],
+    ['character','角色；人物',['性格證明','服裝','跑者'],1,'e'],
+    ['firework','煙火',['火災','消防員','火柴'],1,'e'],
+    ['medal','獎牌',['金屬','獎品','旗子'],1,'e'],
+    ['sore','痠痛的',['抱歉的','口渴的','灼熱的'],1,'e'],
+    ['costume','服裝；扮裝',['習俗','顧客','花費'],1,'e'],
+    ['scream','尖叫',['夢想','冰淇淋','溪流'],1,'e'],
+    ['insect','昆蟲',['檢查','裡面','蟲咬'],1,'e'],
+    ['weak','虛弱的',['一週','強壯的','醒著的'],1,'e'],
+    ['marathon','馬拉松',['賽車','運動會','派對'],1,'e'],
+    ['zombie','殭屍',['鬼魂','怪物','巫婆'],1,'e'],
+    ['alive','活著的',['死的','孤單的','醒著的'],1,'e'],
+    ['honest','誠實的',['刻薄的','明智的','活著的'],1,'e'],
+    ['above','在……上面',['在……下面','在……旁邊','在……之間'],0,'e'],
+    ['exciting','令人興奮的',['感到興奮的','無聊的','疲倦的'],0,'e'],
+    ['參加','take part in',['take care of','take off','take after'],0,'c'],
+    ['老實說','to be honest',['to be sure','to be free','to be true'],0,'c'],
+    ['出發；（煙火）施放','set off',['set up','take off','pull off'],1,'c'],
+    ['扯下','pull off',['pull down','put off','take on'],1,'c'],
+    ['送飛吻','blow kisses',['blow up','give kisses up','fly kisses'],1,'c'],
+    ['拿走','take away',['take after','give away','put away'],1,'c'],
+    ['作為獎品','as a prize',['for prize','like a prize','by a prize'],0,'c'],
+    ['旗子','flag',['flat','flog','frog'],1,'c'],
+    ['跑者','runner',['ruler','running','racer'],0,'c'],
+    ['歡呼','cheer',['chair','cheap','chew'],0,'c'],
+    ['英里','mile',['meal','mail','smile'],0,'c'],
+    ['s _ d _ w _ l k（人行道）','sidewalk',['sidwalk','sidewark','sidewolk'],1,'s'],
+    ['t h _ r s t y（口渴的）','thirsty',['thursty','thirsy','thristy'],1,'s'],
+    ['w _ l l _ t（皮夾）','wallet',['wallat','walet','wollet'],1,'s'],
+    ['m _ d _ l（獎牌）','medal',['medel','madal','meddle'],1,'s'],
+    ['c h _ r _ c t _ r（角色）','character',['charactor','charecter','caracter'],1,'s'],
+    ['f _ r _ w _ r k（煙火）','firework',['firewark','fierwork','fireword'],1,'s'],
+    ['c _ s t _ m e（服裝）','costume',['costum','custome','costome'],1,'s'],
+    ['m _ r _ t h _ n（馬拉松）','marathon',['marathan','marothon','maraton'],1,'s'],
+  ],
+  words:[
+    ['set off','出發；施放（煙火）'],['pull off','扯下'],['blow kisses to …','向…送飛吻'],['take away','拿走'],['as a prize','作為獎品'],
+    ['dress up in …','穿上…（服裝）'],['fun run','趣味路跑'],['take part in','參加'],['to be honest','老實說'],['all along the way','一路上'],['stay alive','活下來'],['for fun','為了好玩'],
+  ],
+  sorts:[
+    {title:'主動還是被動？',tip:'主詞「自己做」→ 主動；主詞「被…」→ 被動 be＋p.p.。happen、appear 不及物，連綴動詞 feel、taste 都不用被動！',buckets:['主動','被動（be＋p.p.）'],items:[
+      ['Fireworks ___ when the race starts. (set off)',1,'煙火是「被施放」→ are set off。'],['The runners ___ at six a.m. (set off)',0,'跑者自己出發 → set off。'],
+      ['Medals ___ to all the runners. (give)',1],['Disney characters ___ them kisses. (blow)',0],
+      ['Screams can ___ all along the way. (hear)',1,'can be heard。'],['The zombies ___ the runners. (chase)',0],
+      ['Some runners\' flags ___ off. (pull)',1],['Something funny ___ during the race. (happen)',0,'happen 不及物，不能被動。'],
+      ['My legs ___ very sore. (feel)',0,'feel 是連綴動詞，不用被動。'],['The lost wallet ___ on the sidewalk. (find)',1],
+      ['English ___ all over the world. (speak)',1]]},
+    {title:'runDisney？Zombie Run？還是兩個都有？',tip:'依南一課本 L2 閱讀〈Fun Runs〉',buckets:['runDisney','Zombie Run','兩者都有'],items:[
+      ['Runners can wear their favorite Disney costumes.',0],['Colorful fireworks can be seen in the sky.',0],['Characters cheer and blow kisses from the sidewalk.',0],
+      ['A lovely Disney medal is given as a prize.',0],['It is usually held around Halloween.',1],['Hungry zombies hunt for the runners.',1],
+      ['Cries and screams can be heard all along the way.',1],['If a runner\'s flags are all taken away, the runner is out.',1],
+      ['Runners can get a medal at the end.',2],['It is one of the most popular fun runs.',2]]},
+  ],
+  hunt:{label:'🔍 被動語態抓抓樂',title:'找出課文中的「被動語態」（be／助動詞＋be＋p.p.）',tip:'set off（跑者出發）、see 是主動；are exciting 是 be＋形容詞，不是被動！副詞 also、usually、all 夾在中間時，be 動詞和 p.p. 要分開點。',lines:[
+    'Henry: My aunt ran in a Costume Run in Japan. It [was called] the Sumo Run.',
+    'Henry: Sumo Runs [are] also [held] in Taiwan.',
+    'Fun runs [have been held] all around the world.',
+    'After the runners set off, they see colorful fireworks above them in the sky.',
+    'When the runners finish the race, a lovely Disney medal [is given] to them as a prize.',
+    'Zombie Runs [are] usually [held] around Halloween.',
+    'They are exciting because runners [can be killed] by zombies.',
+    'Cries and screams [can be heard] all along the way.',
+    'If a runner\'s flags [are] all [taken] away, the runner is out.',
+  ]},
+  mcq:[
+    {q:'When the runners set off, fireworks ___ in the sky.',o:['are set off','set off','is set off','setting off'],a:0,src:'四校考 set off',ex:'煙火「被施放」→ 被動；fireworks 複數 → are set off。'},
+    {q:'They are exciting because runners can ___ by zombies.',o:['be killed','kill','be kill','killed'],a:0,src:'同類題（課文句）',ex:'助動詞被動：can be＋p.p.。'},
+    {q:'If all your flags are pulled ___, you are out of the game.',o:['off','on','up','down'],a:0,src:'陷阱',ex:'pull off＝扯下（旗子從腰帶上被扯離），不是 pull down（往下拉）。'},
+    {q:'Disney characters cheer and blow them kisses ___ the sidewalk.',o:['from','into','under','through'],a:0,src:'陷阱（課文句）',ex:'角色站在人行道上「從那裡」送飛吻 → from the sidewalk。'},
+    {q:'When the runners finish the race, a lovely Disney medal is given to them ___ a prize.',o:['as','by','of','at'],a:0,src:'課文句',ex:'as a prize＝作為獎品。'},
+    {q:'After the race, I was so ___ that I drank three bottles of water.',o:['thirsty','sore','weak','honest'],a:0,src:'五校考 thirsty',ex:'喝了三瓶水 → 口渴的 thirsty。'},
+    {q:'My legs are burning and ___. I really need a rest.',o:['sore','thirsty','wise','alive'],a:0,src:'',ex:'腿「痠痛」→ sore。'},
+    {q:'Henry lost his ___ on the way, so he had no money to buy a drink.',o:['wallet','medal','flag','costume'],a:0,src:'五校考 wallet',ex:'沒有錢 → 皮夾不見了。'},
+    {q:'Something terrible ___ during the race last year.',o:['happened','was happened','is happened','happen'],a:0,src:'陷阱',ex:'happen 是不及物動詞，不能用被動；last year → 過去式。'},
+    {q:'A: Who ___ the race last year? B: It ___ by a girl from Taiwan.',o:['won; was won','was won; won','won; won','was won; was won'],a:0,src:'原創',ex:'第一句 Who 是主詞，主動 won；第二句 It（比賽）被贏 → was won。'},
+    {q:'Zombie Runs ___ usually ___ around Halloween.',o:['are; held','are; holding','have; held','do; hold'],a:0,src:'同類題（課文句）',ex:'路跑「被舉辦」→ are held；頻率副詞 usually 放在 be 動詞後面。'},
+    {q:'"Cries and screams can be heard all along the way." 這句話的意思是？',o:['一路上都聽得到哭喊和尖叫聲','大家沿路大聲唱歌','路上不准尖叫','只有終點聽得到尖叫'],a:0,src:'課文理解（南一課本）',ex:'can be heard＝能被聽到；all along the way＝一路上。'},
+    {q:'Henry: Would you like to join me? Lucy: ___ I\'m not a great runner. Let me think about it.',o:['To be honest,','Deal!','Same here.','Congratulations!'],a:0,src:'課文句',ex:'下一句說自己不太會跑 → 先說 To be honest（老實說）。Deal! 是答應；Same here. 是我也是。'},
+    {q:'Mickey and Minnie are famous Disney ___.',o:['characters','insects','sidewalks','medals'],a:0,src:'四校考 character',ex:'character＝（卡通、故事裡的）角色。'},
+    {q:'The ___ were so loud that the baby woke up and cried.',o:['fireworks','wallets','medals','prizes'],a:0,src:'四校考 firework',ex:'很大聲 → 煙火。'},
+    {q:'According to the reading, which is TRUE about the Zombie Run?',o:['A runner is out if all the flags are taken away.','Colorful fireworks are seen above the runners.','Disney characters cheer from the sidewalk.','A lovely Disney medal is given as a prize.'],a:0,src:'課文理解（南一課本）',ex:'煙火、迪士尼角色、迪士尼獎牌都是 runDisney 的內容。課本理解題：runners can be killed＝出局（out of the game）。'},
+  ]
+},
+r1:{
+  no:'Review 1', code:4, title:'Past or Present Perfect?', short:'時態總複習', color:'linear-gradient(135deg,#3a4f7a,#6b86b8)',
+  desc:'Tim 想進田徑隊｜瘟疫醫生｜過去式 vs 現在完成式、被動總複習',
+  subs:[['anim','🎬 時態判斷秀'],['quick','⚡ 時態快問快答'],['match','🔗 片語總複習'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']],
+  quick:[
+    ['The team ___ first in different races many times. (finish)','has finished',['finished','finishes','have finished'],1,'t'],
+    ['A: Have you ever trained before? B: Yes, I ___.','have',['did','do','was'],1,'t'],
+    ['I fell down, and my left leg ___. (break)','was broken',['broke','has broken','is broken'],1,'t'],
+    ['I ___ to give up running. (tell)','was told',['told','have told','am telling'],1,'t'],
+    ['My fish died two days ago. My fish ___ dead for two days. (be)','has been',['was','is','has died'],1,'t'],
+    ['I ___ this story last week. (read)','read',['have read','reads','readed'],0,'t'],
+    ['We ___ here since 2020. (live)','have lived',['lived','live','are living'],1,'t'],
+    ['She ___ to Japan twice. She loves it. (be)','has been',['has gone','is','have been'],1,'t'],
+    ['Tom isn\'t here. He ___ to the store. (go)','has gone',['has been','goes','go'],1,'t'],
+    ['I ___ this wallet for three years. (have)','have had',['have bought','bought','had'],1,'t'],
+    ['A: When ___ you ___ the medal? B: Yesterday.','did; get',['have; got','did; got','have; get'],0,'t'],
+    ['Kelly ___ her boss for a raise two days ago. (ask)','asked',['has asked','asks','has been asked'],0,'t'],
+    ['___ you ever ___ a fun run?','Have; joined',['Did; join','Have; join','Do; joined'],1,'t'],
+    ['They ___ the homework yet.','haven\'t finished',['didn\'t finish','don\'t finish','haven\'t finish'],1,'t'],
+    ['It ___ for two days. Everything is wet. (rain)','has been raining',['rained','rains','was rain'],0,'t'],
+    ['My sister ___ to the UK in 2022. (go)','went',['has gone','has been','goes'],0,'t'],
+    ['He ___ already ___ the race.','has; finished',['did; finish','is; finished','has; finish'],0,'t'],
+    ['A: How long ___ you known Henry? B: For ten years.','have',['did','do','are'],0,'t'],
+    ['It ___ three years since we last met.','has been',['was','have been','has'],0,'t'],
+    ['i-dle ___ famous since 2018.','has become',['became','becomes','has became'],1,'t'],
+    ['Shuhua ___ a member of i-dle in 2018. (become)','became',['has become','becomes','has became'],1,'t'],
+    ['I ___ my homework. Now I can play. (finish)','have finished',['finish','am finished','had finish'],0,'t'],
+    ['Ben ___ a cold since Monday. (have)','has had',['had','has','have had'],0,'t'],
+    ['We ___ a movie and had dinner last night. (watch)','watched',['have watched','watch','has watched'],1,'t'],
+    ['A: Have you seen my wallet? B: Yes, I ___ it on the sofa a minute ago.','saw',['have seen','see','have saw'],0,'t'],
+    ['He has never ___ to a marathon.','been',['gone','go','went'],0,'t'],
+    ['I ___ in Tainan for five years, but now I live in Taipei. (live)','lived',['have lived','live','am living'],1,'t'],
+    ['Peter has been to the USA, but his sisters ___.','haven\'t',['didn\'t','aren\'t','hasn\'t'],1,'t'],
+  ],
+  words:[
+    ['ask for a raise','要求加薪'],['take part in','參加'],['sign up for','報名'],['be known for','以…聞名'],['be named after','以…命名'],
+    ['take care of','照顧'],['give up','放棄'],['take place','（活動）舉行'],['be filled with','充滿'],['make a decision','做決定'],
+  ],
+  sorts:[
+    {title:'看時間線索：過去式還是現在完成式？',tip:'明確的過去時間（yesterday、ago、last…、in 2015、just now、When…?）→ 過去式；since、for、already、yet、ever、never、so far、How long → 現在完成式',buckets:['過去式','現在完成式'],items:[
+      ['___ last Christmas',0],['___ since last Christmas',1],['___ two years ago',0],['___ for two years',1],['___ yesterday',0],['___ already',1],
+      ['___ in 2015',0],['___ ever / never',1],['When …?',0,'When 問明確時間點 → 過去式。'],['How long …?',1],['___ just now',0,'just now＝剛才，用過去式。'],['___ yet',1],['___ so far',1]]},
+    {title:'been to、gone to 還是 been in？',tip:'been to＝去過（已回來）；gone to＝去了（還沒回來）；been in＝一直待在某地（常接 for / since）',buckets:['been to','gone to','been in'],items:[
+      ['Amy has ___ Japan three times. She loves it.',0],['Amy isn\'t here. She has ___ Japan. She\'ll be back next week.',1],
+      ['Amy has ___ Japan since May. She still lives there.',2],['I have ___ the zoo many times.',0],['Where is Dad? He has ___ the bank.',1],
+      ['Lucy has ___ the hospital for two days.',2],['Have you ever ___ a Disney park?',0],['Henry has ___ Taichung for a month.',2]]},
+    {title:'瞬間動詞要換成「持續」的說法',tip:'die、buy、begin、leave 是一瞬間的動作，不能接 for / since；要換成 be dead、have、be on、be away',buckets:['die → be dead','buy → have','begin → be on','leave → be away'],items:[
+      ['My fish ___ for two days.',0],['I ___ this medal for a year.',1],['The movie ___ for ten minutes.',2],['Dad ___ from home for a week.',3],
+      ['Her cat ___ since last winter.',0],['We ___ this truck since 2020.',1],['The race ___ for an hour.',2],['He ___ since Monday.',3]]},
+  ],
+  mcq:[
+    {q:'Jack ___ vegetables in his garden a few years ago.',o:['grew','has grown','grows','has grew'],a:0,src:'同類題',ex:'a few years ago 是明確的過去時間 → 過去式 grew。'},
+    {q:'I ___ to a summer camp for five days last month.',o:['went','have gone','have been','go'],a:0,src:'陷阱',ex:'有 for five days 但也有 last month（明確過去）→ 用過去式。不要一看到 for 就選完成式！'},
+    {q:'My uncle ___ in Canada since 2018.',o:['has lived','lived','lives','is living'],a:0,src:'六校考 since',ex:'since 2018 → 從過去持續到現在 → 現在完成式。'},
+    {q:'A: ___ have you been a runner? B: For three years.',o:['How long','How often','When','How many times'],a:0,src:'',ex:'回答 For three years（一段時間）→ 問 How long。'},
+    {q:'A: ___ have you been to Tainan? B: Twice.',o:['How many times','How long','How often','When'],a:0,src:'',ex:'回答 Twice（次數）→ How many times。'},
+    {q:'Lisa ___ her wallet yesterday, so she has no money for lunch today.',o:['lost','has lost','loses','has been lost'],a:0,src:'原創',ex:'yesterday 是明確過去時間 → 過去式，不能和現在完成式連用。'},
+    {q:'A: Where\'s Dad? B: He ___ to the bank. He\'ll be back soon.',o:['has gone','has been','has been in','goes'],a:0,src:'',ex:'人「去了還沒回來」→ has gone to。'},
+    {q:'I have ___ this book for two weeks.',o:['had','bought','borrowed','got'],a:0,src:'瞬間動詞 陷阱',ex:'buy、borrow、get 都是瞬間動詞，不能接 for two weeks；要用 have had（擁有了兩週）。'},
+    {q:'Peter has been to the USA, but his sisters ___.',o:['haven\'t','didn\'t','aren\'t','hasn\'t'],a:0,src:'',ex:'前句用 has been，省略句也用完成式助動詞；sisters 複數 → haven\'t。'},
+    {q:'The movie began ten minutes ago. = The movie has ___ for ten minutes.',o:['been on','begun','began','been begin'],a:0,src:'瞬間動詞 陷阱',ex:'begin 是瞬間動詞，改成 be on（上演中）→ has been on for ten minutes。'},
+    {q:'When ___ you ___ your first medal?',o:['did; win','have; won','did; won','have; win'],a:0,src:'原創',ex:'When 問明確時間點 → 過去式；did 後接原形 win。'},
+    {q:'Since 2018, the band ___ money to charity every year.',o:['has donated','donated','was donated','donate'],a:0,src:'同類題',ex:'Since 2018 → 現在完成式；主詞 the band 自己捐 → 主動 has donated。'},
+    {q:'We ___ dinner yet. Let\'s eat now.',o:['haven\'t had','didn\'t have','don\'t have','haven\'t have'],a:0,src:'',ex:'yet 用在現在完成式否定句；have 的 p.p. 是 had。'},
+    {q:'My grandma ___ sick for a week, so she is in the hospital now.',o:['has been','was','is','has'],a:0,src:'同類題',ex:'for a week 持續到現在（she is in the hospital now）→ has been sick。'},
+    {q:'Ken: I\'ve watched this movie before. Mia: Really? When ___ it?',o:['did you watch','have you watched','do you watch','had you watched'],a:0,src:'原創',ex:'When 問「什麼時候」→ 過去式；現在完成式不能和 When 連用。'},
+    {q:'Which sentence is correct?',o:['He has been away from Taipei for three days.','He has left Taipei for three days.','He has left Taipei three days ago.','He has gone to Taipei since three days.'],a:0,src:'陷阱',ex:'leave 是瞬間動詞，持續要說 be away；ago 不和完成式連用；since 不能接一段時間。'},
+  ]
+},
+gram:{
+  no:'文法特訓', code:3, title:'被動語態＋現在完成式', short:'文法特訓', color:'linear-gradient(135deg,#b85c1e,#f2a541)',
+  desc:'be＋p.p.（現在／過去／助動詞／完成式）｜不可被動的動詞',
+  subs:[['anim','🎬 句型變身秀'],['quick','⚡ 過去分詞快問快答'],['sort','🎯 分類挑戰'],['mcq','📝 文法模擬題']],
+  quick:[
+    ['speak','spoken',['spoke','speaked','spoked'],1,'p'],
+    ['write','written',['wrote','writed','writen'],0,'p'],
+    ['give','given',['gave','gived','give'],1,'p'],
+    ['take','taken',['took','taked','tooken'],1,'p'],
+    ['set','set',['setted','sat','seted'],1,'p'],
+    ['pull','pulled',['pulld','pullen','pool'],1,'p'],
+    ['hold','held',['holded','hold','helded'],1,'p'],
+    ['lead','led',['leaded','lead','lad'],1,'p'],
+    ['steal','stolen',['stole','stealed','stoled'],0,'p'],
+    ['hear','heard',['heared','hard','heart'],1,'p'],
+    ['see','seen',['saw','seed','seened'],0,'p'],
+    ['know','known',['knew','knowed','knowen'],1,'p'],
+    ['build','built',['builded','build','builted'],1,'p'],
+    ['sell','sold',['selled','sale','seld'],1,'p'],
+    ['find','found',['finded','fund','founded'],0,'p'],
+    ['leave','left',['leaved','lift','lefted'],1,'p'],
+    ['put','put',['putted','puted','pat'],1,'p'],
+    ['blow','blown',['blew','blowed','blowen'],1,'p'],
+    ['eat','eaten',['ate','eated','eatten'],0,'p'],
+    ['choose','chosen',['chose','choosed','choosen'],0,'p'],
+    ['do','done',['did','doed','dun'],1,'p'],
+    ['sing','sung',['sang','singed','song'],1,'p'],
+    ['break','broken',['broke','breaked','broked'],0,'p'],
+    ['wear','worn',['wore','weared','worne'],0,'p'],
+    ['pay','paid',['payed','paied','pay'],1,'p'],
+    ['buy','bought',['buyed','brought','boughten'],0,'p'],
+    ['catch','caught',['catched','cought','caughten'],0,'p'],
+    ['throw','thrown',['threw','throwed','throwen'],0,'p'],
+    ['go','gone',['went','goed','been'],1,'p'],
+    ['am / is / are','been',['was','were','being'],1,'p'],
+    ['rise（上升）','risen',['rose','raised','rised'],0,'p'],
+    ['lie（說謊）','lied',['lain','lay','laid'],1,'p'],
+  ],
+  sorts:[
+    {title:'看時間線索，選被動語態的時態',tip:'every…／always → is/are p.p.；last…／ago／in 1909 → was/were p.p.；next…／tomorrow／can → will/can be p.p.；since／for／yet → has/have been p.p.',
+     buckets:['is / are p.p.','was / were p.p.','will / can be p.p.','has / have been p.p.'],items:[
+      ['The race ___ every December. (hold)',0],['English ___ in many countries. (speak)',0],['The windows ___ every morning. (clean)',0],
+      ['The bridge ___ in 1909. (build)',1],['My wallet ___ last night. (steal)',1],['The blind man ___ across the road by Lucy yesterday. (lead)',1],
+      ['A new library ___ next year. (build)',2],['Screams ___ all along the way. (can / hear)',2],['The medals ___ to the runners tomorrow. (give)',2],
+      ['This song ___ for over fifty years. (sing)',3],['The flowers ___ yet. (not / water)',3],['Many photos ___ since the race started. (take)',3]]},
+    {title:'抓錯大作戰：這句文法對不對？',tip:'happen、appear 不能被動；taste、feel 是連綴動詞；listen to 被動要保留 to；die、buy 是瞬間動詞',buckets:['正確 ✅','錯誤 ❌'],items:[
+      ['Something strange was happened last night.',1,'happen 不及物 → Something strange happened.'],
+      ['The cake tasted delicious.',0],['The cake was tasted delicious.',1,'taste（嚐起來）是連綴動詞，不用被動。'],
+      ['English is spoken in many countries.',0],['My flags were pulled off by a zombie.',0],
+      ['Her music is listened by millions of people.',1,'片語動詞 listen to 改被動要保留 to：is listened to by…'],
+      ['They were appeared on many TV programs.',1,'appear 不及物 → They appeared on many TV programs.'],['The flowers haven\'t been watered yet.',0],
+      ['A new bridge is going to build.',1,'橋「被蓋」→ is going to be built。'],['All the runners will be given a T-shirt.',0],
+      ['My fish has died for two days.',1,'die 是瞬間動詞 → has been dead for two days。'],
+      ['I have bought this wallet for two years.',1,'buy 是瞬間動詞 → have had this wallet for two years。'],['I have had this wallet for two years.',0]]},
+  ],
+  mcq:[
+    {q:'English ___ as a second language in many countries.',o:['is spoken','speaks','is speaking','spoken'],a:0,src:'同類題',ex:'語言「被說」→ 現在式被動 is spoken。'},
+    {q:'This song ___ for over fifty years, and people still love it.',o:['has been sung','has sung','was sung','sings'],a:0,src:'同類題',ex:'for over fifty years → 完成式；歌「被唱」→ has been sung。'},
+    {q:'The old bridge ___ in 1909.',o:['was built','is built','has built','built'],a:0,src:'同類題',ex:'in 1909 → 過去式被動 was built。'},
+    {q:'A new library ___ in our town next year.',o:['will be built','will build','is built','built'],a:0,src:'',ex:'next year → 未來式被動 will be＋p.p.。'},
+    {q:'It hasn\'t rained for weeks, and the flowers haven\'t ___ yet.',o:['been watered','watered','be watered','been water'],a:0,src:'同類題',ex:'完成式被動否定：haven\'t been＋p.p.。'},
+    {q:'Nothing ___ in the fridge. We need to go shopping.',o:['is left','leaves','is leaving','left'],a:0,src:'同類題',ex:'冰箱裡什麼都「沒被留下」→ is left。'},
+    {q:'Her songs are listened ___ by millions of people.',o:['to','at','for','X'],a:0,src:'陷阱',ex:'listen to 改被動時，介系詞 to 要保留：be listened to by…。'},
+    {q:'By whom ___ this letter written?',o:['was','did','does','has'],a:0,src:'被動疑問句',ex:'被動疑問句：By whom＋be＋主詞＋p.p.? → By whom was this letter written?'},
+    {q:'Alison doesn\'t like ___ what to do.',o:['to be told','to tell','telling','told'],a:0,src:'同類題',ex:'她不喜歡「被告知」→ 不定詞被動 to be＋p.p.。'},
+    {q:'The cake ___ delicious. Can I have another piece?',o:['tasted','was tasted','is tasted','has been tasted'],a:0,src:'陷阱',ex:'taste 當「嚐起來」是連綴動詞，後接形容詞，不能用被動。'},
+    {q:'Something strange ___ in the old house last night.',o:['happened','was happened','is happened','has happened'],a:0,src:'陷阱',ex:'happen 不及物，不能被動；last night → 過去式 happened。'},
+    {q:'The runner\'s flags ___ by a zombie a minute ago.',o:['were pulled off','pulled off','have pulled off','are pulled off'],a:0,src:'',ex:'旗子「被扯下」＋a minute ago → 過去式被動 were pulled off。'},
+    {q:'These old photos should ___ good care of.',o:['be taken','take','be take','taking'],a:0,src:'同類題',ex:'助動詞被動 should be＋p.p.；take care of 的片語要保留完整。'},
+    {q:'The meeting is going to ___ in the gym.',o:['be held','hold','held','be holding'],a:0,src:'',ex:'be going to be＋p.p.＝將要被…。'},
+    {q:'The window ___ by Tom this morning. He said sorry to his mom.',o:['was broken','broke','is breaking','has broke'],a:0,src:'原創',ex:'窗戶「被打破」＋this morning（已過去）→ was broken。'},
+    {q:'They give every runner a medal. 改成被動語態，何者正確？',o:['Every runner is given a medal.','Every runner gives a medal.','Every runner was given a medal.','A medal gives every runner.'],a:0,src:'被動改寫',ex:'原句現在式 give → 被動 is given；人當主詞：Every runner is given a medal.'},
+    {q:'The blind man was ___ across the road by Lucy.',o:['led','lead','leading','leaded'],a:0,src:'同類題（R1 課本句）',ex:'lead 的過去分詞是 led，沒有 leaded。'},
+    {q:'A: Has the homework been finished? B: No, it ___.',o:['hasn\'t','isn\'t','didn\'t','wasn\'t'],a:0,src:'原創',ex:'Has…been p.p.? → 用 has / hasn\'t 回答。'},
+    {q:'Many photos ___ since the race started.',o:['have been taken','have taken','were taken','are taken'],a:0,src:'同類題',ex:'since＋過去式子句 → 完成式；照片「被拍」→ have been taken。'},
+    {q:'Henry heard his name ___ at the finish line.',o:['called','calling','to call','calls'],a:0,src:'同類題',ex:'名字是「被叫」→ 感官動詞 hear＋受詞＋p.p.。'},
+    {q:'The runner got to the finish line without ___ by any zombies.',o:['being caught','catching','caught','be caught'],a:0,src:'同類題',ex:'without 是介系詞，後接動名詞；「被抓」→ being＋p.p.。'},
+    {q:'Which sentence is correct?',o:['A lot of money has been paid for the tickets.','A lot of money has paid for the tickets.','A lot of money has been pay for the tickets.','A lot of money is been paid for the tickets.'],a:0,src:'同類題',ex:'錢「被付」→ 完成式被動 has been＋p.p.（pay → paid）。'},
+  ]
+},
+};
+
+/* 綜合頁：克漏字＋閱讀為原創；翻譯優先用南一課本原句 */
+const CLOZE=[
+  {title:'克漏字 A｜A Gift on Christmas Eve',text:'Mr. Green __1__ a farmer for forty years. He is not rich, but he is kind. Last Christmas Eve, a thin boy __2__ at his door. The boy\'s wallet __3__ in the city, so he had no money. Mr. Green let him in and gave him hot soup. "Have you ever had a Christmas dinner?" he asked. "No, __4__," the boy said. Since that night, the boy __5__ on the farm with Mr. Green. Now everyone in town says the boy __6__ a good home.',
+   qs:[
+    {q:'__1__',o:['has been','was','is','has'],a:0,ex:'for forty years 持續到現在（He is not rich…）→ has been。'},
+    {q:'__2__',o:['appeared','was appeared','has appeared','appears'],a:0,ex:'Last Christmas Eve → 過去式；appear 不能被動。'},
+    {q:'__3__',o:['was stolen','stole','has stolen','is stealing'],a:0,ex:'皮夾「被偷」→ 過去式被動 was stolen。'},
+    {q:'__4__',o:['never','ever','yet','already'],a:0,ex:'No, never.＝從來沒有。ever 用在疑問句。'},
+    {q:'__5__',o:['has lived','lived','lives','was lived'],a:0,ex:'Since that night → 現在完成式；live 不及物，不能被動。'},
+    {q:'__6__',o:['has found','has been found','was found','is finding'],a:0,ex:'男孩「找到」一個好家 → 主動 has found。'},
+   ]},
+  {title:'克漏字 B｜The Color Run',text:'Have you __1__ heard of the Color Run? It is a five-kilometer fun run, and it __2__ in many cities around the world every year. Before the race, every runner __3__ a white T-shirt. During the race, colorful powder __4__ at the runners. At the end, everyone looks like a rainbow! Last year, my sister and I joined it. We were tired and __5__, but we had a lot of fun. A medal was given to each of us __6__ a prize.',
+   qs:[
+    {q:'__1__',o:['ever','never','yet','already'],a:0,ex:'Have you ever p.p.?＝你曾經…嗎？'},
+    {q:'__2__',o:['is held','holds','is holding','was held'],a:0,ex:'every year → 現在式；路跑「被舉辦」→ is held。'},
+    {q:'__3__',o:['is given','gives','is giving','has given'],a:0,ex:'跑者「被給」一件 T 恤 → is given。'},
+    {q:'__4__',o:['is thrown','throws','threw','is throwing'],a:0,ex:'彩色粉「被丟」向跑者 → is thrown。'},
+    {q:'__5__',o:['thirsty','honest','wise','alive'],a:0,ex:'跑完又累又「口渴」。'},
+    {q:'__6__',o:['as','by','of','at'],a:0,ex:'as a prize＝作為獎品。'},
+   ]},
+];
+const READ=[
+  {title:'閱讀 A｜Sunshine City Fun Run',text:'Sunshine City Fun Run\nDate: Saturday, December 20\nStart: 7:00 a.m. at City Park\n• 5K Costume Run: NT$500 (children under 12: NT$300)\n• 10K Zombie Run: NT$800 (only for people 15 and older)\nEvery runner will be given a T-shirt and a bottle of water. A medal will be given to everyone who finishes the race. Half of the money will be donated to a children\'s hospital.\nSign up online before December 10. You can\'t sign up on the race day.',
+   qs:[
+    {q:'Mr. Wang and his ten-year-old son want to join the 5K Costume Run. How much should they pay?',o:['NT$800.','NT$1,000.','NT$600.','NT$1,300.'],a:0,ex:'大人 NT$500＋12 歲以下小孩 NT$300＝NT$800。'},
+    {q:'Which is TRUE about the fun run?',o:['Some of the money will go to a hospital.','The race starts in the afternoon.','You can sign up on December 20.','Every runner gets a medal before the race.'],a:0,ex:'Half of the money will be donated to a children\'s hospital。獎牌是「完賽」才給。'},
+    {q:'Who can NOT join the 10K Zombie Run?',o:['A 13-year-old student.','A 15-year-old student.','A 40-year-old teacher.','A 20-year-old runner.'],a:0,ex:'Zombie Run only for people 15 and older。'},
+   ]},
+  {title:'閱讀 B｜The Man Who Never Smiled',text:'Mr. Hu has run a small shop on Main Street for thirty years. He was known as the meanest shopkeeper in town. He never gave his workers a raise, and he never smiled. One winter evening, Mr. Hu dropped his wallet on the sidewalk. A girl found it and ran after him. "Sir, you dropped this!" she said. All the money was still in it. Mr. Hu was surprised. "Why didn\'t you keep it?" he asked. "Because it isn\'t mine," the girl answered. That night, Mr. Hu couldn\'t sleep. Since then, he has changed a lot. He has given all his workers a raise, and every Christmas a big box of food is sent to the girl\'s school. People say he has become a new man.',
+   qs:[
+    {q:'Why did the girl give the wallet back?',o:['Because she was honest and it wasn\'t hers.','Because she wanted a raise.','Because Mr. Hu was her father.','Because there was no money in it.'],a:0,ex:'"Because it isn\'t mine." 女孩很誠實。文中說 All the money was still in it。'},
+    {q:'What has Mr. Hu done since that night?',o:['He has given his workers a raise.','He has closed his shop.','He has moved to another town.','He has stopped smiling.'],a:0,ex:'Since then … He has given all his workers a raise。'},
+    {q:'What does "mean" in the story mean?',o:['Not kind and not willing to give.','Very rich.','Very honest.','Very tired.'],a:0,ex:'從「從不幫員工加薪、從不笑」推測：mean＝刻薄、小氣。'},
+   ]},
+  {title:'閱讀 C｜Fireworks Around the World',text:'Fireworks were invented in China more than a thousand years ago. At first, they were used to scare away bad luck. Today, fireworks are set off on New Year\'s Eve in many big cities. In Taipei, fireworks have been set off from Taipei 101 every New Year\'s Eve since 2004, and the show can be seen from many parts of the city. But fireworks can also cause problems. Every year, some people are hurt by them, and many pets are scared by the loud noise. So in some places, fireworks have been replaced by drone light shows. Hundreds of small drones fly up and draw pictures in the sky. There is no smoke and no loud noise!',
+   qs:[
+    {q:'Where were fireworks first made?',o:['In China.','In Taipei.','In the USA.','The reading doesn\'t say.'],a:0,ex:'Fireworks were invented in China more than a thousand years ago。'},
+    {q:'Why have some places used drone light shows?',o:['Fireworks can hurt people and scare pets.','Drones are cheaper than T-shirts.','People don\'t like New Year\'s Eve.','Drones were invented a thousand years ago.'],a:0,ex:'some people are hurt … pets are scared … So … replaced by drone light shows。'},
+    {q:'Which sentence is in the passive voice?',o:['The show can be seen from many parts of the city.','Hundreds of small drones fly up.','Fireworks can also cause problems.','They draw pictures in the sky.'],a:0,ex:'can be seen＝助動詞被動 can be＋p.p.。'},
+   ]},
+];
+const TRANS=[
+  ['我當 CARAT 已經超過三年了。','I have been a CARAT for more than three years.','have been＋for＋一段時間（L1 課文）'],
+  ['我的老闆只愛錢。','My boss loves nothing but money.','love nothing but…＝只愛…'],
+  ['他把那個老人的錢騙走了。','He cheated the old man out of his money.','cheat sb out of sth'],
+  ['從 2018 年起，她已經在許多表演中演出。','Since 2018, she has performed in many shows.','since＋時間點 → 現在完成式（L1 課文）'],
+  ['他們總是盡全力表演。','They always do their best to perform.','do one\'s best to V（L1 課文）'],
+  ['我們應該捐錢給慈善機構。','We should donate money to charity.','donate … to charity'],
+  ['跑者出發後，會看到頭頂天空中繽紛的煙火。','After the runners set off, they see colorful fireworks above them in the sky.','set off＝出發；above＝在…上面（L2 課文）'],
+  ['迪士尼角色們在人行道上歡呼，並對他們送飛吻。','Disney characters cheer and blow them kisses from the sidewalk.','blow sb kisses；from the sidewalk（L2 課文）'],
+  ['如果跑者的旗子全被拿走，他就出局了。','If a runner\'s flags are all taken away, the runner is out.','be taken away 被動（L2 課文）'],
+  ['跑者跑完比賽時，一面漂亮的迪士尼獎牌會被當作獎品頒給他們。','When the runners finish the race, a lovely Disney medal is given to them as a prize.','is given＋as a prize（L2 課文）'],
+  ['我好累。我的腿又燙又痠。','I\'m so tired. My legs are burning and sore.','burning、sore（L2 課文）'],
+  ['英語在世界各地被使用。','English is spoken all over the world.','現在式被動 is＋p.p.'],
+  ['我參加過好幾次趣味路跑。','I have been to several fun runs.','have been to＝去過（L2 課文）'],
+  ['臺灣也有舉辦相撲路跑。','Sumo Runs are also held in Taiwan.','現在式被動 are held（L2 課文）'],
+];
+
+/* 考點雷達（依 7 校南一版九上第一次段考卷統計） */
+const RADAR={
+  n:7,
+  schools:'',
+  topics:[['現在完成式 since / for／How long',6],['完成式被動 has been p.p.',6],['助動詞／未來被動 can / will be p.p.',6],['過去式 vs 現在完成式',6],['被動語態綜合（時態判斷）',5],['ever / never 經驗與次數',5],['already / yet',4],['been to / gone to',4],['過去式被動 was / were p.p.',3],['現在式被動 is / are p.p.',2],['不能被動的動詞（happen、taste）',2],['lie / lay、rise / raise',1]],
+  basics:[['since / for',6],['has been p.p.',6],['can / will be p.p.',6],['過去式 vs 完成式',6],['ever / never',5],['already / yet',4],['been to / gone to',4],['was / were p.p.',3],['瞬間動詞 die → be dead',2],['listen to 被動保留 to',1]],
+  words:[['cheat',6],['donate',6],['appear',5],['charity',5],['raise（加薪）',5],['prize',5],['sidewalk',5],['thirsty',5],['wallet',5],['set off',4],['burning',4],['character',4],['firework',4],['medal',4],['sore',4],['lie',4],['pull off',3],['costume',3],['flag',3],['honest',3]],
+  nonmcq:[['翻譯（課文句／填空式）',6],['文意字彙（給首字母）',3],['被動語態改寫',1],['since / for 改寫、完成式合併',1]],
+  cross:{n:59,items:[['現在完成式 since / for／How long',58],['過去式 vs 現在完成式',51],['have been to / gone to / been in',44],['ever / never 經驗與次數',36],['already / yet',30]]},
+};
+
+/* ================= 導覽 ================= */
+const TABS=[['home','🏠 考點雷達'],['l1','🎤 L1 追星與追夢'],['l2','🏃 L2 趣味路跑'],['r1','🔁 Review 1'],['gram','⚙️ 文法特訓'],['mix','🧩 克漏字＋閱讀']];
+
+const AUDIO=new Set(["0018612a", "00e7903e", "0a05d023", "0a339056", "0ae293c2", "0b9cf04b", "0bf7cb59", "0ca22853", "0d0a9f60", "0e2e085f", "110302df", "124aec70", "132be06e", "1460f124", "14d01ca9", "15d2601e", "1755a12f", "1757dbad", "18cfdec7", "1bbd0ffa", "1e801cec", "1f62aaae", "212d3672", "218d6502", "231af847", "2386309d", "2448ca2f", "2471847e", "24d93a55", "256a8eec", "25a1eea4", "26f38071", "28693c05", "286f3675", "2ba1a0a8", "2be8f32f", "308f8bce", "30951d46", "314cbe19", "32af800a", "333cb273", "3a3c1b9c", "3d8466cb", "3e88eec3", "3f14f4e4", "406aeaca", "406f344d", "4220774b", "4288e94c", "464bc5aa", "46ff9c40", "472c0828", "48b931c2", "49075557", "49f57491", "4a84a888", "4c6df761", "4c770186", "4c845806", "4caf3a0b", "4d4697ce", "4d9e6d13", "50edaacc", "517b5f8a", "5473c0c0", "5a45cc6a", "5aff2401", "5b55aa06", "5ba1e5c5", "5c0afbc6", "5e227625", "5e560689", "5e5b9905", "5ef9ed23", "5fa7df77", "6098da3f", "621cd814", "64ca1ea7", "64ff7b9f", "652f2c70", "65c813e7", "65d5776b", "668142ce", "67a6c45e", "697299ee", "6acc1ccf", "6c6e2525", "6d48538c", "6ef6e45e", "6f6cb569", "70bcc521", "70e20f7e", "72baec5c", "73c212db", "75ab2d6e", "763967f5", "772343ef", "77ab3c74", "77c01663", "786dd8a0", "7a78762f", "7cfb88e6", "80a5fffa", "812d107e", "815883f4", "835af36d", "8655f48b", "878f61db", "885a9a2d", "88efc3c3", "8a8e7dc8", "8ae33022", "8b3aa710", "8d9904ab", "8e081204", "8e447707", "8f2fbdac", "92b1fb33", "946adb4c", "9580b830", "95a80cbf", "95bdb559", "96252c3e", "9628ecdd", "9766c891", "9903affb", "994c2d1c", "9c0cdc8e", "9c8305d0", "9cbb19e3", "9cdc37ca", "9ede2954", "a05d7453", "a1450322", "a2780a89", "a4213c0a", "a554f03e", "a591f4bb", "a65b72c3", "a7f785e4", "a87f8823", "a9339d84", "a9bd7d9b", "aa758b4a", "adc649b8", "ae390e73", "af6daaea", "b13fb8c0", "b39bd973", "b3d6b687", "b526ec40", "b536a99d", "b55471e7", "b733df61", "b773b5b4", "bab5214f", "bbeaffa9", "bdeaa8d7", "bdf0855a", "be269f5c", "bf055208", "c0080b36", "c39bf2a3", "c4eb8a76", "c6270703", "c82a9b5d", "c9648178", "caef60ae", "ccce80a1", "cedfa3c5", "d416182f", "d71c946a", "d8b9cf23", "dcb86ee5", "dcf97516", "de8d82e7", "de9a27f2", "e0633d1f", "e1393207", "e29638f4", "e39d4621", "e4bc209e", "e5ca00c5", "e689c0fd", "e7ae45ac", "e91d911a", "e982f26c", "ec5e6849", "edbc2ec9", "f0d34721", "f0fd0d47", "f3a3fcda", "f542bdc8", "f5ce03fb", "f6a635a4", "f8a38453", "f95ef718", "fa05910f", "fa20169f", "fb5f167f", "fbae2847", "fc731510", "fca5a066", "fd3ea291", "fde1f938", "feaa0cb3", "ffc4c653"]);
+/* ================= 注釋配對 ================= */
+function renderMatch(el,pairs){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0,miss=0;
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 注釋配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${miss<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3><p>配錯 ${miss} 次</p><button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div>`;$('#ag',el).onclick=()=>renderMatch(el,pairs)}
+  draw();
+}
+
+/* ================= 分類 ================= */
+function renderSort(el,so){
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w[0])}」→ <b>${so.buckets[w[1]]}</b>${w[2]?'：'+esc(w[2]):''}`).join('<br>')}</div>`:''}
+      <button class="btn" style="margin-top:12px">再玩一次</button></div>`;
+      el.querySelector('.btn').onclick=()=>renderSort(el,so);return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push(it)}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+/* ================= 選擇題 ================= */
+function renderMCQ(el,qs){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}<span class="src">${q.src}</span></div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(+b.dataset.k===q.a){got++;sOK()}else{b.classList.add('bad');sBAD()}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderMCQ(el,qs);
+}
+
+/* ================= 翻卡 ================= */
+function renderCards(el,cards){
+  el.innerHTML=`<div class="card"><h3>🃏 十五種標點翻卡</h3><p class="muted">點卡片翻面看用法。重點：分號、破折號、引號、書名號、刪節號。</p>
+  <div class="flips">${cards.map(c=>`<div class="flip"><div class="in"><div class="f"><div class="sym">${esc(c[1])}</div><b>${c[0]}</b></div><div class="bk2">${esc(c[2])}</div></div></div>`).join('')}</div></div>`;
+  el.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('on'));
+}
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、eng9-nanyi-1（例 chinese8-1）、英文 國三上第一次段考（南一）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'eng9-nanyi-1',
+  site:'英文 國三上第一次段考（南一）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('eng9-nanyi-1_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('eng9-nanyi-1_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${d&&d.quickAsk?'詞性＋量詞快問快答':'字音字形快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 發音（微軟 Neural 語音預錄 mp3；沒有檔才退回瀏覽器語音） ================= */
+const isEN=s=>/^[A-Za-z][A-Za-z '’\-\/.…]*$/.test(s.trim());
+const normSay=t=>t.replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,'').replace(/[’‘]/g,"'").replace(/[“”]/g,'"').replace(/…/g,' ').replace(/___+/g,'blank').replace(/\s+/g,' ').trim();
+function akey(t){let h=0x811c9dc5;for(let i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0}return h.toString(16).padStart(8,'0')}
+let __au=null;
+function stopSay(){try{if(__au)__au.pause();speechSynthesis.cancel()}catch(e){}}
+function webSay(t){try{const u=new SpeechSynthesisUtterance(t.replace(/\//g,' or '));u.lang='en-US';u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function say(t){
+  const n=normSay(t),k=akey(n);stopSay();
+  if(typeof AUDIO!=='undefined'&&AUDIO.has(k)){
+    if(!__au)__au=new Audio();
+    __au.src='audio/'+k+'.mp3';const p=__au.play();if(p&&p.catch)p.catch(()=>webSay(n));
+  }else webSay(n);
+}
+
+
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+document.body.insertAdjacentHTML('beforeend','<button class="bgm" id="bgmBtn"></button>');
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};
+
+const ANIM={l1:animL1,l2:animL2,r1:animR1,gram:animG};
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  const d=L[cur];
+  const subs = d.subs || [['anim','🎬 動畫導覽'],['quick','⚡ 單字快問快答'],['match','🔗 片語配對'],['sort','🎯 分類挑戰'],...(d.hunt?[['hunt',d.hunt.label]]:[]),['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='anim') ANIM[cur](p);
+  const title=`${d.no} ${d.short}`;
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='hunt') renderHunt(p,d.hunt);
+  if(s==='mcq') renderMCQ(p,d.mcq,d.code,title);
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const N=RADAR.n;
+  const bar2=(arr,M)=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/M*100}"></div></div><b>${v}/${M}</b></div>`).join('')}</div>`;
+  const bar=arr=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  app.innerHTML=`
+  <h2>📡 第一次段考考點雷達</h2>
+  <p class="muted">整理 ${N} 所學校的南一版國三上（B5）第一次段考卷，看哪些東西「幾乎每校都考」。範圍：Lesson 1、Lesson 2、Review 1。</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${['l1','l2','r1','gram'].map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].short}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+    <div class="lc" style="background:linear-gradient(135deg,#2f5d3a,#5f9a63)" data-k="mix"><div><div class="n">綜合</div><div class="t">克漏字＋閱讀</div></div><div class="d">原創克漏字｜閱讀測驗｜翻譯翻翻卡</div></div>
+  </div>
+  <div class="card"><h3>文法選擇最常考的主題（幾校考過）</h3>${bar(RADAR.topics)}
+  <p class="muted" style="margin-top:10px">⚠️ 南一這次段考的兩大主軸：<b>L1 現在完成式</b>、<b>L2 被動語態</b>，而且常常<b>混在一起考</b>：has been＋p.p.（完成式被動）六校都考。<br>⚠️ 陷阱題最愛：happen／appear 不能被動、taste 是連綴動詞、die 要改 be dead。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>文法必考點</h3><div class="chips">${RADAR.basics.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">六校都考：<b>since / for</b>、<b>has been p.p.</b>、<b>can / will be p.p.</b>、<b>過去式 vs 完成式</b>（看到 ago、last、When 就用過去式）。</p></div>
+    <div class="card"><h3>高頻單字片語</h3><div class="chips">${RADAR.words.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">文意字彙會給首字母：d____e（donate）、s______k（sidewalk）。拼字一定要會！raise 段考多考名詞「加薪」（a pay raise）。</p></div>
+  </div>
+  <div class="card"><h3>🌏 不分版本都考！（${RADAR.cross.n} 校九上第一次段考，含翰林、康軒）</h3>${bar2(RADAR.cross.items,RADAR.cross.n)}
+  <p class="muted" style="margin-top:10px">翻遍全臺 ${RADAR.cross.n} 校 114 上九年級第一次段考（翰林 22、康軒 30、南一 7）：<b>現在完成式 since / for</b> 幾乎每校都考，<b>過去式 vs 完成式</b>也超過八成。被動語態是南一這次獨有的重點，到「⚙️ 文法特訓」練熟最划算！</p></div>
+  <div class="card"><h3>✍️ 非選題考什麼？</h3><div class="chips">${RADAR.nonmcq.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+  <p class="muted" style="margin-top:12px">六校有翻譯題，多半考<b>課文句</b>的關鍵片語：set off、blow kisses、as a prize、burning and sore、have been to、cheat … out of → 到「🧩 克漏字＋閱讀」用翻譯翻翻卡練。</p></div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每課先看 <b>🎬 動畫導覽</b>，弄懂故事 → ② <b>⚡ 單字快問快答</b>、<b>🔗 片語配對</b>，練熟基本分 → ③ <b>🔁 Review 1</b> 時態判斷、<b>⚙️ 文法特訓</b> 被動語態，練到反射 → ④ <b>📝 段考模擬題</b>與 <b>🧩 克漏字＋閱讀</b>，檢查自己的程度。</p>
+  <p class="muted">段考範圍各校略有不同：有的學校加考 2000 單字或課外閱讀，請依自己學校的公告準備。本站課文依南一版 B5 課本；模擬題與閱讀文章為原創。注意：七校考卷出自舊版課本，L1 常考的 cheat、donate、charity、a pay raise 等字仍收在單字快問快答。</p></div>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,c.dataset.k==='mix'?undefined:'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 快問快答（英文版＋交卷） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,type]=order[i];
+    const opts=shuf([a,...ds]);
+    const canSay=isEN(q)&&type!=='s';
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ASK[type]} ${hot?'<span class="star">★ 2 校以上考過</span>':''}</p>
+      <div class="qword en">${esc(q)}${canSay?' <button class="say" id="sayq" aria-label="播放發音">🔊</button>':''}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    if(canSay) $('#sayq',el).onclick=()=>say(q);
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===esc(a))x.classList.add('ok')});
+      const right=b&&b.dataset.v===esc(a);
+      if(right){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.textContent:'（超時）'});window.WB&&WB.miss('q',order[i],title,'')}
+      if(b&&isEN(a)&&type!=='e') say(a);
+      i++;setTimeout(next,right?900:1600);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),retry=n!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${code!=null?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:`${w.item[0]}（${ASK[w.item[4]]}）`,my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>快問快答</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br><span class="star">★</span> 表示 2 所以上學校考過。按 🔊 可以聽發音。做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 抓抓樂（以「字／詞組」為單位） ================= */
+function renderHunt(el,h){
+  let total=0,found=0,miss=0,id=0;
+  const html=h.lines.map(line=>{
+    let out='';const re=/\[([^\]]+)\]|([A-Za-z'’\-]+)|([^A-Za-z\[]+)/g;let m;
+    while((m=re.exec(line))){
+      if(m[1]){id++;total++;out+=`<span class="c w" data-t="${id}">${esc(m[1])}</span>`}
+      else if(m[2]) out+=`<span class="c w">${esc(m[2])}</span>`;
+      else out+=esc(m[3]);
+    }
+    return `<p>${out}</p>`;
+  }).join('');
+  el.innerHTML=`<div class="card hunt"><div class="qz-top"><h3 style="margin:0">🔍 ${h.title}</h3><b id="hc">找到 0 / ${total}</b></div>
+    <p class="muted">${h.tip}</p><div class="en">${html}</div>
+    <div class="row" style="margin-top:10px"><button class="btn ghost" id="hs">公布答案</button><button class="btn ghost" id="hr">重來</button></div></div>`;
+  el.querySelectorAll('span.c').forEach(s=>s.onclick=()=>{
+    const t=s.dataset.t;
+    if(t){if(s.classList.contains('found'))return;s.classList.add('found');found++;sOK();say(s.textContent);
+      $('#hc',el).textContent=`找到 ${found} / ${total}`+(found===total?'　🏆 全部找到！（點錯 '+miss+' 次）':'')}
+    else{miss++;sBAD();s.classList.add('miss');setTimeout(()=>s.classList.remove('miss'),600)}
+  });
+  $('#hs',el).onclick=()=>{el.querySelectorAll('span.c[data-t]').forEach(g=>g.classList.add('found'));$('#hc',el).textContent=`答案：共 ${total} 個`};
+  $('#hr',el).onclick=()=>renderHunt(el,h);
+}
+
+/* ================= 綜合：克漏字＋閱讀＋翻譯 ================= */
+function renderMix(app){
+  const s=curSub.mix||'cloze';
+  const subs=[['cloze','🧩 課文改寫克漏字'],['read','📖 閱讀測驗'],['trans','🃏 翻譯翻翻卡']];
+  app.innerHTML=`<h2>🧩 克漏字＋閱讀＋翻譯</h2>
+  <p class="muted">七校都考克漏字與閱讀，克漏字常用來考被動語態與時態（例如艾菲爾鐵塔、潑水節、海龜）；六校有翻譯題，考課文關鍵片語。以下克漏字與閱讀文章、題目皆為原創；翻譯翻翻卡優先使用南一課本原句。</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div><div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub.mix=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='trans'){
+    p.innerHTML=`<div class="card"><h3>🃏 翻譯翻翻卡</h3><p class="muted">先在心裡（或紙上）翻成英文，再點卡片翻面對答案，按 🔊 聽整句。</p>
+    <div class="flips tr">${TRANS.map((c,k)=>`<div class="flip" data-k="${k}"><div class="in"><div class="f"><b>${esc(c[0])}</b></div><div class="bk2"><span class="en">${esc(c[1])}</span><small>${esc(c[2])}</small></div></div></div>`).join('')}</div></div>`;
+    p.querySelectorAll('.flip').forEach(f=>f.onclick=()=>{f.classList.toggle('on');if(f.classList.contains('on'))say(TRANS[+f.dataset.k][1])});
+    return;
+  }
+  const set=s==='cloze'?CLOZE:READ;
+  p.innerHTML=set.map((c,k)=>`<div class="card"><h3>${c.title}</h3><div class="passage en">${esc(c.text).replace(/\n/g,'<br>').replace(/__(\d)__/g,'<b class="blank">__$1__</b>')}</div><div id="cq${k}"></div></div>`).join('');
+  set.forEach((c,k)=>{const nm=c.title.split('｜')[1]||c.title;renderMCQ($('#cq'+k),c.qs.map(q=>({...q,src:'',q:/^__\d__$/.test(q.q)?`${nm} 第 ${q.q.replace(/_/g,'')} 格`:q.q})),7,`綜合 ${c.title.replace(/｜/g,' ')}`)});
+}
+
+/* ================= L1 動畫（課文依南一 B5 課本） ================= */
+function animL1(p){
+  p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>
+  <div class="grid2">
+    <div class="card"><h3>💬 對話：Sandy ＆ Mina（In a classroom）</h3><p><span class="pill">起</span>Mina 有 SEVENTEEN 鑰匙圈，當 CARAT <b>已經超過三年</b>（for more than three years）</p><p><span class="pill">承</span>Mina <b>還沒</b>去過演唱會（Not yet）；Sandy <b>去年十月</b>看過 i-dle 演唱會（watched）</p><p><span class="pill">轉</span>Sandy <b>存了好幾個月</b>的錢（saved for months）才去成；Mina 決定也開始存錢</p><p><span class="pill">合</span>偶像對粉絲很好（treat fans well），再來臺灣就一起去：Deal!</p></div>
+    <div class="card"><h3>📖 閱讀：舒華的追夢故事</h3><p><span class="pill">一</span>臺灣女孩舒華夢想當巨星，到南韓當<b>練習生</b>（trainee）</p><p><span class="pill">二</span>常覺得寂寞，<b>然而</b>（yet）從不放棄；<b>2018 年</b>成為 (G)I-DLE 成員（became）</p><p><span class="pill">三</span><b>從 2018 年起</b>已在許多表演中演出（has performed）、贏得全球粉絲</p><p><span class="pill">四</span>面對挑戰與<b>刻薄的評論</b>（mean comments），仍相信「每個挑戰都讓我更堅強」</p></div>
+  </div>`;
+  const steps=[
+    {label:'① SEVENTEEN 鑰匙圈',imgs:[{img:'l1_keychain',tag:'Is that a SEVENTEEN key chain?'}],poem:'Sandy: Hey, is that a SEVENTEEN key chain? Are you a CARAT?<br>Mina: Yes! I<b>’ve been</b> a CARAT <b>for</b> more than three years. I <b>bought</b> this as a <b>Christmas</b> gift for myself.',key:'have been＋<b>for</b>＋一段時間（持續）；bought 是過去某時買的 → 過去式。CARAT 是 SEVENTEEN 的粉絲名稱。'},
+    {label:'② 去過演唱會嗎？',imgs:[{img:'l1_concert',tag:'A live concert'}],poem:'Sandy: That’s so cute! <b>Have</b> you <b>been to</b> their <b>concert</b> or a fan meeting before?<br>Mina: Not <b>yet</b>. I <b>haven’t had</b> the chance, but they<b>’ve appeared</b> on many TV <b>programs</b>.',key:'Have you been to…before? 問經驗；<b>Not yet</b>＝還沒；<b>appear</b> 不及物，不能被動（五校考 appear）。'},
+    {label:'③ 我是 Neverland！',imgs:[{img:'l1_tour',tag:'i-dle on stage'}],poem:'Sandy: I <b>haven’t seen</b> SEVENTEEN live, but I <b>watched</b> i-dle’s concert in Taipei <b>last October</b>. I’m a Neverland!<br>Mina: Same here. Who’s your favorite member?<br>Sandy: The leader. She <b>has written</b> many songs for the <b>band</b>.',key:'沒說時間的經驗 → haven’t seen；<b>last October</b> → 過去式 watched（R1 時態判斷）；write–wrote–<b>written</b>。'},
+    {label:'④ 存錢買票',imgs:[{img:'l1_piggy',tag:'Save money to get a ticket.'}],poem:'Sandy: You can <b>save money</b> to get a ticket. I <b>saved for months</b>, and my parents agreed that I could go to i-dle’s concert.<br>Mina: Then I’ll start saving money, too!<br>Sandy: Or you can watch their live <b>streams</b>.<br>Mina: I<b>’ve watched</b> their live streams <b>many times</b>!',key:'陷阱：saved <b>for months</b> 但存錢已結束 → 過去式；<b>many times</b>（次數）→ 現在完成式。'},
+    {label:'⑤ Deal!',imgs:[{img:'l1_concert',tag:'Let’s go together!'}],poem:'Sandy: They <b>treat</b> fans so well. They always do their best to <b>perform</b> and give gifts to fans. I hope they come to Taiwan again. If they do, let’s go together!<br>Mina: <b>Deal!</b>',key:'<b>treat sb well</b>＝善待某人（三校考 treat）；do one’s best to V；<b>Deal!</b>＝說定了。'},
+    {label:'⑥ 舒華的大夢想',imgs:[{img:'l1_shuhua',tag:'Shuhua, a girl from Taiwan'}],poem:'Shuhua is a girl from Taiwan with a big dream: to become a superstar.<br>To make her dream <b>come true</b>, she moved to South Korea to be a <b>trainee</b>. She practiced singing and dancing every day. She often felt lonely, <b>yet</b> she never <b>gave up</b>.',key:'make＋O＋原形 V（make her dream come true）；<b>yet</b> 當連接詞＝然而（一字多義）；give up＝放棄。'},
+    {label:'⑦ in 2018 vs. since 2018',imgs:[{img:'l1_tour',tag:'i-dle World Tour'}],poem:'After years of effort, Shuhua <b>became</b> a member of the girl group (G)I-DLE <b>in 2018</b>, later called i-dle.<br><b>Since</b> 2018, she <b>has performed</b> in many shows and concerts and <b>has won</b> fans from all over the world.',key:'<b>in 2018</b> → 過去式 became；<b>since 2018</b> → 現在完成式 has performed——課文最佳時態對照組（六校考 since / for）。'},
+    {label:'⑧ 挑戰與希望',imgs:[{img:'l1_shuhua',tag:'Every challenge will make me stronger.'}],poem:'Even though i-dle <b>has become</b> famous, Shuhua’s <b>challenges</b> never end. She also faces <b>mean comments</b> on the Internet.<br>She keeps telling herself, “Every challenge will make me stronger.”<br>Her story tells us that if we stay brave and keep trying, our dreams can <b>come true</b>.',key:'become–became–<b>become</b>；<b>mean</b> (adj.) 刻薄的（段考常考）；make＋O＋形容詞；keep＋V-ing。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= L2 動畫（課文依南一 B5 課本） ================= */
+function animL2(p){
+  p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>
+  <div class="grid2">
+    <div class="card"><h3>💬 對話：Henry ＆ Lucy（PE class）</h3><p><span class="pill">起</span>剛跑完 800 公尺：Lucy 腿又燙又痠（burning and sore），Henry 有點口渴</p><p><span class="pill">承</span>Henry 最愛變裝路跑；阿姨在日本跑過 Sumo Run（It was called…）</p><p><span class="pill">轉</span>臺灣也有舉辦 Sumo Run（are held）；Henry 不久要參加臺中的 Zombie Run</p><p><span class="pill">合</span>Lucy：To be honest, I’m not a great runner. Let me think about it.</p></div>
+    <div class="card"><h3>📖 閱讀：Fun Runs</h3><p><span class="pill">一</span>趣味路跑在世界各地都有舉辦（have been held），多半不到 5 公里</p><p><span class="pill">二</span>runDisney：出發（set off）後頭頂有煙火，角色在人行道上歡呼、送飛吻</p><p><span class="pill">三</span>完賽頒獎牌當獎品（is given … as a prize）</p><p><span class="pill">四</span>Zombie Run：跑者可能被「殺死」（can be killed），旗子全被拿走就出局</p></div>
+  </div>`;
+  const steps=[
+    {label:'① 體育課跑完了',imgs:[{img:'l2_tired',tag:'My legs are burning and sore.'},{img:'l2_water',tag:'I’m a little thirsty.'}],poem:'Lucy: I’m so tired. My legs are <b>burning</b> and <b>sore</b>. How about you?<br>Henry: I’m OK but just a little <b>thirsty</b>. Running is my favorite sport. I<b>’ve been to</b> several fun runs.',key:'<b>burning</b>、<b>sore</b>、<b>thirsty</b> 都是四～五校考的字；have been to＝去過（L1 文法）。'},
+    {label:'② 變裝路跑',imgs:[{img:'l2_costume',tag:'Runners dress up in funny costumes.'}],poem:'Henry: There are different kinds of fun runs, but I love Costume Runs the most. Runners <b>dress up in</b> funny <b>costumes</b>, like a giraffe, an <b>airplane</b>, or even a giant <b>bug</b>.<br>My aunt ran in a Costume Run in Japan. It <b>was called</b> the Sumo Run.',key:'dress up in＋服裝；<b>was called</b>＝被稱為（過去式被動）；costume 三校考。'},
+    {label:'③ 一起去跑嗎？',imgs:[{img:'l2_zombie',tag:'The Zombie Run'}],poem:'Henry: Sumo Runs <b>are</b> also <b>held</b> in Taiwan. … I’ll <b>take part in</b> the Zombie Run soon in Taichung. Would you like to join me?<br>Lucy: <b>To be honest</b>, I’m not a great runner. Let me think about it.',key:'<b>are held</b>＝被舉辦（現在式被動）；take part in＝參加；to be honest＝老實說（honest 三校考）。'},
+    {label:'④ runDisney 出發',imgs:[{img:'l2_start',tag:'After the runners set off…'},{img:'l2_fireworks',tag:'Colorful fireworks above them'}],poem:'Fun runs <b>have been held</b> all around the world. Most of them are less than 5 kilometers (3 <b>miles</b>) long.<br>After the runners <b>set off</b>, they see colorful <b>fireworks</b> above them in the sky.',key:'現在完成式被動 <b>have been held</b>（六校考）；<b>set off</b>＝出發（四校考）；firework 四校考。'},
+    {label:'⑤ 角色與獎牌',imgs:[{img:'l2_cheer',tag:'People cheer from the sidewalk.'},{img:'l2_medal',tag:'A medal as a prize'}],poem:'As they go happily through the Disney parks, Disney <b>characters</b> cheer and <b>blow</b> them <b>kisses</b> from the <b>sidewalk</b>.<br>When the runners finish the race, a lovely Disney <b>medal is given</b> to them <b>as a prize</b>.',key:'<b>sidewalk</b>（五校考）、<b>character</b>（四校考）；blow sb kisses＝送飛吻；<b>is given … as a prize</b>（prize 五校考）。'},
+    {label:'⑥ Zombie Run',imgs:[{img:'l2_zombie',tag:'Runners can be killed by zombies!'},{img:'l2_flag',tag:'Life flags on a belt'}],poem:'Zombie Runs <b>are</b> usually <b>held</b> around Halloween. They are exciting because runners <b>can be killed</b> by zombies. Cries and <b>screams can be heard</b> all along the way.<br>To stay <b>alive</b>, the runners have to keep their life <b>flags</b>. If a runner’s flags <b>are</b> all <b>taken away</b>, the runner is out.',key:'助動詞被動 <b>can be＋p.p.</b>；<b>pull off</b>／<b>take away</b>；alive 只放 be 動詞後（stay alive）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 句型變身秀（共用） ================= */
+function morphShow(p,S,head,notes,img){
+  p.innerHTML=`<div class="card"><h3>🎬 ${head}</h3>
+    ${img?`<img src="img/${img.img}.jpg" alt="" style="width:100%;max-height:260px;object-fit:cover;border-radius:12px;margin:6px 0"><p class="muted" style="margin:0 0 8px">${img.tag}</p>`:''}
+    <p class="muted">先選一句，再按下面的按鈕看它怎麼變身（會唸出來）。</p>
+    <div class="row" id="pk">${S.map((s,i)=>`<button class="sub" data-i="${i}">${s.tag}</button>`).join('')}</div>
+    <div class="ps en" id="ps" style="margin-top:14px"></div>
+    <div class="row" id="pv" style="margin-top:12px;justify-content:center"></div>
+    <div class="meaning" id="pm">👆 請按上面的按鈕</div></div>
+    <div class="card">${notes}</div>`;
+  function show(i){
+    const s=S[i];p.querySelectorAll('#pk .sub').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    $('#ps').innerHTML=esc(s.raw);$('#pm').innerHTML='👆 請按變身按鈕';
+    $('#pv').innerHTML=s.v.map((v,k)=>`<button class="btn ${k%2?'alt':''}" data-k="${k}">${v.n}</button>`).join('');
+    $('#pv').querySelectorAll('button').forEach(b=>b.onclick=()=>{
+      const v=s.v[+b.dataset.k];
+      const ps=$('#ps');ps.innerHTML=v.t;ps.classList.remove('pop');void ps.offsetWidth;ps.classList.add('pop');
+      $('#pm').innerHTML='💡 '+v.m;say(ps.textContent);
+    });
+  }
+  p.querySelectorAll('#pk .sub').forEach(b=>b.onclick=()=>show(+b.dataset.i));
+  show(0);
+}
+
+/* ================= 文法特訓：被動語態變身秀 ================= */
+function animG(p){
+  const S=[
+    {raw:'People speak English all over the world.',tag:'現在式被動',v:[
+      {n:'主動',t:'People <b>speak</b> English all over the world.',m:'主詞 people 自己「說」'},
+      {n:'被動',t:'English <b>is spoken</b> all over the world.',m:'受詞 English 變主詞；is＋p.p.（speak → <b>spoken</b>）；by people 可省略'},
+      {n:'否定',t:'English <b>isn\'t spoken</b> in this village.',m:'be 動詞後加 not'},
+      {n:'疑問',t:'<b>Is</b> English <b>spoken</b> in Taiwan?',m:'be 動詞搬到句首'}]},
+    {raw:'Lucy led the blind man across the road.',tag:'過去式被動',v:[
+      {n:'主動',t:'Lucy <b>led</b> the blind man across the road.',m:'lead → led → <b>led</b>（R1 課本句）'},
+      {n:'被動',t:'The blind man <b>was led</b> across the road by Lucy.',m:'過去式被動 was / were＋p.p.'},
+      {n:'疑問',t:'<b>Was</b> the blind man <b>led</b> across the road?',m:'Was 放句首'},
+      {n:'By whom',t:'<b>By whom was</b> the blind man <b>led</b> across the road?',m:'問「被誰」：By whom＋be＋主詞＋p.p.?'}]},
+    {raw:'Zombies can kill the runners.',tag:'助動詞被動',v:[
+      {n:'主動',t:'Zombies <b>can kill</b> the runners.',m:'助動詞 can＋原形'},
+      {n:'can be p.p.',t:'The runners <b>can be killed</b> by zombies.',m:'助動詞＋<b>be</b>＋p.p.（不能漏 be）'},
+      {n:'will be p.p.',t:'A new track <b>will be built</b> next year.',m:'未來式被動 will be＋p.p.'},
+      {n:'be going to',t:'The race <b>is going to be held</b> in May.',m:'be going to <b>be</b>＋p.p.'}]},
+    {raw:'A zombie has pulled off all my flags.',tag:'完成式被動',v:[
+      {n:'主動',t:'A zombie <b>has pulled off</b> all my flags.',m:'現在完成式 has＋p.p.'},
+      {n:'被動',t:'All my flags <b>have been pulled off</b>.',m:'have / has＋<b>been</b>＋p.p.；flags 複數 → have'},
+      {n:'否定＋yet',t:'The medals <b>haven\'t been given</b> out <b>yet</b>.',m:'haven\'t been＋p.p.＋yet'},
+      {n:'since',t:'Many photos <b>have been taken since</b> the race started.',m:'since＋過去式子句 → 完成式被動'}]},
+    {raw:'Something strange happened.',tag:'不能被動！',v:[
+      {n:'happen',t:'Something strange <b>happened</b>.',m:'happen 不及物 → <s>was happened</s>'},
+      {n:'appear',t:'They <b>appeared</b> on many TV programs.',m:'appear 不及物 → <s>were appeared</s>（L1 課文）'},
+      {n:'taste',t:'The cake <b>tasted</b> delicious.',m:'連綴動詞＋形容詞 → <s>was tasted</s>'},
+      {n:'listen to',t:'Her songs <b>are listened to</b> by millions.',m:'片語動詞改被動，介系詞 <b>to</b> 要保留'}]},
+  ];
+  morphShow(p,S,'句型變身秀：主動句變被動句！',`<h3>🎯 七校必考速記</h3>
+    <p><span class="pill">公式</span>被動＝<b>be＋p.p.</b>；時態由 be 動詞決定：is / was / will be / can be / has been</p>
+    <p><span class="pill">完成式被動</span>六校都考：has / have <b>been</b>＋p.p.（The cake has been put on the table.）</p>
+    <p><span class="pill">助動詞被動</span>六校都考：can / will / should <b>be</b>＋p.p.</p>
+    <p><span class="pill">不能被動</span>happen、appear、die（不及物）；taste、feel、look（連綴動詞）</p>
+    <p><span class="pill">感官動詞</span>I heard my name <b>called</b>.（名字「被叫」→ p.p.）</p>
+    <p><span class="pill">不定詞／動名詞</span>like <b>to be told</b>、without <b>being caught</b></p>`,{img:'g_bridge',tag:'The Manhattan Bridge was built more than a hundred years ago.（過去式被動 was built）'});
+}
+
+/* ================= Review 1：時態判斷秀 ================= */
+function animR1(p){
+  const S=[
+    {raw:'Shuhua became a member of i-dle in 2018.',tag:'since / for',v:[
+      {n:'過去式',t:'Shuhua <b>became</b> a member of i-dle <b>in 2018</b>.',m:'in 2018 是明確過去時間 → 過去式（L1 課文）'},
+      {n:'since',t:'Shuhua <b>has been</b> a member of i-dle <b>since</b> 2018.',m:'become 是瞬間動詞 → 改 be a member；since＋時間點'},
+      {n:'for',t:'Shuhua <b>has been</b> a member of i-dle <b>for</b> years.',m:'for＋一段時間'},
+      {n:'It has been',t:'<b>It has been</b> years <b>since</b> Shuhua <b>became</b> a member.',m:'It has been＋時間＋since＋過去式'}]},
+    {raw:'Amy went to Japan.',tag:'been to / gone to',v:[
+      {n:'been to',t:'Amy <b>has been to</b> Japan three times.',m:'去過、已經回來；常接次數'},
+      {n:'gone to',t:'Amy <b>has gone to</b> Japan. She isn\'t here.',m:'去了、還沒回來'},
+      {n:'been in',t:'Amy <b>has been in</b> Japan for a month.',m:'一直待在某地；接 for / since'},
+      {n:'How many',t:'<b>How many times have</b> you <b>been to</b> Japan?',m:'問次數 How many times'}]},
+    {raw:'Mina went to a concert.',tag:'already / yet / ever',v:[
+      {n:'already',t:'Sandy <b>has already been</b> to i-dle\'s concert.',m:'already 放 have 和 p.p. 中間（肯定句）'},
+      {n:'yet',t:'Mina <b>hasn\'t been</b> to a concert <b>yet</b>.',m:'yet 放句尾（否定句、疑問句）；Not yet.'},
+      {n:'ever',t:'<b>Have</b> you <b>ever been</b> to a concert?',m:'ever＝曾經（疑問句；L1 課名）'},
+      {n:'never',t:'Mina <b>has never seen</b> SEVENTEEN live.',m:'never＝從未（本身就是否定）'}]},
+    {raw:'I joined a fun run.',tag:'過去式 vs 完成式',v:[
+      {n:'last year',t:'I <b>joined</b> a fun run <b>last year</b>.',m:'last year 明確過去 → 過去式'},
+      {n:'twice',t:'I <b>have joined</b> fun runs <b>twice</b>.',m:'經驗次數 → 現在完成式'},
+      {n:'When',t:'<b>When did</b> you <b>join</b> the fun run?',m:'When 問時間點 → 過去式（不能 When have you…）'},
+      {n:'How long',t:'<b>How long have</b> you <b>been</b> a runner?',m:'How long 問持續多久 → 現在完成式'}]},
+  ];
+  morphShow(p,S,'時態判斷秀：同一件事，怎麼選時態？',`<h3>🎯 Review 1 必考速記（六校考過去式 vs 完成式）</h3>
+    <p><span class="pill">過去式</span>yesterday、ago、last…、in 2020、just now、When…? → 動作在過去<b>已結束</b></p>
+    <p><span class="pill">現在完成式</span>since、for、already、yet、ever、never、so far、How long → 跟<b>現在</b>有關</p>
+    <p><span class="pill">陷阱</span>I went to a camp <b>for</b> five days <b>last week</b>.（有 last week 還是過去式！）</p>
+    <p><span class="pill">瞬間動詞</span>die → be dead、buy → have、begin → be on、leave → be away</p>
+    <p><span class="pill">簡答省略</span>Peter has been to the USA, but his sisters <b>haven't</b>.</p>`);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+</script>
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+</body>
+</html>

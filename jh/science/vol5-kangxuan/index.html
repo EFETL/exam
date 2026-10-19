@@ -1,0 +1,2384 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國三自然段考闖關</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#1f5a85; --main-2:#3a8cc0; --accent:#f2a541; --accent-2:#e07a2f;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#173f5f 0%,#2f7fb0 62%,#f2a541 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#173f5f;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;font-size:20px}
+body{overflow-x:hidden}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+h4{margin:6px 0 2px;color:var(--main);font-size:1.05rem}
+/* 快問快答（自然：題目較長） */
+.qword.sci{font-size:1.45rem;letter-spacing:0;line-height:1.5;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word;line-height:1.45}
+@media(max-width:420px){.opts{grid-template-columns:1fr}}
+.src2{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:8px;font-weight:500;vertical-align:2px}
+/* 座標圖 */
+.gcap{font-size:1rem;color:var(--muted);margin:6px 0 2px}
+.gph{padding:10px 8px 2rem 2.6rem;max-width:560px}
+.gph.mini{padding:4px}
+.gin{position:relative;aspect-ratio:3/2}
+.gin svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.gin .gl{stroke:#e3e8ef;stroke-width:1;vector-effect:non-scaling-stroke}
+.gin .ax{stroke:#56606e;stroke-width:2;vector-effect:non-scaling-stroke}
+.gin .ln{stroke-width:3.5;vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round}
+.gx,.gy{position:absolute;font-size:1rem;line-height:1;color:var(--muted);white-space:nowrap}
+.gx{top:calc(100% + 8px);transform:translateX(-50%)}
+.gy{right:calc(100% + 6px);transform:translateY(-50%)}
+.gmini{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;max-width:560px}
+.gmini .gph{background:#f7f9fc;border-radius:10px;padding:10px}
+.gname{text-align:center;font-weight:700;font-size:1rem}
+.leg{display:flex;flex-wrap:wrap;gap:6px 14px;margin:4px 0 6px}
+.leg span{display:inline-flex;align-items:center;gap:6px;font-size:1rem}
+.leg i{display:inline-block;width:22px;height:12px;border-radius:4px}
+/* 雷達 */
+.traps{display:grid;gap:8px}
+.trap{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;background:#fffaf0;border-radius:10px;padding:8px 12px;font-size:1rem}
+.trap s{color:var(--bad)}.trap b{color:var(--accent-2)}
+@media(max-width:560px){.trap{grid-template-columns:1fr auto}.trap>div:nth-child(2){grid-column:1}}
+.xtab{display:grid;gap:4px}
+.xh,.xr{display:grid;grid-template-columns:1fr 4.2rem 3.6rem;gap:8px;align-items:center;padding:6px 10px;border-radius:8px;font-size:1rem}
+.xh{background:var(--main);color:#fff;font-weight:700}.xr:nth-child(odd){background:#f3f6fb}.xr b{text-align:center;color:var(--accent-2)}
+/* 模擬器 */
+.simbox{background:#f3f6fb;border-radius:14px;padding:8px;margin:10px 0}
+.simbox svg{display:block;width:100%;height:auto;max-height:340px}
+.ctl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:6px 0}
+.ctl b{min-width:3em}
+.track{position:relative;height:44px;margin:14px 12px 4px}
+.track .rail{position:absolute;left:0;right:0;top:20px;height:4px;background:#c9ced6;border-radius:4px}
+.track .ball{position:absolute;top:8px;width:28px;height:28px;margin-left:-14px;border-radius:50%;background:var(--accent-2);box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.tape{position:relative;height:34px;margin:4px 12px;background:#fff8e6;border:1px solid #ecd9a8;border-radius:6px}
+.tape i{position:absolute;top:12px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#23303f}
+.wgrid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;max-width:360px;margin:8px 0}
+.wgrid i{aspect-ratio:1;border-radius:4px;background:#2b6cb0}.wgrid i.i{background:#dfe9f3;outline:1px solid #9fb3c8}.wgrid i.g{background:#2e9e6b}
+.rcb{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.rc{border:2px solid var(--line);border-radius:12px;padding:12px 6px;text-align:center;font-weight:700;background:#fff;transition:all .4s}
+.rc.from{border-color:var(--main-2);background:#e8effa}.rc.to{border-color:var(--accent-2);background:#fff1e3;transform:scale(1.05)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回自然選單</a><span class="tag">康軒版 國三上 自然（理化＋地科）｜ 第一次段考</span>
+    <h1>自然段考闖關｜直線運動・慣性・水與陸地</h1>
+    <p>第 1 章＋2-1＋第 5 章。先看動畫和模擬器弄懂觀念，再用遊戲練熟名詞與公式，最後做段考模擬題、圖表判讀，交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap"><details style="margin-top:8px"><summary>圖片來源與授權</summary>
+  照片皆來自 Wikimedia Commons（檔名：作者〔授權〕）：NIST-F2 cesium fountain atomic clock：National Institute of Standards and Tech（公有領域）；Justus Sustermans - Portrait of Galileo Galilei (Uffizi)：Justus Sustermans（公有領域）；Hourglass with sand：John Morgan（CC BY 2.0）；Wittner metronome：Paco from Badajoz, España（CC BY 2.0）；Pendulum clock by Jacob Kock, antique furniture photography, IMG 0931 edit：Christoph Braun（CC0）；Pisa cathedral - Galileo lamp from below：Tangopaso（公有領域）；Swimming Pool lanes and starting blocks：KeepActive Australia from Melbourne, VIC（CC BY-SA 4.0）；PikiWiki Israel 83910 sundial in givatayim：דר אבישי טייכר（CC BY 2.5）；Peak to Peak Charter School soccer field and running track, Lafayette, Colorado, USA - 2025：Mikepascoe（CC0）；Typhoon Koinu nears Landfall in Taiwan (CIRA 2023-10-04 - nolabels)：Himawari imagery: CSU/CIRA &amp; JMA/JAX（公有領域）；Average speed check warning sign, A40 Western Avenue - geograph.org.uk - 4718319：David Hawgood（CC BY-SA 2.0）；The Duomo and Tower of Pisa at sunrise：MHoser（CC BY-SA 4.0）；Skydiving-Tequesquitengo107：Tequesquitengo（CC0）；Speedometer (kmh)：Bluescan sv.wiki（公有領域）；Falling ball：MichaelMaggs（CC BY-SA 3.0）；THSR 700T TR17 20130907：Rsa（CC BY-SA 3.0）；Waiting For Green Light (150283893)：Taehyung Jin（CC BY 3.0）；Deployed dual airbags：User:trnsz（CC BY-SA 3.0）；Aristotle Altemps Inv8575：After Lysippos（公有領域）；New Taipei Bus FAB-718 interior 20210821：Solomon203（CC BY-SA 4.0）；Dog shakes itself off (50821201103)：Ben Schumin from Montgomery Village, Mar（CC BY-SA 2.0）；F-16I Afterburner：Nehemia Gershuni-Aylho（CC BY-SA 3.0）；Piano inclinato, Museo Galileo, Florence, Inv. 104, 224108：Zde（CC BY-SA 4.0）；GodfreyKneller-IsaacNewton-1689：Godfrey Kneller（公有領域）；Female driver buckling seatbelt：State Farm（CC BY 2.0）；Flowing artesian well：Michael Gäbler（CC BY 3.0）；The Blue Marble, AS17-148-22727：Harrison Schmitt / Apollo 17（公有領域）；Perito Moreno Glacier Patagonia Argentina Luca Galuzzi 2005：Luca Galuzzi (Lucag)（CC BY-SA 2.5）；Waves in sea：Saral Shots（CC0）；Jingzaijiao Tile-paved Salt Fields , Tainan city , Taiwan：MW2019（CC BY-SA 4.0）；臺西鄉崙豐國小磁環分層式地層下陷監測井：S099001（CC BY 4.0）；Etna eruption seen from the International Space Station：NASA（公有領域）；Po River Delta aerial 2：kallerna（CC BY-SA 4.0）；风吹砂 - Sand Dune - 2012.02 - panoramio：rheins（CC BY 3.0）；和平島公園海蝕溝：氏子（CC BY-SA 4.0）；Interlocked pebbles on a river bed D35 2285 01：ADARSHluck（CC BY-SA 4.0）；Queen&#x27;s Head, Yehliu 20060405：David Monniaux（CC BY-SA 3.0）；Tree roots over rock Owen Pond Trail Lake Placid NY 2024-07-11 12-34-43 1：G. Edward Johnson（CC BY 4.0）；Sijiyu tslai 08：Tslai（CC BY-SA 4.0）；U shaped glacial valley Glen Coe (15250526462)：Brian Gratwicke from DC, USA（CC BY 2.0）；VentifactMojaveDesert031511：Wilson44691（CC0）；Firth River, tributary and V-shaped valley, Ivvavik National Park, YT：Daniel Case（CC BY-SA 3.0）；Andesite (GeoDIL number - 284)：Dexter Perkins（CC0）；Chixi Columnar Basalt in Taiwan Penghu 澎湖池西岩瀑：Rick888chen（CC BY-SA 4.0）；Calcite crystal, rhomboid：James St. John（CC BY 2.0）；Clasts of siliciclastic sedimentary rock in quartz-pebble conglomerate (Sharon Conglomerate, Lower Pennsylvanian; Jackson North roadcut, Ohio, USA) 5 (37695424216)：James St. John（CC BY 2.0）；Gneiss (Joshimath Formation, Proterozoic; outcrop at Joshimath, Uttarakhand State, Indian Himalayas) 1 (26196405084)：James St. John（CC BY 2.0）；Capao bonito granite：Eurico Zimbres（CC BY-SA 2.5）；Kenting National Park Of Chuanfan Rock：Joyechen（CC BY-SA 4.0）；White marble (GeoDIL number - 507)：Nessa Eull（CC0）；Mica, feldspar：Géry PARENT（公有領域）；Tianliao Moon World 2018：Taiwankengo（CC BY-SA 4.0）；Quartz Crystal Cluster (2932215981)：Stephanie Clifford from Arlington, VA, U（CC BY 2.0）；Sandstone Layers at Gold Butte (54091354284)：BLM Nevada（公有領域）；Harrell Shale outcrop Bedford County PA 2006：Jstuby（CC0）；A Paiwan Slate House in National Museum of Natural Science：H. H. Tsai（CC BY-SA 4.0）；Pure white marble cliffs of Taroko Gorge：Yamil Gonzales（CC BY-SA 2.0）。</details>
+</div></footer>
+
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料：康軒版 國三上自然 第一次段考 =================
+   名詞、定義、公式、單位以 115 年康軒版第五冊課本為準；校數來自 20 校康軒卷統計（stats.json）。
+   quick：[題目, 正解, [3 個誘答], 校數(≥2 才標★), 提問句]
+   mcq：{q, o:[4 選項], a:正解索引, src:出處, ex:解析}（選項每次洗牌，解析點了才出現） */
+const L = {
+u1:{code:1,no:'1-1～1-2',title:'時間的測量・位移與路徑長',short:'時間・位移',
+  color:'linear-gradient(135deg,#1d5f86,#3f9fc4)',desc:'單擺週期｜計時工具｜位置描述｜位移 vs 路徑長',
+  quickAsk:'選出正確答案',
+  quick:[
+    ['單擺來回擺動一次所需的時間','週期',['擺長','擺角','頻率'],20,'這是哪個名詞？'],
+    ['支點到擺錘中心的長度','擺長',['擺角','週期','位移'],20,'這是哪個名詞？'],
+    ['小擺角時，唯一會影響單擺週期的因素','擺長',['擺錘質量','擺角','擺動次數'],20],
+    ['擺長變為 4 倍，週期變為幾倍？','2 倍',['4 倍','16 倍','1/2 倍'],9],
+    ['擺長 100 cm 週期 2 s；擺長改 25 cm，週期？','1 s',['0.5 s','4 s','2 s'],9],
+    ['擺角不大時，每次來回擺動的時間幾乎相等','擺的等時性',['慣性','週期','平衡'],7,'這是哪個名詞？'],
+    ['看比薩教堂吊燈、發現擺的等時性的科學家','伽利略',['牛頓','亞里斯多德','波以耳'],7],
+    ['目前最準確的計時工具','原子鐘',['擺鐘','石英錶','沙漏'],2],
+    ['單擺擺動 10 次共 20 秒，週期是？','2 秒',['20 秒','0.5 秒','10 秒'],13],
+    ['擺動「一次」的路線（A、B 為兩端，O 為最低點）','A→O→B→O→A',['A→B','A→O','A→O→B'],3],
+    ['探討擺長對週期的影響時，週期是哪種變因？','應變變因',['操縱變因','控制變因','無關變因'],6],
+    ['描述位置要有的三要素','基準點、方向、距離',['基準點、速度、時間','方向、時間、距離','質量、方向、距離'],13],
+    ['終點位置坐標－起點位置坐標','位移',['路徑長','速率','位置'],19,'這是哪個名詞？'],
+    ['物體實際移動路線的總長度','路徑長',['位移','位置','速度'],19,'這是哪個名詞？'],
+    ['繞操場跑一圈回到起點，位移＝？','0',['操場一圈的長度','半圈的長度','無法判斷'],19],
+    ['位置坐標 －3 m 的「－」代表','在基準點的負方向',['距離是負的','離基準點很近','位置不存在'],13],
+    ['從 x＝5 m 走到 x＝－2 m，位移＝？','－7 m',['7 m','3 m','－3 m'],19],
+    ['位移和路徑長，何者具有方向性？','位移',['路徑長','兩者都有','兩者都沒有'],19],
+    ['路徑長與位移大小的關係','路徑長 ≥ 位移大小',['路徑長 ≤ 位移大小','永遠相等','沒有關係'],19],
+    ['竿影、沙漏、擺鐘能用來計時，是因為','會規律的變化',['都很精確','都要用電','都不會變'],13],
+  ],
+  words:[
+    ['週期','單擺來回擺動一次所需的時間'],
+    ['擺長','支點到擺錘中心的長度'],
+    ['擺的等時性','擺角不大時，每次來回擺動的時間幾乎相等'],
+    ['原子鐘','以銫原子輻射振盪定義 1 秒的計時器'],
+    ['基準點（原點）','描述位置時作為比較標準的點'],
+    ['位移','終點位置坐標減起點位置坐標，有方向'],
+    ['路徑長','實際移動路線的總長度，沒有方向'],
+    ['操縱變因','實驗中刻意改變的因素'],
+    ['控制變因','實驗中保持相同的因素'],
+    ['應變變因','隨著改變而被測量的結果'],
+  ],
+  sorts:[
+    {title:'會不會影響單擺週期？',tip:'擺角不大（≦10°）時才成立。',buckets:['會影響','不會影響'],items:[
+      ['擺長由 25 cm 加長為 100 cm',0,'擺長越長，週期越長'],
+      ['擺錘由 20 g 換成 40 g',1,'週期和擺錘質量無關'],
+      ['擺角由 10° 改成 5°',1,'小擺角時週期和擺角無關'],
+      ['擺長由 100 cm 剪短為 25 cm',0,'擺長變 1/4，週期變 1/2'],
+      ['擺錘換成同大小的鐵球',1,'質量不影響週期'],
+      ['空氣阻力讓擺角越擺越小',1,'擺角變小，週期仍不變'],
+      ['把細線再放長一些',0,'擺長變長，週期變長'],
+      ['換一位同學放手',1,'只要擺長相同，週期相同'],
+    ]},
+    {title:'這句話在說位移還是路徑長？',tip:'位移看「起點→終點」，路徑長看「實際走過的路」。',buckets:['位移','路徑長'],items:[
+      ['有大小，也有方向',0],
+      ['只有大小，沒有方向',1],
+      ['繞操場一圈後變成 0',0],
+      ['計算平均速率時要用它',1],
+      ['計算平均速度時要用它',0],
+      ['數值可能是負的',0,'負號表示往負方向'],
+      ['一定大於或等於另一個',1],
+      ['從起點畫一支箭頭指到終點',0],
+      ['沿著彎彎曲曲的路線量長度',1],
+    ]},
+    {title:'適不適合用來計時？',tip:'計時工具要有「規律、可重複」的變化。',buckets:['適合計時','不適合計時'],items:[
+      ['擺鐘',0],['沙漏',0],['竿影（日晷）的變化',0],['節拍器',0],['原子鐘',0],
+      ['隨風飄動的旗子',1,'沒有固定規律'],['天上雲朵的形狀',1,'沒有固定規律'],['看自己心情好壞',1],
+    ]},
+  ],
+  mcq:[
+    {q:'小玲用擺長 144 公分的單擺做實驗，測得週期約 2.4 秒。其他條件不變，把細線剪短成擺長 36 公分，週期最可能是多少？',o:['1.2 秒','0.6 秒','2.4 秒','4.8 秒'],a:0,src:'9 校',
+      ex:'週期和擺長的平方根成正比。擺長變為 1/4，週期變為 1/2：2.4 秒 × 1/2 ＝ 1.2 秒。不要用正比直接算成 0.6 秒。'},
+    {q:'阿哲做單擺實驗：擺長固定 60 公分、擺角 6°，先後換上大小相同的 10 g 木球、30 g 鋁球、80 g 鐵球。測得的週期 T木、T鋁、T鐵 關係為何？',o:['T木＝T鋁＝T鐵','T木＞T鋁＞T鐵','T木＜T鋁＜T鐵','無法比較'],a:0,src:'10 校',
+      ex:'小擺角時單擺週期只和擺長有關，和擺錘質量無關。三次擺長相同，所以週期相同。'},
+    {q:'課本探索活動的四組單擺：①擺長100 cm、20 g、10°；②100 cm、20 g、5°；③100 cm、40 g、10°；④25 cm、20 g、10°。若要探討「擺錘質量」是否影響週期，應比較哪兩組？',o:['①和③','①和②','①和④','②和③'],a:0,src:'11 校',
+      ex:'一次只能改變一個變因。①和③只有擺錘質量不同（20 g、40 g），擺長、擺角都相同。②和③同時改了擺角和質量，不能比較。'},
+    {q:'承上題的四組單擺，若要探討「擺長」是否影響週期，應比較哪兩組？此時哪一項是應變變因？',o:['①和④；週期','①和②；週期','①和④；擺長','③和④；擺錘質量'],a:0,src:'11 校',
+      ex:'①和④只有擺長不同（100 cm、25 cm）。擺長是操縱變因，擺錘質量與擺角是控制變因，被測量的「週期」是應變變因。'},
+    {q:'單擺從左端 A 放手，經最低點 O 擺到右端 B，花了 0.5 秒。這個單擺的週期是多少？',o:['1 秒','0.5 秒','2 秒','0.25 秒'],a:0,src:'校',
+      ex:'A→B 只是半次。擺動一次是 A→O→B→O→A，時間是 0.5 × 2 ＝ 1 秒。'},
+    {q:'小組要自製「簡易計時器」。下列哪一個想法最不適合？',o:['讓樹葉隨風飄落，數落下的葉片數','用固定擺長的單擺，數擺動的次數','讓水從小孔一滴一滴規律滴下','觀察日晷上竿影位置的變化'],a:0,src:'13 校考計時工具',
+      ex:'計時工具必須有規律、可重複的變化。樹葉隨風飄落沒有固定規律，不能用來計時；單擺、規律滴水、竿影都會規律變化。'},
+    {q:'伽利略觀察比薩教堂的吊燈，用自己的脈搏測量吊燈來回擺動的時間。他發現了什麼？',o:['擺角不大時，每次來回擺動的時間幾乎相等','擺錘越重，擺得越慢','擺角越大，擺得越快','輕重不同的物體同時落地'],a:0,src:'課本 1-1',
+      ex:'這是擺的等時性，後來的擺鐘就是利用這個特性計時。「輕重物體同時落地」是自由落體，不是吊燈觀察得到的。'},
+    {q:'一個單擺因為空氣阻力，擺角從 10° 慢慢變成 4°。在這段過程中，它的週期會怎樣？',o:['幾乎不變','越來越長','越來越短','先變長再變短'],a:0,src:'12 校考過這個陷阱',
+      ex:'擺角不大時，週期和擺角無關，只由擺長決定。擺角變小，週期仍然幾乎不變（這就是等時性）。'},
+    {q:'甲、乙兩單擺在同一地點擺動。甲擺 30 次需 30 秒，乙擺 30 次需 60 秒。下列敘述何者正確？',o:['乙的週期是甲的 2 倍，乙的擺長是甲的 4 倍','乙的擺長是甲的 2 倍','甲的擺錘比較重','甲的週期比較長'],a:0,src:'6 校',
+      ex:'甲週期＝30÷30＝1 秒，乙週期＝60÷30＝2 秒。週期 2 倍，擺長要 4 倍。從這些數據看不出擺錘質量。'},
+    {q:'以學校大門為基準點、向東為正方向。圖書館在大門西方 300 公尺，圖書館的位置坐標是多少？',o:['－300 m','＋300 m','0 m','300 m 西'],a:0,src:'13 校考位置描述',
+      ex:'位置坐標的正負只表示方向。向東為正，西方就是負方向，所以是 －300 m。'},
+    {q:'阿康在直線上做折返跑：從起點跑到 20 m 外的大樹，再跑回起點，總共來回 2 次。整個過程的位移與路徑長分別是多少？',o:['0 m；80 m','80 m；80 m','40 m；80 m','0 m；40 m'],a:0,src:'課本例題改編',
+      ex:'最後回到起點，位移＝0。路徑長：一次來回 20＋20＝40 m，來回 2 次＝80 m。'},
+    {q:'邊長 100 m 的正方形操場 ABCD。小明從 A 沿著邊走到對角 C（A→B→C）。路徑長與位移大小分別約為多少？',o:['200 m；約 141 m','200 m；200 m','約 141 m；200 m','200 m；0 m'],a:0,src:'改編（格子路線題型）',
+      ex:'路徑長＝100＋100＝200 m。位移大小是 A 到 C 的直線距離，即正方形對角線，約 141 m。路徑長一定 ≥ 位移大小。'},
+    {q:'以右為正方向，貓的位置坐標是 －2 m，球的位置坐標是 ＋3 m。球在貓的哪裡？',o:['右方 5 m','右方 3 m','左方 5 m','右方 1 m'],a:0,src:'課本觀念速記',
+      ex:'3 －（－2）＝ 5，結果為正，所以球在貓的右方 5 m。'},
+    {q:'一物體沿直線從 x＝＋6 m 移到 x＝－4 m，再移到 x＝＋2 m。整段的位移與路徑長分別是多少？',o:['－4 m；16 m','＋2 m；16 m','－4 m；4 m','＋8 m；12 m'],a:0,src:'改編（數線折返）',
+      ex:'位移＝終點－起點＝2－6＝－4 m。路徑長＝|－4－6|＋|2－（－4）|＝10＋6＝16 m。'},
+    {q:'下列有關「位移」與「路徑長」的敘述，何者正確？',o:['物體沿直線一直往同方向前進時，路徑長等於位移大小','路徑長可能小於位移的大小','位移為零時路徑長也一定為零','路徑長有正負，正負代表方向'],a:0,src:'19 校都考',
+      ex:'只有「沿直線、不折返」時兩者大小相等，其他情況路徑長都比較大。位移為零（回到原點）時，路徑長不一定為零。有正負方向的是位移。'},
+  ]},
+
+u2:{code:2,no:'1-3～1-4',title:'速率、速度與加速度',short:'速度・加速度',
+  color:'linear-gradient(135deg,#7a3e9d,#b071d1)',desc:'平均速率 vs 速度｜x-t、v-t 圖｜加速度｜打點計時器｜自由落體',
+  quickAsk:'選出正確答案',
+  quick:[
+    ['總路徑長 ÷ 總時間','平均速率',['平均速度','加速度','速度'],19,'這是哪個公式？'],
+    ['總位移 ÷ 總時間','平均速度',['平均速率','加速度','路徑長'],19,'這是哪個公式？'],
+    ['速度變化量 ÷ 時間','平均加速度',['平均速度','平均速率','位移'],20,'這是哪個公式？'],
+    ['加速度的單位','m/s²',['m/s','km/h','m'],20],
+    ['72 km/h ＝ ? m/s','20 m/s',['72 m/s','259.2 m/s','2 m/s'],12],
+    ['108 km/h ＝ ? m/s','30 m/s',['388.8 m/s','10.8 m/s','3 m/s'],12],
+    ['km/h 換成 m/s 要','除以 3.6',['乘以 3.6','除以 60','乘以 1000'],12],
+    ['汽車時速錶上的數字是','當下的速率',['平均速率','平均速度','加速度'],12],
+    ['區間測速計算的是','平均速率',['當下的速率','平均速度','加速度'],9],
+    ['x-t 圖的斜率代表','速度',['加速度','位移','路徑長'],19],
+    ['v-t 圖的斜率代表','加速度',['速度','位移','時間'],18],
+    ['v-t 圖線與時間軸圍成的面積代表','位移',['加速度','速率','時間'],18],
+    ['x-t 圖兩線交點代表','相遇（位置相同）',['速度相同','加速度相同','都靜止'],10],
+    ['v-t 圖兩線交點代表','速度相同',['相遇','位置相同','加速度相同'],12],
+    ['x-t 圖是水平線，表示物體','靜止',['等速度','等加速度','減速'],19],
+    ['v-t 圖是不在 0 的水平線，表示','等速度運動',['靜止','等加速度','減速'],18],
+    ['打點計時器 50 Hz，相鄰兩點的時間間隔','0.02 s',['0.05 s','50 s','0.5 s'],16],
+    ['紙帶上的點距越來越大，表示','速度越來越快',['速度越來越慢','等速度','靜止'],15],
+    ['紙帶上的點越密，表示','速度越慢',['速度越快','時間間隔越長','加速度越大'],10],
+    ['加速度與速度方向相反時，物體','速度變慢',['速度變快','速度不變','一定靜止'],20],
+    ['加速度 ＋2 m/s² 代表','每秒速度增加 2 m/s',['每秒移動 2 m','速度是 2 m/s','位置是 2 m'],20],
+    ['地表附近的重力加速度約為','9.8 m/s²',['0','4.9 m/s²','98 m/s²'],20],
+    ['自由落體 t 秒時的速度 v＝？','gt',['½gt²','g/t','gt²'],20],
+    ['自由落體 t 秒內落下的高度 h＝？','½gt²',['gt','gt²','2gt'],20],
+    ['不計空氣阻力，鐵球和羽毛從同高度同時放手','同時落地',['鐵球先落地','羽毛先落地','看形狀而定'],12],
+    ['鉛直上拋的球到達最高點時，加速度為','g（向下）',['0','g（向上）','越來越大'],9],
+  ],
+  words:[
+    ['平均速率','總路徑長 ÷ 總時間'],
+    ['平均速度','總位移 ÷ 總時間，有方向'],
+    ['速率','時間間距極短時的平均速率（時速錶）'],
+    ['速度','時間間距極短時的平均速度，有方向'],
+    ['等速度運動','快慢和方向都不變的運動'],
+    ['平均加速度','速度變化量 ÷ 時間'],
+    ['等加速度運動','加速度保持一定，v-t 圖為斜直線'],
+    ['打點計時器','每隔固定時間在紙帶上打一點'],
+    ['自由落體運動','只受重力、由靜止開始落下的運動'],
+    ['重力加速度 g','地表附近約 9.8 m/s²，方向鉛直向下'],
+  ],
+  sorts:[
+    {title:'看線索判斷運動狀態',tip:'「加速」「減速」看速度大小變大還是變小。',buckets:['靜止','等速度','加速','減速'],items:[
+      ['x-t 圖：水平線',0],['x-t 圖：斜直線',1],['v-t 圖：不在 0 的水平線',1],['v-t 圖：速度大小越來越大的斜線',2],
+      ['紙帶：點距都相等',1],['紙帶：點距越來越大',2],['紙帶：點距越來越小',3],['紙帶：一直打在同一點',0],
+      ['加速度與速度同方向',2],['加速度與速度反方向',3],['綠燈亮起，汽車起步',2],['遇到紅燈煞車',3],
+      ['自由落體',2,'速度每秒增加約 9.8 m/s'],['鉛直上拋的球正在上升',3,'重力向下，速度向上'],
+    ]},
+    {title:'這是哪一種「率」？',tip:'平均＝一整段；當下＝那一刻（時速錶）。',buckets:['平均速率','平均速度','當下速率'],items:[
+      ['區間測速判斷是否超速',0],['汽車時速錶上的數字',2],['游泳來回後算出為 0',1],
+      ['用總路徑長除以時間',0],['用總位移除以時間',1],['一般速限標誌管制的「當下速率」',2],['有方向，可能是負值',1],
+    ]},
+  ],
+  mcq:[
+    {q:'奧運 100 公尺自由式在 50 公尺長的泳池進行（游一個來回），選手成績 47.02 秒。下列敘述何者正確？',o:['平均速率約 2.13 m/s','位移為 100 m','平均速度約 2.13 m/s','路徑長為 0 m'],a:0,src:'7 校',
+      ex:'回到出發點：位移＝0、平均速度＝0。路徑長＝100 m，平均速率＝100 ÷ 47.02 ≈ 2.13 m/s。'},
+    {q:'國道某區間測速路段長 5 公里，速限 100 km/h。小林開車通過這個路段用了 2 分 30 秒。下列何者正確？',o:['平均速率 120 km/h，會被開罰','平均速率 120 km/h，不會被開罰','平均速率 2 km/h，不會被開罰','平均速度為 0，不會被開罰'],a:0,src:'9 校',
+      ex:'2 分 30 秒＝2.5 分＝2.5/60＝1/24 小時。平均速率＝5 ÷ (1/24)＝120 km/h ＞ 100 km/h，超速。區間測速計算的是平均速率。'},
+    {q:'小美上山的平均速率是 3 km/h，沿原路下山的平均速率是 6 km/h，山路單程 6 公里。全程（上山＋下山）的平均速率是多少？',o:['4 km/h','4.5 km/h','9 km/h','0 km/h'],a:0,src:'3 校考過這個陷阱',
+      ex:'上山時間＝6÷3＝2 h，下山時間＝6÷6＝1 h。平均速率＝總路徑長÷總時間＝(6＋6)÷(2＋1)＝4 km/h。不能直接 (3＋6)÷2＝4.5。平均速度才是 0。'},
+    {q:'一輛汽車由靜止開始加速，5 秒後時速錶顯示 72 km/h。這 5 秒內汽車的平均加速度是多少？',o:['4 m/s²','14.4 m/s²','20 m/s²','100 m/s²'],a:0,src:'18 校考加速度計算',
+      ex:'先換單位：72 km/h ÷ 3.6 ＝ 20 m/s。a ＝ Δv ÷ Δt ＝ (20 － 0) ÷ 5 ＝ 4 m/s²。'},
+    {q:'火車以 90 km/h 行駛，進站時煞車，50 秒後停止。煞車期間的平均加速度是多少？（以火車前進方向為正）',o:['－0.5 m/s²','＋0.5 m/s²','－1.8 m/s²','－25 m/s²'],a:0,src:'10 校考過',
+      ex:'先換單位：90 km/h ÷ 3.6 ＝ 25 m/s。a ＝ (0 － 25) ÷ 50 ＝ －0.5 m/s²。負號表示加速度和運動方向相反，所以在減速。沒換單位就會算成 －1.8。'},
+    {q:'滑車在直線軌道上一直以固定的 －2 m/s² 做等加速度運動。某一刻，它的速度計顯示 ＋10 m/s。下列敘述何者正確？',o:['1 秒前的速度是 12 m/s','1 秒後的速度是 12 m/s','每秒位置減少 2 公尺','10 秒後的速度為 0'],a:0,src:'5 校考過',
+      ex:'－2 m/s² 表示每秒速度減少 2 m/s：1 秒前 12 m/s、1 秒後 8 m/s、5 秒後 0、10 秒後 －10 m/s。加速度講的是「速度」每秒的變化，不是位置。'},
+    {q:'下列有關加速度的敘述，何者正確？',o:['物體往負方向越跑越快時，加速度為負','加速度為負，物體一定在減速','速度為零的瞬間，加速度一定為零','加速度越大，速度一定越大'],a:0,src:'7 校考「a 為負」陷阱',
+      ex:'加速度和速度同方向時加速。往負方向（v 為負）越跑越快，a 也是負的。上拋到最高點時 v＝0，但 a＝g。加速度大只表示速度變化得快。'},
+    {q:'用打點計時器記錄一輛玩具車的運動。依打點先後，紙帶上相鄰兩點的距離越來越小。這輛玩具車的運動情形為何？',o:['速度越來越慢，加速度與速度反方向','速度越來越快，加速度與速度同方向','等速度運動','靜止不動'],a:0,src:'15 校考紙帶判讀',
+      ex:'打點的時間間隔固定。點距越來越小，表示相同時間移動得越來越近，速度變慢，加速度和速度反方向。'},
+    {q:'打點計時器的頻率為 10 Hz。紙帶上從第 1 點到第 6 點的距離是 30 cm。這段時間滑車的平均速率是多少？',o:['0.6 m/s','0.5 m/s','3 m/s','6 m/s'],a:0,src:'改編（打點計算）',
+      ex:'10 Hz → 每兩點相隔 1/10 ＝ 0.1 s。第 1 點到第 6 點有 5 個間隔，共 0.5 s。平均速率＝30 cm ÷ 0.5 s ＝ 60 cm/s ＝ 0.6 m/s。'},
+    {q:'把 1 公斤的鉛球和 10 公克的彈珠，同時從同一高處由靜止釋放（不計空氣阻力，g＝10 m/s²），鉛球 2 秒後落地。下列何者正確？',o:['彈珠也是 2 秒落地，釋放高度 20 公尺','彈珠 0.02 秒就落地','彈珠也是 2 秒落地，釋放高度 40 公尺','鉛球的加速度比較大'],a:0,src:'12 校',
+      ex:'自由落體的加速度都是 g，和質量無關，所以同時落地，都是 2 秒。h ＝ ½gt² ＝ ½ × 10 × 2² ＝ 20 m。'},
+    {q:'物體由靜止開始做自由落體運動。第 1 秒內、第 2 秒內、第 3 秒內落下的距離比是多少？',o:['1：3：5','1：2：3','1：4：9','1：1：1'],a:0,src:'改編（自由落體）',
+      ex:'由 h＝½gt²，前 1、2、3 秒落下的總距離比是 1：4：9。各「1 秒內」的距離是相減：1、4－1＝3、9－4＝5，所以是 1：3：5。'},
+    {q:'將小球鉛直向上拋出（不計空氣阻力），小球到達最高點的瞬間，下列敘述何者正確？',o:['速度為 0，加速度為 g（向下）','速度為 0，加速度為 0','速度最大，加速度為 0','速度為 0，加速度向上'],a:0,src:'9 校考上拋',
+      ex:'整個飛行過程只受重力，加速度一直是 g（向下）。最高點只是速度剛好為 0 的瞬間，加速度不是 0。'},
+    {q:'一輛電動車向北行駛（向北為正）。0～6 秒速度由 ＋12 m/s 均勻減小到 0，6～8 秒速度繼續均勻變為 －4 m/s。下列敘述何者正確？',o:['6 秒後電動車往南行駛，而且越來越快','6 秒時加速度為 0','6 秒時回到出發點','0～6 秒電動車往南行駛'],a:0,src:'5 校',
+      ex:'加速度＝(0－12)÷6＝－2 m/s²，6～8 秒也是 (－4－0)÷2＝－2 m/s²，6 秒時 a 不是 0。6 秒前速度為正（向北），6 秒後為負（向南）且大小變大。6 秒時是離出發點最遠的時候。'},
+    {q:'下列有關速率的敘述，何者正確？',o:['時速錶顯示的是當下的速率，區間測速算的是平均速率','時速錶顯示的是平均速率','區間測速算的是平均速度','只要中途瞬間超速，區間測速一定會開罰'],a:0,src:'12 校考過',
+      ex:'時速錶是當下那一刻的速率（課本簡稱「速率」）。區間測速＝路段長÷通過時間＝平均速率，看的是整段平均，中途短暫超速不一定被罰。'},
+    {q:'阿傑騎車時速 36 km/h，看見路上有陸蟹，經過 0.5 秒的反應時間才踩下煞車。在反應時間內，機車前進了多少距離？',o:['5 m','18 m','72 m','0.5 m'],a:0,src:'時事情境（陸蟹煞車距離）',
+      ex:'36 km/h ÷ 3.6 ＝ 10 m/s。反應時間內車速不變：10 m/s × 0.5 s ＝ 5 m。車速越快，反應距離越長。'},
+  ]},
+
+u3:{code:3,no:'2-1',title:'牛頓第一運動定律（慣性）',short:'慣性定律',
+  color:'linear-gradient(135deg,#b4572e,#e08a4f)',desc:'慣性現象｜合力為零｜水面傾斜｜伽利略斜面｜延伸 F＝ma',
+  quickAsk:'選出正確答案',
+  quick:[
+    ['物體維持原來運動狀態的性質','慣性',['重力','摩擦力','加速度'],15,'這是哪個名詞？'],
+    ['物體的質量越大，慣性','越大',['越小','不變','等於零'],15],
+    ['不受外力或合力為零時，運動中的物體會','沿直線做等速度運動',['慢慢停下','越來越快','立刻靜止'],17],
+    ['不受外力或合力為零時，靜止的物體會','保持靜止',['開始運動','加速','振動'],17],
+    ['牛頓第一運動定律又稱為','慣性定律',['作用力與反作用力定律','萬有引力定律','牛頓第二運動定律'],13],
+    ['主張「物體不受力，最後必將停止」的人','亞里斯多德',['伽利略','牛頓','波以耳'],6],
+    ['用斜面實驗推論「不受力會一直運動」的人','伽利略',['亞里斯多德','牛頓','波以耳'],6],
+    ['公車突然煞車，乘客會','向前傾',['向後倒','不動','向上跳'],13],
+    ['公車突然向前加速，吊環會','向後擺',['向前擺','不動','向上飄'],13],
+    ['車子向前加速時，杯中水面','後方較高',['前方較高','保持水平','中間凸起'],13],
+    ['車子等速度直線行駛時，杯中水面','保持水平',['前高後低','前低後高','劇烈晃動'],13],
+    ['在等速前進的火車上鉛直上拋硬幣，硬幣落在','手中（原處）',['後方','前方','看車速而定'],9],
+    ['把書推過桌面，書逐漸停下的原因','摩擦力',['慣性','重力','浮力'],10],
+    ['等速度下沉的物體，所受合力','為零',['向下','向上','越來越大'],8],
+    ['合力為零的物體，可能','靜止或做等速度運動',['只能靜止','一定在加速','一定在減速'],8],
+    ['延伸 2-2：同一力作用下，質量越大，加速度','越小',['越大','不變','為零'],7],
+    ['延伸 2-2：質量 1 公斤的物體受重力約','9.8 N',['1 N','98 N','0.98 N'],7],
+  ],
+  words:[
+    ['慣性','物體維持原來運動狀態的性質'],
+    ['牛頓第一運動定律','不受外力或合力為零時，靜者恆靜、動者做等速度運動'],
+    ['合力','物體所受所有外力加起來的結果'],
+    ['亞里斯多德','主張物體不受力作用，最後必將停止'],
+    ['伽利略斜面實驗','推論右端若是水平，球會不斷向前'],
+    ['摩擦力','使推出去的書本逐漸停下的力'],
+    ['安全帶','煞車時防止人因慣性向前衝'],
+    ['牛頓第二運動定律（延伸）','F＝m×a'],
+    ['牛頓（N）','使 1 kg 物體產生 1 m/s² 加速度的力'],
+  ],
+  sorts:[
+    {title:'是不是慣性現象？',tip:'慣性＝「想維持原狀」；被某個力改變運動狀態就不是。',buckets:['慣性現象','不是慣性'],items:[
+      ['拍打衣服除去灰塵',0],['搖動果樹使果實掉落',0],['狗甩掉身上的水滴',0],['停止踩踏板，腳踏車仍前進',0],
+      ['公車煞車時乘客向前傾',0],['敲瓶身使立可白蓋子蓋緊',0],['賽跑衝過終點無法立刻停下',0],
+      ['書推過桌面後逐漸停下',1,'受摩擦力改變運動狀態'],['火箭向後噴氣而向前飛',1,'作用力與反作用力'],
+      ['划槳讓船前進',1,'作用力與反作用力'],['蘋果從樹上落下',1,'受重力作用'],
+    ]},
+    {title:'杯中水面哪一側高？',tip:'水面較高的一側，在「加速度的反方向」。',buckets:['右側高','左側高','保持水平'],items:[
+      ['車子向右加速',1,'加速度向右，水面左側高'],['車子向右行駛時煞車',0,'加速度向左，水面右側高'],
+      ['車子向右等速度行駛',2],['車子停在路邊',2],['車子向左加速',0,'加速度向左，水面右側高'],['車子向左行駛時煞車',1,'加速度向右，水面左側高'],
+    ]},
+  ],
+  mcq:[
+    {q:'下列哪一個例子「不是」慣性現象？',o:['溜冰的人停止用力後，被地面摩擦而慢慢停下','跳遠選手先助跑再起跳，可以跳得更遠','把鎚子木柄往地上撞幾下，使鎚頭套緊','抖動床單，讓上面的碎屑掉落'],a:0,src:'10 校',
+      ex:'慢慢停下，是因為受到摩擦力而改變了運動狀態，不是「維持原狀」的慣性。助跑、撞鎚柄、抖床單都是物體想保持原來狀態的例子。'},
+    {q:'一輛向左行駛的貨車突然加速，車廂地板上一盆水的水面會如何？',o:['右側（車尾）較高','左側（車頭）較高','保持水平','完全不會晃動'],a:0,src:'13 校',
+      ex:'加速時水因慣性想留在原處，相對車廂往後（右）湧，所以車尾（右側）水面較高。記法：水面較高的一側在加速度的反方向。'},
+    {q:'阿凱坐在沿直線等速度行駛的高鐵車廂中，把一顆橘子鉛直向上拋。橘子會落在哪裡？',o:['落回阿凱手中','阿凱的後方','阿凱的前方','視高鐵速度大小而定'],a:0,src:'9 校',
+      ex:'橘子拋出前已經和高鐵有相同的水平速度，因慣性保持。高鐵等速度前進，兩者水平移動距離相同，所以落回手中。'},
+    {q:'阿凱在等速度行駛的高鐵上把橘子鉛直上拋，拋出後高鐵立刻開始加速。橘子會落在哪裡？',o:['阿凱的後方','阿凱的前方','落回阿凱手中','車廂天花板'],a:0,src:'改編（火車上拋）',
+      ex:'橘子在空中只維持原來的水平速度；高鐵加速後跑得比橘子快，所以橘子落在阿凱的後方。若高鐵減速，就會落在前方。'},
+    {q:'伽利略讓球從斜面滾下，發現球會滾上右側斜面到差不多相同的高度；把右側斜度降低，球仍到達等高處。他推論：若右側改成水平，球會怎樣？',o:['一直以等速度前進下去','慢慢停下來','越滾越快','滾回左側斜面'],a:0,src:'6 校考伽利略斜面',
+      ex:'球想到達原來的高度卻永遠到不了，在沒有摩擦力時會一直前進。這推翻了亞里斯多德「不受力最後必停止」的看法。'},
+    {q:'下列有關「合力為零」的敘述，何者正確？',o:['熱氣球等速度上升時，所受合力為零','合力為零的物體一定靜止','物體等速度下沉時，合力向下','物體要一直運動，一定要持續受力'],a:0,src:'8 校考過',
+      ex:'合力為零時，物體可能靜止，也可能做等速度運動。等速上升、等速下沉的物體，合力都是零。'},
+    {q:'一個 5 公斤重的物體在有摩擦力的水平面上，持續受到 2 公斤重向右的水平推力，因而做等速度運動。物體所受的摩擦力為何？',o:['2 公斤重，向左','2 公斤重，向右','5 公斤重，向左','0'],a:0,src:'課本例題',
+      ex:'做等速度運動 → 合力為零。推力 2 公斤重向右，摩擦力必須是 2 公斤重向左，兩力才能抵消。'},
+    {q:'關於亞里斯多德和牛頓的看法，下列何者正確？',o:['牛頓認為：合力為零時，運動中的物體會做等速度運動','亞里斯多德認為：物體不受力會一直運動','牛頓認為：物體不受力最後必將停止','兩人都認為要持續施力物體才會運動'],a:0,src:'課本 2-1',
+      ex:'亞里斯多德認為「不受力最後必停止」；伽利略的實驗推翻了這個看法，牛頓再提出第一運動定律：靜者恆靜、動者做等速度運動。'},
+    {q:'一輛大卡車和一輛機車以相同速度前進，同時煞車。下列何者正確？',o:['大卡車質量大、慣性大，比較難停下來','機車質量小、慣性大','兩者慣性相同','慣性和質量無關'],a:0,src:'15 校考慣性',
+      ex:'質量越大，慣性越大，越難改變運動狀態。所以大貨車要保持更長的安全距離。'},
+    {q:'在遙遠太空中，一艘太空船關掉引擎後，不受任何外力。它接下來會如何運動？',o:['沿直線做等速度運動','慢慢停下來','越來越快','立刻停止'],a:0,src:'改編（慣性定律）',
+      ex:'不受外力時，運動中的物體會保持原來的速度（大小和方向），沿直線做等速度運動。'},
+    {q:'公車由靜止突然向前加速，車廂內的吊環會如何擺動？',o:['向後擺','向前擺','保持鉛直','左右擺動'],a:0,src:'13 校考過',
+      ex:'公車向前加速，吊環因慣性想留在原處，所以相對車廂向後擺。煞車時則向前擺。'},
+    {q:'冰壺在很光滑的冰面上可以滑行很遠才停下來，主要原因為何？',o:['摩擦力很小，冰壺依慣性維持運動','冰壺一直受到向前的力','冰壺的慣性很小','冰面會推動冰壺'],a:0,src:'改編（慣性）',
+      ex:'冰面摩擦力很小，改變冰壺運動狀態的力很小，冰壺就能依慣性維持運動很久。不需要一直有向前的力。'},
+    {q:'汽車上要求繫安全帶，主要是為了防止哪一種情況？',o:['緊急煞車時，人因慣性向前衝','汽車加速時，人向前衝','汽車轉彎時，車子變慢','汽車等速度行駛時，人會飄起來'],a:0,src:'改編（慣性應用）',
+      ex:'煞車時車子停下，人的身體因慣性仍保持向前的運動，安全帶可以把人拉住，避免撞上前方。'},
+  ],
+  ext:[
+    {q:'【延伸 2-2】灑水車以相同的牽引力前進，邊走邊灑水，車子的總質量越來越小。若牽引力保持不變（忽略阻力），車子的加速度會如何？',o:['越來越大','越來越小','保持不變','變成零'],a:0,src:'7 校延伸',
+      ex:'由 F＝m×a，a＝F÷m。F 不變、m 變小，a 就變大。'},
+    {q:'【延伸 2-2】質量 2 公斤的物體在光滑水平面上，受到 10 牛頓的水平合力，它的加速度是多少？',o:['5 m/s²','20 m/s²','0.2 m/s²','12 m/s²'],a:0,src:'延伸 F＝ma',
+      ex:'a ＝ F ÷ m ＝ 10 N ÷ 2 kg ＝ 5 m/s²。'},
+    {q:'【延伸 2-2】質量 4.9 公斤的物體靜置在光滑水平面上，受到 1 公斤重的水平推力（g＝9.8 m/s²），加速度是多少？',o:['2 m/s²','0.2 m/s²','4.9 m/s²','9.8 m/s²'],a:0,src:'課本例題改編',
+      ex:'先換單位：1 公斤重 ≈ 9.8 N。a ＝ 9.8 ÷ 4.9 ＝ 2 m/s²。'},
+    {q:'【延伸 2-2】從高處跳到救生氣墊上比跳到水泥地上安全，原因是什麼？',o:['氣墊延長了停下來的時間，使加速度變小、受力變小','氣墊讓人的質量變小','氣墊讓速度變化量變大','氣墊讓重力消失'],a:0,src:'校延伸',
+      ex:'速度變化量相同時，延長 Δt，a＝Δv/Δt 變小；由 F＝m×a，衝擊力也變小。安全氣囊也是同樣的道理。'},
+    {q:'【延伸 2-2】用同樣大小的力推空的購物車和裝滿東西的購物車（忽略摩擦力），哪一台的加速度比較大？',o:['空的購物車','裝滿的購物車','兩台一樣','無法比較'],a:0,src:'延伸 F＝ma',
+      ex:'F 相同時，質量越小，加速度越大。空車質量小，加速度大。'},
+    {q:'【延伸 2-2】質量 50 公斤的物體做自由落體運動（g＝9.8 m/s²），它所受的重力是多少？',o:['490 N','50 N','9.8 N','5.1 N'],a:0,src:'課本 2-2 改編',
+      ex:'重力 ＝ m × g ＝ 50 × 9.8 ＝ 490 N，也就是 50 公斤重。自由落體任何時刻的加速度都是 g。'},
+    {q:'【延伸 2-2】同一輛貨車用相同的煞車力煞車，載滿貨物時和空車時相比，下列何者正確？',o:['載滿時加速度較小，煞車距離較長','載滿時加速度較大，煞車距離較短','兩者煞車距離相同','載滿時慣性較小'],a:0,src:'校延伸',
+      ex:'煞車力相同，質量越大，減速的加速度越小（a＝F÷m），要花更長時間和距離才能停下。'},
+  ]},
+
+u4:{code:4,no:'5-1',title:'地球上的水',short:'地球上的水',
+  color:'linear-gradient(135deg,#1b6f75,#38a3a0)',desc:'四大層圈｜水的分布｜鹽度 35‰｜地下水面｜地層下陷',
+  quickAsk:'選出正確答案',
+  quick:[
+    ['地球的四大層圈','大氣圈、水圈、岩石圈、生物圈',['大氣圈、水圈、地核、生物圈','水圈、地函、岩石圈、大氣圈','臭氧層、水圈、岩石圈、生物圈'],6],
+    ['地球上數量最多的水','海水',['冰','地下水','河流湖泊'],13],
+    ['海水約占地球總水量的','97%',['71%','50%','3%'],13],
+    ['淡水中所占比例最多的是','冰（冰川、冰帽）',['地下水','河流','湖泊'],13],
+    ['淡水中第二多的是','地下水',['河流','湖泊','大氣中的水氣'],13],
+    ['人類能直接使用的淡水約占總水量的','1%',['10%','30%','50%'],13],
+    ['全球海水的平均鹽度約為','35‰',['35%','3.5‰','350‰'],8],
+    ['鹽度 35‰ 代表每 1000 g 海水含鹽類','35 g',['3.5 g','350 g','0.35 g'],8],
+    ['讓海水有鹹味、含量最多的鹽類','氯化鈉',['氯化鎂','碳酸鈣','硫酸鈣'],8],
+    ['讓海水略帶苦味的鹽類','氯化鎂',['氯化鈉','碳酸鈣','二氧化碳'],8],
+    ['海水中的鹽類主要來自','河水、地下水溶解岩石的成分',['雨水','海洋形成時就有','人類排放的廢水'],17],
+    ['雨季或多雨時，地下水面會','上升',['下降','不變','消失'],12],
+    ['地勢較高的地區，地下水面通常','較高',['較低','一樣高','是水平的'],12],
+    ['地下水的主要來源','雨水下滲',['海水滲入','岩漿','冰川'],10],
+    ['超抽地下水使岩層孔隙被壓縮，造成','地層下陷',['海岸線擴張','火山爆發','地震'],15],
+    ['濱海地區超抽地下水，海水流入陸地','海水倒灌',['雨量增加','地下水面上升','河流變長'],15],
+    ['井口低於地下水面，水能自然湧出的井','自流井',['枯井','溫泉','水庫'],8],
+    ['孔隙大、可儲水流動的岩層（如砂岩）','透水層',['不透水層','岩漿庫','地殼'],10],
+    ['顆粒細緻、水難通過的頁岩層屬於','不透水層',['透水層','含水層','岩漿'],10],
+    ['蒸發旺盛、降水少的海域，鹽度','較高',['較低','一樣','為零'],8],
+  ],
+  words:[
+    ['水圈','海洋、河流、湖泊、冰、地下水等所有的水'],
+    ['岩石圈','地球表面由岩石構成的堅硬部分'],
+    ['生物圈','地球上所有生物生活的範圍'],
+    ['鹽度','海水中鹽類的多寡，平均約 35‰'],
+    ['氯化鈉','海水中最多的鹽類，帶來鹹味'],
+    ['氯化鎂','海水中第二多的鹽類，帶來苦味'],
+    ['地下水面','地下岩層飽含水部分的頂面'],
+    ['地層下陷','岩層孔隙失去地下水支撐而被壓縮下沉'],
+    ['自流井','井口低於地下水面，水會自己湧出的井'],
+    ['不透水層','顆粒細緻、水難通過的岩層，如頁岩'],
+  ],
+  sorts:[
+    {title:'這屬於哪一個層圈？',tip:'空氣→大氣圈；水→水圈；岩石土壤→岩石圈；生物→生物圈。',buckets:['大氣圈','水圈','岩石圈','生物圈'],items:[
+      ['飄散到空中的火山灰',0],['覆蓋地表的熔岩',2],['河流與湖泊',1],['南極的冰層',1],['森林裡的動植物',3],
+      ['人類',3],['地下水',1],['空氣中的氮氣與氧氣',0],['土壤與岩石',2],['海洋裡的魚',3],
+    ]},
+    {title:'超抽地下水會不會造成這個結果？',tip:'想想岩層孔隙「沒有水撐住」會怎樣。',buckets:['會','不會'],items:[
+      ['地層下陷',0],['海水倒灌',0],['濱海地下淡水變鹹',0],['舊房子看起來像陷入地面',0],
+      ['地下水面上升',1,'抽水會讓地下水面下降'],['海岸線向外擴張',1],['停止抽水後地層完全恢復原狀',1,'地層下陷一旦發生，無法完全復原'],
+    ]},
+  ],
+  mcq:[
+    {q:'小美說：「海水裡的鹽，是下雨時從天空帶下來的。」老師說不對。海水中的鹽類主要從哪裡來？',o:['河水、地下水溶解陸地岩石的成分後流入海洋','海洋形成時本來就有','雨水溶解大氣中的物質帶入海洋','人類排放的廢水'],a:0,src:'14 校考過這個陷阱',
+      ex:'河水和地下水長期溶解陸地岩石中礦物的部分成分，變成離子流入海洋並累積，形成海水中的鹽類。'},
+    {q:'如果把地球上所有的淡水畫成圓餅圖，占最大一塊的是哪一種？',o:['冰川與冰帽（冰）','地下水','河流與湖泊','大氣中的水氣'],a:0,src:'9 校考過這個陷阱',
+      ex:'淡水中最多的是冰（冰川、冰帽），其次是地下水，河流湖泊只占很少。'},
+    {q:'全球海水平均鹽度約 35‰。2000 公克的海水中，大約含有多少公克的鹽類？',o:['70 公克','35 公克','700 公克','7 公克'],a:0,src:'改編（鹽度計算）',
+      ex:'35‰ 表示每 1000 g 海水約含 35 g 鹽類。2000 g 是 2 倍，所以約 70 g。注意是千分之 35（‰），不是百分之 35。'},
+    {q:'關於海水的敘述，下列何者正確？',o:['鹹味主要來自氯化鈉','苦味主要來自氯化鈉','海水平均鹽度約 35%','海水的鹽類主要來自雨水'],a:0,src:'8 校',
+      ex:'最多的鹽是氯化鈉（鹹味），其次是氯化鎂（苦味）。平均鹽度約 35‰（千分之 35）。鹽類主要來自河水、地下水溶解岩石。'},
+    {q:'下列有關地下水面的敘述，何者正確？',o:['地下水面並不是水平的，地勢高處通常較高','旱季時地下水面會上升','地下水主要來自海水滲入','地下水面的高度永遠不變'],a:0,src:'12 校考地下水面',
+      ex:'地下水面會隨地形起伏，也受降雨影響：雨季上升、旱季下降。地下水的主要來源是雨水下滲。'},
+    {q:'某地有三口井：甲井井底沒有到達地下水面；乙井井底在地下水面以下；丙井鑽穿頁岩層，到達下方受壓的含水層，而且井口低於該含水層的地下水面。哪一口井的水會自己湧出地面？',o:['丙井','甲井','乙井','三口都不會'],a:0,src:'10 校',
+      ex:'丙井是自流井：井口低於受壓含水層的地下水面，水能自然湧出。甲井沒到地下水面，是枯井；乙井要抽才有水。頁岩是不透水層。'},
+    {q:'雲林縣口湖鄉有些舊房子看起來像「陷入地面」，旁邊的路面和新房地基卻越墊越高。造成這種現象的主要原因是什麼？',o:['超抽地下水造成地層下陷','地震使地面隆起','河流沉積使地面升高','颱風帶來大量雨水'],a:0,src:'15 校考地層下陷',
+      ex:'超抽地下水，岩層孔隙缺乏水的支撐被壓縮，造成地層下陷。地層下陷一旦發生無法完全復原，濱海地區還可能海水倒灌、地下水鹹化。'},
+    {q:'都市裡下大雨常淹水，原因之一是建築物和馬路大面積覆蓋地表。下列哪一種做法最能減少這種淹水？',o:['改用透水鋪面，讓雨水快速滲入地下','把路面全部改鋪柏油','多抽地下水','把河道填平'],a:0,src:'課本 5-1',
+      ex:'大面積不透水的地表阻礙雨水下滲，排水系統容易超載。引導降雨快速滲入地下，可以減少淹水，也能補充地下水。'},
+    {q:'地球的層圈之間常互相影響。下列哪一個事件主要是「生物圈」影響「岩石圈」？',o:['植物的根伸進岩縫，把岩石撐裂','火山灰飄到空中遮住陽光，使氣溫下降','河水溶解岩石的礦物，流入海洋','海水蒸發成水氣，再凝結成雲降雨'],a:0,src:'6 校考層圈',
+      ex:'根是生物圈、岩石是岩石圈。火山灰→岩石圈影響大氣圈；河水溶解岩石→水圈與岩石圈；海水蒸發降雨→水圈與大氣圈。'},
+    {q:'下列哪一組敘述正確？',o:['海洋面積約占地表 71%；海水約占地球總水量 97%','海洋面積約占地表 97%；海水約占總水量 71%','海水約占總水量 50%','淡水約占總水量 97%'],a:0,src:'13 校考水的分布',
+      ex:'兩個數字別混用：地表約 71% 被海洋覆蓋；地球上所有的水，約 97% 是海水，只有約 3% 是淡水。'},
+    {q:'人類能直接使用的淡水，只占地球上所有水體約多少？臺灣為什麼更要珍惜水資源？',o:['約 1%；降雨集中在夏秋、河短流急，不易儲存','約 30%；降雨平均分布在四季','約 50%；臺灣沒有河流','約 97%；臺灣雨量太少'],a:0,src:'課本暖身操',
+      ex:'能直接使用的淡水只占約 1%。臺灣降雨集中在夏、秋兩季，加上河短流急，水資源供應不穩定且不易儲存。'},
+    {q:'下列哪一個地點的海水鹽度最可能最低？',o:['大河出海口附近','炎熱少雨、蒸發旺盛的海域','封閉的內海，周圍是沙漠','曬鹽場的鹽田'],a:0,src:'改編（鹽度）',
+      ex:'河口有大量淡水注入，會把海水稀釋，鹽度較低。蒸發多、降水少的地方鹽度較高。'},
+    {q:'關於岩層與地下水，下列敘述何者正確？',o:['砂岩、礫岩孔隙大，容易儲存地下水','頁岩孔隙大，是良好的含水層','地下水只存在於地表的河流','岩層孔隙中的地下水無法支撐上方岩層'],a:0,src:'10 校考透水層',
+      ex:'砂岩、礫岩孔隙大，是透水層；頁岩顆粒細緻，水難通過，是不透水層。岩層孔隙中的地下水能協助支撐上方岩層。'},
+  ]},
+
+u5:{code:5,no:'5-2',title:'地貌的改變與平衡',short:'地貌的改變',
+  color:'linear-gradient(135deg,#5a7a2a,#93b34a)',desc:'內營力 vs 外營力｜風化・侵蝕・搬運・沉積｜河流・冰川・風・海浪｜海岸線',
+  quickAsk:'選出正確答案',
+  quick:[
+    ['外營力主要的能量來源','太陽能',['地球內部的熱能','月球引力','核能'],15],
+    ['板塊運動、火山活動、斷層錯動屬於','內營力',['外營力','風化作用','沉積作用'],15],
+    ['流水、冰川、風、海浪屬於','外營力',['內營力','板塊運動','岩漿活動'],15],
+    ['使地表抬升、隆起的力量','內營力',['外營力','沉積作用','風化作用'],13],
+    ['使地表逐漸被夷平的力量','外營力',['內營力','地震','火山'],15],
+    ['岩石在原地崩解或改變成分','風化作用',['侵蝕作用','搬運作用','沉積作用'],19],
+    ['外營力把岩石、沙、泥從原處剝離','侵蝕作用',['風化作用','搬運作用','沉積作用'],18],
+    ['把碎屑物移到他處','搬運作用',['風化作用','沉積作用','內營力'],12],
+    ['把碎屑物堆積在平原、湖泊或海底','沉積作用',['侵蝕作用','風化作用','搬運作用'],16],
+    ['植物的根在岩縫中生長，把岩石撐裂','風化作用',['侵蝕作用','搬運作用','沉積作用'],12],
+    ['岩石中的鐵質氧化，表面變成褐色','風化作用',['沉積作用','搬運作用','內營力'],10],
+    ['海浪不斷拍打，掏空堤防底部','侵蝕作用',['風化作用','沉積作用','內營力'],10],
+    ['河流上游常見的地形','V形谷',['U形谷','三角洲','沙丘'],17],
+    ['冰川侵蝕形成的地形','U形谷',['V形谷','沙洲','海蝕洞'],17],
+    ['冰川融化留下的沉積物特徵','大小顆粒混雜',['越往下游越細','都很圓滑','只有細泥'],17],
+    ['越往河流下游，河床的石頭','越小越圓',['越大越尖','都一樣','稜角越多'],18],
+    ['強風挾帶沙粒刮磨岩石，形成','風稜石',['U形谷','海拱','三角洲'],0],
+    ['恆春風吹砂、觀音沙丘主要由','風的搬運與沉積',['河流侵蝕','冰川作用','海浪侵蝕'],0],
+    ['海蝕平臺、海蝕洞、海拱是','海浪的侵蝕作用',['河流的沉積作用','冰川作用','內營力'],0],
+    ['砂岩突出、頁岩凹陷的現象','差異侵蝕',['沉積作用','內營力','搬運作用'],7],
+    ['河流帶來泥沙 ＞ 海水帶走泥沙，海岸線','向外擴張',['向內陸後退','近乎平衡','完全不變'],14],
+    ['河流上游興建水庫，出海口的海岸線','向陸地後退',['向海擴張','不變','先擴張再消失'],14],
+    ['乾隆海堤離現今海岸約 2 公里，代表海岸線','向外擴張',['向內後退','沒有改變','被海水淹沒'],14],
+    ['如果太陽消失，哪一種作用會大幅減弱？','外營力',['內營力','板塊運動','火山活動'],15],
+  ],
+  words:[
+    ['內營力','地球內部能量驅動：板塊運動、火山、斷層'],
+    ['外營力','主要由太陽能驅動：流水、冰川、風、海浪'],
+    ['風化作用','岩石在原地崩解或改變成分'],
+    ['侵蝕作用','把岩石、沙、泥從原處剝離'],
+    ['搬運作用','把碎屑物移到他處'],
+    ['沉積作用','把碎屑物堆積在平原、湖泊或海底'],
+    ['U形谷','冰川侵蝕形成的谷地'],
+    ['V形谷','河流上游向下侵蝕形成的谷地'],
+    ['風稜石','強風挾沙刮磨，形成有稜角的石頭'],
+    ['差異侵蝕','軟硬岩層被侵蝕程度不同（砂岩突出、頁岩凹陷）'],
+  ],
+  sorts:[
+    {title:'風化、侵蝕、搬運，還是沉積？',tip:'風化＝原地變碎；侵蝕＝被剝走；搬運＝移動中；沉積＝堆下來。',buckets:['風化','侵蝕','搬運','沉積'],items:[
+      ['植物的根把岩縫撐大',0,'生物造成的風化'],['岩縫裡的水反覆結冰膨脹',0],['日夜熱脹冷縮使岩石碎裂',0],['岩石的鐵質氧化成褐色',0],
+      ['海浪掏空堤防底部',1],['河流向下切出 V 形谷',1],['風挾沙粒刮磨岩石成風稜石',1],['冰川刮出 U 形谷',1],
+      ['河水把石頭帶到下游',2],['土石流把巨石推到下游',2],
+      ['河流出海口泥沙堆積',3],['風減弱後沙粒堆成沙丘',3],['海邊形成沙灘、沙洲',3],['冰川融化留下大小混雜的岩屑',3],
+    ]},
+    {title:'內營力還是外營力？',tip:'能量來自地球內部 → 內營力；來自太陽 → 外營力。',buckets:['內營力','外營力'],items:[
+      ['火山噴發',0],['板塊擠壓使山脈隆起',0],['斷層錯動',0],['地震',0],
+      ['河流侵蝕',1],['冰川移動',1],['風吹沙',1],['海浪拍岸',1],['岩石風化',1],
+    ]},
+    {title:'海岸線會怎麼變？',tip:'比較「河流帶來的泥沙」和「海水帶走的泥沙」。',buckets:['向外擴張','向內陸後退'],items:[
+      ['河流帶來的泥沙多於海水帶走的',0],['上游興建水庫、攔沙壩',1,'入海泥沙減少'],['大量開採河川砂石',1],
+      ['沿海地層下陷',1],['海平面上升',1],['出海口大量沉積',0],['地表持續抬升',0],
+    ]},
+  ],
+  mcq:[
+    {q:'下列哪一個屬於風化作用？',o:['岩縫中的水反覆結冰膨脹，使岩石裂開','河水不斷沖刷，使河床越切越深','颱風帶來的洪水把泥沙沖到下游','河流出海口泥沙堆積成沙洲'],a:0,src:'12 校考過',
+      ex:'水結冰膨脹把岩石撐裂，是岩石在原地崩解，屬於風化。河床切深是侵蝕、洪水運送是搬運、堆成沙洲是沉積。'},
+    {q:'登山隊在高緯度山區看到一條谷底寬、兩側陡峭的谷地，谷口堆著大小混雜、稜角分明的岩塊。形成這種地形最主要的外營力是什麼？',o:['冰川','河流','風','海浪'],a:0,src:'17 校考冰川',
+      ex:'谷底寬、兩側陡是 U 形谷，冰川融化時留下的沉積物大小混雜。河流上游形成的是 V 形谷。'},
+    {q:'某條河的中、上游建了許多攔沙壩，下游又大量開採河川砂石。出海口附近的海岸線最可能如何變化？',o:['向陸地退縮','向海洋擴張','完全不變','先擴張後消失'],a:0,src:'10 校考過這個陷阱',
+      ex:'攔沙壩攔截泥沙、採砂石也帶走泥沙，入海泥沙減少，海水帶走的比河流帶來的多，海岸線向內陸退縮。'},
+    {q:'同一條河的上游和下游各採集一組石頭：甲組稜角明顯、顆粒較大；乙組圓滑、顆粒較小。下列推論何者正確？',o:['甲組在上游，乙組在下游','甲組在下游，乙組在上游','兩組都在下游','石頭形狀和位置無關'],a:0,src:'5 校',
+      ex:'石頭被河水搬運的距離越長，互相碰撞摩擦越久，就越小越圓。所以圓滑的乙組在下游，稜角明顯的甲組在上游。'},
+    {q:'假如太陽突然消失，下列哪一個作用會大幅減弱？',o:['流水、風、海浪等外營力的作用','板塊運動','火山活動','斷層錯動'],a:0,src:'15 校考內外營力',
+      ex:'外營力的能量主要來自太陽，太陽消失後流水、風、海浪都會減弱。板塊、火山、斷層是內營力，能量來自地球內部。'},
+    {q:'下列哪一個屬於內營力？',o:['火山噴發','河流侵蝕','冰川移動','海浪拍岸'],a:0,src:'6 校考過這個陷阱',
+      ex:'火山、板塊運動、斷層錯動由地球內部能量驅動，是內營力。其他三個是外營力。'},
+    {q:'野外常見砂岩、頁岩交互堆疊的岩層，砂岩層突出、頁岩層凹陷。主要原因為何？',o:['砂岩抗風化侵蝕的能力比頁岩好','砂岩顆粒比頁岩細','頁岩受到板塊擠壓','砂岩是後來才沉積上去的'],a:0,src:'7 校',
+      ex:'這是差異侵蝕：砂岩較能抵抗風化侵蝕，保留下來而突出；頁岩被侵蝕得較嚴重而凹下。砂岩顆粒其實比頁岩粗。'},
+    {q:'乾隆海堤建於西元 1778 年，代表當時的海岸位置，如今距離海岸約 2 公里。下列推論何者最合理？',o:['河流帶來的泥沙多於海水帶走的，海岸線向外擴張','海水帶走的泥沙比較多，海岸線後退','當地興建了大型水庫','海平面大幅上升'],a:0,src:'14 校考海岸線',
+      ex:'海堤離海越來越遠，表示陸地面積增加、海岸線向外擴張，原因是河流帶來的沉積物多於海水帶走的。'},
+    {q:'2025 年花蓮馬太鞍溪上游的堰塞湖溢流後，大量泥沙被溪水帶到下游，堆積在平原上使河床抬高。「帶到下游」和「堆積在平原」分別屬於哪一種作用？',o:['搬運作用；沉積作用','侵蝕作用；風化作用','風化作用；沉積作用','沉積作用；搬運作用'],a:0,src:'時事題',
+      ex:'把碎屑物移到他處是搬運作用；把碎屑物堆積在平原、湖泊或海底是沉積作用。'},
+    {q:'澎湖西吉嶼的海蝕洞、新北石門的海拱，主要是哪一種作用形成的？',o:['海浪的侵蝕作用','河流的沉積作用','冰川的侵蝕作用','風的沉積作用'],a:0,src:'課本 5-2',
+      ex:'海浪長期拍打海岸岩石，形成海蝕平臺、海蝕洞、海拱等海蝕地形。沙灘、沙洲才是海浪的沉積作用。'},
+    {q:'屏東恆春的「風吹砂」和桃園觀音的沙丘，主要是怎麼形成的？',o:['風的搬運與沉積作用','河流的侵蝕作用','冰川融化後的沉積','海浪的侵蝕作用'],a:0,src:'課本 5-2',
+      ex:'風會搬動沙粒或塵土，風力減弱時沙粒沉積下來，常形成沙丘。'},
+    {q:'冰川沉積物和河流沉積物最大的不同是什麼？',o:['冰川沉積物大小顆粒混雜；河流沉積物大致依顆粒大小分開','冰川沉積物都很圓滑','河流沉積物大小混雜、稜角分明','兩者完全相同'],a:0,src:'17 校考冰川',
+      ex:'冰川融化時把刮下的岩屑一起放下，大小混雜、稜角分明；河流會依流速把粗細顆粒分開，越往下游越細、越圓。'},
+    {q:'關於地貌的改變，下列敘述何者正確？',o:['內營力與外營力仍持續不斷作用，地貌一直在改變','風化作用會使岩石完全消失','內營力和外營力都已經停止','外營力會使地表越來越高'],a:0,src:'是非題改編',
+      ex:'內營力使地表抬升隆起，外營力使地表逐漸被夷平，這是持續不斷的動態過程。風化只是讓岩石變碎、變成土壤，不是消失。'},
+    {q:'一塊石頭表面出現褐色的鏽斑，主要是什麼原因造成的？',o:['岩石中的鐵質與空氣中的氧和水發生氧化（風化）','海浪的侵蝕','河流的沉積','板塊擠壓'],a:0,src:'改編（風化作用）',
+      ex:'岩石中的鐵質與氧氣和水進行氧化反應，在表面產生褐色的氧化鐵，屬於風化作用（空氣）。'},
+  ]},
+
+u6:{code:6,no:'5-3',title:'地球上的岩石',short:'岩石與礦物',
+  color:'linear-gradient(135deg,#6b5a4a,#a88b6e)',desc:'三大岩類｜變質對照｜石英 vs 方解石｜硬度｜岩石循環｜臺灣岩石地景',
+  quickAsk:'選出正確答案',
+  quick:[
+    ['岩石三大類的分類依據','形成過程',['顏色','礦物組成','顆粒大小'],12],
+    ['岩漿冷卻凝固形成的岩石','火成岩',['沉積岩','變質岩','礦物'],18],
+    ['沉積物經壓密、膠結形成的岩石','沉積岩',['火成岩','變質岩','岩漿'],17],
+    ['岩石受高溫、高壓作用而形成的岩石','變質岩',['火成岩','沉積岩','岩漿'],17],
+    ['岩漿冷卻得越慢，礦物顆粒','越大',['越小','不變','消失'],8],
+    ['在地底慢慢冷卻、顆粒大的火成岩','花岡岩',['玄武岩','安山岩','頁岩'],18],
+    ['澎湖群島主要的岩石','玄武岩',['花岡岩','大理岩','板岩'],14],
+    ['大屯火山群主要由哪種岩石組成','安山岩',['玄武岩','石灰岩','板岩'],14],
+    ['頁岩變質後形成','板岩',['大理岩','花岡岩','砂岩'],16],
+    ['石灰岩變質後形成','大理岩',['板岩','玄武岩','礫岩'],16],
+    ['花岡岩變質後形成','花岡片麻岩',['大理岩','板岩','頁岩'],16],
+    ['原住民石板屋的建材','板岩',['大理岩','花岡岩','玄武岩'],14],
+    ['太魯閣峽谷主要的岩石','大理岩',['玄武岩','安山岩','砂岩'],14],
+    ['墾丁的珊瑚礁岩屬於','石灰岩',['花岡岩','板岩','玄武岩'],14],
+    ['沉積岩依顆粒由大到小','礫岩＞砂岩＞頁岩',['頁岩＞砂岩＞礫岩','砂岩＞礫岩＞頁岩','三者一樣大'],17],
+    ['常含有化石的岩類','沉積岩',['火成岩','變質岩','岩漿'],17],
+    ['石灰岩、方解石的主要成分','碳酸鈣',['二氧化矽','氯化鈉','氧化鐵'],14],
+    ['方解石遇稀鹽酸產生的氣體','二氧化碳',['二氧化氮','氧氣','氫氣'],14],
+    ['石英的成分','二氧化矽',['碳酸鈣','氯化鈉','氯化鎂'],0],
+    ['花岡岩主要的組成礦物','石英、長石、雲母',['方解石、石英、雲母','金剛石、長石、石英','石膏、滑石、雲母'],5],
+    ['地殼中含量最多的礦物','長石',['石英','雲母','方解石'],0],
+    ['兩種礦物互相刮磨，被刮出痕跡的一方','硬度較小',['硬度較大','密度較大','顏色較深'],7],
+    ['莫氏硬度最大（10）的礦物','金剛石',['石英','滑石','方解石'],7],
+    ['可被小刀刻劃、遇稀鹽酸冒泡的白色礦物','方解石',['石英','長石','金剛石'],14],
+    ['三大岩類在不同條件下互相轉變','岩石的循環',['水循環','差異侵蝕','地層下陷'],10],
+    ['石灰岩是岩石還是礦物？','岩石',['礦物','元素','都不是'],9],
+  ],
+  words:[
+    ['火成岩','岩漿冷卻凝固形成'],
+    ['沉積岩','沉積物經壓密、膠結形成'],
+    ['變質岩','岩石受高溫、高壓作用改變而成'],
+    ['膠結','析出的礦物填滿顆粒間孔隙，把顆粒黏合'],
+    ['礦物','天然形成的固體，有規則的原子排列及特定化學組成與物理性質'],
+    ['硬度','礦物抵抗磨損的能力'],
+    ['莫氏硬度','用十種常見礦物當標準，把硬度分成 10 級'],
+    ['岩石的循環','三大岩類可以互相轉變的過程'],
+    ['方解石','成分碳酸鈣，遇稀鹽酸冒出二氧化碳'],
+    ['石英','成分二氧化矽，製造矽晶圓的原料'],
+  ],
+  sorts:[
+    {title:'這是哪一類岩石？',tip:'分類依據是「形成過程」。',buckets:['火成岩','沉積岩','變質岩'],items:[
+      ['玄武岩',0],['安山岩',0],['花岡岩',0],['礫岩',1],['砂岩',1],['頁岩',1],['石灰岩',1],
+      ['大理岩',2],['板岩',2],['片岩',2],['花岡片麻岩',2],['常有層理、含化石',1],['岩漿冷卻凝固',0],['受高溫高壓改變',2],
+    ]},
+    {title:'變質之後會變成什麼？',tip:'頁岩→板岩、石灰岩→大理岩、花岡岩→花岡片麻岩。',buckets:['板岩','大理岩','花岡片麻岩'],items:[
+      ['頁岩',0],['石灰岩',1],['花岡岩',2],['珊瑚礁石灰岩',1],['由泥沉積成的頁岩層',0],['含石英、長石、雲母的花岡岩',2],
+    ]},
+    {title:'石英還是方解石？',tip:'兩者都可能白色或透明，要靠硬度或稀鹽酸分辨。',buckets:['石英','方解石','兩者都可能'],items:[
+      ['滴稀鹽酸會冒泡',1],['小刀片刻不動',0],['可被小刀片刻出痕跡',1],['白色或無色透明',2],
+      ['成分是二氧化矽',0],['成分是碳酸鈣',1],['製造矽晶圓的原料',0],['石灰岩主要的組成礦物',1],
+    ]},
+  ],
+  mcq:[
+    {q:'下列哪一組「原來的岩石 → 變質後的岩石」配對正確？',o:['頁岩→板岩；石灰岩→大理岩','砂岩→板岩；安山岩→大理岩','玄武岩→大理岩；砂岩→板岩','花岡岩→板岩；頁岩→大理岩'],a:0,src:'16 校考變質對照',
+      ex:'頁岩受高溫高壓變質為板岩（石板屋）；石灰岩（碳酸鈣）變質為大理岩（太魯閣）；花岡岩變質為花岡片麻岩。'},
+    {q:'小安撿到兩塊白色透明的礦物，一塊是石英、一塊是方解石。下列哪一個方法「無法」分辨它們？',o:['比較兩者的顏色','滴稀鹽酸，看是否冒氣泡','用小刀片刻劃，看有沒有刮痕','兩者互相刮磨，看誰被刮傷'],a:0,src:'14 校考過',
+      ex:'兩者都可能白色透明，顏色無法分辨。方解石（碳酸鈣）遇稀鹽酸冒出二氧化碳、可被小刀刻劃；石英較硬，互相刮磨時方解石被刮傷。'},
+    {q:'甲、乙兩塊火成岩：甲的礦物顆粒大、肉眼可見；乙的顆粒很小。下列推論何者最合理？',o:['甲在地底深處慢慢冷卻，乙在地表快速冷卻','甲在地表快速冷卻，乙在地底慢慢冷卻','甲、乙都是沉積岩','顆粒大小和冷卻快慢無關'],a:0,src:'8 校考過這個陷阱',
+      ex:'岩漿冷卻得越慢，礦物顆粒越大（如花岡岩）；冷卻得越快，顆粒越小（如玄武岩、安山岩）。'},
+    {q:'岩石分成火成岩、沉積岩、變質岩三大類，是根據什麼來分的？',o:['形成的過程','岩石的顏色','所含礦物的種類','出現的地點'],a:0,src:'12 校考分類依據',
+      ex:'三大岩類是依「形成過程」區分：岩漿冷凝、沉積物壓密膠結、高溫高壓變質。顆粒大小只是沉積岩內部再細分的依據。'},
+    {q:'關於岩石的循環，下列敘述何者正確？',o:['變質岩也能再受高溫高壓，變成另一種變質岩','板岩風化後會直接變回頁岩','只有沉積岩能變成變質岩','火成岩不會被風化'],a:0,src:'10 校考岩石循環',
+      ex:'無論原來是哪一類岩石，都可以經變質作用形成變質岩，也都可能熔融成岩漿。板岩風化成碎屑後，要再經搬運、沉積、壓密膠結才會成為沉積岩。'},
+    {q:'中橫公路沿線常見一種深灰色岩石，可以剝成一片片薄板，常用來蓋石板屋。這種岩石是什麼？原本是哪一種岩石？',o:['板岩；頁岩','大理岩；石灰岩','玄武岩；安山岩','砂岩；礫岩'],a:0,src:'7 校以上考中橫板岩',
+      ex:'板岩是頁岩受高溫高壓變質而成的變質岩，容易沿著片狀構造剝開，所以能當石板屋的建材。臺灣變質岩主要分布在中央山脈。'},
+    {q:'小明把甲、乙、丙三種礦物兩兩互相刮磨：甲刮乙，乙出現刮痕；乙刮丙，丙出現刮痕。三者硬度大小為何？',o:['甲＞乙＞丙','丙＞乙＞甲','乙＞甲＞丙','無法判斷'],a:0,src:'6 校',
+      ex:'兩種礦物互相刮磨，硬度較小者會被刮出痕跡。乙被甲刮傷→甲＞乙；丙被乙刮傷→乙＞丙。所以甲＞乙＞丙。'},
+    {q:'莫氏硬度：滑石 1、石膏 2、方解石 3、螢石 4、磷灰石 5…。把甲礦物依序和滑石、石膏…互相刮磨，直到碰到磷灰石時，甲才被刮出痕跡。甲的硬度約為多少？',o:['介於 4 和 5 之間','小於 1','介於 2 和 3 之間','大於 5'],a:0,src:'課本「美麗的礦物」',
+      ex:'甲能刮傷螢石（4）以下的礦物，表示甲比螢石硬；碰到磷灰石（5）才被刮傷，表示甲比磷灰石軟。所以硬度在 4～5 之間。'},
+    {q:'花岡岩是常見的建材。它主要由哪些礦物組成？',o:['石英、長石、雲母','方解石、石英、雲母','金剛石、長石、石英','石膏、滑石、方解石'],a:0,src:'5 校考過這個陷阱',
+      ex:'花岡岩＝石英＋長石＋雲母。方解石是石灰岩、大理岩的主要礦物。'},
+    {q:'下列有關沉積岩的敘述，何者正確？',o:['常有層理，可能含有化石','都是由岩漿冷卻而成','顆粒由大到小依序是頁岩、砂岩、礫岩','一定是在高溫高壓下形成'],a:0,src:'17 校考沉積岩',
+      ex:'沉積岩由沉積物一層層堆積、壓密、膠結形成，常有層理，石灰岩等常含化石。顆粒由大到小是礫岩＞砂岩＞頁岩。'},
+    {q:'根據臺灣三大岩類的分布，下列配對何者正確？',o:['太魯閣峽谷—大理岩（變質岩）','澎湖群島—花岡岩（火成岩）','陽明山大屯火山群—石灰岩（沉積岩）','墾丁珊瑚礁—板岩（變質岩）'],a:0,src:'14 校考臺灣岩石地景',
+      ex:'太魯閣是大理岩；澎湖是玄武岩；大屯火山群是安山岩；墾丁是珊瑚礁石灰岩。臺灣的變質岩主要分布在中央山脈。'},
+    {q:'石灰岩可以用來製造哪一種材料？',o:['水泥','矽晶圓','電器的絕緣隔熱片','電線'],a:0,src:'課本 5-3',
+      ex:'石灰岩主要由方解石（碳酸鈣）組成，是製造水泥的原料之一。石英（二氧化矽）是製造矽晶圓的原料；雲母才常當作絕緣隔熱材料。'},
+    {q:'大理岩和石灰岩的主要組成礦物相同。兩者的差別是什麼？',o:['大理岩中的方解石經變質重新結晶，較緊密；石灰岩孔隙多、較鬆散','大理岩是火成岩','石灰岩比大理岩更緊密','大理岩的成分是二氧化矽'],a:0,src:'課本知識快遞',
+      ex:'兩者主要都是方解石（碳酸鈣）。大理岩是石灰岩受高溫高壓變質、重新結晶而成，所以比較緊密。'},
+    {q:'實驗 5-3「觀察岩石」中，同學在校園尋找岩石建材。下列哪一個想法最正確？',o:['岩石的顏色不適合當作辨識岩石種類的主要依據','只要看顏色就能判斷岩石種類','白色的岩石一定是大理岩','黑色的岩石一定是玄武岩'],a:0,src:'實驗 5-3',
+      ex:'同一種岩石的顏色可能不同，不同岩石也可能顏色相近，要觀察顆粒的形狀、大小、排列方式，以及硬度、遇酸反應等特徵。'},
+    {q:'海裡的珊瑚、貝類利用海水中的鈣離子形成碳酸鈣的骨骼或殼。牠們死後的遺骸沉積在海底，經壓密膠結會形成什麼岩石？若再受高溫高壓又會變成什麼？',o:['石灰岩；大理岩','頁岩；板岩','玄武岩；花岡岩','砂岩；片岩'],a:0,src:'課本 5-3 思考題',
+      ex:'珊瑚、貝類遺骸碎屑經壓密膠結形成石灰岩（沉積岩）；石灰岩變質後成為大理岩（變質岩）。'},
+  ]},
+};
+
+/* ================= 考點雷達 ================= */
+const RADAR={
+  n:20,
+  schools:'',
+  topics:[
+    ['單擺週期（只看擺長）',20],['x-t 圖判讀',19],['地下水與井',19],['風化・侵蝕・搬運・沉積',19],['位移與路徑長',19],
+    ['三大岩類',18],['v-t 圖判讀',18],['平均速率 vs 平均速度',18],['加速度計算（含 km/h）',18],['自由落體',18],
+    ['河流上中下游',18],['慣性與水面傾斜',17],['海水鹽類與鹽度',17],['冰川地形',17],['打點計時器',16],
+    ['超抽地下水',15],['內營力 vs 外營力',15],['石英與方解石',14],['臺灣岩石地景',14],['海岸線變遷',14],
+  ],
+  basics:[['擺長 4 倍→週期 2 倍',9],['a＝Δv/Δt（m/s²）',20],['km/h ÷ 3.6＝m/s',12],['v-t 面積＝位移',18],['x-t 斜率＝速度',19],
+    ['v＝gt、h＝½gt²',20],['打點間隔＝1/f',16],['平均速率＝路徑長÷時間',19],['稀鹽酸分辨方解石',14],['頁岩→板岩',16],['石灰岩→大理岩',16],['合力為零→靜止或等速度',17]],
+  words:[['週期',20],['擺長',20],['加速度',20],['位移',19],['路徑長',19],['自由落體',19],['風化作用',19],['侵蝕作用',18],['火成岩',18],
+    ['U 形谷／V 形谷',17],['沉積岩',17],['變質岩',17],['打點計時器',16],['沉積作用',16],['慣性',15],['地層下陷',15],['外營力',15]],
+  traps:[
+    ['海水鹽類來自雨水',14,'來自河水、地下水溶解岩石'],
+    ['加速／煞車時水面方向弄反',13,'加速→後高；煞車→前高'],
+    ['擺錘越重或擺角越大，週期越長',12,'只看擺長'],
+    ['x-t 交點＝速度相等',12,'x-t 交點＝相遇；v-t 交點＝速度相等'],
+    ['重的物體落得比較快',12,'不計空氣阻力同時落地'],
+    ['回到原點還用路徑長算平均速度',10,'位移 0 → 平均速度 0'],
+    ['紙帶點越密跑越快',10,'點越密越慢'],
+    ['推書漸停是慣性',10,'是摩擦力'],
+    ['海浪掏空堤防是風化',10,'是侵蝕'],
+    ['上游建水庫，海岸線外擴',10,'泥沙減少→後退'],
+    ['淡水主要是地下水',9,'主要是冰'],
+    ['速度為零，加速度也為零',8,'上拋最高點 a＝g'],
+    ['火山噴發是外營力',6,'是內營力'],
+  ],
+  cross:{
+    note:'同年級翰林版 27 校、南一版 9 校的第一次段考也大量考這些（不分版本都考）：',
+    items:[
+      ['v-t 圖判讀','27/27','9/9'],['x-t 圖判讀','27/27','9/9'],['平均速率與平均速度','27/27','9/9'],['自由落體（與質量無關）','26/27','9/9'],
+      ['位移與路徑長','25/27','9/9'],['加速度計算（km/h 換算）','25/27','8/9'],['慣性定律與水面傾斜','25/27','8/9'],['侵蝕・搬運・沉積','25/25','8/9'],
+      ['風化作用','23/25','9/9'],['鉛直上拋（最高點 a＝g）','23/27','8/9'],['地下水面與地層下陷','21/25','9/9'],['海岸線變遷（水庫攔沙）','20/25','9/9'],
+    ]},
+  nonmcq:[['卑南：作圖畫出「路徑」與「位移」',1],['卑南：5g 俯衝 1 秒求時速',1],['卑南：圖示填風化／侵蝕／搬運／沉積',1],['五福：自由落體連拍求 g＝9.6 m/s²',1],['右昌：地科是非題 5 題',1]],
+  repeats:['游泳選手折返','無人機 x-t','小雯與沛沛 x-t','喬丹折返次數','鐵球與橡皮擦同時落下','加減速水面傾斜','等速火車上拋硬幣','滄海桑田海岸線','中橫板岩'],
+};
+
+/* ================= 綜合：圖表判讀（x-t、v-t、a-t） =================
+   g：{x:[最小,最大,標籤間隔], y:[最小,最大,標籤間隔], xl, yl, lines:[{p:[[t,值]...], c:顏色, n:名稱}]}
+   gs：多張小圖（只看形狀，不標刻度）。 */
+const GC=['#2b6cb0','#d9534f','#2e9e6b','#b7791f'];
+const GRAPHQ=[
+  {title:'小雯與沛沛散步',src:'10 校',
+    g:{x:[0,10,2],y:[0,20,4],xl:'時間 t（s）',yl:'位置 x（m）',lines:[{p:[[0,0],[10,20]],c:GC[0],n:'小雯'},{p:[[0,6],[10,16]],c:GC[1],n:'沛沛'}]},
+    qs:[
+      {q:'圖為兩人在同一直線上的 x-t 圖。t＝6 s 時兩線相交，代表什麼？',o:['兩人相遇（位置相同）','兩人速度相同','兩人都靜止','兩人加速度相同'],a:0,
+        ex:'x-t 圖的交點表示同一時刻位置相同，也就是相遇。兩線斜率不同，速度不同。'},
+      {q:'兩人的速度大小各是多少？',o:['小雯 2 m/s，沛沛 1 m/s','小雯 1 m/s，沛沛 2 m/s','兩人都是 2 m/s','小雯 20 m/s，沛沛 16 m/s'],a:0,
+        ex:'x-t 圖斜率＝速度。小雯：(20－0)÷10＝2 m/s；沛沛：(16－6)÷10＝1 m/s。'},
+      {q:'t＝0 時，兩人的位置關係為何？',o:['沛沛在小雯前方 6 m','兩人從同一地點出發','小雯在沛沛前方 6 m','無法判斷'],a:0,
+        ex:'看 t＝0 時的縱軸截距：小雯在 0 m、沛沛在 6 m，所以沛沛在前方 6 m，不是同一地點出發。'},
+    ]},
+  {title:'無人機的折返飛行',src:'7 校',
+    g:{x:[0,8,2],y:[-4,8,4],xl:'時間 t（s）',yl:'位置 x（m）',lines:[{p:[[0,0],[2,8],[4,8],[6,0],[8,-4]],c:GC[0],n:'無人機'}]},
+    qs:[
+      {q:'無人機沿直線飛行，x-t 圖如上。2～4 秒時無人機的狀態為何？',o:['靜止','等速度運動','加速運動','折返'],a:0,
+        ex:'x-t 圖是水平線，位置不變，表示靜止。'},
+      {q:'0～8 秒內，無人機共折返（改變運動方向）幾次？',o:['1 次','0 次','2 次','3 次'],a:0,
+        ex:'先往正方向（斜率正），停一下，再往負方向（斜率負）一直到 8 秒。運動方向只由正變負一次，所以折返 1 次。'},
+      {q:'0～8 秒內，無人機的位移與路徑長各是多少？',o:['－4 m；20 m','－4 m；4 m','12 m；20 m','0 m；16 m'],a:0,
+        ex:'位移＝終點－起點＝－4－0＝－4 m。路徑長＝8（去）＋8（回到 0）＋4（再到 －4）＝20 m。'},
+      {q:'0～8 秒內，無人機的平均速率是多少？',o:['2.5 m/s','0.5 m/s','1 m/s','4 m/s'],a:0,
+        ex:'平均速率＝總路徑長÷總時間＝20÷8＝2.5 m/s。平均速度才是 －4÷8＝－0.5 m/s。'},
+    ]},
+  {title:'汽車的 v-t 圖',src:'18 校考 v-t 圖',
+    g:{x:[0,10,2],y:[0,10,2],xl:'時間 t（s）',yl:'速度 v（m/s）',lines:[{p:[[0,0],[4,8],[8,8],[10,0]],c:GC[2],n:'汽車'}]},
+    qs:[
+      {q:'0～4 秒內，汽車的加速度是多少？',o:['2 m/s²','8 m/s²','0.5 m/s²','32 m/s²'],a:0,
+        ex:'v-t 圖斜率＝加速度＝(8－0)÷(4－0)＝2 m/s²。'},
+      {q:'4～8 秒內，汽車做什麼運動？',o:['等速度運動','靜止','等加速度運動','減速運動'],a:0,
+        ex:'v-t 圖是不在 0 的水平線，速度保持 8 m/s，是等速度運動（加速度為 0）。'},
+      {q:'0～10 秒內，汽車的位移是多少？',o:['56 m','80 m','64 m','40 m'],a:0,
+        ex:'v-t 圖面積＝位移：½×4×8＋4×8＋½×2×8＝16＋32＋8＝56 m。'},
+    ]},
+  {title:'速度由正變負',src:'校',
+    g:{x:[0,8,2],y:[-6,10,2],xl:'時間 t（s）',yl:'速度 v（m/s）',lines:[{p:[[0,10],[5,0],[8,-6]],c:GC[1],n:'物體'}]},
+    qs:[
+      {q:'物體沿直線運動，v-t 圖如上。物體從第幾秒開始反向運動？',o:['第 5 秒','第 0 秒','第 8 秒','第 2.5 秒'],a:0,
+        ex:'速度在 5 秒時由正變負（穿越時間軸），運動方向改變，開始反向。'},
+      {q:'第 5 秒時，物體的速度與加速度各是多少？',o:['速度 0，加速度 －2 m/s²','速度 0，加速度 0','速度 10 m/s，加速度 0','速度 0，加速度 ＋2 m/s²'],a:0,
+        ex:'整條線是同一條斜直線，斜率＝(0－10)÷5＝－2 m/s²。速度為零的瞬間，加速度仍是 －2 m/s²，不是 0。'},
+      {q:'0～8 秒內，物體的位移是多少？',o:['16 m','34 m','25 m','－9 m'],a:0,
+        ex:'時間軸上方面積＝½×5×10＝25 m（正）；下方面積＝½×3×6＝9 m（負）。位移＝25－9＝16 m；路徑長才是 25＋9＝34 m。'},
+    ]},
+  {title:'甲、乙兩車的 v-t 圖',src:'7 校',
+    g:{x:[0,10,2],y:[0,20,4],xl:'時間 t（s）',yl:'速度 v（m/s）',lines:[{p:[[0,0],[10,20]],c:GC[0],n:'甲車'},{p:[[0,10],[10,10]],c:GC[1],n:'乙車'}]},
+    qs:[
+      {q:'甲、乙兩車 t＝0 時在同一位置、同向出發。t＝5 s 時兩線相交，代表什麼？',o:['兩車速度相同','兩車相遇','兩車都靜止','甲車追上乙車'],a:0,
+        ex:'v-t 圖的交點代表速度相同（都是 10 m/s），不是相遇。'},
+      {q:'t＝5 s 時，哪一輛車在前面？領先多少？',o:['乙車，領先 25 m','甲車，領先 25 m','兩車並排','乙車，領先 50 m'],a:0,
+        ex:'0～5 s 位移＝面積：甲＝½×5×10＝25 m；乙＝5×10＝50 m。乙在前面，領先 50－25＝25 m。'},
+      {q:'甲車在第幾秒追上乙車？',o:['第 10 秒','第 5 秒','第 7.5 秒','永遠追不上'],a:0,
+        ex:'0～10 s：甲面積＝½×10×20＝100 m，乙面積＝10×10＝100 m，位移相同，所以第 10 秒追上（相遇）。'},
+    ]},
+  {title:'a-t 圖',src:'5 校考 a-t 圖',
+    g:{x:[0,8,2],y:[-4,4,2],xl:'時間 t（s）',yl:'加速度 a（m/s²）',lines:[{p:[[0,2],[4,2],[4,0],[6,0],[6,-4],[8,-4]],c:GC[3],n:'車子'}]},
+    qs:[
+      {q:'一輛車從靜止開始向北運動（向北為正），a-t 圖如上。第 4 秒時的速度是多少？',o:['8 m/s','2 m/s','0','4 m/s'],a:0,
+        ex:'0～4 秒加速度 2 m/s²，速度每秒增加 2 m/s：v＝2×4＝8 m/s。（a-t 圖的面積＝速度變化量）'},
+      {q:'4～6 秒內，車子做什麼運動？',o:['等速度運動','靜止','加速運動','減速運動'],a:0,
+        ex:'加速度為 0，速度保持 8 m/s 不變，是等速度運動，不是靜止。'},
+      {q:'第 8 秒時，車子的速度是多少？',o:['0','8 m/s','－8 m/s','4 m/s'],a:0,
+        ex:'6～8 秒 a＝－4 m/s²，速度變化＝－4×2＝－8 m/s。8＋(－8)＝0，車子剛好停下（煞車減速）。'},
+    ]},
+  {title:'兩個單擺的擺動次數',src:'6 校',
+    g:{x:[0,10,2],y:[0,10,2],xl:'時間 t（s）',yl:'擺動次數（次）',lines:[{p:[[0,0],[10,10]],c:GC[0],n:'甲擺'},{p:[[0,0],[10,5]],c:GC[1],n:'乙擺'}]},
+    qs:[
+      {q:'圖為甲、乙兩單擺的擺動次數與時間關係。乙擺的週期是多少？',o:['2 秒','1 秒','5 秒','0.5 秒'],a:0,
+        ex:'乙擺 10 秒擺 5 次，週期＝10÷5＝2 秒。甲擺 10 秒擺 10 次，週期 1 秒。'},
+      {q:'甲、乙兩擺的擺長比（甲：乙）是多少？',o:['1：4','1：2','2：1','4：1'],a:0,
+        ex:'週期比 1：2，擺長比是週期比的平方，1：4。斜率大（擺得快）的甲，擺長比較短。'},
+    ]},
+  {title:'哪兩張圖是同一個運動？',src:'9 校',
+    gs:[
+      {n:'（甲）x-t 圖',g:{x:[0,4,4],y:[0,4,4],lines:[{p:[[0,2.5],[4,2.5]],c:GC[0]}]}},
+      {n:'（乙）x-t 圖',g:{x:[0,4,4],y:[0,4,4],lines:[{p:[[0,0.4],[4,3.6]],c:GC[0]}]}},
+      {n:'（丙）v-t 圖',g:{x:[0,4,4],y:[0,4,4],lines:[{p:[[0,2.5],[4,2.5]],c:GC[1]}]}},
+      {n:'（丁）v-t 圖',g:{x:[0,4,4],y:[0,4,4],lines:[{p:[[0,0.4],[4,3.6]],c:GC[1]}]}},
+    ],
+    qs:[
+      {q:'上面四張圖中，哪兩張可能表示同一個「等速度運動」？',o:['乙和丙','甲和丙','甲和乙','丙和丁'],a:0,
+        ex:'等速度運動：x-t 圖是斜直線（乙），v-t 圖是不在 0 的水平線（丙）。甲是靜止；丁是等加速度。兩張都是水平線不代表同一運動。'},
+      {q:'哪一張圖表示物體「靜止」？',o:['甲','乙','丙','丁'],a:0,
+        ex:'x-t 圖水平線，位置不變＝靜止。丙雖然也是水平線，但它是 v-t 圖，表示速度固定、仍在運動。'},
+    ]},
+  {title:'自由落體的 v-t 圖',src:'18 校考自由落體',
+    g:{x:[0,3,1],y:[0,30,10],xl:'時間 t（s）',yl:'速度 v（m/s）',lines:[{p:[[0,0],[3,30]],c:GC[2],n:'石頭'}]},
+    qs:[
+      {q:'石頭從樓頂由靜止釋放（g＝10 m/s²），3 秒後落地，v-t 圖如上。樓高是多少？',o:['45 m','90 m','30 m','15 m'],a:0,
+        ex:'v-t 圖面積＝位移＝½×3×30＝45 m，和 h＝½gt²＝½×10×9＝45 m 一致。'},
+      {q:'若改用質量 2 倍的石頭從同一高度釋放（不計空氣阻力），v-t 圖會如何？',o:['完全相同','斜率變 2 倍','斜率變一半','變成水平線'],a:0,
+        ex:'自由落體的加速度都是 g，和質量無關，所以 v-t 圖的斜率（＝g）相同，落地時間也相同。'},
+    ]},
+];
+
+/* ================= 綜合：計算練習（解析寫完整步驟） ================= */
+const CALC=[
+  {q:'課本的區間測速路段長 8025 公尺，速限 90 km/h。某車通過這段路花了 5 分鐘，它的平均速率約是多少？會被開罰嗎？',o:['約 96.3 km/h，會被開罰','約 96.3 km/h，不會被開罰','約 26.8 km/h，不會被開罰','約 1605 km/h，會被開罰'],a:0,src:'課本區間速限標誌改編',
+    ex:'① 8025 m＝8.025 km；② 5 分鐘＝5/60＝1/12 小時；③ 平均速率＝8.025 ÷ (1/12)＝8.025×12＝96.3 km/h；④ 96.3 ＞ 90，超速會被開罰。'},
+  {q:'小安上山的平均速率是 2 km/h，沿原路下山的平均速率是 6 km/h，山路單程 3 km。全程的平均速率是多少？',o:['3 km/h','4 km/h','8 km/h','0 km/h'],a:0,src:'改編（上下山陷阱）',
+    ex:'① 上山時間＝3÷2＝1.5 h；② 下山時間＝3÷6＝0.5 h；③ 總路徑長＝3＋3＝6 km，總時間＝2 h；④ 平均速率＝6÷2＝3 km/h（不是 (2＋6)÷2＝4）。'},
+  {q:'高鐵以 252 km/h 等速度行駛 10 秒，前進多少公尺？',o:['700 m','2520 m','70 m','25.2 m'],a:0,src:'改編（單位換算）',
+    ex:'① 252 km/h ÷ 3.6＝70 m/s；② 距離＝速度×時間＝70×10＝700 m。'},
+  {q:'機車從靜止開始加速，4 秒後時速達 36 km/h。平均加速度是多少？',o:['2.5 m/s²','9 m/s²','10 m/s²','0.4 m/s²'],a:0,src:'改編（加速度計算）',
+    ex:'① 36 km/h ÷ 3.6＝10 m/s；② Δv＝10－0＝10 m/s；③ a＝Δv÷Δt＝10÷4＝2.5 m/s²。'},
+  {q:'汽車以 20 m/s 行駛，煞車後以 －4 m/s² 等加速度減速到停止。煞車需要多少時間？煞車距離是多少？',o:['5 秒；50 m','5 秒；100 m','4 秒；80 m','80 秒；20 m'],a:0,src:'校題型改編',
+    ex:'① 停止時 v＝0：t＝(0－20)÷(－4)＝5 s；② v-t 圖是從 20 降到 0 的斜線，面積＝½×5×20＝50 m。'},
+  {q:'石頭從樓頂由靜止釋放，2 秒後落地（g＝9.8 m/s²）。落地瞬間的速度與樓高各是多少？',o:['19.6 m/s；19.6 m','19.6 m/s；39.2 m','9.8 m/s；19.6 m','4.9 m/s；9.8 m'],a:0,src:'課本例題',
+    ex:'① v＝gt＝9.8×2＝19.6 m/s；② h＝½gt²＝½×9.8×2²＝19.6 m（也可以用 v-t 圖面積 ½×2×19.6＝19.6 m）。'},
+  {q:'在某顆行星表面讓一顆球由 A 點靜止自由落下，每隔 1 秒拍一張照片，依序是 A、B、C、D、E。量得 AB＝2 m、BC＝6 m、CD＝10 m、DE＝14 m。這顆球的加速度是多少？',o:['4 m/s²','2 m/s²','9.8 m/s²','8 m/s²'],a:0,src:'題型改編',
+    ex:'① 各段平均速度：AB 2 m/s、BC 6 m/s（兩段中間時刻相隔 1 秒）；② 每 1 秒速度增加 6－2＝4 m/s；③ a＝4÷1＝4 m/s²。（相鄰兩段距離都差 4 m，也可看出等加速度。）'},
+  {q:'承上題（行星上 AB＝2 m、BC＝6 m、CD＝10 m、DE＝14 m），照片 E 之後下一張是 F。EF 的間距是多少？',o:['18 m','14 m','16 m','22 m'],a:0,src:'題型改編',
+    ex:'等加速度時，每 1 秒的落下距離固定多 4 m：EF＝DE＋4＝14＋4＝18 m。'},
+  {q:'某雲霄飛車由靜止開始俯衝，平均加速度是重力加速度的 3 倍（g＝10 m/s²）。俯衝 2 秒後，速度約為多少 km/h？',o:['216 km/h','60 km/h','108 km/h','約 16.7 km/h'],a:0,src:'題型改編',
+    ex:'① a＝3×10＝30 m/s²；② v＝a×t＝30×2＝60 m/s；③ m/s 換 km/h 要乘 3.6：60×3.6＝216 km/h。'},
+  {q:'擺長 64 cm 的單擺週期是 1.6 秒。在同一地點，擺長 16 cm 的單擺週期是多少？',o:['0.8 秒','0.4 秒','3.2 秒','1.6 秒'],a:0,src:'9 校考擺長與週期',
+    ex:'① 擺長比 16：64＝1：4；② 週期比＝擺長比開根號＝1：2；③ 新週期＝1.6×½＝0.8 秒。'},
+  {q:'打點計時器的頻率為 50 Hz，紙帶上第 1 點到第 11 點的距離是 8 cm。這段時間的平均速率是多少？',o:['0.4 m/s','0.8 m/s','4 m/s','0.16 m/s'],a:0,src:'16 校考打點計時器',
+    ex:'① 50 Hz → 相鄰兩點相隔 1/50＝0.02 s；② 第 1 點到第 11 點有 10 個間隔，時間＝0.2 s；③ 8 cm＝0.08 m，平均速率＝0.08÷0.2＝0.4 m/s。'},
+  {q:'阿康在長 25 公尺的游泳池游到對岸再游回出發點，共游 50 公尺，費時 50 秒。全程的平均速率與平均速度各是多少？',o:['1 m/s；0 m/s','1 m/s；1 m/s','0 m/s；1 m/s','2 m/s；0 m/s'],a:0,src:'課本例題',
+    ex:'① 路徑長＝50 m，平均速率＝50÷50＝1 m/s；② 回到出發點，位移＝0，平均速度＝0÷50＝0 m/s。'},
+];
+
+/* ================= 注釋配對 ================= */
+function renderMatch(el,pairs){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0,miss=0;
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 注釋配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${miss<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3><p>配錯 ${miss} 次</p><button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div>`;$('#ag',el).onclick=()=>renderMatch(el,pairs)}
+  draw();
+}
+
+/* ================= 分類 ================= */
+function renderSort(el,so){
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w[0])}」→ <b>${so.buckets[w[1]]}</b>${w[2]?'：'+esc(w[2]):''}`).join('<br>')}</div>`:''}
+      <button class="btn" style="margin-top:12px">再玩一次</button></div>`;
+      el.querySelector('.btn').onclick=()=>renderSort(el,so);return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push(it)}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+/* ================= 選擇題 ================= */
+function renderMCQ(el,qs){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}<span class="src">${q.src}</span></div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(+b.dataset.k===q.a){got++;sOK()}else{b.classList.add('bad');sBAD()}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderMCQ(el,qs);
+}
+
+/* ================= 翻卡 ================= */
+function renderCards(el,cards){
+  el.innerHTML=`<div class="card"><h3>🃏 十五種標點翻卡</h3><p class="muted">點卡片翻面看用法。重點：分號、破折號、引號、書名號、刪節號。</p>
+  <div class="flips">${cards.map(c=>`<div class="flip"><div class="in"><div class="f"><div class="sym">${esc(c[1])}</div><b>${c[0]}</b></div><div class="bk2">${esc(c[2])}</div></div></div>`).join('')}</div></div>`;
+  el.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('on'));
+}
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、sci9-kangxuan-1（例 chinese8-1）、自然 國三上第一次段考（康軒）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'sci9-kangxuan-1',
+  site:'自然 國三上第一次段考（康軒）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('sci9-kangxuan-1_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('sci9-kangxuan-1_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${d&&d.quickAsk?'詞性＋量詞快問快答':'字音字形快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽 ================= */
+const TABS=[['home','📡 考點雷達'],['u1','⏱️ 1-1～1-2'],['u2','🚗 1-3～1-4'],['u3','🚌 2-1'],['u4','💧 5-1'],['u5','🏞️ 5-2'],['u6','🪨 5-3'],['mix','📊 圖表＋計算']];
+const UNITS=['u1','u2','u3','u4','u5','u6'];
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+document.body.insertAdjacentHTML('beforeend','<button class="bgm" id="bgmBtn"></button>');
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};
+
+const ANIM={u1:animU1,u2:animU2,u3:animU3,u4:animU4,u5:animU5,u6:animU6};
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+let SIMSTOP=[];   /* 離開頁面時要停掉的動畫 */
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);SIMSTOP.forEach(f=>f());SIMSTOP=[];
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 快問快答'],['match','🔗 名詞配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題'],...(d.ext?[['ext','🚀 延伸挑戰 2-2']]:[])];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel');
+  const title=`${d.no} ${d.short}`;
+  if(s==='anim') ANIM[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">共 ${d.mcq.length} 題，題目依各校考卷的命題方向原創改寫。標籤是出處或考過的校數；點選後才會出現解析。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+  if(s==='ext'){p.innerHTML=`<div class="card"><h3>🚀 延伸挑戰：牛頓第二運動定律 F＝m×a</h3><p>20 校中有 7 校把 2-2 也考進第一次段考。先問清楚自己學校的範圍；有考的同學一定要練！</p>
+    <p><span class="pill">公式</span>合力 F＝質量 m × 加速度 a；1 N＝1 kg × 1 m/s²；1 公斤重 ≈ 9.8 N</p>
+    <p><span class="pill">觀念</span>F 相同 → m 越大，a 越小；延長停下的時間 Δt → a 變小 → 衝擊力變小（氣墊、安全氣囊）</p></div><div id="mq"></div>`;
+    renderMCQ($('#mq'),d.ext,d.code,`${d.no} 延伸 F＝ma`)}
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const N=RADAR.n;
+  const bar=arr=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  app.innerHTML=`
+  <h2>📡 第一次段考考點雷達</h2>
+  <p class="muted"></p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${UNITS.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].short}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+    <div class="lc" style="background:linear-gradient(135deg,#2c4a7a,#5b7fb8)" data-k="mix"><div><div class="n">綜合</div><div class="t">圖表判讀＋計算</div></div><div class="d">x-t、v-t、a-t 圖｜計算題完整步驟</div></div>
+  </div>
+  <div class="card"><h3>📌 段考範圍</h3>
+    <p><span class="pill">理化</span>第 1 章 直線運動（1-1 時間的測量、1-2 位移與路徑長、1-3 速率與速度、1-4 加速度與等加速度運動）＋ 2-1 牛頓第一運動定律</p>
+    <p><span class="pill">地科</span>第 5 章 水與陸地（5-1 地球上的水、5-2 地貌的改變與平衡、5-3 地球上的岩石＋實驗 5-3 觀察岩石）</p>
+    <p class="muted">20 校都考第 1 章；17 校考 2-1。另有 7 校延伸考到 2-2 F＝ma → 放在 2-1 的「🚀 延伸挑戰」。各校範圍略有不同，請以自己學校的公告為準。</p></div>
+  <div class="card"><h3>選擇題最常考的主題（幾校考過）</h3>${bar(RADAR.topics)}
+  <p class="muted" style="margin-top:10px">⚠️ 單擺週期 20 校全考、約 62 題，是第一名考點。圖表題（x-t、v-t、a-t、打點紙帶、擺動次數圖）大約占理化題的一半。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>✅ 基本分公式（幾校考過）</h3><div class="chips">${RADAR.basics.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div></div>
+    <div class="card"><h3>📖 高頻名詞</h3><div class="chips">${RADAR.words.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div></div>
+  </div>
+  <div class="card"><h3>🪤 最多人掉進去的陷阱（幾校考過）</h3>
+    <div class="traps">${RADAR.traps.map(([t,n,f])=>`<div class="trap"><div><s>${t}</s></div><div>✅ ${f}</div><b>×${n}</b></div>`).join('')}</div>
+    <p class="muted" style="margin-top:10px">最大陷阱：<b>x-t 圖交點＝相遇；v-t 圖交點＝速度相等</b>。速度為零不代表加速度為零。</p></div>
+  <div class="card"><h3>🔁 同一題型在 7～14 校重複出現</h3><div class="chips">${RADAR.repeats.map(w=>`<span>${w}</span>`).join('')}</div>
+    <p class="muted" style="margin-top:10px">這些原型題都已改寫進各單元的段考模擬題與「📊 圖表＋計算」，一定要做熟。</p></div>
+  <div class="card"><h3>🌏 不分版本都考！（他版共通考點）</h3>
+    <p class="muted">${RADAR.cross.note}</p>
+    <div class="xtab"><div class="xh"><span>考點</span><span>翰林</span><span>南一</span></div>${RADAR.cross.items.map(([t,a,b])=>`<div class="xr"><span>${t}</span><b>${a}</b><b>${b}</b></div>`).join('')}</div>
+    <p class="muted" style="margin-top:10px">分母是各版考該科（理化或地科）的校數。不論哪個版本，<b>圖表判讀、平均速率 vs 平均速度、自由落體、慣性、侵蝕搬運沉積</b>都是必考。</p></div>
+  <div class="card"><h3>✍️ 非選題與時事題</h3><div class="chips">${RADAR.nonmcq.map(([w])=>`<span>${w}</span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">時事情境：2025 花蓮馬太鞍溪堰塞湖、區間測速、陸蟹煞車距離。計算題的完整步驟在「📊 圖表＋計算」。</p></div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每單元先看 <b>🎬 動畫導覽</b>（有單擺、運動、水面傾斜等模擬器）→ ② <b>⚡ 快問快答</b>、<b>🔗 名詞配對</b>、<b>🎯 分類挑戰</b> 練熟基本分 → ③ <b>📝 段考模擬題</b> → ④ <b>📊 圖表＋計算</b> 攻克圖表題。每種練習做完都可以按「📤 交卷給老師」。</p>
+  <p class="muted">考點來源學校。</p></div>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,c.dataset.k==='mix'?undefined:'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 快問快答（自然版＋交卷） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||'選出正確答案';
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot>=2?`<span class="star">★ ${hot} 校考過</span>`:''}</p>
+      <div class="qword sci">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      const right=b&&b.dataset.v===a;
+      if(right){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.textContent:'（超時）'});window.WB&&WB.miss('q',order[i],title,'')}
+      i++;setTimeout(next,right?750:1700);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),retry=n!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${code!=null?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>名詞・公式・單位 快問快答</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br><span class="star">★</span> 表示 2 所以上學校考過。做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 座標圖（線條用 SVG，刻度與文字一律用 HTML，手機上字不會縮小） ================= */
+function graph(g,opt={}){
+  const [x0,x1,xs]=g.x,[y0,y1,ys]=g.y,W=300,H=200;
+  const X=t=>(t-x0)/(x1-x0)*W, Y=v=>H-(v-y0)/(y1-y0)*H;
+  const r=n=>Math.round(n*1000)/1000;
+  let s='';
+  if(!opt.mini){
+    for(let t=x0;t<=x1+1e-9;t+=xs) s+=`<line x1="${X(t)}" y1="0" x2="${X(t)}" y2="${H}" class="gl"/>`;
+    for(let v=y0;v<=y1+1e-9;v+=ys) s+=`<line x1="0" y1="${Y(v)}" x2="${W}" y2="${Y(v)}" class="gl"/>`;
+  }
+  const ya=(y0<=0&&y1>=0)?Y(0):H;
+  s+=`<line x1="0" y1="${ya}" x2="${W}" y2="${ya}" class="ax"/><line x1="0" y1="0" x2="0" y2="${H}" class="ax"/>`;
+  (g.lines||[]).forEach(l=>{s+=`<polyline ${l.id?`id="${l.id}"`:''} points="${l.p.map(([t,v])=>X(t)+','+Y(v)).join(' ')}" fill="none" stroke="${l.c}" class="ln"/>`});
+  let lab='';
+  if(!opt.mini){
+    for(let t=x0;t<=x1+1e-9;t+=(g.lx||xs)) lab+=`<span class="gx" style="left:${r((t-x0)/(x1-x0)*100)}%">${r(t)}</span>`;
+    for(let v=y0;v<=y1+1e-9;v+=(g.ly||ys)) lab+=`<span class="gy" style="top:${r(100-(v-y0)/(y1-y0)*100)}%">${v<0?'－'+r(-v):r(v)}</span>`;
+  }
+  const cap=(!opt.mini&&g.yl)?`<div class="gcap">縱軸：${g.yl}　橫軸：${g.xl}</div>`:'';
+  const leg=(g.lines||[]).filter(l=>l.n).length>0&&!opt.mini?`<div class="leg">${g.lines.filter(l=>l.n).map(l=>`<span><i style="background:${l.c}"></i>${l.n}</span>`).join('')}</div>`:'';
+  return `${cap}<div class="gph ${opt.mini?'mini':''}"><div class="gin"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${s}</svg>${lab}</div></div>${leg}`;
+}
+
+/* ================= 綜合：圖表判讀＋計算練習 ================= */
+function renderMix(app){
+  const s=curSub.mix||'graph';
+  const subs=[['graph','📈 圖表判讀'],['calc','🧮 計算練習']];
+  app.innerHTML=`<h2>📊 圖表判讀＋計算練習</h2>
+  <p class="muted">圖表題大約占理化題的一半；最大陷阱是「x-t 圖交點＝相遇、v-t 圖交點＝速度相等」，以及「速度為零不代表加速度為零」。題目依各校考卷改寫。</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div><div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub.mix=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='calc'){p.innerHTML=`<div class="card"><h3>🧮 計算練習</h3><p>先在紙上算，再選答案；解析有<b>完整步驟</b>。常用：km/h ÷ 3.6＝m/s、a＝Δv÷Δt、v＝gt、h＝½gt²、週期比＝擺長比開根號、打點間隔＝1/f。</p></div><div id="mq"></div>`;
+    return renderMCQ($('#mq'),CALC,8,'綜合 計算練習')}
+  renderGraphQuiz(p);
+}
+function renderGraphQuiz(el){
+  let got=0,done=0;const all=[];
+  GRAPHQ.forEach((G,gi)=>G.qs.forEach((q,qi)=>all.push({...q,gi,qi,idx:shuf(q.o.map((_,k)=>k)),my:null})));
+  const total=all.length;
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${total}　答對 0</div>`+GRAPHQ.map((G,gi)=>`<div class="card"><h3>${gi+1}. ${G.title}<span class="src2">${esc(G.src)}</span></h3>
+    ${G.g?graph(G.g):`<div class="gmini">${G.gs.map(x=>`<div>${graph(x.g,{mini:true})}<div class="gname">${x.n}</div></div>`).join('')}</div>`}
+    ${all.filter(q=>q.gi===gi).map(q=>`<div class="mq" data-n="${all.indexOf(q)}"><div class="stem">(${q.qi+1}) ${esc(q.q)}</div>
+      ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+      <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}</div>`).join('')+
+    `<div class="card"><div class="row"><button class="btn alt" id="sub">📤 交卷給老師</button><button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    <p class="muted">全部作答完再交卷；沒作答的題目會算成空白。</p></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=all[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${total}　答對 ${got}`+(done===total?`　🎯 得分 ${Math.round(got/total*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderGraphQuiz(el);
+  $('#sub',el).onclick=()=>{
+    const blank=all.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code:7,type:0,title:'綜合 圖表判讀',total,correct:got,blank,
+      wrong:all.filter(q=>q.my!==q.a).map(q=>({q:`【${GRAPHQ[q.gi].title}】${q.q}`,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a]}))},$('#sub',el));
+  };
+}
+
+/* ================= 動畫頁共用 ================= */
+function photoCard(p,steps,extra){
+  p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${extra||''}`;
+  stepper(p.querySelector('.card'),steps,i=>showPhoto(steps[i]),8000);
+}
+function loop(fn){  /* requestAnimationFrame 迴圈；離開頁面自動停 */
+  let id,alive=true;const f=ts=>{if(!alive)return;fn(ts);id=requestAnimationFrame(f)};id=requestAnimationFrame(f);
+  SIMSTOP.push(()=>{alive=false;cancelAnimationFrame(id)});
+}
+
+/* ---------- 單擺實驗室 ---------- */
+function pendSim(el){
+  el.innerHTML=`<h3>🔬 單擺實驗室</h3><p class="muted">每次只改一個變因，看看「週期」有沒有變。（灰色虛線是擺長 100 cm 的位置）</p>
+  <div class="simbox"><svg viewBox="0 0 300 250" class="pdsvg"><line x1="90" y1="12" x2="210" y2="12" stroke="#6b7686" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="150" cy="222" r="3" fill="#c9ced6"/><line x1="150" y1="12" x2="150" y2="222" stroke="#c9ced6" stroke-dasharray="4 5"/>
+    <line id="pdL" x1="150" y1="12" x2="150" y2="200" stroke="#23303f" stroke-width="2"/><circle id="pdB" cx="150" cy="200" r="10" fill="#e07a2f"/></svg></div>
+  <div class="ctl"><b>擺長</b>${[25,50,100].map(v=>`<button class="sub" data-l="${v}">${v} cm</button>`).join('')}</div>
+  <div class="ctl"><b>擺錘</b>${[20,40].map(v=>`<button class="sub" data-m="${v}">${v} g</button>`).join('')}</div>
+  <div class="ctl"><b>擺角</b>${[5,10].map(v=>`<button class="sub" data-a="${v}">${v}°</button>`).join('')}</div>
+  <div class="meaning" id="pdOut"></div>`;
+  const st={L:100,m:20,a:10};let t0=null;
+  const T=()=>2*Math.sqrt(st.L/100);
+  function sync(){
+    el.querySelectorAll('[data-l]').forEach(b=>b.classList.toggle('on',+b.dataset.l===st.L));
+    el.querySelectorAll('[data-m]').forEach(b=>b.classList.toggle('on',+b.dataset.m===st.m));
+    el.querySelectorAll('[data-a]').forEach(b=>b.classList.toggle('on',+b.dataset.a===st.a));
+    $('#pdB',el).setAttribute('r',st.m===20?9:13);
+    t0=null;
+  }
+  el.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{st.L=+b.dataset.l;sync()});
+  el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{st.m=+b.dataset.m;sync()});
+  el.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{st.a=+b.dataset.a;sync()});
+  sync();
+  const ln=$('#pdL',el),bb=$('#pdB',el),out=$('#pdOut',el);let last='';
+  loop(ts=>{
+    if(t0===null)t0=ts;const t=(ts-t0)/1000,P=T();
+    const th=st.a*Math.PI/180*Math.cos(2*Math.PI*t/P),Lp=st.L*2.1;
+    const x=150+Lp*Math.sin(th),y=12+Lp*Math.cos(th);
+    ln.setAttribute('x2',x.toFixed(1));ln.setAttribute('y2',y.toFixed(1));bb.setAttribute('cx',x.toFixed(1));bb.setAttribute('cy',y.toFixed(1));
+    const n=Math.floor(t/P),msg=`擺長 <b>${st.L} cm</b>、擺錘 <b>${st.m} g</b>、擺角 <b>${st.a}°</b> → 週期約 <b>${P.toFixed(1)} 秒</b>（擺動 10 次約 ${(P*10).toFixed(0)} 秒）　已擺動 <b>${n}</b> 次<br>
+      💡 只有改「擺長」週期才會變：25 cm → 1 秒、100 cm → 2 秒（擺長 4 倍，週期 2 倍）。`;
+    if(msg!==last){out.innerHTML=msg;last=msg}
+  });
+}
+
+/* ---------- 運動模擬器（x-t、v-t、打點紙帶） ---------- */
+function motionSim(el){
+  const S={
+    '等速度':{x:t=>2*t,v:t=>2,tip:'x-t 圖：<b>斜直線</b>；v-t 圖：<b>水平線</b>；紙帶：點距<b>相等</b>。'},
+    '加速':{x:t=>.3*t*t,v:t=>.6*t,tip:'x-t 圖：越來越陡的曲線；v-t 圖：<b>向上的斜直線</b>（斜率＝加速度＋0.6 m/s²）；紙帶：點距<b>越來越大</b>。'},
+    '減速':{x:t=>3.6*t-.3*t*t,v:t=>3.6-.6*t,tip:'x-t 圖：越來越平的曲線；v-t 圖：<b>向下的斜直線</b>，a 與 v 反向；紙帶：點距<b>越來越小</b>。'},
+    '靜止':{x:t=>6,v:t=>0,tip:'x-t 圖：<b>水平線</b>；v-t 圖：貼在 v＝0；紙帶：一直打在<b>同一點</b>。'},
+    '折返':{x:t=>3*t-.5*t*t,v:t=>3-t,tip:'v-t 圖在 3 秒<b>穿過時間軸</b>（速度由正變負）才是折返；這時速度＝0，但加速度仍是 －1 m/s²！x-t 圖的最高點就是折返點。'},
+  };
+  let mode='等速度',t0=null;
+  el.innerHTML=`<h3>🚗 運動模擬器：同一個運動，三種畫法</h3>
+  <p class="muted">選一種運動，看小球怎麼走、x-t 圖和 v-t 圖怎麼畫、打點紙帶長什麼樣（每 0.5 秒打一點）。</p>
+  <div class="row">${Object.keys(S).map(k=>`<button class="sub" data-s="${k}">${k}</button>`).join('')}</div>
+  <div class="track"><div class="rail"></div><div class="ball" id="msB"></div></div>
+  <div class="tape" id="msT"></div>
+  <div class="grid2" style="margin-top:8px"><div><h4>x-t 圖</h4>${graph({x:[0,6,1],y:[0,12,4],xl:'時間 t（s）',yl:'位置 x（m）',lines:[{id:'msX',p:[[0,0]],c:GC[0]}]})}</div>
+  <div><h4>v-t 圖</h4>${graph({x:[0,6,1],y:[-4,4,2],xl:'時間 t（s）',yl:'速度 v（m/s）',lines:[{id:'msV',p:[[0,0]],c:GC[1]}]})}</div></div>
+  <div class="meaning" id="msO"></div>`;
+  const X=t=>t/6*300,YX=v=>200-v/12*200,YV=v=>200-(v+4)/8*200;
+  function pick(k){mode=k;t0=null;el.querySelectorAll('[data-s]').forEach(b=>b.classList.toggle('on',b.dataset.s===k));$('#msT',el).innerHTML='';$('#msO',el).innerHTML='💡 '+S[k].tip;dots=0}
+  let dots=0;
+  el.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>pick(b.dataset.s));
+  pick('等速度');
+  loop(ts=>{
+    if(t0===null)t0=ts;let t=(ts-t0)/1000;
+    if(t>7.5){t0=ts;t=0;$('#msT',el).innerHTML='';dots=0}
+    const tt=Math.min(t,6),f=S[mode],ptsX=[],ptsV=[];
+    for(let u=0;u<=tt+1e-6;u+=0.1){ptsX.push(X(u)+','+YX(f.x(u)));ptsV.push(X(u)+','+YV(f.v(u)))}
+    const px=$('#msX',el),pv=$('#msV',el);if(!px)return;
+    px.setAttribute('points',ptsX.join(' '));pv.setAttribute('points',ptsV.join(' '));
+    $('#msB',el).style.left=(f.x(tt)/12*100)+'%';
+    while(dots*0.5<=tt+1e-6&&dots<=12){$('#msT',el).insertAdjacentHTML('beforeend',`<i style="left:${f.x(dots*0.5)/12*100}%"></i>`);dots++}
+  });
+}
+
+/* ---------- 水面與吊環 ---------- */
+function tiltSim(el){
+  const M={'向右加速':{w:12,s:16,v:1,a:1,tip:'加速度向右 → 水面<b>左（後）側高</b>、吊環<b>向後（左）擺</b>，乘客向後倒。'},
+    '向右等速度':{w:0,s:0,v:1,a:0,tip:'等速度：合力為零 → 水面<b>保持水平</b>、吊環鉛直（硬幣上拋會落回手中）。'},
+    '向右行駛時煞車':{w:-12,s:-16,v:1,a:-1,tip:'加速度向左 → 水面<b>右（前）側高</b>、吊環<b>向前（右）擺</b>，乘客向前傾。'},
+    '停著不動':{w:0,s:0,v:0,a:0,tip:'靜止：水面水平、吊環鉛直。'}};
+  el.innerHTML=`<h3>🚌 水面與吊環模擬器</h3><p class="muted">車子向右行駛。<span style="color:#2b6cb0;font-weight:700">藍箭頭＝速度</span>、<span style="color:#d9534f;font-weight:700">紅箭頭＝加速度</span>。</p>
+  <div class="row">${Object.keys(M).map(k=>`<button class="sub" data-m="${k}">${k}</button>`).join('')}</div>
+  <div class="simbox"><svg viewBox="0 0 320 180" class="tsvg">
+    <defs><clipPath id="cupC"><rect x="150" y="78" width="70" height="62"/></clipPath></defs>
+    <g id="tsV"><line x1="40" y1="20" x2="120" y2="20" stroke="#2b6cb0" stroke-width="5"/><polygon points="120,10 140,20 120,30" fill="#2b6cb0"/></g>
+    <g id="tsAp"><line x1="190" y1="20" x2="260" y2="20" stroke="#d9534f" stroke-width="5"/><polygon points="260,10 280,20 260,30" fill="#d9534f"/></g>
+    <g id="tsAn"><line x1="200" y1="20" x2="270" y2="20" stroke="#d9534f" stroke-width="5"/><polygon points="200,10 180,20 200,30" fill="#d9534f"/></g>
+    <rect x="20" y="44" width="280" height="110" rx="18" fill="#eef1f6" stroke="#8a94a2" stroke-width="3"/>
+    <line x1="30" y1="52" x2="290" y2="52" stroke="#8a94a2" stroke-width="3"/>
+    <g id="tsS" style="transform-origin:80px 52px;transition:transform .8s"><line x1="80" y1="52" x2="80" y2="92" stroke="#6b7686" stroke-width="3"/><circle cx="80" cy="100" r="9" fill="none" stroke="#e07a2f" stroke-width="4"/></g>
+    <g clip-path="url(#cupC)"><rect id="tsW" x="110" y="108" width="150" height="80" fill="#5aa9e6" style="transform-origin:185px 108px;transition:transform .8s"/></g>
+    <polyline points="150,72 150,140 220,140 220,72" fill="none" stroke="#23303f" stroke-width="3"/>
+    <circle cx="80" cy="160" r="14" fill="#23303f"/><circle cx="240" cy="160" r="14" fill="#23303f"/></svg></div>
+  <div class="meaning" id="tsO"></div>`;
+  function pick(k){const m=M[k];el.querySelectorAll('[data-m]').forEach(b=>b.classList.toggle('on',b.dataset.m===k));
+    $('#tsW',el).style.transform=`rotate(${m.w}deg)`;$('#tsS',el).style.transform=`rotate(${m.s}deg)`;
+    $('#tsV',el).style.opacity=m.v;$('#tsAp',el).style.opacity=m.a>0?1:0;$('#tsAn',el).style.opacity=m.a<0?1:0;
+    $('#tsO',el).innerHTML='💡 '+m.tip+'<br>口訣：水面<b>高</b>的一側＝加速度的<b>反方向</b>。'}
+  el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>pick(b.dataset.m));pick('向右加速');
+}
+
+/* ---------- 地球上的水：100 格 ---------- */
+function waterGrid(){
+  const cells=Array.from({length:100},(_,i)=>i<97?'s':i<99?'i':'g');
+  return `<h3>💧 如果地球上的水只有 100 杯</h3>
+  <div class="wgrid">${cells.map(c=>`<i class="${c}"></i>`).join('')}</div>
+  <div class="leg"><span><i style="background:#2b6cb0"></i>海水 約 97 杯</span><span><i style="background:#dfe9f3;border:1px solid #9fb3c8"></i>冰（冰川、冰帽）約 2 杯</span><span><i style="background:#2e9e6b"></i>地下水、河湖等 約 1 杯</span></div>
+  <p class="muted">淡水只有約 3 杯，而且大部分是冰；人類能直接使用的淡水只占約 1%。</p>`;
+}
+
+/* ---------- 海岸線平衡 ---------- */
+function coastSim(el){
+  const M={'帶來＝帶走':{w:150,tip:'河流帶來的泥沙＝海水帶走的泥沙 → 海岸線<b>近乎平衡</b>，不進也不退。'},
+    '帶來＞帶走':{w:210,tip:'帶來的多 → 陸地面積增加，海岸線<b>向外擴張</b>（例：乾隆海堤距今海岸約 2 公里）。'},
+    '上游建水庫（帶來＜帶走）':{w:95,tip:'水庫、攔沙壩攔住泥沙 → 帶來的少 → 海岸線<b>向內陸退縮</b>（例：宜蘭頭城），沿海居民家園可能被侵蝕。'}};
+  el.innerHTML=`<h3>🌊 海岸線拔河：河流帶來 vs 海水帶走</h3>
+  <div class="row">${Object.keys(M).map(k=>`<button class="sub" data-m="${k}">${k}</button>`).join('')}</div>
+  <div class="simbox"><svg viewBox="0 0 320 140" class="csvg"><rect x="0" y="0" width="320" height="140" fill="#5aa9e6"/>
+    <rect id="csL" x="0" y="0" width="150" height="140" fill="#e2c48a" style="transition:width 1.2s"/>
+    <rect x="0" y="0" width="70" height="140" fill="#7fb069"/><path d="M0,70 C40,60 60,80 70,70" stroke="#3d7fc1" stroke-width="7" fill="none"/>
+    <path id="csR" d="M70,70 L150,70" stroke="#3d7fc1" stroke-width="7" fill="none"/></svg></div>
+  <div class="leg"><span><i style="background:#7fb069"></i>陸地</span><span><i style="background:#e2c48a"></i>河口沉積的土地</span><span><i style="background:#3d7fc1"></i>河流</span><span><i style="background:#5aa9e6"></i>海</span></div>
+  <div class="meaning" id="csO"></div>`;
+  function pick(k){el.querySelectorAll('[data-m]').forEach(b=>b.classList.toggle('on',b.dataset.m===k));const w=M[k].w;
+    $('#csL',el).setAttribute('width',w);$('#csL',el).style.width=w+'px';$('#csR',el).setAttribute('d',`M70,70 L${w},70`);$('#csO',el).innerHTML='💡 '+M[k].tip}
+  el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>pick(b.dataset.m));pick('帶來＝帶走');
+}
+
+/* ---------- 岩石的循環 ---------- */
+function rockCycle(el){
+  const B=['岩漿','火成岩','沉積物','沉積岩','變質岩'];
+  const P=[
+    ['冷卻凝固',[0],[1],'岩漿在地底慢慢冷卻（顆粒大，如花岡岩）或噴出地表快速冷卻（顆粒小，如玄武岩、安山岩）→ 火成岩。'],
+    ['風化、侵蝕、搬運、沉積',[1,3,4],[2],'任何一類岩石露出地表，都會被風化、侵蝕成碎屑，再被搬運、堆積成沉積物。'],
+    ['壓密、膠結',[2],[3],'沉積物一層層堆積，被上方重量壓密，孔隙被析出的礦物填滿而膠結 → 沉積岩（礫岩、砂岩、頁岩、石灰岩）。'],
+    ['高溫、高壓（變質）',[1,3,4],[4],'不論原來是火成岩、沉積岩或變質岩，深埋地底受高溫高壓都能變成變質岩：頁岩→板岩、石灰岩→大理岩、花岡岩→花岡片麻岩。'],
+    ['熔融',[1,3,4],[0],'岩石溫度高到熔化，又變回岩漿，循環重新開始。'],
+  ];
+  el.innerHTML=`<h3>🔄 岩石的循環</h3><p class="muted">按下一個「作用」，看看哪些岩石會變成什麼。</p>
+  <div class="rcb">${B.map((b,i)=>`<div class="rc" data-i="${i}">${b}</div>`).join('')}</div>
+  <div class="row" style="margin-top:12px">${P.map((p,i)=>`<button class="sub" data-p="${i}">${p[0]}</button>`).join('')}</div>
+  <div class="meaning" id="rcO">👆 請按一個作用</div>`;
+  el.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{const p=P[+b.dataset.p];
+    el.querySelectorAll('[data-p]').forEach(x=>x.classList.toggle('on',x===b));
+    el.querySelectorAll('.rc').forEach(c=>{const i=+c.dataset.i;c.className='rc'+(p[1].includes(i)?' from':'')+(p[2].includes(i)?' to':'')});
+    $('#rcO',el).innerHTML=`<b>${p[1].map(i=>B[i]).join('、')}</b> → <b>${p[2].map(i=>B[i]).join('、')}</b><br>💡 ${p[3]}`});
+}
+
+/* ================= 1-1～1-2 動畫 ================= */
+function animU1(p){
+  const steps=[
+    {label:'① 規律變化能計時',imgs:[{img:'k1_sundialb',tag:'日晷：竿影隨太陽規律移動'},{img:'k1_hourglass',tag:'沙漏：沙子規律落下'}],
+      poem:'過去人們利用<b>竿影</b>和<b>沙漏</b>等會隨著時間持續變化的工具來計時；現今人們則使用機械鐘、擺鐘、石英錶和電子錶等較精確的計時器。',
+      key:'計時工具要有<b>規律、可重複</b>的變化。「隨風飄動的旗子」最不適合計時（13 校考計時工具）。'},
+    {label:'② 伽利略與吊燈',imgs:[{img:'k1_pisa_lamp',tag:'比薩主教座堂的吊燈'},{img:'k1_galileo',tag:'伽利略（1564～1642）',fit:'contain',bg:'#1b1b1b'}],
+      poem:'伽利略看到比薩教堂的吊燈擺動很規律，用自己的<b>脈搏</b>測量吊燈來回擺動的時間，發現擺動角度不大時，每次來回擺動的時間幾乎都相等，稱為<b>擺的等時性</b>。',
+      key:'後來的<b>擺鐘</b>就是利用等時性來計時。脈搏、呼吸不夠穩定，只能粗略計時。'},
+    {label:'③ 擺鐘與節拍器',imgs:[{img:'k1_pendclock',tag:'擺鐘',fit:'contain',bg:'#f4f1ea'},{img:'k1_metronome',tag:'節拍器也靠規律擺動'}],
+      poem:'單擺擺動來回一次所需的時間，即為單擺擺動<b>週期</b>。擺長（L）越長，週期（T）越長；<b>擺角大小（θ）與擺錘質量（m）均不影響</b>週期。',
+      key:'20 校都考！擺長 4 倍 → 週期 2 倍（100 cm 2 秒 → 25 cm 1 秒）。擺動一次＝A→O→B→O→A。下面的實驗室可以試試看。'},
+    {label:'④ 最準的時鐘',imgs:[{img:'k1_atomic',tag:'NIST-F2 銫原子鐘'}],
+      poem:'1 秒就是銫 133 原子產生之輻射振盪 9,192,631,770 個週期所需的時間。',
+      key:'<b>原子鐘</b>是目前最準確的計時工具。'},
+    {label:'⑤ 位置要有基準點',imgs:[{img:'k1_typhoon',tag:'接近臺灣的颱風（衛星雲圖）'}],
+      poem:'颱風警報單中，分別以<b>經緯度</b>定位、或以<b>花蓮為基準點</b>來描述颱風位置。描述位置時，須包含<b>基準點、方向和距離</b>。',
+      key:'位置坐標的正、負只表示方向，與遠近無關。向東為正時，西方 300 m 記作 －300 m。'},
+    {label:'⑥ 位移與路徑長',split:[{img:'k1_track',tag:'繞操場一圈：位移 0'},{img:'k1_pool',tag:'泳池游來回：位移 0'}],
+      poem:'物體位置的變化量稱為<b>位移</b>，具有大小和方向；物體實際移動路線的總長度稱為<b>路徑長</b>（路程），具有大小但不具方向。<br>位移＝終點的位置坐標－起點的位置坐標＝x₂－x₁',
+      key:'回到起點 → 位移＝0，但路徑長≠0。路徑長一定 ≥ 位移大小（19 校都考）。'},
+  ];
+  photoCard(p,steps,`<div class="card" id="pd"></div>
+  <div class="card"><h3>🗺️ 1-1～1-2 一張圖</h3>
+  <p><span class="pill">計時</span>規律變化才能計時 → 擺的等時性（伽利略）→ 擺鐘；最準：原子鐘</p>
+  <p><span class="pill">單擺</span>週期只看擺長：擺長越長週期越長（4 倍→2 倍）；擺角（≦10°）、擺錘質量都不影響</p>
+  <p><span class="pill">實驗</span>一次只改一個變因：操縱變因（改的）、控制變因（不變的）、應變變因（量到的週期）</p>
+  <p><span class="pill">位置</span>基準點＋方向＋距離；正負號只代表方向</p>
+  <p><span class="pill">位移</span>終點－起點，有方向；<b>路徑長</b>實際走的長度，沒有方向，路徑長 ≥ 位移大小</p></div>`);
+  pendSim($('#pd',p));
+}
+
+/* ================= 1-3～1-4 動畫 ================= */
+function animU2(p){
+  const steps=[
+    {label:'① 時速錶',imgs:[{img:'k2_speedo',tag:'時速錶：當下的速率'}],
+      poem:'如果測量的時間間距極短，得到的平均速率就可以表示物體當時的運動快慢，簡稱為「<b>速率</b>」。例如汽車時速錶上的數字，就是汽車當時的速率。',
+      key:'時速錶＝<b>當下的速率</b>；一般速限標誌管制的也是當下速率。'},
+    {label:'② 區間測速',imgs:[{img:'k2_avgspeed',tag:'區間測速警告標誌（英國）'}],
+      poem:'平均速率＝總路徑長 ÷ 總時間，常用單位 m/s 或 km/h。課本的區間速限標誌：此段公路長 <b>8025 公尺</b>，速限 <b>90 公里／時</b>。',
+      key:'區間測速算的是<b>平均速率</b>（9 校考）。km/h ÷ 3.6＝m/s：72 km/h＝20 m/s、108 km/h＝30 m/s。'},
+    {label:'③ 等速度：高鐵',imgs:[{img:'k2_thsr',tag:'高鐵在直線軌道上行駛'}],
+      poem:'平均速度＝總位移 ÷ 總時間，可以同時描述<b>快慢和方向</b>。運動快慢和方向保持不變，稱為<b>等速度運動</b>。',
+      key:'等速度：x-t 圖是<b>斜直線</b>（越斜越快），v-t 圖是<b>水平線</b>；v-t 圖下的面積＝位移。'},
+    {label:'④ 起步與煞車',imgs:[{img:'k2_traffic',tag:'路口：綠燈起步、紅燈煞車'}],
+      poem:'綠燈亮起，汽車起步：加速度與速度方向<b>相同</b>，速度變快。遇到紅燈煞車：加速度與速度方向<b>相反</b>，速度變慢。<br>平均加速度＝速度變化量 ÷ 時間，單位 m/s²。',
+      key:'＋2 m/s²＝每秒速度增加 2 m/s。加速度為負不一定在減速，要看它和速度是不是同方向。'},
+    {label:'⑤ 比薩斜塔',imgs:[{img:'k2_pisa',tag:'比薩主教座堂與斜塔'}],
+      poem:'當時學術界奉行亞里斯多德的理論：「物體從高處落下，越重的物體會越快著地。」伽利略帶著 2 顆重量不等的鐵球爬上比薩斜塔，用實驗驗證：「<b>兩個重量不同的物體會同時墜地</b>。」',
+      key:'不計空氣阻力，輕重物體<b>同時落地</b>（12 校考鐵球與橡皮擦）。'},
+    {label:'⑥ 自由落體',imgs:[{img:'k2_strobe',tag:'每隔相同時間拍下落下的球',fit:'contain',bg:'#000'}],
+      poem:'物體只受到重力、不受其他作用力影響的運動，稱為<b>自由落體運動</b>，加速度稱為<b>重力加速度 g</b>，約 9.8 m/s²，方向鉛直向下。速度每秒約增加 9.8 m/s。',
+      key:'v＝gt、h＝½gt²；每秒落下距離比 1：3：5。上拋最高點 v＝0 但 a＝g。'},
+    {label:'⑦ 生活中的落體',imgs:[{img:'k2_skydive',tag:'高空跳傘：會受空氣阻力'}],
+      poem:'我們生活的環境並非真空狀態，例如<b>高空跳傘</b>就不是在真空環境下的自由落體運動。物體落下時，除了重力，還會受到<b>空氣阻力</b>的影響。',
+      key:'題目寫「不計空氣阻力」，才把它當成自由落體來算。'},
+  ];
+  photoCard(p,steps,`<div class="card" id="ms"></div>
+  <div class="card"><h3>🗺️ 1-3～1-4 一張圖</h3>
+  <p><span class="pill">平均速率</span>總路徑長 ÷ 總時間（區間測速）；<span class="pill">平均速度</span>總位移 ÷ 總時間（有方向）</p>
+  <p><span class="pill">x-t 圖</span>斜率＝速度；水平線＝靜止；兩線交點＝<b>相遇</b></p>
+  <p><span class="pill">v-t 圖</span>斜率＝加速度；面積＝位移（時間軸下方為負）；兩線交點＝<b>速度相同</b>；穿過時間軸＝折返</p>
+  <p><span class="pill">加速度</span>a＝Δv÷Δt（m/s²）；a、v 同向變快、反向變慢</p>
+  <p><span class="pill">打點</span>間隔＝1/f（50 Hz→0.02 s）；點距相等＝等速、漸大＝加速、漸小＝減速；點越密越慢</p>
+  <p><span class="pill">自由落體</span>a＝g≈9.8 m/s²、v＝gt、h＝½gt²，與質量無關</p></div>`);
+  motionSim($('#ms',p));
+}
+
+/* ================= 2-1 動畫 ================= */
+function animU3(p){
+  const steps=[
+    {label:'① 亞里斯多德',imgs:[{img:'k3_aristotle',tag:'亞里斯多德胸像',fit:'contain',bg:'#2a2622'}],
+      poem:'古希臘哲學家亞里斯多德認為：「若物體受力持續作用，可維持不斷的運動；<b>若不受力作用，則最後必將停止</b>。」此觀念一直延續至十七世紀。',
+      key:'這是被推翻的舊觀念。書推出去會停，是因為受到<b>摩擦力</b>。'},
+    {label:'② 伽利略斜面',imgs:[{img:'k3_incline',tag:'伽利略的斜面（佛羅倫斯伽利略博物館）'}],
+      poem:'球由斜面自由滑下，會到達右端等高處；降低右端斜度，球仍會到達等高處。<b>若右端為水平，球應會不斷向前</b>。',
+      key:'物體不受外力或合力為零時，會保持原來的運動狀態。這種維持原來運動狀態的性質稱為<b>慣性</b>。'},
+    {label:'③ 牛頓第一運動定律',imgs:[{img:'k3_newton',tag:'牛頓（1643～1727）',fit:'contain',bg:'#1b1b1b'}],
+      poem:'如果物體不受外力作用，或雖受外力作用但<b>合力為零</b>時，物體必保持原本的運動狀態：<b>靜止的物體仍然保持靜止，運動中的物體必沿著一直線做等速度運動</b>。此定律又稱為<b>慣性定律</b>。',
+      key:'合力為零 → 靜止<b>或</b>等速度（等速下沉、熱氣球等速上升都是合力為零）。質量越大，慣性越大。'},
+    {label:'④ 公車煞車',imgs:[{img:'k3_bus',tag:'公車車廂的拉桿與座位'}],
+      poem:'公車緊急煞車時，乘客的身體因慣性仍保持向前的運動，所以<b>向前傾</b>，吊環也<b>向前擺</b>。公車突然加速時，乘客<b>向後倒</b>、吊環<b>向後擺</b>。',
+      key:'杯中水面：加速→<b>後方高</b>；煞車→<b>前方高</b>；等速度→<b>水平</b>（13 校考）。下面的模擬器可以試試看！'},
+    {label:'⑤ 生活中的慣性',imgs:[{img:'k3_dog',tag:'狗甩動身體甩掉水滴'}],
+      poem:'當狗快速甩動身體，毛髮上的水滴因慣性保持原本運動狀態，而脫離身體。拍打布料除灰塵、停止踩踏板腳踏車仍能前進、敲瓶身把蓋子蓋緊，也都和慣性有關。',
+      key:'「推書漸停」不是慣性（是摩擦力）；「火箭噴氣前進」是作用力與反作用力（10 校考）。'},
+    {label:'⑥ 安全帶與氣囊',imgs:[{img:'k3_seatbelt',tag:'上車先繫安全帶'},{img:'k3_airbag',tag:'彈出的安全氣囊'}],
+      poem:'緊急煞車時車子停下，人卻因慣性繼續向前衝。安全帶把人拉住；安全氣囊則延長停下來的時間，減少衝擊。',
+      key:'等速前進的火車上鉛直上拋硬幣 → 落回手中；拋出後火車加速 → 落在後方（9 校考）。'},
+    {label:'⑦ 延伸：F＝ma',imgs:[{img:'k3_f16',tag:'戰鬥機起飛：推力大，加速度大'}],
+      poem:'（延伸 2-2）物體所受外力的合力＝物體的質量×物體的加速度：<b>F＝m×a</b>。1 牛頓（N）的力能使質量 1 公斤的物體獲得 1 m/s² 的加速度；1 公斤重約 9.8 N。',
+      key:'有 7 校考到 2-2，請到「🚀 延伸挑戰 2-2」練習。'},
+  ];
+  photoCard(p,steps,`<div class="card" id="ts"></div>
+  <div class="card"><h3>🗺️ 2-1 一張圖</h3>
+  <p><span class="pill">科學史</span>亞里斯多德（不受力會停）→ 伽利略斜面（水平就一直走）→ 牛頓第一運動定律</p>
+  <p><span class="pill">定律</span>不受外力或合力為零：靜者恆靜、動者沿直線做等速度運動</p>
+  <p><span class="pill">慣性</span>維持原狀態的性質；質量越大慣性越大</p>
+  <p><span class="pill">判斷</span>加速：水面後高、吊環後擺；煞車：水面前高、吊環前擺；等速：水平</p>
+  <p><span class="pill">陷阱</span>推書漸停＝摩擦力；火箭噴氣＝作用與反作用；合力為零≠一定靜止</p></div>`);
+  tiltSim($('#ts',p));
+}
+
+/* ================= 5-1 動畫 ================= */
+function animU4(p){
+  const steps=[
+    {label:'① 藍色星球',imgs:[{img:'k4_earth',tag:'阿波羅 17 號拍下的地球',fit:'contain',bg:'#000'}],
+      poem:'地球的<b>大氣圈、水圈、岩石圈和生物圈</b>四大層圈彼此關係密切，任一層圈發生變動都可能連帶影響其他層圈。',
+      key:'地表約 71% 是海洋；地球上的水約 97% 是海水（兩個數字別混用）。'},
+    {label:'② 火山與層圈',imgs:[{img:'k4_volcano',tag:'從太空看火山噴發'}],
+      poem:'火山爆發時：火山灰進入空中（大氣圈）、熔岩覆蓋地表（岩石圈），也會影響河湖（水圈）和動植物（生物圈）。',
+      key:'一次火山爆發就能同時影響四個層圈；植物根撐裂岩石則是生物圈影響岩石圈。'},
+    {label:'③ 鹹鹹的海水',imgs:[{img:'k4_ocean',tag:'海水'},{img:'k4_salt',tag:'臺南井仔腳瓦盤鹽田：曬海水得到鹽'}],
+      poem:'海水最多的鹽是<b>氯化鈉</b>（鹹味），其次是<b>氯化鎂</b>（略帶苦味）。全球海水平均鹽度約 <b>35‰</b>：每 1000 公克海水約有 35 公克鹽類。這些鹽類主要來自<b>河水和地下水溶解陸地岩石</b>中礦物的部分成分，變成離子後流進海洋。',
+      key:'不是來自雨水（14 校考）；是 35‰（千分之 35），不是 35%。'},
+    {label:'④ 淡水大多是冰',imgs:[{img:'k4_ice',tag:'阿根廷莫雷諾冰川'}],
+      poem:'地球上的淡水，比例最多的是<b>冰</b>（冰川、冰帽），其次是地下水。人類能直接使用的淡水只占地球上水體的約 <b>1%</b>。',
+      key:'淡水主要是冰，不是地下水（9 校考）。'},
+    {label:'⑤ 地下水與自流井',imgs:[{img:'k4_artesian',tag:'自流井：水從井口自己湧出'}],
+      poem:'地下水面的高度受地形、降雨、地表植被、人類抽取量影響。雨季或多雨時地下水面上升、旱季下降；地勢較高的地區，地下水面通常也較高。',
+      key:'地下水面不是水平的；井口低於受壓含水層的地下水面 → <b>自流井</b>。頁岩是不透水層。'},
+    {label:'⑥ 地層下陷',imgs:[{img:'k4_subside',tag:'雲林臺西鄉的地層下陷監測井'}],
+      poem:'岩層孔隙中充滿地下水，能協助土石支撐上方岩層。超抽地下水，岩層孔隙缺乏水的支撐會被壓縮，造成<b>地層下陷</b>。',
+      key:'超抽地下水的危害：地層下陷、濱海地下淡水<b>鹹化</b>、濱海<b>海水倒灌</b>（15 校考）。'},
+  ];
+  photoCard(p,steps,`<div class="card">${waterGrid()}</div>
+  <div class="card"><h3>🗺️ 5-1 一張圖</h3>
+  <p><span class="pill">層圈</span>大氣圈、水圈、岩石圈、生物圈，彼此交互作用</p>
+  <p><span class="pill">水的分布</span>海水約 97%；淡水大多是冰，其次地下水；人類能直接用的約 1%</p>
+  <p><span class="pill">海水</span>鹽度約 35‰；氯化鈉（鹹）＞氯化鎂（苦）；鹽類來自河水、地下水溶解岩石</p>
+  <p><span class="pill">地下水</span>地下水面隨地形起伏、雨季升旱季降；透水層（砂岩、礫岩）、不透水層（頁岩）；自流井</p>
+  <p><span class="pill">超抽</span>地層下陷（無法完全復原）、地下水鹹化、海水倒灌</p></div>`);
+}
+
+/* ================= 5-2 動畫 ================= */
+function animU5(p){
+  const steps=[
+    {label:'① 風化作用',imgs:[{img:'k5_root',tag:'樹根包住岩石、撐開裂縫'}],
+      poem:'岩石受<b>陽光</b>（熱脹冷縮）、<b>水</b>（反覆結凍膨脹）、<b>空氣</b>（鐵質氧化成褐色）、<b>生物</b>（根在岩縫生長）的影響，漸漸破碎疏鬆或改變成分，最後形成土壤。',
+      key:'風化是岩石<b>在原地</b>崩解。海浪掏空堤防、風沙磨蝕岩石是<b>侵蝕</b>（10 校考）。'},
+    {label:'② 上游 V 形谷',imgs:[{img:'k5_vvalley',tag:'河流向下侵蝕形成的 V 形谷'}],
+      poem:'外營力的作用可以分為<b>風化、侵蝕、搬運和沉積</b>四種。河流上游坡陡流急，<b>侵蝕</b>作用顯著，向下切出 V 形谷。',
+      key:'上游：侵蝕作用顯著；下游：沉積作用顯著。'},
+    {label:'③ 下游與出海口',imgs:[{img:'k5_pebble',tag:'河床上被磨圓的石頭'},{img:'k5_delta',tag:'義大利波河下游的沖積平原（空拍）'}],
+      poem:'河水搬運石頭，越往下游越<b>小</b>、越<b>圓</b>。河流入海後流速減緩，大多數的沉積物會在出海口附近<b>沉積</b>下來。',
+      key:'稜角明顯的石頭在上游、圓滑的在下游（5 校考採集石頭題）。'},
+    {label:'④ 冰川',imgs:[{img:'k5_uvalley',tag:'蘇格蘭格倫科的 U 形谷'},{img:'k4_ice',tag:'冰川移動時刮磨岩屑'}],
+      poem:'冰川移動時會挾帶岩屑一路刮磨，侵蝕能力很強，常形成特有的 <b>U 形谷</b>；冰川融化時，岩屑沉積下來，形成<b>大小顆粒混雜</b>的沉積物。',
+      key:'冰川 → U 形谷；河流上游 → V 形谷（17 校考）。過去氣候寒冷時期，臺灣高山上也曾有冰川。'},
+    {label:'⑤ 風',imgs:[{img:'k5_dune',tag:'屏東恆春的風吹砂'},{img:'k5_ventifact',tag:'風稜石'}],
+      poem:'風會搬動沙粒或塵土，沉積時常形成<b>沙丘</b>；若風挾帶沙粒摩擦岩石表面，可形成<b>風稜石</b>。',
+      key:'沙丘＝風的搬運與沉積；風稜石＝風的侵蝕。'},
+    {label:'⑥ 海浪',imgs:[{img:'k5_seacave',tag:'澎湖西吉嶼的海蝕洞'},{img:'k5_heping',tag:'基隆和平島的海蝕地形'}],
+      poem:'海浪長期拍打海岸，形成<b>海蝕平臺、海蝕洞、海拱</b>等侵蝕地形；也會把沙堆積成<b>沙灘、沙洲</b>。',
+      key:'海蝕地形＝侵蝕作用；沙灘、沙洲＝沉積作用。'},
+    {label:'⑦ 差異侵蝕',imgs:[{img:'k5_queen',tag:'野柳女王頭：軟硬不同，侵蝕程度不同',fit:'contain',bg:'#e9e6df'}],
+      poem:'砂岩、頁岩交互堆疊的岩層，砂岩層抗風化侵蝕的能力比頁岩層好，頁岩層受侵蝕的程度較嚴重便凹下較多，因此呈現<b>差異侵蝕</b>的現象。',
+      key:'砂岩突出、頁岩凹陷（7 校考）。'},
+    {label:'⑧ 海岸線的平衡',imgs:[{img:'k5_delta',tag:'波河下游：河流把泥沙一路帶向出海口'}],
+      poem:'河流帶來的沉積物和海水帶走的相當，海岸線<b>近乎平衡</b>；帶來的較多，海岸線<b>向外擴張</b>；帶走的較多，海岸線<b>向內陸退縮</b>。內營力使地表抬升，外營力使地表逐漸被夷平，這是持續不斷的動態過程。',
+      key:'上游建水庫、攔沙壩 → 入海泥沙減少 → 海岸線<b>後退</b>（14 校考滄海桑田、水庫）。'},
+  ];
+  photoCard(p,steps,`<div class="card" id="cs"></div>
+  <div class="card"><h3>🗺️ 5-2 一張圖</h3>
+  <p><span class="pill">內營力</span>地球內部能量：板塊運動、火山、斷層 → 使地表隆起起伏</p>
+  <p><span class="pill">外營力</span>主要靠太陽能：流水、冰川、風、海浪 → 風化、侵蝕、搬運、沉積，使地表趨於平坦</p>
+  <p><span class="pill">河流</span>上游 V 形谷（侵蝕）→ 下游石頭小又圓、出海口沉積</p>
+  <p><span class="pill">冰川</span>U 形谷、大小混雜的沉積物；<span class="pill">風</span>沙丘、風稜石；<span class="pill">海浪</span>海蝕平臺、海蝕洞、海拱、沙灘沙洲</p>
+  <p><span class="pill">海岸線</span>帶來＞帶走 → 外擴；帶來＜帶走（水庫攔沙）→ 後退</p></div>`);
+  coastSim($('#cs',p));
+}
+
+/* ================= 5-3 動畫 ================= */
+function animU6(p){
+  const steps=[
+    {label:'① 火成岩',imgs:[{img:'k6_basalt',tag:'澎湖池西岩瀑：柱狀玄武岩'},{img:'k6_andes',tag:'安山岩'}],
+      poem:'火成岩是由<b>岩漿冷卻凝固</b>形成。岩漿冷卻得越慢，結晶生成的礦物顆粒就越大；冷卻得越快，顆粒就越小。常見的火成岩有玄武岩、安山岩和花岡岩。',
+      key:'澎湖＝<b>玄武岩</b>；大屯火山群＝<b>安山岩</b>；地底慢冷、顆粒大＝<b>花岡岩</b>。'},
+    {label:'② 花岡岩與礦物',imgs:[{img:'k6_granite',tag:'花岡岩：看得到礦物顆粒'},{img:'k6_mica',tag:'雲母與長石'}],
+      poem:'岩石是由一種或多種礦物所組成。花岡岩主要由<b>石英、長石、雲母</b>組成，顆粒大到肉眼可以辨識。',
+      key:'長石是地殼中含量最多的礦物，石英第二多。花岡岩不含方解石（5 校陷阱）。'},
+    {label:'③ 沉積岩',imgs:[{img:'k6_conglomerate',tag:'礫岩：顆粒最大'},{img:'k6_sandstone',tag:'砂岩的層理'},{img:'k6_shale',tag:'頁岩露頭'}],
+      poem:'沉積岩是湖泊或海洋等處的沉積物經<b>壓密、膠結</b>而形成。依顆粒由大到小：<b>礫岩＞砂岩＞頁岩</b>。',
+      key:'沉積岩常有層理、可能含化石。高雄田寮月世界是泥岩受侵蝕形成的地形。'},
+    {label:'④ 石灰岩',imgs:[{img:'k6_kenting',tag:'墾丁船帆石與珊瑚礁海岸'},{img:'k6_moon',tag:'高雄田寮月世界（泥岩）'}],
+      poem:'石灰岩也是常見的沉積岩，主要由<b>珊瑚、貝類遺骸碎屑</b>組成，或由溶於水中的碳酸鈣析出沉澱，是<b>水泥</b>的原料之一。',
+      key:'墾丁＝珊瑚礁石灰岩；石灰岩、方解石的主要成分都是<b>碳酸鈣</b>。'},
+    {label:'⑤ 變質岩：板岩',imgs:[{img:'k6_slate',tag:'排灣族石板屋（國立自然科學博物館）'},{img:'k6_gneiss',tag:'片麻岩：礦物排成條紋',fit:'contain',bg:'#eceff3'}],
+      poem:'變質岩是原有岩石受<b>高溫、高壓</b>作用而改變形成。頁岩 → <b>板岩</b>；花岡岩 → <b>花岡片麻岩</b>。臺灣原住民的石板屋是以板岩為材料建構而成。',
+      key:'石板屋＝板岩（中橫常見）；臺灣的變質岩主要分布在<b>中央山脈</b>。'},
+    {label:'⑥ 變質岩：大理岩',imgs:[{img:'k6_taroko',tag:'太魯閣峽谷的大理岩峭壁'},{img:'k6_marble',tag:'白色大理岩標本',fit:'contain',bg:'#111'}],
+      poem:'石灰岩 → <b>大理岩</b>。大理岩和石灰岩的主要組成礦物相同，差別在大理岩中的方解石經過變質作用重新結晶，變得較為緊密，而石灰岩則孔隙多，較鬆散。',
+      key:'頁岩→板岩、石灰岩→大理岩，16 校都考！'},
+    {label:'⑦ 石英與方解石',split:[{img:'k6_quartz',tag:'石英：硬，小刀刻不動'},{img:'k6_calcite',tag:'方解石：遇稀鹽酸冒泡'}],
+      poem:'石英和方解石都是常見的白色或透明無色礦物，從外觀難以明確辨識，可藉由<b>小刀片測試硬度</b>或<b>滴稀鹽酸</b>來區分：方解石可被刀片刻劃、遇酸會冒泡（產生二氧化碳），石英則不會。',
+      key:'不能用顏色分辨（14 校考）。兩礦物互相刮磨，被刮出痕跡的硬度較小。'},
+  ];
+  photoCard(p,steps,`<div class="card" id="rc"></div>
+  <div class="card"><h3>🗺️ 5-3 一張圖</h3>
+  <p><span class="pill">分類</span>依「形成過程」：火成岩（岩漿冷凝）、沉積岩（壓密膠結）、變質岩（高溫高壓）</p>
+  <p><span class="pill">火成岩</span>慢冷顆粒大：花岡岩；快冷顆粒小：玄武岩（澎湖）、安山岩（大屯火山群）</p>
+  <p><span class="pill">沉積岩</span>礫岩＞砂岩＞頁岩；石灰岩（珊瑚、貝類，墾丁）；有層理、化石</p>
+  <p><span class="pill">變質岩</span>頁岩→板岩（石板屋）；石灰岩→大理岩（太魯閣）；花岡岩→花岡片麻岩</p>
+  <p><span class="pill">礦物</span>石英（二氧化矽，硬）vs 方解石（碳酸鈣，遇稀鹽酸冒 CO₂）；花岡岩＝石英＋長石＋雲母</p></div>`);
+  rockCycle($('#rc',p));
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+
+<!-- AK:answer-key -->
+<style id="ak-style">#ak-btn{position:fixed;left:14px;bottom:14px;z-index:9990;font:600 16px/1 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:#1f4e79;color:#fff;border:0;border-radius:999px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer}#ak-btn:hover{background:#163a5c}#ak-box{display:none;position:fixed;inset:0;z-index:9995;background:rgba(15,25,40,.45);padding:16px;overflow:auto}#ak-box.show{display:block}#ak-box .ak-card{max-width:960px;margin:20px auto;background:#fff;color:#1d2733;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:16px/1.6 "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;text-align:left}#ak-box .ak-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #e3e8ef;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}#ak-box .ak-head b{font-size:18px;color:#1f4e79}#ak-box .ak-head button{font:inherit;font-size:16px;margin-left:8px;border:1px solid #c9d3df;background:#f4f7fb;color:#1d2733;border-radius:8px;padding:6px 12px;cursor:pointer}#ak-box .ak-body{padding:6px 18px 18px}#ak-box h3{font-size:17px;margin:16px 0 6px;color:#1f4e79}#ak-box .ak-t{border-collapse:collapse;width:100%;margin:6px 0;table-layout:fixed}#ak-box .ak-t th,#ak-box .ak-t td{border:1px solid #cfd8e3;padding:5px 2px;text-align:center;font-size:16px;word-break:break-all}#ak-box .ak-t th{background:#eef3f9;color:#1f4e79;font-weight:600}#ak-box .ak-t th:first-child{width:3.6em}#ak-box .ak-t td{font-weight:700}#ak-box .ak-list{columns:2 300px;margin:6px 0;padding-left:0;list-style:none}#ak-box .ak-list li{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e3e8ef}@media print{#ak-btn{display:none!important}html:not(.ak-on) #ak-box{display:none!important}html.ak-on body>*:not(#ak-box){display:none!important}html.ak-on #ak-box{position:static;background:none;padding:0;display:block!important;overflow:visible}html.ak-on #ak-box .ak-card{box-shadow:none;margin:0;max-width:none}html.ak-on #ak-box .ak-head button{display:none}html.ak-on #ak-box .ak-head{position:static}}</style>
+<script id="ak-core">(function(){
+if(window.AK)return;
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function norm(secs){
+ if(!secs)return[];
+ if(!Array.isArray(secs[0]&&secs[0].items)&&Array.isArray(secs))secs=[{title:'',items:secs}];
+ return secs.map(function(s){return{title:s.title||'',items:(s.items||[]).map(function(x,i){return Array.isArray(x)?[x[0],x[1]]:[i+1,x]})}}).filter(function(s){return s.items.length});
+}
+function table(s){
+ var long=s.items.some(function(x){return String(x[1]).length>3});
+ var h=s.title?'<h3>'+esc(s.title)+'</h3>':'';
+ if(long){
+  return h+'<ol class="ak-list">'+s.items.map(function(x){return'<li><b>'+esc(x[0])+'.</b> '+esc(x[1])+'</li>'}).join('')+'</ol>';
+ }
+ var out=h;
+ for(var i=0;i<s.items.length;i+=10){
+  var r=s.items.slice(i,i+10);
+  out+='<table class="ak-t"><tr><th>題號</th>'+r.map(function(x){return'<th>'+esc(x[0])+'</th>'}).join('')+'</tr><tr><th>答案</th>'+r.map(function(x){return'<td>'+esc(x[1])+'</td>'}).join('')+'</tr></table>';
+ }
+ return out;
+}
+window.AK=function(fn){
+ function run(){
+  var secs;
+  try{secs=norm(typeof fn==='function'?fn():fn)}catch(e){console.warn('AK',e);return}
+  window.__AK_DATA=secs;
+  if(!secs.length)return;
+  var n=secs.reduce(function(a,s){return a+s.items.length},0);
+  var btn=document.createElement('button');btn.id='ak-btn';btn.type='button';btn.textContent='📋 答案總表';if(window.AK_BTN_STYLE)btn.style.cssText=window.AK_BTN_STYLE;
+  var box=document.createElement('div');box.id='ak-box';
+  box.innerHTML='<div class="ak-card" role="dialog" aria-label="答案總表"><div class="ak-head"><b>📋 答案總表（教師用，共 '+n+' 題）</b><span><button type="button" class="ak-p">🖨 列印答案</button><button type="button" class="ak-x" aria-label="關閉">✕</button></span></div><div class="ak-body">'+secs.map(table).join('')+'</div></div>';
+  document.body.appendChild(btn);document.body.appendChild(box);
+  function close(){box.classList.remove('show');document.documentElement.classList.remove('ak-on')}
+  btn.onclick=function(){box.classList.add('show');document.documentElement.classList.add('ak-on')};
+  box.querySelector('.ak-x').onclick=close;
+  box.onclick=function(e){if(e.target===box)close()};
+  box.querySelector('.ak-p').onclick=function(){window.print()};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+ }
+ if(document.readyState==='complete')setTimeout(run,0);else window.addEventListener('load',function(){setTimeout(run,0)});
+};
+})();</script>
+<script>AK(function(){
+if(!/[?&]teacher\b/.test(location.search))return [];
+/* 段考闖關站（chinese/civics/geography/history/science-site 的 volX_ 的 index.html）共用 adapter。
+   資料：頂層 const（L 各課 .mcq/.ext、RIDDLE/EXT/SCEN/CHART…）裡的選擇題物件 {q,o,a}。
+   renderMCQ 題序固定、但「選項每次洗牌」，所以答案列「正解選項文字」而非字母。
+   快問快答／配對／分類挑戰（題目隨機抽）與總測驗（pool/pick 隨機抽題）都不是頂層 {q,o,a} 陣列，不會被列入。 */
+window.AK_BTN_STYLE='left:14px;bottom:76px;font-size:20px;padding:12px 18px';
+(function(){
+  if(document.getElementById('ak-big'))return;
+  var s=document.createElement('style');s.id='ak-big';
+  s.textContent='html body #ak-box .ak-card{font-size:20px}html body #ak-box .ak-head b{font-size:22px}html body #ak-box .ak-head button{font-size:20px}html body #ak-box h3{font-size:21px}html body #ak-box .ak-list li{font-size:20px}html body #ak-box .ak-t th,html body #ak-box .ak-t td{font-size:20px}html body #ak-box .ak-note{font-size:20px;color:#5a6878;margin:10px 0 0}@media(max-width:600px){html body #ak-box{padding:6px}html body #ak-box .ak-card{margin:6px auto}html body #ak-box .ak-body{padding:6px 12px 14px}html body #ak-box .ak-list{columns:1}}';
+  document.head.appendChild(s);
+  setTimeout(function(){var b=document.querySelector('html body #ak-box .ak-body');if(b&&!b.querySelector('.ak-note')){var p=document.createElement('p');p.className='ak-note';p.textContent='※ 題號＝各練習頁上的題號；選項每次會重新洗牌，故列「正確選項的內容」。快問快答、配對、分類挑戰、總測驗為隨機出題，不列。';b.insertBefore(p,b.firstChild)}},50);
+})();
+var src=[].slice.call(document.querySelectorAll('script:not([src])')).filter(function(x){return x.id!=='ak-core'&&x.textContent.indexOf('AK(function')<0}).map(function(x){return x.textContent}).join('\n');
+var names=[];src.replace(/^(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=/gm,function(_,n){if(names.indexOf(n)<0)names.push(n)});
+var isQ=function(x){return x&&typeof x==='object'&&typeof x.q==='string'&&Array.isArray(x.o)};
+var clean=function(t){t=String(t).replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();return t.length>60?t.slice(0,60)+'…':t};
+var lit=function(expr){var re=new RegExp('renderMCQ\\([^,]+,\\s*'+expr.replace(/[.$[\]]/g,'\\$&')+'\\s*,\\s*[^,]+,\\s*([\'"`])([^\'"`$]*)\\1');var m=src.match(re);return m?m[2]:''};
+var KEY={mcq:'📝 段考模擬題',ext:'延伸題',graph:'綜合 圖表判讀',calc:'綜合 計算練習'};
+var secs=[];
+function add(title,arr,pri){for(var j=0;j<secs.length;j++)if(secs[j].arr===arr){if(pri>secs[j].pri){secs[j].title=title;secs[j].pri=pri}return}secs.push({arr:arr,pri:pri,title:title,items:arr.map(function(q,i){return[i+1,clean(q.o[q.a==null?0:q.a])]})})}
+function walk(v,path,parents){
+  if(!v||typeof v!=='object'||path.length>6||v instanceof Node||v===window)return;
+  if(Array.isArray(v)){
+    if(v.length&&v.every(isQ)){
+      var root=path[0],last=path[path.length-1],par=parents[parents.length-1],t;
+      if(root==='L'&&path.length===3){var d=parents[1];t=[d.no,d.title||d.name].filter(Boolean).join(' ')+'｜'+(KEY[last]||last)}
+      else if(path.length===1)t=lit(root)||root;
+      else if(par&&!Array.isArray(par)&&par.title){var gi=path[path.length-2];t=(/^[①-⑳]/.test(par.title)?'':(typeof gi==='number'?(gi+1)+'. ':''))+String(par.title).replace(/<[^>]*>/g,'')}
+      else t=lit(path.join('.'))||KEY[last]||path.join('.');
+      add(t,v,root==='L'?1:0);return;
+    }
+    v.forEach(function(x,i){walk(x,path.concat(i),parents.concat([v]))});return;
+  }
+  if(Object.getPrototypeOf(v)!==Object.prototype)return;
+  Object.keys(v).forEach(function(k){walk(v[k],path.concat(k),parents.concat([v]))});
+}
+names.forEach(function(n){var v;try{v=(0,eval)(n)}catch(e){return}walk(v,[n],[])});
+/* 同一陣列被兩處引用（如 L.ex.mcq＝EXT）只列一次，以課別標題為準；依 L 的課序排在前面 */
+secs.sort(function(a,b){return b.pri-a.pri});
+return secs.map(function(s){return{title:s.title,items:s.items}});
+});</script>
+<!-- /AK -->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+</body>
+</html>
