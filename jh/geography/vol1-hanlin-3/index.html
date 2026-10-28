@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國一地理段考闖關（翰林）第三次</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#2f6b3a; --main-2:#4a9a5a; --accent:#d9a441; --accent-2:#b07d24;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#1f4a28 0%,#4a9a5a 60%,#d9a441 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#1f4a28;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(15,35,20,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+.qword{font-size:1.4rem;letter-spacing:0;line-height:1.5;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word}
+@media(max-width:560px){.opts{grid-template-columns:1fr}.qword{font-size:1.25rem}}
+.bars .b span{line-height:1.35}
+@media(max-width:560px){.bars .b{grid-template-columns:128px 1fr 52px}}
+details.card summary{cursor:pointer}
+@media(max-width:560px){.lessoncards{grid-template-columns:1fr}.lc{min-height:0;gap:8px}}
+/* 表格、圖表（文字放在 HTML，不畫在圖上） */
+.tbl{width:100%;border-collapse:collapse;font-size:1rem;margin:6px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.tbl th{background:#e8f3ea;color:var(--main)}
+.tbl td:first-child{white-space:nowrap}
+.figbox{overflow-x:auto;margin-bottom:6px}
+.passage{background:#f4f9f1;border-left:5px solid var(--accent);border-radius:12px;padding:14px 16px;line-height:1.9}
+.scale{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.scale span{flex:1 1 120px;background:#e8f3ea;border-radius:12px;padding:8px 10px;text-align:center;font-size:1rem;line-height:1.5}
+.scale span b{color:var(--accent-2)}
+.ladder{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 12px}
+.ladder span{background:var(--main);color:#fff;border-radius:12px;padding:6px 12px;font-weight:700;text-align:center}
+.ladder span.an{background:var(--accent);color:#3b2600}
+.ladder small{display:block;font-size:1rem;font-weight:500}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.calc label{font-weight:500}
+.calc input,.calc select{display:block;width:100%;font-size:1.1rem;padding:8px 10px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit;background:#fff}
+.meaning b{color:var(--main)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回科目選單</a><span class="tag">翰林版 國一上地理 ｜ 第三次段考</span>
+    <h1>地理段考闖關｜第5章 天氣與氣候＋第6章 水文</h1>
+    <p>先看真實照片動畫弄懂課本，再用遊戲練熟天氣要素、降水類型、氣候圖、河川與水庫，最後做段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap">
+  <b>全民補習班 地理科</b>｜考點依據：35 所學校（114 學年 32 校、113 學年 3 校）的翰林版國一上地理第三次段考試卷（社會合卷只取地理部分）。模擬題全部為原創改寫，只參考各校命題方向與陷阱。<br>
+  名詞、數字、地名依翰林國中社會 1 上地理課本（第 5～6 章）。答對、答錯都有音效；背景音樂只在「動畫導覽」播放，可按右下角按鈕關閉。<br>
+  交卷時會把你的姓名、分數與錯題傳給老師。左下角 ✏️ 可以手寫、兩指縮放。<br>
+  <details style="margin-top:8px"><summary>圖片來源與授權</summary>
+  照片、衛星影像與地形圖皆來自 Wikimedia Commons（CC0／公有領域／CC BY／CC BY-SA），未使用 AI 生成圖：Modern Aneroid Barometer：Agnellous（Commons 上傳者，自行拍攝）（公有領域）；Cold front dividing the sky：07jay（CC BY-SA 4.0）；Blue sky above the South Gate of Hengchun before rain cloud coming：dennis（CC BY-SA 2.0）；Keelung Harbor 20241105：Heeheemalu（CC BY-SA 4.0）；2001 臺北市納莉水災 September Flood in Taipei, TAIWAN - 09：tenz1225（CC BY-SA 2.0）；Orographic Cloud at Sugar Loaf - Rio de Janeiro, Brazil：CidAlledi（CC BY-SA 4.0）；20250520 蘭陽平原的積雨雲雷暴：Junyu-K（CC BY-SA 4.0）；Taipei Taiwan Taipei-101-Tower-01：CEphoto, Uwe Aranas（CC BY-SA 3.0）；Wind-driven Generators at Houlong Coast 後龍海岸風力機 - panoramio：lienyuan lee（CC BY 3.0）；Weather vane, Court Street - geograph.org.uk - 1700439：Trish Steel（CC BY-SA 2.0）；玉山主峰 02：Dragons70c（CC BY-SA 4.0）；02023 Zengwen Reservoir S：Taiwankengo（CC BY-SA 4.0）；Taipei-Beitou-Cumulonimbus calvus：HAL-Guandu（CC BY-SA 4.0）；Tuā-tiū-tiânn near Tamsui River ca. late 1920s：作者不詳（公有領域）；FeiCueiReservoir：Peellden（CC BY 3.0）；2023 Gaoping River：Taiwankengo（CC BY-SA 4.0）；Typhoon Koinu nears Landfall in Taiwan (CIRA 2023-10-04 - nolabels)：Himawari imagery: CSU/CIRA & JMA/JAX（公有領域）；Orchid Island (Lanyu) (36621072651)：白士 李（CC BY 2.0）；The Blue Marble, AS17-148-22727：Harrison Schmitt / Apollo 17（公有領域）；Taiwan-Central Mountain Range：Peellden（CC BY-SA 3.0）；Traditional Tao Building 2010-9-14：Flickr user othree（CC BY 2.0）；Remote view of the high speed rail viaduct near THSR Yunlin Station：WC-QHS（CC BY-SA 4.0）；Chenglong Wetlands 20171102：ddio（CC BY-SA 2.0）；View over Wushe Reservoir with cloudy sky：JianEn Yu（CC BY 2.0）；Overlooking the Zhuoshui River towards Wujie in the distance：YangChen(TW)（CC BY 2.0）。</details>
+</div></footer>
+
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料（翰林 國一上地理 第三次段考） =================
+   範圍：第5章 天氣與氣候（5-1～5-4）＋第6章 水文（6-1～6-4）＋問題探究「颱風與生活」。
+   名詞、數字、地名一律依翰林國中社會 1 上地理課本（課本 WORD 檔 L05／L06，p.60～88）。
+   快問快答：[題目, 正解, [3 個誘答], 幾校考過(0＝不標★), 題目提示(可省略)]
+   模擬題：{q, o:[正解, 誘答…], a:0, src, ex}（選項每次洗牌；全部原創改寫，只借各校命題方向與陷阱）
+   src 一律只寫「段考常考／段考原型／原創」，不寫學校名稱。 */
+const L = {
+/* ---------- 第5章 天氣與氣候 ---------- */
+l5:{
+  no:'第5章', code:5, title:'天氣與氣候', short:'天氣與氣候', color:'linear-gradient(135deg,#1f4a28,#3f8a4e)',
+  desc:'天氣要素・氣壓與風｜三種降水｜鋒面與梅雨｜氣候資料計算｜臺灣氣溫與降水｜氣象災害',
+  quickAsk:'選出正確的答案', quickTitle:'天氣與氣候快問快答',
+  quick:[
+    ['一個地區在短時間內的大氣狀態','天氣',['氣候','氣壓','季風'],15],
+    ['一個地區長時間的天氣平均狀態','氣候',['天氣','氣象','天氣要素'],32],
+    ['「午後有雷陣雨、氣溫降到 24℃」描述的是','天氣',['氣候','氣候特徵','氣候資料'],15],
+    ['「恆春四季如春」描述的是','氣候',['天氣','氣壓','降水'],15],
+    ['「艷陽高照」「烏雲密布」是在描述','天氣',['氣候','季風','氣團'],15],
+    ['氣溫的常用單位是','攝氏（℃）和華氏（℉）',['百帕（hPa）','毫米（mm）','公尺／秒（m/s）'],9],
+    ['降水量通常以什麼為單位','毫米（mm）',['百帕（hPa）','毫升（ml）','公分（cm）'],26],
+    ['氣壓的單位是','百帕（hPa）',['毫米（mm）','攝氏（℃）','公尺（m）'],26],
+    ['氣溫會隨高度或緯度增加而','遞減',['遞增','不變','先增後減'],15],
+    ['地表上單位面積所承載的空氣重量稱為','氣壓',['氣溫','降水量','風速'],22],
+    ['海拔高度愈高，氣壓會','愈低',['愈高','不變','忽高忽低'],9],
+    ['高山症的主要原因是高山上','氣壓太低',['氣溫太高','氣壓太高','降水太多'],9],
+    ['氣溫較高的地方，空氣膨脹上升，形成','低氣壓（L）',['高氣壓（H）','鋒面','季風'],15],
+    ['氣溫較低的地方，空氣收縮下沉，形成','高氣壓（H）',['低氣壓（L）','滯留鋒','颱風'],15],
+    ['風是空氣由哪裡往哪裡的水平流動','高氣壓往低氣壓',['低氣壓往高氣壓','赤道往兩極','海洋往陸地'],11],
+    ['「風向」指的是風的','來向',['去向','速度','強度'],11],
+    ['兩地氣壓差愈大，風速會','愈強',['愈弱','不變','先強後弱'],11],
+    ['世界氣象組織規定氣象站至少每隔幾小時觀測一次','六小時',['一小時','十二小時','二十四小時'],0],
+    ['迎風坡多雨、背風坡少雨，屬於','地形雨',['對流雨','鋒面雨','颱風雨'],27],
+    ['夏日午後常見的雷陣雨（西北雨）屬於','對流雨',['地形雨','鋒面雨','寒流雨'],27],
+    ['雨勢強、雨時短、雨區小的降水是','對流雨',['鋒面雨','地形雨','梅雨'],27],
+    ['雨時長、雨區大的降水是','鋒面雨',['對流雨','地形雨','雷陣雨'],30],
+    ['每年 5、6 月的梅雨屬於','鋒面雨',['對流雨','地形雨','颱風雨'],29],
+    ['冷空氣移向暖空氣所形成的鋒面稱為','冷鋒',['暖鋒','滯留鋒','梅雨鋒'],20],
+    ['暖空氣移向冷空氣所形成的鋒面稱為','暖鋒',['冷鋒','滯留鋒','颱風鋒'],20],
+    ['冷、暖空氣勢力相當、移動緩慢的鋒面稱為','滯留鋒',['冷鋒','暖鋒','高壓脊'],20],
+    ['一個月中每天日均溫總和的平均值稱為','月均溫',['年均溫','年溫差','日均溫'],9],
+    ['一年中每個月月均溫總和的平均值稱為','年均溫',['年溫差','月均溫','年降水量'],33],
+    ['最暖月均溫與最冷月均溫的差稱為','年溫差',['年均溫','月均溫','年降水量'],33],
+    ['一年 12 個月降水量的總和稱為','年降水量',['年均溫','月降水量','降水強度'],33],
+    ['氣候圖中的曲線表示','氣溫',['降水量','氣壓','風速'],27],
+    ['氣候圖中的長條（柱狀圖）表示','降水量',['氣溫','氣壓','日照時數'],27],
+    ['影響臺灣氣候的主要因素是','緯度、地形、季風',['洋流、板塊、火山','人口、交通、產業','經度、時區、日照時數'],0],
+    ['嘉義與玉山年均溫差超過 10℃，主因是','地形（海拔高度）',['緯度','洋流','經度'],21],
+    ['臺北七月均溫（29.6℃）比高雄高，與哪種地形有關','盆地',['高原','平原','丘陵'],9],
+    ['臺灣最高的氣象站是','玉山氣象站（海拔 3,845 公尺）',['阿里山氣象站','合歡山氣象站','日月潭氣象站'],21],
+    ['臺灣夏季盛行','西南季風',['東北季風','西北季風','東南季風'],25],
+    ['臺灣冬季盛行','東北季風',['西南季風','西北季風','東南季風'],25],
+    ['臺灣降水的時間分布，大致呈現','夏雨冬乾',['冬雨夏乾','全年均勻','春雨秋乾'],22],
+    ['冬季北部降水比南部多，主要是因為','迎向東北季風',['緯度較低','背風坡','靠近赤道'],22],
+    ['恆春冬季強勁的「落山風」是指','東北季風翻過中央山脈後的強風',['西南季風帶來的海風','颱風外圍環流','冷鋒前緣的雷雨'],11],
+    ['恆春洋蔥主要的收成季節是','冬末春初',['夏末秋初','全年皆可','春末夏初'],11],
+    ['冷氣團（蒙古或西伯利亞高壓）南下造成氣溫驟降，稱為','寒害（寒流）',['旱災','水災','颱風'],26],
+    ['寒流來襲時，最容易受損的是','農作物與養殖魚類',['水庫水位','機場航班','地下水位'],26],
+    ['臺灣梅雨季通常出現在','5、6 月',['3、4 月','7、8 月','10、11 月'],29],
+    ['臺灣的颱風主要在哪個季節侵襲','夏、秋兩季',['冬季','春季','全年平均'],32],
+    ['民國 110 年 5 月曾文水庫蓄水量只剩約','3.8%',['38%','63%','98%'],17],
+    ['臺灣歷年天然災害中，氣象相關災害約占','88%',['18%','38%','58%'],0],
+  ],
+  words:[
+    ['天氣','短時間內的大氣狀態'],['氣候','長時間的天氣平均狀態'],['氣壓','單位面積承載的空氣重量，單位 hPa'],
+    ['高氣壓（H）','氣溫低、空氣收縮下沉、天氣晴朗'],['低氣壓（L）','氣溫高、空氣膨脹上升、易陰雨'],['風','空氣由高氣壓往低氣壓的水平流動'],
+    ['地形雨','迎風坡多雨、背風坡少雨'],['對流雨','午後雷陣雨：雨勢強、雨時短、雨區小'],['鋒面雨','冷暖氣團相遇：雨時長、雨區大'],
+    ['梅雨','5、6 月的滯留鋒面雨'],['月均溫','每天日均溫的平均'],['年均溫','12 個月月均溫的平均'],['年溫差','最暖月均溫－最冷月均溫'],
+    ['年降水量','12 個月降水量的總和'],['寒害','冷氣團南下使農漁業受損'],['落山風','冬季東北季風翻越中央山脈的強風'],
+  ],
+  sorts:[
+    {title:'天氣還是氣候？',tip:'短時間（今天、明天、此刻）的大氣狀態＝天氣；長時間統計的平均特徵（四季、夏雨冬乾、年均溫）＝氣候。',buckets:['天氣','氣候'],items:[
+      ['今天午後有雷陣雨',0],['氣象預報明晚氣溫降到 12℃',0],['颱風接近，明天可能停班停課',0],['手機 App 顯示此刻氣壓 1012 百帕',0],['這幾天艷陽高照',0],['傍晚烏雲密布、風勢轉強',0],
+      ['恆春四季如春',1],['臺灣夏雨冬乾',1],['基隆全年多雨，有「雨港」之稱',1],['臺北的年均溫約 23℃',1],['一年當中七月最熱、一月最冷',1],['南部氣溫冬暖夏熱',1]]},
+    {title:'三種降水類型',tip:'地形雨看「山坡」；對流雨看「夏日午後」；鋒面雨看「冷暖氣團＋5～6 月」。',buckets:['地形雨','對流雨','鋒面雨'],items:[
+      ['潮溼空氣沿山坡爬升，降溫凝結',0],['迎風坡雨多、背風坡雨少',0],['冬季東北季風使北部、宜蘭多雨',0],
+      ['夏日午後的雷陣雨（西北雨）',1],['連續高溫日照，空氣對流旺盛',1],['雨勢強、雨時短、雨區小',1],
+      ['5、6 月的梅雨',2],['冷、暖氣團相遇，暖空氣沿鋒面上升',2],['雨時長、雨區大',2]]},
+    {title:'高氣壓還是低氣壓？',tip:'氣溫低→空氣下沉→高壓（H、晴朗）；氣溫高→空氣上升→低壓（L、陰雨）。',buckets:['高氣壓（H）','低氣壓（L）'],items:[
+      ['氣溫較低，空氣收縮下沉',0],['天氣多半晴朗',0],['冷氣團南下時，大陸上的冷高壓',0],['天氣圖上標示 H',0],
+      ['氣溫較高，空氣膨脹上升',1],['容易形成陰雨天氣',1],['颱風中心',1],['天氣圖上標示 L',1]]},
+    {title:'臺灣各地氣溫差異的原因',tip:'南北差（冬季）看緯度；平地與高山差看地形（海拔）；臺北夏季比高雄熱看盆地。',buckets:['緯度','地形（海拔）','盆地地形'],items:[
+      ['一月南部平地氣溫高於北部',0],['恆春冬天仍溫暖',0],['冬季板橋、臺北比高雄冷',0],
+      ['玉山冬天有機會下雪，嘉義卻極少低於 0℃',1],['合歡山冬季常見積雪',1],['年均溫等溫線隨地勢升高而降低',1],
+      ['臺北七月均溫（29.6℃）比高雄高',2],['夏季熱氣不易散去，感覺悶熱',2]]},
+    {title:'三種氣象災害',tip:'寒害＝冷氣團＋低溫；旱災＝降水不足或乾季長；水災＝梅雨、對流雨、颱風造成短時間降水過多。',buckets:['寒害','旱災','水災'],items:[
+      ['蒙古、西伯利亞高壓的冷氣團南下',0],['養殖魚類大量凍死',0],['俗稱「寒流」來襲',0],
+      ['乾季較長或降水量不足',1],['水庫蓄水量只剩 3.8%',1],['民生與農業用水都吃緊',1],
+      ['5、6 月梅雨季鋒面過境',2],['夏季強烈對流雨',2],['颱風來襲時豪雨成災',2]]},
+  ],
+  mcq:[
+    {q:'下列哪一句話是在描述「氣候」？',o:['恆春地區夏季炎熱多雨、冬季溫暖少雨','今天下午臺中會有雷陣雨','颱風外圍環流使北部風雨變大','氣象預報明晚氣溫降到 12℃'],a:0,src:'段考常考',ex:'氣候是長時間的天氣平均狀態，如夏季多雨冬季少雨這種每年重複的特徵；其他三句都是短時間的大氣狀態，屬於天氣。'},
+    {q:'手機氣象 App 顯示：「現在氣溫 27℃、降水機率 60%、氣壓 1008 百帕」。這些資訊屬於',o:['天氣','氣候','氣候資料','季風'],a:0,src:'段考常考',ex:'App 呈現的是此刻與近期的大氣狀態，是天氣；氣候資料必須長時間統計（如年均溫、年降水量）。'},
+    {q:'下列天氣要素與單位的配對，何者錯誤？',o:['降水量：毫升（ml）','氣溫：攝氏（℃）','氣壓：百帕（hPa）','風速：公尺／秒（m/s）'],a:0,src:'段考常考',ex:'降水量以毫米（mm）表示；毫升（ml）是體積單位，是最常見的陷阱選項。'},
+    {q:'關於高氣壓與低氣壓的敘述，何者錯誤？',o:['低氣壓：空氣下沉，天氣晴朗','高氣壓：氣溫較低，空氣收縮下沉','低氣壓：氣溫較高，空氣膨脹上升','天氣圖上以 H 表示高氣壓、L 表示低氣壓'],a:0,src:'段考常考',ex:'下沉、晴朗的是高氣壓；低氣壓是空氣上升，容易形成陰雨。找錯題常把兩者特徵互換。'},
+    {q:'某日天氣圖上，甲地氣壓 1008 百帕、乙地 1016 百帕，兩地之間的風會如何流動？',o:['由乙地吹向甲地','由甲地吹向乙地','兩地之間不會有風','在兩地間來回交替'],a:0,src:'段考常考',ex:'風是空氣由高氣壓往低氣壓的水平流動；乙地氣壓較高，所以由乙吹向甲。'},
+    {q:'球場旁的旗幟被吹得朝東北方飄動，這時吹的是什麼風？',o:['西南風','東北風','西北風','東南風'],a:0,src:'段考常考',ex:'風向是指風的「來向」，旗子朝東北飄，表示風從西南方吹來，叫西南風。'},
+    {q:'若 A、B 兩地的氣壓差變大，其他條件相同，A、B 之間的風速會',o:['變強','變弱','不變','先停止再變強'],a:0,src:'段考原型',ex:'課本：兩地氣壓差愈大，風速愈強。'},
+    {q:'小宇把在平地密封的洋芋片帶到海拔三千多公尺的高山，發現包裝袋明顯鼓起。最合理的解釋是',o:['海拔愈高，氣壓愈低，袋內空氣向外膨脹','海拔愈高，氣溫愈高，袋子變軟','高山上降水量多，袋子吸水膨脹','高山上風速大，把袋子吹鼓'],a:0,src:'段考原型',ex:'高山氣壓較低，袋內原本的空氣把袋子撐大。同一個道理也說明「高山症」：氣壓太低。'},
+    {q:'冬季東北季風吹向基隆、宜蘭一帶，使這些地方雨量增加。這種降水屬於',o:['地形雨','對流雨','鋒面雨（梅雨）','颱風雨'],a:0,src:'段考常考',ex:'潮溼氣流遇山坡抬升，降溫凝結致雨，是迎風坡的地形雨。'},
+    {q:'夏季午後常出現「西北雨」，下列關於它的敘述，何者正確？',o:['雨勢強、雨時短、雨區小','雨勢弱、雨時長、雨區大','主要發生在 5、6 月','主要發生在背風坡'],a:0,src:'段考常考',ex:'連續高溫日照使對流旺盛，形成雨勢強、雨時短、雨區小的對流雨。雨時長、雨區大是鋒面雨的特徵。'},
+    {q:'每年 5、6 月臺灣常出現連續數週的陰雨，主要是因為',o:['冷、暖氣團勢力相當，形成滯留鋒面','夏季午後對流特別旺盛','颱風在臺灣附近海面打轉','東北季風越過中央山脈'],a:0,src:'段考常考',ex:'梅雨是冷、暖氣團相遇形成的滯留鋒面雨，雨時長、雨區大。'},
+    {q:'冷空氣主動移向暖空氣所形成的鋒面，稱為',o:['冷鋒','暖鋒','滯留鋒','梅雨鋒'],a:0,src:'段考常考',ex:'冷鋒：冷空氣移向暖空氣；暖鋒：暖空氣移向冷空氣；滯留鋒：冷暖勢力相當、移動緩慢，梅雨就是滯留鋒。'},
+    {q:'梅雨之所以被稱為「梅雨」，課本的說明是',o:['鋒面北移到江南一帶時，正逢梅子成熟','臺灣盛產梅子，梅雨期間正是採收期','梅花在雨季盛開','這種雨的雨滴形狀像梅子'],a:0,src:'原創',ex:'課本：鋒面繼續向北移，6、7 月移至中國江南一帶，正逢當地梅子成熟，因此稱為「梅雨」。'},
+    {q:'某地 12 個月的月均溫總和為 276℃，這地的年均溫是',o:['23℃','276℃','46℃','12℃'],a:0,src:'段考常考',ex:'年均溫＝12 個月月均溫的平均＝276÷12＝23℃；不是把 12 個月加起來。'},
+    {q:'某地最暖月均溫 28℃、最冷月均溫 12℃，這地的年溫差是',o:['16℃','20℃','40℃','8℃'],a:0,src:'段考常考',ex:'年溫差＝最暖月均溫－最冷月均溫＝28－12＝16℃。'},
+    {q:'某地每月降水量依序為 80、90、110、150、200、180、120、140、160、100、60、70 毫米，年降水量是',o:['1,460 毫米','122 毫米','200 毫米','2,920 毫米'],a:0,src:'段考常考',ex:'年降水量＝12 個月降水量的總和＝1,460 毫米；平均每月約 122 毫米，但那不是年降水量。'},
+    {q:'一張氣候圖中，曲線與長條分別代表什麼？',o:['月均溫、月降水量','月降水量、月均溫','氣壓、風速','日均溫、年均溫'],a:0,src:'段考常考',ex:'氣候圖：曲線＝氣溫、長條（柱狀圖）＝降水量。有些考卷會刻意把兩者對調來設陷阱。'},
+    {q:'一月時，臺灣南部平地氣溫普遍比北部高，主要原因是',o:['南部緯度較低','南部海拔較高','南部位於盆地','南部迎向東北季風'],a:0,src:'段考常考',ex:'緯度低，太陽照射角度較大、氣溫較高，冬季南北差異最明顯；夏季各地都高溫，緯度的影響就不明顯。'},
+    {q:'玉山冬天有機會下雪，同緯度的嘉義市卻極少低於 0℃，兩地氣溫差異主要受什麼影響？',o:['地形（海拔高度）','緯度','洋流','經度'],a:0,src:'段考常考',ex:'兩地緯度相近，但玉山海拔近四千公尺；地勢愈高氣溫愈低。陷阱是全部選「緯度」。'},
+    {q:'臺北七月均溫（29.6℃）比高雄（29.2℃）高，最可能是受到哪種地形影響？',o:['盆地，熱氣不易散去','高山，氣溫隨高度降低','海灣，海風降溫','沙洲，日照強烈'],a:0,src:'段考常考',ex:'臺北位於盆地，夏季熱氣累積不易散去，所以七月均溫反而比緯度較低的高雄高。'},
+    {q:'下列關於臺灣降水「空間」分布的敘述，何者正確？',o:['山區降水多於平地與離島','背風坡降水多於迎風坡','南部降水多於北部，且全年平均','離島降水多於山區'],a:0,src:'段考常考',ex:'地形抬升使水氣凝結，山區雨量多；迎風坡多於背風坡；乾季不明顯的北部降水多於南部。'},
+    {q:'恆春盛產洋蔥，課本說明和「落山風」有關。下列敘述何者正確？',o:['冬季東北季風翻過中央山脈形成強風，洋蔥莖葉伏倒、養分儲存在地下莖','夏季西南季風帶來海風，使洋蔥長得更高','颱風外圍環流使洋蔥成熟較快','恆春沒有強風，洋蔥全年都能收成'],a:0,src:'段考常考',ex:'強風使莖葉伏倒，養分改存在地下莖，洋蔥品質好；經過冬季成長，春天收成。'},
+    {q:'某年一月，寒流來襲，南部養殖魚類大量死亡。這種災害屬於',o:['寒害','旱災','水災','土石流'],a:0,src:'段考常考',ex:'蒙古或西伯利亞高壓冷氣團南下使氣溫驟降，農作物、養殖魚類凍死，稱為寒害。'},
+    {q:'臺灣西南部冬季進入乾季後，主要依賴什麼來供應民生與農業用水？',o:['雨季時蓄存在水庫的水','冬季東北季風帶來的降水','海水淡化','冬季的颱風雨'],a:0,src:'段考常考',ex:'臺灣降水季節分布不均，乾季要靠雨季蓄存在水庫的水；若降水不足或乾季太長，就會缺水成旱災。'},
+    {q:'民國 112 年 8 月中旬，豪雨使南臺灣水庫進水量大增，曾文水庫蓄水率超過 65%。這個事件說明',o:['短時間強降水雖可能成災，也能快速補充水庫、解除旱象','強降水只會帶來災害，對水資源沒有幫助','曾文水庫的集水區不會因降水而增加進水','水庫蓄水率與降水量無關'],a:0,src:'原創',ex:'課本閱讀思考：短時間強降水可能造成水災，但也能快速補充水庫蓄水，解除乾旱。梅雨、颱風是臺灣水資源的主要來源。'},
+    {q:'下列哪一組，最能代表臺灣水災經常發生的時機？',o:['5、6 月梅雨、夏季強烈對流雨、夏秋颱風','12 月至隔年 2 月寒流','冬季東北季風盛行期','春季乾季末期'],a:0,src:'段考常考',ex:'課本：水災經常發生於 5、6 月鋒面過境的梅雨季節、夏季的強烈對流雨，以及夏、秋兩季颱風來襲時。'},
+  ]
+},
+/* ---------- 第6章 水文（含問題探究：颱風與生活） ---------- */
+l6:{
+  no:'第6章', code:6, title:'水文', short:'水文', color:'linear-gradient(135deg,#1d4a52,#3b8a8e)',
+  desc:'水循環｜水系・集水區・流域・分水嶺｜臺灣河川特色與三大河川｜水庫與淤積｜地下水｜颱風與水庫',
+  quickAsk:'選出正確的答案', quickTitle:'水文快問快答',
+  quick:[
+    ['地表上，海洋約占全部面積的','71%',['29%','50%','97%'],20],
+    ['海洋中的水約占全球水量的','97%',['71%','50%','3%'],12],
+    ['全球水量中，除了海水以外的 3%，大部分是','冰雪與地下水',['河水與湖水','雲與雨水','水蒸氣'],12],
+    ['人類最容易取得的水資源是','河水與淡水湖水',['海水','冰河','深層地下水'],0],
+    ['水循環的主要過程依序是','蒸發散→凝結→降水→逕流',['降水→蒸發散→凝結→逕流','凝結→蒸發散→逕流→降水','逕流→降水→凝結→蒸發散'],25],
+    ['地表的水吸收熱能，由液態轉為氣態的過程稱為','蒸發',['蒸散','凝結','逕流'],25],
+    ['水分經由植物氣孔向大氣擴散的過程稱為','蒸散',['蒸發','凝結','降水'],25],
+    ['水氣上升到高空遇冷變成雲，稱為','凝結',['蒸發','逕流','入滲'],25],
+    ['水沿著地表流動的現象稱為','地表逕流',['蒸散','降水','凝結'],25],
+    ['驅動水循環的能量主要來自','太陽',['月亮','地球自轉','季風'],25],
+    ['主流與支流構成的河流系統稱為','水系',['流域','分水嶺','集水區'],28],
+    ['河道上某一點的上游區域稱為','集水區',['流域','分水嶺','水系'],28],
+    ['一條河川河口以上的集水區稱為','流域',['分水嶺','水系','河口'],28],
+    ['兩個相鄰流域的分界線稱為','分水嶺',['水系','集水區','河口'],32],
+    ['分水嶺通常是','山嶺',['平原','海岸','湖泊'],32],
+    ['河川圖上，流量最多的點通常在','最靠近下游（河口）',['最上游','支流源頭','分水嶺上'],32],
+    ['臺灣大小河川共有','150 多條',['30 多條','500 多條','1,000 多條'],0],
+    ['臺灣長度較長、流域面積較大的主要河川約有','20 條',['5 條','50 條','100 條'],0],
+    ['臺灣河川的主要分水嶺是','中央山脈',['雪山山脈','阿里山山脈','海岸山脈'],20],
+    ['中央山脈的走向是','南北走向',['東西走向','東北—西南走向','西北—東南走向'],20],
+    ['受中央山脈影響，臺灣河川多半','東西分流、河川短小',['南北分流、河川長','全部流向西部','全部流向東部'],24],
+    ['因為中央山脈偏東，所以西部河川比東部河川','較長',['較短','一樣長','都乾涸'],20],
+    ['臺灣河川「坡陡、流急」的原因是','地形高低落差大，短距離內高度陡降',['平原廣大','氣溫很低','降水很少'],24],
+    ['雨季滾滾流水、乾季河床乾涸的河川稱為','荒溪型河川',['穩定型河川','運河型河川','潮汐型河川'],24],
+    ['中南部河川流量變化大，主要受什麼影響','降水季節分布不均',['中央山脈走向','潮汐','地球自轉'],24],
+    ['濁水溪因為什麼而得名','河水夾帶大量泥沙，水色混濁',['河水含有工業廢水','河面常有濃霧','河底顏色深'],13],
+    ['臺灣最長的河川是','濁水溪（約 187 公里）',['淡水河','高屏溪','曾文溪'],24],
+    ['臺灣流域面積最大的河川是','高屏溪（約 3,257 平方公里）',['濁水溪','淡水河','大甲溪'],24],
+    ['流量穩定、昔日具航運之利的河川是','淡水河',['濁水溪','高屏溪','曾文溪'],24],
+    ['艋舺、大稻埕因哪條河的河港而發展','淡水河',['濁水溪','高屏溪','大甲溪'],24],
+    ['高雄、屏東地區農業與民生用水的主要來源是','高屏溪',['淡水河','濁水溪','蘭陽溪'],9],
+    ['淡水河河運後來沒落的原因之一是','陸運興起，船隻多停泊在基隆港',['河水乾涸','河面結冰','河道被填平'],0],
+    ['臺灣降水量和世界平均相比','超過世界平均',['低於世界平均','剛好相同','只有一半'],23],
+    ['臺灣降水豐沛卻缺水，原因不包括','降水量低於世界平均',['人口多而密集','降水時空分布不均','河川短而流急'],26],
+    ['水庫的功能不包括','增加降水量（製造雨水）',['儲水調節用水','水力發電','防洪'],33],
+    ['石門水庫淤積的程度約','超過 30%',['不到 1%','約 5%','約 100%'],19],
+    ['曾文水庫淤積的程度約','將近 40%',['不到 1%','約 5%','超過 90%'],19],
+    ['水庫淤積的「治本」做法是','減少上游開發、做好水土保持',['加大水庫容量','讓水庫停止蓄水','在下游建堤防'],19],
+    ['超抽地下水會造成','地層下陷、海水倒灌、土壤鹽化',['土石流、堰塞湖、火山','颱風、梅雨、寒流','山崩、河川改道、海嘯'],21],
+    ['沿海地區海水滲入地下水層，使土壤鹽分過高無法耕種，稱為','土壤鹽化',['地層下陷','海水淡化','水土保持'],21],
+    ['涵養地下水的做法包括','保留溼地、減少水泥鋪面',['抽取更多地下水','填平溼地','增加不透水鋪面'],7],
+    ['臺灣稻田插秧初期大量灌水，有助於','補充地下水',['造成土石流','增加蒸散量','形成颱風'],0],
+    ['臺灣第一大的天然湖泊是','日月潭',['翡翠水庫','曾文水庫','澄清湖'],0],
+    ['霧社水庫的主要問題是','泥沙淤積嚴重',['缺乏水源','水位太高','海水倒灌'],19],
+    ['颱風是低氣壓中心最大風速達到每秒','17.2 公尺',['5.5 公尺','50 公尺','100 公尺'],17],
+    ['颱風屬於','低氣壓',['高氣壓','鋒面','季風'],17],
+    ['民國 112 年小犬颱風重創臺灣的哪個離島','蘭嶼',['綠島','澎湖','金門'],2],
+    ['達悟族半穴居地下屋，主要是為了','避風',['防敵人入侵','防蟲蛇','乾燥通風'],0],
+  ],
+  words:[
+    ['蒸發','地表水吸熱由液態變氣態'],['蒸散','水分經植物氣孔擴散到大氣'],['凝結','水氣上升遇冷變成雲'],['降水','雨、雪、冰雹落到地面'],
+    ['地表逕流','水沿著地表流動'],['水循環','蒸發散→凝結→降水→逕流，周而復始'],['水系','主流與支流構成的河流系統'],
+    ['集水區','河道某點的上游區域'],['流域','河口以上的集水區'],['分水嶺','相鄰流域的分界，通常是山嶺'],
+    ['荒溪型河川','雨季滾滾流水、乾季河床乾涸'],['濁水溪','最長（約 187 公里）、輸沙量大'],['高屏溪','流域面積最廣（約 3,257 平方公里）'],
+    ['淡水河','流量穩定、昔日航運、艋舺大稻埕'],['水庫淤積','泥沙沉積，蓄水功能降低'],['地層下陷','超抽地下水的後果之一'],['土壤鹽化','海水滲入地下水層，鹽分過高'],
+    ['颱風','低氣壓中心最大風速達每秒 17.2 公尺'],
+  ],
+  sorts:[
+    {title:'水系、集水區、流域、分水嶺',tip:'水系＝主流＋支流；集水區＝某一點的上游區域；流域＝河口以上的集水區；分水嶺＝相鄰流域的分界線。',buckets:['水系','集水區','流域','分水嶺'],items:[
+      ['主流與支流構成的河流系統',0],['圖中有幾個水系，要數有幾組各自通向河口的主流加支流',0],
+      ['河道上某一點的上游範圍',1],['降水落在此區，水都匯聚到該點',1],
+      ['一條河川河口以上的集水區',2],['河口這一點的上游全部範圍',2],
+      ['相鄰兩個流域的分界線',3],['通常是山嶺',3],['臺灣河川的主要分水嶺：中央山脈',3]]},
+    {title:'臺灣河川特色與成因',tip:'東西分流看「中央山脈」；坡陡流急看「落差大」；流量變化大看「降水季節不均」；輸沙量高看「地質脆弱」。',buckets:['東西分流、河短小','坡陡、流急','流量變化大（荒溪型）','年輸沙量高'],items:[
+      ['主要分水嶺是南北走向的中央山脈',0],['中央山脈偏東，所以西部河川較東部長',0],
+      ['地形高低落差大，短距離內高度陡降',1],['上游位於山區，水流湍急',1],
+      ['降水季節分布不均',2],['中南部河川雨季滾滾、乾季河床乾涸',2],
+      ['地質脆弱加上沖刷力強',3],['濁水溪因水色混濁而得名',3],['每逢大雨夾帶大量泥沙，搬運到河口',3]]},
+    {title:'三大河川配對',tip:'濁水溪＝最長、輸沙大；高屏溪＝流域最廣、南部用水；淡水河＝流量穩定、昔日航運。',buckets:['濁水溪','高屏溪','淡水河'],items:[
+      ['長度約 187 公里，臺灣最長',0],['輸沙量大、水色混濁',0],['上游落差大，水力資源豐富',0],
+      ['流域面積約 3,257 平方公里，最廣',1],['長度約 171 公里，第二長',1],['高雄、屏東農業與民生用水的主要來源',1],
+      ['流量穩定，昔日具航運之利',2],['艋舺、大稻埕因河港而發展',2],['後來陸運興起、河運沒落',2]]},
+    {title:'水庫與地下水：後果分一分',tip:'超抽地下水：地層下陷、海水倒灌、土壤鹽化。水庫淤積：蓄水功能降低、壽命縮短。興建水庫：改變河川生態、河口海岸線後退。',buckets:['超抽地下水的後果','水庫淤積的影響','興建水庫對環境的影響'],items:[
+      ['地層下陷',0],['海水倒灌',0],['土壤鹽化',0],
+      ['蓄水功能降低',1],['水庫壽命縮短',1],['泥沙持續堆積，湖面變淺',1],
+      ['淹沒區改變河川生態',2],['攔阻沙石，中下游沙源減少',2],['河口缺乏沙石，海岸線後退',2]]},
+  ],
+  mcq:[
+    {q:'下列哪一個順序，最能代表水循環的過程？',o:['蒸發散→凝結→降水→逕流→注入海洋','降水→蒸發散→凝結→逕流→注入海洋','凝結→降水→蒸發散→注入海洋→逕流','逕流→蒸發散→降水→凝結→注入海洋'],a:0,src:'段考常考',ex:'水分蒸發散上升，遇冷凝結成雲，以雨、雪、冰雹降到地面，再成為地表逕流或滲入地下，最後注入海洋，周而復始。'},
+    {q:'水循環的過程中，關於「蒸發」與「蒸散」的比較，何者正確？',o:['蒸發是地表水吸熱轉為氣態；蒸散是水分經植物氣孔擴散到大氣','蒸發是植物水分擴散；蒸散是地表水吸熱轉為氣態','蒸發是水氣遇冷變成雲；蒸散是水沿地表流動','兩者完全相同'],a:0,src:'段考常考',ex:'蒸發＝地表水吸熱，液態變氣態；蒸散＝水分經由植物的氣孔向大氣擴散。兩者合稱蒸發散。'},
+    {q:'下列哪一項，是推動地球水循環持續進行的主要能量？',o:['太陽','季風','地球自轉','板塊運動'],a:0,src:'段考常考',ex:'太陽的熱能使水蒸發散，是水循環的動力來源。'},
+    {q:'小美說：「地球上的水用一點就少一點，所以總水量一直在變少。」從水循環的角度看，她的說法',o:['不對，水會透過水循環反覆再利用，總水量不會逐漸減少','對，水用掉就消失了','對，因為海水會蒸發到太空','不對，因為地球上的水每年都增加'],a:0,src:'段考常考',ex:'課本：透過水循環，水資源可以反覆再利用；但能直接取用的淡水很有限，仍要珍惜。'},
+    {q:'關於全球水量的分布，下列何者正確？',o:['海水約占 97%，剩下的 3% 大部分是冰雪與地下水','河水與淡水湖水占全球水量一半以上','地下水占全球水量的 97%','冰雪只占全球水量不到 1%'],a:0,src:'段考常考',ex:'海洋水約占全球水量 97%；3% 的淡水大部分是冰雪或地下水，方便取用的河水、淡水湖水只占極小的比例。'},
+    {q:'關於河川「集水區」與「流域」的敘述，何者正確？',o:['一條河川河口以上的集水區，就是這條河的流域','集水區是兩條河之間的山脊線','流域是河道某一點的上游區域','集水區只包含主流，不包含支流'],a:0,src:'段考常考',ex:'集水區＝河道某點的上游區域；河口這一點的集水區就是流域。山脊線叫分水嶺。'},
+    {q:'相鄰兩個流域的分界線稱為什麼？它通常是什麼地形？',o:['分水嶺，通常是山嶺','水系，通常是河谷','集水區，通常是平原','流域，通常是海岸'],a:0,src:'段考常考',ex:'分水嶺是兩個相鄰流域或集水區的分界線，通常是山嶺；臺灣河川的主要分水嶺是中央山脈。'},
+    {q:'一條河川由上游往河口，依序經過甲、乙、丙三點，河道上沒有其他支流匯入。哪一點的集水區範圍最大？',o:['丙','甲','乙','三點一樣大'],a:0,src:'段考常考',ex:'集水區是某點的「上游」區域；愈靠下游，上游涵蓋範圍愈廣，所以最下游的丙集水區最大、流量也最多。'},
+    {q:'某條河川的上游有人傾倒廢棄物，汙染物最可能出現在哪個位置？',o:['下游','上游更上方','分水嶺另一側的河川','不會流動'],a:0,src:'段考常考',ex:'水往低處流，汙染物隨水流往下游擴散，不會往上游。'},
+    {q:'臺灣河川多半呈現東西分流、長度短小的特色，主要原因是',o:['中央山脈南北走向，是主要分水嶺','臺灣四面環海','臺灣緯度很低','季風來自東北方'],a:0,src:'段考常考',ex:'南北走向的中央山脈把河川分成往東、往西兩邊流，因此河川多半短小。荒溪型則是降水季節分布不均造成，兩者不要混淆。'},
+    {q:'為什麼臺灣西部河川的長度通常比東部河川長？',o:['中央山脈位置偏東，西側的坡面較寬廣','東部沒有降水','西部氣溫較低','西部河川的流速較慢'],a:0,src:'原創',ex:'課本：中央山脈位置偏東，故西部河川較東部長。'},
+    {q:'中南部河川常在雨季水量豐沛、乾季河床大片乾涸，成為「荒溪型」河川，主要是受到什麼影響？',o:['降水季節分布不均','中央山脈走向','潮汐變化','地球自轉'],a:0,src:'段考常考',ex:'臺灣夏雨冬乾，中南部河川只有雨季才有滾滾流水；東西分流是中央山脈造成的，與荒溪型是不同概念。'},
+    {q:'臺灣某些河川流量穩定、昔日有航運之利，下列哪一條最符合？',o:['淡水河','濁水溪','高屏溪','曾文溪'],a:0,src:'段考常考',ex:'淡水河流量穩定，昔日河運興盛，艋舺、大稻埕因河港而發展；後來陸運興起，船隻多停泊港闊水深的基隆港，河運才沒落。'},
+    {q:'下列有關臺灣三大河川的比較，何者正確？',o:['濁水溪最長，高屏溪流域面積最大','高屏溪最長，濁水溪流域面積最大','淡水河最長，濁水溪流域面積最大','三條河川的長度與流域面積一樣'],a:0,src:'段考常考',ex:'濁水溪約 187 公里最長、流域面積第二；高屏溪約 171 公里，流域約 3,257 平方公里最廣。「最長」「最廣」互換是最常見的陷阱。'},
+    {q:'濁水溪的河水為什麼顏色混濁，因而得名？',o:['河水夾帶大量泥沙','河床長滿水草','上游有許多工廠','河水含有火山岩'],a:0,src:'原創',ex:'臺灣地質脆弱，坡陡流急，大雨時河水夾帶大量泥沙，濁水溪因此得名，也屬於「年輸沙量高」的特色。'},
+    {q:'課本說：大部分水庫蓋在河川上游，下列哪一項不是原因？',o:['上游海拔低、地勢平坦，適合蓋大壩','山區較容易下雨','上游河川的泥沙含量相對較少','山區人口分布較少'],a:0,src:'原創',ex:'水庫多在山區：降水多、泥沙相對少、人口少。壩體通常位處兩山之間的河道；下游多是平原，難修築大型蓄水壩體。'},
+    {q:'日月潭是臺灣第一大天然湖泊，同時也具有水庫的功能，下列敘述何者正確？',o:['最早為開發水力發電而興建，雨季時還能防洪、儲水','只供觀光，沒有發電功能','屬於淡水河水系','只在冬季蓄水'],a:0,src:'原創',ex:'日月潭位在濁水溪流域，最早為水力發電而興建，雨季時攔截河水達到防洪與儲存水資源的作用，湖光山色也是觀光景點。'},
+    {q:'霧社水庫的湖面有一部分幾乎被泥沙填平，最主要的原因是',o:['集水區山勢陡峭、地質脆弱，容易崩塌，泥沙隨水流進入水庫','水庫面積太小','附近有大型工廠','水庫沒有發電'],a:0,src:'段考常考',ex:'陡峭、脆弱的集水區在大雨時崩塌，泥沙流入水庫淤積，影響蓄水功能，因此水土保持對水庫很重要。'},
+    {q:'臺灣降水量超過世界平均，卻經常缺水，原因不包括下列何者？',o:['全臺降水量低於世界平均','人口多而密集，每人分配到的水量少','降水時間、空間分布不均','河川短、水流急，雨季時水直接流入海'],a:0,src:'段考常考',ex:'臺灣降水量高於世界平均；缺水是因人口稠密、降水時空分布不均、河川短而湍急，不易蓄留。「降水量低於世界平均」是反向陷阱。'},
+    {q:'為了延長水庫壽命，最根本的做法是',o:['減少上游開發、做好集水區水土保持','把水庫水全部放光','在水庫旁興建更多房子','只在冬季使用水庫'],a:0,src:'段考常考',ex:'淤積源自上游泥沙，所以治本是減少上游開發、推動水土保持；攔沙壩、清淤只是輔助。'},
+    {q:'下列哪一項不是興建水庫後可能產生的環境影響？',o:['河水由東西分流變成南北分流','淹沒區改變河川生態','中、下游沙源減少','河口海岸線後退'],a:0,src:'原創',ex:'水庫淹沒區會改變河川生態；水庫與攔沙壩攔阻沙石，使河口缺乏沙源，出現海岸線後退、國土流失。河川流向由地形決定，不受水庫改變。'},
+    {q:'超抽地下水之後，沿海地區可能出現的問題不包括',o:['土石流','地層下陷','海水倒灌','土壤鹽化'],a:0,src:'段考常考',ex:'超抽地下水的後果是地層下陷、海水倒灌、土壤鹽化；土石流是山坡地崩塌，與抽地下水無關。'},
+    {q:'下列哪一項做法，有助於「涵養地下水」？',o:['保留溼地、減少水泥等人造鋪面','把所有土地鋪上水泥','大量抽取地下水灌溉','填平池塘'],a:0,src:'段考常考',ex:'保留溼地、減少不透水鋪面，讓地表水滲入地下水層，才能補充地下水。臺灣稻田插秧初期大量灌水，也有補注作用。'},
+    {q:'臺灣西南沿海超抽地下水的情形特別嚴重，和當地哪一項氣候特色關係最大？',o:['冬季少雨，缺水時改抽地下水灌溉、養殖','冬季東北季風特別強','夏季颱風特別多','全年多雨潮溼'],a:0,src:'原創',ex:'臺灣西南部冬季降水少，缺水時便抽取地下水作為灌溉與養殖用水，因而造成地層下陷等問題。'},
+    {q:'某地區的房屋原本和道路等高，多年後道路被墊高，房屋看起來「陷」得更深。這最可能是因為',o:['超抽地下水造成地層下陷','地震使房屋傾斜','山崩把房屋掩埋','河水氾濫沖毀房屋'],a:0,src:'原創',ex:'地層下陷後，道路被填補墊高，房屋相對下陷。西南沿海常因養殖與農業超抽地下水而下陷。'},
+    {q:'颱風與氣壓的關係，下列敘述何者正確？',o:['颱風是低氣壓，中心最大風速達每秒 17.2 公尺','颱風是高氣壓，會帶來晴朗天氣','颱風是冷鋒的別稱','颱風只在冬季出現'],a:0,src:'段考常考',ex:'熱帶海洋水氣蒸發旺盛，強烈對流形成低氣壓；低氣壓中心最大風速達每秒 17.2 公尺（時速約 60 公里）時稱為颱風。'},
+    {q:'民國 112 年 10 月小犬颱風來襲，蘭嶼損失慘重。蘭嶼位於臺灣的東南側，颱風災害機會較高，是因為',o:['颱風從太平洋朝臺灣靠近時，蘭嶼首當其衝','蘭嶼緯度太高','蘭嶼位於中央山脈背風側','蘭嶼沒有地形阻擋颱風'],a:0,src:'原創',ex:'課本：颱風路徑統計中，易侵襲蘭嶼的四條路徑加起來達 43.5%，且從太平洋靠近臺灣，蘭嶼位於東南側，首當其衝。'},
+    {q:'同一次颱風中，蘭嶼紅頭部落的災情比東清、朗島部落輕，課本的解釋是',o:['紅頭部落位於背風坡','紅頭部落位於山頂','紅頭部落離海最遠','紅頭部落沒有居民'],a:0,src:'原創',ex:'颱風從東南方靠近時，東清、朗島迎風，紅頭位於背風坡，風力與雨勢影響較小。'},
+    {q:'民國 110 年蓄水率圖中，水庫在 7～8 月蓄水量開始大量增加，直到 9～10 月，這與哪種氣象現象最有關？',o:['颱風','寒流','冬季東北季風','地震'],a:0,src:'原創',ex:'7～10 月是颱風季節，颱風帶來豪雨，使水庫蓄水量大增，可解除旱象。'},
+  ]
+},
+};
+
+
+/* ================= 綜合：圖表判讀（題組，交卷 code 7） ================= */
+/* 各題組的數據皆為原創的示意資料，圖表用 HTML 表格呈現（文字不畫在圖上，手機也看得清楚） */
+const CHART=[
+  {title:'① 氣候資料表：甲、乙兩城市',src:'段考常考',
+   fig:'<table class="tbl"><tr><th>月分</th><th>甲 月均溫（℃）</th><th>甲 降水量（mm）</th><th>乙 月均溫（℃）</th></tr>'+
+   [[1,15,20,25],[2,16,30,25],[3,18,40,23],[4,22,70,20],[5,25,180,16],[6,28,360,13],[7,30,400,12],[8,29,380,14],[9,27,180,17],[10,24,40,20],[11,20,20,22],[12,16,10,24]].map(r=>`<tr><td>${r[0]} 月</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('')+'</table><p class="muted">資料為練習用示意數據。</p>',
+   qs:[
+    {q:'甲城市的年溫差是多少？',o:['15℃','30℃','45℃','10℃'],a:0,ex:'最暖月（7 月）30℃、最冷月（1 月）15℃，年溫差＝30－15＝15℃。'},
+    {q:'甲城市的年降水量是多少？',o:['1,730 毫米','1,550 毫米','1,500 毫米','144 毫米'],a:0,ex:'把 12 個月降水量加起來：20＋30＋40＋70＋180＋360＋400＋380＋180＋40＋20＋10＝1,730 毫米。'},
+    {q:'根據月均溫，乙城市最可能位於哪個半球？',o:['南半球','北半球','赤道上','無法判斷'],a:0,ex:'乙的最暖月在 1 月、最冷月在 7 月，與北半球相反。判斷南北半球要看最暖月落在 7 月還是 1 月。'},
+    {q:'甲城市的降水特色最接近下列何者？',o:['夏雨冬乾','冬雨夏乾','全年均勻','全年乾燥'],a:0,ex:'6～8 月每月降水都在 360 毫米以上，而 11～1 月只有 10～20 毫米，是夏雨冬乾。'}]},
+  {title:'② 地面天氣圖上的四個測站（同一天、同一海拔）',src:'段考原型',
+   fig:'<table class="tbl"><tr><th>測站</th><th>氣壓（百帕）</th></tr><tr><td>甲</td><td>1004</td></tr><tr><td>乙</td><td>1012</td></tr><tr><td>丙</td><td>1020</td></tr><tr><td>丁</td><td>1016</td></tr></table>',
+   qs:[
+    {q:'四個測站中，哪一處最可能出現陰雨天氣？',o:['甲','乙','丙','丁'],a:0,ex:'氣壓最低的甲地可能是低氣壓中心，空氣上升，容易陰雨；氣壓最高的丙地多半晴朗。'},
+    {q:'哪兩個測站之間的風速最強？',o:['甲與丙','乙與丁','丙與丁','甲與乙'],a:0,ex:'兩地氣壓差愈大，風速愈強。甲與丙相差 16 百帕，是四站中差距最大。'},
+    {q:'丁與乙之間的水平氣流，方向為何？',o:['由丁吹向乙','由乙吹向丁','不會有氣流','繞著兩站旋轉'],a:0,ex:'風由高氣壓往低氣壓；丁（1016）高於乙（1012），所以由丁吹向乙。'}]},
+  {title:'③ 河流示意：甲～戊五個位置',src:'段考常考',
+   fig:'<table class="tbl"><tr><th>位置</th><th>說明</th></tr><tr><td>甲</td><td>主流源頭附近，海拔最高</td></tr><tr><td>乙</td><td>一條支流的中游，之後匯入主流</td></tr><tr><td>丙</td><td>主流與支流匯合處的下方，水庫興建在此</td></tr><tr><td>丁</td><td>河口</td></tr><tr><td>戊</td><td>另一條河川的上游，與甲之間隔著一道山脊</td></tr></table>',
+   qs:[
+    {q:'甲～丁四處，河水流量最多的位置是哪裡？',o:['丁','甲','乙','丙'],a:0,ex:'愈接近下游（河口），匯集的支流與降水愈多，流量愈大；丁在河口，流量最多。'},
+    {q:'甲與戊之間的那道山脊，在地理上稱為',o:['分水嶺','水系','集水區','流域'],a:0,ex:'兩個相鄰流域之間的界線稱為分水嶺，通常是山嶺。'},
+    {q:'水庫興建在丙處。下列哪一處發生崩塌，泥沙最可能進入這座水庫？',o:['甲','戊','丁','都不會'],a:0,ex:'只有位於水庫上游、集水區內的地點，崩塌的泥沙才會被水流帶進水庫。戊在另一個流域，丁在水庫下游。'}]},
+  {title:'④ 臺灣北、中、南、東四區月降水量（mm，示意）',src:'段考原型',
+   fig:'<table class="tbl"><tr><th>月分</th><th>北部</th><th>中部</th><th>南部</th><th>東部</th></tr>'+
+   [[1,100,20,20,90],[2,150,80,30,100],[3,170,80,30,110],[4,170,130,60,120],[5,220,200,200,210],[6,260,340,420,230],[7,220,300,400,150],[8,290,330,560,220],[9,250,200,280,380],[10,150,40,60,420],[11,100,20,20,200],[12,90,20,20,120]].map(r=>`<tr><td>${r[0]} 月</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join('')+'</table>',
+   qs:[
+    {q:'四區中，乾季與雨季降水量差距最懸殊、最需要興建水庫調節用水的是哪一區？',o:['南部','北部','東部','中部與東部一樣迫切'],a:0,ex:'南部夏季單月可達 400～560 毫米，冬季卻只有 20～30 毫米，夏雨冬乾最明顯，雨季要把水存起來供乾季使用。'},
+    {q:'冬季（12～2 月）降水量最多的是哪一區？',o:['北部','南部','中部','三區一樣多'],a:0,ex:'冬季東北季風使北部迎風、降水較多，乾溼季不明顯；中、南部冬季少雨。'},
+    {q:'表中年降水量最多的是哪一區？',o:['東部','北部','中部','南部'],a:0,ex:'把各區 12 個月加總：北部 2,170、中部 1,760、南部 2,100、東部 2,350 毫米。年降水量要逐月加總，不能只看某幾個月的高峰。'}]},
+  {title:'⑤ 某座水庫的月蓄水率（%，示意）',src:'段考原型',
+   fig:'<table class="tbl"><tr><th>月</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr><tr><td>蓄水率</td><td>45</td><td>38</td><td>30</td><td>22</td><td>30</td><td>55</td><td>62</td><td>78</td><td>90</td><td>85</td><td>70</td><td>55</td></tr></table>',
+   qs:[
+    {q:'這座水庫蓄水率最低的月分是',o:['4 月','1 月','9 月','12 月'],a:0,ex:'4 月的蓄水率只有 22%，是全年最低，約在春季、乾季的尾聲。'},
+    {q:'6～9 月蓄水率快速上升，最主要的水源是',o:['梅雨、颱風與西南氣流帶來的降水','冬季東北季風','寒流','海水淡化'],a:0,ex:'5、6 月梅雨，夏秋颱風與西南氣流接力挹注，使水庫蓄水量大增。'},
+    {q:'從這份資料可以推論',o:['水庫蓄水率具有明顯的季節性變化','水庫蓄水率全年不變','冬季是蓄水率最高的季節','颱風季是蓄水率最低的季節'],a:0,ex:'蓄水率隨降水季節起伏：雨季（夏秋）高、乾季（冬春）低。常見陷阱是把颱風季當成最缺水的時期。'}]},
+  {title:'⑥ 甲、乙兩條河川的月平均流量（立方公尺／秒，示意）',src:'段考常考',
+   fig:'<table class="tbl"><tr><th>月</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr><tr><td>甲</td><td>10</td><td>8</td><td>9</td><td>20</td><td>80</td><td>300</td><td>180</td><td>400</td><td>350</td><td>80</td><td>20</td><td>12</td></tr><tr><td>乙</td><td>90</td><td>95</td><td>100</td><td>110</td><td>130</td><td>140</td><td>120</td><td>150</td><td>140</td><td>120</td><td>100</td><td>95</td></tr></table>',
+   qs:[
+    {q:'甲、乙兩條河川，哪一條較符合「荒溪型河川」？',o:['甲','乙','兩條都是','兩條都不是'],a:0,ex:'甲河雨季流量極大、乾季只剩一點點，是荒溪型；乙河全年流量穩定。'},
+    {q:'乙河流量穩定，這個特色對人類的影響最可能是',o:['較適合發展航運，沿岸容易形成河港聚落','容易氾濫成災','河床常乾涸，無法行船','只能用來發電'],a:0,ex:'流量穩定的河川（如淡水河）昔日具航運之利，艋舺、大稻埕因河港而發展。'},
+    {q:'甲河在 6 月與 8～9 月各有一個流量高峰，最可能的原因是',o:['梅雨與颱風帶來的降水','東北季風與寒流','地層下陷','水庫放水'],a:0,ex:'5～6 月梅雨、7～10 月颱風與西南氣流，使臺灣降水出現雙峰。'}]},
+  {title:'⑦ 全球水量分布（甲～丁）',src:'段考常考',
+   fig:'<table class="tbl"><tr><th>代號</th><th>特徵</th></tr><tr><td>甲</td><td>約占全球水量的 97%，分布在地球表面約 71% 的面積</td></tr><tr><td>乙</td><td>固態，主要存在於極地與高山</td></tr><tr><td>丙</td><td>存在於地表下方的土壤與岩層縫隙中</td></tr><tr><td>丁</td><td>占全球水量的比例極小，卻是人類最容易取得的水</td></tr></table>',
+   qs:[
+    {q:'甲、乙、丙、丁依序最可能是',o:['海水、冰雪、地下水、河水與淡水湖水','冰雪、海水、河水、地下水','地下水、冰雪、海水、河水','河水、地下水、冰雪、海水'],a:0,ex:'97% 是海水；固態的是冰雪；土壤與岩層中的水是地下水；占比極小卻最容易取得的是河水與淡水湖水。'},
+    {q:'某地因為長期大量抽取「丙」，最可能發生什麼問題？',o:['地層下陷、海水倒灌','颱風增加','火山噴發','河川改道成東西分流'],a:0,ex:'超抽地下水（丙）會造成地層下陷、海水倒灌、土壤鹽化。'}]},
+  {title:'⑧ 離島缺水情境：澎湖',src:'段考常考',
+   fig:'<div class="passage">澎湖群島年降水量約 1,000 毫米，不到臺灣平均值的一半。島上地勢低平，沒有高山，居民從前靠水井與雨水，現在則主要靠海水淡化與外來水源。島上常見耐旱的仙人掌，夏天還有以仙人掌為主題的活動。</div>',
+   qs:[
+    {q:'澎湖降水量偏少，最主要的原因是',o:['地勢低平，不易抬升水氣','緯度比臺灣本島高','位於中央山脈背風側','四周沒有海洋'],a:0,ex:'地勢低平，水氣不易抬升凝結，降水少。緯度高、背風側、「四面環海」都是常見的錯誤選項。'},
+    {q:'短文中提到「海水淡化」，這項水源有什麼優點？',o:['不受降水多寡影響','成本最低','可以增加降水量','能補充地下水'],a:0,ex:'海水淡化的水源是海水，不受氣候與降水影響，是離島缺水的重要對策。'},
+    {q:'島上常見仙人掌，最合理的推論是',o:['仙人掌耐旱，適合降水少的環境','澎湖降水特別多','仙人掌需要大量水分','澎湖冬天特別冷'],a:0,ex:'仙人掌耐旱，和澎湖降水少的環境吻合。'}]},
+  {title:'⑨ 某地風力發電廠的月發電量（相對值，示意）',src:'段考原型',
+   fig:'<table class="tbl"><tr><th>月</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr><tr><td>發電量</td><td>140</td><td>120</td><td>100</td><td>70</td><td>50</td><td>40</td><td>40</td><td>45</td><td>70</td><td>120</td><td>150</td><td>160</td></tr></table>',
+   qs:[
+    {q:'這座風力發電廠的發電旺季，大致落在哪個季節？',o:['10 月至隔年 3 月','4 月至 9 月','只在 7 月','全年相同'],a:0,ex:'數據在 10～3 月明顯偏高。'},
+    {q:'旺季發電量較高，最可能的原因是',o:['冬季東北季風強勁','夏季西南季風特別強','梅雨鋒面帶來強風','午後對流旺盛'],a:0,ex:'臺灣冬季盛行東北季風，風力較強，使風力發電量提高；風力發電旺季約為 10～3 月。'}]},
+  {title:'⑩ 一年之中的氣象災害（甲～丁）',src:'段考常考',
+   fig:'<table class="tbl"><tr><th>代號</th><th>發生的大致時間</th></tr><tr><td>甲</td><td>12 月至隔年 2 月，冷氣團南下</td></tr><tr><td>乙</td><td>冬末春初，西南部乾季尾聲</td></tr><tr><td>丙</td><td>5～6 月，鋒面停留在臺灣附近</td></tr><tr><td>丁</td><td>7～10 月，熱帶海洋上生成的低氣壓</td></tr></table>',
+   qs:[
+    {q:'甲最可能是哪一種災害？',o:['寒害','旱災','水災','颱風'],a:0,ex:'冬季冷氣團南下造成低溫，是寒害（寒流）。'},
+    {q:'乙最可能是哪一種災害？',o:['旱災','寒害','梅雨水災','颱風水災'],a:0,ex:'西南部冬末春初是乾季尾聲，降水不足，水庫蓄水率最低，容易缺水成旱災。不是颱風季，也不是梅雨季。'},
+    {q:'丙與丁分別是',o:['梅雨與颱風','颱風與梅雨','寒害與旱災','旱災與水災'],a:0,ex:'5～6 月滯留鋒面形成梅雨；7～10 月的熱帶低氣壓若風速達標準就是颱風。兩者互換是常見陷阱。'}]},
+  {title:'⑪ 三大河川的比較（甲～丙）',src:'段考常考',
+   fig:'<table class="tbl"><tr><th>河川</th><th>長度（公里）</th><th>流域面積（平方公里）</th></tr><tr><td>甲</td><td>187</td><td>3,157</td></tr><tr><td>乙</td><td>171</td><td>3,257</td></tr><tr><td>丙</td><td>159</td><td>2,726</td></tr></table><p class="muted">三條河川分別是淡水河、濁水溪、高屏溪。</p>',
+   qs:[
+    {q:'甲河是臺灣最長的河川，它最可能是',o:['濁水溪','高屏溪','淡水河','曾文溪'],a:0,ex:'最長的是濁水溪（約 187 公里），輸沙量大、水色混濁。'},
+    {q:'乙河的流域面積最廣，最可能是',o:['高屏溪','濁水溪','淡水河','蘭陽溪'],a:0,ex:'流域面積最廣（約 3,257 平方公里）的是高屏溪，是高雄、屏東用水的重要來源。'},
+    {q:'丙河流量穩定、昔日有航運之利，它是',o:['淡水河','濁水溪','高屏溪','大甲溪'],a:0,ex:'長度與流域面積都排第三的是淡水河；流量穩定，艋舺、大稻埕因河港而發展。'}]},
+];
+
+/* 排序挑戰（綜合頁分類，交卷 code 7） */
+const STEPS=[
+  {title:'水循環的順序',tip:'蒸發散→凝結→降水→逕流（地表／地下）→注入海洋。',buckets:['第1','第2','第3','第4','第5'],items:[
+    ['海水、地表水吸熱蒸發，植物也蒸散水分',0],['水氣上升到高空，遇冷凝結成雲',1],['雲中的水以雨、雪、冰雹落到地面',2],['降水成為地表逕流，或滲入地下成為地下水',3],['河水與地下水最後注入海洋',4]]},
+  {title:'一年的氣象災害時序（由早到晚）',tip:'冬季寒害→冬末春初旱災→5、6 月梅雨水災→7～10 月颱風。',buckets:['第1','第2','第3','第4'],items:[
+    ['寒害（冬季寒流）',0],['旱災（冬末春初，西南部缺水）',1],['梅雨水災（5～6 月）',2],['颱風豪雨（7～10 月）',3]]},
+  {title:'風是怎麼形成的？',tip:'氣溫不同→空氣膨脹或收縮→高、低氣壓→空氣由高壓流向低壓。',buckets:['第1','第2','第3','第4'],items:[
+    ['兩地的氣溫不同',0],['溫度高處空氣膨脹上升，溫度低處空氣收縮下沉',1],['兩地出現高、低氣壓的氣壓差',2],['空氣由高氣壓往低氣壓水平流動，形成風',3]]},
+  {title:'畫一張氣候圖的步驟（課本地理加油站）',tip:'先畫氣溫曲線→算年均溫→畫降水柱狀圖→算年降水量。',buckets:['第1','第2','第3','第4'],items:[
+    ['把 1～12 月的月均溫點出來並連成曲線',0],['月均溫加總後除以 12，求出年均溫',1],['把 1～12 月的降水量畫成柱狀圖',2],['把 12 個月的降水量加總，求出年降水量',3]]},
+  {title:'臺灣主要河川由北到南',tip:'淡水河（北）→大甲溪（中北）→濁水溪（中）→曾文溪（南）→高屏溪（最南）。',buckets:['第1','第2','第3','第4','第5'],items:[
+    ['淡水河',0],['大甲溪',1],['濁水溪',2],['曾文溪',3],['高屏溪',4]]},
+  {title:'水庫淤積是怎麼發生的？',tip:'陡峭脆弱的集水區→颱風豪雨崩塌→泥沙入河→沉積在水庫→壽命縮短。',buckets:['第1','第2','第3','第4'],items:[
+    ['集水區山勢陡峭、地質脆弱',0],['颱風豪雨使山坡崩塌，大量泥沙進入河川',1],['泥沙隨水流進入水庫並沉積',2],['蓄水容量縮小，水庫壽命縮短',3]]},
+  {title:'一年中水庫的蓄水變化',tip:'梅雨→颱風、西南氣流接力→冬季乾季→冬末春初最缺水。',buckets:['第1','第2','第3','第4'],items:[
+    ['5～6 月梅雨使水庫進水',0],['7～10 月颱風、西南氣流接力挹注，蓄水接近滿水位',1],['冬季進入乾季，水庫持續供水',2],['冬末春初蓄水率降到最低，容易缺水',3]]},
+];
+
+/* 延伸挑戰：課後閱讀與問題探究（交卷 code 10） */
+const EXT=[
+  {q:'世界氣象組織規定，氣象觀測站至少每隔多久觀測一次地面氣象，再取當天平均作為「日均溫」？',o:['六小時','一小時','十二小時','二十四小時'],a:0,src:'段考原型',ex:'課本小幫手：氣象站至少每隔六小時進行一次地面氣象觀測，一天中觀測氣溫次數的平均值就是日均溫。'},
+  {q:'棒球比賽時，球場旗幟顯示吹北風，球因逆風飛行，飛行距離縮短。這裡影響比賽的天氣要素是',o:['風','氣溫','氣壓','降水量'],a:0,src:'原創',ex:'風向、風速都會影響球的飛行。夏季午後的雷陣雨（對流雨）則屬於降水。'},
+  {q:'夏天午後比賽常被傾盆大雨打斷，而且雨很快就停了。這種雨最可能是',o:['對流雨','鋒面雨','地形雨','冷鋒雨'],a:0,src:'原創',ex:'夏季午後高溫、對流旺盛的雷陣雨，雨勢強、雨時短、雨區小。'},
+  {q:'民國 112 年 8 月，高雄市有三個行政區日累積降水量名列前茅，其中最高為 131.5 毫米。這裡的「毫米」是哪一個天氣要素的單位？',o:['降水量','氣壓','氣溫','風速'],a:0,src:'原創',ex:'降水量以毫米（mm）表示。'},
+  {q:'臺灣歷年天然災害中，氣象相關災害約占 88%，這說明',o:['氣象災害是臺灣主要的天然災害','臺灣幾乎沒有氣象災害','地震是最主要的災害','災害與氣候無關'],a:0,src:'原創',ex:'課本統計：氣象相關災害的比例合計達 88%，顯示氣象類災害為臺灣主要天然災害。'},
+  {q:'達悟族的半穴居地下屋，在颱風中受損較輕微，主要的優點是',o:['能抵擋強風','能防止敵人入侵','能防止蟲蛇','乾燥通風最好'],a:0,src:'原創',ex:'課本：半穴居地下屋主要是為了避風，颱風來襲時受損較輕。'},
+  {q:'為什麼颱風來襲前，政府常要考慮是否停班停課？這個問題的困難在於',o:['颱風路徑和強度瞬息萬變、難以掌握','颱風只在冬季出現','颱風不會帶來降水','颱風是高氣壓'],a:0,src:'原創',ex:'課本：颱風路徑和強度受高氣壓帶位置及地形影響，瞬息萬變，因此是否放假成為政府頭痛的問題。'},
+  {q:'椬梧溼地一帶過去曾因超抽地下水成為嚴重的地層下陷區。為了減緩下陷，政府採取的做法是',o:['讓部分原來農耕的土地休耕，維持自然演替','在溼地上興建工廠','增加抽取地下水','把溼地填平'],a:0,src:'原創',ex:'課本：透過生態補貼，讓部分原來農耕的土地休耕，讓土地休養；溼地也有涵養地下水的功能。'},
+  {q:'嘉南地區早年興建大型灌溉水利設施，和哪一項自然條件最有關？',o:['降水季節分布不均，乾季需要灌溉','終年多雨，需要排水','冬季積雪融化','颱風少'],a:0,src:'原創',ex:'臺灣降水夏雨冬乾，乾季缺水，因此需要水庫、圳道調節與灌溉。'},
+];
+
+/* ================= 考點雷達（35 校翰林卷） ================= */
+const RADAR={
+  n:35,
+  schools:'共 35 所學校（32 所 114 學年、3 所 113 學年；其中 6 所為版本推定或低信心，權重較低）',
+  topics:[['氣候圖判讀',29],['水系・集水區・流域・分水嶺讀圖',28],['三種降水類型',27],['臺灣河川特色',26],['季風與臺灣降水／生活',25],['水庫功能・位置・淤積',24],['主要河川比較與配對',24],['臺灣水資源問題（降水豐沛卻缺水）',23],
+    ['降水分布不均（夏雨冬乾）',22],['地面天氣圖判讀（H／L）',22],['水循環',20],['鋒面與梅雨',20],['氣壓與氣溫、高低氣壓特徵',15],['氣溫隨高度遞減',15],['水災與颱風',15],['天氣與氣候的辨別',15],
+    ['地下水超抽',13],['臺灣氣溫南北差異',13],['全球水量分布',12],['風向（來向）與下風處',11],['氣溫垂直變化與盆地',11],['迎風坡與背風坡（落山風）',11],['氣象資料與圖表判讀',10],['旱災與缺水月分',10],
+    ['天氣要素與單位',9],['氣候資料計算（年均溫、年溫差）',9],['氣壓隨高度降低',9],['氣象災害判別',8]],
+  basics:[['水庫',33],['水系・流域',33],['年均溫・年溫差',33],['緯度',33],['颱風',32],['季風',31],['高低氣壓',31],['降水類型',30],['旱災・缺水',30],['梅雨',29],['夏雨冬乾',28],['氣候圖',27],['寒害',26],['缺水原因',26],['單位',26],['水循環',25]],
+  words:[['分水嶺',32],['氣候',32],['鋒面雨',30],['水系',28],['集水區・流域',28],['寒害旱災水災',28],['地形雨',27],['對流雨',27],['荒溪型河川',24],['水庫淤積',24],['氣壓',22],['水循環',20],['颱風',17],['天氣',15],['地下水超抽',13],['風向',11],['天氣要素',9]],
+  maps:[['水系／流域示意圖',32],['氣候圖',27],['地面天氣圖',26],['水循環示意圖',22],['地層下陷分布圖',19],['河川月平均流量圖',18],['全球水量圓餅圖',15],['水庫蓄水率圖',14],['四區降水量圖',14],['主要河川分布圖',14]],
+};
+
+const TABS=[['home','🏠 考點雷達'],['l5','🌦️ 第5章 天氣與氣候'],['l6','💧 第6章 水文'],['mix','🧩 綜合＋總測驗']];
+
+/* ================= 注釋配對 ================= */
+function renderMatch(el,pairs){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0,miss=0;
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 注釋配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${miss<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3><p>配錯 ${miss} 次</p><button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div>`;$('#ag',el).onclick=()=>renderMatch(el,pairs)}
+  draw();
+}
+
+/* ================= 分類 ================= */
+function renderSort(el,so){
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w[0])}」→ <b>${so.buckets[w[1]]}</b>${w[2]?'：'+esc(w[2]):''}`).join('<br>')}</div>`:''}
+      <button class="btn" style="margin-top:12px">再玩一次</button></div>`;
+      el.querySelector('.btn').onclick=()=>renderSort(el,so);return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push(it)}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+/* ================= 選擇題 ================= */
+function renderMCQ(el,qs){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}<span class="src">${q.src}</span></div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="rs">重新作答（選項重新洗牌）</button></div></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(+b.dataset.k===q.a){got++;sOK()}else{b.classList.add('bad');sBAD()}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderMCQ(el,qs);
+}
+
+/* ================= 翻卡 ================= */
+function renderCards(el,cards){
+  el.innerHTML=`<div class="card"><h3>🃏 十五種標點翻卡</h3><p class="muted">點卡片翻面看用法。重點：分號、破折號、引號、書名號、刪節號。</p>
+  <div class="flips">${cards.map(c=>`<div class="flip"><div class="in"><div class="f"><div class="sym">${esc(c[1])}</div><b>${c[0]}</b></div><div class="bk2">${esc(c[2])}</div></div></div>`).join('')}</div></div>`;
+  el.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('on'));
+}
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、geo7-hanlin-3（例 chinese8-1）、地理 國一上第三次段考（翰林）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'geo7-hanlin-3',
+  site:'地理 國一上第三次段考（翰林）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('geo7-hanlin-3_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('geo7-hanlin-3_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${(d&&d.quickTitle)||'名詞快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽（地理 國一上 第三次段考・翰林） ================= */
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+document.body.insertAdjacentHTML('beforeend','<button class="bgm" id="bgmBtn"></button>');
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};
+
+const ANIM={l5:animL5,l6:animL6};
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 快問快答'],['match','🔗 名詞配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel');
+  const title=`${d.no} ${d.short}`;
+  if(s==='anim') ANIM[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">本單元 ${d.mcq.length} 題，全部依各校命題方向原創改寫。點選答案後才會出現解析；做完可以交卷給老師。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const N=RADAR.n;
+  const bar=arr=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  const cards=['l5','l6'];
+  app.innerHTML=`
+  <h2>📡 第三次段考考點雷達</h2>
+  <p class="muted">整理 ${N} 所學校的<b>翰林版</b>國一上地理第三次段考卷（多為社會合卷，只取地理部分）：${RADAR.schools}。範圍：第5章 天氣與氣候＋第6章 水文（課本 p.60～88），外加課本最後的「問題探究：颱風與生活」。</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${cards.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].short}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+    <div class="lc" style="background:linear-gradient(135deg,#4d3d12,#b8872c)" data-k="mix"><div><div class="n">綜合</div><div class="t">圖表判讀＋總測驗</div></div><div class="d">氣候資料表｜天氣圖氣壓｜河流示意｜四區降水量｜水庫蓄水率｜河川流量｜排序挑戰｜延伸</div></div>
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（${N} 校中幾校考過）</h3>${bar(RADAR.topics)}
+  <p class="muted" style="margin-top:10px">⚠️ 第一名是<b>氣候圖判讀</b>（29 校），常和緯度、南北半球、乾溼季、城市配對連成題組；第二名是<b>水系・流域讀圖</b>（28 校）：流量最多、地勢最高、集水區最大、汙染往下游。<br>⚠️ 每份卷幾乎都有一、兩題「何者錯誤／不包括」：單位、年均溫定義、高低氣壓特徵最常被拿來設陷阱。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>基本分必拿（幾校考過）</h3><div class="chips">${RADAR.basics.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">最穩的分數：<b>降水量 mm、氣壓 hPa</b>、<b>風由高壓吹向低壓、風向＝來向</b>、<b>年均溫是平均不是總和</b>、<b>濁水溪最長、高屏溪流域最廣</b>。</p></div>
+    <div class="card"><h3>高頻名詞（★ 快問快答會標）</h3><div class="chips">${RADAR.words.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">名詞以翰林課本為準：「<b>蒸發散</b>」「<b>集水區</b>與<b>流域</b>」「<b>荒溪型河川</b>」「<b>地層下陷</b>」「<b>土壤鹽化</b>」「<b>滯留鋒</b>」。</p></div>
+  </div>
+  <div class="card"><h3>🪤 最常錯的 8 個陷阱</h3>
+    <p><span class="pill">1</span>風是由<b>高氣壓吹向低氣壓</b>；風向是風的<b>來向</b>（旗往東北飄＝吹西南風）。「低往高」「去向」都是錯的。</p>
+    <p><span class="pill">2</span>降水量單位是<b>毫米（mm）</b>，氣壓單位是<b>百帕（hPa）</b>；選項裡的 ml、cm、毫升、公里都是陷阱。</p>
+    <p><span class="pill">3</span><b>高壓</b>＝氣溫低、空氣下沉、晴朗；<b>低壓</b>＝氣溫高、空氣上升、陰雨；颱風是<b>低氣壓</b>。找錯題最愛把兩者特徵互換。</p>
+    <p><span class="pill">4</span><b>年均溫</b>＝12 個月月均溫的<b>平均</b>（不是總和）；<b>年溫差</b>＝最暖月－最冷月；氣候圖<b>曲線＝氣溫、長條＝降水</b>。</p>
+    <p><span class="pill">5</span>臺灣不是降水量不夠：降水量<b>超過世界平均</b>，缺水是因為<b>人口多而密集＋降水時空分布不均＋河短流急</b>。「降水量低於世界平均」「降水空間分布平均」都是錯誤選項。</p>
+    <p><span class="pill">6</span>氣溫差異別全選緯度：<b>玉山比嘉義冷＝地形（海拔）</b>、<b>冬季北冷南暖＝緯度</b>、<b>臺北夏季比高雄熱＝盆地</b>。澎湖少雨主因是<b>地勢低平</b>。</p>
+    <p><span class="pill">7</span>超抽地下水的後果只有<b>地層下陷、海水倒灌、土壤鹽化</b>（不是土石流、淤積）；水庫淤積的治本是<b>集水區水土保持</b>。</p>
+    <p><span class="pill">8</span>讀河流圖：<b>最下游</b>流量最多、集水區最大；<b>支流上游</b>地勢最高；汙染往<b>下游</b>；水庫水質要看崩塌地是否在<b>集水區（水庫上游）</b>內。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>🗺️ 地圖與圖表題（幾校出現）</h3><div class="chips">${RADAR.maps.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">圖表判讀比例很高 →「🧩 綜合」頁把它們改寫成表格題組（文字不畫在圖上，手機也看得清楚）。</p></div>
+    <div class="card"><h3>💡 意外發現</h3>
+    <p>📰 <b>新聞情境題</b>很流行：颱風、水庫、旱災、豪雨；2021 百年大旱與曾文水庫蓄水率，連 2025 年的堰塞湖、颱風新聞也入題。</p>
+    <p>🏝️ <b>離島與在地題</b>：澎湖少雨（地勢低平）、金門缺水、恆春落山風與洋蔥、九降風與柿餅米粉，答案都回到課本的「地形」「季風」「降水不均」。</p>
+    <p>🌀 課本最後的<b>問題探究：颱風與生活</b>只有少數學校直接考（颱風 17.2 公尺／秒、蘭嶼），放在「動畫導覽」與「延伸挑戰」。</p></div>
+  </div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每單元先看 <b>🎬 動畫導覽</b>，用真實照片弄懂課本 → ② <b>⚡ 快問快答</b>、<b>🔗 配對</b>練熟名詞與數字 → ③ <b>🎯 分類挑戰</b>破解陷阱 → ④ <b>📝 段考模擬題</b>與 <b>🧩 綜合</b>圖表題、總測驗檢查程度，做完按「📤 交卷給老師」。</p></div>
+  <details class="card"><summary><b>統計限制</b>（給老師看）</summary>
+  <p class="muted">主題與名詞校數由每題標籤以關鍵字比對計算，誤差約 ±2 校。35 所學校中有 6 所的版本是依卷面推定、權重較低；另有 3 所為 113 學年（其中 2 所沒有答案）。多數為社會合卷，地理約 12～25 題，第5章約占六成、第6章約占四成；少數單科卷多達 35～50 題。另有康軒、南一等他版 15 校，只用來確認共通考點，沒有算進校數。</p></details>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,c.dataset.k==='mix'?undefined:'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 綜合：圖表判讀＋排序＋總測驗＋延伸 ================= */
+function renderMix(app){
+  const s=curSub.mix||'chart';
+  const subs=[['chart','📊 圖表判讀題組'],['steps','🔢 排序挑戰'],['exam','🏁 總測驗'],['ext','🚀 延伸挑戰']];
+  app.innerHTML=`<h2>🧩 綜合：圖表判讀＋排序＋總測驗</h2>
+  <p class="muted">各校最愛的氣候資料、天氣圖、河流示意圖、四區降水量與水庫蓄水率，這裡改寫成表格題組（不把字畫在圖上，手機也看得清楚）。</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div><div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub.mix=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='chart'){
+    p.innerHTML=CHART.map((c,k)=>`<div class="card"><h3>${c.title}</h3><div class="figbox">${c.fig}</div><div id="cq${k}"></div></div>`).join('');
+    CHART.forEach((c,k)=>renderMCQ($('#cq'+k),c.qs.map(q=>({...q,src:c.src})),7,`綜合 ${c.title.replace(/^[①-⑳]\s*/,'')}`));
+    return;
+  }
+  if(s==='steps'){
+    p.innerHTML=`<p class="muted">每張卡片問「它排第幾」，把它放進正確的順序格。</p>`+STEPS.map((_,i)=>`<div class="card" id="st${i}"></div>`).join('');
+    STEPS.forEach((so,i)=>{SORTCTX={code:7,title:'綜合 排序挑戰'};renderSort($('#st'+i),so)});SORTCTX=null;
+    return;
+  }
+  if(s==='exam'){
+    const keys=['l5','l6'];
+    const pick=keys.flatMap(k=>shuf(L[k].mcq).slice(0,15).map(q=>({...q,unit:L[k].no,src:`${L[k].no}｜${q.src||''}`})));
+    p.innerHTML=`<div class="card"><h3>🏁 第三次段考總測驗（${pick.length} 題）</h3><p class="muted">從兩個單元的模擬題隨機各抽 15 題，每次進來題目都不同。建議 25 分鐘內完成，再按「交卷給老師」。</p>
+    <button class="btn ghost" id="again">🔀 換一份題目</button></div><div id="eq"></div>`;
+    $('#again').onclick=()=>render();
+    renderMCQ($('#eq'),shuf(pick),9,'總測驗（隨機抽題）');
+    return;
+  }
+  p.innerHTML=`<div class="card"><h3>🚀 延伸：課後閱讀與颱風與生活</h3>
+    <p class="muted">下面幾項是課本課後閱讀、小幫手或問題探究提到、少數學校加考的內容。請依自己學校的範圍準備。</p>
+    <p><span class="pill">日均溫</span>世界氣象組織規定：氣象站<b>至少每隔六小時</b>觀測一次，一天中觀測氣溫次數的平均值＝日均溫。</p>
+    <p><span class="pill">颱風</span>低氣壓中心最大風速達每秒 <b>17.2 公尺</b>（時速約 60 公里）。小犬颱風（民國 112 年 10 月）風速每秒 95.2 公尺，重創<b>蘭嶼</b>。</p>
+    <p><span class="pill">溼地</span>椬梧溼地因超抽地下水成為地層下陷區；休耕、保留溼地有助涵養地下水。</p>
+    <p><span class="pill">水庫</span>日月潭＝<b>臺灣第一大天然湖泊</b>、最早為水力發電而興建；霧社水庫＝<b>淤積嚴重</b>，兩座都在濁水溪流域。</p></div>
+    <div id="xq"></div>`;
+  renderMCQ($('#xq'),EXT,10,'延伸 課後閱讀與颱風');
+}
+
+/* ================= 共用：動畫外框 ================= */
+function stage(p,extra){p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${extra||''}`}
+
+/* ================= 第5章 天氣與氣候 ================= */
+const KEELUNG={t:[16,16,18,21,25,27,29,29,27,24,21,18],r:[332,397,321,242,285,302,148,210,424,400,400,312]};
+function animL5(p){
+  stage(p,`<div class="card"><h3>🧮 氣候資料計算機（課本表 1-5-1：基隆）</h3>
+  <p class="muted">下面已填好基隆的 12 個月資料，可以改數字試試看。年均溫＝12 個月月均溫的<b>平均</b>；年溫差＝最暖月－最冷月；年降水量＝12 個月<b>加總</b>。</p>
+  <div class="calc" style="grid-template-columns:repeat(auto-fit,minmax(96px,1fr))">${KEELUNG.t.map((v,i)=>`<label>${i+1} 月 氣溫℃<input class="kt" type="number" step="1" value="${v}"></label>`).join('')}</div>
+  <div class="calc" style="grid-template-columns:repeat(auto-fit,minmax(96px,1fr));margin-top:8px">${KEELUNG.r.map((v,i)=>`<label>${i+1} 月 降水 mm<input class="kr" type="number" step="1" min="0" value="${v}"></label>`).join('')}</div>
+  <div class="meaning" id="kout" style="margin-top:10px"></div></div>
+  <div class="card"><h3>🌧️ 三種降水類型比較</h3>
+  <table class="tbl"><tr><th></th><th>地形雨</th><th>對流雨</th><th>鋒面雨</th></tr>
+  <tr><td>成因</td><td>潮溼空氣沿山坡爬升，降溫凝結</td><td>高溫日照，蒸發強、對流旺盛</td><td>冷、暖氣團相遇，暖空氣沿鋒面上升</td></tr>
+  <tr><td>特徵</td><td>迎風坡多雨、背風坡少雨</td><td>雨勢強、雨時短、雨區小</td><td>雨時長、雨區大</td></tr>
+  <tr><td>例子</td><td>冬季北部、宜蘭迎東北季風</td><td>夏日午後雷陣雨（西北雨）</td><td>5、6 月的梅雨</td></tr></table>
+  <p class="muted" style="margin-top:10px">鋒面分三種：<b>冷鋒</b>＝冷空氣移向暖空氣；<b>暖鋒</b>＝暖空氣移向冷空氣；<b>滯留鋒</b>＝冷暖勢力相當、移動緩慢（梅雨）。</p></div>
+  <div class="card"><h3>🌡️ 天氣要素與氣壓、風</h3>
+  <table class="tbl"><tr><th>要素</th><th>單位</th><th>重點</th></tr>
+  <tr><td>氣溫</td><td>℃、℉</td><td>隨高度或緯度增加而遞減</td></tr>
+  <tr><td>降水</td><td>毫米（mm）</td><td>地形雨、對流雨、鋒面雨</td></tr>
+  <tr><td>氣壓</td><td>百帕（hPa）</td><td>高度愈高愈低；氣溫高→低壓 L、氣溫低→高壓 H</td></tr>
+  <tr><td>風</td><td>風向＝來向</td><td>由高壓吹向低壓；氣壓差愈大風速愈強</td></tr></table>
+  <div class="calc" style="margin-top:10px"><label>甲地氣壓（百帕）<input id="pa" type="number" step="1" value="1008"></label>
+  <label>乙地氣壓（百帕）<input id="pb" type="number" step="1" value="1016"></label></div>
+  <div class="meaning" id="pout"></div></div>`);
+  const kc=()=>{const t=[...p.querySelectorAll('.kt')].map(e=>+e.value),r=[...p.querySelectorAll('.kr')].map(e=>+e.value);
+    if(t.some(x=>isNaN(x))||r.some(x=>isNaN(x))){$('#kout').textContent='請把 12 個月都填上數字';return}
+    const st=t.reduce((a,b)=>a+b,0),sr=r.reduce((a,b)=>a+b,0),mx=Math.max(...t),mn=Math.min(...t);
+    $('#kout').innerHTML=`氣溫總和 ${st} ÷ 12 ＝ 年均溫 <b>約 ${(st/12).toFixed(1)}℃</b>；最暖月 ${mx}℃ － 最冷月 ${mn}℃ ＝ 年溫差 <b>${mx-mn}℃</b>；12 個月降水量加總 ＝ 年降水量 <b>${sr.toLocaleString()} 毫米</b>。`};
+  p.querySelectorAll('.kt,.kr').forEach(e=>e.oninput=kc);kc();
+  const pc=()=>{const a=+$('#pa').value,b=+$('#pb').value;if(isNaN(a)||isNaN(b)){$('#pout').textContent='請輸入氣壓數字';return}
+    $('#pout').innerHTML=a===b?'兩地氣壓相同，<b>沒有氣壓差，水平方向不會有風</b>。':`${a>b?'甲':'乙'}地氣壓較高（高壓）、${a>b?'乙':'甲'}地氣壓較低（低壓）→ 風由 <b>${a>b?'甲':'乙'}地吹向${a>b?'乙':'甲'}地</b>；氣壓差 <b>${Math.abs(a-b)} 百帕</b>，差愈大風愈強。`};
+  ['pa','pb'].forEach(i=>$('#'+i).oninput=pc);pc();
+  const steps=[
+    {label:'① 天氣要素',imgs:[{img:'c5_baro',tag:'氣壓計：測量氣壓，單位是百帕（hPa）'},{img:'c5_vane',tag:'風標：用來判斷風向（風向是風的來向）'}],poem:'一個地區在<b>短時間</b>內的大氣狀態稱為<b>天氣</b>。與生活較相關的天氣要素有<b>氣溫、降水、氣壓、風與風向</b>。氣壓是地表單位面積承載的空氣重量，海拔愈高氣壓愈低；氣溫高的地方空氣膨脹上升形成<b>低氣壓（L）</b>，氣溫低的地方空氣收縮下沉形成<b>高氣壓（H）</b>；空氣由高壓往低壓流動就是<b>風</b>，風向是風的<b>來向</b>。',key:'單位找錯：降水量是 mm、氣壓是 hPa（26 校）；高低壓特徵不要互換（31 校）；旗幟往東北飄＝吹西南風。'},
+    {label:'② 三種降水',imgs:[{img:'c5_storm',tag:'積雨雲雷暴：對流雨（雨勢強、雨時短、雨區小）'},{img:'c5_oro',tag:'潮溼空氣沿山坡爬升、凝結成雲：地形雨（示意：巴西糖麵包山）'},{img:'c5_front',tag:'冷、暖氣團相遇的鋒面雲層：鋒面雨（梅雨屬之）'}],poem:'降水主要受氣流上升及移動方式影響，可分為：<b>地形雨</b>（迎風坡多雨、背風坡少雨）、<b>對流雨</b>（夏日午後，雨勢強、雨時短、雨區小）、<b>鋒面雨</b>（冷暖氣團相遇，雨時長、雨區大，5、6 月的<b>梅雨</b>屬於這一類）。',key:'三種降水 27 校考，梅雨 29 校：梅雨是<b>鋒面雨（滯留鋒）</b>，不是對流雨、也不是颱風；西北雨＝對流雨。'},
+    {label:'③ 氣候與氣候圖',imgs:[{img:'c5_keelung',tag:'基隆港：全年多雨，課本用基隆示範畫氣候圖'}],poem:'<b>氣候</b>是一個地區<b>長時間</b>的天氣平均狀態，如「四季如春」「冬暖夏涼」。氣候資料包括日均溫、月均溫、年均溫、年溫差、年降水量，常畫成<b>氣候圖</b>：曲線＝氣溫、長條＝降水量。以基隆為例，年均溫約 23℃、年降水量 3,773 毫米。',key:'氣候圖判讀 29 校（第一名考點）；年均溫是「平均」不是總和、年溫差＝最暖月－最冷月（33 校）；南北半球看最暖月在 7 月還是 1 月。'},
+    {label:'④ 氣溫為什麼不同',split:[{img:'c5_yushan',tag:'玉山：地勢愈高，氣溫愈低'},{img:'c5_taipei',tag:'臺北盆地：夏季熱氣不易散去'}],poem:'臺灣的氣候受<b>緯度、地形、季風</b>影響。<b>緯度</b>：冬季南部氣溫高於北部，夏季各地普遍高溫、差異不明顯；<b>地形</b>：地勢愈高氣溫愈低，玉山比同緯度的嘉義年均溫低超過 10℃，玉山氣象站（海拔 3,845 公尺）是臺灣最高的氣象站；<b>盆地</b>：臺北七月均溫 29.6℃，比高雄 29.2℃ 還高。',key:'別全選緯度！玉山比嘉義冷＝地形；冬季北冷南暖＝緯度；臺北夏季比高雄熱＝盆地（27 校考氣溫垂直變化與南北差異）。'},
+    {label:'⑤ 季風與降水分布',imgs:[{img:'c5_hcgate',tag:'恆春南門：氣候溫暖、四季如春而得名「恆春」'},{img:'c5_turbine',tag:'海岸的風力發電機：冬季東北季風強，發電旺季 10～3 月'}],poem:'臺灣<b>夏季吹西南季風、冬季盛行東北季風</b>，降水呈現<b>夏雨冬乾</b>（北部冬雨較多）；空間上<b>山區多於平地與離島</b>、<b>迎風坡多於背風坡</b>、乾季不明顯的北部多於南部。恆春冬季的<b>落山風</b>是東北季風翻過中央山脈後的強風，洋蔥莖葉伏倒、養分存在地下莖，<b>春天收成</b>。平均年降水量約 2,500 毫米。',key:'季風 25 校、降水分布不均 22 校；風向要用「來向」判斷；「哪一區最需要水庫」答案是乾溼季最分明的南部。'},
+    {label:'⑥ 氣象災害',imgs:[{img:'c5_nari',tag:'豪雨使臺北街頭淹水（2001 年納莉颱風）：水災'},{img:'c5_zengwen',tag:'曾文水庫：旱災時蓄水率曾只剩 3.8%（民國 110 年 5 月）'}],poem:'<b>寒害</b>：蒙古或西伯利亞高壓的冷氣團南下（寒流），農作物與養殖魚類凍死。<b>旱災</b>：降水季節分布不均，冬季進入乾季靠雨季蓄在水庫的水，降水不足就缺水。<b>水災</b>：5、6 月梅雨、夏季對流雨、夏秋颱風。梅雨與颱風也是水資源的主要來源。氣象相關災害占臺灣天然災害約 <b>88%</b>。',key:'一年順序：寒害→旱災（冬末春初，約 2～4 月）→梅雨水災（5～6 月）→颱風（7～10 月）。西南部最缺水的月分不是颱風季（28 校考災害）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 第6章 水文 ================= */
+function animL6(p){
+  stage(p,`<div class="card"><h3>♻️ 水循環（課本 6-1）</h3>
+  <div class="ladder"><span>蒸發散<small>蒸發＋蒸散</small></span><b>→</b><span>凝結<small>形成雲</small></span><b>→</b><span>降水<small>雨雪冰雹</small></span><b>→</b><span>逕流<small>地表／地下</small></span><b>→</b><span class="an">注入海洋<small>周而復始</small></span></div>
+  <p class="muted">地表 71% 是海洋，海水約占全球水量 <b>97%</b>；其餘 3% 大部分是<b>冰雪與地下水</b>，河水與淡水湖水只占極小比例。蒸發＝地表水吸熱；蒸散＝水分經植物氣孔擴散。動力來源是<b>太陽</b>。</p></div>
+  <div class="card"><h3>🧩 水系・集水區・流域・分水嶺（課本 6-2）</h3>
+  <table class="tbl"><tr><th>名詞</th><th>意思</th><th>讀圖技巧</th></tr>
+  <tr><td>水系</td><td>主流與支流構成的河流系統</td><td>數有幾組各自通向河口的河</td></tr>
+  <tr><td>集水區</td><td>河道某一點的<b>上游</b>區域</td><td>愈下游，集水區愈大</td></tr>
+  <tr><td>流域</td><td>一條河川<b>河口以上</b>的集水區</td><td>河口的集水區＝整個流域</td></tr>
+  <tr><td>分水嶺</td><td>相鄰兩個流域的分界線，通常是山嶺</td><td>臺灣主要分水嶺＝中央山脈</td></tr></table>
+  <p class="muted" style="margin-top:10px">最下游的點：<b>流量最多、集水區最大、地勢最低</b>；汙染往<b>下游</b>擴散。</p></div>
+  <div class="card"><h3>🏞️ 臺灣三大河川（課本表）</h3>
+  <table class="tbl"><tr><th>河川</th><th>長度</th><th>流域面積</th><th>特色</th></tr>
+  <tr><td>濁水溪</td><td>187 公里（<b>第1</b>）</td><td>3,157 平方公里（第2）</td><td>輸沙量大、水色混濁；上游落差大、水力資源豐富</td></tr>
+  <tr><td>高屏溪</td><td>171 公里（第2）</td><td>3,257 平方公里（<b>第1</b>）</td><td>高雄、屏東農業與民生用水主要來源</td></tr>
+  <tr><td>淡水河</td><td>159 公里（第3）</td><td>2,726 平方公里（第3）</td><td>流量穩定，昔日航運；艋舺、大稻埕</td></tr></table>
+  <p class="muted" style="margin-top:10px">「最長」與「流域最廣」常被對調，記成：<b>濁水溪最長、高屏溪最廣</b>。</p></div>
+  <div class="card"><h3>🚰 水資源問題與保育（課本 6-4）</h3>
+  <table class="tbl"><tr><th>問題</th><th>原因</th><th>保育做法</th></tr>
+  <tr><td>乾季缺水</td><td>人口多而密集、降水時空分布不均、河短流急不易蓄留</td><td>興建水庫調節用水、發電</td></tr>
+  <tr><td>水庫淤積</td><td>地形陡、地質脆弱、颱風豪雨（石門＞30%、曾文近 40%）</td><td>減少上游開發、水土保持、攔沙壩</td></tr>
+  <tr><td>超抽地下水</td><td>農業灌溉、養殖漁業大量抽水</td><td>不過量抽取；保留溼地、減少人造鋪面、稻田灌水補注</td></tr></table></div>
+  <div class="card"><h3>🌀 風速換算（問題探究：颱風與生活）</h3><p class="muted">公尺／秒 × 3.6 ＝ 公里／小時。颱風門檻是每秒 17.2 公尺。</p>
+  <div class="calc"><label>風速（公尺／秒）<input id="ws" type="number" min="0" step="0.1" value="17.2"></label></div><div class="meaning" id="wout"></div></div>`);
+  const wc=()=>{const v=+$('#ws').value;if(!(v>=0)){$('#wout').textContent='請輸入風速';return}
+    $('#wout').innerHTML=`${v} 公尺／秒 ≈ <b>${(v*3.6).toFixed(1)} 公里／小時</b>；${v>=17.2?'已達颱風標準（每秒 17.2 公尺以上）':'還沒達到颱風標準（每秒 17.2 公尺）'}。`};
+  $('#ws').oninput=wc;wc();
+  const steps=[
+    {label:'① 水循環',imgs:[{img:'c6_marble',tag:'地球表面 71% 是海洋，海水約占全球水量 97%',fit:'contain',bg:'#000'},{img:'c6_cloud',tag:'水氣上升、遇冷凝結成雲（積雨雲）'}],poem:'地表上的水持續進行循環，包括<b>蒸發散</b>（蒸發、蒸散）、<b>凝結</b>、<b>降水</b>、<b>逕流</b>等。水氣上升到高空遇冷凝結，以雨、雪、冰雹落到地面；部分成為<b>地表逕流</b>流入河、湖、海洋，部分滲入地下成為地下水，最後注入海洋，周而復始。',key:'水循環 25 校：蒸發與蒸散不要互換、動力來源是<b>太陽</b>、地球總水量不會逐漸減少；全球水量圓餅圖別把地下水與冰雪互換（15 校）。'},
+    {label:'② 水系與流域',imgs:[{img:'c6_zhuoshui',tag:'濁水溪流經陡峭的山區：河水由高處往低處匯集成水系'},{img:'c6_relief',tag:'臺灣地形圖：南北走向的中央山脈是主要分水嶺',fit:'contain',bg:'#2b3f8f'}],poem:'雨水降落後順著地勢匯集成河川，<b>主流與支流</b>構成<b>水系</b>；河道某一點的上游區域是<b>集水區</b>；一條河川<b>河口以上</b>的集水區是<b>流域</b>；兩個相鄰流域的分界線是<b>分水嶺</b>，通常是山嶺。',key:'水系・流域讀圖 28 校（第二名考點）：最下游流量最多、集水區最大；支流上游地勢最高；水庫要看崩塌地是否在<b>集水區</b>內。'},
+    {label:'③ 河川特色',imgs:[{img:'c6_gaoping',tag:'高屏溪寬闊的河床：雨季才有滾滾流水'},{img:'c6_dadao',tag:'昔日淡水河（大稻埕一帶）：流量穩定，船隻往來'}],poem:'臺灣河川有四大特色：<b>東西分流、河川短小</b>（主要分水嶺是南北走向的中央山脈，位置偏東，西部河川較長）；<b>坡陡流急</b>；<b>流量變化大</b>（中南部屬荒溪型）；<b>年輸沙量高</b>（濁水溪因混濁得名）。淡水河流量穩定，昔日具航運之利，艋舺、大稻埕因河港而發展。',key:'河川特色 26 校：荒溪型＝降水季節分布不均，<b>不是</b>東西分流；淡水河不是荒溪型；濁水溪最長、高屏溪流域最廣（24 校）。'},
+    {label:'④ 水庫與淤積',imgs:[{img:'c6_feicui',tag:'翡翠水庫：供應大臺北地區用水'},{img:'c6_wushe',tag:'霧社水庫：泥沙淤積使湖面變淺'}],poem:'為了解決乾季缺水與水力發電，臺灣多數河川建有<b>水庫</b>儲存水資源。但部分河川<b>輸沙量高</b>，水庫淤積嚴重（石門水庫超過 30%、曾文水庫將近 40%）。為延長水庫壽命，要<b>減少上游開發、推動水土保持</b>。水庫與攔沙壩攔阻沙石，還可能使河口海岸線後退。',key:'水庫 33 校：淤積治本＝集水區水土保持（不是只靠清淤）；臺灣缺水是因<b>人口多＋降水時空不均＋河短流急</b>，降水量其實超過世界平均（23 校）。'},
+    {label:'⑤ 地下水與保育',imgs:[{img:'c6_thsr',tag:'雲林一帶：地層下陷較嚴重的地區（高鐵行經此區）'},{img:'c6_wetland',tag:'雲林成龍溼地：保留溼地有助涵養地下水'}],poem:'地下水乾淨穩定，常用於農業灌溉與養殖漁業，但<b>超抽</b>會造成<b>地層下陷、海水倒灌、土壤鹽化</b>。使用時不可過量，還要<b>涵養地下水</b>：保留溼地、減少水泥等人造鋪面；稻田插秧初期大量灌水，也有助於補充地下水。',key:'地下水超抽 13 校（地層下陷分布圖 19 校）：後果只有三項，<b>不是</b>土石流、淤積；超抽與西南部冬季少雨有關。'},
+    {label:'⑥ 颱風與生活',imgs:[{img:'c6_koinu',tag:'衛星雲圖：小犬颱風接近臺灣（民國 112 年 10 月）'},{img:'c6_lanyu',tag:'蘭嶼：位於臺灣東南側，颱風首當其衝'},{img:'c6_tao',tag:'達悟族傳統半穴居地下屋：主要是為了避風'}],poem:'熱帶海洋水氣蒸發旺盛，強烈對流形成<b>低氣壓</b>；中心最大風速達每秒 <b>17.2 公尺</b>（時速約 60 公里）就稱為<b>颱風</b>。民國 112 年 10 月小犬颱風風速每秒 95.2 公尺，重創<b>蘭嶼</b>；蘭嶼位於臺灣東南側，颱風首當其衝，<b>背風坡</b>的紅頭部落災情較輕。颱風帶來豪雨，也使水庫蓄水量大增、解除旱象（曾文水庫 7～10 月）。',key:'颱風是<b>低氣壓</b>、不是高壓；颱風季 7～10 月（32 校）；颱風與梅雨是水庫進水的主要來源，冬季東北季風<b>不是</b>中南部水庫的水源。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+</body>
+</html>

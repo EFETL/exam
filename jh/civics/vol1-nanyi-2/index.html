@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國一公民段考闖關（南一）第二次</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#1f4e8c; --main-2:#3a72c0; --accent:#f2a541; --accent-2:#e07a2f;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#163a6b 0%,#3a72c0 60%,#f0a03c 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#163a6b;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+.qword{font-size:1.5rem;letter-spacing:0;line-height:1.5;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word}
+@media(max-width:560px){.opts{grid-template-columns:1fr}.qword{font-size:1.3rem}}
+.bars .b span{line-height:1.35}
+@media(max-width:560px){.bars .b{grid-template-columns:128px 1fr 52px}}
+details.card summary{cursor:pointer}
+@media(max-width:560px){.lessoncards{grid-template-columns:1fr}.lc{min-height:0;gap:8px}}
+/* 表格與圖表（文字放在 HTML，不畫在圖上） */
+.tbl{width:100%;border-collapse:collapse;font-size:1rem;margin:6px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.tbl th{background:#eaf1fb;color:var(--main)}
+.tbl td:first-child{white-space:nowrap}
+.figbox{overflow-x:auto;margin-bottom:6px}
+.chip{display:inline-block;color:#fff;border-radius:8px;padding:0 8px}
+.passage{background:#f2f6fc;border-radius:12px;padding:14px 16px;line-height:1.9}
+.scale{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.scale span{flex:1 1 120px;background:#eaf1fb;border-radius:12px;padding:8px 10px;text-align:center;font-size:1rem;line-height:1.5}
+.scale span b{color:var(--accent-2)}
+.ramp{display:flex;border-radius:12px;overflow:hidden;margin-top:10px}
+.ramp span{flex:1;color:#fff;text-align:center;padding:6px 0;font-weight:700;font-size:1rem}
+.ladder{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 12px}
+.ladder span{background:var(--main);color:#fff;border-radius:12px;padding:6px 12px;font-weight:700;text-align:center}
+.ladder span.an{background:var(--accent);color:#3b2600}
+.ladder small{display:block;font-size:1rem;font-weight:500}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回科目選單</a><span class="tag">南一版 國一上公民 ｜ 第二次段考</span>
+    <h1>公民段考闖關｜親屬關係與家庭功能＋平權的家庭</h1>
+    <p>先看真實照片動畫弄懂課本，再用遊戲練熟考點，最後做段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap">
+  <b>全民補習班 公民科</b>｜考點依據：整理 52 所學校的國一上公民第二次段考卷（同版南一 2 所、他版同範圍 50 所）的共通考點。模擬題全部為原創改寫，只參考命題方向與陷阱。<br>
+  名詞、定義與法律名稱依南一版國一上公民課本（單元3 親屬關係與家庭功能、單元4 平權的家庭）。答對、答錯都有音效；背景音樂只在「動畫導覽」播放，可按右下角按鈕關閉。<br>
+  交卷時會把你的姓名、分數與錯題傳給老師。左下角 ✏️ 可以手寫、兩指縮放。<br>
+  <details style="margin-top:8px"><summary>圖片來源與授權</summary>
+  照片皆來自 Wikimedia Commons（CC0／公有領域／CC BY／CC BY-SA），未使用 AI 生成圖：Word 'adopt' spelt with wooden blocks next to a gavel with approved adoption forms. - 51001450765：perpetual.fostering（CC BY 2.0）；A family portrait during Chinese New Year in Taiwan：【Ｊ】（CC BY 2.0）；Taiwanese students studying English：Everlong（CC BY-SA 3.0）；Dounan Township Household Registration Office of Yunlin County (Taiwan)：Mk2010（CC BY-SA 3.0）；01 HSR Taipei Station - Taiwan High Speed Rail in Taipei：Marek Ślusarczyk (Tupungato)（CC BY 3.0）；Family photo of the Huang family in Byōritsu：姜振驤家族（公有領域）；Same-sex-marriage-taiwan：Guy of taipei（CC BY-SA 3.0）；2011-05-07 a wedding motorcade in Taiwan：shu Kandance（CC BY 2.0）；Taiwan Tainan District Court by Lin9126：Lin9126（CC BY-SA 4.0）；Woman washing dishes in kitchen：Shixart1985（CC BY 2.0）；08.11 總統訪視「田園老人養護中心」 (30107671138)：總統府（CC BY 2.0）；Empty class room：Saral Shots（CC0）；Wanhua New Immigrants' Hall 20181117：Solomon203（CC BY-SA 4.0）；2017 TLF New Immigrants Lantern Area：tkjh105212（CC BY 2.0）；Man Woking from Home during Paternity Leave：CIPHR Connect（CC BY 2.0）；Taiwan Shilin District Court and NTCPD Sanchong Precinct police car 20110917：象心力（CC BY-SA 3.0）；Stop Domestic Violence (30625075332)：Michael Coghlan from Adelaide, Australia（CC BY-SA 2.0）。</details>
+</div></footer>
+
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料（南一 國一上公民 第二次段考：單元3 親屬關係與家庭功能、單元4 平權的家庭） =================
+   名詞、定義、法律名稱一律依南一國一上公民課本（114 學年版 WORD 檔：單元3 親屬關係與家庭功能、單元4 平權的家庭）。
+   快問快答：[題目, 正解, [3 個誘答], 幾校考過(0＝不標★)]
+   模擬題：{q, o:[正解, 誘答…], a:0, src, ex}（選項每次洗牌；全部原創改寫，只借命題方向與陷阱；解析不寫「選 A」） */
+const L = {
+/* ---------- 單元3 親屬關係與家庭功能 ---------- */
+l3:{
+  no:'單元3', code:3, title:'親屬關係與家庭功能', short:'親屬關係與家庭功能', color:'linear-gradient(135deg,#1f4e8c,#3a72c0)',
+  desc:'3-1 親屬關係（配偶・血親・姻親）｜3-2 多樣化的家庭型態｜3-3 家庭四大功能與轉化',
+  quickAsk:'選出正確的答案', quickTitle:'家庭名詞快問快答',
+  quick:[
+    ['具備婚姻、血緣或收養關係，以永久共同生活為目的而組成的親屬團體','家庭',['社區','政黨','公司'],5],
+    ['家庭是社會的最基本單位，也是個人最早接觸的什麼','團體',['政府','企業','媒體'],5],
+    ['依我國民法，家庭的親屬關係共分為哪三類','配偶、血親、姻親',['配偶、直系、旁系','血親、姻親、親家','配偶、父母、子女'],48],
+    ['雙方基於自由意願簽訂書面結婚書約，到戶政機關完成登記後，彼此互為','配偶',['血親','姻親','法定血親'],47],
+    ['依課本，結婚年齡須年滿幾歲','18 歲',['16 歲','17 歲','20 歲'],13],
+    ['依課本，訂婚年齡須年滿幾歲','17 歲',['15 歲','18 歲','20 歲'],13],
+    ['結婚要有書面約定、兩位以上證人簽名，還必須','雙方一同到戶政機關登記',['舉辦公開婚宴','經雙方父母口頭同意','由其中一方單獨登記'],13],
+    ['經由出生或法律規定構成的親屬關係','血親',['配偶','姻親','親家'],51],
+    ['祖父母、父母、子女、孫子女屬於','直系血親',['旁系血親','姻親','法定血親'],40],
+    ['兄弟姊妹、伯叔姑、舅姨、堂（表）兄弟姊妹屬於','旁系血親',['直系血親','姻親','配偶'],47],
+    ['依民法規定透過收養所構成的親屬關係，又稱「擬制血親」','法定血親',['自然血親','旁系血親','姻親'],45],
+    ['收養要向哪一個機關聲請認可才成立','法院',['戶政事務所','社會局','警察局'],32],
+    ['養子女與養父母之間的權利義務，和婚生子女相比','完全相同',['只有扶養義務','比較少','完全沒有'],32],
+    ['姑丈、嬸嬸、媳婦、女婿在姻親中屬於','血親的配偶',['配偶的血親','配偶的血親的配偶','血親的配偶的血親'],19],
+    ['公公、婆婆、岳父、岳母在姻親中屬於','配偶的血親',['血親的配偶','配偶的血親的配偶','血親的配偶的血親'],19],
+    ['兄弟的妻子彼此互稱妯娌、姊妹的丈夫彼此互稱連襟，屬於','配偶的血親的配偶',['血親的配偶','配偶的血親','自然血親'],26],
+    ['雙方父母習慣稱「親家」，但民法上屬於「血親的配偶的血親」，所以','不屬於姻親',['屬於姻親','屬於旁系血親','屬於法定血親'],8],
+    ['一對夫妻與其未婚子女所組成的家庭','小家庭（核心家庭）',['折衷家庭','大家庭','頂客家庭'],42],
+    ['以小家庭為基礎，再加上夫妻的直系長輩，以三代同堂居多','折衷家庭（三代家庭）',['小家庭','大家庭','隔代教養家庭'],38],
+    ['由數個具有血緣關係的小家庭成員所組成','大家庭（血緣、聯合家庭）',['小家庭','折衷家庭','重組家庭'],32],
+    ['夫妻雙方皆有工作收入，但沒有子女的家庭（DINK）','頂客家庭',['同性家庭','單親家庭','隔代教養家庭'],38],
+    ['父母雙方或其中一方帶著前次婚姻的子女，再婚後共同組成的家庭','重組家庭（繼親家庭）',['單親家庭','折衷家庭','新住民家庭'],35],
+    ['夫妻因離婚或一方死亡，由父親或母親與未婚子女所組成的家庭','單親家庭',['重組家庭','頂客家庭','兩地家庭'],30],
+    ['父母因工作將子女託付祖父母照顧，由祖父母與孫子女組成的家庭','隔代教養家庭（祖孫家庭）',['兩地家庭','折衷家庭','重組家庭'],31],
+    ['夫妻因工作等原因平日不住在一起，放假時才通勤團聚的家庭','兩地家庭（通勤家庭）',['隔代教養家庭','單親家庭','頂客家庭'],35],
+    ['外籍人士與本國人民共同組成的家庭','新住民家庭（跨國婚姻家庭）',['重組家庭','兩地家庭','同性家庭'],30],
+    ['家庭型態多樣化的四個原因：生育觀念、婚姻觀念、女性就業，以及','工作及居住地點的轉變',['宗教信仰的改變','氣候的變遷','義務教育的延長'],23],
+    ['課本列出的家庭四大功能：生育、經濟、教育，以及','保護與照顧',['娛樂','宗教','政治'],49],
+    ['傳統社會中，家庭是生產和消費的基本單位，屬於哪一項功能','經濟功能',['生育功能','教育功能','保護與照顧功能'],49],
+    ['補習班、安親班和大眾傳播媒體，補充了家庭的哪一項功能','教育功能',['生育功能','經濟功能','保護與照顧功能'],43],
+    ['兒童托育機構與安養照護機構，補充了家庭的哪一項功能','保護與照顧功能',['生育功能','經濟功能','教育功能'],43],
+    ['四大功能中，最難被家庭以外的單位取代的是','生育功能',['教育功能','經濟功能','保護與照顧功能'],43],
+  ],
+  words:[
+    ['家庭','婚姻、血緣或收養關係＋永久共同生活的親屬團體'],['配偶','簽訂書面結婚書約並到戶政機關登記後互稱'],['直系血親','有直接的出生關係，如祖父母、父母、子女'],
+    ['旁系血親','無直接出生關係但有共同血緣，如兄弟姊妹、伯叔姑'],['法定血親','依民法透過收養構成，又稱擬制血親'],['姻親','結婚後雙方家庭成員之間的法定親屬關係'],
+    ['親家','雙方父母的習慣稱呼，民法上不屬於姻親'],['小家庭','一對夫妻與其未婚子女（核心家庭）'],['折衷家庭','小家庭加夫妻的直系長輩（三代家庭）'],
+    ['大家庭','數個有血緣關係的小家庭組成（血緣、聯合家庭）'],['頂客家庭','夫妻皆有收入但無子女（DINK）'],['重組家庭','帶著前次婚姻子女再婚後組成（繼親家庭）'],
+    ['隔代教養家庭','祖父母與孫子女組成（祖孫家庭）'],['兩地家庭','夫妻平日不同住、假日通勤團聚（通勤家庭）'],['新住民家庭','外籍人士與本國人民共同組成'],
+    ['生育功能','生兒育女、繁衍後代，最難被取代'],['保護與照顧功能','生病時的照顧、遭遇挫折時的支持'],
+  ],
+  sorts:[
+    {title:'他是我的哪一類親屬？',tip:'先問：經過「婚姻」還是「出生／收養」？出生的再分直系或旁系；婚姻的看是配偶本人、還是配偶那邊的親人。',buckets:['配偶','直系血親','旁系血親','姻親','法定血親（收養）'],items:[
+      ['結婚登記完成的另一半',0],['爸爸',1,'有直接的出生關係'],['奶奶',1],['孫子',1],
+      ['親姊姊',2,'兄弟姊妹是旁系血親'],['堂哥',2],['阿姨',2],['舅舅',2],
+      ['姑丈',3,'姑姑（旁系血親）的配偶＝血親的配偶'],['嬸嬸',3,'叔叔的配偶＝血親的配偶'],['岳母',3,'妻子的母親＝配偶的血親'],['妯娌',3,'配偶的血親的配偶'],
+      ['經法院認可收養的養女',4,'透過收養構成法定血親']]},
+    {title:'這是哪一種多樣化的家庭型態？',tip:'抓關鍵詞：只剩一方＝單親；帶前次婚姻子女再婚＝重組；祖孫同住＝隔代教養；平日分開＝兩地；外籍＋本國＝新住民。',buckets:['單親家庭','重組家庭','隔代教養家庭','兩地家庭','新住民家庭'],items:[
+      ['爸爸過世後，媽媽獨自帶著國中的兒子',0],['離婚後，爸爸一個人撫養兩個孩子',0],
+      ['媽媽帶著女兒再婚，嫁給也帶著兒子的叔叔',1],['爸爸再婚，新媽媽把自己的孩子一起帶進家門',1],
+      ['爸媽到外縣市工作，孩子由阿公阿嬤帶大',2],['父母長年外出打拚，孩子與奶奶相依為命',2],
+      ['先生在新竹上班、太太在臺南工作，假日才團聚',3],['爸爸平日住外地宿舍，週五晚上才回家',3],
+      ['媽媽來自越南，爸爸是臺灣人，一家人同住',4],['嫁來臺灣的印尼媽媽與丈夫、孩子同住',4]]},
+    {title:'造成這種家庭的原因是什麼？',tip:'課本四個原因：生育觀念、婚姻觀念（含婚姻對象的選擇）、女性就業、工作及居住地點。',buckets:['生育觀念的改變','婚姻觀念的轉變','女性就業的增加','工作及居住地點的轉變'],items:[
+      ['夫妻決定少生或不生小孩',0],['「傳宗接代」不再是必然的選擇',0],
+      ['不婚、晚婚、離婚、再婚的人增加',1],['跨國婚姻家庭、同性家庭出現（婚姻對象選擇改變）',1],
+      ['雙薪家庭成為常見型態',2],['教育水準提升、性別平權觀念普及，女性投入職場',2],
+      ['兩地家庭出現',3],['隔代教養家庭出現',3]]},
+    {title:'家庭的哪一項功能？',tip:'四大功能：生育（傳承生命）、經濟（生產與消費）、教育（學習與價值觀）、保護與照顧（生理與心理）。',buckets:['生育功能','經濟功能','教育功能','保護與照顧功能'],items:[
+      ['生兒育女，繁衍後代',0],['夫妻因生育觀念轉變而選擇不生小孩',0,'影響的是生育功能，形成少子化'],
+      ['以前自己織布縫衣，現在多半到店裡購買',1,'生產和消費移到家庭外'],['家庭是生產與消費的基本單位',1],
+      ['爸媽教孩子如何與同學相處',2],['在家庭中形成品格與價值觀',2],
+      ['孩子生病時，家人徹夜照顧',3],['考試失利時，家人的鼓勵與陪伴',3],['爺爺行動不便，家人幫忙洗澡吃飯',3]]},
+  ],
+  mcq:[
+    {q:'關於「家庭」的敘述，下列何者「錯誤」？',o:['只有具備血緣關係的人才能組成家庭','家庭是社會的最基本單位','家庭是個人最早接觸的團體','家庭可由婚姻、血緣或收養關係所組成'],a:0,src:'段考常考',ex:'課本 3-1：家庭是具備婚姻、血緣或收養等關係的人，以永久共同生活為目的而組成的親屬團體。夫妻（婚姻）、養父母與養子女（收養）也能組成家庭，不是只有血緣。'},
+    {q:'依我國民法，下列哪一組完整列出家庭親屬關係的三類？',o:['配偶、血親、姻親','配偶、直系血親、旁系血親','血親、姻親、親家','自然血親、法定血親、姻親'],a:0,src:'段考常考',ex:'民法的三大類是配偶、血親、姻親。直系與旁系是「自然血親」的細分，自然血親與法定血親是「血親」的細分，親家則不在姻親內。'},
+    {q:'小宇與小華都已年滿 18 歲，兩人簽了書面結婚書約並請兩位證人簽名，也在親友面前辦了盛大婚宴，卻一直沒到戶政機關辦理登記。下列敘述何者最正確？',o:['雙方尚未完成結婚登記，法律上還不是配偶','辦了婚宴就已是配偶','只要其中一人去登記就完成了','兩人滿 18 歲所以不必登記'],a:0,src:'段考常考',ex:'課本圖3-3-2：除了年滿 18 歲、書面約定與兩位以上證人，雙方必須「一同」到戶政機關辦理結婚登記後才互為配偶；婚宴只是儀式，並不等於登記。'},
+    {q:'依課本，下列關於婚姻成立要件的敘述，何者正確？',o:['結婚須年滿 18 歲，訂婚須年滿 17 歲','結婚須年滿 20 歲，訂婚須年滿 18 歲','結婚只要口頭約定即可','結婚只要一方到戶政機關登記即可'],a:0,src:'段考常考',ex:'課本：訂婚年齡須年滿 17 歲、結婚年齡須年滿 18 歲，且須書面約定、兩位以上證人簽名、雙方一同到戶政機關登記。'},
+    {q:'小美的叔叔、堂弟和親妹妹，與小美的親屬關係屬於下列何者？',o:['都屬於旁系血親','叔叔與堂弟是旁系血親，妹妹是直系血親','都屬於姻親','叔叔是姻親，堂弟是旁系血親'],a:0,src:'段考常考',ex:'兄弟姊妹、伯叔姑、舅姨、堂（表）兄弟姊妹都是「沒有直接出生關係、但有共同血緣」的旁系血親；只有祖父母、父母、子女、孫子女等「直接出生關係」才是直系血親。'},
+    {q:'小明結婚後，下列哪一位對小明而言屬於「配偶的血親」？',o:['妻子的母親','小明姊姊的丈夫','小明弟弟的太太','妻子的弟弟的太太'],a:0,src:'段考常考',ex:'妻子的母親是「配偶的血親」；姊夫、弟媳是「血親的配偶」；妻子的弟媳是「配偶的血親的配偶」。三種都是姻親，要先找出中間那層關係。'},
+    {q:'阿德與美玲結婚後，阿德的媽媽玉蘭與美玲的爸爸志強互稱「親家」。依民法，玉蘭與志強之間是什麼關係？',o:['沒有親屬關係（血親的配偶的血親，不屬於姻親）','姻親','旁系血親','法定血親'],a:0,src:'段考常考',ex:'課本 3-1 表3-3-1 註：雙方父母習慣稱呼對方「親家」，但民法上是「血親的配偶的血親」，不屬於姻親，彼此沒有親屬關係。'},
+    {q:'阿德與美玲結婚後，阿德與美玲的爸爸志強之間是什麼關係？',o:['姻親（配偶的血親）','直系血親','旁系血親','沒有親屬關係'],a:0,src:'段考常考',ex:'志強是阿德的配偶（美玲）的血親（父親），所以是「配偶的血親」，屬於姻親；和「雙方父母互稱親家」的情形不同，要看是誰與誰。'},
+    {q:'王先生夫妻向法院聲請認可，收養了一名沒有血緣關係的男孩。完成程序後，他們之間的關係，下列何者正確？',o:['成為法定血親，權利義務與婚生子女相同','成為姻親，只有扶養義務','仍沒有親屬關係，因為沒有血緣','成為旁系血親'],a:0,src:'段考常考',ex:'課本 3-1：收養要透過法定程序向法院聲請認可，讓沒有直接血緣的雙方成立親屬關係（法定血親／擬制血親），養子女與養父母的權利義務與婚生子女相同。'},
+    {q:'小雅和鄰居阿姨感情很好，阿姨在聚會上笑著說：「以後妳就是我的乾女兒。」但雙方沒有辦理任何法律程序。小雅與阿姨的親屬關係是什麼？',o:['沒有親屬關係','法定血親','旁系血親','姻親'],a:0,src:'段考常考',ex:'法定血親必須經過法定收養程序、向法院聲請認可。口頭認的乾親沒有經過法律程序，不構成任何親屬關係。'},
+    {q:'志偉的爸爸再婚，爸爸的太太之後搬進家裡，兩人並未辦理收養。志偉與爸爸的太太之間屬於哪一種親屬關係？',o:['姻親（血親的配偶）','直系血親','法定血親','旁系血親'],a:0,src:'段考常考',ex:'爸爸是志偉的血親，爸爸的太太是「血親的配偶」，屬於姻親；除非經過法院認可收養，否則不是法定血親。'},
+    {q:'志偉的爸爸再婚，爸爸的太太帶來一個女兒小萱（原本與志偉沒有任何關係，也沒有辦理收養）。志偉與小萱之間屬於哪一種關係？',o:['沒有親屬關係','旁系血親','姻親','法定血親'],a:0,src:'段考常考',ex:'小萱是志偉爸爸的太太的血親，也就是「血親的配偶的血親」，與親家相同，不屬於姻親，彼此沒有親屬關係。'},
+    {q:'陳家的成員有爺爺、奶奶、爸爸、媽媽，以及兩個還沒結婚的孩子，全家住在一起。這是哪一種家庭型態？',o:['折衷家庭（三代家庭）','小家庭','大家庭','隔代教養家庭'],a:0,src:'段考常考',ex:'小家庭（夫妻與未婚子女）再加上夫妻的直系長輩（爺爺奶奶），以三代同堂居多，就是折衷家庭。'},
+    {q:'一座大宅院裡住著爺爺奶奶、三個兒子各自的小家庭，共十幾個人。這種由數個有血緣關係的小家庭所組成的型態是什麼？',o:['大家庭','折衷家庭','小家庭','重組家庭'],a:0,src:'段考常考',ex:'由數個具有血緣關係的小家庭成員所組成，稱為大家庭（血緣家庭、聯合家庭）。折衷家庭只有一個小家庭加直系長輩。'},
+    {q:'某社區近年出現不少「爸爸在北部工作，媽媽與孩子住在中部，假日才團聚」的家庭。這種型態增加，與下列哪一項因素最有關？',o:['工作及居住地點的轉變','婚姻觀念的轉變','女性就業的增加','生育觀念的改變'],a:0,src:'段考常考',ex:'兩地（通勤）家庭與隔代教養家庭，都是因工作或其他因素使家庭成員無法同住一地，屬於「工作及居住地點的轉變」。'},
+    {q:'近年有些夫妻選擇兩人都工作、不生小孩。這種家庭稱為什麼？此現象最直接反映哪一項轉變？',o:['頂客家庭；生育觀念的改變','雙薪家庭；工作及居住地點的轉變','單親家庭；婚姻觀念的轉變','夫婦家庭；女性就業增加'],a:0,src:'段考常考',ex:'夫妻都有工作收入但沒有子女稱為頂客家庭（DINK），來自「傳宗接代非必然」的生育觀念改變。'},
+    {q:'小傑的爸媽在工廠上班，下班後仍會陪他寫功課，也教他怎麼和同學相處。這主要是發揮家庭的哪一項功能？',o:['教育功能','經濟功能','生育功能','保護與照顧功能'],a:0,src:'段考常考',ex:'在家庭中學習人際互動及適應社會的技能與知識，並影響品格與價值觀，屬於教育功能。'},
+    {q:'以前媽媽親手縫製全家人的衣服，現在大多到服飾店購買。這反映家庭的哪一項功能產生轉化？',o:['經濟功能','教育功能','生育功能','保護與照顧功能'],a:0,src:'段考常考',ex:'傳統家庭是生產與消費的基本單位；工作場所與消費型態改變後，生產和消費多在家庭外（公司、市場、商店）進行，屬於經濟功能的轉化。'},
+    {q:'許多雙薪家庭把孩子送到課後安親班，由老師協助寫作業。這最能說明家庭的哪一項功能由社會機構補充？',o:['教育功能','經濟功能','生育功能','保護與照顧功能'],a:0,src:'段考常考',ex:'家庭人數減少、雙薪家庭增加，使部分教育功能由補習班、安親班及大眾傳播媒體補充。'},
+    {q:'政府與民間單位設立日間照顧中心與安養機構，協助照顧行動不便的長者。這屬於家庭功能轉化中的哪一項？',o:['保護與照顧功能由機構補充','經濟功能轉到家庭外','教育功能由媒體補充','生育功能由機構取代'],a:0,src:'段考常考',ex:'居住型態轉變與平均壽命延長，使部分保護與照顧功能由兒童托育與安養照護機構分擔。'},
+    {q:'下列哪一項家庭功能，最難被家庭以外的單位完全取代？',o:['生育功能','教育功能','經濟功能','保護與照顧功能'],a:0,src:'段考常考',ex:'教育、經濟、保護與照顧都有機構或市場可以補充；生育功能（生兒育女、傳承生命）無法由家庭以外的單位取代。'},
+    {q:'日本一所老人安養院招募嬰幼兒「上班」，陪長輩散步、互動，讓長輩不再孤單。這項作法最能說明哪一項家庭功能的變遷？',o:['保護與照顧功能','經濟功能','教育功能','生育功能'],a:0,src:'原創',ex:'課本專欄：在少子化與高齡化的情況下，家庭以外的單位投入，協助提供照顧與陪伴，屬於保護與照顧功能的變遷。'},
+    {q:'政府推動「青銀共居」，讓年輕人與長者住在同一個空間。這項政策最主要想解決什麼問題？',o:['降低長者的孤獨感，並紓解年輕人的居住負擔','增加國家的稅收','讓年輕人專心準備升學考試','取代學校的教育功能'],a:0,src:'原創',ex:'課本：青銀共居透過跨代交流，維持銀髮族與社會的互動、降低社交隔離與孤獨感，也略為紓解高房價帶來的居住問題。'},
+    {q:'面對日趨多元的家庭型態，課本認為我們應該抱持什麼態度？',o:['不論婚姻狀況、成員組成或族群差異，都以尊重、平等的態度對待','只認同小家庭才是正常的家庭','只尊重有血緣關係的家庭','要求其他家庭都改成大家庭'],a:0,src:'原創',ex:'課本：面對日趨多元的家庭型態，無論家庭的婚姻狀況、成員組成或族群差異，我們都應該抱持尊重、相互平等的態度來對待。'},
+  ],
+},
+
+/* ---------- 單元4 平權的家庭 ---------- */
+l4:{
+  no:'單元4', code:4, title:'平權的家庭', short:'平權的家庭', color:'linear-gradient(135deg,#3a72c0,#f0a03c)',
+  desc:'4-1 家務勞動與性別平權｜4-2 夫妻與親子的權利義務｜4-3 公權力如何協助家庭',
+  quickAsk:'選出正確的答案', quickTitle:'平權家庭名詞快問快答',
+  quick:[
+    ['維持家庭正常運作的重要活動，例如料理三餐、清洗衣物、教育子女','家務勞動',['公共服務','社區活動','職場勞動'],36],
+    ['過去受性別刻板印象影響，家務勞動大部分由誰承擔','女性',['男性','祖父母','政府'],0],
+    ['「男主外、女主內」的傳統思維，使男性承擔較大的什麼','經濟壓力',['家務時間','休閒時間','教育責任'],0],
+    ['不分性別，家庭成員發生重大事故須親自照顧時可以申請的假','家庭照顧假',['生理假','婚假','特休假'],0],
+    ['瑞典近年新興的文化現象，指樂於帶小孩的年輕爸爸','拿鐵爸爸',['超人爸爸','月薪爸爸','頂客爸爸'],0],
+    ['瑞典夫妻可以自由分配、共享的育嬰假天數','480 天',['90 天','180 天','365 天'],0],
+    ['我國孩子年滿幾歲前，夫妻可以申請育嬰假','3 歲',['1 歲','6 歲','12 歲'],31],
+    ['育嬰留職停薪津貼約為薪水的幾成（最長可領 6 個月）','8 成',['3 成','5 成','全額'],31],
+    ['個人應做的事或應盡的責任','義務',['權利','福利','特權'],0],
+    ['夫妻可以各自管理或使用自己的財產，是民法對哪一方面的規定','夫妻財產',['子女姓氏','親權','扶養義務'],27],
+    ['夫妻對於日常家務，彼此的關係是','互為代理人',['各自獨立不得代理','只有丈夫可代理','只有妻子可代理'],27],
+    ['子女出生登記前，父母未約定或約定不成時，子女的姓氏如何決定','由戶政事務所抽籤',['一律從父姓','一律從母姓','由法院裁定'],28],
+    ['結婚前雙方可以先簽訂，以保障婚後彼此權益的文件','婚前協議書',['結婚證書','戶口名簿','離婚協議書'],0],
+    ['父母對未成年（未滿 18 歲）子女負有保護與教養的權利和義務','親權',['繼承權','隱私權','監護費'],45],
+    ['父母濫用親權時，可能被哪個機關剝奪親權','法院',['警察局','戶政事務所','學校'],45],
+    ['夫妻離婚後協議不成，法院裁定未成年子女的權利義務時，最主要考量','子女最佳利益',['父親的意願','雙方收入高低','子女的姓氏'],25],
+    ['子女被父母家暴或遺棄，可以請求法院對扶養義務','減輕或免除',['增加','維持不變','轉給祖父母'],30],
+    ['子女對父母惡意棄養或重大虐待，經舉證屬實，將不得','繼承遺產',['擔任公職','結婚','出國'],30],
+    ['國家為了維護社會公益、處理公務而動用的權力','公權力',['親權','人權','選舉權'],5],
+    ['因生育觀念改變、低薪高房價與托育負擔，使國人生養意願下降的現象','少子化',['高齡化','晚婚化','人口外流'],48],
+    ['政府為鼓勵生育，提供育嬰假、增設托育機構，以及','發放育兒津貼',['增設安養中心','開辦識字班','核發保護令'],48],
+    ['聯合國定義：65 歲以上人口比率達 7% 以上','高齡化社會',['高齡社會','超高齡社會','少子化社會'],34],
+    ['聯合國定義：65 歲以上人口比率達 14% 以上','高齡社會',['高齡化社會','超高齡社會','少子化社會'],34],
+    ['聯合國定義：65 歲以上人口比率達 20% 以上','超高齡社會',['高齡化社會','高齡社會','銀髮社會'],34],
+    ['政府為協助老人安養，增設的機構','長期照顧管理中心',['托育中心','職業訓練中心','戶政事務所'],41],
+    ['家庭成員與同居人間實施身體或精神上的傷害行為','家庭暴力',['性騷擾','性霸凌','家庭教育'],49],
+    ['家暴被害人依《家庭暴力防治法》向法院聲請，讓施暴者遠離被害人','保護令',['搜索票','結婚證書','入學許可'],44],
+    ['保護令由哪個機關核發','法院',['警察局','社會局','戶政事務所'],9],
+    ['家暴被害人除了警察局，還可以向哪裡求助','縣（市）政府社會局（處）',['戶政事務所','稅務局','消防局'],50],
+    ['因貧窮、失業或家庭照顧功能出問題而需各方支持的家庭','脆弱家庭',['折衷家庭','頂客家庭','重組家庭'],2],
+    ['政府與民間協助新住民及早適應臺灣生活，開辦','識字班、生活適應班',['補習班、安親班','才藝班、駕訓班','運動班、親職班'],4],
+  ],
+  words:[
+    ['家務勞動','維持家庭運作的活動，如料理三餐、洗衣、教育子女'],['家庭照顧假','不分性別，家人發生重大事故須親自照顧時可申請'],['拿鐵爸爸','瑞典樂於帶小孩的年輕爸爸'],
+    ['480 天育嬰假','瑞典夫妻可自由分配、共享'],['育嬰留職停薪津貼','約 8 成薪水、最長可領 6 個月'],['義務','個人應做的事或應盡的責任'],
+    ['婚前協議書','婚前約定住所、家務分工，保障婚後權益'],['親權','父母對未成年（未滿 18 歲）子女保護與教養的權利義務'],['子女最佳利益','意見不一致或離婚後，法院裁定親權的考量'],
+    ['公權力','國家為維護社會公益、處理公務動用的權力'],['少子化','生養意願下降、生育率低，衝擊家庭生育功能'],['長期照顧管理中心','政府為協助老人安養增設'],
+    ['家庭暴力','家庭成員與同居人間身體或精神上的傷害行為'],['保護令','向法院聲請，使施暴者遠離被害人'],['脆弱家庭','因貧窮、失業等而需各方支持與服務介入'],
+    ['識字班','協助新住民學習我國文字、融入生活'],
+  ],
+  sorts:[
+    {title:'政府怎麼協助家庭？對策配對',tip:'先找出問題：少子化、高齡化、家暴、脆弱家庭、新住民，再配對課本列的對策。',buckets:['少子化','高齡化','家庭暴力','脆弱家庭','新住民'],items:[
+      ['立法規定育嬰假',0],['增設托育機構',0],['發放育兒津貼',0],
+      ['增設長期照顧管理中心',1],['社福人員依需求探視獨居老人',1],['提供老人醫療保健及生活補助',1],
+      ['向法院聲請保護令',2],['被害人向警察局、社會局求助',2],
+      ['發放生活物資與經濟補助',3],['提供就業輔導、職業訓練',3],
+      ['開辦識字班',4],['開辦生活適應班，介紹不同文化的故鄉風情',4]]},
+    {title:'夫妻之間，還是親子之間？',tip:'表3-4-1：夫妻財產、配偶相關家務工作屬於配偶間；子女姓氏、子女扶養義務、未成年子女親權屬於親子間。',buckets:['配偶間的權利義務','親子間的權利義務'],items:[
+      ['夫妻各自管理或使用自己的財產',0],['夫妻於日常家務互為代理人',0],['婚後住所由雙方協議',0,'婚前協議書的內容'],['婚前協議書約定家務分工',0],
+      ['父母對未成年子女的保護與教養',1],['出生登記前書面約定子女從父姓或母姓',1],['子女被家暴、遺棄，可請求法院減輕或免除扶養義務',1],['惡意棄養父母者不得繼承遺產',1],['離婚後依子女最佳利益決定親權歸屬',1]]},
+    {title:'由誰來辦？哪個機關負責',tip:'法院：保護令、停止親權、親權裁定、認可收養、扶養減免；戶政事務所：結婚登記、姓氏抽籤；警察局、社會局：家暴求助管道。',buckets:['法院','戶政事務所','警察局、社會局'],items:[
+      ['核發保護令',0],['父母濫用親權時，宣告停止親權',0],['父母意見不一致時，依子女最佳利益裁定',0],['認可收養',0],['減輕或免除扶養義務',0],
+      ['辦理結婚登記',1],['子女姓氏約定不成，抽籤決定',1],
+      ['家暴被害人尋求保護、協助',2],['受理家暴報案與求助',2]]},
+    {title:'現行規定，還是過去的舊觀念？',tip:'課本是現行規定：夫妻平等協議。考卷常把舊觀念放進選項當陷阱。',buckets:['現行規定（平權）','過去的舊觀念'],items:[
+      ['子女姓氏由父母書面約定',0],['子女一律從父姓',1],
+      ['夫妻共同協議婚後住所',0],['妻子一律以丈夫的住所為住所',1],
+      ['夫妻可各自管理使用自己的財產',0],['妻子的財產由丈夫管理',1],
+      ['父母意見不一致，請法院依子女最佳利益決定',0],['父母意見不一致時一律由父親決定',1]]},
+    {title:'有助於、還是不利於家庭平權？',tip:'家務應由成員共同分擔；刻板印象與刁難請假都不利於平權。',buckets:['有助於家庭平權','不利於家庭平權'],items:[
+      ['夫妻輪流分擔家務',0],['爸爸申請育嬰留職停薪照顧孩子',0],['不分性別，孩子都要學會做家事',0],['與孩子溝通時以聆聽為主、討論為輔',0],
+      ['認為「煮飯洗衣是女生的事」',1],['主管刁難請育嬰假的爸爸',1],['要求媽媽辭職專心帶小孩，爸爸不分擔任何家務',1],['只讓姊妹做家事，兄弟不用',1]]},
+  ],
+  mcq:[
+    {q:'關於家務勞動，下列敘述何者最符合課本的看法？',o:['家務應由家庭成員共同分擔','家務是女性天生的責任','家務只要花錢請人做，不必家人分擔','家務沒有價值，不需要被重視'],a:0,src:'段考常考',ex:'課本 4-1：家務是維持家庭運作的重要活動，應由家庭成員共同分擔；共同分擔才能讓每個成員兼顧家庭生活與個人發展。'},
+    {q:'小妍的媽媽白天全職上班，晚上還要煮飯、洗衣、陪孩子寫功課，常累到沒時間休息，爸爸卻很少做家事。這個現象最能說明什麼？',o:['家務分工不均，職業婦女承擔過重責任','女性天生比較適合做家事','家庭已經落實家務分工','男性不需要參與家庭生活'],a:0,src:'段考常考',ex:'課本：許多職業婦女同時承擔職場工作與家務勞動，影響工作升遷機會，是家務分工不均的不公平現象，不能把它說成「女性天職」。'},
+    {q:'「男主外、女主內」的傳統觀念，除了限制女性參與職場，也可能對男性造成什麼影響？',o:['承擔較大的經濟壓力，少了陪伴家人的時間','使男性有更多時間照顧子女','讓男性更容易請育嬰假','使男性的貢獻被特別重視'],a:0,src:'段考常考',ex:'課本 4-1：男性要投入更多時間精神取得經濟資源，少了陪伴子女、配偶與父母的時間，貢獻容易被忽略，與家人產生疏離感。'},
+    {q:'阿誠的太太因車禍住院，他需要請假親自照顧。依課本的說法，下列敘述何者正確？',o:['不分性別，家人發生重大事故須親自照顧時都可以申請家庭照顧假','只有女性員工能申請家庭照顧假','男性不適合請假照顧家人','家庭照顧假只能由公司主管決定要不要給'],a:0,src:'段考原型',ex:'課本圖3-4-3：鑑於性別平權觀念，家庭照顧並不是女性的責任，不分性別都可以申請家庭照顧假。'},
+    {q:'依課本，我國父母申請育嬰留職停薪的規定，下列何者正確？',o:['子女滿 3 歲前，最長 2 年；津貼約 8 成薪，最長領 6 個月','子女滿 6 歲前，最長 5 年；津貼為全額薪水','只有母親可以申請','津貼最長可以領 2 年'],a:0,src:'段考常考',ex:'課本：孩子年滿 3 歲前，夫妻可申請育嬰假，最長 2 年；期間可申請育嬰留職停薪津貼，約 8 成薪，最長可領 6 個月。父母皆可申請。'},
+    {q:'瑞典父母共享 480 天的育嬰假，並讓爸爸也能安心請假。這項政策最想傳達的想法是什麼？',o:['養育小孩沒有性別的區分，是夫妻共同的責任','只有媽媽適合照顧小孩','爸爸應專心賺錢','育嬰假是為了讓女性回家'],a:0,src:'原創',ex:'課本專欄：瑞典認為養育小孩沒有性別區分，是夫妻共同的責任，所以把爸爸納入育嬰假政策，也代表夫妻性別平權的思維。'},
+    {q:'日劇情節中，主角把家務工作換算成月薪，主張「家務勞動有酬化」。這個主張的核心概念是什麼？',o:['認同家務勞動的價值，希望它像外出工作一樣能獲得報酬','家務勞動只能由主婦負擔','家務勞動不重要，可以不做','家務勞動只能花錢請人做'],a:0,src:'原創',ex:'課本：家務勞動有酬化的核心概念，在認同家務勞動的價值，也會讓家庭成員重視家務勞動、改變對女性與主婦價值的認知。'},
+    {q:'下列哪一項最符合「義務」的意思？',o:['個人應做的事或應盡的責任，例如人民有遵守國家法律的義務','個人可以主張的好處','個人與生俱來的權利','政府發放的補助'],a:0,src:'段考原型',ex:'課本 4-2 名詞解釋：義務指個人應做的事或應盡的責任，例如人民有遵守國家法律的義務。'},
+    {q:'依民法，夫妻在財產與日常家務的規定，下列何者正確？',o:['夫妻可各自管理或使用自己的財產，日常家務互為代理人','妻子的財產一律由丈夫管理','日常家務只能由妻子代理','夫妻財產必須全部共有，不能各自管理'],a:0,src:'段考常考',ex:'課本表3-4-1：夫妻可以各自管理或使用其財產，不受他人干涉；夫妻於日常家務，互為代理人。'},
+    {q:'小寶即將出生，爸媽在討論姓氏。依民法，下列何者正確？',o:['出生登記前以書面約定從父姓或母姓；未約定或約定不成時，由戶政事務所抽籤決定','一律從父姓','由爺爺奶奶決定','一律從母姓'],a:0,src:'段考常考',ex:'課本表3-4-1：父母於子女出生登記前，應以書面約定子女從父姓或母姓；未約定或約定不成者，於戶政事務所抽籤決定。注意是「戶政事務所」，不是法院。'},
+    {q:'結婚前，雙方簽訂婚前協議書，主要可以約定什麼，來保障婚後彼此的權益？',o:['婚後的住所地、家務分工','孩子將來要念哪一所大學','雙方父母的退休金','對方的薪水全部交給自己'],a:0,src:'段考原型',ex:'課本圖3-4-4：婚前協議書可約定婚後夫妻住所地及家務分工（夫負擔、妻負擔），日後如需變更住所，也本於平等原則另行協議。'},
+    {q:'下列哪一位子女，仍在父母「親權」的範圍內？',o:['17 歲的高中生','18 歲的大學新生','25 歲的上班族','30 歲已結婚的子女'],a:0,src:'段考常考',ex:'親權是父母對「未成年（未滿 18 歲）」子女保護與教養的權利和義務；成年子女沒有親權問題。'},
+    {q:'一位父親長期酗酒，對年幼的孩子施暴，還不讓孩子上學。依民法，這位父親可能面對什麼結果？',o:['被法院剝奪親權，或承擔其他法律責任','警察局直接宣告終止親子關係','孩子自動成年','社會局取代法院判決父母離婚'],a:0,src:'段考常考',ex:'課本 4-2：父母一方濫用親權時，可能被法院剝奪親權或承擔其他相關的法律責任。'},
+    {q:'某對夫妻協議離婚，卻對未成年孩子的親權歸屬爭執不下。這時應該怎麼辦？法院主要考量什麼？',o:['請求法院裁定，並以子女的最佳利益與未來身心發展為考量','由收入較高的一方取得','一律判給母親','一律判給父親'],a:0,src:'段考常考',ex:'課本：夫妻離婚後，對未成年子女的權利義務原則上以子女最佳利益與未來身心發展為考量；爭執不下可訴請法院裁定，不是看性別或收入。'},
+    {q:'阿凱的爸爸在他小時候就離家出走，從不負擔任何扶養責任。阿凱長大後，爸爸卻要求他提供生活費。阿凱可以怎麼做？',o:['請求法院減輕或免除扶養義務','向警察局聲請宣告終止親子關係','一律要照顧，沒有例外','向戶政事務所辦理拒絕扶養'],a:0,src:'段考常考',ex:'課本表3-4-1：子女如有被父母家暴或遺棄等情形，可以請求法院減輕或免除扶養義務；機關是「法院」。'},
+    {q:'子女對父母有惡意棄養或重大虐待等行為，經舉證屬實，會有什麼後果？',o:['不得繼承父母的遺產','失去原本的姓氏','父母可以到戶政事務所註銷親子關係','不會有任何影響'],a:0,src:'段考常考',ex:'課本表3-4-1：子女對父母有惡意棄養或重大虐待等行為，經舉證屬實，將不得繼承遺產；此外不分男女都可以平等繼承。'},
+    {q:'下列哪一個例子最符合「公權力」的意思？',o:['警察指揮交通以維持秩序','店員提醒顧客排隊','父母要求孩子準時回家','朋友出面勸架'],a:0,src:'段考原型',ex:'課本：公權力是國家為了維護社會公益、處理公務而動用的權力，例如警察指揮交通維持秩序。'},
+    {q:'下列哪一項「不是」課本所說造成少子化的原因？',o:['醫學進步使平均壽命延長','生育觀念的改變','年輕人面對低薪、高房價','子女托育與教育的負擔'],a:0,src:'段考常考',ex:'少子化來自生育觀念改變、低薪高房價、托育與教育負擔。平均壽命延長是造成「高齡化」的原因，不要混在一起。'},
+    {q:'政府為了減輕家庭在經濟及生養子女上的壓力、鼓勵家庭發揮生育功能，下列哪一組措施最符合？',o:['育嬰假、增設托育機構、發放育兒津貼','增設長期照顧管理中心、探視獨居老人','開辦識字班、生活適應班','核發保護令、設置庇護所'],a:0,src:'段考常考',ex:'少子化的對策是育嬰假、托育機構、育兒津貼；長照與探視獨居老人是高齡化對策；識字班是新住民協助；保護令是家暴對策。'},
+    {q:'某國 65 歲以上人口比率由 12% 成長到 15%。依聯合國的定義，這個國家的社會型態如何改變？',o:['由高齡化社會進入高齡社會','由高齡社會進入超高齡社會','由高齡化社會進入超高齡社會','仍屬高齡化社會'],a:0,src:'段考常考',ex:'7% 以上是高齡化社會，14% 以上是高齡社會，20% 以上是超高齡社會；12% 屬高齡化、15% 已達高齡。'},
+    {q:'政府增設長期照顧管理中心、提供醫療保健及生活補助，也安排社福人員探視獨居老人。這些作法主要是協助家庭發揮哪一項功能？',o:['保護與照顧功能','生育功能','經濟功能','教育功能'],a:0,src:'段考常考',ex:'隨著老人與子女同住比率降低，家庭的保護與照顧功能成為重要課題，政府以長照、醫療與探視協助家庭。'},
+    {q:'依課本，下列哪一位「不屬於」家庭暴力的被害人範圍？',o:['因停車糾紛與鄰居互毆的路人','目睹爸爸毆打媽媽的國中生','施暴者的前配偶','沒有同住的親密伴侶'],a:0,src:'段考常考',ex:'課本 4-3：家暴被害人除家庭成員外，也包含前配偶、同居或非同居的親密伴侶，以及目睹家暴的兒童與少年；鄰居、路人之間的糾紛不算。'},
+    {q:'「家醜不可外揚」「清官難斷家務事」的想法，過去讓家庭暴力很少浮上檯面。現代社會重視人權與家庭平權，下列敘述何者最符合課本？',o:['「法不入家門」的觀念已被打破，被害人可以求助並聲請保護令','法律不能介入家庭事務','家庭暴力只能由家人自行處理','報警會破壞家庭和諧，不應求助'],a:0,src:'段考常考',ex:'課本 4-3：現代社會重視人權與家庭平權，「法不入家門」的傳統觀念已被打破，被害人可透過警察局、社會局求助，也可依家暴防治法向法院聲請保護令。'},
+    {q:'依《家庭暴力防治法》，保護令是由哪一個機關核發？',o:['法院','警察局','縣（市）政府社會局','戶政事務所'],a:0,src:'段考常考',ex:'警察局、社會局是被害人求助的管道，聲請與核發保護令的機關是法院。這是同類題幾乎每年都出現的送分題。'},
+    {q:'小琳常被同居男友恐嚇、毆打，想保護自己。下列做法何者最適當？',o:['向警察局或社會局求助，並向法院聲請保護令','忍耐，因為家醜不可外揚','等對方自己改變','找朋友私下報復'],a:0,src:'段考常考',ex:'同居的親密伴侶也在家暴被害人範圍；可透過警察局、社會局求助，並向法院聲請保護令，讓施暴者遠離。'},
+    {q:'林先生因失業與家人離世，家中收入中斷，成為「脆弱家庭」。政府除了發放生活物資與經濟補助，還會提供什麼協助，讓家庭恢復經濟功能？',o:['就業輔導與職業訓練','增設托育機構','核發保護令','開辦識字班'],a:0,src:'原創',ex:'課本：政府除了發放生活物資、經濟補助度過難關，還提供就業輔導、職業訓練等服務，讓脆弱家庭能發揮經濟的功能。'},
+    {q:'政府與民間團體開辦識字班、生活適應班，協助新住民及早適應臺灣生活。這是協助跨國婚姻家庭發揮哪一項功能？',o:['教育功能','生育功能','經濟功能','保護與照顧功能'],a:0,src:'段考原型',ex:'課本 4-3：開辦識字班、生活適應班並介紹不同文化的故鄉風情，是協助跨國婚姻家庭發揮教育的功能。'},
+    {q:'爸媽希望取得你的社群帳號與密碼。依課本圖3-4-11 提到的建議，下列哪一種溝通方式較適當？',o:['以聆聽為主、討論為輔，並多給孩子支持與鼓勵','強勢要求孩子交出密碼','完全不理會爸媽的想法','用冷戰回應'],a:0,src:'原創',ex:'課本引述家扶基金會的建議：家長與孩子溝通時，以聆聽為主、討論為輔，多給孩子支持與鼓勵；孩子也可以說明個人隱私，並讓爸媽放心。'},
+    {q:'課本結論指出，建立真正的「平權家庭」需要哪些條件？',o:['家庭功能的發揮、性別平等觀念的普及與國家法律政策的落實','只靠家人自己努力，政府不必介入','只要有足夠的經濟收入','讓所有人都住在大家庭'],a:0,src:'原創',ex:'課本：健全的社會有賴家庭功能的發揮、性別平等觀念的普及與國家法律政策的落實，有助於建立平權的家庭。'},
+  ],
+},
+};
+
+/* ================= 綜合：流程與對照排序 ================= */
+const STEPS=[
+  {title:'保護令怎麼來？依序排一排',tip:'求助 → 聲請 → 核發 → 施暴者遠離。警察局、社會局是求助管道，核發的是法院。',buckets:['① 先','② 接著','③ 然後','④ 最後'],items:[
+    ['被害人向警察局或縣（市）政府社會局求助',0],['依《家庭暴力防治法》向法院聲請保護令',1],['法院審理後核發保護令',2],['施暴者被要求遠離被害人的生活',3]]},
+  {title:'老年人口比率：現在是哪一種社會？',tip:'聯合國定義：65 歲以上人口 7% 以上＝高齡化社會、14% 以上＝高齡社會、20% 以上＝超高齡社會。',buckets:['高齡化社會（7%～未滿 14%）','高齡社會（14%～未滿 20%）','超高齡社會（20% 以上）'],items:[
+    ['65 歲以上占 7.3%',0],['65 歲以上占 11.5%',0],['65 歲以上占 13.9%',0,'還沒到 14%'],
+    ['65 歲以上占 14.0%',1],['65 歲以上占 17.2%',1],['65 歲以上占 19.9%',1,'還沒到 20%'],
+    ['65 歲以上占 20.0%',2],['65 歲以上占 23.4%',2]]},
+  {title:'子女姓氏怎麼決定？依序排一排',tip:'課本表3-4-1：出生登記前書面約定 → 未約定或約定不成 → 戶政事務所抽籤。',buckets:['① 第一步','② 第二步','③ 最後'],items:[
+    ['父母於子女出生登記前，以書面約定從父姓或母姓',0],['沒有約定，或約定不成',1],['由戶政事務所抽籤決定',2]]},
+  {title:'離婚後的親權怎麼決定？依序排一排',tip:'先協議，協議不成才請法院，法院以子女最佳利益為考量。',buckets:['① 第一步','② 第二步','③ 最後'],items:[
+    ['夫妻協議由一方或雙方共同擔任親權人',0],['協議不成，或未協議',1],['請求法院依子女的最佳利益裁定',2]]},
+  {title:'這個現象的原因是什麼？',tip:'少子化＝生育觀念、低薪高房價、托育教育負擔；高齡＝平均壽命延長；雙薪＝女性就業；兩地與隔代＝工作居住地點。',buckets:['少子化','高齡社會','雙薪家庭增加','兩地家庭與隔代教養增加'],items:[
+    ['低薪、高房價',0],['托育與教育的負擔',0],['傳宗接代不再是必然的選擇',0],
+    ['醫學進步，平均壽命延長',1],['醫療保健持續進步，國民健康壽命延長',1],
+    ['女性教育水準提升、就業比例增加',2],['性別平權觀念普及',2],
+    ['工作地點與居住地點分開',3],['父母外出工作，把子女託付給祖父母',3]]},
+];
+
+/* ================= 綜合：圖表與資料判讀（文字放在 HTML 表格，不畫在圖上） ================= */
+const CHART=[
+  {title:'① 阿德的家族（親屬關係判斷）',src:'段考常考',
+   fig:`<table class="tbl"><tr><th>代號</th><th>與阿德的關係描述</th></tr>
+   <tr><td>甲</td><td>阿德的父親</td></tr>
+   <tr><td>乙</td><td>阿德父親的弟弟</td></tr>
+   <tr><td>丙</td><td>乙的太太</td></tr>
+   <tr><td>丁</td><td>阿德的太太</td></tr>
+   <tr><td>戊</td><td>丁的父親</td></tr>
+   <tr><td>己</td><td>丁的哥哥的太太</td></tr>
+   <tr><td>庚</td><td>阿德經法院認可收養的男孩</td></tr></table>
+   <p class="muted">以阿德為「我」。先判斷是經過「婚姻」還是「出生／收養」，再分類。</p>`,
+   qs:[
+    {q:'表中哪一位與阿德屬於旁系血親？',o:['乙','甲','丙','丁'],a:0,ex:'乙是父親的弟弟（叔叔），沒有直接出生關係但有共同血緣，是旁系血親；甲是直系血親；丙是姻親；丁是配偶。'},
+    {q:'丙（叔叔的太太，嬸嬸）對阿德而言屬於哪一種親屬關係？',o:['姻親（血親的配偶）','旁系血親','直系血親','法定血親'],a:0,ex:'嬸嬸是旁系血親（叔叔）的配偶，屬於「血親的配偶」，是姻親，不是旁系血親。'},
+    {q:'己（妻子的哥哥的太太）對阿德而言屬於哪一種親屬關係？',o:['姻親（配偶的血親的配偶）','姻親（配偶的血親）','旁系血親','沒有親屬關係'],a:0,ex:'丁是配偶，丁的哥哥是配偶的血親，哥哥的太太（己）是「配偶的血親的配偶」，也是姻親。'},
+    {q:'阿德的父親（甲）與丁的父親（戊）之間是什麼關係？',o:['沒有親屬關係（雙方互稱親家）','姻親','旁系血親','法定血親'],a:0,ex:'甲是阿德（血親）的父親，戊是阿德的配偶的父親，兩人之間是「血親的配偶的血親」，民法上不屬於姻親，沒有親屬關係。'},
+    {q:'表中與阿德屬於「姻親」的人，一共有幾位？',o:['3 位（丙、戊、己）','2 位（丙、己）','4 位（丙、丁、戊、己）','5 位'],a:0,ex:'丙（血親的配偶）、戊（配偶的血親）、己（配偶的血親的配偶）是姻親；丁是配偶本人，另成一類，不算姻親。'},
+    {q:'庚與阿德的關係，下列何者正確？',o:['法定血親，權利義務與婚生子女相同','姻親','旁系血親','因為沒有血緣，所以沒有親屬關係'],a:0,ex:'經法院認可收養，養子女與養父母成為法定血親（擬制血親），權利義務與婚生子女相同。'},
+   ]},
+  {title:'② 家庭型態調查表（改編示意數據）',src:'段考常考',
+   fig:`<table class="tbl"><tr><th>型態（％）</th><th>2005 年</th><th>2015 年</th><th>2025 年</th></tr>
+   <tr><td>小家庭</td><td>48</td><td>46</td><td>43</td></tr>
+   <tr><td>折衷家庭</td><td>20</td><td>16</td><td>12</td></tr>
+   <tr><td>大家庭</td><td>6</td><td>4</td><td>3</td></tr>
+   <tr><td>單親家庭</td><td>9</td><td>10</td><td>11</td></tr>
+   <tr><td>夫婦家庭</td><td>10</td><td>15</td><td>20</td></tr>
+   <tr><td>其他</td><td>7</td><td>9</td><td>11</td></tr></table>
+   <p class="muted">夫婦家庭：夫妻兩人同住且沒有子女，或子女已離開原本家庭。</p>`,
+   qs:[
+    {q:'根據表格，哪一種家庭型態的比例最高？',o:['小家庭（核心家庭）','折衷家庭','大家庭','單親家庭'],a:0,ex:'三個年度都是小家庭比例最高，這和課本圖3-3-5 的結論一致：現代社會以小家庭為主。'},
+    {q:'根據表格，折衷家庭與大家庭的比例變化是什麼？',o:['逐年下降','逐年上升','先升後降','沒有變化'],a:0,ex:'折衷家庭由 20% → 16% → 12%，大家庭由 6% → 4% → 3%，都逐年下降。'},
+    {q:'表中夫婦家庭比例逐年增加，下列哪一項最可能是原因？',o:['生育觀念改變使人少生或不生，加上子女長大離家','女性不再外出工作','大家庭愈來愈多','兩地家庭消失'],a:0,ex:'夫婦家庭是夫妻兩人同住且沒有子女，或子女已離家；少生、不生與子女成年離家都會使它增加。'},
+    {q:'下列對這份調查的推論，何者最合理？',o:['社會變遷使家庭規模縮小，折衷與大家庭減少','大家庭仍是最主要的家庭型態','單親家庭比例逐年下降','所有家庭型態比例都上升'],a:0,ex:'小家庭占多數、折衷與大家庭下降，顯示家庭規模變小；單親家庭由 9% 增至 11%，不是下降。'},
+   ]},
+  {title:'③ 一個家庭一週的家務時間（改編示意）',src:'段考原型',
+   fig:`<table class="tbl"><tr><th>成員</th><th>職業</th><th>平日家務（每天）</th><th>假日家務（每天）</th></tr>
+   <tr><td>爸爸</td><td>全職上班</td><td>0.5 小時</td><td>1 小時</td></tr>
+   <tr><td>媽媽</td><td>全職上班</td><td>3 小時</td><td>4.5 小時</td></tr>
+   <tr><td>哥哥（國三）</td><td>學生</td><td>0 小時</td><td>0.5 小時</td></tr></table>`,
+   qs:[
+    {q:'兩位家長都全職上班，但家務時間差距很大。這個現象最能說明什麼？',o:['家務分工不均，女性承擔過重責任','家務應該全由媽媽負責','爸爸不用參與家庭生活','學生不需要分擔家務'],a:0,ex:'同樣全職上班，媽媽的家務時間卻是爸爸的好幾倍，是課本所說職業婦女承擔過重責任的不公平現象。'},
+    {q:'若要讓這個家庭更接近「平權的家庭」，下列哪一項做法最適當？',o:['全家依時間與能力共同分擔家務，並輪流調整','請媽媽辭掉工作專心做家事','讓爸爸完全不用做家事','由哥哥一個人做所有家事'],a:0,ex:'課本：家務應由家庭成員共同分擔，不僅支持家庭運作，也讓每個成員都有機會兼顧家庭生活與個人發展。'},
+   ]},
+  {title:'④ 育嬰留職停薪津貼核准件數（改編示意，每 100 件）',src:'段考常考',
+   fig:`<table class="tbl"><tr><th>年度</th><th>女性申請</th><th>男性申請</th></tr>
+   <tr><td>早期</td><td>92 件</td><td>8 件</td></tr>
+   <tr><td>近期</td><td>74 件</td><td>26 件</td></tr></table>
+   <p class="muted">課本（民國 111 年）：男性申請育嬰留停津貼人數首次突破 2 萬，占比達 25.5%，約每 4 人就有 1 位爸爸。</p>`,
+   qs:[
+    {q:'表中男性申請比例上升，最能反映哪一種變化？',o:['家庭照顧與家務不再被視為只是女性的責任','少子化問題已經完全解決','男性不再需要工作','政府取消了育嬰假'],a:0,ex:'男性申請比例提高，反映性別平權觀念提倡後，育兒與家庭照顧逐漸由夫妻共同承擔。'},
+    {q:'根據課本與表格，下列推論何者「錯誤」？',o:['育嬰假只有女性可以申請','男性申請的比例有增加','育嬰留停津貼約 8 成薪、最長 6 個月','孩子年滿 3 歲前可申請育嬰假'],a:0,ex:'父母皆可申請育嬰假；表格也顯示男性申請的件數與比例增加。'},
+   ]},
+  {title:'⑤ 老年人口比率（改編示意數據）',src:'段考常考',
+   fig:`<table class="tbl"><tr><th>年度</th><th>1990</th><th>2000</th><th>2010</th><th>2020</th><th>2035（推估）</th></tr>
+   <tr><td>65 歲以上人口比率</td><td>5.1%</td><td>7.3%</td><td>10.4%</td><td>14.8%</td><td>20.6%</td></tr></table>
+   <p class="muted">聯合國定義：65 歲以上人口達 7%＝高齡化社會、14%＝高齡社會、20%＝超高齡社會。</p>`,
+   qs:[
+    {q:'依表格，2000 年這個國家屬於哪一種社會？',o:['高齡化社會','高齡社會','超高齡社會','還不是高齡化社會'],a:0,ex:'2000 年為 7.3%，已達 7% 但未達 14%，屬於高齡化社會。'},
+    {q:'依表格，2020 年這個國家屬於哪一種社會？',o:['高齡社會','高齡化社會','超高齡社會','還不是高齡化社會'],a:0,ex:'2020 年為 14.8%，已達 14% 但未達 20%，屬於高齡社會。'},
+    {q:'依表格推估，2035 年的情形最需要政府加強哪一項協助？',o:['長期照顧、安養與探視獨居老人','增設識字班','核發育兒津貼','設立更多職業訓練中心'],a:0,ex:'推估達 20.6%，進入超高齡社會，老人的保護與照顧是家庭與社會的重要課題，政府需增設長照管理中心、提供醫療補助與探視獨居老人。'},
+   ]},
+  {title:'⑥ 家暴求助：機關與能做的事',src:'段考常考',
+   fig:`<table class="tbl"><tr><th>機關</th><th>在家暴事件中可以做的事</th></tr>
+   <tr><td>警察局</td><td>受理報案，協助被害人尋求保護</td></tr>
+   <tr><td>縣（市）政府社會局</td><td>提供被害人諮詢、保護與協助</td></tr>
+   <tr><td>法院</td><td>審理被害人的聲請，核發保護令</td></tr>
+   <tr><td>戶政事務所</td><td>辦理結婚登記、戶籍登記</td></tr></table>`,
+   qs:[
+    {q:'表中哪一個機關負責核發保護令？',o:['法院','警察局','縣（市）政府社會局','戶政事務所'],a:0,ex:'保護令由法院核發；警察局、社會局是被害人求助與受理的管道。'},
+    {q:'下列哪一個機關與家庭暴力被害人的求助或保護令「無關」？',o:['戶政事務所','警察局','縣（市）政府社會局','法院'],a:0,ex:'戶政事務所辦理結婚登記、戶籍登記，並不是家暴求助或核發保護令的機關。'},
+    {q:'阿媛離婚後，前夫仍常到她家門口恐嚇、動手推她。下列處理方式何者最適當？',o:['先向警察局或社會局求助，並向法院聲請保護令','先忍耐一年，再向戶政事務所聲請','直接到戶政事務所領取保護令','等對方道歉就好'],a:0,ex:'前配偶也在家暴被害人範圍；被害人可透過警察局、社會局求助，也可向法院聲請保護令；保護令是由法院核發，不是戶政事務所。'},
+   ]},
+  {title:'⑦ 民法條文判讀（改寫自課本表3-4-1）',src:'段考常考',
+   fig:`<div class="passage">甲：夫妻可以各自管理或使用自己的財產，不受他人干涉。<br>
+   乙：父母於子女出生登記前，應以書面約定子女從父姓或母姓；未約定或約定不成者，於戶政事務所抽籤決定。<br>
+   丙：子女如被父母家暴或遺棄，可以請求法院減輕或免除扶養義務。<br>
+   丁：夫妻離婚後，若對未成年子女的權利義務未協議或協議不成，得請求法院依子女的最佳利益決定。</div>`,
+   qs:[
+    {q:'哪一條規定最能保障夫妻在財產上的平等與自主？',o:['甲','乙','丙','丁'],a:0,ex:'甲規定夫妻可各自管理使用財產，是配偶間的財產權利。'},
+    {q:'哪一條規定最能讓子女的姓氏不再「只能從父姓」？',o:['乙','甲','丙','丁'],a:0,ex:'乙規定由父母書面約定從父姓或母姓，約定不成才抽籤，落實親子與夫妻平權。'},
+    {q:'哪一條規定是在保護曾被父母遺棄或家暴的子女？',o:['丙','甲','乙','丁'],a:0,ex:'丙讓被遺棄、被家暴的子女可以請求法院減輕或免除扶養義務。'},
+    {q:'這四條規定共同的立法目的最可能是什麼？',o:['落實家庭平權，保障家庭成員的權益','提高國家稅收','恢復傳統「男主外、女主內」的分工','減少結婚人數'],a:0,ex:'這些條文讓夫妻、親子關係更加平等，保障家庭成員的權利，是平權家庭的重要基礎；立法目的題不要選「提高國家稅收」這類與家庭無關的選項。'},
+   ]},
+  {title:'⑧ 閱讀：瑞典的育嬰假（改寫自課本專欄）',src:'段考原型',
+   fig:`<div class="passage">瑞典街頭常見推著嬰兒車散步的「拿鐵爸爸」。瑞典的育嬰假共 480 天，夫妻可以自由分配，其中前 390 天政府給予補貼，後 90 天也有足夠的生活補貼，讓父母能安心暫停工作、陪伴幼兒成長。瑞典人認為養育小孩沒有性別區分，是夫妻共同的責任，因此把爸爸的角色納入育嬰假政策。</div>`,
+   qs:[
+    {q:'根據文章，瑞典的育嬰假政策最重要的想法是什麼？',o:['養育小孩沒有性別區分，是夫妻共同的責任','只有媽媽能請育嬰假','育嬰假只給收入較高的父母','育嬰假是為了增加出口'],a:0,ex:'文章明說：瑞典人認為養育小孩沒有性別區分，所以把爸爸納入育嬰假政策，代表夫妻性別平權的思維。'},
+    {q:'與瑞典相比，課本中我國的育嬰假規定，下列何者正確？',o:['孩子年滿 3 歲前可申請，最長 2 年，津貼約 8 成薪、最長 6 個月','孩子年滿 12 歲前可申請，津貼全額','只有母親可申請','津貼可以一直領到孩子 18 歲'],a:0,ex:'課本：我國孩子年滿 3 歲前，夫妻可申請育嬰假，最長 2 年，津貼約 8 成薪水，最長可領 6 個月。'},
+    {q:'若想讓更多爸爸願意請育嬰假，下列哪一項做法最合適？',o:['規定企業不得因員工請育嬰假而刁難或開除','要求爸爸一律不能請假','讓媽媽負責所有育兒工作','取消育嬰留職停薪津貼'],a:0,ex:'課本提到家長常擔心請假失去工作；由政府規定企業不得開除請育嬰假的員工，能減少顧慮，鼓勵父母共同照顧。'},
+   ]},
+  {title:'⑨ 國小數量變化（改編示意）與少子化',src:'段考常考',
+   fig:`<table class="tbl"><tr><th>年度</th><th>某縣市國小學生總數</th><th>班級總數</th></tr>
+   <tr><td>第 1 年</td><td>52,000 人</td><td>2,100 班</td></tr>
+   <tr><td>第 6 年</td><td>46,500 人</td><td>1,980 班</td></tr>
+   <tr><td>第 11 年</td><td>39,800 人</td><td>1,830 班</td></tr></table>`,
+   qs:[
+    {q:'這份數據的變化，與下列哪一種社會現象的關係最密切？',o:['少子化（生育率下降）','高齡化','外籍配偶增加','義務教育延長'],a:0,ex:'學生與班級逐年減少，反映出生人數減少、生養意願下降的少子化現象。'},
+    {q:'針對上述趨勢，政府最可能採取下列哪一項對策？',o:['提供育嬰假、增設托育機構、發放育兒津貼','增設長期照顧管理中心','開辦新住民識字班','核發更多保護令'],a:0,ex:'少子化對策是減輕家庭生養子女的經濟壓力：育嬰假、托育機構、育兒津貼；其餘分別是高齡化、新住民與家暴的對策。'},
+   ]},
+];
+
+/* ================= 綜合：跨單元混合題 ================= */
+const MIXQ=[
+  {q:'小雯的爸媽都有工作，把幼兒送到托兒所，下班後輪流照顧孩子並分擔家務。這個例子同時涉及哪兩個觀念？',o:['雙薪家庭、保護與照顧功能由機構補充','頂客家庭、經濟功能轉化','隔代教養家庭、教育功能由媒體補充','兩地家庭、生育功能轉化'],a:0,src:'段考常考',ex:'爸媽都有收入是雙薪家庭；托兒所分擔幼兒的保護與照顧，屬於功能轉化。輪流分擔家務則是平權的做法。'},
+  {q:'離婚後，媽媽單獨帶著未成年的女兒生活，形成單親家庭。若父母對親權歸屬爭執不下，應如何處理？',o:['請求法院，依子女最佳利益裁定','由警察局決定','由戶政事務所抽籤','由爺爺奶奶決定'],a:0,src:'段考常考',ex:'單親家庭是家庭型態；親權協議不成時，請求法院依子女最佳利益裁定。抽籤只用在子女姓氏。'},
+  {q:'醫學進步使平均壽命延長，加上家庭結構改變，使「老人與子女同住的比率降低」。這直接影響家庭的哪一項功能？政府的對策是什麼？',o:['保護與照顧功能；增設長照管理中心與探視獨居老人','生育功能；發放育兒津貼','經濟功能；開辦職業訓練','教育功能；開辦識字班'],a:0,src:'段考常考',ex:'老人無人照顧衝擊家庭的保護與照顧功能，政府增設長期照顧管理中心、提供醫療保健與生活補助、探視獨居老人。'},
+  {q:'小芳的媽媽來自越南，爸爸是臺灣人。學校邀請媽媽參加生活適應班。這個例子涉及什麼？',o:['新住民家庭；協助其發揮教育功能','頂客家庭；協助其發揮經濟功能','重組家庭；協助其發揮生育功能','隔代教養家庭；協助其發揮保護功能'],a:0,src:'原創',ex:'外籍人士與本國人民共同組成的家庭是新住民（跨國婚姻）家庭；政府與民間開辦識字班、生活適應班，是協助其教育功能。'},
+  {q:'一則洗衣精廣告總是由媽媽負責洗衣、煮飯，爸爸在一旁看電視。這種表現容易強化什麼觀念？',o:['家務是女性責任的性別刻板印象','男女應共同分擔家務','家務應該有酬化','家庭功能應由政府取代'],a:0,src:'原創',ex:'廣告把家務固定在某一性別身上，容易強化「男主外、女主內」的刻板印象，不利於家務共同分擔。'},
+  {q:'政府鼓勵男性也請育嬰假，這項政策同時有助於達成下列哪兩個目標？',o:['促進育兒責任的性別平權；減輕家庭生養子女的壓力','增加家暴被害人的保護；開辦識字班','提高高齡人口比率；增設安養機構','降低少子化；取消家庭照顧假'],a:0,src:'段考常考',ex:'育嬰假讓爸爸也能參與育兒（平權），同時也是少子化的對策之一，減輕家庭生養子女的壓力。'},
+  {q:'小宇家是單親家庭，媽媽忙著工作，他放學後會主動洗碗、倒垃圾。這個例子最能呼應課本的哪一個觀念？',o:['不論家庭型態，家務都應由家庭成員共同分擔','家務只有成年人需要負責','單親家庭不需要家務分工','只有女孩需要學做家事'],a:0,src:'原創',ex:'單親家庭是多樣化家庭型態之一；課本主張家務應由家庭成員共同分擔，才能支持家庭運作，也讓每個成員兼顧生活與個人發展。'},
+  {q:'小蔡與小林結婚後，孩子出生登記前兩人討論孩子的姓氏卻談不攏，也沒有任何書面約定。最後會如何決定？',o:['由戶政事務所抽籤決定','一律從父姓','由法院依子女最佳利益決定','一律從母姓'],a:0,src:'段考常考',ex:'課本表3-4-1：子女姓氏未約定或約定不成者，由戶政事務所抽籤決定；法院的「最佳利益」是用在親權，不是姓氏。'},
+  {q:'奶奶負責照顧國小的孫子上下學、陪寫功課，孫子的爸媽在外縣市工作。這個家庭最可能是什麼型態？奶奶主要發揮哪些功能？',o:['隔代教養家庭；保護與照顧、教育功能','頂客家庭；生育功能','兩地家庭；經濟功能','重組家庭；經濟功能'],a:0,src:'段考常考',ex:'父母因工作將子女託付祖父母，由祖父母與孫子女組成，是隔代教養家庭；祖父母提供保護與照顧，也陪伴學習。'},
+  {q:'小志目睹爸爸毆打媽媽，感到非常害怕。下列敘述何者正確？',o:['目睹家暴的兒童少年也屬於被害人範圍，可以尋求協助','只有被毆打的人才是被害人','兒童少年不可以求助','這是家務事，外人不能介入'],a:0,src:'段考常考',ex:'課本：家暴被害人除家庭成員外，也包含前配偶、同居或非同居的親密伴侶，以及目睹家暴的兒童與少年。'},
+  {q:'下列關於課本數字的配對，何者正確？',o:['結婚 18 歲、訂婚 17 歲、育嬰假子女 3 歲前、津貼最長 6 個月','結婚 20 歲、訂婚 18 歲、育嬰假子女 6 歲前、津貼最長 1 年','結婚 18 歲、訂婚 20 歲、育嬰假子女 3 歲前、津貼最長 2 年','結婚 17 歲、訂婚 18 歲、育嬰假子女 1 歲前、津貼最長 6 個月'],a:0,src:'段考常考',ex:'課本：訂婚 17、結婚 18；育嬰假孩子年滿 3 歲前、最長 2 年；津貼約 8 成薪、最長 6 個月。年齡與期間容易混淆，要一組一組背。'},
+  {q:'下列哪一件事要「向法院」辦理，而不是到戶政事務所？',o:['聲請認可收養','辦理結婚登記','子女姓氏約定不成的抽籤','辦理新生兒的出生登記'],a:0,src:'段考常考',ex:'收養要向法院聲請認可；結婚登記、姓氏抽籤、出生登記都在戶政機關辦理。'},
+  {q:'下列各項政府作為與所協助的家庭功能，何者配對正確？',o:['脆弱家庭的就業輔導與職業訓練：經濟功能','識字班、生活適應班：生育功能','長期照顧管理中心：教育功能','發放育兒津貼：保護與照顧功能'],a:0,src:'段考常考',ex:'就業輔導讓脆弱家庭恢復經濟功能；識字班協助教育功能；長照協助保護與照顧功能；育兒津貼鼓勵生育功能。'},
+  {q:'同學說：「爸爸請育嬰假很丟臉，照顧小孩本來就是媽媽的事。」下列回應何者最符合課本的看法？',o:['家庭照顧不分性別，夫妻都可以申請育嬰假，也能共同分擔','對，只有女性可以請育嬰假','對，男性只要負責賺錢','不對，因為育嬰假只給男性'],a:0,src:'原創',ex:'課本：家庭照顧並非女性的責任；瑞典也把爸爸納入育嬰假，認為養育小孩沒有性別區分。'},
+];
+
+/* ================= 考點雷達（依 52 校統計：同版 2 校＋他版 50 校） ================= */
+const RADAR={
+  n:52,
+  schools:'同版（南一）只有 2 所學校，另以同範圍的他版卷 50 所（翰林 33、康軒 13、版本不明 4）補足，共 52 所學校、約 935 題',
+  topics:[['親屬關係判斷（192 題）',52],['家庭型態辨認（119 題）',47],['家庭暴力防治／保護令（83 題）',47],['親權與親子權利義務（92 題）',44],['少子化原因與對策（67 題）',44],
+    ['家庭四大功能辨認（74 題）',40],['高齡化與長期照顧（71 題）',38],['夫妻權利義務與民法修正（49 題）',37],['家庭功能轉化與社會補充（43 題）',29],['收養與法定血親（28 題）',27],
+    ['家務分工與性別平權（40 題）',26],['家庭型態多元化的成因（29 題）',23],['育嬰假與家庭照顧假（22 題）',22],['結婚要件、近親不得結婚（9 題）',9],['家庭型態統計圖表判讀（9 題）',9],
+    ['公權力協助家庭（綜合配對）',5],['脆弱家庭與經濟補助',1],['新住民家庭與政府協助',1]],
+  basics:[['家暴：警察局、社會局求助＋法院保護令',50],['家庭四大功能',49],['親屬三類：配偶、血親、姻親',48],['少子化對策：育嬰假、托育、育兒津貼',48],['旁系血親',47],
+    ['法定血親＝收養',45],['親權（未滿 18 歲）',45],['功能轉化：機構補充',43],['小家庭（核心家庭）',42],['長期照顧、安養、喘息',41],['直系血親',40],['折衷家庭（三代）',38],['頂客家庭',38]],
+  words:[['血親',51],['家庭的四大功能',51],['家庭暴力',49],['姻親',48],['配偶',47],['保護令',44],['高齡化／高齡／超高齡社會',43],['家務勞動',36],['少子化',35],['重組家庭',35],['兩地家庭',35],['大家庭',32],['隔代教養家庭',31],['單親家庭',30],['新住民家庭',30],['妯娌、連襟',26]],
+  charts:[['法條／新聞判讀',41],['家庭型態占比表／統計圖',38],['家系圖／親屬關係圖',33],['老年人口比率／人口推估圖',26],['家務時間／勞動參與率統計',13],['生育率／學校班級減少圖',6],['漫畫／廣告／對話',6],['流程圖：收養、保護令',3]],
+};
+
+const TABS=[['home','🏠 考點雷達'],['l3','👨‍👩‍👧 單元3 親屬與家庭功能'],['l4','⚖️ 單元4 平權的家庭'],['mix','📊 綜合'],['exam','📝 總測驗']];
+
+/* ================= 注釋配對 ================= */
+function renderMatch(el,pairs){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0,miss=0;
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 注釋配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${miss<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3><p>配錯 ${miss} 次</p><button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div>`;$('#ag',el).onclick=()=>renderMatch(el,pairs)}
+  draw();
+}
+
+/* ================= 分類 ================= */
+function renderSort(el,so){
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w[0])}」→ <b>${so.buckets[w[1]]}</b>${w[2]?'：'+esc(w[2]):''}`).join('<br>')}</div>`:''}
+      <button class="btn" style="margin-top:12px">再玩一次</button></div>`;
+      el.querySelector('.btn').onclick=()=>renderSort(el,so);return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push(it)}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+/* ================= 選擇題 ================= */
+function renderMCQ(el,qs){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}<span class="src">${q.src}</span></div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="rs">重新作答（選項重新洗牌）</button></div></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(+b.dataset.k===q.a){got++;sOK()}else{b.classList.add('bad');sBAD()}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderMCQ(el,qs);
+}
+
+/* ================= 翻卡 ================= */
+function renderCards(el,cards){
+  el.innerHTML=`<div class="card"><h3>🃏 十五種標點翻卡</h3><p class="muted">點卡片翻面看用法。重點：分號、破折號、引號、書名號、刪節號。</p>
+  <div class="flips">${cards.map(c=>`<div class="flip"><div class="in"><div class="f"><div class="sym">${esc(c[1])}</div><b>${c[0]}</b></div><div class="bk2">${esc(c[2])}</div></div></div>`).join('')}</div></div>`;
+  el.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('on'));
+}
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、civ7-nanyi-2（例 chinese8-1）、公民 國一上第二次段考（南一）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'civ7-nanyi-2',
+  site:'公民 國一上第二次段考（南一）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('civ7-nanyi-2_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('civ7-nanyi-2_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${(d&&d.quickTitle)||'名詞快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽（公民 國一上 第二次段考・南一） ================= */
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+document.body.insertAdjacentHTML('beforeend','<button class="bgm" id="bgmBtn"></button>');
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};
+
+const ANIM={l3:animL3,l4:animL4};
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  if(cur==='exam') return renderExam(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 名詞快問快答'],['match','🔗 名詞↔定義配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel');
+  const title=`${d.no} ${d.short}`;
+  if(s==='anim') ANIM[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">本單元 ${d.mcq.length} 題，全部依段考命題方向原創改寫。點選答案後才會出現解析；做完可以交卷給老師。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const N=RADAR.n;
+  const bar=arr=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  app.innerHTML=`
+  <h2>📡 第二次段考考點雷達</h2>
+  <p class="muted">整理 <b>${N} 所學校</b>的國一上公民第二次段考卷：${RADAR.schools}。範圍：單元3 親屬關係與家庭功能＋單元4 平權的家庭；統計中範圍幾乎全落在這兩個單元（極少數學校混入別的單元題，不計入）。</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${['l3','l4'].map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].short}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+    <div class="lc" style="background:linear-gradient(135deg,#183e70,#5b86c4)" data-k="mix"><div><div class="n">綜合</div><div class="t">數字・流程・圖表</div></div><div class="d">課本數字｜保護令與姓氏流程｜家族表判讀｜統計表｜條文</div></div>
+    <div class="lc" style="background:linear-gradient(135deg,#c97a1c,#f0a03c)" data-k="exam"><div><div class="n">總測驗</div><div class="t">隨機 25 題</div></div><div class="d">兩個單元＋跨單元題混合，做完交卷給老師</div></div>
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（${N} 校中幾校考過）</h3>${bar(RADAR.topics)}
+  <p class="muted" style="margin-top:10px">⚠️ 壓倒性第一名是<b>親屬關係判斷</b>：${N} 校全考、約 192 題（占 21%），從文字敘述延伸到座位圖、紅包圖、喜帖、手術同意書。<br>⚠️ 題數分布：單元3 約 500 題、單元4 約 430 題，兩個單元都要顧。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>基本分必拿（幾校考過）</h3><div class="chips">${RADAR.basics.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">最穩的分數：<b>保護令＝法院核發</b>、<b>家庭四大功能配對</b>、<b>親屬三類（配偶、血親、姻親）</b>、<b>少子化對策＝育嬰假、托育、育兒津貼</b>。</p></div>
+    <div class="card"><h3>高頻名詞（★ 快問快答會標）</h3><div class="chips">${RADAR.words.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">課本寫明保護令依「<b>家庭暴力防治法</b>」聲請；育嬰假的法規課本沒寫法名，現行名稱是「<b>性別平等工作法</b>」（舊名「性別工作平等法」，舊卷仍可能出現）。</p></div>
+  </div>
+  <div class="card"><h3>🪤 最常錯的 8 個陷阱</h3>
+    <p><span class="pill">1</span>姑丈、嬸嬸、舅媽、媳婦、女婿＝<b>姻親</b>（血親的配偶），<b>不是旁系血親</b>；兄弟姊妹、伯叔姑舅姨、堂表親＝旁系血親。</p>
+    <p><span class="pill">2</span>雙方父母「<b>親家</b>」＝血親的配偶的血親，<b>不屬於姻親、沒有親屬關係</b>；繼母與繼子＝姻親，繼兄弟姊妹之間沒有關係；<b>乾親</b>沒有經法院認可＝沒有關係。</p>
+    <p><span class="pill">3</span><b>收養</b>＝向<b>法院</b>聲請認可（不是戶政、社會局）；養子女與養父母＝法定血親，權利義務同婚生子女。</p>
+    <p><span class="pill">4</span>南一用語＝<b>小家庭／折衷家庭／大家庭</b>；他版＝核心／主幹／擴展。頂客＝雙薪<b>無子女</b>；<b>隔代教養≠兩地家庭</b>。</p>
+    <p><span class="pill">5</span>功能配對：<b>生育最難被取代</b>；補習班、媒體＝補充教育；托育、安養機構＝補充保護與照顧；生產消費搬到家庭外＝經濟。</p>
+    <p><span class="pill">6</span><b>親權</b>＝對<b>未滿 18 歲</b>子女；意見不一致或離婚後協議不成→<b>法院依子女最佳利益</b>（不是父親優先、不是誰比較有錢）。</p>
+    <p><span class="pill">7</span><b>保護令</b>＝<b>法院</b>核發；<b>警察局、社會局</b>是求助管道；被害人還包含前配偶、親密伴侶、目睹家暴的兒少，也含精神傷害。</p>
+    <p><span class="pill">8</span>對策別配錯：少子化→育嬰假、托育、育兒津貼；高齡化→長照、安養、探視獨居老人；家暴→保護令；脆弱家庭→物資補助＋就業輔導；新住民→識字班、生活適應班。</p></div>
+  <div class="card"><h3>🔢 一定要背的數字</h3>
+    <div class="scale"><span>訂婚 <b>17</b> 歲<br>結婚 <b>18</b> 歲</span><span>證人 <b>2</b> 位以上<br>雙方一同登記</span><span>親權對象<br>未滿 <b>18</b> 歲</span><span>育嬰假 <b>3</b> 歲前<br>最長 <b>2</b> 年</span><span>津貼約 <b>8</b> 成薪<br>最長 <b>6</b> 個月</span><span>高齡化 <b>7%</b><br>高齡 <b>14%</b>／超高齡 <b>20%</b></span></div></div>
+  <div class="grid2">
+    <div class="card"><h3>📊 圖表、史料題型（出現次數）</h3><div class="chips">${RADAR.charts.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">看圖先找「本人」再標親屬；老年人口圖用 7%、14%、20% 三條門檻判斷；統計圖「小家庭最多」是最穩的結論。</p></div>
+    <div class="card"><h3>💡 意外發現</h3>
+    <p>🧩 同一題幹跨校重複很多：<b>保護令機關配對</b>（9 校）、<b>以房養老＝經濟功能</b>、手術同意書誰能代簽、學齡前幼兒＋雙薪→幼兒園協助哪些功能。</p>
+    <p>📚 課本有、各校幾乎不考：<b>脆弱家庭、新住民協助、公權力定義</b>——但仍可能出現在對策配對的選項裡。</p>
+    <p>📰 時事素材很多（好孕方案、祖父母節、青銀共居），考的仍是「功能配對」「對策配對」，背概念比背新聞有效。</p></div>
+  </div>
+  <div class="card"><h3>🌏 版本用語對照</h3>
+  <p class="muted">同版（南一）卷只有 2 校，其餘校數來自他版（翰林、康軒）同範圍的家庭單元。他版常用的詞，你要會對應回南一：</p>
+  <table class="tbl"><tr><th>南一課本</th><th>他版常見說法</th></tr>
+  <tr><td>小家庭</td><td>核心家庭</td></tr><tr><td>折衷家庭（三代家庭）</td><td>主幹家庭</td></tr><tr><td>大家庭（血緣、聯合家庭）</td><td>擴展家庭</td></tr></table></div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每單元先看 <b>🎬 動畫導覽</b>，用真實照片弄懂課本 → ② <b>⚡ 名詞快問快答</b>、<b>🔗 配對</b>練熟基本分 → ③ <b>🎯 分類挑戰</b>破解陷阱（親屬分類、家庭型態、對策配對最重要）→ ④ <b>📝 段考模擬題</b>、<b>📊 綜合</b>圖表題 → ⑤ <b>📝 總測驗</b>，做完按「📤 交卷給老師」。</p></div>
+  <details class="card"><summary><b>統計限制</b>（給老師看）</summary>
+  <p class="muted">同版本（南一）卷只有 2 校，未達 4 校門檻；其中 1 校為 113 學年且版本判定為低信心，另 1 校為掃描卷、沒有答案檔（答案依課本推定）。因此主題與陷阱的校數以他版 50 校同範圍補足，僅供參考，以課本為準。課本依據為南一版國一上公民（114 學年版課本檔），課本內的統計圖與專欄若有更新，請以最新版課本為準。他版常考的「近親不得結婚」（4 校）南一課本沒有這段，所以沒有做成題目；統計圖表題的數字是改編示意，不是課本原圖。</p></details>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,(c.dataset.k==='mix'||c.dataset.k==='exam')?undefined:'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 綜合：數字＋流程＋圖表＋跨單元 ================= */
+function renderMix(app){
+  const s=curSub.mix||'flow';
+  const subs=[['flow','🔢 數字與流程排序'],['chart','📊 圖表與條文判讀'],['mixq','🔀 跨單元混合題']];
+  app.innerHTML=`<h2>📊 綜合：數字＋流程＋圖表</h2>
+  <p class="muted">把兩個單元串起來：課本數字、保護令與姓氏的流程、家族表與統計表判讀、條文閱讀。</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div><div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub.mix=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='flow'){
+    p.innerHTML=`<div class="card"><h3>🔢 課本數字總整理</h3>
+    <table class="tbl"><tr><th>項目</th><th>數字（課本）</th></tr>
+    <tr><td>訂婚／結婚年齡</td><td>訂婚須年滿 <b>17</b> 歲、結婚須年滿 <b>18</b> 歲</td></tr>
+    <tr><td>結婚要件</td><td>書面約定、<b>2 位以上</b>證人簽名、雙方一同到戶政機關登記</td></tr>
+    <tr><td>親權</td><td>對<b>未成年（未滿 18 歲）</b>子女</td></tr>
+    <tr><td>育嬰假</td><td>孩子年滿 <b>3 歲前</b>、最長 <b>2 年</b></td></tr>
+    <tr><td>育嬰留職停薪津貼</td><td>約 <b>8 成</b>薪水、最長 <b>6 個月</b>；民國 111 年男性申請占 <b>25.5%</b></td></tr>
+    <tr><td>瑞典育嬰假</td><td><b>480 天</b>，前 390 天政府補貼、後 90 天也有生活補貼</td></tr>
+    <tr><td>聯合國高齡標準（65 歲以上）</td><td><b>7%</b> 高齡化社會、<b>14%</b> 高齡社會、<b>20%</b> 超高齡社會</td></tr>
+    <tr><td>我國高齡化進程（單元3 專欄）</td><td>民國 <b>107</b> 年進入高齡社會，預估民國 <b>115</b> 年進入超高齡社會（單元4 文字寫「目前已進入超高齡社會」，兩處說法不同，考試以題目給的資料為準）</td></tr></table></div>`+
+    STEPS.map((_,i)=>`<div class="card" id="st${i}"></div>`).join('');
+    STEPS.forEach((so,i)=>{SORTCTX={code:7,title:'綜合 數字與流程排序'};renderSort($('#st'+i),so)});SORTCTX=null;
+    return;
+  }
+  if(s==='chart'){
+    p.innerHTML=CHART.map((c,k)=>`<div class="card"><h3>${c.title}</h3><div class="figbox">${c.fig}</div><div id="cq${k}"></div></div>`).join('');
+    CHART.forEach((c,k)=>renderMCQ($('#cq'+k),c.qs.map(q=>({...q,src:c.src})),7,`綜合 ${c.title.replace(/^[①-⑨]\s*/,'')}`));
+    return;
+  }
+  p.innerHTML=`<p class="muted">跨單元的觀念比較題，全部原創改寫。</p><div id="xq"></div>`;
+  renderMCQ($('#xq'),MIXQ,7,'綜合 跨單元混合題');
+}
+
+/* ================= 總測驗（隨機 25 題） ================= */
+function renderExam(app){
+  const pool=[...L.l3.mcq.map(q=>({...q,unit:'單元3'})),...L.l4.mcq.map(q=>({...q,unit:'單元4'})),...MIXQ.map(q=>({...q,unit:'綜合'}))];
+  const qs=shuf(pool).slice(0,25);
+  app.innerHTML=`<h2>📝 總測驗｜隨機 25 題</h2>
+  <p class="muted">從單元3、單元4 與跨單元題庫（共 ${pool.length} 題）隨機抽 25 題，每題 4 分。做完按「📤 交卷給老師」；想換一份題目按下面的按鈕。</p>
+  <div class="row" style="margin-bottom:12px"><button class="btn ghost" id="newExam">🔄 換一份新的總測驗</button></div><div id="ex"></div>`;
+  $('#newExam').onclick=()=>renderExam(app);
+  renderMCQ($('#ex'),qs,9,'總測驗');
+}
+
+/* ================= 共用：動畫外框 ================= */
+function stage(p,extra){p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${extra||''}`}
+
+/* ================= 單元3 親屬關係與家庭功能 ================= */
+function animL3(p){
+  stage(p,`<div class="card"><h3>🗺️ 單元3 一張圖：親屬三類</h3>
+  <table class="tbl"><tr><th>類別</th><th>說明</th><th>舉例</th></tr>
+  <tr><td>配偶</td><td>簽書面結婚書約、到戶政機關登記</td><td>丈夫與妻子</td></tr>
+  <tr><td>直系血親</td><td>有直接的出生關係</td><td>祖父母、父母、子女、孫子女</td></tr>
+  <tr><td>旁系血親</td><td>無直接出生關係，但有共同血緣</td><td>兄弟姊妹、伯叔姑、舅姨、堂（表）兄弟姊妹</td></tr>
+  <tr><td>法定血親</td><td>依民法透過收養（向法院聲請認可）</td><td>養父母與養子女</td></tr>
+  <tr><td>姻親</td><td>血親的配偶／配偶的血親／配偶的血親的配偶</td><td>嬸嬸、姑丈、媳婦；公婆、岳父母；妯娌、連襟</td></tr></table>
+  <p class="muted" style="margin-top:8px">⚠️ 雙方父母「親家」＝血親的配偶的血親，<b>不屬於姻親</b>，沒有親屬關係。</p></div>
+  <div class="card"><h3>🏠 三種主要家庭型態</h3>
+  <div class="ladder"><span>小家庭<small>夫妻＋未婚子女（核心）</small></span><b>＋</b><span>折衷家庭<small>小家庭＋夫妻的直系長輩（三代）</small></span><b>＋</b><span class="an">大家庭<small>數個有血緣的小家庭（聯合）</small></span></div>
+  <table class="tbl"><tr><th>多樣化型態</th><th>關鍵詞</th></tr>
+  <tr><td>單親家庭</td><td>離婚或一方死亡，父或母＋未婚子女</td></tr>
+  <tr><td>重組（繼親）家庭</td><td>帶著前次婚姻的子女再婚</td></tr>
+  <tr><td>頂客家庭（DINK）</td><td>夫妻皆有收入、無子女</td></tr>
+  <tr><td>雙薪家庭</td><td>夫妻皆有工作收入</td></tr>
+  <tr><td>新住民（跨國婚姻）家庭</td><td>外籍人士與本國人民共同組成</td></tr>
+  <tr><td>隔代教養（祖孫）家庭</td><td>祖父母與孫子女，父母外出工作</td></tr>
+  <tr><td>兩地（通勤）家庭</td><td>平日不同住，假日通勤團聚</td></tr>
+  <tr><td>同性家庭</td><td>同性伴侶或與其子女</td></tr></table></div>
+  <div class="card"><h3>🛡️ 家庭四大功能與轉化</h3>
+  <table class="tbl"><tr><th>功能</th><th>內容</th><th>轉化（誰來補充）</th></tr>
+  <tr><td>生育</td><td>生兒育女、傳承生命</td><td>少生不生→少子化；<b>最難被取代</b></td></tr>
+  <tr><td>經濟</td><td>傳統上是生產與消費的基本單位</td><td>生產、消費移到公司、市場</td></tr>
+  <tr><td>教育</td><td>學習人際互動、影響品格與價值觀</td><td>補習班、安親班、大眾傳播媒體</td></tr>
+  <tr><td>保護與照顧</td><td>生理與心理的保護照顧</td><td>兒童托育、安養照護機構</td></tr></table></div>`);
+  const steps=[
+    {label:'① 家庭與親屬三類',imgs:[{img:'l3_cny',tag:'三代同堂的春節家庭合照'}],poem:'<b>家庭</b>是由具備<b>婚姻、血緣或收養</b>等關係的人，以<b>永久共同生活</b>為目的而組成的親屬團體；是<b>社會的最基本單位</b>，也是<b>個人最早接觸的團體</b>。依民法，親屬關係分三類：<b>配偶、血親、姻親</b>。',key:'「只有血緣才算家庭」是錯的（也包含婚姻、收養）；三類不要漏掉配偶。'},
+    {label:'② 配偶與結婚要件',imgs:[{img:'l3_hro',tag:'戶政事務所：結婚要在戶政機關辦理登記'},{img:'l3_wedding',tag:'迎娶車隊與婚宴只是儀式，不等於完成登記'}],poem:'雙方基於<b>自由意願</b>簽訂<b>書面</b>結婚書約，有<b>兩位以上證人</b>簽名，<b>雙方一同</b>到<b>戶政機關</b>完成登記後，互為<b>配偶</b>。訂婚須年滿 <b>17 歲</b>、結婚須年滿 <b>18 歲</b>。',key:'陷阱：20 歲、口頭約定、只有一方登記、辦了婚宴就算（13 校考）。'},
+    {label:'③ 血親、姻親與收養',imgs:[{img:'l3_adopt',tag:'收養要向法院聲請認可（示意，英國的收養申請表與法槌）'}],poem:'<b>血親</b>＝自然血親（<b>直系</b>：直接出生關係；<b>旁系</b>：無直接出生關係但有共同血緣）＋<b>法定血親</b>（收養，向<b>法院</b>聲請認可）。<b>姻親</b>＝血親的配偶、配偶的血親、配偶的血親的配偶；「血親的配偶的血親」（親家）不屬姻親。',key:'姑丈、嬸嬸、舅媽＝姻親，不是旁系；乾親沒有法院認可＝沒有關係；繼母與繼子＝姻親（52 校最大宗題型）。'},
+    {label:'④ 小家庭・折衷・大家庭',imgs:[{img:'l3_huang',tag:'早期的大家庭合照（昭和年間，公有領域）'},{img:'l3_cny',tag:'多代同堂合照：小家庭加上直系長輩'}],poem:'<b>小家庭</b>（核心）：一對夫妻與其未婚子女。<b>折衷家庭</b>（三代）：小家庭加上夫妻的直系成員長輩。<b>大家庭</b>（血緣、聯合）：由數個有血緣關係的小家庭成員組成。',key:'南一用語＝小／折衷／大，他版＝核心／主幹／擴展；課本圖3-3-5：比例最高的是小家庭。'},
+    {label:'⑤ 多樣化家庭與成因',imgs:[{img:'l3_hsr',tag:'高鐵月臺：工作與居住地點分開，出現兩地（通勤）家庭'},{img:'l3_samesex',tag:'同性伴侶舉行的婚禮：婚姻對象的選擇改變，出現同性家庭'}],poem:'四個常見成因：<b>生育觀念</b>的改變、<b>婚姻觀念</b>的轉變、<b>女性就業</b>的增加、<b>工作及居住地點</b>的轉變，形成單親、重組、頂客、同性、新住民、隔代教養、兩地、雙薪等多樣化家庭。',key:'看關鍵詞配對：只剩一方＝單親；帶前次婚姻子女＝重組；雙薪無子女＝頂客；祖孫＝隔代；平日分開＝兩地。'},
+    {label:'⑥ 家庭功能與轉化',imgs:[{img:'l3_cram',tag:'補習班、安親班補充了部分教育功能'},{img:'l4_elder',tag:'安養與長照機構的復健設備：分擔保護與照顧功能'}],poem:'四大功能：<b>生育</b>（傳承生命）、<b>經濟</b>（生產與消費）、<b>教育</b>（人際互動、品格價值觀）、<b>保護與照顧</b>（生理與心理）。現代社會有家庭以外的單位投入協助，但家庭仍然<b>難以被取代</b>。',key:'補習班、媒體＝教育；托育、安養機構＝保護與照顧；生產消費移到家庭外＝經濟；<b>生育功能最難被取代</b>（43 校考）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 單元4 平權的家庭 ================= */
+function animL4(p){
+  stage(p,`<div class="card"><h3>⚖️ 單元4 一張圖：夫妻與親子的權利義務（表3-4-1）</h3>
+  <table class="tbl"><tr><th>項目</th><th>民法規定</th></tr>
+  <tr><td>夫妻財產</td><td>夫妻可各自管理或使用其財產，不受他人干涉</td></tr>
+  <tr><td>配偶家務</td><td>夫妻於日常家務，互為代理人</td></tr>
+  <tr><td>子女姓氏</td><td>出生登記前書面約定從父姓或母姓；未約定或約定不成→戶政事務所<b>抽籤</b></td></tr>
+  <tr><td>子女扶養義務</td><td>被家暴、遺棄→請法院<b>減輕或免除</b>；惡意棄養、重大虐待→不得繼承遺產</td></tr>
+  <tr><td>未成年子女親權</td><td>父母共同行使；重大事項意見不一致→請法院依<b>子女最佳利益</b>決定</td></tr>
+  <tr><td>父母離婚</td><td>協議由一方或雙方任之；協議不成→請法院依<b>子女最佳利益</b>決定</td></tr></table></div>
+  <div class="card"><h3>🏛️ 4-3 公權力怎麼協助家庭？</h3>
+  <table class="tbl"><tr><th>問題</th><th>政府的作法</th></tr>
+  <tr><td>少子化</td><td>育嬰假、增設托育機構、發放育兒津貼</td></tr>
+  <tr><td>高齡化</td><td>增設長期照顧管理中心、醫療保健與生活補助、社福人員探視獨居老人</td></tr>
+  <tr><td>家庭暴力</td><td>警察局、社會局求助；向法院聲請<b>保護令</b></td></tr>
+  <tr><td>脆弱家庭</td><td>生活物資與經濟補助＋就業輔導、職業訓練</td></tr>
+  <tr><td>新住民</td><td>識字班、生活適應班，介紹不同文化的故鄉風情</td></tr></table>
+  <p class="muted" style="margin-top:8px"><b>公權力</b>＝國家為了維護社會公益、處理公務而動用的權力（例：警察指揮交通）。</p></div>`);
+  const steps=[
+    {label:'① 家務勞動與性別平權',imgs:[{img:'l4_dishes',tag:'洗碗、整理廚房：家務應由家人共同分擔'}],poem:'<b>家務勞動</b>是維持家庭正常運作的重要活動。過去受<b>性別刻板印象</b>影響，多由女性承擔，許多<b>職業婦女</b>因兼顧職場與家務而責任過重；「男主外、女主內」也讓男性承擔<b>較大的經濟壓力</b>，與家人產生疏離感。',key:'家務分工不均＝不平權，不是「女性天職」；家務應由家庭成員共同分擔（26 校考）。'},
+    {label:'② 育嬰假與家庭照顧假',imgs:[{img:'l4_paternity',tag:'爸爸在家照顧寶寶：照顧不分性別'}],poem:'孩子年滿 <b>3 歲前</b>可申請育嬰假，最長 <b>2 年</b>；津貼約 <b>8 成薪</b>、最長 <b>6 個月</b>。<b>家庭照顧假</b>不分性別。瑞典的「拿鐵爸爸」：<b>480 天</b>共享育嬰假。民國 111 年男性申請占 <b>25.5%</b>。',key:'三組數字別混（3 歲／2 年／8 成＋6 個月）；父母皆可申請（31 校考）。'},
+    {label:'③ 夫妻與親子的權利義務',imgs:[{img:'l4_court',tag:'臺灣臺南地方法院的建築：親權、扶養、收養等爭議由法院處理'}],poem:'<b>義務</b>＝個人應做的事或應盡的責任。夫妻：<b>財產各自管理使用</b>、<b>日常家務互為代理人</b>，住所與家務分工可用<b>婚前協議書</b>約定。親子：<b>親權</b>（未滿 18 歲）、<b>子女姓氏</b>書面約定、扶養義務、平等繼承。',key:'姓氏約定不成＝戶政事務所<b>抽籤</b>；親權意見不一致＝法院依<b>子女最佳利益</b>；惡意棄養不得繼承。'},
+    {label:'④ 少子化與高齡化',imgs:[{img:'l4_empty',tag:'空蕩蕩的教室（示意，非臺灣）：少子化使學生與班級減少'},{img:'l4_elder',tag:'長照機構的復健設備（示意）：政府增設長期照顧管理中心'}],poem:'<b>少子化</b>：生育觀念改變、低薪高房價、托育教育負擔 → 政府提供<b>育嬰假、托育機構、育兒津貼</b>。<b>高齡化</b>：65 歲以上 <b>7%</b> 高齡化、<b>14%</b> 高齡、<b>20%</b> 超高齡 → 政府增設<b>長期照顧管理中心</b>、醫療補助、探視獨居老人。',key:'對策別配錯：育兒津貼是少子化，長照是高齡化（48 校、41 校考）。'},
+    {label:'⑤ 家庭暴力與保護令',imgs:[{img:'l4_stopdv',tag:'紫色絲帶貼紙：防治家庭暴力的標誌（示意，國外警方車輛）'},{img:'l4_shilin',tag:'臺灣士林地方法院門口的警車：向警察局求助，保護令由法院核發'}],poem:'<b>家庭暴力</b>＝家庭成員與同居人間身體或精神上的傷害；被害人也含<b>前配偶、同居或非同居的親密伴侶、目睹家暴的兒少</b>。「法不入家門」已被打破：可向<b>警察局、社會局</b>求助，也可向<b>法院</b>聲請<b>保護令</b>。',key:'保護令＝<b>法院</b>核發（警察局、社會局是求助管道），幾乎年年送分（47 校考）。'},
+    {label:'⑥ 脆弱家庭與新住民',imgs:[{img:'l4_newimm1',tag:'臺北市萬華新移民會館：協助新住民認識與適應'},{img:'l4_newimm2',tag:'臺灣燈會的越南燈區：不同文化的交流'}],poem:'<b>脆弱家庭</b>：因貧窮、失業等需各方支持；政府發放<b>生活物資與經濟補助</b>，並提供<b>就業輔導、職業訓練</b>。<b>新住民</b>：政府與民間開辦<b>識字班、生活適應班</b>，協助跨國婚姻家庭發揮<b>教育功能</b>。',key:'課本有、各校少考，但常被放進對策配對的選項；<b>公權力</b>的定義也要會。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+</body>
+</html>

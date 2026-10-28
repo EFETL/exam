@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國一公民段考闖關（翰林）第三次</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#1f4e8c; --main-2:#3a72c0; --accent:#f0a03c; --accent-2:#d9822b;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#173c6e 0%,#3a72c0 60%,#f0a03c 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#173c6e;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+.qword{font-size:1.4rem;letter-spacing:0;line-height:1.55;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word}
+@media(max-width:560px){.opts{grid-template-columns:1fr}.qword{font-size:1.25rem}}
+.bars .b span{line-height:1.35}
+@media(max-width:560px){.bars .b{grid-template-columns:128px 1fr 60px}}
+details.card summary{cursor:pointer}
+@media(max-width:560px){.lessoncards{grid-template-columns:1fr}.lc{min-height:0;gap:8px}}
+/* 表格與圖表（文字放在 HTML，不畫在圖上） */
+.tbl{width:100%;border-collapse:collapse;font-size:1rem;margin:6px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.tbl th{background:#eaf1fb;color:var(--main)}
+.figbox{overflow-x:auto;margin-bottom:6px}
+.passage{background:#f1f5fb;border-radius:12px;padding:14px 16px;line-height:1.9}
+.ladder{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 12px}
+.ladder span{background:var(--main);color:#fff;border-radius:12px;padding:6px 12px;font-weight:700;text-align:center}
+.ladder span.an{background:var(--accent);color:#3b2600}
+.ladder small{display:block;font-size:1rem;font-weight:500}
+/* 同心圓（國民與公民） */
+.ring{margin:6px 0 10px}
+.ring-o{border:3px solid var(--main-2);background:#eaf1fb;border-radius:28px;padding:14px 16px}
+.ring-i{margin-top:10px;border:3px solid var(--accent);background:#fff4e2;border-radius:22px;padding:12px 14px}
+/* 聊天室 */
+.chat p{background:#f1f5fb;border-radius:14px;padding:8px 14px;margin:8px 0;line-height:1.7}
+.chat p:nth-child(even){background:#fff4e2}
+/* 流程圖 */
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.flow span{flex:1 1 140px;background:#eaf1fb;border:2px solid var(--main-2);border-radius:12px;padding:8px 10px;text-align:center;font-weight:700;line-height:1.5}
+.flow b{color:var(--accent-2)}
+@media(max-width:560px){.flow{flex-direction:column;align-items:stretch}.flow span{flex:none}.flow b{text-align:center;transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回科目選單</a><span class="tag">翰林版 國一上公民 ｜ 第三次段考</span>
+    <h1>公民段考闖關｜第 5 章 學生權利與校園生活＋第 6 章 部落與公民參與</h1>
+    <p>先看真實照片動畫弄懂課本，再用遊戲練熟考點，最後做段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap">
+  <b>全民補習班 公民科</b>｜考點依據：同版 34 所學校（114 學年上學期 31 所、113 學年上學期 3 所）的翰林版第三次段考試卷。模擬題全部為原創改寫，只參考各校命題方向與陷阱。<br>
+  名詞、定義、數字與法律名稱依翰林國一上社會課本（公民第 5～6 章）。答對、答錯都有音效；背景音樂只在「動畫導覽」播放，可按右下角按鈕關閉。<br>
+  交卷時會把你的姓名、分數與錯題傳給老師。左下角 ✏️ 可以手寫、兩指縮放。<br>
+  <details style="margin-top:8px"><summary>圖片來源與授權</summary>
+  照片皆來自 Wikimedia Commons（CC0／公有領域／CC BY／CC BY-SA），未使用 AI 生成圖：Classroom with students in Baozhong Junior High School 20130308：褒忠國中 雲端網（CC BY 2.0）；The Students of Kendo Club of Da Ji Junior High School 2006-12-1：enixii（CC BY-SA 2.0）；Cyber-bullying-122156 960 720：14398（CC0）；Personal Diary：Barnaby Dorfman（CC BY 2.0）；Students engagement：Advaithacademy（CC BY-SA 4.0）；Wooden gavel 20170417：Santeri Viinamäki（CC BY-SA 4.0）；Malala Yousafzai- Education for girls (22419395331)：DFID - UK Department for International D（CC BY 2.0）；Student council meeting at the Banneker Junior High School8d20210v：Marjory Collins（公有領域）；Assembly house of Puyuma, Taiwan 1897 (No.7364)：鳥居龍蔵（1870-1953）（公有領域）；Deerhunting of Taiwanese aboriginals：Unknown authorUnknown author（公有領域）；2019 Duona Village Maolin District Kaohsiung City Taiwan：Taiwankengo（CC BY-SA 4.0）；Ilisin - Young Girls Singing：Kevshen（CC BY-SA 4.0）；Day 1332 of Indigenous Peoples' Transitional Justice Classroom protest 20201017：Solomon203（CC BY-SA 4.0）；Taiwan indigenous people distribution 1936：臺灣總督府警務局理蕃課（公有領域）；Aborigines distributing meat (after hunting) in Taiwan：Unknown authorUnknown author（公有領域）；Smangus：Peellden（CC BY-SA 3.0）；Rattan weaving in Tbulan 2023-04-14：Wang Yu Ching / Office of the President （CC BY 2.0）。</details>
+</div></footer>
+
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+/* ================= 資料（翰林 國一上公民 第三次段考）第 5 章 學生權利與校園生活 =================
+   名詞、定義、流程一律依翰林國一上社會課本（第三篇 公民 第 5 章）。手邊只有 114 學年版翰林課本 WORD，115 學年版待老師確認。
+   快問快答：[題目, 正解, [3 個誘答], 幾校考過(0＝不標★；只標 ≥2 校), 題目提示(可省略)]
+   模擬題：{q, o:[正解, 誘答…], a:0, src, ex}（選項每次洗牌；全部原創改寫，只借各校命題方向與陷阱） */
+const L5 = {
+  no:'第 5 章', code:5, title:'學生權利與校園生活', short:'學生權利與校園生活', color:'linear-gradient(135deg,#1f4e8c,#3a72c0)',
+  desc:'受教育權・身體自主權・人格發展權｜霸凌與申訴｜學生自治｜班會議事（權宜／秩序、提案／動議）',
+  quickAsk:'選出正確的答案', quickTitle:'學生權利與班會快問快答',
+  quick:[
+    ['憲法規定，人民有「受國民教育」的什麼？','權利與義務',['權利而已','義務而已','自由選擇權'],19],
+    ['「人人都有受教育的權利」出自哪一份文件？','世界人權宣言',['兒童權利公約','教育基本法','性別平等教育法'],15],
+    ['憲法保障人民接受教育的權利，稱為','受教育權',['學習權','身體自主權','人格發展權'],30],
+    ['個人對自主學習與獲取知識的權利，稱為','學習權',['受教育權','隱私權','身體自主權'],30],
+    ['學習權的觀念中，誰是學習的主體？','學生',['教師','校長','家長'],12],
+    ['學校設立圖書館，讓學生能自主學習、獲取知識，保障的是','受教育權與學習權',['身體自主權','人格發展權','財產權'],12],
+    ['一個人對自己身心管理的權利及能力，稱為','身體自主權',['人格發展權','受教育權','學習權'],30],
+    ['沒有經過本人同意，任何人都不能任意碰觸、侵犯，這是在保障','身體自主權',['人格發展權','學習權','受教育權'],13],
+    ['關於人的價值與尊嚴（包括健康、名譽、隱私）的權利，稱為','人格權（人格發展權）',['身體自主權','學習權','參政權'],30],
+    ['在班上替同學取難聽的綽號並當眾嘲笑，主要侵害','人格發展權',['身體自主權','學習權','財產權'],25],
+    ['未經同意，擅自翻閱同學的日記、聯絡簿或手機訊息，侵犯的是','隱私（人格發展權）',['身體自主權','學習權','受教育權'],19],
+    ['被同學用力推倒、打到受傷，主要侵害','身體自主權',['人格發展權','隱私','學習權'],13],
+    ['長期被毆打、住院治療而無法到校上課，侵害了他的','受教育權與學習權',['人格發展權','財產權','參政權'],12],
+    ['霸凌是同儕間故意且具傷害性，並且','持續或重複出現在固定的受害者身上',['只發生一次的意外碰撞','發生在師生之間','發生在校外陌生人之間'],27],
+    ['課本舉例的霸凌包括暴力攻擊、言語辱罵、排擠弱勢同儕，以及','網路霸凌',['學生自治','課後輔導','班級公約'],27],
+    ['教育部防制校園霸凌專線的號碼是','1953',['165','1950','1955'],6],
+    ['依課本，明確規定「學生應不受任何形式的霸凌」的法律是','教育基本法',['性別平等教育法','兒童權利公約','世界人權宣言'],16],
+    ['目睹霸凌事件，下列哪個做法最恰當？','主動關懷並向師長求助',['請高年級學長去找對方算帳','在網路公開加害者資料','假裝沒看到'],24],
+    ['學生申訴評議委員會的功能是','理性處理學生權益遭學校不當侵害的申訴',['調查並處理校園性別平等事件','審議班級公約與社團章程','決定班級幹部人選'],16],
+    ['老師管理秩序，是為了保障','所有學生的學習權',['老師自己的權威','成績好的學生','校長的利益'],10],
+    ['主張自己權利的同時，也要尊重他人權利，並遵守','共同的規範',['個人的喜好','多數人的決定','老師的心情'],10],
+    ['學生自治的第一步是','成立自治組織',['訂定自治規範','推展各項自治活動','召開校務會議'],28],
+    ['學生自治的第二步是','訂定自治規範',['成立自治組織','推展各項自治活動','選出班長'],28],
+    ['制定班級公約、社團組織章程，屬於學生自治的哪一步？','訂定自治規範',['成立自治組織','推展各項自治活動','選出相關人員'],21],
+    ['討論班服、舉辦社團活動，屬於學生自治的哪一步？','推展各項自治活動',['成立自治組織','訂定自治規範','宣布散會'],21],
+    ['班會中，「主持會議、賦予與會人員發言地位」的是','主席',['司儀','紀錄','導師'],33],
+    ['班會中，「宣讀會議程序」的是','司儀',['主席','紀錄','導師'],19],
+    ['班會中，「詳實記錄報告事宜、表決的方法與票數、決議要點」的是','紀錄',['司儀','主席','導師'],20],
+    ['班會中，「提示會議規則、散會後講評，也不加入表決」的是','導師',['主席','司儀','紀錄'],31],
+    ['主席主持表決，但以什麼為原則？','不參加表決',['一定要參加表決','只在同票時才表決','由導師代為表決'],33],
+    ['議場發生地震、噪音等偶發的緊急事件，足以影響全體，應提出','權宜問題',['秩序問題','臨時動議','提案'],31],
+    ['議題進行中發生程序錯誤（例如未討論就表決），應提出','秩序問題',['權宜問題','臨時動議','提案'],30],
+    ['會前以「書面」呈現，並經一位以上出席人「附署」的是','提案',['動議','臨時動議','權宜問題'],29],
+    ['開會時以「口頭」提出，並經一位以上出席人「附議」的是','動議',['提案','附署','秩序問題'],29],
+    ['與提案無關的其他議題，要在班會的哪個階段提出？','臨時動議階段',['報告事項階段','宣布開會之前','導師講評之後'],24],
+    ['有多個案子要表決時，順序原則是','先提議的先表決',['後提議的先表決','由主席挑選','抽籤決定'],17],
+    ['班會表決的結果，依照什麼原則決定？','多數決',['全體一致','主席決定','導師決定'],22],
+    ['對「事」的表決出現同票，處理方式是','由主席是否加入投票決定',['抽籤','由導師決定','猜拳'],17],
+    ['對「人」的選舉出現同票，處理方式是','抽籤',['由主席是否加入投票決定','由導師決定','重新辯論到一致'],17],
+    ['利用班會決定班級事務、參加學生社團，屬於課本所說的','積極參與公共事務',['遵守共同規範','逃避公共事務','限制他人權利'],23],
+  ],
+  words:[
+    ['受教育權','憲法保障人民接受教育的權利'],['學習權','自主學習與獲取知識的權利，學生是學習的主體'],
+    ['身體自主權','對自己身心管理的權利及能力'],['人格發展權','保障人的價值與尊嚴：健康、名譽、隱私'],
+    ['霸凌','同儕間故意且具傷害性、持續出現在固定受害者'],['防制校園霸凌專線','教育部專線 1953'],
+    ['學生申訴評議委員會','權益遭學校不當侵害時的理性申訴管道'],['主席','主持會議、賦予發言、裁決權宜與秩序問題'],
+    ['司儀','宣讀會議程序'],['紀錄','記報告事宜、表決方法票數、決議要點'],['導師','提示會議規則、散會後講評、不表決'],
+    ['權宜問題','議場偶發緊急事件，影響全體或個人權利'],['秩序問題','議事程序發生錯誤，或破壞議事秩序'],
+    ['提案','會前書面提出，一位以上出席人附署'],['動議','開會時口頭提出，一位以上出席人附議'],
+  ],
+  sorts:[
+    {title:'這是侵害哪一種權利？',tip:'毆打、燙傷、強行碰觸＝身體自主；辱罵、取綽號、偷看隱私＝人格發展；妨礙上課、無法學習＝受教育權與學習權。',buckets:['受教育權與學習權','身體自主權','人格發展權'],items:[
+      ['老師未經同意翻閱同學的聯絡簿，並在班上朗讀',2,'隱私屬於人格發展權'],['同學用電捲棒燙傷另一位同學的手臂',1,'傷害身體'],
+      ['學校圖書資源與選修課嚴重不足，學生無法自主學習',0,'學習權'],['同學長期替某人取難聽的綽號',2,'名譽受損'],
+      ['有人被關在教室裡，不讓他離開',1],['同學不停干擾上課，讓其他人無法專心聽講',0,'妨礙學習權'],
+      ['同學未經同意就強行擁抱對方',1,'沒有經過本人同意不得碰觸'],['有人把別人的私人訊息公開轉貼到群組',2],
+      ['被毆打到須長期住院，無法正常到校上課',0,'課本案例：受教育權與學習權'],['老師未經同意搜查學生的手機訊息',2,'查看私人訊息屬隱私'],
+    ]},
+    {title:'班會：權宜問題還是秩序問題？',tip:'事件從「外面來」、影響全場＝權宜；「程序出錯」＝秩序。',buckets:['權宜問題（偶發事件）','秩序問題（程序出錯）'],items:[
+      ['開會時突然發生地震',0],['隔壁班大聲喧譁，吵到全班聽不見發言',0],['一隻蜜蜂飛進教室，大家驚慌失措',0],
+      ['冷氣太冷，許多同學冷得發抖',0],['兩位同學在會場突然打起來',0],
+      ['沒有任何人附議，主席就宣布動議成案',1,'動議要經一位以上出席人附議'],['還沒有討論，主席就要求大家表決',1],
+      ['議程應先報告事項，主席卻跳過直接討論',1],['先提議的案子被放到最後才表決',1,'應先提議先表決'],
+    ]},
+    {title:'班會的前五個步驟：第幾步？',tip:'選人員→宣布開會→報告事項→討論事項（提案→討論→表決）→臨時動議；最後才是散會、導師講評。',buckets:['第1步','第2步','第3步','第4步','第5步'],items:[
+      ['選出主席、司儀、紀錄',0],['主席宣布會議名稱和開會目的',1,'宣布開會'],['主席及班級幹部進行工作報告',2,'報告事項'],
+      ['提案→討論→表決',3,'討論事項'],['提出與提案無關的其他議題',4,'臨時動議'],
+    ]},
+    {title:'誰負責？班會中的角色分工',tip:'主席主持與裁決；司儀宣讀程序；紀錄寫下過程；導師提示規則與講評、不表決。',buckets:['主席','司儀','紀錄','導師'],items:[
+      ['宣讀今天的會議程序',1],['裁決同學提出的權宜問題',0],['記下表決的方法、票數與結果',2],['散會後對班會進行講評',3],
+      ['主持提案的討論與表決，但以不參加表決為原則',0],['會議進行中提示會議規則，且不加入表決',3],['詳實記錄決議的要點',2],['賦予同學發言的地位',0],
+    ]},
+    {title:'提案還是動議？附署還是附議？',tip:'提案＝會前書面＋附署；動議＝開會口頭＋附議。千萬不要對調！',buckets:['提案（書面・附署）','動議（口頭・附議）'],items:[
+      ['會議前寫成書面，並有一位同學簽名支持',0],['開會時舉手說「我提議……」，隨後有人說「我附議」',1],
+      ['一位以上出席人表示支持書面案子的動作叫「附署」',0],['一位以上出席人表示支持口頭意見的動作叫「附議」',1],
+      ['班長事先交給主席的書面班級活動案',0],['臨時動議階段口頭提出的新議題',1],
+    ]},
+    {title:'學生自治三步驟：第幾步？',tip:'成立組織 → 訂定規範 → 推展活動。',buckets:['第1步 成立自治組織','第2步 訂定自治規範','第3步 推展各項自治活動'],items:[
+      ['成立科學研究社',0],['訂定社團組織章程',1],['舉辦社團成果展',2],['組織班會',0],['制定班級公約',1],['討論並訂購班服',2],
+    ]},
+  ],
+  mcq:[
+    {q:'依翰林課本，下列哪一項是「對個人而言」，透過教育可以達成的目標？',o:['學習知識技能，追求理想的生活，達成個人成就','培育國民擁有健全人格、民主素養、法治觀念與國際視野','讓國家得以永續發展','取代家庭的所有功能'],a:0,src:'段考常考',ex:'課本：對國家而言，教育培育國民健全人格、民主素養、法治觀念和國際視野，使國家永續發展；對個人而言，可以學習知識技能、追求理想生活、達成個人成就。'},
+    {q:'「人民有受國民教育的權利與義務」是規定在下列哪裡？',o:['中華民國憲法','教育基本法','世界人權宣言','兒童權利公約'],a:0,src:'段考常考',ex:'憲法規定人民有受國民教育的權利與義務；世界人權宣言：人人都有受教育的權利；教育基本法：學生不受任何形式的霸凌。'},
+    {q:'下列哪一項做法，最符合「學生是學習的主體」這個觀念？',o:['學校安排生涯探索活動，並蒐集學生意見來調整課程','課程與管教措施完全由校方決定，不讓學生表示意見','為了管理方便，校舍規畫完全不考慮學生的需求','依成績高低決定誰能參加學習活動'],a:0,src:'段考原型',ex:'課本：教師的教學、課程規畫、管教措施、生涯探索與校舍規畫等，都應正視學生學習與成長的需求。'},
+    {q:'小凱的導師在班上翻閱他的聯絡簿，並大聲朗讀私人心得。這主要侵害小凱的哪一項權利？',o:['人格發展權（隱私）','身體自主權','受教育權','學習權'],a:0,src:'段考常考',ex:'人格權包括健康、名譽、隱私；擅自翻閱聯絡簿、日記、訊息，侵犯的是隱私，屬人格發展權。'},
+    {q:'某校園劇中，同學用電捲棒燙傷主角的手臂，還持續在群組裡辱罵她。這兩種行為分別侵害哪些權利？',o:['燙傷：身體自主權；辱罵：人格發展權','燙傷：人格發展權；辱罵：身體自主權','燙傷：學習權；辱罵：受教育權','兩者都侵害身體自主權'],a:0,src:'段考常考',ex:'傷害身體→身體自主權；言語辱罵、損害名譽→人格發展權。兩者不要對調。'},
+    {q:'下列哪一個情形，最符合課本所說的「霸凌」？',o:['全班同學長期不跟某位同學說話，並刻意排擠他整個學期','兩位同學因意見不合，下課時互毆一次','同學下樓梯嬉鬧，不小心撞倒另一位同學','老師要求全班大掃除'],a:0,src:'段考常考',ex:'霸凌＝同儕間故意且具傷害性，持續或重複出現在固定受害者身上。長期集體排擠是「關係霸凌」；一次性衝突、意外碰撞都不算。'},
+    {q:'小夏在班級群組公開傳送同學的醜照並加上嘲笑文字，已持續好幾週。這屬於哪一種霸凌？',o:['網路霸凌','肢體霸凌','不構成霸凌','師生間的管教'],a:0,src:'段考常考',ex:'透過網路持續羞辱特定同學，是課本所列「網路霸凌」，同樣侵害人格發展權。'},
+    {q:'阿宏發現同班同學長期被人勒索金錢。下列哪一種做法最適當？',o:['主動關懷同學，並告訴導師或撥打 1953 專線','私下找高年級學長去教訓加害者','把加害者的姓名與照片公布在網路上','勸受害者忍耐，等對方玩膩就好'],a:0,src:'段考常考',ex:'課本：周遭同學遇到不友善對待，應主動關懷，並向父母或師長尋求協助，或撥打教育部防制校園霸凌專線 1953。以暴制暴、公審加害者都不適當。'},
+    {q:'教育部設立的「防制校園霸凌專線」，下列號碼何者正確？',o:['1953','1950','165','1955'],a:0,src:'段考常考',ex:'專線是 1953。165 是反詐騙專線，其他號碼都是干擾答案。'},
+    {q:'小玲覺得學校對她的處分不當、侵害了自己的權益。依課本，她在遵守法律與校規的前提下，想理性解決問題，可以向哪個組織提出申訴？',o:['學生申訴評議委員會','性別平等教育委員會','學生自治會','校務會議'],a:0,src:'段考常考',ex:'學生權益遭學校不當侵害時，可透過「學生申訴評議委員會」理性解決問題、保障自身權益；性平會是處理校園性平事件的。'},
+    {q:'上課時，老師要求大家先舉手再發言，並制止隨意插話。下列哪一項最能說明這麼做的原因？',o:['老師管理秩序，是為了保障所有學生學習的權利','老師想限制學生表達意見的權利','學生沒有發言的權利','老師可以不遵守任何規範'],a:0,src:'段考原型',ex:'課本強調權利是有限制的：老師進行秩序管理，是為了保障所有學生的學習權；主張自己權利時，也要尊重他人權利。'},
+    {q:'小琪在課堂上想到什麼就隨口說，結果課程無法順利進行，後來大家約定「先舉手再發言」。這最能說明下列哪一個觀念？',o:['遵守共同規範，使個人權利與群體利益取得平衡','發言是少數人的特權','權利可以完全不受限制','規範會讓個人失去表達自由'],a:0,src:'段考原型',ex:'課本：參與校園公共事務首先要遵守共同規範，個人權利必須與群體利益取得平衡。'},
+    {q:'某社團成立後，社員先討論並通過「社團組織章程」，接著才舉辦迎新活動。「社團組織章程」屬於學生自治實施步驟中的哪一步？',o:['訂定自治規範','成立自治組織','推展各項自治活動','選出相關人員'],a:0,src:'段考常考',ex:'學生自治三步驟：成立自治組織 → 訂定自治規範（班級公約、社團章程）→ 推展各項自治活動（班服、社團活動）。'},
+    {q:'下列哪一件事，屬於學生自治「可以決定」的範圍？',o:['制定班級公約','決定段考的考試範圍','調整老師每週的授課節數','決定校長是否留任'],a:0,src:'段考常考',ex:'學生自治是班會、社團等自治組織處理班級與社團事務；考試範圍、課程節數、校長人事都不是學生自治的範圍。'},
+    {q:'下列關於「提案」與「動議」的敘述，何者正確？',o:['提案是會前以書面提出並經一位以上出席人附署；動議是開會時口頭提出並經一位以上出席人附議','提案是開會時口頭提出，並由導師附署；動議是會前書面提出','動議必須以書面提出，由主席附署','提案與動議都不需要有人支持就能成案'],a:0,src:'段考常考',ex:'提案↔書面↔附署；動議↔口頭↔附議。兩組配對最常被對調成陷阱。'},
+    {q:'下列何者是班會中「導師」的職責？',o:['會議進行中提示會議規則，或在主席宣布散會後講評，但不加入表決','宣讀會議程序','主持表決並宣布結果','詳實記錄表決的方法與票數'],a:0,src:'段考常考',ex:'導師：不參與任何意見，也不加入表決；宣讀程序是司儀、主持表決是主席、記錄票數是紀錄。'},
+    {q:'關於班會「主席」的敘述，下列何者正確？',o:['主持表決，但以不參加表決為原則','每個提案的表決，主席都必須投票','主席只負責宣讀議程，不能裁決任何問題','主席可以不經附議，直接讓自己的動議成案'],a:0,src:'段考常考',ex:'主席的角色：主持會議並賦予發言地位、維持秩序並裁決權宜與秩序問題、處理提案的討論表決並做結論、主持表決但以不參加表決為原則。'},
+    {q:'班會中「紀錄」應詳實記錄哪些內容？',o:['報告事宜、表決的方法及票數結果，以及決議的要點','只要記最後決議，不用記票數','每位同學私下聊天的內容','導師的講評全文'],a:0,src:'段考原型',ex:'紀錄：詳實記錄 ① 報告事宜 ② 表決（選舉）的方法及票數、結果 ③ 決議的要點。'},
+    {q:'班會進行到一半，窗外施工聲音大到聽不清楚同學發言。出席人應該提出什麼？',o:['權宜問題','秩序問題','提案','臨時動議'],a:0,src:'段考常考',ex:'對議場偶發的緊急事件，足以影響全體或個人權利，提出「權宜問題」，請主席排除；程序錯誤才是秩序問題。'},
+    {q:'主席還沒有讓大家討論，就直接宣布「現在開始表決」。有同學舉手請主席糾正，他提出的是哪一種問題？',o:['秩序問題','權宜問題','動議','提案'],a:0,src:'段考常考',ex:'議題進行中程序出現錯誤（未討論就表決），提出「秩序問題」，請主席糾正會議本身的錯誤。'},
+    {q:'班會要決定園遊會的班級攤位，甲案最先提出、乙案次之、丙案最後。依課本，表決的順序應該是？',o:['甲案、乙案、丙案','丙案、乙案、甲案','由主席挑選最喜歡的先表決','三案同時舉手'],a:0,src:'段考常考',ex:'課本：表決順序是「先提議（名）者先表決」，結果依多數決。'},
+    {q:'班上要選出「模範生」，兩位候選人得票數相同。依課本，應該怎麼處理？',o:['抽籤決定','由主席加入投票決定','由導師指定','重新討論，直到全班一致同意'],a:0,src:'段考常考',ex:'同票處理：對「人」的選舉由抽籤決定；對「事」的表決，才是由主席是否加入投票決定。'},
+    {q:'班會表決「是否訂購班服」，贊成與反對票數相同。依課本，應該怎麼處理？',o:['由主席是否加入投票來決定','抽籤決定','由導師決定','由座號最小的同學決定'],a:0,src:'段考常考',ex:'同票：對事的表決，由主席是否加入投票決定；對人的選舉，才抽籤。'},
+    {q:'依課本，下列班會流程的排列，何者正確？',o:['選出主席、司儀、紀錄 → 宣布開會 → 報告事項 → 討論事項 → 臨時動議 → 散會','宣布開會 → 選出主席、司儀、紀錄 → 討論事項 → 報告事項 → 散會','選出主席、司儀、紀錄 → 報告事項 → 宣布開會 → 臨時動議 → 討論事項','宣布開會 → 報告事項 → 臨時動議 → 討論事項 → 散會'],a:0,src:'段考常考',ex:'班會流程：選出人員 → 宣布開會 → 報告事項 → 討論事項（提案→討論→表決）→ 臨時動議 → 散會；導師講評在主席宣布散會之後。'},
+    {q:'討論事項結束後，小傑想建議「下週大家自備環保餐具」，這與先前的提案無關。他應該在什麼時候提出？',o:['臨時動議階段','報告事項階段','宣布開會之前','主席宣布散會之後'],a:0,src:'段考原型',ex:'與提案無關的其他議題，可在「臨時動議」階段提出討論；而且動議仍要有人附議。'},
+    {q:'課後閱讀「兩個兒童節」提到，11 月 20 日是「國際兒童日」，是為了紀念哪一項公約通過？',o:['兒童權利公約','世界兒童福利憲章','世界人權宣言','教育基本法'],a:0,src:'原創',ex:'4 月 4 日兒童節源自世界兒童福利憲章；11 月 20 日國際兒童日是紀念 1989 年通過的兒童權利公約。'},
+  ],
+};
+
+/* ================= 資料（翰林 國一上公民 第三次段考）第 6 章 部落與公民參與 =================
+   名詞、數字、法規名稱一律依翰林國一上社會課本（第三篇 公民 第 6 章）。手邊只有 114 學年版翰林課本 WORD，115 學年版待老師確認。
+   課外補充（正名年代、運動年代）在題目提示或 src 標明。 */
+const L6 = {
+  no:'第 6 章', code:6, title:'部落與公民參與', short:'部落與公民參與', color:'linear-gradient(135deg,#255f9e,#4b8fd6)',
+  desc:'部落的意義（原基法・16 族・740 部落）｜三面向：文化認同・生產分配・自治｜四大挑戰｜原住民族運動',
+  quickAsk:'選出正確的答案', quickTitle:'部落與公民參與快問快答',
+  quick:[
+    ['我國政府認定的原住民族共有幾族？','16 族',['14 族','12 族','20 族'],7],
+    ['我國原住民族約占總人口的','2.5%',['25%','0.25%','12%'],7],
+    ['依原住民族委員會核定，目前臺灣共有幾個部落？','740 個',['737 個','747 個','470 個'],7],
+    ['各個原住民族皆以什麼為基本單位？','部落',['鄰里','行政區','學校'],34],
+    ['哪一部法律明訂了部落的定義和相關權利？','原住民族基本法',['原住民身分法','教育基本法','野生動物保育法'],22],
+    ['核定部落、擔任原住民族中央主管機關的是','原住民族委員會（原民會）',['教育部','內政部','立法院'],18],
+    ['部落是原住民於一定區域內，依傳統規範共同生活結合而成，並經什麼核定的團體？','政府',['立法院投票','聯合國','全體族人投票'],34],
+    ['部落是文化與認同的根源、生產與分配的單位，也是','自治的基礎',['觀光的基礎','政黨的基礎','軍事的基礎'],33],
+    ['部落的歲時祭儀（例如豐年祭）屬於哪一項重要性？','文化與認同的根源',['生產與分配的單位','自治的基礎','經濟的停滯'],26],
+    ['以部落為單位農耕、採集、漁獵，重視共享互助，屬於','生產與分配的單位',['文化與認同的根源','自治的基礎','文化的斷層'],20],
+    ['課本舉例：排灣族、魯凱族的部落領袖產生方式是','同一家族世襲',['族人投票選出','政府指派','抽籤決定'],34],
+    ['課本舉例：阿美族的部落領袖產生方式是','長老推選或族人選舉',['同一家族世襲','中央指派','輪流擔任'],34],
+    ['部落召開部落會議，討論並管理部落共同事務，這屬於部落的哪一項重要性？','自治的基礎',['文化與認同的根源','生產與分配的單位','經濟的停滯'],29],
+    ['討論部落事項、凝聚共識，作為族人共同遵行依據的是','部落會議',['歲時祭儀','原住民族運動','烤豬認證'],29],
+    ['原住民族的部落與土地高度連結，離開生活空間易有','文化失根的危機',['經濟起飛','法律衝突','自治權增加'],29],
+    ['太魯閣族共同狩獵，獵物由共同狩獵者平分，體現','共享互助',['文化斷層','經濟停滯','傳統領域爭議'],25],
+    ['排灣族老屋重建，族人啟動部落共工互助機制，體現','共享互助',['文化斷層','經濟停滯','與法律衝突'],25],
+    ['傳統排灣族領袖接受農租，同時有義務扶養失去親屬的老幼、身障者，這屬於','生產與分配中的共享互助',['傳統領域爭議','部落經濟停滯','文化與法律衝突'],4],
+    ['「山給你什麼，你就只能拿什麼」要表達的文化特色是','與大自然和諧共存',['共享互助的價值觀','部落會議凝聚共識','祖靈傳統信仰重心'],26],
+    ['年輕人到都市生活，與部落文化逐漸脫節，造成','傳統文化的斷層',['部落經濟的停滯','傳統領域的爭議','文化與法律的衝突'],25],
+    ['族人回部落教母語、找耆老記錄族語歌謠，是在改善','傳統文化的斷層',['部落經濟的停滯','傳統領域的爭議','文化與法律的衝突'],25],
+    ['原住民烤豬認證主要是在解決部落的','經濟停滯',['文化斷層','傳統領域爭議','文化與法律衝突'],27],
+    ['發掘部落特色、發展具傳統文化且識別度高的產業，是在因應','部落經濟的停滯',['傳統文化的斷層','傳統領域的爭議','文化與法律的衝突'],27],
+    ['傳統領域大多已成為公有或私人土地，因此其保護是自治權與什麼的議題？','生態維護',['觀光發展','學校教育','課稅收入'],29],
+    ['政府在卡大地布部落開發，族人認為侵犯自治權及傳統領域並抗議，屬於','傳統領域的爭議',['部落經濟的停滯','傳統文化的斷層','文化與法律的衝突'],17],
+    ['原住民族因持有獵槍打獵而遭法辦，反映的挑戰是','文化與法律的衝突',['傳統文化的斷層','部落經濟的停滯','傳統領域的爭議'],27],
+    ['依野生動物保育法，原住民族基於傳統文化、祭儀要獵捕野生動物，須','向主管機關申請，並在一定範圍內打獵',['隨時隨地自由狩獵','只要年滿 18 歲就可以','把獵物販賣以維持生計'],22],
+    ['原住民族為爭取身分認同、權益保障而發起的自覺抗爭運動，稱為','原住民族運動',['部落會議','歲時祭儀','烤豬認證'],13],
+    ['下列哪一項屬於課本所列的原住民族運動？','恢復傳統姓氏及正名運動',['發行族語辭典','舉辦豐年祭','申請獵人證'],13],
+    ['面對部落挑戰，部落與關心民眾透過原住民族運動爭取權益，政府則','推動相關政策、凝聚部落力量',['取消部落會議','限制族人返鄉','停止核定部落'],14],
+    ['鄒族人申請獵人證，需加入嘉義縣鄒族獵人協會，並年滿幾歲？','20 歲',['18 歲','16 歲','25 歲'],2],
+    ['鄒族獵人證要兼顧狩獵傳統文化的保存，以及','生態保育的平衡',['獵物販賣的收入','全臺自由狩獵','取消野保法'],2],
+    ['依「紀念日及節日實施辦法」，原住民族歲時祭儀可放假','一日',['三日','一週','不能放假'],7],
+    ['歲時祭儀可以放假，這項政策的目的是尊重多元文化，並','促進部落文化傳承',['落實部落自治','提升行政效率','發展觀光產業'],7],
+    ['1994 年修憲，將「山胞」正名為','原住民',['原住民族','高砂族','番'],10,'選出正確的答案（課外補充）'],
+    ['1997 年修憲，原住民的稱呼改為','原住民族',['原住民','山地同胞','山胞'],10,'選出正確的答案（課外補充）'],
+  ],
+  words:[
+    ['部落','原住民於一定區域內依傳統規範共同生活、經政府核定的團體'],['原住民族基本法','明訂部落的定義與相關權利'],
+    ['原住民族委員會','核定部落、原住民族的中央主管機關'],['部落領袖','稱謂不一，產生方式不盡相同（世襲、推選、選舉）'],
+    ['部落會議','部落應設，討論部落事項、凝聚共識'],['歲時祭儀','世代傳承文化的橋梁，例如豐年祭'],
+    ['共享互助','獵物平分、老屋共工重建、領袖扶養老幼'],['與大自然和諧共存','山給你什麼，你就只能拿什麼'],
+    ['傳統文化的斷層','都市生活，與部落文化逐漸脫節'],['部落經濟的停滯','需發展具傳統文化、識別度高的產業'],
+    ['傳統領域的爭議','多已成為公有或私人土地，涉及自治權與生態維護'],['文化與法律的衝突','狩獵文化與獵槍管制的矛盾'],
+    ['原住民族運動','為爭取身分認同與權益的自覺抗爭運動'],['烤豬認證','南投縣協助部落發展產業、保護飲食文化'],
+    ['鄒族獵人證','兼顧狩獵文化保存與生態保育的自律制度'],
+  ],
+  sorts:[
+    {title:'部落的四大挑戰：是哪一種？',tip:'斷層＝文化、族語傳承；停滯＝缺工作與產業；領域＝土地與開發；法律衝突＝狩獵等傳統與法規牴觸。',buckets:['傳統文化的斷層','部落經濟的停滯','傳統領域的爭議','文化與法律的衝突'],items:[
+      ['年輕族人長年在都市工作，不會說族語',0],['耆老把族語歌謠錄音整理成冊',0,'這是改善斷層的做法'],['孩子不懂祖先祭典的意義',0],
+      ['返鄉族人缺乏工作機會，需要專人協助發展產業',1],['部落發展段木香菇與導覽行程，創造就業',1,'發展具傳統文化的產業'],['舉辦烤豬職人養成班並頒發認證標章',1],
+      ['政府要在部落鄰近土地開發，卻未經充分諮商',2],['族人抗議土地劃設辦法，要求保護傳統領域',2],
+      ['原住民因持有獵槍打獵而被起訴',3],['傳統狩獵祭儀所需的獵捕，與野生動物保育法規的規定出現矛盾',3],
+    ]},
+    {title:'部落的重要性三面向',tip:'文化認同＝祭儀、族語、土地連結；生產分配＝共享互助；自治＝領袖、部落會議、管轄領域。',buckets:['文化與認同的根源','生產與分配的單位','自治的基礎'],items:[
+      ['阿美族豐年祭，感謝神靈的恩惠',0],['部落離開原本生活空間，易有文化失根的危機',0],['部落歲時祭儀成為世代傳承文化的橋梁',0],
+      ['太魯閣族獵物由共同狩獵者平分',1],['排灣族老屋重建，族人共工互助',1],['領袖接受農租，也有義務扶養老幼與身障者',1],
+      ['布農族部落為入山管制議題召開部落會議',2],['部落領袖帶領族人管理共同事務',2],['每個部落有各自的管轄領域',2],
+    ]},
+    {title:'部落領袖怎麼產生？',tip:'課本：排灣族、魯凱族為同一家族世襲；阿美族由長老推選或族人選舉。各族稱謂不一、方式不盡相同。',buckets:['同一家族世襲','長老推選或族人選舉'],items:[
+      ['排灣族的部落領袖',0],['魯凱族的部落領袖',0],['拉阿魯哇族的部落領袖（課本舉例）',0,'課本：世襲制'],
+      ['阿美族由部落長老推選',1],['阿美族由部落族人選舉',1],
+    ]},
+    {title:'公民參與：誰做什麼？',tip:'部落與關心者：原住民族運動；政府：推動政策、凝聚部落力量；一般大眾：了解、關心。',buckets:['部落與關心者：原住民族運動','政府：推動相關政策','一般大眾：了解與關心'],items:[
+      ['恢復傳統姓氏及原住民族正名運動',0],['還我土地運動',0],['自治訴求運動',0],
+      ['修正紀念日及節日實施辦法，讓歲時祭儀可放假',1],['訂定制度，凝聚部落的力量',1],
+      ['認識居住縣市附近的部落，了解傳承文化的方式',2],['關心原住民族議題，在溝通協調中形成共識',2],
+    ]},
+    {title:'生活情境：是哪一種文化特色？',tip:'祭儀＝文化認同；均分＝共享互助；節制取用＝與大自然和諧共存；開會＝自治。',buckets:['文化與認同','共享互助','與大自然和諧共存','部落自治'],items:[
+      ['族人在祭典中以族語吟唱祖先的故事',0],['獵人將獵到的山羌分給族中老人與孩子',1],['獵人只獵他能背負的量，不濫殺',2],
+      ['農忙時讓野生動物休養、繁衍，農閒時才打獵',2],['由部落會議決定遊客入山的規定',3],['鄰居蓋房子，全村族人一起來幫忙',1],
+    ]},
+  ],
+  mcq:[
+    {q:'依原住民族基本法，下列何者最符合「部落」的定義？',o:['原住民於原住民族地區一定區域內，依傳統規範共同生活結合而成，並經政府核定的團體','原住民個人為了經商而組成的公司','只要有原住民居住的社區，就自動成為部落','由立法院自行決定、不須政府核定的行政區'],a:0,src:'段考常考',ex:'課本：部落是指原住民於原住民族地區一定區域內，依其傳統規範、共同生活結合而成的團體，經政府核定者。'},
+    {q:'下列關於我國原住民族的敘述，何者正確？',o:['約 58 萬人，占總人口約 2.5%，政府認定的原住民族有 16 族','約 580 萬人，占總人口約 25%','政府認定的原住民族有 14 族','各族的社會型態與居住環境完全相同'],a:0,src:'段考常考',ex:'課本：約 58 萬人、占總人口 2.5%、經政府認定 16 族；各族社會型態、生活習慣、居住環境不盡相同，但皆以部落為基本單位。'},
+    {q:'下列關於部落領袖的敘述，何者正確？',o:['各族稱謂不一，產生方式也不盡相同','各族的領袖都是同一家族世襲','領袖一律由中央政府指派','各族對領袖的稱謂完全一致'],a:0,src:'段考常考',ex:'排灣族、魯凱族為同一家族世襲；阿美族則由部落長老推選或族人選舉。不能說「全部世襲」或「政府指派」。'},
+    {q:'依原住民族基本法，關於部落會議，下列敘述何者正確？',o:['部落應設部落會議，用來討論部落事項、凝聚共識','部落會議必須由政府官員主持','部落會議須經政府同意才能召開','部落會議只能討論祭典，不能討論公共事務'],a:0,src:'段考常考',ex:'為促進部落健全自主發展，部落應設部落會議；會議的決議是部落族人共同遵行的依據，不是由政府官員主持。'},
+    {q:'阿美族的豐年祭期間，部落舉辦一連串神聖祭儀，感謝神靈的恩惠。這最能說明部落是原住民族的什麼？',o:['文化與認同的根源','生產與分配的單位','自治的基礎','部落經濟停滯的原因'],a:0,src:'段考常考',ex:'歲時祭儀是世代傳承文化的橋梁，屬於「文化與認同的根源」。'},
+    {q:'太魯閣族每次共同狩獵，捕獲的獵物都由共同狩獵者平分，不因個人獵得較多而獨占。這最能說明部落是下列何者？',o:['生產與分配的單位','文化與認同的根源','自治的基礎','傳統領域爭議的來源'],a:0,src:'段考常考',ex:'資源分配重視共享互助與生態平衡，屬於「生產與分配的單位」。'},
+    {q:'某部落規定：遊客入山必須先登記，並由部落會議決定每日可進入的人數。這個規定最能說明部落是原住民族的什麼？',o:['自治的基礎','文化與認同的根源','生產與分配的單位','文化斷層的結果'],a:0,src:'段考原型',ex:'每個部落有自己的管轄領域，由領袖帶領族人管理共同事務，並召開部落會議討論，屬於「自治的基礎」。'},
+    {q:'「獵人只獵捕自己能背負的量，不濫殺」、「山給你什麼，你就只能拿什麼」這類說法，最能表現原住民族文化的哪一項價值？',o:['與大自然和諧共存，重視生態平衡','重視個人財富的累積','強調人定勝天','以競爭來決定資源分配'],a:0,src:'段考常考',ex:'課後閱讀：原住民族對山林抱持尊敬的態度，狩獵文化能維持獵場生態平衡。'},
+    {q:'達悟族的飛魚季期間，族人舉行招魚祭，依傳統規範決定哪些魚由誰食用，捕到的魚也在漁團中分享。下列推論何者最適當？',o:['這展現了文化認同，也兼顧生態平衡與共享互助','這說明捕魚可以不受任何限制','這說明部落經濟已完全停滯','這說明飛魚季是為了和法律對抗'],a:0,src:'段考常考',ex:'祭儀與傳統規範＝文化與認同；有節制的捕撈＝與自然和諧共存；漁獲分享＝共享互助。'},
+    {q:'小澤的父母年輕時離開部落到都市工作，如今小澤不會說族語，也不懂祖先祭典的意義。這最能說明部落面臨哪一項挑戰？',o:['傳統文化的斷層','部落經濟的停滯','傳統領域的爭議','文化與法律的衝突'],a:0,src:'段考常考',ex:'都市生活使族人與部落文化逐漸脫節、傳承出現斷層；題幹看的是「族語、祭典不再傳承」，不是缺少產業。'},
+    {q:'為了因應傳統文化的斷層，下列哪一項做法最合適？',o:['回到部落教導母語、傳承技藝，並找耆老記錄族語與歌謠','停止舉辦祭典以節省經費','禁止年輕人離開部落','只在都市推廣文化，不與部落往來'],a:0,src:'段考原型',ex:'課本：有些原住民族回到部落進行母語、技藝或祭典文化等傳承活動，也有人找耆老記錄族語和歌謠。'},
+    {q:'某縣政府舉辦「在地風味職人培訓」，頒發認證標章，協助返鄉族人以傳統美食創業，並避免有人假借族名招攬生意。這主要是在解決部落的哪一個問題？',o:['部落經濟的停滯','傳統文化的斷層','傳統領域的爭議','文化與法律的衝突'],a:0,src:'段考常考',ex:'課本實作題：烤豬認證協助族人創業、保護原住民族產業發展，對應「部落經濟的停滯」。'},
+    {q:'某部落在山林中以段木栽培香菇，並推出部落導覽行程，讓返鄉青年有工作機會。這屬於如何面對下列哪一項挑戰？',o:['部落經濟的停滯','傳統文化的斷層','傳統領域的爭議','文化與法律的衝突'],a:0,src:'段考常考',ex:'返鄉族人重新發掘部落特色，發展具傳統文化的產業，是面對「經濟停滯」的做法。'},
+    {q:'政府計畫在某部落鄰近土地興建大型設施，卻未與部落充分諮商；族人認為侵犯傳統領域與自治權，聚集到政府機關前抗議。這屬於哪一項挑戰？',o:['傳統領域的爭議','部落經濟的停滯','傳統文化的斷層','文化與法律的衝突'],a:0,src:'段考常考',ex:'課本例子：卡大地布部落的開發案，族人認為侵犯部落的自治權及傳統領域。'},
+    {q:'為什麼傳統領域的保護，是部落自治權與生態維護的重要議題？',o:['因為歷史發展，傳統領域現在大多成為公有或私人土地','因為傳統領域已經全部歸還給部落管理','因為傳統領域只和觀光發展有關','因為傳統領域不受任何法律影響'],a:0,src:'段考原型',ex:'課本：原住民族傳統領域因歷史發展，現在大多成為公有或私人土地，所以保護傳統領域是自治權與生態維護的議題。'},
+    {q:'原住民族有狩獵傳統，但現今常因持有獵槍而遭法辦，使傳統文化如何發展受到關注。這屬於哪一項挑戰？',o:['文化與法律的衝突','傳統領域的爭議','部落經濟的停滯','傳統文化的斷層'],a:0,src:'段考常考',ex:'傳統文化與當代法律、價值觀發生衝突時，應如何實現公平正義，是公民要思考的問題。'},
+    {q:'依課後閱讀，下列哪一項是鄒族人申請獵人證的條件？',o:['加入嘉義縣鄒族獵人協會，年滿 20 歲，並經審查符合狩獵傳統文化與生態保護','年滿 18 歲，不需審查','只要繳費，獵到的動物就可以販賣','持證後可在全臺灣任何地方合法狩獵'],a:0,src:'段考常考',ex:'課本：需加入嘉義縣鄒族獵人協會、年滿 20 歲，經審查符合狩獵傳統與生態保護（例如獵捕的動物不得販賣），才能在阿里山鄉內合法狩獵。'},
+    {q:'嘉義縣鄒族獵人協會頒發獵人證，最主要想兼顧什麼？',o:['狩獵傳統文化的保存，以及生態保育的平衡','提高獵物販售的收入','取消野生動物保育法','讓所有人都可以自由狩獵'],a:0,src:'段考常考',ex:'獵人證代表鄒族人自我管理的決心，兼顧傳統狩獵文化的保存，以及生態保育的平衡。'},
+    {q:'依野生動物保育法，下列敘述何者正確？',o:['原住民族基於傳統文化、祭儀，得獵捕野生動物，但須向主管機關申請，並在一定範圍內打獵','任何人都可以自由獵捕野生動物','原住民族不論目的，都可以隨意販賣獵物','原住民族完全不得狩獵'],a:0,src:'段考常考',ex:'課後閱讀：一般人不能隨意狩獵；原住民族基於傳統文化、祭儀得獵捕，但必須申請並在一定範圍內進行。'},
+    {q:'下列哪一項「不是」課本所列的原住民族運動例子？',o:['舉辦部落觀光嘉年華以增加收入','恢復傳統姓氏及原住民族正名運動','還我土地運動','自治訴求運動'],a:0,src:'段考常考',ex:'課本：原住民族運動＝為爭取身分認同、權益保障而發起的自覺抗爭運動，如恢復傳統姓氏及正名運動、還我土地運動、自治訴求運動。'},
+    {q:'關於部落挑戰與公民參與，下列敘述何者正確？',o:['部落與關心議題的民眾透過原住民族運動表達訴求，政府則推動政策凝聚部落力量','只有原住民族人才能關心原住民族議題','應以衝撞法律的方式迫使政府讓步','政府推動政策之後，民眾就不用再關心'],a:0,src:'段考常考',ex:'課本：各部落和關心此議題的民眾，不分族群，透過原住民族運動爭取權益、公民參與表達訴求；政府推動相關政策；現代公民要關心並溝通協調、形成共識。'},
+    {q:'政府修正紀念日及節日實施辦法，讓原住民族歲時祭儀可以放假一日。這項政策的主要目的是什麼？',o:['尊重多元文化，促進部落文化傳承','落實部落自治','提升行政效率','發展觀光產業'],a:0,src:'段考常考',ex:'課本圖 3-6-10：歲時祭儀可放假一日，參與傳統文化祭典；目的是尊重多元文化、促進部落文化傳承。'},
+    {q:'（課外補充）清代稱「番」、日治時期稱「高砂族」、國民政府來臺後稱「山地同胞」，1994 年修憲改稱「原住民」，1997 年再改稱「原住民族」。這些稱呼的改變最主要反映什麼？',o:['原住民族透過公民參與，爭取身分認同與尊重','政府更換了統治者','原住民族的人口增加','外來移民要求更改'],a:0,src:'段考常考',ex:'名稱改變來自原住民族透過正名運動等公民參與要求的結果，不是單純政權更替。'},
+    {q:'政府修正姓名條例，讓原住民族可以登記傳統姓名。這項改變最能夠帶來什麼影響？',o:['尊重多元文化，強化族人的身分認同','提升行政效率','落實部落自治','增加觀光收入'],a:0,src:'段考常考',ex:'恢復傳統姓氏是原住民族運動的訴求之一；政府的回應有助於尊重多元文化、強化文化認同。'},
+    {q:'族人在凱達格蘭大道上長期靜坐，以和平方式表達希望政府正視傳統領域劃設問題。關於這件事，下列敘述何者最適當？',o:['這是以公民參與表達訴求的方式，屬於原住民族運動的一種','這是破壞社會秩序的違法行為','這是部落會議的正式決議','這是文化斷層的結果'],a:0,src:'段考常考',ex:'陳情、聯署、遊行、集會等理性、依法的表達方式，都是公民參與；要區分運動（爭取權益）與部落會議（部落內部決策）。'},
+  ],
+};
+
+/* ================= 綜合資料（翰林 國一上公民 第三次段考）=================
+   範圍：第 5 章 學生權利與校園生活、第 6 章 部落與公民參與。各章題庫在 data_l5.js、data_l6.js。
+   模擬題全部原創改寫，只借各校命題方向與陷阱。圖表數據為練習用示意資料。 */
+const L = { l5: L5, l6: L6 };
+
+/* ================= 綜合：圖表判讀與跨章混合題（交卷 code 7） ================= */
+const CHART=[
+  {title:'① 班會流程圖卡',src:'流程圖卡（16 校考）',
+   fig:'<div class="flow"><span>甲<br>宣布開會</span><span>乙<br>臨時動議</span><span>丙<br>討論事項</span><span>丁<br>選出主席、司儀、紀錄</span><span>戊<br>報告事項</span><span>己<br>宣布散會</span></div><p class="muted">圖：班會流程的 6 張卡片，順序已被打亂。</p>',
+   qs:[
+    {q:'班會流程的正確順序應該是？',o:['丁 → 甲 → 戊 → 丙 → 乙 → 己','甲 → 丁 → 戊 → 丙 → 乙 → 己','丁 → 甲 → 丙 → 戊 → 乙 → 己','丁 → 甲 → 戊 → 乙 → 丙 → 己'],a:0,ex:'選出人員 → 宣布開會 → 報告事項 → 討論事項 → 臨時動議 → 散會。常見陷阱：把臨時動議放在討論事項前、把宣布開會放在選出人員前。'},
+    {q:'「由主席宣布會議名稱和開會目的」是哪一張卡片的內容？',o:['甲','丁','戊','己'],a:0,ex:'宣布開會＝由主席宣布會議名稱和開會目的；報告事項才是由主席及班級幹部進行工作報告。'},
+    {q:'導師的講評，應該排在流程的哪個位置？',o:['己（散會）之後','丁（選出人員）之前','戊（報告事項）之後、丙之前','丙與乙之間'],a:0,ex:'課本：導師「隨時於會議進行中提示會議規則，或於主席宣布散會後進行講評」，所以講評在散會之後。'}]},
+  {title:'② 班會角色分工表',src:'角色分工表（12 校考）',
+   fig:'<table class="tbl"><tr><th>角色</th><th>工作</th></tr><tr><td>甲</td><td>主持會議，賦予發言地位；維持秩序，裁決權宜問題與秩序問題；主持表決</td></tr><tr><td>乙</td><td>宣讀會議程序</td></tr><tr><td>丙</td><td>詳實記錄報告事宜、表決的方法與票數、決議要點</td></tr><tr><td>丁</td><td>提示會議規則、散會後講評；不參與意見，也不加入表決</td></tr></table>',
+   qs:[
+    {q:'甲、乙、丙、丁依序是哪四種角色？',o:['主席、司儀、紀錄、導師','司儀、主席、導師、紀錄','主席、紀錄、司儀、導師','導師、司儀、紀錄、主席'],a:0,ex:'主席主持與裁決；司儀宣讀程序；紀錄記下報告、票數與決議；導師提示規則與講評。'},
+    {q:'同學提出「權宜問題」時，應由哪一位角色裁決？',o:['甲','乙','丙','丁'],a:0,ex:'裁決權宜問題與秩序問題是主席的職責。'},
+    {q:'下列哪一位角色「不參與任何意見，也不加入表決」？',o:['丁','甲','乙','丙'],a:0,ex:'導師不參與意見、也不加入表決；主席則是「以不參加表決為原則」。'}]},
+  {title:'③ 班會發言對話',src:'發言對話圖（13 校考）',
+   fig:'<div class="chat"><p><b>主席：</b>現在進入討論事項，請大家討論畢業旅行的地點。</p><p><b>阿豪：</b>我提議去海洋生物館。</p><p><b>主席：</b>好，那就通過，現在請大家表決。</p><p><b>小娟：</b>報告主席，還沒有人附議，也還沒有討論。</p></div>',
+   qs:[
+    {q:'阿豪在開會時以口頭提出的意見，在班會中稱為什麼？',o:['動議','提案','附署','權宜問題'],a:0,ex:'開會時以口頭提出並經一位以上出席人附議＝動議；會前書面、需附署的才是提案。'},
+    {q:'主席的做法有什麼問題？',o:['沒有等人附議，也沒有經過討論，就直接進行表決','主席不應該主持會議','阿豪不能在班會中發言','畢業旅行地點不是班會可以討論的事項'],a:0,ex:'動議要有人附議才成案，成案後要先討論再表決，主席省略了程序。'},
+    {q:'小娟請主席注意程序，她提出的是哪一種問題？',o:['秩序問題','權宜問題','提案','臨時動議'],a:0,ex:'議題進行中程序發生錯誤，出席人得請求主席糾正＝秩序問題。'}]},
+  {title:'④ 學生自治步驟',src:'學生自治步驟圖（21 校考）',
+   fig:'<table class="tbl"><tr><th>步驟</th><th>內容</th><th>例子</th></tr><tr><td>第一步</td><td>（甲）</td><td>組織班會、學生社團</td></tr><tr><td>第二步</td><td>（乙）</td><td>制定班級公約、社團組織章程</td></tr><tr><td>第三步</td><td>（丙）</td><td>討論班服、舉辦社團活動</td></tr></table>',
+   qs:[
+    {q:'（甲）（乙）（丙）依序應填入什麼？',o:['成立自治組織、訂定自治規範、推展各項自治活動','訂定自治規範、成立自治組織、推展各項自治活動','推展各項自治活動、成立自治組織、訂定自治規範','成立自治組織、推展各項自治活動、訂定自治規範'],a:0,ex:'學生自治：成立自治組織 → 訂定自治規範 → 推展各項自治活動。'},
+    {q:'某社團正在籌備成果展，屬於表中的哪一步？',o:['第三步（丙）','第一步（甲）','第二步（乙）','不屬於任何步驟'],a:0,ex:'舉辦社團活動＝推展各項自治活動（第三步）。'},
+    {q:'班上同學一起討論並寫下「班級公約」，屬於表中的哪一步？',o:['第二步（乙）','第一步（甲）','第三步（丙）','不屬於學生自治'],a:0,ex:'制定班級公約、社團組織章程＝訂定自治規範（第二步）。'}]},
+  {title:'⑤ 霸凌通報統計表',src:'霸凌通報統計表（示意數據）',
+   fig:'<table class="tbl"><tr><th>年別</th><th>肢體霸凌</th><th>言語霸凌</th><th>關係霸凌</th><th>網路霸凌</th></tr><tr><td>甲年</td><td>420</td><td>390</td><td>160</td><td>110</td></tr><tr><td>乙年</td><td>1,100</td><td>1,480</td><td>700</td><td>350</td></tr></table><p class="muted">說明：數值為練習用示意資料，單位：件。</p>',
+   qs:[
+    {q:'乙年通報件數最多的霸凌類型是？',o:['言語霸凌','肢體霸凌','關係霸凌','網路霸凌'],a:0,ex:'乙年言語霸凌 1,480 件最多；甲年則是肢體霸凌 420 件最多。看清楚是哪一年。'},
+    {q:'依照這份統計表，下列推論何者最合理？',o:['各種類型的霸凌都有通報，學校除了肢體衝突，也要留意言語、關係與網路霸凌','言語霸凌傷害較小，不必處理','關係霸凌不會損及身心，所以不需要通報','網路霸凌件數最少，所以不是霸凌'],a:0,ex:'課本：霸凌包括暴力攻擊、言語辱罵、排擠弱勢同儕、網路霸凌等，都侵犯身體自主、人格發展等權利。'},
+    {q:'通報件數雖然增加，若同學目睹霸凌，除了主動關懷與求助師長，還可以撥打什麼專線？',o:['教育部防制校園霸凌專線 1953','165 反詐騙專線','1955 勞工專線','110 報案專線取代所有校內處理'],a:0,ex:'專線是 1953。165 是反詐騙專線、1955 是勞工專線，是常見的干擾答案。'}]},
+  {title:'⑥ 原住民族稱呼的演變（課外補充）',src:'稱呼演變表（課外補充）',
+   fig:'<table class="tbl"><tr><th>時期</th><th>稱呼</th></tr><tr><td>清朝</td><td>番</td></tr><tr><td>日治時期</td><td>高砂族</td></tr><tr><td>國民政府來臺</td><td>山地同胞（山胞）</td></tr><tr><td>1994 年修憲</td><td>（甲）</td></tr><tr><td>1997 年修憲</td><td>（乙）</td></tr></table>',
+   qs:[
+    {q:'（甲）（乙）依序應填入什麼？',o:['原住民、原住民族','原住民族、原住民','山胞、原住民','高砂族、原住民族'],a:0,ex:'1994 年修憲正名為「原住民」，1997 年修憲稱「原住民族」。'},
+    {q:'稱呼一再改變，最主要的推動力量是什麼？',o:['原住民族透過正名運動等公民參與，爭取身分認同與尊重','政府更換了統治者','外國政府要求更改','原住民族人口大幅增加'],a:0,ex:'名稱改變來自原住民族爭取，而不是單純的政權更替。'},
+    {q:'「恢復傳統姓氏及原住民族正名運動」在課本中屬於哪一類？',o:['原住民族運動','部落會議的決議','歲時祭儀','傳統領域'],a:0,ex:'課本：原住民族運動＝為爭取身分認同、權益保障而發起的自覺抗爭運動，例如恢復傳統姓氏及正名運動。'}]},
+  {title:'⑦ 同學的部落舉例表',src:'同學舉例表（5 校考）',
+   fig:'<table class="tbl"><tr><th>同學</th><th>舉的例子</th></tr><tr><td>小甲</td><td>排灣族老屋重建，族人啟動部落共工互助機制</td></tr><tr><td>小乙</td><td>布農族部落為遊客入山管制議題召開部落會議</td></tr><tr><td>小丙</td><td>阿美族豐年祭期間，部落舉辦神聖祭儀感謝神靈</td></tr><tr><td>小丁</td><td>達悟族人依傳統規範節制捕撈飛魚，不濫捕</td></tr></table>',
+   qs:[
+    {q:'小甲的例子，最能說明部落是原住民族的什麼？',o:['生產與分配的單位（共享互助）','文化與認同的根源','自治的基礎','傳統領域的爭議'],a:0,ex:'共工互助、獵物平分、領袖扶養老幼，都是「生產與分配」重視共享互助的表現。'},
+    {q:'哪一位同學的例子最能說明「自治的基礎」？',o:['小乙','小甲','小丙','小丁'],a:0,ex:'召開部落會議、決定遊客入山規定，是部落自治的表現。'},
+    {q:'小丁的例子最能說明原住民族文化的哪一項特色？',o:['與大自然和諧共存、重視生態平衡','共享互助','歲時祭儀','部落會議凝聚共識'],a:0,ex:'節制捕撈、不濫捕＝與大自然和諧共存。'}]},
+  {title:'⑧ 溫泉開發與部落會議（新聞題組）',src:'時事題組（3 校考）',
+   fig:'<div class="passage">某溫泉區位於 A 部落的傳統領域，業者計畫在當地開發溫泉旅館。A 部落依原住民族基本法召開部落會議，討論是否同意開發。會議中，主席沒有讓族人發言，就直接要求大家投票。</div>',
+   qs:[
+    {q:'A 部落召開部落會議，討論是否同意開發案，最能說明部落是原住民族的什麼？',o:['自治的基礎','文化與認同的根源','生產與分配的單位','部落經濟的停滯'],a:0,ex:'部落有各自的管轄領域，由領袖帶領族人管理共同事務，並召開部落會議討論部落事項。'},
+    {q:'依課本，部落會議的功能是什麼？',o:['討論部落事項，凝聚共識，作為族人共同遵行的依據','由政府官員決定部落的所有事務','只負責舉辦歲時祭儀','取代原住民族委員會核定部落'],a:0,ex:'課本：召開部落會議討論部落相關事項，凝聚共識，作為部落族人共同遵行的依據。'},
+    {q:'主席沒有讓族人發言就直接投票，若用班會的議事規則來看，族人可以提出什麼？',o:['秩序問題，請主席糾正','權宜問題，請主席排除噪音','臨時動議，要求散會','提案，要求書面附署'],a:0,ex:'議題進行中程序發生錯誤（沒有討論就表決），出席人得提出秩序問題請主席糾正。'}]},
+  {title:'⑨ 學生權益滿意度調查（示意）',src:'長條圖／表格題（示意數據）',
+   fig:'<table class="tbl"><tr><th>項目</th><th>同學的滿意度</th></tr><tr><td>身體自主權</td><td>86%</td></tr><tr><td>學習權</td><td>62%</td></tr><tr><td>人格發展權</td><td>78%</td></tr></table><p class="muted">說明：某校學生權益問卷（練習用示意資料）。</p>',
+   qs:[
+    {q:'依表中資料，學校最需要優先改善的是哪一項？',o:['學習權','身體自主權','人格發展權','三項都一樣'],a:0,ex:'學習權的滿意度最低（62%）。'},
+    {q:'下列哪一項做法，最有助於提升「學習權」的滿意度？',o:['增加多元的圖書資源與選修課程','加強檢查學生的手機訊息','要求全校統一髮型與制服','減少學生表達意見的機會'],a:0,ex:'學習權＝自主學習與獲取知識；圖書資源、選修課程能增加學生自主學習的機會。查手機、管髮型反而侵犯人格發展權。'},
+    {q:'學校隨意檢查學生的手機訊息，最可能降低哪一項權利的滿意度？',o:['人格發展權','身體自主權','學習權','受教育權'],a:0,ex:'查看私人訊息侵犯隱私，屬人格發展權；不是身體自主權。'}]},
+  {title:'⑩ 族語使用比例表（示意）',src:'族語使用比例表（示意數據）',
+   fig:'<table class="tbl"><tr><th>年齡層</th><th>原鄉地區</th><th>一般地區</th></tr><tr><td>55 歲以上</td><td>70%</td><td>30%</td></tr><tr><td>35～54 歲</td><td>45%</td><td>15%</td></tr><tr><td>15～34 歲</td><td>20%</td><td>5%</td></tr></table><p class="muted">說明：能以族語日常溝通的比例（練習用示意資料）。</p>',
+   qs:[
+    {q:'年齡越低，族語使用比例越低。這最能說明部落面臨哪一項挑戰？',o:['傳統文化的斷層','部落經濟的停滯','傳統領域的爭議','文化與法律的衝突'],a:0,ex:'族語傳承在年輕世代出現斷層。'},
+    {q:'原鄉地區各年齡層的族語使用比例都高於一般地區，最能支持下列哪一項說法？',o:['部落是原住民族文化與認同的根源','部落是生產與分配的單位','部落不需要自治','原住民族不需要保存語言'],a:0,ex:'部落是傳統生活空間，與語言、祭儀、土地高度連結，所以原鄉的族語使用比一般地區高。'},
+    {q:'為了改善這個現象，下列哪一項做法最合適？',o:['回到部落傳承母語，並找耆老記錄族語和歌謠','禁止年輕人離開部落','把族語課程全部取消','只靠政府規定，族人不必參與'],a:0,ex:'課本：有些原住民族回到部落進行母語、技藝傳承；有些人找耆老記錄族語和歌謠。'}]},
+];
+
+/* 綜合：排序與跨章分類（交卷 code 7） */
+const STEPS=[
+  {title:'跨章大混戰：屬於哪一個主題？',tip:'第 5 章：學生權利、霸凌與申訴、班會議事；第 6 章：部落的意義與重要性、部落的挑戰。',buckets:['學生權利','霸凌與申訴','班會議事','部落的意義與重要性','部落的挑戰'],items:[
+    ['受教育權與學習權',0],['人格發展權',0],['防制校園霸凌專線 1953',1],['學生申訴評議委員會',1],['教育基本法明定學生不受任何形式的霸凌',1],
+    ['權宜問題與秩序問題',2],['先提議先表決',2],['附署與附議',2],['部落會議',3],['歲時祭儀',3],['共享互助',3],
+    ['傳統文化的斷層',4],['傳統領域的爭議',4],['文化與法律的衝突',4],['部落經濟的停滯',4]]},
+  {title:'原住民族稱呼演變（課外補充）：哪個時期？',tip:'清：番 → 日治：高砂族 → 國民政府：山地同胞 → 1994：原住民 → 1997：原住民族。',buckets:['清朝','日治時期','國民政府來臺','1994 年修憲','1997 年修憲'],items:[
+    ['稱為「番」',0],['稱為「高砂族」',1],['稱為「山地同胞」（山胞）',2],['稱為「原住民」',3],['稱為「原住民族」',4]]},
+  {title:'原住民族運動年表（課外補充）：哪個年代？',tip:'課本只列出運動的類型，年代是各校的課外補充：1984 正名運動、1988 還我土地運動、1994／1997 修憲、2005 原住民族日、2016 總統道歉。',buckets:['1980 年代','1990 年代','2000 年代','2010 年代'],items:[
+    ['原住民族權利促進會發起正名運動（1984）',0],['還我土地運動（1988）',0],['修憲將「山胞」正名為「原住民」（1994）',1],['修憲稱為「原住民族」（1997）',1],
+    ['確立 8 月 1 日為原住民族日（2005）',2],['總統代表政府向原住民族道歉（2016）',3]]},
+  {title:'班會從頭到尾：第幾步？',tip:'選人員 → 宣布開會 → 報告事項 → 討論事項 → 臨時動議 → 散會 → 導師講評。',buckets:['第1～2步','第3～4步','第5～7步'],items:[
+    ['選出主席、司儀、紀錄',0],['主席宣布開會',0],['報告事項',1],['討論事項（提案→討論→表決）',1],['臨時動議',2],['主席宣布散會',2],['導師講評',2]]},
+];
+
+/* ================= 考點雷達（34 所同版學校，翰林版第三次段考） ================= */
+const RADAR={
+  n:34,
+  schools:'34 所學校（114 學年上學期 31 所、113 學年上學期 3 所；另有 1 所低信心版本只作輔助、不列入統計）',
+  topics:[['權宜問題與秩序問題的辨別',32],['部落重要性：文化與認同的根源',28],['部落重要性：自治的基礎',26],['人格發展權（名譽、隱私）',25],
+    ['霸凌辨識與處理（類型、1953）',24],['部落的定義與法律地位',24],['班會角色分工（主席、司儀、紀錄、導師）',24],['表決規則（先提議先表決、同票）',22],
+    ['公民參與與原住民族運動',22],['提案與動議（附署、附議）',21],['部落挑戰：經濟的停滯',21],['學生自治的實施步驟',21],
+    ['部落重要性：生產與分配的單位',20],['受教育權與學習權',19],['部落挑戰：傳統文化的斷層',18],['部落挑戰：文化與法律的衝突',18],
+    ['部落挑戰：傳統領域的爭議',17],['參與校園公共事務、班會的意義',15],['班會流程順序',15],['學生權利的法源（憲法、教基法）',15],
+    ['身體自主權',13],['學生申訴評議委員會',13],['與大自然和諧共存、生態平衡',12],['權利有限制、須遵守規範',10]],
+  basics:[['主席職責與不參加表決',33],['權宜問題',31],['導師不表決',31],['秩序問題',30],['受教育權與學習權',30],['身體自主權',30],['人格發展權',30],
+    ['提案要附署',29],['動議要附議',29],['部落會議',29],['傳統領域',29],['學生自治三步驟',28]],
+  words:[['部落',34],['部落領袖',34],['霸凌',27],['部落經濟的停滯',27],['文化與法律的衝突',27],['歲時祭儀',26],['共享互助',25],['傳統文化的斷層',25],
+    ['狩獵',22],['原住民族基本法',22],['族語',19],['原住民族委員會',18],['學生申訴評議委員會',16],['教育基本法',16],['原住民族運動',13],['正名',10]],
+  charts:[['學生自治步驟圖',21],['班會流程圖卡',16],['班會發言對話圖（權宜／秩序）',13],['班會角色分工表',12],['霸凌通報統計表',3],['原住民族稱呼演變表',3],['族語使用比例表',2],['學生權益滿意度長條圖',1]],
+};
+
+const TABS=[['home','🏠 考點雷達'],['l5','🏫 第5章 學生權利'],['l6','🏔️ 第6章 部落'],['mix','📊 綜合＋總測驗']];
+
+/* ================= 注釋配對 ================= */
+function renderMatch(el,pairs){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0,miss=0;
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 注釋配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();miss++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${miss<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3><p>配錯 ${miss} 次</p><button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div>`;$('#ag',el).onclick=()=>renderMatch(el,pairs)}
+  draw();
+}
+
+/* ================= 分類 ================= */
+function renderSort(el,so){
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w[0])}」→ <b>${so.buckets[w[1]]}</b>${w[2]?'：'+esc(w[2]):''}`).join('<br>')}</div>`:''}
+      <button class="btn" style="margin-top:12px">再玩一次</button></div>`;
+      el.querySelector('.btn').onclick=()=>renderSort(el,so);return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push(it)}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+/* ================= 選擇題 ================= */
+function renderMCQ(el,qs){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}<span class="src">${q.src}</span></div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div></div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(+b.dataset.k===q.a){got++;sOK()}else{b.classList.add('bad');sBAD()}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>renderMCQ(el,qs);
+}
+
+/* ================= 翻卡 ================= */
+function renderCards(el,cards){
+  el.innerHTML=`<div class="card"><h3>🃏 十五種標點翻卡</h3><p class="muted">點卡片翻面看用法。重點：分號、破折號、引號、書名號、刪節號。</p>
+  <div class="flips">${cards.map(c=>`<div class="flip"><div class="in"><div class="f"><div class="sym">${esc(c[1])}</div><b>${c[0]}</b></div><div class="bk2">${esc(c[2])}</div></div></div>`).join('')}</div></div>`;
+  el.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('on'));
+}
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、civ7-hanlin-3（例 chinese8-1）、公民 國一上第三次段考（翰林）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'civ7-hanlin-3',
+  site:'公民 國一上第三次段考（翰林）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('civ7-hanlin-3_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('civ7-hanlin-3_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>${(d&&d.quickTitle)||'名詞快問快答'}</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽（公民 國一上 第三次段考・翰林） ================= */
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+document.body.insertAdjacentHTML('beforeend','<button class="bgm" id="bgmBtn"></button>');
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};
+
+const ANIM={l5:animL5,l6:animL6};
+const MATCHNAME={l5:'🔗 名詞↔意義配對',l6:'🔗 部落名詞配對'};
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 快問快答'],['match',MATCHNAME[cur]],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title}</h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel');
+  const title=`${d.no} ${d.short}`;
+  if(s==='anim') ANIM[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">本節 ${d.mcq.length} 題，全部依 ${RADAR.n} 校命題方向原創改寫。點選答案後才會出現解析；做完可以交卷給老師。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 首頁：考點雷達 ================= */
+function renderHome(app){
+  const N=RADAR.n;
+  const bar=arr=>`<div class="bars">${arr.map(([n,v])=>`<div class="b"><span>${n}</span><div class="track"><div class="fill" data-w="${v/N*100}"></div></div><b>${v}/${N}</b></div>`).join('')}</div>`;
+  const cards=['l5','l6'];
+  app.innerHTML=`
+  <h2>📡 第三次段考考點雷達</h2>
+  <p class="muted">整理 ${RADAR.schools}的<b>翰林版</b>國一上公民第三次段考卷，共 640 題。範圍：第 5 章 學生權利與校園生活、第 6 章 部落與公民參與（有 2 所學校考全冊累積卷，本站只收第 5、6 章）。</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${cards.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}</div><div class="t">${L[k].short}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+    <div class="lc" style="background:linear-gradient(135deg,#b36b12,#f0a03c)" data-k="mix"><div><div class="n">綜合</div><div class="t">圖表＋總測驗</div></div><div class="d">流程圖卡｜角色分工表｜發言對話｜統計表｜年表｜時事題組｜總測驗</div></div>
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（${N} 校中幾校考過）</h3>${bar(RADAR.topics)}
+  <p class="muted" style="margin-top:10px">⚠️ <b>班會議事規則</b>是最大宗：${N} 校全都考，約 174 題、占 640 題的 27%；其中「權宜問題 vs 秩序問題」32 校、58 題，比任何一個部落觀念都高。<br>⚠️ 第 5 章約占 58%、第 6 章約占 42%；第 6 章的「四大挑戰辨識」幾乎每校必考，而且常用新聞時事包裝。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>基本分必拿（幾校考過）</h3><div class="chips">${RADAR.basics.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">最穩的分數：<b>提案↔書面↔附署、動議↔口頭↔附議</b>、<b>主席以不參加表決為原則</b>、<b>四權辨別</b>（身體自主／人格發展／學習權）、<b>部落三面向</b>。</p></div>
+    <div class="card"><h3>高頻名詞（★ 快問快答會標）</h3><div class="chips">${RADAR.words.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:12px">名詞以翰林課本為準：「<b>人格發展權</b>」「<b>原住民族基本法</b>」「<b>紀念日及節日實施辦法</b>」；部落數目是課本的 <b>740 個</b>、<b>16 族</b>。</p></div>
+  </div>
+  <div class="card"><h3>📊 常考圖表（幾校考過）</h3>${bar(RADAR.charts)}
+  <p class="muted" style="margin-top:10px">→ 都改寫成「📊 綜合」頁的圖表題組；文字全放在表格裡，手機也看得清楚。</p></div>
+  <div class="card"><h3>🪤 最常錯的 10 個陷阱</h3>
+    <p><span class="pill">1</span><b>權宜 vs 秩序</b>：事件從「外面來」（地震、噪音、喧譁、打架、昆蟲闖入）＝權宜；「程序出錯」（未附議、未討論就表決、略過報告）＝秩序。</p>
+    <p><span class="pill">2</span><b>提案</b>＝會前書面＋<b>附署</b>；<b>動議</b>＝開會口頭＋<b>附議</b>。「口頭提案」「書面動議」都是錯的。</p>
+    <p><span class="pill">3</span>同票：對<b>事</b>的表決，由<b>主席是否加入投票</b>決定；對<b>人</b>的選舉，<b>抽籤</b>。導師決定、猜拳都是陷阱。</p>
+    <p><span class="pill">4</span>主席主持表決但<b>以不參加表決為原則</b>；<b>導師</b>不表決、散會後講評；<b>司儀</b>只宣讀程序；<b>紀錄</b>要記方法與票數。</p>
+    <p><span class="pill">5</span>四權辨別：辱罵、取綽號、偷看日記或訊息＝<b>人格發展權</b>；毆打、燙傷、強行碰觸＝<b>身體自主權</b>；干擾上課、無法到校＝<b>受教育權與學習權</b>。</p>
+    <p><span class="pill">6</span>霸凌＝同儕間<b>故意、具傷害性、持續重複、固定受害者</b>；專線<b>1953</b>（選項常換成其他號碼當干擾）；依<b>教育基本法</b>；一次衝突、意外碰撞不算。</p>
+    <p><span class="pill">7</span>學校處分不當→<b>學生申訴評議委員會</b>；不是性平會、獎懲委員會、學生自治會。</p>
+    <p><span class="pill">8</span>學生自治第一步是<b>成立自治組織</b>；自治範圍是班服、班級公約、社團，不是決定考試範圍或課程節數。</p>
+    <p><span class="pill">9</span>部落的定義看<b>原住民族基本法</b>、<b>政府核定</b>（原民會）；領袖<b>不是全部世襲</b>、也不是政府指派；部落會議<b>不必政府同意</b>。</p>
+    <p><span class="pill">10</span>四大挑戰：族語、祭儀＝<b>斷層</b>；缺工作、產業、認證＝<b>停滯</b>；開發案、土地劃設＝<b>傳統領域</b>；獵槍、傳統習俗與法規＝<b>法律衝突</b>。</p></div>
+  <div class="grid2">
+    <div class="card"><h3>💡 意外發現</h3>
+    <p>📰 <b>時事比重高</b>：部落開發案與諮商同意、傳統領域劃設辦法、狩獵案、姓名條例修正、歲時祭儀放假。</p>
+    <p>🧭 <b>答案不一致</b>：少數學校「偏離主題發言」、「提案／動議」的答案鍵與課本不同。複習以課本為準，本站也不使用這類有爭議的題目。</p>
+    <p>📘 課後閱讀「兩個兒童節」0 校考；「鄒族獵人證」「烤豬認證」反而被考。</p>
+    <p>🔢 部落數目以課本 <b>740</b> 為準，選項常放 737、747、14 族、25% 來干擾。</p></div>
+    <div class="card"><h3>🌏 不分版本的共通考點（他版 17 校）</h3>
+    <div class="chips"><span>班會議事規則 ×12</span><span>學生自治、校園公共事務 ×13</span><span>霸凌、學生申訴評議委員會 ×10</span><span>部落：定義、會議、傳統領域、正名 ×14</span></div>
+    <p class="muted" style="margin-top:10px">課本沒有「社區」：康軒、南一第 6 章是「社區與部落」，翰林只談「部落」，所以<b>社區題不在翰林範圍</b>，本站沒有收錄。</p></div>
+  </div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每章先看 <b>🎬 動畫導覽</b>，用真實照片弄懂課本 → ② <b>⚡ 快問快答</b>、<b>🔗 配對</b>練熟基本分 → ③ <b>🎯 分類挑戰</b>破解情境題 → ④ <b>📝 段考模擬題</b>、<b>📊 綜合圖表題</b>和<b>總測驗</b>檢查程度，做完按「📤 交卷給老師」。</p></div>
+  <details class="card"><summary><b>統計限制</b>（給老師看）</summary>
+  <p class="muted">主題校數是逐題人工判讀後歸類，是近似值；社會合卷切出公民題段時可能混入少量他科文字。部分學校沒有答案檔，依課本與題意判讀；有些學校是掃描卷，已看圖判讀；3 所是 113 學年卷。課本依 114 學年翰林版 WORD 檔核對。</p></details>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,c.dataset.k==='mix'?undefined:'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 綜合：圖表判讀＋排序＋總測驗 ================= */
+function renderMix(app){
+  const s=curSub.mix||'chart';
+  const subs=[['chart','📊 圖表判讀題組'],['steps','🧩 跨章分類・年表・流程'],['total','🏁 總測驗']];
+  app.innerHTML=`<h2>📊 綜合：圖表＋年表＋總測驗</h2>
+  <p class="muted">各校最常出的圖表、表格與情境（班會流程圖卡、角色分工表、發言對話、學生自治步驟、霸凌統計表、稱呼演變、同學舉例表、時事題組、滿意度表、族語使用表），全部改寫成原創題組；文字都放在表格裡，手機也看得清楚。</p>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div><div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub.mix=b.dataset.s;render()});
+  const p=$('#panel');
+  if(s==='chart'){
+    p.innerHTML=CHART.map((c,k)=>`<div class="card"><h3>${c.title}</h3><div class="figbox">${c.fig}</div><div id="cq${k}"></div></div>`).join('');
+    CHART.forEach((c,k)=>renderMCQ($('#cq'+k),c.qs.map(q=>({...q,src:c.src})),7,`綜合 ${c.title.replace(/^[①-⑩]\s*/,'')}`));
+    return;
+  }
+  if(s==='steps'){
+    p.innerHTML=STEPS.map((_,i)=>`<div class="card" id="st${i}"></div>`).join('');
+    STEPS.forEach((so,i)=>{SORTCTX={code:7,title:'綜合 跨章分類與年表'};renderSort($('#st'+i),so)});SORTCTX=null;
+    return;
+  }
+  const units=['l5','l6'];
+  const pool=units.flatMap(k=>shuf(L[k].mcq).slice(0,8).map(q=>({...q,unit:`${L[k].no} ${L[k].short}`})));
+  const qs=shuf(pool.concat(shuf(CHART.flatMap(c=>c.qs.map(q=>({...q,src:c.src,unit:'綜合 圖表'})))).slice(0,8)));
+  p.innerHTML=`<div class="card"><h3>🏁 總測驗（${qs.length} 題）</h3><p class="muted">每章隨機抽 8 題＋圖表題 8 題，模擬一份段考公民卷。每次進來題目都不同；做完按「📤 交卷給老師」。</p></div><div id="tq"></div>`;
+  renderMCQ($('#tq'),qs,9,'總測驗（第 5～6 章）');
+}
+
+/* ================= 共用：動畫外框 ================= */
+function stage(p,extra){p.innerHTML=`<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${extra||''}`}
+
+/* ================= 第 5 章 學生權利與校園生活 ================= */
+function animL5(p){
+  stage(p,`<div class="card"><h3>⚖️ 三種學生權利一張表</h3>
+  <table class="tbl"><tr><th>權利</th><th>意義</th><th>常考情境</th></tr>
+  <tr><td><b>受教育權與學習權</b></td><td>憲法保障受教育；學習權＝自主學習與獲取知識，學生是學習的主體</td><td>圖書館、課程規畫、干擾上課、無法到校</td></tr>
+  <tr><td><b>身體自主權</b></td><td>對自己身心管理的權利及能力；未經同意不得碰觸、侵犯</td><td>毆打、燙傷、強行碰觸、關在教室</td></tr>
+  <tr><td><b>人格發展權</b></td><td>人格權＝人的價值與尊嚴：健康、名譽、隱私</td><td>辱罵、取綽號、翻閱日記訊息、搜查私人物品</td></tr></table></div>
+  <div class="card"><h3>🗳️ 班會一張圖</h3>
+  <div class="flow"><span>選出主席、司儀、紀錄</span><b>→</b><span>宣布開會</span><b>→</b><span>報告事項</span><b>→</b><span>討論事項<br>提案→討論→表決</span><b>→</b><span>臨時動議</span><b>→</b><span>宣布散會</span><b>→</b><span>導師講評</span></div>
+  <table class="tbl" style="margin-top:12px"><tr><th>角色</th><th>工作</th></tr>
+  <tr><td>主席</td><td>主持會議、賦予發言；裁決權宜與秩序問題；處理提案討論、表決；主持表決但<b>以不參加表決為原則</b></td></tr>
+  <tr><td>司儀</td><td>宣讀會議程序</td></tr><tr><td>紀錄</td><td>記報告事宜、表決的方法與票數結果、決議要點</td></tr>
+  <tr><td>導師</td><td>提示會議規則、散會後講評；<b>不參與意見、不加入表決</b></td></tr></table>
+  <table class="tbl" style="margin-top:12px"><tr><th></th><th>權宜問題</th><th>秩序問題</th></tr>
+  <tr><td>意義</td><td>議場<b>偶發緊急事件</b>，足以影響全體或個人權利</td><td>議題進行中<b>程序發生錯誤</b>，或破壞議事秩序</td></tr>
+  <tr><td>例子</td><td>地震、喧譁、噪音、打架</td><td>未附議就成案、未討論就表決</td></tr>
+  <tr><td>目的</td><td>排除阻礙會議進行的事故</td><td>改正會議本身進行中的錯誤</td></tr></table>
+  <table class="tbl" style="margin-top:12px"><tr><th></th><th>提案</th><th>動議</th></tr>
+  <tr><td>時間</td><td>會前</td><td>開會時</td></tr><tr><td>形式</td><td>書面</td><td>口頭</td></tr><tr><td>支持</td><td>一位以上<b>附署</b></td><td>一位以上<b>附議</b></td></tr></table>
+  <p class="muted" style="margin-top:10px">表決：<b>先提議先表決</b>，依<b>多數決</b>；同票時，對事由主席是否加入投票決定，對人的選舉用抽籤。</p></div>`);
+  const steps=[
+    {label:'① 為什麼要學學生權利',imgs:[{img:'l5_class',tag:'課堂：學校是學習知識、練習團體生活的地方'}],poem:'世界人權宣言：「<b>人人都有受教育的權利</b>」；我國憲法：人民有<b>受國民教育的權利與義務</b>。對<b>國家</b>，教育培育健全人格、民主素養、法治觀念和國際視野；對<b>個人</b>，可學習知識技能、追求理想生活、達成個人成就。',key:'出處別搞混：<b>憲法</b>＝受國民教育的權利與義務；世界人權宣言＝人人有受教育的權利；教育基本法＝學生不受霸凌（19 校考憲法）。'},
+    {label:'② 受教育權與學習權',imgs:[{img:'l5_malala',tag:'為女孩爭取受教育權的馬拉拉'}],poem:'<b>受教育權</b>是憲法保障人民接受教育的權利；<b>學習權</b>是個人對自主學習和知識獲取的權利。<b>學生是學習的主體</b>，教師的教學、課程規畫、管教措施、生涯探索與校舍規畫，都應正視學生學習與成長的需求。',key:'干擾上課、沒有圖書與選修資源、被毆打到無法到校＝<b>受教育權與學習權</b>（30 校考四權辨別）。'},
+    {label:'③ 身體自主權與人格發展權',imgs:[{img:'l5_diary',tag:'日記、聯絡簿、私人訊息：未經同意不能翻閱（隱私）'}],poem:'<b>身體自主權</b>：對自己身心管理的權利及能力，沒有經過本人同意，無論是誰都不能任意碰觸、侵犯。<b>人格權</b>：關於人的價值與尊嚴的權利，包括個人的<b>健康、名譽與隱私</b>。不宜任意言語辱罵，也不宜擅自翻閱私人物品、聯絡簿、信件或訊息。',key:'毆打、燙傷、強行碰觸＝<b>身體自主權</b>；辱罵、取綽號、偷看日記、查手機訊息＝<b>人格發展權</b>（不是身體自主權）。'},
+    {label:'④ 霸凌與權利的維護',imgs:[{img:'l5_cyber',tag:'網路霸凌：嘲笑、散播謠言也是霸凌',fit:'contain',bg:'#fff'}],poem:'<b>霸凌</b>：同儕之間故意且具傷害性的行為，持續或重複出現在固定的受害者身上。<b>教育基本法</b>明定學生不受任何形式的霸凌。遇到不友善對待，應<b>主動關懷</b>、向父母或師長求助，或撥打<b>教育部防制校園霸凌專線 1953</b>；學生權益被學校不當侵害，可向<b>學生申訴評議委員會</b>申訴。',key:'一次吵架、意外撞倒都不是霸凌；專線是 1953，不是 165／1950／1955（24 校考霸凌）；處分不當→申訴評議委員會（13 校）。'},
+    {label:'⑤ 遵守規範與學生自治',imgs:[{img:'l5_club1',tag:'國中劍道社的學生：參加學生社團是參與校園公共事務'},{img:'l5_discuss',tag:'圍坐討論：用公開討論取得共識'}],poem:'參與校園公共事務有三點：<b>遵守共同的規範</b>（權利與群體利益取得平衡）、<b>積極參與公共事務</b>（班會、社團）、<b>民主法治的養成</b>。學生自治實施步驟：<b>成立自治組織 → 訂定自治規範 → 推展各項自治活動</b>。',key:'第一步是<b>成立自治組織</b>（28 校）；班級公約、社團章程＝訂定規範；班服、社團活動＝推展活動。自治範圍不包括決定考試範圍。'},
+    {label:'⑥ 班會與議事規則',imgs:[{img:'l5_meet',tag:'學生自治會議：主席主持，成員輪流發言（歷史照片）',fit:'contain',bg:'#111'},{img:'l5_gavel',tag:'議事槌：主席維持會場秩序',fit:'contain',bg:'#111'}],poem:'班會流程：選出主席、司儀、紀錄 → 宣布開會 → 報告事項 → 討論事項（<b>提案→討論→表決</b>）→ 臨時動議 → 散會。<b>權宜問題</b>處理偶發緊急事件；<b>秩序問題</b>改正程序錯誤。表決<b>先提議先表決</b>、<b>多數決</b>。',key:'<b>權宜 vs 秩序</b>是 32 校最愛考的題；提案＝書面＋附署、動議＝口頭＋附議；同票：對事＝主席是否加入投票、對人＝抽籤。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+/* ================= 第 6 章 部落與公民參與 ================= */
+function animL6(p){
+  stage(p,`<div class="card"><h3>🏔️ 部落一張表</h3>
+  <table class="tbl"><tr><th>項目</th><th>課本重點</th></tr>
+  <tr><td><b>意義</b></td><td>原住民於原住民族地區一定區域內，依傳統規範、共同生活結合而成，<b>經政府核定</b>的團體；<b>原住民族基本法</b>明訂；約 58 萬人（2.5%）、<b>16 族</b>、<b>740 個部落</b></td></tr>
+  <tr><td><b>文化與認同的根源</b></td><td>傳統生活空間與信仰重心；歲時祭儀是世代傳承文化的橋梁；離開生活空間易有文化失根</td></tr>
+  <tr><td><b>生產與分配的單位</b></td><td>與大自然和諧共存；農耕、採集、漁獵；重視<b>共享互助</b>與生態平衡</td></tr>
+  <tr><td><b>自治的基礎</b></td><td>各部落有管轄領域；領袖帶領管理共同事務；召開<b>部落會議</b>凝聚共識</td></tr></table></div>
+  <div class="card"><h3>🧗 部落四大挑戰＋公民參與</h3>
+  <table class="tbl"><tr><th>挑戰</th><th>是什麼</th><th>因應與例子</th></tr>
+  <tr><td><b>傳統文化的斷層</b></td><td>年輕人到都會，與部落文化脫節</td><td>回部落傳承母語、技藝；耆老記錄族語與歌謠</td></tr>
+  <tr><td><b>部落經濟的停滯</b></td><td>返鄉族人缺少產業與工作</td><td>發掘特色、發展傳統文化產業；烤豬認證</td></tr>
+  <tr><td><b>傳統領域的爭議</b></td><td>傳統領域多成公有或私人土地</td><td>保護是自治權與生態維護；卡大地布部落開發案</td></tr>
+  <tr><td><b>文化與法律的衝突</b></td><td>傳統與當代法律、價值觀牴觸</td><td>狩獵文化與獵槍管制；鄒族獵人證</td></tr></table>
+  <div class="flow" style="margin-top:12px"><span>部落＋關心的民眾<br>原住民族運動、表達訴求</span><b>＋</b><span>政府<br>推動政策、凝聚部落力量</span><b>＋</b><span>一般大眾<br>了解、關心、溝通協調</span></div></div>`);
+  const steps=[
+    {label:'① 部落的意義',imgs:[{img:'l6_map1936',tag:'日治時期繪製的原住民族分布圖（1936）：各族皆以部落為基本單位',fit:'contain',bg:'#111'},{img:'l6_duona',tag:'高雄多納部落的石板屋'}],poem:'我國原住民族約 <b>58 萬人</b>，占總人口 <b>2.5%</b>，政府認定 <b>16 族</b>，皆以<b>部落</b>為基本單位。<b>原住民族基本法</b>明訂部落的定義：原住民於原住民族地區一定區域內，依傳統規範、共同生活結合而成的團體，<b>經政府核定</b>。目前共有 <b>740</b> 個部落。',key:'依據是「原住民族基本法」，核定機關是原民會；數字以課本 740 為準，選項愛放 737、747、14 族（34 校考部落定義）。'},
+    {label:'② 文化與認同的根源',imgs:[{img:'l6_ilisin',tag:'阿美族豐年祭（Ilisin）：部落的歲時祭儀'}],poem:'部落是傳統的生活空間與信仰重心，連結原住民族獨特的文化。<b>歲時祭儀</b>是世代傳承文化的橋梁；部落與土地高度連結，離開原本的生活空間，易有<b>文化失根</b>的危機。例如<b>阿美族豐年祭</b>感謝神靈的恩惠。',key:'祭儀、族語、身分認同＝文化與認同（28 校）。「歲時祭儀可放假」的目的＝尊重多元文化、促進文化傳承，不是落實自治。'},
+    {label:'③ 生產與分配的單位',imgs:[{img:'l6_share',tag:'狩獵後分享獵物的歷史照片：重視共享',fit:'contain',bg:'#111'}],poem:'原住民族與大自然和諧共存，以部落為單位進行<b>農耕、採集、漁獵</b>，在資源分配上重視<b>共享互助</b>與生態平衡。例：太魯閣族獵物由共同狩獵者<b>平分</b>；排灣族老屋重建啟動<b>共工互助</b>；排灣族領袖收農租也<b>有義務扶養</b>失去親屬的老人、幼童或身障者。',key:'獵物平分、共工、扶養老幼＝<b>共享互助</b>（25 校）；陷阱：歲時祭儀＝文化認同、長老推選＝自治、輪休＝生態。'},
+    {label:'④ 自治的基礎',imgs:[{img:'l6_assembly',tag:'部落的聚會所（1897 年歷史照片）'},{img:'l6_smangus',tag:'泰雅族司馬庫斯部落'}],poem:'每個原住民族都有其特有的文化與政治制度，大多以<b>部落為自治的基礎</b>：各部落有自己的<b>管轄領域</b>，由<b>部落領袖</b>帶領族人管理共同事務，並<b>召開部落會議</b>討論、凝聚共識。依原基法，部落<b>應設部落會議</b>。',key:'領袖稱謂不一、產生方式不盡相同：<b>排灣、魯凱世襲</b>，<b>阿美由長老推選或族人選舉</b>；「皆世襲」「政府指派」都錯；部落會議不由官員主持（26 校）。'},
+    {label:'⑤ 斷層與停滯：回部落找方法',imgs:[{img:'l6_weave',tag:'編織技藝：把傳統工藝傳承下去，也能發展文化產業'}],poem:'<b>傳統文化的斷層</b>：年輕人為教育或工作到都會，與部落脫節；有些人回部落傳承母語、技藝，或找<b>耆老記錄族語和歌謠</b>。<b>部落經濟的停滯</b>：返鄉族人要重新發掘部落特色，發展<b>具傳統文化且識別度高</b>的產業，例如南投縣的<b>烤豬認證</b>。',key:'題幹看「族語、祭典不再傳承」＝斷層；看「缺工作、缺產業、需要認證」＝停滯（25～27 校，常混淆）。'},
+    {label:'⑥ 傳統領域、法律衝突與公民參與',imgs:[{img:'l6_kaidao',tag:'「夜宿凱道」手寫牌：族人長期在凱達格蘭大道表達訴求'},{img:'l6_deer',tag:'清代畫作：原住民族的傳統狩獵',fit:'contain',bg:'#111'}],poem:'<b>傳統領域</b>現多為公有或私人土地，保護是自治權與生態維護的議題，例如<b>卡大地布部落開發案</b>。<b>文化與法律的衝突</b>：狩獵文化與持有獵槍的法律。部落與關心的民眾透過<b>原住民族運動</b>（恢復傳統姓氏、正名、還我土地、自治訴求）表達訴求，政府推動政策凝聚部落力量。',key:'開發案、土地劃設＝傳統領域；獵槍、傳統狩獵與保育法規牴觸＝法律衝突；解法是理性依法表達、尋求共識，不是衝撞法律或放棄文化（27 校考四大挑戰）。'},
+  ];
+  stepper(p,steps,i=>showPhoto(steps[i]),8000);
+}
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+</body>
+</html>
