@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國一自然段考闖關</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Nunito:wght@800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --main:#1f6b52; --main-2:#2f9a74; --accent:#f2a541; --accent-2:#e07a2f;
+  --bg:#f6f4ef; --card:#ffffff; --ink:#23303f; --muted:#6b7686; --line:#e3e0d8;
+  --ok:#2e9e6b; --ok-bg:#e3f5ec; --bad:#d9534f; --bad-bg:#fbe7e6; --hi:#fff4d6;
+  --shadow:0 4px 18px rgba(30,45,70,.08);
+}
+*{box-sizing:border-box}
+html{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#17513e 0%,#2f9a74 60%,#f2b441 140%);color:#fff;padding:40px 0 32px}
+.hero h1{margin:0 0 6px;font-size:1.9rem;font-weight:900;letter-spacing:.04em}
+.hero p{margin:0;opacity:.92}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:2px 12px;border-radius:99px;font-size:1rem;margin-bottom:10px}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(246,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.tab{border:none;background:#fff;color:var(--ink);padding:8px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.06);font-weight:500}
+.tab.on{background:var(--main);color:#fff}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+.sub{border:2px solid var(--line);background:#fff;padding:7px 14px;border-radius:12px;font-weight:500;color:var(--ink)}
+.sub.on{border-color:var(--accent);background:var(--hi)}
+main{padding:10px 0 60px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:0 0 20px}
+h2{font-size:1.45rem;margin:26px 0 4px;color:var(--main)}
+h3{font-size:1.15rem;margin:0 0 10px;color:var(--main)}
+.muted{color:var(--muted);font-size:1rem}
+.pill{display:inline-block;font-size:1rem;padding:1px 10px;border-radius:99px;background:var(--hi);color:#8a5a00;margin-right:6px;font-weight:700}
+.btn{border:none;background:var(--main);color:#fff;padding:9px 20px;border-radius:12px;font-weight:700}
+.btn.alt{background:var(--accent);color:#3b2600}
+.btn.ghost{background:#eef1f6;color:var(--main)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+
+/* ---------- 考點雷達 ---------- */
+.bars .b{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:7px 0}
+.bars .track{background:#eef1f6;border-radius:99px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--main-2),var(--accent));border-radius:99px;width:0;transition:width 1s ease}
+@media(max-width:560px){.bars .b{grid-template-columns:100px 1fr 36px;font-size:1rem}}
+.chips span{display:inline-block;background:#eef1f6;border-radius:10px;padding:3px 10px;margin:4px 4px 0 0;font-size:1rem}
+.chips span b{color:var(--accent-2)}
+.lessoncards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+@media(max-width:860px){.lessoncards{grid-template-columns:1fr 1fr}}
+.lc{border-radius:16px;padding:18px;color:#fff;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .2s}
+.lc:hover{transform:translateY(-3px)}
+.lc .n{font-size:1rem;opacity:.9}.lc .t{font-size:1.3rem;font-weight:900}.lc .d{font-size:1rem;opacity:.92}
+
+/* ---------- 動畫 ---------- */
+.stage{border-radius:16px;overflow:hidden;background:#0d1b33;position:relative}
+.stage svg{display:block;width:100%;height:auto}
+.caption{margin-top:14px}
+.caption .poem{background:#f3f6fb;border-left:5px solid var(--main-2);padding:10px 14px;border-radius:8px;font-size:1.05rem}
+.caption .key{background:var(--hi);border-left:5px solid var(--accent);padding:10px 14px;border-radius:8px;margin-top:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.steps button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 12px}
+.steps button.on{border-color:var(--main);background:var(--main);color:#fff}
+/* L1 scene */
+#l1svg .sky{transition:fill 1.6s}
+#l1svg .sun{transition:transform 2.2s ease-in-out}
+#l1svg .sunspin{animation:spin 3s linear infinite;transform-origin:0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+#l1svg .fade{transition:opacity 1.4s}
+#l1svg .walker{transition:transform 3s ease-in-out,opacity 1s}
+#l1svg .zz{animation:zz 2.4s ease-in-out infinite}
+@keyframes zz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+#l1svg .vine{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 4s ease}
+#l1svg.s3 .vine{stroke-dashoffset:0}
+#l1svg .river{stroke-dasharray:14 12;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-26}}
+#l1svg .fly{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+#l1svg .twk{animation:blink 2.2s ease-in-out infinite}
+/* L2 */
+#l2svg .top{transition:transform 1.2s ease;transform-box:view-box;transform-origin:530px 262px}
+#l2svg .fade{transition:opacity 1.2s}
+#l2svg .layer{transition:opacity .6s, r .6s}
+#l2svg .shine{animation:blink 1.8s ease-in-out infinite}
+#l2svg .grain{transition:transform 1.4s cubic-bezier(.5,0,.6,1.4)}
+/* L3 */
+#l3svg .fade{transition:opacity 1s}
+#l3svg .crank{animation:spin 1s linear infinite;transform-box:fill-box;transform-origin:center}
+#l3svg .flake{animation:fall 1.4s linear infinite}
+@keyframes fall{0%{transform:translateY(0);opacity:1}100%{transform:translateY(95px);opacity:.2}}
+#l3svg .pile{transform-box:fill-box;transform-origin:bottom center;animation:grow 6s ease-out infinite}
+@keyframes grow{0%{transform:scaleY(.1)}70%,100%{transform:scaleY(1)}}
+#l3svg .bike{animation:ride 7s linear infinite}
+@keyframes ride{0%{transform:translateX(-160px)}100%{transform:translateX(860px)}}
+#l3svg .ring{animation:blink .6s ease-in-out infinite}
+/* punct */
+.ps{font-size:1.5rem;letter-spacing:.12em;text-align:center;padding:18px 8px;background:#f3f6fb;border-radius:14px;line-height:2.2}
+.ps .p{color:var(--accent-2);font-weight:900;display:inline-block;animation:drop .5s ease}
+@keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+.meaning{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--hi);min-height:52px}
+
+/* ---------- 快問快答 ---------- */
+.qz-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.timer{height:8px;background:#eef1f6;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.timer i{display:block;height:100%;background:var(--accent);width:100%}
+.qword{font-size:2.3rem;font-weight:900;text-align:center;margin:14px 0 6px;letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:1.3rem;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.97)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.combo{font-weight:900;color:var(--accent-2)}
+.star{color:var(--accent-2);font-size:1rem;font-weight:700}
+
+/* ---------- 配對 ---------- */
+.mcols{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}
+.mi{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:1rem;min-height:48px}
+.mi.sel{border-color:var(--main-2);background:#e8effa}
+.mi.done{border-color:var(--ok);background:var(--ok-bg);color:#1c6b47;cursor:default}
+.mi.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mi.w{font-weight:900;font-size:1.15rem}
+
+/* ---------- 分類 ---------- */
+.sortcard{font-size:1.25rem;font-weight:700;text-align:center;background:#f3f6fb;border-radius:14px;padding:22px 12px;margin:10px 0 14px;min-height:90px;display:flex;align-items:center;justify-content:center}
+.buckets{display:grid;gap:10px}
+.bk{border:2px dashed var(--main-2);background:#fff;border-radius:14px;padding:12px;font-weight:700;color:var(--main)}
+.bk.ok{background:var(--ok-bg);border-style:solid;border-color:var(--ok)}
+.bk.bad{background:var(--bad-bg);border-style:solid;border-color:var(--bad)}
+.fb{min-height:28px;margin-top:10px}
+
+/* ---------- 選擇題 ---------- */
+.mq{border-top:1px solid var(--line);padding:16px 0}
+.mq:first-of-type{border-top:none}
+.mq .stem{font-weight:500;margin-bottom:8px}
+.mq .src{font-size:1rem;color:#fff;background:var(--main-2);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px}
+.mq .o{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:6px 0;font-size:1rem}
+.mq .o.ok{border-color:var(--ok);background:var(--ok-bg)}
+.mq .o.bad{border-color:var(--bad);background:var(--bad-bg)}
+.mq .ex{display:none;background:#fffaf0;border:1px solid #f2dfb5;border-radius:12px;padding:10px 14px;margin-top:8px}
+.mq.done .ex{display:block}
+.score{position:sticky;top:62px;z-index:5;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:var(--shadow);display:inline-block;margin-bottom:8px;font-weight:700}
+
+/* ---------- 抓擬人 ---------- */
+.hunt p{font-size:1.2rem;line-height:2.2;margin:6px 0}
+.hunt span.c{cursor:pointer;border-radius:4px;padding:1px 0}
+.hunt span.c.found{background:#ffe08a;color:#7a4b00;font-weight:900}
+.hunt span.c.miss{background:var(--bad-bg);transition:background .6s}
+
+/* ---------- 翻卡 ---------- */
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.flip{perspective:800px;height:150px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .bk2{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--shadow)}
+.flip .f{background:#fff}
+.flip .f .sym{font-size:2rem;font-weight:900;color:var(--accent-2)}
+.flip .bk2{background:var(--main);color:#fff;transform:rotateY(180deg);font-size:1rem;line-height:1.5}
+
+
+/* 照片舞台 */
+.pstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#111}
+.ph{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 1.2s ease}
+.ph.kb{animation:kb 9s ease-out forwards}
+@keyframes kb{0%{transform:scale(1.0)}100%{transform:scale(1.08)}}
+.split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;transition:opacity 1s}
+.split .half{background-size:cover;background-position:center;position:relative}
+.split .half span,.ptag{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.62);color:#fff;border-radius:10px;padding:6px 12px;font-size:1rem;line-height:1.5;max-width:calc(100% - 24px)}
+.ptag{transition:opacity .6s}
+.pai{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.85);color:#555;border-radius:8px;padding:2px 10px;font-size:1rem;opacity:0;transition:opacity .6s}
+@media(max-width:560px){.pstage{aspect-ratio:4/3}}
+.bgm{position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:#fff;color:var(--main);border-radius:99px;padding:8px 16px;box-shadow:var(--shadow);font-weight:700}
+/* 自學一 */
+.tstage{background:linear-gradient(135deg,#eef6e8,#fdf6e3);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;padding:20px}
+.qcard{text-align:center;max-width:640px}
+.qe{font-size:3rem}.qq{font-size:1.4rem;font-weight:700;line-height:1.7;margin:8px 0;color:#2d4a22}.qw{color:var(--muted);font-size:1.05rem}
+.pop{animation:pop .6s ease}
+@keyframes pop{0%{opacity:0;transform:scale(.9) translateY(10px)}100%{opacity:1;transform:none}}
+.mx{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:620px}
+.mxc{border-radius:14px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:4px;font-size:1.05rem}
+.mxc b{font-size:1.15rem}
+@media(max-width:560px){.tstage{padding:10px}.mxc{padding:12px}}.mxc.a{background:#d9534f}.mxc.b{background:#2e9e6b}.mxc.c{background:#f0ad4e}.mxc.d{background:#8a94a2}
+footer{background:#17513e;color:#dfe7f3;padding:28px 0;font-size:1rem}
+footer a{color:#ffd48a}
+
+.hero .me{margin-top:12px;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:1rem}
+.linkbtn{border:none;background:#fff;color:var(--main);border-radius:99px;padding:1px 12px;font-weight:700;font-size:1rem}
+.modal{position:fixed;inset:0;background:rgba(20,30,45,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.mbox label{display:block;margin:10px 0;font-weight:500}
+.mbox input{display:block;width:100%;font-size:1.1rem;padding:9px 12px;border:2px solid var(--line);border-radius:10px;margin-top:4px;font-family:inherit}
+.mbox input:focus{outline:none;border-color:var(--main-2)}
+.chk{display:inline-flex;gap:6px;align-items:center;background:#eef6f2;border-radius:10px;padding:6px 12px}
+.chk input{width:20px;height:20px}
+.btn:disabled{opacity:.7}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;font-size:20px}
+.mq .ex{font-size:1.12rem;line-height:1.75}
+.caption .key,.caption .poem{font-size:1.12rem}
+.fb{font-size:1.05rem}
+/* 自然科：快問快答題目是一句話，不是單字 */
+.qword{font-size:1.35rem;letter-spacing:0;line-height:1.6;word-break:break-word}
+.opt{font-size:1.1rem;word-break:break-word}
+.sortcard{font-size:1.15rem}
+h2 .muted{font-size:1rem}
+.tbwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.dt{border-collapse:collapse;width:100%;font-size:1rem;min-width:280px}
+table.dt th,table.dt td{border:1px solid var(--line);padding:6px 8px;text-align:center}
+table.dt th{background:#eef6f2;color:var(--main)}
+table.dt td:first-child{font-weight:700;background:#fafcfb}
+.trap{margin:8px 0;line-height:1.7}
+.flipdemo{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center;margin:12px 0}
+.flipdemo .fl{font-size:2.4rem;font-weight:900;background:#eef6f2;border-radius:14px;padding:10px 0;font-family:"Nunito","Noto Sans TC",sans-serif}
+.flipdemo .fl.rot{display:block;transform:rotate(180deg);transition:transform .8s}
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a href="../" style="color:#fff;opacity:.85;text-decoration:none;font-size:1rem;display:block;margin-bottom:8px">← 回科目選單</a><span class="tag">翰林版 國一上 ｜ 第二次段考</span>
+    <h1>自然段考闖關｜3-2 酵素～4-4 循環系統</h1>
+    <p>先看動畫弄懂課本，再用遊戲練熟名詞、構造與實驗，最後做段考模擬題、交卷給老師。</p>
+    <div class="me" id="me"></div>
+  </div>
+</header>
+<nav class="tabs"><div class="wrap" id="tabs"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+<button class="bgm" id="bgmBtn"></button>
+<footer><div class="wrap">
+  <b>全民補習班 自然科</b>｜考點依據：15 所學校翰林版第二次段考卷（114 學年為主），另以 41 校康軒、南一卷對照共通考點；校數與題數為估計值。模擬題皆為原創改寫。<br>
+  名詞、定義、單位與實驗步驟依翰林版第一冊課本，並參考康軒、南一課本補充（標「三版補充」）。範圍 3-2 酵素～4-4 人體的循環系統（含淋巴與防禦）。答對、答錯都有音效；背景音樂只在「動畫導覽」播放，可按右下角按鈕關閉。<br>
+  交卷時會把你的姓名、分數與錯題傳給老師，只有老師看得到。左下角 ✏️ 可以手寫、兩指縮放。
+  <details style="margin-top:8px"><summary>圖片來源與授權</summary>照片與圖來自 Wikimedia Commons（公有領域、CC0、CC BY 或 CC BY-SA）；實驗操作畫面（右上角標「AI 示意圖」）由 Google Gemini 生成：本氏液結果（AI 示意圖）：AI 生成（Gemini）（AI 示意圖）；魚尾鰭觀察（AI 示意圖）：AI 生成（Gemini）（AI 示意圖）；酒精隔水加熱脫色（AI 示意圖）：AI 生成（Gemini）（AI 示意圖）；套袋觀察蒸散（AI 示意圖）：AI 生成（Gemini）（AI 示意圖）；芹菜吸水實驗（AI 示意圖）：AI 生成（Gemini）（AI 示意圖）；環狀剝皮（AI 示意圖）：AI 生成（Gemini）（AI 示意圖）；水蘊草葉綠體：Cimice50（CC BY-SA 4.0）；保衛細胞：Trương Minh Khải（CC BY 4.0）；蘋果碘液：Mezhenskyj（CC BY-SA 4.0）；白飯：Douglas Perkins（CC0）；消化系統圖：Mariana Ruiz, Jmarchn, translated by PhiLiP（公有領域）；芭樂：Rodrigo.Argenton（CC BY-SA 4.0）；肝膽胰：BruceBlaus（CC BY 3.0）；蠕動示意圖：Laboratoires Servier（CC BY-SA 3.0）；胃：Y CHen（CC BY-SA 4.0）；牙齒：David Shankbone（CC BY-SA 3.0）；小腸絨毛：Jamil Baza（CC BY 4.0）；優酪乳：Amuzujoe（CC BY-SA 4.0）；體溫計：Jacek Halicki（CC BY-SA 4.0）；鳳梨：Ivar Leidus（CC BY-SA 4.0）；餵寶寶吃飯：tigerpuppala_2（CC BY 2.0）；碘液遇澱粉：Flo Sorg（公有領域）；恆溫水浴：QuodScripsiScripsi（CC0）；動脈與靜脈：RWhitwam（CC BY-SA 4.0）；血液抹片：Ajay Kumar Chaurasiya（CC BY-SA 4.0）；血壓計：Shixart1985（CC BY 2.0）；微血管：Louisa Howard（公有領域）；循環示意圖：DataBase Center for Life Science (DBCLS)（CC BY 4.0）；哈維畫像：After Daniël Mijtens（公有領域）；哈維靜脈瓣膜圖：William Harvey (1628, De motu cordis)（公有領域）；心臟示意圖：Wnauta（CC BY-SA 3.0）；淋巴系統圖：TE-Lymphatic system diagram.svg; derivative work: GnolizX（CC BY 3.0）；血球電顯：Bruce Wetzel (photographer). Harry Schaefer (photographer)（公有領域）；量脈搏：U.S. Air Force Staff Sgt. Jeanette Copeland（公有領域）；靜脈瓣膜：Original: Was a bee ; Vectorized by ZooFari（公有領域）；葉綠體：Kristian Peters -- Fabelfroh（CC BY-SA 3.0）；水草氣泡：Rcaravit（CC BY 4.0）；葉片碘液測試：DariaWi（CC BY 4.0）；陽光下的葉片：W.carter（CC0）；斑葉：Forest & Kim Starr（CC BY 3.0）；向日葵莖：Tgru001（CC BY 4.0）；染色的花：Lucy Roberts from Bartlesville, OK（CC BY 2.0）；環狀剝皮：Lamiot; derivative work: Eewil（CC BY 3.0）；葉脈：Jon Sullivan（公有領域）；玉米莖：Berkshire Community College Bioscience Image Library（CC0）；根毛：G Lens Microscopist, Megan Gerber（CC BY 4.0）；年輪：Rbreidbrown（CC BY-SA 4.0）；木質部導管：Tmatheus（CC BY 4.0）。</details>
+</div></footer>
+<script>
+/* ================= 音效 ================= */
+let AC=null;
+function tone(f,d=0.12,type='sine',v=0.15,delay=0){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.value=f;g.gain.value=v;
+    o.connect(g);g.connect(AC.destination);
+    const t=AC.currentTime+delay;
+    o.start(t);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.stop(t+d+0.02);
+  }catch(e){}
+}
+const sOK=()=>{tone(660,.1);tone(990,.15,'sine',.15,.09)};
+const sBAD=()=>tone(180,.25,'square',.08);
+const sBELL=()=>{[1568,2093,1568,2093].forEach((f,i)=>tone(f,.18,'triangle',.08,i*.14))};
+
+/* ================= 工具 ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const isZY=s=>/[ㄅ-ㄩ]/.test(s);
+
+const IMGOK=new Set(["ai_e_benedict", "ai_h_fishtail", "ai_p_alcohol", "ai_t_bag", "ai_t_celery", "ai_t_girdling", "c2_elodea", "c2_stomata", "c3_iodine", "c3_rice", "d_digestive_system", "d_guava", "d_liver_pancreas", "d_peristalsis", "d_stomach", "d_teeth", "d_villi", "d_yogurt", "e_fever_thermometer", "e_pineapple", "e_saliva_bread", "e_starch_iodine_tube", "e_waterbath", "h_artery_vein", "h_blood_smear", "h_bp_monitor", "h_capillary", "h_circulation", "h_harvey", "h_harvey_valves", "h_heart", "h_lymph", "h_platelets", "h_pulse", "h_vein_valve", "p_chloroplast", "p_elodea_bubbles", "p_leaf_starch_test", "p_leaf_sun", "p_variegated", "t_dicot_stem", "t_dyed_celery", "t_girdling", "t_leaf_veins", "t_monocot_stem", "t_root_hairs", "t_tree_rings", "t_xylem"]);
+/* ================= 資料 ================= */
+/* 翰林版 國一上自然 第一冊 3-2 酵素～4-4 人體的循環系統（第二次段考）
+   名詞、定義、實驗步驟一律依翰林課本；「三版補充」取自康軒、南一課本。
+   快問快答：[題目, 正解, [誘答], 校數(≥2才標★)]  校數＝同版學校中考過的估計值（由 stats.json 回填）
+   分類：{title,tip,buckets,items:[[文字,答案索引,解析]]}
+   模擬題：{q,o,a,src,ex} 全部原創改寫，只借命題方向與陷阱。 */
+const L = {
+u1:{
+  no:'3-2', title:'酵素', author:'代謝、酵素特性、實驗3-2', color:'linear-gradient(135deg,#7a3e8e,#c06fa8)',
+  desc:'代謝＝分解＋合成｜專一性｜溫度與酸鹼｜唾液實驗', code:1, quickAsk:'選出正確答案',
+  map:[['代謝作用','分解作用（大分子→小分子）＋合成作用（小分子→大分子）'],['酵素','加速代謝；與受質結合有專一性；反應後本質不變、可重複使用；大部分主成分是蛋白質'],
+       ['影響活性','溫度（人體約 37℃ 最佳，過高會永久失去活性）、酸鹼性（唾液中性、胃酸性、小腸鹼性）'],['實驗3-2','甲：唾液先煮沸；乙：未煮沸 → 兩管加澱粉液放 37℃ → 加本氏液隔水加熱：甲藍色、乙變色']],
+  extra:['【康軒】酵素是一種「催化劑」：能加快反應，但不能讓原本不會發生的反應發生。','【南一】唾液中的澱粉酶不能分解纖維素，所以人吃下的纖維素無法被消化。','【康軒】牛、羊能消化草，是因為消化道內共生的微生物會分泌纖維素酶，不是牛自己分泌的。','【南一】唾液加醋（酸性）後，分解澱粉的能力下降——酸鹼性會影響酵素活性。','【南一】唾液經「煮沸／低溫／37℃」處理後加澱粉，本氏液依序為藍色／藍綠色／黃色。','【數字不同】翰林沸水隔水加熱 5 分鐘、保溫 37℃；康軒加熱 10 分鐘、保溫 35～40℃。'],
+  steps:[
+    {label:'① 代謝作用',imgs:[{img:'c3_rice',tag:'白飯的澱粉是大分子'}],poem:'大分子變小分子＝<b>分解作用</b>；小分子變大分子＝<b>合成作用</b>。兩者合稱<b>代謝作用</b>。',key:'澱粉→葡萄糖是分解；葡萄糖→澱粉、胺基酸→蛋白質是合成。葡萄糖、胺基酸是小分子，澱粉、蛋白質是大分子。'},
+    {label:'② 酵素加速代謝',imgs:[{img:'e_saliva_bread',tag:'吃飯時，唾液裡的酵素開始分解澱粉'}],poem:'酵素又稱<b>酶</b>，能加速代謝作用。能與酵素作用的物質稱為<b>受質</b>。',key:'白飯越嚼越甜：唾液中的<b>澱粉酶</b>把澱粉分解成具甜味的糖，受質是<b>澱粉</b>。'},
+    {label:'③ 專一性',imgs:[{img:'e_pineapple',tag:'鳳梨含有分解蛋白質的酵素'}],poem:'酵素和受質的結合具有<b>專一性</b>：澱粉酶只能分解澱粉，<b>不能分解蛋白質</b>。',key:'反應結束後酵素<b>本質不改變</b>，可以<b>重複使用</b>——「用一次就消耗掉」是錯的。'},
+    {label:'④ 溫度',imgs:[{img:'e_fever_thermometer',tag:'人體溫度約 37℃'}],poem:'未達最適溫度前，溫度愈高活性愈大；超過最適溫度後活性下降，甚至<b>永久失去活性</b>。人體酵素約 <b>37℃</b> 最佳。',key:'低溫只是活性變低，回溫可恢復；<b>高溫煮沸</b>會永久失去活性。曲線題：37℃ 最高點。'},
+    {label:'⑤ 酸鹼性',imgs:[{img:'d_stomach',tag:'胃：胃液含鹽酸，呈酸性',fit:'contain',bg:'#fff'}],poem:'唾液中的酵素在<b>中性</b>活性最高；胃中酵素需<b>酸性</b>；小腸內的酵素適合<b>鹼性</b>。',key:'唾液隨食物進入胃後，因胃是酸性，唾液的酵素<b>無法繼續</b>分解澱粉。大部分酵素主要成分是<b>蛋白質</b>。'},
+    {label:'⑥ 實驗3-2',imgs:[{img:'e_waterbath',tag:'恆溫水浴：讓試管保持在 37℃'},{img:'ai_e_benedict',tag:'加本氏液隔水加熱後：左＝煮過的唾液（藍色）、右＝沒煮過（橙紅）'}],poem:'甲、乙各加 3 mL 唾液，<b>甲先放沸水隔水加熱 5 分鐘</b>再冷卻 → 兩管加 2 mL 澱粉液 → 放 <b>37℃</b> 溫水 15～20 分鐘 → 加本氏液隔水加熱。',key:'結果：甲（煮過）維持<b>藍色</b>＝澱粉沒被分解；乙變<b>綠、黃或橙紅</b>＝產生糖。操作變因是「唾液是否煮沸（溫度）」。'},
+    {label:'⑦ 碘液也能判斷',imgs:[{img:'e_starch_iodine_tube',tag:'碘液遇澱粉變藍黑色'}],poem:'若改用<b>碘液</b>：澱粉被分解得越多，藍黑色越淡。37℃ 的試管最快<b>不再出現藍黑色</b>。',key:'0℃、37℃、90℃ 三管比較：37℃ 分解最快；90℃ 酵素已失去活性，一直是藍黑色。'},
+  ],
+  quick:[
+    ['大分子轉變成小分子的反應稱為？','分解作用',['合成作用','消化腺','擴散作用'],0],
+    ['小分子轉變成大分子的反應稱為？','合成作用',['分解作用','蒸散作用','乳化作用'],0],
+    ['分解作用與合成作用合稱為？','代謝作用',['光合作用','消化作用','循環作用'],0],
+    ['能與酵素作用的物質稱為？','受質',['產物','抗體','胺基酸'],0],
+    ['澱粉酶只能分解澱粉、不能分解蛋白質，這是酵素的哪個特性？','專一性',['可重複使用','怕高溫','需要光'],0],
+    ['酵素在反應結束後會怎樣？','本質不變，可重複使用',['被消耗掉','變成受質','變成葡萄糖'],0],
+    ['大部分酵素的主要成分是？','蛋白質',['醣類','脂質','礦物質'],0],
+    ['人體內許多酵素約在幾℃活性較佳？','37℃',['0℃','60℃','100℃'],0],
+    ['唾液中的酵素在什麼環境活性最高？','中性',['酸性','鹼性','任何環境都一樣'],0],
+    ['胃中的酵素須在什麼環境才有活性？','酸性',['中性','鹼性','高溫'],0],
+    ['小腸內的酵素適合在什麼環境作用？','鹼性',['酸性','中性','低溫'],0],
+    ['超過最適溫度太多，酵素會？','活性降低甚至永久失去活性',['活性一直升高','變成澱粉','變成受質'],0],
+    ['唾液中能分解澱粉的酵素稱為？','澱粉酶',['蛋白酶','脂肪酶','纖維素酶'],0],
+    ['實驗3-2中，唾液先放沸水隔水加熱 5 分鐘的甲試管，最後加本氏液隔水加熱呈？','藍色',['紅色','橙色','藍黑色'],0],
+    ['實驗3-2中，兩支試管要放在幾℃溫水中？','37℃',['0℃','60℃','100℃'],0],
+    ['實驗3-2用來檢驗「有沒有產生糖」的試劑是？','本氏液',['碘液','酒精','亞甲藍液'],0],
+    ['白飯在口中越嚼越甜，是因為澱粉被分解成？','糖',['蛋白質','脂質','纖維素'],0],
+    ['葡萄糖、胺基酸屬於大分子還是小分子？','小分子',['大分子','都不是','看溫度而定'],0],
+    ['唾液隨食物進入胃後，還能分解澱粉嗎？','不能，胃是酸性',['可以，而且更快','可以，因為37℃','只有晚上可以'],0],
+    ['【三版補充】酵素在康軒課本被稱為一種？','催化劑',['受質','激素','抗體'],0],
+  ],
+  words:[['代謝作用','生物體內物質分解與合成的作用'],['分解作用','大分子轉變成小分子'],['合成作用','小分子轉變成大分子'],['酵素（酶）','加速代謝作用的物質'],['受質','能與酵素作用的物質'],['專一性','特定的酵素只能和特定受質結合'],['澱粉酶','唾液中分解澱粉的酵素'],['最適溫度','酵素活性最高的溫度，人體約37℃'],['本氏液','檢驗葡萄糖（糖）的試劑'],['碘液','檢驗澱粉的試劑，遇澱粉變藍黑色']],
+  sorts:[
+    {title:'分解作用還是合成作用？',tip:'大→小＝分解；小→大＝合成',buckets:['分解作用','合成作用'],
+     items:[['澱粉變成葡萄糖',0],['蛋白質變成胺基酸',0],['葡萄糖組合成澱粉',1,'植物把光合作用的葡萄糖存成澱粉'],['胺基酸組合成蛋白質',1],['脂質變成脂肪酸和甘油',0],['肝臟把葡萄糖存成肝糖',1,'小分子→大分子'],['白飯在口中變甜',0]]},
+    {title:'酵素活性會怎樣？',tip:'人體酵素：37℃、適合的酸鹼最好；煮沸會永久失去活性',buckets:['活性高','活性低或失去'],
+     items:[['唾液澱粉酶在 37℃、中性環境',0],['唾液澱粉酶進入胃（酸性）',1],['胃中酵素在酸性環境',0],['唾液先放沸水隔水加熱 5 分鐘',1,'高溫使酵素永久失去活性'],['唾液放在 0℃ 冰水',1,'低溫活性降低（回溫可恢復）'],['小腸酵素在鹼性環境',0]]},
+  ],
+  mcq:[
+    {q:'下列哪一個過程屬於「合成作用」？',o:['澱粉分解成葡萄糖','蛋白質分解成胺基酸','葡萄糖轉變成澱粉儲存','脂質分解成脂肪酸和甘油'],a:2,src:'段考常考',ex:'小分子轉變成大分子才是合成作用；其他三項都是大分子變小分子的分解作用。'},
+    {q:'關於酵素的敘述，何者正確？',o:['每次反應後就被消耗掉','一種酵素可以分解所有養分','反應前後本質不變，可以重複使用','主要成分是醣類'],a:2,src:'段考常考',ex:'酵素有專一性，反應後本質不改變可重複作用；大部分酵素主要成分是蛋白質。'},
+    {q:'唾液中的澱粉酶能分解澱粉，卻不能分解蛋白質，這說明酵素具有什麼特性？',o:['重複使用','專一性','怕低溫','需要光照'],a:1,src:'段考常考',ex:'酵素和受質的結合具有專一性，特定反應須由特定酵素協助。'},
+    {q:'小美吃饅頭時，饅頭在口中越嚼越甜。下列解釋何者正確？',o:['唾液把蛋白質分解成糖','唾液中的酵素把澱粉分解成具甜味的糖','牙齒咬碎會產生糖','饅頭中的糖被唾液合成出來'],a:1,src:'段考常考',ex:'受質是澱粉，酵素是唾液中的澱粉酶，分解產物是具甜味的糖。'},
+    {q:'人體內的酵素大多在約幾℃時活性較佳？',o:['0℃','25℃','37℃','100℃'],a:2,src:'段考常考',ex:'課本：人體內有許多酵素約在 37℃ 左右活性較佳。'},
+    {q:'將唾液先煮沸再冷卻到室溫，加入澱粉液放在 37℃ 溫水中，最後加本氏液隔水加熱，結果應為何？',o:['藍色，因為酵素已失去活性','紅色，因為冷卻後酵素恢復','藍黑色，因為有葡萄糖','紫色，因為有蛋白質'],a:0,src:'段考原型',ex:'高溫使酵素「永久」失去活性，冷卻也無法恢復，澱粉沒被分解成糖，本氏液維持藍色。'},
+    {q:'實驗3-2「溫度對唾液分解澱粉的影響」中，操作變因是什麼？',o:['澱粉液的量','唾液是否先經沸水加熱','本氏液的顏色','保麗龍盒的大小'],a:1,src:'段考常考',ex:'甲煮沸、乙不煮沸，兩組只差溫度處理；本氏液顏色是應變變因。'},
+    {q:'實驗3-2把兩支試管放在 37℃ 溫水中的目的是？',o:['讓本氏液變色','模擬人體體溫，使唾液酵素活性較佳','殺死唾液中的細菌','讓澱粉變成蛋白質'],a:1,src:'課本問題與討論',ex:'37℃ 接近人體體溫，是人體酵素活性較佳的溫度。'},
+    {q:'吃白飯時，飯和唾液一起被送到胃。進入胃後唾液中的酵素還能分解澱粉嗎？',o:['能，胃的溫度剛好','不能，胃中呈酸性，唾液酵素適合中性','能，胃液會幫忙','不能，因為胃中沒有水'],a:1,src:'課本探究提問',ex:'唾液酵素在中性活性最高，胃中有鹽酸呈酸性，唾液酵素失去作用。'},
+    {q:'甲、乙、丙三管都加澱粉液與唾液，分別放在 0℃、37℃、90℃ 的水中，每隔一段時間取液滴碘液。哪一管最快「不再出現藍黑色」？',o:['甲（0℃）','乙（37℃）','丙（90℃）','三管一樣快'],a:1,src:'段考原型',ex:'37℃ 酵素活性最好，澱粉最快被分解完；90℃ 酵素失去活性，一直出現藍黑色。'},
+    {q:'承上題，哪一管「一直」出現藍黑色，即使移到 37℃ 也一樣？',o:['甲（0℃）','乙（37℃）','丙（90℃）','都不會'],a:2,src:'段考原型',ex:'低溫只是活性降低，回溫可恢復；高溫會使酵素永久失去活性。'},
+    {q:'下列關於「酸鹼性與酵素」的配對，何者正確？',o:['唾液酵素—酸性','胃中酵素—酸性','小腸酵素—酸性','所有酵素都在中性最好'],a:1,src:'段考常考',ex:'唾液—中性；胃—酸性；小腸—鹼性。'},
+    {q:'【三版補充】牛吃草能獲得纖維素中的養分，主要原因是？',o:['牛的唾液含有纖維素酶','牛的消化道中共生的微生物會分泌纖維素酶','纖維素不需要分解就能吸收','牛的胃酸能溶解纖維素'],a:1,src:'康軒課本補充',ex:'人類與牛自己都不會分泌纖維素酶；牛靠消化道中共生微生物分泌的纖維素酶。'},
+  ]
+},
+u2:{
+  no:'3-3', title:'植物如何製造養分', author:'葉片構造、光合作用、實驗3-3', color:'linear-gradient(135deg,#2f7d5b,#7cbf6b)',
+  desc:'表皮、氣孔、葉肉、葉脈｜光合作用原料與產物｜遮光葉片碘液', code:2, quickAsk:'選出正確答案',
+  map:[['葉片構造','上下表皮（透明、保護；外有角質層防水分散失）、保衛細胞與氣孔、葉肉（有葉綠體）、葉脈（運輸＋支持）'],
+       ['光合作用','水＋二氧化碳 —(光能、葉綠體)→ 葡萄糖＋氧氣＋水'],['原料從哪來','水：根吸收→葉脈；二氧化碳：氣孔進入'],['產物去哪','葡萄糖可直接利用或轉成澱粉儲存；氧氣由氣孔排出'],
+       ['實驗3-3','先放黑暗一週耗澱粉→部分包鋁箔照光一週→沸水→酒精隔水加熱脫色→熱水漂洗→碘液：照光處藍黑']],
+  extra:['【康軒、南一】保衛細胞呈半月形，含有葉綠體；一般表皮細胞透明、沒有葉綠體。','【南一】光合作用除了光能，還需要酵素參與反應。','【南一】光合作用產生的葡萄糖也可以合成細胞壁的纖維素。','【南一】斑葉植物照光後滴碘液，只有綠色部分變藍黑，證明光合作用需要葉綠體。','【康軒】酒精隔水加熱時燒杯不可加蓋，也不可直接用火加熱酒精。','【數字不同】遮光天數：翰林先黑暗一週再照光一週；康軒 5～7 天；南一 3～5 天。'],
+  steps:[
+    {label:'① 葉片是工廠',imgs:[{img:'p_leaf_sun',tag:'陽光照在綠色葉片上'}],poem:'綠色植物利用<b>光合作用</b>自行製造葡萄糖，<b>葉片</b>是大多數植物進行光合作用的主要器官。',key:'葉片構造：<b>上下表皮、葉肉、葉脈</b>。'},
+    {label:'② 表皮與氣孔',imgs:[{img:'c2_stomata',tag:'成對的保衛細胞，中間的縫隙是氣孔',fit:'contain',bg:'#111'}],poem:'表皮細胞<b>排列緊密而透明</b>，保護葉片；表皮外的<b>角質層</b>可防止水分散失。成對<b>保衛細胞</b>中間的縫隙是<b>氣孔</b>。',key:'氣孔是<b>氣體進出</b>植物體的主要通道，由兩側保衛細胞控制開閉。'},
+    {label:'③ 葉肉與葉綠體',imgs:[{img:'p_chloroplast',tag:'細胞中一顆顆綠色的葉綠體'},{img:'c2_elodea',tag:'水蘊草細胞的葉綠體'}],poem:'葉肉細胞內有顆粒狀的<b>葉綠體</b>，葉綠體內含<b>葉綠素</b>，可吸收光能。',key:'光合作用的場所是<b>葉綠體</b>；吸收光能的是<b>葉綠素</b>。'},
+    {label:'④ 光合作用',imgs:[{img:'p_elodea_bubbles',tag:'水草照光時冒出的氣泡是氧氣'}],poem:'<b>水＋二氧化碳</b> → 光能、葉綠體 → <b>葡萄糖＋氧氣＋水</b>',key:'水由<b>根</b>吸收、經葉脈運來；二氧化碳由<b>氣孔</b>進入；氧氣由氣孔排出。氧氣「不是」原料。'},
+    {label:'⑤ 葡萄糖去哪',imgs:[{img:'c3_iodine',tag:'碘液遇澱粉變藍黑色',fit:'contain',bg:'#2a2a2a'}],poem:'葡萄糖可讓細胞<b>直接利用</b>，也可轉換成<b>澱粉</b>儲存在植物體內。',key:'所以檢測葉片中有沒有<b>澱粉</b>，就能知道光合作用是否進行。'},
+    {label:'⑥ 實驗3-3 遮光',imgs:[{img:'p_variegated',tag:'葉片有些部位條件不同，就能比較'}],poem:'實驗前先把植物放在<b>完全黑暗</b>約一週，消耗原有澱粉 → 葉片部分區域用<b>鋁箔</b>包住 → 放陽光下一週。',key:'鋁箔的目的：讓同一片葉子有<b>照光、不照光</b>兩部分比較，操作變因是<b>光</b>。'},
+    {label:'⑦ 脫色與碘液',imgs:[{img:'ai_p_alcohol',tag:'小燒杯的酒精放在大燒杯的水中隔水加熱，酒精變綠'},{img:'p_leaf_starch_test',tag:'葉片滴碘液後變藍黑色'}],poem:'葉片放<b>沸水</b>軟化角質層 → 放入<b>酒精隔水加熱</b>（溶出葉綠素，酒精變綠）→ 熱水漂洗 → 滴<b>碘液</b>。',key:'照光部分<b>藍黑色</b>（有澱粉）；包鋁箔部分<b>黃褐色</b>。酒精易燃，<b>不可直接加熱</b>。'},
+  ],
+  quick:[
+    ['葉片中保護葉片、排列緊密而透明的是？','表皮細胞',['葉肉細胞','保衛細胞','韌皮部'],0],
+    ['表皮外可以防止水分散失的構造是？','角質層',['葉綠體','細胞壁','氣孔'],0],
+    ['兩個保衛細胞中間的縫隙稱為？','氣孔',['葉脈','根毛','角質層'],0],
+    ['氣孔的開閉由什麼控制？','保衛細胞',['表皮細胞','葉脈','角質層'],0],
+    ['葉片中含有大量葉綠體、主要行光合作用的是？','葉肉',['表皮','葉脈','角質層'],0],
+    ['葉片中負責輸送水分與養分、並支持葉片的是？','葉脈',['葉肉','氣孔','角質層'],0],
+    ['光合作用在細胞的哪個構造進行？','葉綠體',['粒線體','細胞核','液胞'],0],
+    ['葉綠體中能吸收光能的色素是？','葉綠素',['血紅素','澱粉','酵素'],0],
+    ['光合作用的原料是？','水和二氧化碳',['氧氣和葡萄糖','水和氧氣','澱粉和水'],0],
+    ['光合作用的產物是？','葡萄糖、氧氣和水',['二氧化碳和水','澱粉和二氧化碳','蛋白質和氧氣'],0],
+    ['光合作用所需的二氧化碳從哪裡進入葉片？','氣孔',['根毛','葉脈','角質層'],0],
+    ['光合作用所需的水主要從哪裡吸收？','根部',['氣孔','葉肉','花'],0],
+    ['光合作用產生的葡萄糖可轉換成什麼儲存？','澱粉',['蛋白質','脂肪酸','纖維素酶'],0],
+    ['實驗3-3中，用鋁箔包住部分葉片的目的是？','讓那部分照不到光',['保溫','防止碘液流失','加快蒸散'],0],
+    ['實驗3-3中，葉片放入酒精隔水加熱的目的是？','溶出葉綠素，使葉片脫色',['軟化角質層','殺死細菌','產生澱粉'],0],
+    ['實驗3-3中，葉片先放入沸水的目的是？','軟化角質層',['溶出葉綠素','測試澱粉','增加葡萄糖'],0],
+    ['酒精為什麼要隔水加熱、不可直接加熱？','酒精易燃',['酒精會結冰','葉片會融化','碘液會變色'],0],
+    ['滴碘液後，葉片照光的部分呈？','藍黑色',['黃褐色','紅色','白色'],0],
+    ['實驗前把植物放在完全黑暗中一週的目的是？','消耗葉片中原有的澱粉',['讓葉片長大','增加葉綠素','讓氣孔打開'],0],
+    ['【三版補充】保衛細胞內有沒有葉綠體？','有',['沒有','只有晚上有','只有根部有'],0],
+  ],
+  words:[['表皮','排列緊密透明，保護葉片'],['角質層','表皮外，防止水分散失'],['保衛細胞','成對、控制氣孔開閉'],['氣孔','氣體進出植物體的主要通道'],['葉肉','含葉綠體，進行光合作用'],['葉脈','輸送水分養分、支持葉片'],['葉綠體','進行光合作用的胞器'],['葉綠素','吸收光能的綠色色素'],['光合作用','把水和二氧化碳轉成葡萄糖和氧氣'],['碘液','檢驗澱粉，照光葉片變藍黑']],
+  sorts:[
+    {title:'光合作用的原料、產物還是條件？',tip:'原料＝水、二氧化碳；產物＝葡萄糖、氧氣、水；條件＝光能、葉綠體',buckets:['原料','產物','必要條件'],
+     items:[['二氧化碳',0],['氧氣',1,'氧氣是產物，不是原料'],['葡萄糖',1],['光能',2],['葉綠體',2],['由根吸收的水',0],['可轉成澱粉儲存的物質',1,'就是葡萄糖']]},
+    {title:'實驗3-3：每個步驟的目的',tip:'鋁箔＝遮光；沸水＝軟化角質層；酒精＝脫色；碘液＝測澱粉',buckets:['遮光比較','軟化角質層','溶出葉綠素','檢驗澱粉'],
+     items:[['用鋁箔包住葉片一部分',0],['葉片放入沸水中加熱',1],['葉片放入酒精隔水加熱',2],['滴上碘液觀察顏色',3],['酒精顏色變綠',2,'葉綠素溶到酒精中'],['照光處變藍黑色',3]]},
+  ],
+  mcq:[
+    {q:'關於葉片構造的功能，下列配對何者正確？',o:['角質層—進行光合作用','保衛細胞—控制氣孔開閉','葉脈—吸收光能','表皮細胞—含大量葉綠體'],a:1,src:'段考常考',ex:'角質層防止水分散失；葉脈運輸與支持；表皮細胞透明、保護。保衛細胞控制氣孔開閉。'},
+    {q:'光合作用的原料與產物，下列何者正確？',o:['原料：氧氣、水；產物：二氧化碳','原料：水、二氧化碳；產物：葡萄糖、氧氣、水','原料：葡萄糖；產物：澱粉','原料：澱粉、氧氣；產物：水'],a:1,src:'段考常考',ex:'水＋二氧化碳 →(光能、葉綠體)→ 葡萄糖＋氧氣＋水。'},
+    {q:'光合作用所需的二氧化碳與水，分別主要從哪裡進入植物體？',o:['都從根部','二氧化碳從氣孔、水從根部','二氧化碳從根部、水從氣孔','都從葉脈'],a:1,src:'段考常考',ex:'水由根部吸收、經葉脈運至葉肉；二氧化碳由氣孔進入。'},
+    {q:'若在葉片上、下表皮都塗上凡士林蓋住氣孔，放在陽光下並澆水，這片葉子還能順利行光合作用嗎？',o:['能，因為有陽光','能，因為有水','不能，二氧化碳無法由氣孔進入','不能，因為葉綠素被凡士林溶解'],a:2,src:'課本探究提問',ex:'凡士林阻擋氣體進出，缺乏原料二氧化碳，光合作用無法順利進行。'},
+    {q:'為什麼可以用碘液檢驗葉片，判斷光合作用有沒有進行？',o:['光合作用產生的葡萄糖會轉成澱粉儲存','碘液會和氧氣反應','碘液能測出葉綠素','光合作用直接產生碘'],a:0,src:'段考常考',ex:'葡萄糖可轉換為澱粉儲存在葉片中，碘液遇澱粉變藍黑色。'},
+    {q:'實驗3-3中，葉片放入酒精隔水加熱後，酒精變成綠色，原因是？',o:['碘液溶入酒精','葉綠素溶在酒精中','澱粉溶在酒精中','酒精被加熱變色'],a:1,src:'課本問題與討論',ex:'酒精能溶出葉綠素，使葉片脫色，滴碘液時顏色變化比較容易觀察。'},
+    {q:'實驗3-3中，酒精為什麼要「隔水加熱」？',o:['酒精易燃，直接加熱危險','酒精要冷卻才能用','讓葉片吸水','讓碘液變色更快'],a:0,src:'段考常考',ex:'酒精易著火，不可直接加熱；若著火立即以溼抹布撲滅。'},
+    {q:'阿翰把葉片中段用鋁箔包住，照光一週後依步驟處理並滴碘液，結果哪一部分呈黃褐色？',o:['未包鋁箔的部分','包鋁箔的部分','整片葉子','葉脈以外全部'],a:1,src:'段考原型',ex:'包鋁箔處照不到光、沒有產生澱粉，維持碘液原色黃褐色；照光處藍黑色。'},
+    {q:'實驗3-3「先將植物放在完全黑暗處約一週」的目的是什麼？',o:['讓葉片長出更多葉綠體','消耗葉片中原本儲存的澱粉','讓氣孔全部打開','使葉片變軟'],a:1,src:'段考常考',ex:'先耗掉原有澱粉，才能確定滴碘液看到的澱粉是本次照光時新產生的。'},
+    {q:'實驗3-3的操作變因是什麼？',o:['碘液的量','是否照光','酒精的量','葉片的大小'],a:1,src:'段考常考',ex:'同一片葉子照光與遮光部分比較，只差「光」。'},
+    {q:'下列哪一個細胞最可能「沒有」葉綠體？',o:['葉肉細胞','保衛細胞','葉的一般表皮細胞（保衛細胞除外）','水蘊草葉片細胞'],a:2,src:'段考常考',ex:'一般表皮細胞排列緊密而透明，沒有葉綠體；保衛細胞含葉綠體（康軒、南一課本明寫，翰林未提）。'},
+    {q:'綠色植物行光合作用，對地球上其他生物最重要的貢獻是？',o:['製造二氧化碳','釋出氧氣並製造養分','吸收氧氣','分解澱粉'],a:1,src:'課本',ex:'光合作用吸收二氧化碳、釋出氧氣，穩定大氣並提供生物呼吸所需。'},
+    {q:'【三版補充】小玉拿綠白相間的斑葉照光後依實驗步驟滴碘液，結果只有綠色部分變藍黑。這個實驗可以證明光合作用需要？',o:['水','二氧化碳','葉綠體','氧氣'],a:2,src:'南一課本補充',ex:'白色部分沒有葉綠體，無法行光合作用、沒有澱粉。'},
+  ]
+},
+u3:{
+  no:'3-4', title:'人體如何獲得養分', author:'消化道、消化腺、消化與吸收', color:'linear-gradient(135deg,#b5562b,#e5a13a)',
+  desc:'口腔→咽→食道→胃→小腸→大腸→肛門｜五種消化腺｜絨毛', code:3, quickAsk:'選出正確答案',
+  map:[['消化道','口腔→咽→食道→胃→小腸→大腸→肛門；管壁肌肉收縮產生蠕動'],['消化腺','唾腺（唾液）、胃腺（胃液）、肝臟（膽汁）、胰臟（胰液）、腸腺（腸液）'],
+       ['消化產物','澱粉→葡萄糖；蛋白質→胺基酸；脂質→脂肪酸＋甘油'],['小腸','消化與吸收的主要部位、最長；絨毛增加表面積；養分進入微血管'],['大腸','吸收剩餘水分，形成糞便→肛門排遺']],
+  extra:['【康軒】膽汁把脂質乳化成小脂肪球，有利於胰液中的酵素分解脂質。','【南一】胃會分泌黏液與鹼性物質，保護胃壁不被鹽酸侵蝕。','【南一】膽汁、胰液、腸液三種鹼性消化液可以中和由胃來的酸性食物。','【康軒、南一】大腸比小腸粗短，吸收剩餘的水分（南一：還有礦物質）。','【康軒】闌尾沒有消化功能；翰林說闌尾與維護腸道健康有關。','【南一】膳食纖維不能被消化，但能促進腸道蠕動、幫助排便。'],
+  steps:[
+    {label:'① 消化系統',imgs:[{img:'d_digestive_system',tag:'人體的消化系統',fit:'contain',bg:'#fff'}],poem:'消化系統包括<b>消化道</b>與<b>消化腺</b>。消化道：口腔→咽→食道→胃→小腸→大腸→肛門。',key:'肝臟、胰臟是<b>消化腺</b>，食物<b>不會經過</b>（最常考的陷阱）。'},
+    {label:'② 口腔',imgs:[{img:'d_teeth',tag:'牙齒可以咬碎、磨細食物'}],poem:'<b>牙齒</b>咬碎、磨細食物，舌頭把食物與<b>唾液</b>攪拌。唾液由<b>唾腺</b>分泌，初步分解<b>澱粉</b>。',key:'口腔開始消化的是<b>澱粉</b>（不是蛋白質）。'},
+    {label:'③ 食道蠕動',imgs:[{img:'d_peristalsis',tag:'食道蠕動把食物往下推',fit:'contain',bg:'#fff'}],poem:'<b>咽</b>調控食物進入食道；食道呈管狀，靠管壁肌肉收縮產生的<b>蠕動</b>把食物送到胃。',key:'食道<b>不分泌消化液</b>，只負責運送。'},
+    {label:'④ 胃',imgs:[{img:'d_stomach',tag:'胃呈囊袋狀，胃壁有胃腺',fit:'contain',bg:'#fff'}],poem:'胃腺分泌<b>胃液</b>，含<b>鹽酸與酵素</b>：鹽酸殺死大部分細菌、使胃呈酸性，利於酵素初步分解<b>蛋白質</b>。',key:'食物在胃中變成粥狀。胃開始分解的是<b>蛋白質</b>。'},
+    {label:'⑤ 肝、膽、胰',imgs:[{img:'d_liver_pancreas',tag:'肝臟、膽囊、胰臟與胃的位置',fit:'contain',bg:'#fff'}],poem:'<b>膽汁</b>由肝臟分泌、儲存在膽囊，<b>不含酵素</b>，能把脂質<b>乳化</b>成脂肪小球。<b>胰液</b>能分解醣類、蛋白質和脂質。',key:'膽汁是「膽囊分泌」？<b>錯</b>，是肝臟分泌、膽囊儲存。三種鹼性消化液：膽汁、胰液、腸液。'},
+    {label:'⑥ 小腸絨毛',imgs:[{img:'d_villi',tag:'顯微鏡下的小腸絨毛'}],poem:'<b>小腸</b>是消化與吸收的主要部位，也是最長的一段。內壁皺褶上有<b>絨毛</b>，增加吸收表面積，養分進入絨毛內的<b>微血管</b>。',key:'澱粉→<b>葡萄糖</b>；蛋白質→<b>胺基酸</b>；脂質→<b>脂肪酸＋甘油</b>。'},
+    {label:'⑦ 大腸與排遺',imgs:[{img:'d_guava',tag:'芭樂籽不會被消化，會隨糞便排出'}],poem:'<b>大腸</b>吸收剩餘水分；食物殘渣、剝落的大腸壁細胞與腸內細菌形成<b>糞便</b>，由肛門排出，稱為<b>排遺</b>。',key:'大腸「主要吸收養分」是錯的。芭樂籽的旅行：吃進去的籽會原樣排出。'},
+    {label:'⑧ 乳糖不耐',imgs:[{img:'d_yogurt',tag:'優酪乳：乳酸菌已先分解乳糖'}],poem:'無法分解乳糖的人缺少分解乳糖的<b>酵素</b>；乳酸菌能分解乳糖，所以乳糖不耐的人可以喝優酪乳。',key:'這題串起 3-2 酵素與 3-4 消化，是閱讀題常客。'},
+  ],
+  quick:[
+    ['人體消化道依序是？','口腔→咽→食道→胃→小腸→大腸→肛門',['口腔→食道→咽→胃→大腸→小腸→肛門','口腔→咽→胃→食道→小腸→大腸→肛門','口腔→咽→食道→肝臟→胃→小腸→肛門'],0],
+    ['消化道管壁肌肉收縮，使食物前進的運動稱為？','蠕動',['擴散','蒸散','乳化'],0],
+    ['下列何者「不是」消化道，食物不會經過？','肝臟',['咽','食道','大腸'],0],
+    ['唾液由哪個消化腺分泌？','唾腺',['胃腺','肝臟','胰臟'],0],
+    ['口腔中初步被分解的養分是？','澱粉',['蛋白質','脂質','維生素'],0],
+    ['胃中初步被分解的養分是？','蛋白質',['澱粉','脂質','纖維素'],0],
+    ['胃液中可以殺死大部分細菌的成分是？','鹽酸',['膽汁','澱粉酶','葡萄糖'],0],
+    ['膽汁由哪個器官分泌？','肝臟',['膽囊','胰臟','胃'],0],
+    ['膽汁分泌後先儲存在？','膽囊',['肝臟','胰臟','大腸'],0],
+    ['膽汁含不含酵素？','不含',['含','只含澱粉酶','只含蛋白酶'],0],
+    ['膽汁的功能是？','把脂質乳化成脂肪小球',['分解蛋白質','分解澱粉','殺菌'],0],
+    ['能分解醣類、蛋白質和脂質三種養分的消化液是？','胰液',['唾液','胃液','膽汁'],0],
+    ['消化和吸收養分的主要部位是？','小腸',['胃','大腸','口腔'],0],
+    ['消化道中最長的一段是？','小腸',['大腸','食道','胃'],0],
+    ['小腸內壁增加吸收表面積的指狀突起是？','絨毛',['根毛','纖毛','瓣膜'],0],
+    ['澱粉最後被分解成？','葡萄糖',['胺基酸','甘油','脂肪酸'],0],
+    ['蛋白質最後被分解成？','胺基酸',['葡萄糖','甘油','澱粉'],0],
+    ['脂質最後被分解成？','脂肪酸和甘油',['葡萄糖','胺基酸','澱粉'],0],
+    ['大腸的主要功能是？','吸收剩餘水分、形成糞便',['消化蛋白質','分泌膽汁','吸收大部分養分'],0],
+    ['小腸中的三種消化液是什麼性質？','鹼性',['酸性','中性','有的酸有的鹼'],0],
+    ['【三版補充】胃壁為什麼不會被鹽酸腐蝕？','胃會分泌黏液與鹼性物質保護',['胃壁是骨頭','鹽酸碰不到胃','胃壁有葉綠體'],0],
+  ],
+  words:[['唾腺','分泌唾液，初步分解澱粉'],['胃腺','分泌胃液，含鹽酸與酵素'],['肝臟','分泌膽汁'],['膽囊','儲存膽汁'],['胰臟','分泌胰液，分解三大養分'],['腸腺','分泌腸液，與醣類蛋白質分解有關'],['小腸','消化吸收主要部位、最長'],['大腸','吸收剩餘水分、形成糞便'],['絨毛','增加小腸吸收表面積'],['蠕動','消化道肌肉收縮推送食物'],['咽','調控食物進入食道'],['乳化','膽汁把脂質變成脂肪小球']],
+  sorts:[
+    {title:'消化道還是消化腺？',tip:'食物會經過的＝消化道；分泌消化液的＝消化腺',buckets:['消化道（食物經過）','消化腺（分泌消化液）'],
+     items:[['咽',0],['食道',0],['肝臟',1,'食物不會經過肝臟'],['胰臟',1],['大腸',0],['唾腺',1],['胃',0,'胃是消化道，胃壁中的胃腺才是消化腺'],['腸腺',1],['肛門',0]]},
+    {title:'這種養分最後變成什麼？',tip:'澱粉→葡萄糖；蛋白質→胺基酸；脂質→脂肪酸＋甘油',buckets:['葡萄糖','胺基酸','脂肪酸與甘油'],
+     items:[['白飯中的澱粉',0],['雞蛋中的蛋白質',1],['豬油中的脂質',2],['饅頭中的澱粉',0],['瘦肉中的蛋白質',1],['奶油中的脂質',2]]},
+    {title:'哪一種消化液？',tip:'唾液→澱粉；胃液→蛋白質；膽汁→乳化不分解；胰液→三種都能；腸液→醣類、蛋白質',buckets:['唾液','胃液','膽汁','胰液'],
+     items:[['在口腔初步分解澱粉',0],['含鹽酸，呈酸性',1],['不含酵素，可乳化脂質',2],['能分解醣類、蛋白質和脂質',3],['由肝臟分泌、膽囊儲存',2],['由胃腺分泌',1]]},
+  ],
+  mcq:[
+    {q:'食物在人體內經過的順序，何者正確？',o:['口腔→食道→咽→胃→小腸→大腸','口腔→咽→食道→胃→小腸→大腸','口腔→咽→食道→胃→大腸→小腸','口腔→咽→胃→肝臟→小腸→大腸'],a:1,src:'段考常考',ex:'口腔→咽→食道→胃→小腸→大腸→肛門。肝臟是消化腺，食物不經過。'},
+    {q:'下列哪一個構造，食物「不會」經過？',o:['咽','胃','胰臟','大腸'],a:2,src:'段考常考',ex:'胰臟是消化腺，分泌胰液經導管注入小腸，食物不會經過胰臟。'},
+    {q:'關於膽汁的敘述，何者正確？',o:['由膽囊分泌','含有分解脂質的酵素','由肝臟分泌，能把脂質乳化成脂肪小球','呈酸性，可殺菌'],a:2,src:'段考常考',ex:'膽汁由肝臟分泌、儲存在膽囊；不含酵素；鹼性，能乳化脂質。'},
+    {q:'哪一種消化液能分解醣類、蛋白質和脂質三種養分？',o:['唾液','胃液','膽汁','胰液'],a:3,src:'段考常考',ex:'胰液由胰臟分泌，可分解醣類、蛋白質和脂質。'},
+    {q:'胃液中鹽酸的功能，何者正確？',o:['分解澱粉','殺死大部分隨食物進入的細菌，並使胃呈酸性','乳化脂質','吸收水分'],a:1,src:'段考常考',ex:'鹽酸殺菌並使胃偏酸性，有利胃液中的酵素分解蛋白質。'},
+    {q:'小明吃了一口滷蛋（富含蛋白質），蛋白質最早開始被分解的部位是？',o:['口腔','食道','胃','大腸'],a:2,src:'段考原型',ex:'口腔的唾液只分解澱粉；蛋白質在胃開始被胃液初步分解，最後在小腸分解為胺基酸。'},
+    {q:'小腸內壁有許多皺褶與絨毛，這樣的構造主要好處是？',o:['分泌鹽酸','增加吸收養分的表面積','儲存膽汁','防止食物逆流'],a:1,src:'段考常考',ex:'絨毛增加表面積，養分與水分被吸收進入絨毛內的微血管。'},
+    {q:'下列養分與其最終消化產物的配對，何者「錯誤」？',o:['澱粉—葡萄糖','蛋白質—胺基酸','脂質—脂肪酸和甘油','脂質—葡萄糖'],a:3,src:'段考常考',ex:'脂質分解為脂肪酸和甘油，不是葡萄糖。'},
+    {q:'大腸的主要功能是什麼？',o:['消化大部分的蛋白質','吸收大部分的養分','吸收食物殘渣中剩餘的水分，形成糞便','分泌膽汁'],a:2,src:'段考常考',ex:'小腸才是吸收養分的主要部位；大腸吸收剩餘水分、形成糞便。'},
+    {q:'某人因病切除膽囊，他最需要注意減少攝取哪一類食物？',o:['高澱粉食物','高脂肪食物','高纖維蔬菜','白開水'],a:1,src:'段考原型',ex:'膽囊儲存膽汁，切除後膽汁無法集中釋放，乳化脂質能力變差，應少吃油膩食物。'},
+    {q:'關於「蠕動」的敘述何者正確？',o:['只發生在口腔','是消化道管壁肌肉收縮產生的運動，使食物前進','是消化腺分泌消化液','是養分進入微血管的過程'],a:1,src:'段考常考',ex:'消化道管壁有肌肉，收縮產生局部運動稱為蠕動。'},
+    {q:'有乳糖不耐症的人喝牛奶會不舒服，最可能的原因是？',o:['體內缺乏分解乳糖的酵素','胃酸太少','大腸太短','膽汁太多'],a:0,src:'課本閱讀',ex:'乳糖要被酵素分解才能吸收；缺乏該酵素就無法消化。優酪乳中的乳酸菌已先分解乳糖。'},
+    {q:'沃倫與馬歇爾證明胃炎與消化性潰瘍的主要原因是？',o:['壓力太大','胃酸太少','幽門螺旋桿菌感染胃壁','吃太多澱粉'],a:2,src:'課本科學大事記',ex:'馬歇爾親身吞下細菌證明，兩人獲 2005 年諾貝爾生理醫學獎。'},
+    {q:'【三版補充】膽汁雖然不含酵素，卻能幫助脂質消化，原因是？',o:['膽汁能殺死細菌','乳化後脂肪小球與胰液酵素的接觸面積變大','膽汁能吸收脂質','膽汁會變成酵素'],a:1,src:'康軒課本補充',ex:'乳化使脂質變成小顆粒，增加與胰液中酵素接觸的面積，分解更快。'},
+    {q:'【圖表】「未消化養分百分比」曲線中，某養分的曲線從胃才開始下降、到小腸降到 0。這種養分最可能是？',o:['澱粉','蛋白質','脂質','纖維素'],a:1,src:'翰林區新熱門圖（8 校）',ex:'澱粉從口腔開始下降；蛋白質從胃開始；脂質到小腸才開始。三者都在小腸完成消化。'},
+  ]
+},
+u4:{
+  no:'4-1、4-2', title:'植物的運輸', author:'維管束、年輪、蒸散作用、實驗4-1', color:'linear-gradient(135deg,#1d5c78,#3fa0b8)',
+  desc:'木質部運水、韌皮部運養分｜散生 vs 環狀｜形成層與年輪｜蒸散拉力', code:4, quickAsk:'選出正確答案',
+  map:[['維管束','木質部：水與礦物質，由下往上「單向」；韌皮部：養分，「雙向」（從製造處送到需要處）'],['排列位置','莖：木質部在內、韌皮部在外；葉脈：木質部在上（近上表皮）、韌皮部在下'],
+       ['排列方式','散生：玉米、水稻；環狀：向日葵、南瓜（有形成層，向內產生木質部、向外產生韌皮部）'],['樹皮與木材','樹皮＝韌皮部及其以外；木材＝木質部。環狀剝皮→韌皮部斷→上方膨大、根缺養分→全株死亡'],
+       ['水分上升','根毛吸水→木質部→葉；大部分變水蒸氣由氣孔散失＝蒸散作用，是水上升的主要動力']],
+  extra:['【康軒】木質部細胞壁較厚，所以也有支持植物體的功能。','【康軒】玉米維管束散生、葉脈為平行脈；向日葵維管束環狀、葉脈為網狀脈。','【康軒、南一】松鼠環狀啃食柳杉樹皮，韌皮部被破壞，根部缺養分，最後整株死亡。','【康軒】木棉春天先開花再長葉，開花的養分是根部儲存、經韌皮部向上運送。','【康軒】保衛細胞吸水膨脹時氣孔打開，失水時氣孔關閉。','【南一】溫度、溼度、通風程度與氣孔數量都會影響蒸散作用的快慢。','【南一】移植老樹前剪掉大部分枝葉，可以減少蒸散、提高存活率。'],
+  steps:[
+    {label:'① 葉脈＝維管束',imgs:[{img:'t_leaf_veins',tag:'陽光下看得到如公路網般的葉脈'}],poem:'植物體內負責運輸的細長管狀細胞稱為<b>維管束</b>，由根、莖貫穿到葉，形成<b>葉脈</b>，也延伸到花與果實。',key:'維管束除了運輸，也有<b>支持</b>植物體的功能。'},
+    {label:'② 木質部與韌皮部',imgs:[{img:'t_xylem',tag:'芹菜中螺旋狀加厚的木質部導管',fit:'contain',bg:'#111'}],poem:'<b>木質部</b>運輸<b>水分與礦物質</b>；<b>韌皮部</b>運輸光合作用製造的<b>養分</b>。',key:'口訣：<b>木水、韌養</b>。施的肥料（礦物質）由<b>木質部</b>運送。'},
+    {label:'③ 散生與環狀',split:[{img:'t_monocot_stem',tag:'玉米莖：維管束散生'},{img:'t_dicot_stem',tag:'向日葵莖：維管束環狀'}],poem:'水稻、玉米的維管束<b>散生</b>；向日葵、南瓜的維管束<b>環狀排列</b>。莖中木質部在<b>內</b>、韌皮部在<b>外</b>。',key:'葉脈中：木質部在<b>上</b>（靠上表皮）、韌皮部在<b>下</b>。'},
+    {label:'④ 形成層與年輪',imgs:[{img:'t_tree_rings',tag:'樹幹橫切面上一圈圈的年輪'}],poem:'環狀排列的維管束有<b>形成層</b>，向內產生新木質部、向外產生新韌皮部，莖逐漸加粗。春夏細胞大而<b>色淺</b>，秋冬細胞小而<b>色深</b>，形成<b>年輪</b>。',key:'年輪是<b>木質部</b>形成的。由外而內：老韌皮部→新韌皮部→形成層→新木質部→老木質部。'},
+    {label:'⑤ 環狀剝皮',imgs:[{img:'ai_t_girdling',tag:'環狀剝皮：切口上方因養分堆積而膨大'},{img:'t_girdling',tag:'樹皮被環狀剝除的樹幹'}],poem:'<b>樹皮</b>＝韌皮部及其以外；<b>木材</b>＝木質部。樹皮被環狀破壞→韌皮部無法運養分→<b>根部缺養分壞死</b>→無法吸水→全株死亡。',key:'樹幹中心腐朽仍能活：中心是<b>老的木質部</b>，多已失去運輸功能。'},
+    {label:'⑥ 根毛吸水',imgs:[{img:'t_root_hairs',tag:'根尖的根毛',fit:'contain',bg:'#111'}],poem:'水與礦物質主要由根吸收，<b>根毛</b>增加吸收表面積。水經木質部<b>由下往上、單向</b>運輸。',key:'養分由<b>韌皮部</b>從提供處送到需要處，可向下到根、也可向上到新芽——<b>雙向</b>。'},
+    {label:'⑦ 蒸散作用',imgs:[{img:'ai_t_bag',tag:'枝葉套上塑膠袋，袋內凝結許多水珠'},{img:'c2_stomata',tag:'水蒸氣由氣孔散失',fit:'contain',bg:'#111'}],poem:'大部分的水變成水蒸氣由<b>氣孔</b>散失，稱為<b>蒸散作用</b>，產生拉力把水往上拉，是水分向上運輸<b>最主要的動力</b>。',key:'氣孔白天開、夜晚關；<b>缺水時白天也會關閉</b>以減少水分散失。'},
+    {label:'⑧ 實驗4-1 芹菜',imgs:[{img:'ai_t_celery',tag:'左：有葉的芹菜，液面下降較多；右：去葉的芹菜'},{img:'t_dyed_celery',tag:'花莖吸收染色的水，花瓣被染色'}],poem:'甲芹菜有葉、乙芹菜<b>切除葉片</b>，插入有色溶液 → 每 10 分鐘記錄液面 → 葉柄<b>橫切</b>看到環狀排列的有色點＝<b>木質部</b>。',key:'甲（有葉）液面下降較多：葉多→氣孔多→蒸散快。芹菜要在<b>水中切</b>，避免空氣進入。'},
+  ],
+  quick:[
+    ['植物體內負責運輸物質的構造稱為？','維管束',['葉綠體','根毛','氣孔'],0],
+    ['木質部負責運輸？','水分與礦物質',['光合作用製造的養分','氧氣','澱粉'],0],
+    ['韌皮部負責運輸？','光合作用製造的養分',['水分','礦物質','二氧化碳'],0],
+    ['莖中的維管束，木質部位於？','內側',['外側','上側','下側'],0],
+    ['葉脈中的維管束，木質部位於？','上側（靠近上表皮）',['下側','外側','中央'],0],
+    ['玉米、水稻莖中的維管束排列方式是？','散生排列',['環狀排列','螺旋排列','沒有維管束'],0],
+    ['向日葵、南瓜莖中的維管束排列方式是？','環狀排列',['散生排列','只在中心','只在表皮'],0],
+    ['使莖逐漸加粗的構造是？','形成層',['角質層','韌皮部','根毛'],0],
+    ['形成層向內產生？','新的木質部',['新的韌皮部','樹皮','根毛'],0],
+    ['樹皮包含哪個部位？','韌皮部及其向外的部分',['木質部','形成層向內','年輪'],0],
+    ['春夏形成的木質部細胞顏色？','較淺、體積大',['較深、體積小','沒有顏色','紅色'],0],
+    ['樹幹被環狀剝皮後，最先受影響的是？','根部得不到養分',['葉得不到水','花立刻開','木質部斷裂'],0],
+    ['根部表皮細胞向外突起、增加吸收面積的是？','根毛',['絨毛','纖毛','葉脈'],0],
+    ['水在木質部中如何運輸？','由下往上、單向',['由上往下、單向','雙向','不會移動'],0],
+    ['養分在韌皮部中如何運輸？','可向上也可向下',['只能向上','只能向下','不會移動'],0],
+    ['水蒸氣由氣孔散失的現象稱為？','蒸散作用',['光合作用','擴散作用','消化作用'],0],
+    ['植物體內水分向上運輸最主要的動力是？','蒸散作用',['光合作用','根的蠕動','重力'],0],
+    ['植物缺水時，白天氣孔會？','關閉',['打開更大','先開後關','不受影響'],0],
+    ['實驗4-1中，葉柄橫切面上環狀排列的有色部分是？','木質部',['韌皮部','形成層','表皮'],0],
+    ['實驗4-1中，為什麼要在水中切芹菜？','避免空氣進入妨礙水分運輸',['讓芹菜變甜','讓顏色更紅','殺死細菌'],0],
+  ],
+  words:[['維管束','植物體內的運輸構造'],['木質部','運輸水分與礦物質'],['韌皮部','運輸光合作用製造的養分'],['形成層','分裂產生新木質部與韌皮部'],['年輪','木質部深淺交替的環紋'],['樹皮','韌皮部及其向外的部分'],['木材','形成層向內累積的木質部'],['根毛','增加根吸收水分的表面積'],['蒸散作用','水蒸氣由氣孔散失'],['散生排列','玉米、水稻的維管束'],['環狀排列','向日葵、南瓜的維管束']],
+  sorts:[
+    {title:'木質部還是韌皮部？',tip:'木水、韌養；莖中木內韌外、葉中木上韌下',buckets:['木質部','韌皮部'],
+     items:[['運輸水分',0],['運輸葡萄糖等養分',1],['運輸肥料中的礦物質',0,'礦物質跟著水走'],['在莖中位於內側',0],['在莖中位於外側',1],['在葉脈中靠近下表皮',1],['形成年輪',0],['樹皮的主要運輸構造',1],['單向由下往上',0],['可以雙向運輸',1]]},
+    {title:'散生還是環狀？',tip:'玉米、水稻＝散生；向日葵、南瓜、榕樹＝環狀（有形成層、會加粗）',buckets:['散生排列','環狀排列'],
+     items:[['玉米',0],['向日葵',1],['水稻',0],['南瓜',1],['榕樹',1],['具有形成層、莖會逐年加粗',1]]},
+  ],
+  mcq:[
+    {q:'關於維管束的敘述，何者正確？',o:['木質部運輸養分、韌皮部運輸水分','木質部運輸水分與礦物質、韌皮部運輸養分','只存在於根部','只能運輸，沒有支持功能'],a:1,src:'段考常考',ex:'木質部運輸水分與礦物質；韌皮部運輸光合作用製造的養分；維管束也有支持功能。'},
+    {q:'在莖與葉脈中，木質部分別位於何處？',o:['莖的外側；葉脈的下側','莖的內側；葉脈的上側','莖的內側；葉脈的下側','莖的外側；葉脈的上側'],a:1,src:'段考常考',ex:'莖：木內韌外；葉脈：木質部靠上表皮、韌皮部靠下表皮。'},
+    {q:'小安觀察兩種莖的橫切面：甲的維管束散布其中，乙的維管束排成一圈。下列推論何者最合理？',o:['甲可能是向日葵','乙可能是玉米','甲可能是水稻，乙可能是南瓜','甲、乙都會逐年加粗'],a:2,src:'段考原型',ex:'水稻、玉米散生；向日葵、南瓜環狀。環狀排列通常有形成層，才會加粗。'},
+    {q:'榕樹的莖逐年加粗，莖內細胞由外而內的排列順序為何？（甲）新木質部（乙）老木質部（丙）新韌皮部（丁）老韌皮部（戊）形成層',o:['甲乙戊丙丁','乙甲戊丙丁','丁丙戊甲乙','丙丁戊乙甲'],a:2,src:'課本例題',ex:'形成層向內產生新木質部、向外產生新韌皮部，所以新的都靠近形成層：老韌→新韌→形成層→新木→老木。'},
+    {q:'年輪中顏色較淺、細胞較大的部分，是在什麼季節形成的？',o:['春夏','秋冬','只有冬天','任何季節都一樣'],a:0,src:'段考常考',ex:'春夏溫暖多雨，木質部細胞長得快、體積大、顏色淺；秋冬長得慢、小而深。'},
+    {q:'某棵樹的樹皮被松鼠啃了一整圈，一段時間後整棵樹死亡。最主要的原因是？',o:['木質部被破壞，葉片缺水','韌皮部被破壞，根部得不到養分而壞死','形成層變多','氣孔全部關閉'],a:1,src:'段考常考',ex:'樹皮含韌皮部；根缺養分壞死→無法吸水→枝葉枯萎→全株死亡。'},
+    {q:'有些大樹樹幹中央已腐朽成空心，卻仍能存活，原因是？',o:['中央是韌皮部，本來就沒用','中央是較早形成的木質部，多已失去運輸功能','樹改用葉子吸水','中央是形成層'],a:1,src:'段考常考',ex:'靠近形成層的新生木質部負責運水；中心的老木質部多已失去運輸功能。'},
+    {q:'替植物施加含氮、磷、鉀的肥料，這些礦物質主要由哪個構造向上運送？',o:['韌皮部','木質部','形成層','氣孔'],a:1,src:'課本探究提問',ex:'水與礦物質由根部吸收，經木質部由下往上運輸。'},
+    {q:'植物體內水分能從根部上升到高處的葉片，最主要的動力是？',o:['光合作用','蒸散作用產生的拉力','韌皮部的推力','根毛的蠕動'],a:1,src:'段考常考',ex:'水從氣孔蒸散產生拉力，把木質部中連續的水柱往上拉。'},
+    {q:'關於氣孔的敘述，何者正確？',o:['氣孔只分布在莖上','氣孔一般白天關閉、夜晚打開','植物缺水時，即使白天氣孔也會關閉','氣孔由表皮細胞控制開閉'],a:2,src:'段考常考',ex:'氣孔一般白天開、夜晚關；缺水時白天也關閉以減少散失；由保衛細胞控制。'},
+    {q:'實驗4-1：甲芹菜有葉片、乙芹菜切除全部葉片，都插在 10 mL 有色溶液中 30 分鐘。結果何者正確？',o:['甲液面下降較多，因為葉片多、蒸散快','乙液面下降較多，因為沒有葉片阻擋','兩者液面一樣','液面都上升'],a:0,src:'段考原型',ex:'葉片有大量氣孔，蒸散作用把水往上拉，所以有葉的甲吸水較多。'},
+    {q:'承上，把甲芹菜葉柄橫切，用放大鏡觀察，會看到什麼？',o:['整個切面都被染色','環狀排列的有色小點，是木質部','只有外圈表皮被染色','沒有任何顏色'],a:1,src:'段考常考',ex:'有色溶液隨水由木質部上升，橫切面可見被染色的維管束（木質部）。'},
+    {q:'葉片行光合作用產生的養分，可以送到哪裡？',o:['只能往下送到根','只能往上送到新芽','可往下送到莖與根，也可往上送到新芽','只留在葉片'],a:2,src:'段考常考',ex:'養分由提供處送至需求處，韌皮部可雙向運輸。'},
+    {q:'【三版補充】移植老樹時，園丁常先剪掉大部分枝葉，主要目的為何？',o:['增加光合作用','減少蒸散作用造成的水分散失','讓樹長得更高','防止松鼠啃咬'],a:1,src:'南一課本補充',ex:'移植時根受傷、吸水能力差，減少葉片可降低蒸散失水，提高存活率。'},
+    {q:'把樹幹的樹皮環狀剝除一圈，一段時間後，切口上方會出現瘤狀膨大。原因是？',o:['水分從木質部堆積在上方','葉片製造的養分經韌皮部往下運送，在切口上方受阻而堆積','根部養分往上送被擋住','形成層停止分裂'],a:1,src:'段考常考（10 校）',ex:'韌皮部被切斷，養分往下運到切口就堆積，造成上方膨大；下方的根則缺乏養分。'},
+    {q:'關於氣孔分布的敘述，何者最正確？',o:['一般植物的氣孔多分布在葉的下表皮','氣孔只分布在根部','氣孔是吸收水分的主要構造','保衛細胞的功能是保護葉片'],a:0,src:'段考常考',ex:'氣孔多在下表皮；氣孔進出氣體與水蒸氣，不吸收水分；保衛細胞的功能是調節氣孔開閉。'},
+  ]
+},
+u5:{
+  no:'4-3', title:'人體心血管系統的組成', author:'心臟、血管、血液、實驗4-2', color:'linear-gradient(135deg,#a8332f,#e2725b)',
+  desc:'四腔室與瓣膜｜動脈、微血管、靜脈｜三種血球｜心音與脈搏', code:5, quickAsk:'選出正確答案',
+  map:[['心臟','胸腔中央偏左；左右心房（上）、左右心室（下）；心房與心室、心室與動脈之間有瓣膜防逆流'],['心搏','收縮：心室→動脈；舒張：靜脈→心房→心室'],
+       ['血管','動脈：離心、壁厚有彈性、血壓最大；微血管：一層細胞、物質交換；靜脈：回心、壁較薄、有瓣膜'],
+       ['血液','血漿（主要是水）＋紅血球（最多、無核、血紅素運氧）＋白血球（最少最大、有核、吞噬病原體）＋血小板（最小、無核、凝血）']],
+  extra:['【康軒、南一】心臟由心肌構成。','【南一】心搏三階段：心房收縮（血入心室）→心室收縮（血入動脈）→心房心室皆舒張。','【康軒、南一】血管內徑：靜脈最大、微血管最小；血壓：動脈最高、靜脈最低。','【南一】血流速度：動脈最快、微血管最慢，有利物質交換。','【康軒】抽血通常選靜脈，因為靜脈血壓低、流速慢，較不易大量出血。','【南一】驗血發現白血球大量增加，可能表示身體正受到感染。','【數字不同】心跳：翰林休息時約 72 下／分；康軒參考值 60～100 下。運動：翰林跳 1 分鐘、康軒跑 3 分鐘、南一 2 分鐘。'],
+  steps:[
+    {label:'① 心臟四腔室',imgs:[{img:'h_heart',tag:'心臟剖面：四個腔室與血流方向',fit:'contain',bg:'#fff'}],poem:'心臟在胸腔中央<b>偏左</b>，上方為<b>左、右心房</b>，下方為<b>左、右心室</b>。心房與心室之間、心室與動脈之間有<b>瓣膜</b>，防止血液逆流。',key:'看圖時「左右相反」：圖的右邊是心臟的<b>左</b>側。左心室壁最厚。'},
+    {label:'② 心搏',imgs:[{img:'h_heart',tag:'收縮：血液由心室進入動脈',fit:'contain',bg:'#fff'}],poem:'心臟由肌肉構成，規律<b>收縮與舒張</b>＝<b>心搏</b>，是血液流動的動力。收縮：心室→<b>動脈</b>；舒張：<b>靜脈</b>→心房→心室。',key:'動脈＝離開心臟；靜脈＝回到心臟。跟含氧多少<b>無關</b>。'},
+    {label:'③ 動脈與靜脈',imgs:[{img:'h_artery_vein',tag:'動脈（壁厚）與靜脈（壁薄）的橫切面',fit:'contain',bg:'#111'}],poem:'<b>動脈</b>管壁較厚、彈性佳，承受的血壓最大。<b>靜脈</b>管壁較薄、彈性較差、流速較慢，有些有<b>瓣膜</b>防止逆流。',key:'心臟收縮使動脈管壁擴張及復原＝<b>脈搏</b>；血管壁承受的壓力＝<b>血壓</b>。'},
+    {label:'④ 微血管',imgs:[{img:'h_capillary',tag:'微血管只容得下一顆紅血球通過',fit:'contain',bg:'#111'},{img:'ai_h_fishtail',tag:'溼棉花蓋住小魚的頭和鰓，用顯微鏡觀察尾鰭'}],poem:'<b>微血管</b>連接動脈與靜脈，最細、管壁只有<b>一層細胞</b>，是血液與組織細胞<b>物質交換</b>的主要場所。',key:'魚尾鰭觀察：紅血球<b>排成一列</b>通過的是微血管；流向微血管的是小動脈。顯微鏡下方向<b>上下顛倒、左右相反</b>。'},
+    {label:'⑤ 靜脈瓣膜',imgs:[{img:'h_vein_valve',tag:'靜脈瓣膜：血液只能往心臟方向流',fit:'contain',bg:'#fff'}],poem:'靜脈血壓低，四肢的靜脈靠<b>瓣膜</b>讓血液不會逆流，能流回心臟。',key:'抽血、捐血通常從<b>靜脈</b>；抽完要壓住傷口止血。'},
+    {label:'⑥ 血液組成',imgs:[{img:'h_blood_smear',tag:'血液抹片：大量紅血球，中央是白血球',fit:'contain',bg:'#111'}],poem:'血液＝<b>血漿</b>（主要是水，含養分、廢物、二氧化碳、抗體、激素）＋<b>血球</b>。',key:'<b>紅血球</b>：雙凹圓盤、成熟無核、數量最多、血紅素帶氧。<b>白血球</b>：有核、數量最少、體積最大。'},
+    {label:'⑦ 白血球與血小板',imgs:[{img:'h_platelets',tag:'電子顯微鏡下的紅血球、白血球與血小板',fit:'contain',bg:'#111'}],poem:'有些<b>白血球</b>可變形穿過微血管壁，吞噬病原體。<b>血小板</b>不規則、無核、最小，受傷時幫助<b>血液凝固</b>。',key:'有細胞核的只有<b>白血球</b>。'},
+    {label:'⑧ 心音與脈搏',imgs:[{img:'h_pulse',tag:'食指與中指按在手腕大拇指側測脈搏'},{img:'h_bp_monitor',tag:'電子血壓計量血壓'}],poem:'聽診器聽<b>心音</b>（撲─通）；手腕靠近大拇指一側量<b>脈搏</b>。同一時間<b>心搏次數＝脈搏次數</b>。',key:'運動後心搏、脈搏都<b>增加</b>。休息時平均每分鐘約 72 下。脈搏來自<b>動脈</b>。'},
+  ],
+  quick:[
+    ['心臟位在胸腔的哪裡？','中央偏左',['正中央','右側','腹腔'],0],
+    ['心臟有幾個腔室？','四個',['兩個','三個','六個'],0],
+    ['心臟上方的兩個腔室稱為？','心房',['心室','動脈','瓣膜'],0],
+    ['心臟中防止血液逆流的構造是？','瓣膜',['血小板','絨毛','氣孔'],0],
+    ['心臟收縮時，血液由心室流入？','動脈',['靜脈','心房','微血管'],0],
+    ['心臟舒張時，血液由靜脈流回？','心房',['心室','動脈','肺泡'],0],
+    ['將血液帶離心臟的血管是？','動脈',['靜脈','微血管','淋巴管'],0],
+    ['管壁最厚、彈性最好、血壓最大的血管是？','動脈',['靜脈','微血管','淋巴管'],0],
+    ['管壁只由一層細胞構成的血管是？','微血管',['動脈','靜脈','主動脈'],0],
+    ['血液與組織細胞物質交換的主要場所是？','微血管',['動脈','靜脈','心臟'],0],
+    ['有些管內有瓣膜防止逆流的血管是？','靜脈',['動脈','微血管','小動脈'],0],
+    ['動脈管壁隨心搏擴張及復原的情形稱為？','脈搏',['血壓','心音','蠕動'],0],
+    ['血漿的主要成分是？','水',['紅血球','蛋白質','脂質'],0],
+    ['血液中數量最多的血球是？','紅血球',['白血球','血小板','淋巴球'],0],
+    ['成熟紅血球的形狀是？','雙凹圓盤狀',['球形有核','不規則狀','長條狀'],0],
+    ['紅血球中能與氧結合的物質是？','血紅素',['葉綠素','抗體','膽汁'],0],
+    ['有細胞核、數量最少、體積最大的血球是？','白血球',['紅血球','血小板','精子'],0],
+    ['幫助血液凝固的是？','血小板',['紅血球','白血球','血漿'],0],
+    ['同一個人同一時間的脈搏次數和心搏次數？','相同',['脈搏較多','心搏較多','沒有關係'],0],
+    ['用手指按手腕測脈搏，感受到的是哪種血管的搏動？','動脈',['靜脈','微血管','淋巴管'],0],
+    ['觀察魚尾鰭時，紅血球排成一列通過的是？','微血管',['小動脈','小靜脈','淋巴管'],0],
+  ],
+  words:[['心房','心臟上方的腔室，接收回心的血'],['心室','心臟下方的腔室，把血送入動脈'],['瓣膜','防止血液逆流'],['心搏','心臟規律的收縮與舒張'],['動脈','帶血離開心臟，壁厚彈性佳'],['靜脈','帶血回心臟，有些有瓣膜'],['微血管','一層細胞，物質交換場所'],['脈搏','動脈管壁擴張及復原'],['血壓','血管壁所承受的壓力'],['紅血球','無核、運送氧氣'],['白血球','有核、吞噬病原體'],['血小板','最小、幫助血液凝固'],['血漿','血液的液體部分，主要是水']],
+  sorts:[
+    {title:'動脈、微血管還是靜脈？',tip:'動脈：離心、壁厚、血壓大；微血管：一層細胞、交換；靜脈：回心、有瓣膜',buckets:['動脈','微血管','靜脈'],
+     items:[['把血液帶離心臟',0],['管壁只有一層細胞',1],['有些有瓣膜防逆流',2],['承受的血壓最大',0],['物質交換的主要場所',1],['把血液帶回心臟',2],['手腕量脈搏時摸到的',0],['捐血時抽血的血管',2]]},
+    {title:'哪一種血球？',tip:'紅：最多、無核、帶氧；白：最少最大、有核、防禦；血小板：最小、無核、凝血',buckets:['紅血球','白血球','血小板'],
+     items:[['數量最多',0],['體積最大',1],['體積最小',2],['含血紅素，運送氧氣',0],['唯一有細胞核',1],['受傷時幫助凝血',2],['能穿過微血管壁吞噬病原體',1],['雙凹圓盤狀',0]]},
+  ],
+  mcq:[
+    {q:'關於心臟構造的敘述，何者正確？',o:['上方為左右心室、下方為左右心房','心房與心室之間有瓣膜，可防止血液逆流','心臟位於腹腔','心臟由骨骼構成'],a:1,src:'段考常考',ex:'上方心房、下方心室；心房與心室、心室與動脈之間有瓣膜。'},
+    {q:'心臟收縮時，血液的流向為何？',o:['由心房流入靜脈','由心室被擠壓進入動脈','由動脈流回心房','由靜脈流入心室'],a:1,src:'段考常考',ex:'收縮：心室→動脈（心房與心室間瓣膜關閉）；舒張：靜脈→心房→心室。'},
+    {q:'三種血管中，管壁最厚、彈性最好、所承受的血壓最大的是？',o:['動脈','靜脈','微血管','三者相同'],a:0,src:'段考常考',ex:'動脈承受心臟收縮壓入的血液，管壁厚、彈性佳、血壓最大。'},
+    {q:'血液與組織細胞之間交換氧氣、養分與廢物，主要發生在哪裡？',o:['動脈','靜脈','微血管','心臟'],a:2,src:'段考常考',ex:'微血管管壁只有一層細胞，是物質交換的主要場所。'},
+    {q:'下列關於靜脈的敘述，何者正確？',o:['管壁比動脈厚','把血液帶離心臟','有些靜脈內有瓣膜，防止血液逆流','是物質交換的主要場所'],a:2,src:'段考常考',ex:'靜脈匯集微血管的血液回心房，管壁較動脈薄，有些有瓣膜。'},
+    {q:'用顯微鏡觀察小魚尾鰭，看到甲血管的血液流入一條紅血球排成一列通過的細管，再流入乙血管。甲、乙分別是？',o:['甲小靜脈、乙小動脈','甲小動脈、乙小靜脈','都是微血管','甲小動脈、乙淋巴管'],a:1,src:'段考原型',ex:'血流方向：動脈→微血管→靜脈。紅血球排成一列的是微血管。'},
+    {q:'承上，若在顯微鏡下看到血液由左往右流，實際上尾鰭中的血液流向是？',o:['由左往右','由右往左','由上往下','無法判斷'],a:1,src:'段考常考',ex:'複式顯微鏡的影像上下顛倒、左右相反，所以實際方向相反。'},
+    {q:'下列關於血球的敘述，何者正確？',o:['紅血球有細胞核','白血球數量最多','血小板體積最小，可幫助血液凝固','白血球含血紅素可運送氧氣'],a:2,src:'段考常考',ex:'紅血球成熟無核、數量最多、含血紅素；白血球有核、最少最大；血小板最小、凝血。'},
+    {q:'血液中三種血球，哪一種具有細胞核？',o:['紅血球','白血球','血小板','三者都有'],a:1,src:'段考常考',ex:'紅血球成熟時缺乏細胞核，血小板也沒有細胞核，只有白血球有。'},
+    {q:'阿明測得自己靜坐時每分鐘脈搏 72 次，同一時間他的心搏次數最可能是？',o:['36 次','72 次','144 次','無法判斷'],a:1,src:'段考常考',ex:'脈搏是動脈隨心搏擴張及復原，兩者次數相同。'},
+    {q:'阿明原地跳躍一分鐘後立刻測量，與運動前相比，他的脈搏會？',o:['增加','減少','不變','停止'],a:0,src:'段考常考',ex:'運動時細胞需要更多氧與養分，心搏加快，脈搏也跟著增加。'},
+    {q:'用食指和中指輕按手腕大拇指一側探測脈搏，感受到的搏動來自哪一種血管？',o:['動脈','靜脈','微血管','淋巴管'],a:0,src:'課本例題',ex:'脈搏是動脈管壁隨心搏擴張及復原。'},
+    {q:'血漿中「不」包含下列哪一項？',o:['水','養分與廢物','抗體與激素','紅血球'],a:3,src:'段考常考',ex:'血液＝血漿＋血球；紅血球屬於血球，不在血漿內。'},
+    {q:'【三版補充】三種血管中，血流速度最慢的是微血管，這對身體的好處是？',o:['讓心臟休息','讓血液有足夠時間與組織細胞交換物質','讓血液不會凝固','讓血壓升高'],a:1,src:'南一課本補充',ex:'流速慢有利於氣體、養分與廢物在微血管處交換。'},
+    {q:'看課本的心臟剖面圖時，圖的「右邊」其實是心臟的哪一側？哪一個腔室的壁最厚？',o:['右側；右心房','左側；左心室','右側；右心室','左側；左心房'],a:1,src:'心臟代號圖（10 校）',ex:'剖面圖像是面對面看別人，左右相反；左心室要把血送到全身，壁最厚。'},
+    {q:'用止血帶綁住上臂，前臂會浮現青色的血管，護理師由此抽血。這種血管是？',o:['動脈','靜脈','微血管','淋巴管'],a:1,src:'段考常考（10 校）',ex:'靜脈血壓低，被綁住後血液回流受阻而鼓起；抽血、打點滴用靜脈。'},
+  ]
+},
+u6:{
+  no:'4-4', title:'人體的循環系統', author:'體循環、肺循環、淋巴、三道防線', color:'linear-gradient(135deg,#2b4c7e,#5b84c4)',
+  desc:'體循環 vs 肺循環｜充氧血與缺氧血｜組織液與淋巴｜三道防線與疫苗', code:6, quickAsk:'選出正確答案',
+  map:[['體循環','左心室→主動脈→全身微血管（給氧、收二氧化碳）→大靜脈→右心房'],['肺循環','右心室→肺動脈→肺部微血管（放二氧化碳、收氧）→肺靜脈→左心房'],
+       ['血液顏色','充氧血鮮紅、缺氧血暗紅；肺動脈裡是「缺氧血」、肺靜脈裡是「充氧血」'],['淋巴系統','血漿滲出成組織液→進入淋巴管成淋巴→最後進入靜脈；淋巴結過濾病原體'],
+       ['三道防線','①皮膚與黏膜阻擋 ②白血球吞噬、發炎反應（紅熱腫痛）③淋巴球專一性防禦、抗體、記憶性→疫苗']],
+  extra:['【南一】體循環起點左心室、終點右心房；肺循環起點右心室、終點左心房。','【南一】有些淋巴管內也有瓣膜，可防止淋巴倒流。','【康軒】胃液中的鹽酸能殺死隨食物進入的病原體，也算第一道防線。','【康軒、南一】第一、二道防線（皮膜阻擋、吞噬、發炎）合稱「非專一性防禦」。','【康軒】抗生素只能對付細菌，對病毒（如流感）無效，濫用會產生抗藥性細菌。','【南一】疫苗可用失去感染力的病原體、弱化的病原體，或病原體表面的特殊蛋白質製成。','【用詞不同】翰林說第三道防線由「淋巴球」負責；康軒、南一說「特殊白血球」。'],
+  steps:[
+    {label:'① 兩種循環',imgs:[{img:'h_circulation',tag:'人體的肺循環（上）與體循環（下）',fit:'contain',bg:'#fff'}],poem:'人體循環系統包含<b>心血管系統</b>與<b>淋巴系統</b>。心血管的循環分為<b>體循環</b>（心臟↔全身）與<b>肺循環</b>（心臟↔肺），兩者<b>同時</b>進行。',key:'體循環、肺循環「先後輪流」是錯的，兩者同時進行。'},
+    {label:'② 體循環',imgs:[{img:'h_capillary',tag:'全身微血管：氧氣進入細胞、二氧化碳進入血液',fit:'contain',bg:'#111'}],poem:'鮮紅色<b>充氧血</b>由<b>左心室</b>出發→主動脈→全身微血管：氧氣擴散到組織細胞，二氧化碳擴散進微血管→暗紅<b>缺氧血</b>→大靜脈→<b>右心房</b>。',key:'體循環中，氧氣是由微血管擴散到細胞（不是反過來）。'},
+    {label:'③ 肺循環',imgs:[{img:'h_heart',tag:'右心室把缺氧血送到肺；肺靜脈把充氧血送回左心房',fit:'contain',bg:'#fff'}],poem:'暗紅<b>缺氧血</b>由<b>右心室</b>出發→<b>肺動脈</b>→肺部微血管：二氧化碳擴散進肺泡，氧氣擴散進微血管→鮮紅<b>充氧血</b>→<b>肺靜脈</b>→<b>左心房</b>。',key:'最常考陷阱：<b>肺動脈流缺氧血、肺靜脈流充氧血</b>。動脈、靜脈看「方向」不看含氧量。'},
+    {label:'④ 哈維',imgs:[{img:'h_harvey',tag:'哈維（William Harvey）畫像',fit:'contain',bg:'#222'},{img:'h_harvey_valves',tag:'哈維 1628 年書中的手臂靜脈瓣膜實驗圖',fit:'contain',bg:'#fff'}],poem:'【三版補充・南一】英國醫生<b>哈維</b>（1628 年）用實驗證明血液在血管中<b>循環流動</b>，並觀察到靜脈瓣膜使血液只能流向心臟。',key:'科學史常考人物：哈維＝血液循環。'},
+    {label:'⑤ 淋巴系統',imgs:[{img:'h_lymph',tag:'淋巴系統：淋巴管與淋巴結',fit:'contain',bg:'#fff'}],poem:'部分血漿由微血管滲出到細胞間＝<b>組織液</b>；組織液進入淋巴管＝<b>淋巴</b>；淋巴最後進入<b>靜脈</b>，回到心血管系統。',key:'淋巴流經<b>淋巴結</b>時，病原體被過濾，並由白血球清除。感冒時頸部淋巴結可能腫脹。'},
+    {label:'⑥ 第一、二道防線',imgs:[{img:'h_blood_smear',tag:'白血球能吞噬入侵的病原體',fit:'contain',bg:'#111'}],poem:'第一道：<b>皮膚與黏膜</b>阻擋病原體。第二道：傷口附近<b>白血球吞噬</b>病原體；來不及清除時出現<b>紅、熱、腫、痛</b>的<b>發炎反應</b>。',key:'發炎時微血管擴張，帶來更多白血球。'},
+    {label:'⑦ 第三道與疫苗',imgs:[{img:'h_bp_monitor',tag:'定期健康檢查與預防注射保護健康'}],poem:'第三道：<b>淋巴球</b>的<b>專一性防禦</b>——破壞受感染細胞，或製造<b>抗體</b>；接觸過的病原體會被<b>記憶</b>。<b>疫苗</b>具有與病原體相似的結構，先讓淋巴球產生記憶。',key:'過敏：防禦作用把無害物質（花粉、塵蟎＝<b>過敏原</b>）當成威脅。最好的處理是避免接觸。'},
+  ],
+  quick:[
+    ['體循環從哪個腔室出發？','左心室',['右心室','左心房','右心房'],0],
+    ['體循環最後回到哪個腔室？','右心房',['左心房','左心室','右心室'],0],
+    ['肺循環從哪個腔室出發？','右心室',['左心室','右心房','左心房'],0],
+    ['肺循環最後回到哪個腔室？','左心房',['右心房','右心室','左心室'],0],
+    ['肺動脈中流的是？','缺氧血',['充氧血','淋巴','組織液'],0],
+    ['肺靜脈中流的是？','充氧血',['缺氧血','淋巴','膽汁'],0],
+    ['主動脈中流的是？','充氧血',['缺氧血','淋巴','組織液'],0],
+    ['充氧血的顏色是？','鮮紅色',['暗紅色','藍色','黃色'],0],
+    ['體循環中，氧氣由哪裡擴散到哪裡？','微血管→組織細胞',['組織細胞→微血管','肺泡→心臟','靜脈→動脈'],0],
+    ['肺循環中，氧氣由哪裡擴散到哪裡？','肺泡→微血管',['微血管→肺泡','心臟→肺泡','細胞→肺泡'],0],
+    ['體循環和肺循環是同時進行還是輪流？','同時進行',['先體後肺','先肺後體','一天各一次'],0],
+    ['血漿由微血管滲出到組織細胞之間稱為？','組織液',['淋巴','血清','膽汁'],0],
+    ['組織液滲入淋巴管後稱為？','淋巴',['血漿','組織液','膽汁'],0],
+    ['淋巴最後流入哪裡，回到心血管系統？','靜脈',['動脈','心室','肺泡'],0],
+    ['淋巴系統中能過濾病原體的顆粒狀構造是？','淋巴結',['瓣膜','絨毛','血小板'],0],
+    ['人體的第一道防線是？','皮膚與黏膜',['淋巴球','抗體','疫苗'],0],
+    ['傷口出現紅、熱、腫、痛的現象稱為？','發炎反應',['過敏反應','蒸散作用','乳化作用'],0],
+    ['第三道防線由哪一種特殊白血球負責？','淋巴球',['紅血球','血小板','保衛細胞'],0],
+    ['能產生專一性防禦的物質是？','抗體',['膽汁','血紅素','葉綠素'],0],
+    ['引起過敏反應的物質稱為？','過敏原',['抗體','疫苗','激素'],0],
+    ['【三版補充】發現血液循環的英國醫生是？','哈維',['虎克','沃倫','屈內'],0],
+  ],
+  words:[['體循環','心臟與全身之間的循環'],['肺循環','心臟與肺臟之間的循環'],['充氧血','含氧多、鮮紅色'],['缺氧血','含氧少、暗紅色'],['肺動脈','右心室到肺，流缺氧血'],['肺靜脈','肺到左心房，流充氧血'],['組織液','由微血管滲出的血漿'],['淋巴','進入淋巴管的組織液'],['淋巴結','過濾病原體、聚集白血球'],['發炎反應','紅、熱、腫、痛'],['抗體','淋巴球製造的專一性防禦物質'],['疫苗','引發淋巴球產生記憶'],['過敏原','引起過敏反應的物質']],
+  sorts:[
+    {title:'充氧血還是缺氧血？',tip:'從肺回來＝充氧；從全身回來＝缺氧。左心充氧、右心缺氧',buckets:['充氧血（鮮紅）','缺氧血（暗紅）'],
+     items:[['主動脈',0],['肺動脈',1,'肺動脈從右心室送血到肺，是缺氧血'],['肺靜脈',0,'肺靜脈從肺回左心房，是充氧血'],['大靜脈',1],['左心室',0],['右心房',1],['左心房',0],['右心室',1]]},
+    {title:'人體第幾道防線？',tip:'①擋在外面 ②吞噬＋發炎（不挑對象） ③淋巴球、抗體、記憶（專一）',buckets:['第一道','第二道','第三道'],
+     items:[['皮膚阻擋細菌進入',0],['呼吸道黏膜黏住灰塵與病菌',0],['傷口附近白血球吞噬細菌',1],['傷口紅、熱、腫、痛',1],['淋巴球製造抗體',2],['打疫苗後再遇到病毒能快速消滅',2],['淋巴球破壞受感染的細胞',2]]},
+    {title:'體循環還是肺循環？',tip:'體：左心室→全身→右心房；肺：右心室→肺→左心房',buckets:['體循環','肺循環'],
+     items:[['由左心室出發',0],['由右心室出發',1],['血液經肺動脈',1],['血液經主動脈',0],['氧氣擴散進入組織細胞',0],['二氧化碳擴散進入肺泡',1],['最後回到右心房',0],['最後回到左心房',1]]},
+  ],
+  mcq:[
+    {q:'關於人體血液循環的敘述，何者正確？',o:['體循環是血液在心臟與肺之間的循環','肺循環是心臟與肺臟之間的循環','體循環中，氧氣由組織細胞擴散進入微血管','肺循環中，氧氣由肺部微血管擴散到肺泡'],a:1,src:'課本例題',ex:'體循環：心臟與全身；體循環中氧由微血管→細胞；肺循環中氧由肺泡→微血管。'},
+    {q:'體循環的起點與終點分別是？',o:['右心室、左心房','左心室、右心房','左心房、右心室','右心房、左心室'],a:1,src:'段考常考',ex:'充氧血由左心室出發，經全身後缺氧血回到右心房。'},
+    {q:'下列哪一條血管中流的是「缺氧血」？',o:['主動脈','肺靜脈','肺動脈','左心室'],a:2,src:'段考常考',ex:'肺動脈把右心室的缺氧血送到肺；肺靜脈把充氧血送回左心房。'},
+    {q:'小傑說：「動脈裡流的一定是充氧血，靜脈裡一定是缺氧血。」這句話錯在哪裡？',o:['沒有錯','肺動脈流缺氧血、肺靜脈流充氧血，所以不一定','動脈裡都是缺氧血','靜脈裡都是淋巴'],a:1,src:'段考常考',ex:'動脈、靜脈是依「離開或回到心臟」區分，與含氧多少無關。'},
+    {q:'血液經過全身組織的微血管後，下列變化何者正確？',o:['氧氣增加、二氧化碳減少','氧氣減少、二氧化碳增加，變成暗紅色','顏色變鮮紅','血液變成淋巴'],a:1,src:'段考常考',ex:'氧氣擴散到細胞、二氧化碳擴散進微血管，充氧血變成暗紅的缺氧血。'},
+    {q:'右心房中的缺氧血，接下來會流到哪裡？',o:['左心房','右心室','主動脈','肺靜脈'],a:1,src:'段考常考',ex:'右心房→右心室→肺動脈→肺，開始肺循環。'},
+    {q:'吃進的葡萄糖由小腸吸收後，要送到腦細胞，途中「一定」會經過下列哪一個構造？',o:['淋巴結','右心室','肺泡','膽囊'],a:1,src:'段考原型',ex:'葡萄糖被吸收進入絨毛內的微血管→靜脈→右心房→右心室→肺動脈→肺部微血管→肺靜脈→左心房→左心室→主動脈→腦。葡萄糖走微血管不走淋巴；在肺部只是流過微血管，不會進入肺泡；膽囊只儲存膽汁。'},
+    {q:'關於淋巴的敘述，何者正確？',o:['淋巴由心臟直接打出','部分血漿滲出成為組織液，組織液進入淋巴管就是淋巴','淋巴最後流入動脈','淋巴中含有大量紅血球'],a:1,src:'段考常考',ex:'組織液進入淋巴管成為淋巴，最後進入靜脈回到心血管系統。'},
+    {q:'感冒時，頸部的淋巴結有時會腫脹，原因是？',o:['淋巴結在製造紅血球','淋巴結聚集白血球，正在清除病原體','淋巴結儲存膽汁','淋巴結是心臟的一部分'],a:1,src:'段考常考',ex:'淋巴流經淋巴結時病原體被過濾，並由聚集的白血球清除。'},
+    {q:'手指被紙劃傷後，傷口出現紅、熱、腫、痛，這屬於人體第幾道防線？',o:['第一道','第二道','第三道','不屬於防禦作用'],a:1,src:'段考常考',ex:'皮膚破了，第二道防線啟動：白血球吞噬，來不及清除就出現發炎反應。'},
+    {q:'施打疫苗可以預防疾病，主要原理是什麼？',o:['疫苗直接殺死所有病原體','疫苗讓紅血球變多','疫苗與病原體結構相似，引發淋巴球產生記憶，病原體入侵時能快速消滅','疫苗能增加皮膚厚度'],a:2,src:'段考常考',ex:'第三道防線有記憶性；疫苗先讓淋巴球「認識」病原體。'},
+    {q:'春天花粉多時，小晴一直打噴嚏、流鼻水。下列敘述何者正確？',o:['花粉是病原體','這是過敏反應，花粉是過敏原','這是第一次接觸疫苗','她的淋巴系統停止運作'],a:1,src:'課本延伸',ex:'防禦作用誤把無害物質當成威脅而引起發炎反應，稱為過敏；最好的方法是避免接觸過敏原。'},
+    {q:'下列何者屬於「專一性」防禦作用？',o:['皮膚阻擋病原體','黏膜分泌黏液','白血球吞噬傷口附近的細菌','淋巴球產生只對某種病原體有效的抗體'],a:3,src:'段考常考',ex:'第三道防線由淋巴球負責，具專一性與記憶性。'},
+    {q:'【三版補充】小明得了流行性感冒（病毒引起），自己去吃家裡剩下的抗生素。這個做法的問題是？',o:['抗生素只對細菌有效，對病毒無效，濫用還會產生抗藥性細菌','抗生素會變成疫苗','抗生素會讓紅血球減少','沒有問題'],a:0,src:'康軒課本補充',ex:'抗生素（如青黴素）針對細菌，對病毒無效。'},
+    {q:'醫生從手臂靜脈注射藥物，藥物最先到達心臟的哪個腔室？',o:['左心房','左心室','右心房','右心室'],a:2,src:'段考常考（9 校）',ex:'全身靜脈的血經大靜脈回到右心房。'},
+    {q:'關於淋巴管內的成分與淋巴的去向，何者正確？',o:['淋巴中有大量紅血球','淋巴管內有白血球但沒有紅血球，淋巴最後回到靜脈','淋巴直接流回心室','淋巴結會製造膽汁'],a:1,src:'段考常考（10 校）',ex:'組織液由血漿滲出，紅血球太大出不來；淋巴中有白血球，最後進入靜脈。'},
+  ]
+},
+};
+
+/* 綜合頁：圖表判讀與實驗題 */
+const MIXNOTE='各校最愛的圖表題：年輪與環狀剝皮、心臟代號圖、消化系統代號圖、莖橫切面、遮光葉片碘液、唾液試管表、三種血管比較、酸鹼曲線、芹菜液面，以及翰林區的新熱門「未消化百分比曲線」。先看表，再作答。';
+const TABLES=[
+  {id:'表A',title:'表A｜溫度與人體酵素的相對活性',head:['溫度（℃）','0','20','37','60','90'],rows:[['相對活性','5','45','100','30','0']]},
+  {id:'表B',title:'表B｜三種消化酵素在不同 pH 的活性（○高 △低 ✕無）',head:['酵素','pH 2（酸）','pH 7（中）','pH 8（鹼）'],rows:[['甲','○','✕','✕'],['乙','✕','○','△'],['丙','✕','△','○']]},
+  {id:'表C',title:'表C｜芹菜吸水實驗（量筒液面，mL）',head:['時間（分）','0','10','20','30'],rows:[['甲：有葉','10.0','9.4','8.8','8.2'],['乙：去葉','10.0','9.9','9.8','9.7']]},
+  {id:'表D',title:'表D｜三種血管的比較',head:['項目','血管 X','血管 Y','血管 Z'],rows:[['管壁','最厚、彈性最好','只有一層細胞','較 X 薄'],['血流方向','離開心臟','連接兩種血管','回到心臟'],['特殊構造','—','—','有些有瓣膜']]},
+  {id:'表F',title:'表F｜食物通過消化道時「未被消化」的百分比（%）',head:['部位','口腔','食道','胃','小腸前段','小腸後段'],rows:[['甲','100','100','100','40','0'],['乙','100','100','60','10','0'],['丙','80','80','80','10','0']]},
+  {id:'表E',title:'表E｜三種血球的比較',head:['項目','甲','乙','丙'],rows:[['細胞核','無','有','無'],['數量','最多','最少','介於中間'],['大小','中','最大','最小']]},
+];
+const CHARTQ=[
+  {q:'依表A，人體酵素活性最高的溫度是？',o:['0℃','20℃','37℃','90℃'],a:2,src:'溫度活性曲線（12 校）',ex:'37℃ 相對活性 100 最高，接近人體體溫。'},
+  {q:'依表A，把 90℃ 處理過的酵素降溫到 37℃，活性會怎樣？',o:['恢復到 100','仍然幾乎沒有活性','升高到 200','變成 45'],a:1,src:'溫度活性曲線（12 校）',ex:'高溫使酵素永久失去活性，降溫也無法恢復；低溫（0℃）處理則回溫可恢復。'},
+  {q:'依表B，哪一種酵素最可能存在於胃中？',o:['甲','乙','丙','都不是'],a:0,src:'酸鹼—酵素活性曲線（10 校）',ex:'胃中為酸性，甲只在 pH 2 有高活性。'},
+  {q:'依表B，唾液中的澱粉酶最可能是哪一種？',o:['甲','乙','丙','都不是'],a:1,src:'酸鹼—酵素活性曲線（10 校）',ex:'唾液酵素在中性（pH 7）活性最高。'},
+  {q:'依表B，丙最可能在哪裡作用？',o:['口腔','胃','小腸','食道'],a:2,src:'酸鹼—酵素活性曲線（10 校）',ex:'小腸內有鹼性的膽汁、胰液、腸液，酵素適合鹼性環境。'},
+  {q:'依表C，30 分鐘內甲芹菜比乙多吸收了多少 mL 的溶液？',o:['0.3','1.5','1.8','8.2'],a:1,src:'芹菜液面實驗（12 校）',ex:'甲減少 10.0−8.2＝1.8 mL；乙減少 10.0−9.7＝0.3 mL；相差 1.5 mL。'},
+  {q:'依表C，甲液面下降較快的主要原因是？',o:['甲的根毛較多','甲有葉片，氣孔多、蒸散作用旺盛','乙的木質部較多','乙行光合作用較多'],a:1,src:'芹菜液面實驗（12 校）',ex:'葉片上有大量氣孔，蒸散產生拉力把水往上拉。'},
+  {q:'依表D，血管 Y 最可能是？',o:['動脈','微血管','靜脈','淋巴管'],a:1,src:'三種血管比較表（13 校）',ex:'管壁只有一層細胞、連接動脈與靜脈的是微血管。'},
+  {q:'依表D，捐血時通常由哪一種血管抽血？',o:['X','Y','Z','都可以'],a:2,src:'三種血管比較表（13 校）',ex:'Z 是靜脈：血壓較低、流速較慢，抽血後壓住傷口即可止血。'},
+  {q:'依表D，在手腕量脈搏時摸到的是哪一種血管？',o:['X','Y','Z','都不是'],a:0,src:'三種血管比較表（13 校）',ex:'X 是動脈，脈搏是動脈管壁隨心搏擴張及復原。'},
+  {q:'依表E，負責運送氧氣的是哪一種血球？',o:['甲','乙','丙','三者都是'],a:0,src:'血液組成與血球（15 校）',ex:'甲：無核、數量最多＝紅血球，含血紅素可攜帶氧氣。'},
+  {q:'依表E，受傷時幫助血液凝固的是？',o:['甲','乙','丙','血漿'],a:2,src:'血液組成與血球（15 校）',ex:'丙：無核、最小＝血小板。'},
+  {q:'依表F，甲、乙、丙依序最可能是哪三種養分？',o:['澱粉、蛋白質、脂質','脂質、蛋白質、澱粉','蛋白質、脂質、澱粉','脂質、澱粉、蛋白質'],a:1,src:'未消化百分比曲線（8 校）',ex:'丙從口腔就開始被分解＝澱粉；乙從胃開始＝蛋白質；甲到小腸才開始＝脂質。'},
+  {q:'依表F，三種養分最後都在哪裡完成消化？',o:['口腔','胃','小腸','大腸'],a:2,src:'未消化百分比曲線（8 校）',ex:'小腸有膽汁、胰液、腸液，是消化與吸收的主要部位。'},
+  {q:'一滴血由右心房出發，最少要經過哪個順序才能到達主動脈？',o:['右心房→右心室→肺動脈→肺→肺靜脈→左心房→左心室→主動脈','右心房→左心房→左心室→主動脈','右心房→右心室→主動脈','右心房→肺靜脈→肺→左心室→主動脈'],a:0,src:'體循環與肺循環路徑（12 校）',ex:'右心的血必須先經肺循環變成充氧血，回左心房、左心室，再由主動脈出發。'},
+  {q:'遮光實驗：葉片「甲區照光、乙區包鋁箔、丙區為白色斑葉（無葉綠體）且照光」，滴碘液後哪一區呈藍黑色？',o:['只有甲','甲和丙','乙和丙','三區都是'],a:0,src:'遮光葉片碘液（11 校）',ex:'光合作用需要光與葉綠體：乙缺光、丙缺葉綠體，都沒有澱粉。'},
+];
+const STEPSORTS=[
+  {title:'🎯 實驗3-3 步驟排序：光與光合作用',tip:'黑暗→遮光照光→沸水→酒精隔水加熱→熱水漂洗→碘液',
+   buckets:['① 準備','② 軟化','③ 脫色與漂洗','④ 檢驗'],
+   items:[['植物先放完全黑暗約一週',0],['葉片部分包鋁箔，照光一週',0],['剪下葉片放入沸水中加熱',1],['放入酒精中隔水加熱至顏色變淡',2],['放入熱水漂洗，去除酒精與葉綠素',2],['平放在培養皿上滴碘液',3]]},
+  {title:'🎯 一滴血的旅行：體循環還是肺循環？',tip:'左心室出發是體循環；右心室出發是肺循環',
+   buckets:['體循環','肺循環'],
+   items:[['左心室→主動脈',0],['全身微血管交換氣體',0],['大靜脈→右心房',0],['右心室→肺動脈',1],['肺泡與微血管交換氣體',1],['肺靜脈→左心房',1]]},
+];
+
+/* 考點雷達（由 stats.json 回填） */
+const RADAR={n:15,
+  intro:'整理 15 所學校的翰林版第二次段考卷（共約 700 題，114 學年為主），看哪些東西「每校都考」。另有 41 校康軒、南一卷作為對照。',
+  topicNote:'血管比較、光合作用、血液組成、年輪與形成層，15 校全部考，而且每校都出好幾題。4-4 的防禦與疫苗只有 5～6 校出題（有些學校不考淋巴與防禦），但他版學校很愛考。',
+  repeatNote:'「未消化百分比曲線」是翰林區新出現的熱門圖（8 校）：口腔開始下降＝澱粉、胃開始＝蛋白質、小腸才開始＝脂質。',
+  scopeNote:'範圍各校不同：多數考 3-2～4-4；有 1 校從 2-4 考到 4-3，有幾校考到 4-3 就停（不考淋巴與防禦），少數學校混入 3-1 養分題。本站範圍為 3-2～4-4，含淋巴與三道防線。',
+  topics:[['血管比較（管壁、瓣膜、流速、血壓）',15],['光合作用原料、產物與場所',15],['實驗3-3 光與光合作用',15],['血液組成與血球功能',15],['形成層、年輪、樹皮與木材',15],['養分分解產物',15],['小腸吸收與大腸',15],['葉片構造',15],
+    ['酵素性質（專一性、重複使用）',14],['消化腺與消化液',14],['心臟構造與瓣膜',14],['木質部與韌皮部',13],['保衛細胞與氣孔',13],['膽汁',13],['莖橫切面：散生 vs 環狀',13],
+    ['體循環與肺循環路徑',12],['充氧血與缺氧血',12],['心搏、脈搏與心音',12],['實驗4-1 芹菜',12],['溫度對酵素活性',12],['蒸散作用與影響因素',12],['酸鹼對酵素活性',11],['實驗3-2 唾液分解澱粉',10],['淋巴系統',10],['魚尾鰭血流觀察',10],['環狀剝皮',10],['代謝＝分解＋合成',10],['專一性防禦、疫苗',6]],
+  basics:[['木質部、韌皮部',15],['動脈、靜脈、微血管',15],['形成層',15],['葡萄糖',15],['葉綠體、葉綠素',15],['紅血球、白血球',15],['膽汁',15],['氣孔',15],['碘液',14],['唾液澱粉酶',14],['心房、心室',14],['胰液',14],['瓣膜',14],['隔水加熱',14],['本氏液',14],['大腸吸收水分',14],['蒸散作用',13],['絨毛',13],['血小板',13],['酒精脫色',13],['脈搏',12],['37℃',11]],
+  repeat:[['消化系統代號圖',15],['葉片橫切面圖',14],['莖橫切面維管束圖',13],['三種血管比較表',13],['年輪、環狀剝皮圖',12],['芹菜液面實驗',12],['遮光葉片碘液',11],['心臟剖面代號圖',10],['酸鹼—酵素活性曲線',10],['魚尾鰭血流',10],['脈搏心搏數據表',10],['唾液試管表',9],['未消化百分比曲線',8]],
+  traps:[
+    ['膽汁由肝臟製造、膽囊只儲存；膽汁只乳化脂質，不含消化酵素','同版 15 校全考，他版 30 校也考——第一名陷阱'],
+    ['紅血球無核、含血紅素運氧；白血球有核、防禦；血小板凝血','同版 13 校'],
+    ['微血管管壁只有一層細胞、流速最慢、是物質交換處；血壓：動脈＞微血管＞靜脈','同版 13 校'],
+    ['肺動脈流缺氧血、肺靜脈流充氧血——不能用「動脈＝充氧血」判斷','同版 12 校'],
+    ['蒸散作用是水上升的主要動力；有葉的芹菜液面下降較多','同版 12 校'],
+    ['葉片脫色用酒精「隔水加熱」，不可直接加熱；目的是溶出葉綠素','同版 12 校'],
+    ['年輪是形成層向內產生的木質部；淺而寬＝春夏、深而窄＝秋冬；中心最老','同版 11 校'],
+    ['本氏液測葡萄糖要隔水加熱；碘液測澱粉不用加熱','同版 11 校'],
+    ['脈搏次數＝心搏次數；脈搏是動脈管壁的跳動','同版 11 校'],
+    ['環狀剝皮破壞韌皮部→根先缺養分而死；切口上方瘤狀膨大','同版 10 校'],
+    ['抽血、打點滴、綁止血帶浮出的是靜脈；量脈搏是動脈','同版 10 校'],
+    ['大腸主要吸收水分，不消化、不吸收養分','同版 10 校'],
+    ['淋巴管內沒有紅血球、有白血球；淋巴回到靜脈；淋巴結過濾病原體','同版 10 校'],
+    ['表皮細胞中只有保衛細胞有葉綠體；保衛細胞的功能是調節氣孔開閉','同版 9 校'],
+    ['體循環從左心室出發、肺循環從右心室出發；靜脈注射的藥物先到右心房','同版 9 校'],
+    ['高溫使酵素永久失去活性，降溫也不恢復；低溫只是活性低，回溫可恢復','同版 8 校'],
+  ],
+  other:{n:41,topics:[['血管比較',41],['血液組成',40],['形成層、年輪',40],['木質部與韌皮部',40],['光合作用原料產物',39],['養分分解產物',38],['葉片構造',38],['實驗3-3 光合作用',37],['保衛細胞與氣孔',36],['心臟構造',35],['小腸與大腸',35],['酵素性質',34],['消化腺與消化液',34],['水分運輸與根毛',34]],
+    note:'結論：他版前幾名和翰林幾乎一樣——血管、血液、維管束、光合作用、消化，換版本也一定考。他版學校比較常考防禦與疫苗（18 校），翰林區學校較少。'},
+};
+
+/* ================= 動畫共用 ================= */
+function stepper(el,steps,apply,autoMs=5200){
+  let k=0,auto=null;
+  el.querySelector('.steps').innerHTML=steps.map((s,i)=>`<button data-i="${i}">${s.label}</button>`).join('')+`<button id="play">▶ 自動播放</button>`;
+  function set(i){k=i;el.querySelectorAll('.steps [data-i]').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    const s=steps[i];el.querySelector('.caption').innerHTML=`<div class="poem">${s.poem}</div><div class="key">🎯 <b>考點：</b>${s.key}</div>`;apply(i)}
+  el.querySelectorAll('.steps [data-i]').forEach(b=>b.onclick=()=>{stop();set(+b.dataset.i)});
+  const pb=el.querySelector('#play');
+  function stop(){clearInterval(auto);auto=null;pb.textContent='▶ 自動播放'}
+  pb.onclick=()=>{if(auto)return stop();pb.textContent='⏸ 暫停';set(0);auto=setInterval(()=>{if(k+1>=steps.length)return stop();set(k+1)},autoMs)};
+  set(0);
+}
+
+/* ================= 照片舞台（共用） ================= */
+const AI_IMG=f=>f.startsWith('ai_');
+function photoStage(){
+  return `<div class="pstage"><div class="ph" id="phA"></div><div class="ph" id="phB"></div>
+    <div class="split" id="phS"></div><div class="ptag" id="phT"></div><div class="pai" id="phAI">AI 示意圖</div></div>`;
+}
+let __cyc=null,__front='A';
+function showPhoto(step){
+  clearInterval(__cyc);
+  const S=$('#phS'),T=$('#phT'),AI=$('#phAI');
+  if(step.split){
+    $('#phA').style.opacity=0;$('#phB').style.opacity=0;
+    S.innerHTML=step.split.map(s=>`<div class="half" style="background-image:url(img/${s.img}.jpg)"><span>${s.tag}</span></div>`).join('');
+    S.style.opacity=1;T.style.opacity=0;AI.style.opacity=step.split.some(s=>AI_IMG(s.img))?1:0;return;
+  }
+  S.style.opacity=0;
+  const imgs=step.imgs;let k=0;
+  const put=()=>{
+    const it=imgs[k%imgs.length];
+    const next=__front==='A'?'B':'A',el=$('#ph'+next),old=$('#ph'+__front);
+    el.style.backgroundImage=`url(img/${it.img}.jpg)`;
+    el.style.backgroundSize=it.fit||'cover';el.style.backgroundColor=it.bg||'#111';
+    el.classList.remove('kb');void el.offsetWidth;el.classList.add('kb');
+    el.style.opacity=1;old.style.opacity=0;__front=next;
+    T.textContent=it.tag;T.style.opacity=1;AI.style.opacity=AI_IMG(it.img)?1:0;k++;
+  };
+  put();if(imgs.length>1)__cyc=setInterval(put,3400);
+}
+
+/* ================= 背景音樂（瀏覽器即時合成，只在動畫頁播放） ================= */
+const BGM={ctx:null,master:null,timer:null,playing:false,
+  get on(){try{return localStorage.getItem('bgm')!=='off'}catch(e){return true}},
+  set on(v){try{localStorage.setItem('bgm',v?'on':'off')}catch(e){}},
+  start(){
+    if(!this.on||this.playing)return;
+    try{
+      this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      const c=this.ctx;this.master=c.createGain();this.master.gain.value=0;
+      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1200;
+      this.master.connect(lp);lp.connect(c.destination);
+      this.master.gain.linearRampToValueAtTime(0.05,c.currentTime+2);
+      // 輕快版：約 100 BPM，C–G–Am–F 大調進行，撥弦琶音＋輕低音＋淡淡鋪底
+      const BEAT=0.6,prog=[[261.6,329.6,392],[196,246.9,293.7],[220,261.6,329.6],[174.6,220,261.6]];
+      const tone2=(f,t,dur,type,vol,att=.01)=>{const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        o.connect(g);g.connect(this.master);o.start(t);o.stop(t+dur+.05)};
+      const pat=[0,1,2,1,0,2,1,2];let bar=0;
+      const play=()=>{
+        const t0=c.currentTime+.05,ch=prog[bar%prog.length];
+        ch.forEach(f=>tone2(f,t0,BEAT*4,'sine',.07,.4));                       // 淡淡鋪底
+        tone2(ch[0]/2,t0,BEAT*1.2,'triangle',.22);tone2(ch[0]/2,t0+BEAT*2,BEAT*1.2,'triangle',.18); // 低音
+        pat.forEach((k,i)=>{const f=ch[k]*2;tone2(f,t0+i*BEAT/2,.35,'triangle',.16)}); // 撥弦琶音（八分音符）
+        if(bar%2===1)[0,1,2,3].forEach(i=>tone2([784,659.3,587.3,523.3,659.3][(bar+i)%5],t0+BEAT*2+i*BEAT/2,.5,'sine',.08)); // 小旋律
+        bar++;
+      };
+      play();this.timer=setInterval(play,2400);this.playing=true;
+    }catch(e){}
+    this.btn();
+  },
+  stop(){
+    clearInterval(this.timer);this.timer=null;
+    if(this.playing&&this.master&&this.ctx){const m=this.master,t=this.ctx.currentTime;m.gain.cancelScheduledValues(t);m.gain.setValueAtTime(m.gain.value,t);m.gain.linearRampToValueAtTime(0,t+1.2);setTimeout(()=>{try{m.disconnect()}catch(e){}},1500)}
+    this.playing=false;this.btn();
+  },
+  btn(){const b=document.getElementById('bgmBtn');if(b)b.textContent=this.on?'🎵 音樂：開':'🔇 音樂：關'}
+};
+
+$('#bgmBtn').onclick=()=>{BGM.on=!BGM.on;if(BGM.on&&isAnim())BGM.start();else BGM.stop();BGM.btn()};BGM.btn();
+/* 交卷給老師引擎（段考模擬題／快問快答／分類挑戰／配對 都可交卷）。
+   接在 template.html 的「音效＋工具」與 data.js 之後、app.js（導覽、首頁、動畫）之前。
+   換科時改三個佔位：https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec（段考闖關成績後端網址）、sci7-hanlin-2（例 chinese8-1）、自然 國一上第二次段考（翰林）（分頁名稱）。不用班級碼。
+   render() 要把 d.code、`${d.no} ${d.title}` 傳給 renderQuick/renderMCQ/renderMatch，並在畫分類前設定 SORTCTX={code,title}。 */
+/* ================= 交卷給老師（雲端） =================
+   後端：段考闖關成績（assets/v2/backend/Code.gs），不用班級碼；每個網站一個 subject、試算表一個分頁。
+   round 編碼：單元代碼×10＋題型（0＝段考模擬題、1＝快問快答、2＝分類、3＝配對）；總測驗＝90。 */
+/* 姓名：每站 localStorage ＋ 整個 efetl.com 共用的 cookie。
+   一科填名字，其他科也認得；任一科按「登出」，所有科目一起登出（各站是不同網域，靠 efetl_logout 時間戳讓舊名字失效）。 */
+const efetlMe={
+  dom:/(^|\.)efetl\.com$/.test(location.hostname)?';domain=efetl.com':'',
+  ck(k){const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):''},
+  setck(k,v,age){document.cookie=k+'='+encodeURIComponent(v)+';path=/;max-age='+age+';SameSite=Lax'+this.dom},
+  get(sub){
+    try{const c=this.ck('efetl_student');if(c){const o=JSON.parse(c);if(o&&o.name)return {name:o.name}}}catch(e){}
+    try{
+      const o=JSON.parse(localStorage.getItem(sub+'_student')||'null');if(!o||!o.name)return null;
+      const out=+this.ck('efetl_logout')||0;
+      if(out&&(o.t||0)<out){localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history');return null}
+      this.setck('efetl_student',JSON.stringify({name:o.name}),31536000);
+      return {name:o.name};
+    }catch(e){return null}
+  },
+  set(sub,o){try{localStorage.setItem(sub+'_student',JSON.stringify({name:o.name,t:Date.now()}))}catch(e){}
+    this.setck('efetl_student',JSON.stringify({name:o.name}),31536000)},
+  out(sub){try{localStorage.removeItem(sub+'_student');localStorage.removeItem(sub+'_history')}catch(e){}
+    this.setck('efetl_student','',0);this.setck('efetl_logout',String(Date.now()),31536000)}
+};
+const CLOUD={
+  endpoint:'https://script.google.com/macros/s/AKfycbzPt9-_BdRtHhH6f6GAuE9LLRXK8m3j7uavDxpm0xaaJCitl2KfOoYcviYgDZNdNjflLg/exec',   /* 段考闖關成績後端（assets/v2/backend/Code.gs），不用班級碼 */
+  subject:'sci7-hanlin-2',
+  site:'自然 國一上第二次段考（翰林）',   /* 試算表分頁名稱，例「英文 國二上第一次段考」 */
+  get me(){return efetlMe.get(this.subject)},
+  set me(o){efetlMe.set(this.subject,o)},
+  upload(rec){
+    const m=this.me;if(!m)return false;
+    const body=Object.assign({name:m.name,subject:this.subject,site:this.site},rec);
+    try{fetch(this.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})}catch(e){return false}
+    try{const h=JSON.parse(localStorage.getItem('sci7-hanlin-2_history')||'[]');h.push({...rec,date:new Date().toISOString()});localStorage.setItem('sci7-hanlin-2_history',JSON.stringify(h.slice(-200)))}catch(e){}
+    return true;
+  }
+};
+function meChip(){
+  const m=CLOUD.me,el=$('#me');if(!el)return;
+  el.innerHTML=m?`👤 ${esc(m.name)}<button class="linkbtn" id="meEdit">修改</button><button class="linkbtn" id="meOut">登出</button>`:`👤 尚未填寫姓名 <button class="linkbtn" id="meEdit">填寫</button>`;
+  $('#meEdit').onclick=()=>enroll(()=>{});
+  /* 登出：同一台平板／電腦換下一位同學用。清掉這台裝置記住的姓名與交卷紀錄，馬上跳出填姓名視窗 */
+  if($('#meOut'))$('#meOut').onclick=()=>{
+    if(!confirm(`要登出「${m.name}」嗎？\n國文、自然、英文、歷史、地理、公民會一起登出，下一位同學可以填自己的名字。`))return;
+    efetlMe.out(CLOUD.subject);
+    meChip();enroll(()=>{},true);
+  };
+}
+/* 回到這個分頁時，如果在別科登出或換了人，馬上更新姓名 */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  meChip();if(!CLOUD.me&&!document.getElementById('enr'))enroll(()=>{},true);
+});
+/* 填寫姓名視窗（只要中文姓名）；成功後呼叫 then() */
+function enroll(then,force){
+  if(document.getElementById('enr'))return;
+  const m=CLOUD.me||{};
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="enr"><div class="mbox">
+    <h3>${force?'👋 歡迎！請先填姓名':'📝 交卷前先填姓名'}</h3><p class="muted">老師會用你的姓名收到成績和錯題。</p>
+    <label>中文姓名<input id="eName" value="${esc(m.name||'')}" autocomplete="off"></label>
+    <div class="fb" id="eMsg"></div>
+    <div class="row" style="justify-content:flex-end">${force?'':'<button class="btn ghost" id="eNo">取消</button>'}<button class="btn" id="eOk">確定</button></div></div></div>`);
+  const close=()=>$('#enr').remove();
+  if($('#eNo'))$('#eNo').onclick=close;
+  $('#eName').focus();
+  $('#eName').onkeydown=e=>{if(e.key==='Enter')$('#eOk').click()};
+  $('#eOk').onclick=()=>{
+    const name=$('#eName').value.trim();
+    if(!name){$('#eMsg').textContent='請填入你的中文姓名喔！';return}
+    if(!/^[\u4e00-\u9fff·．]{2,6}$/.test(name)){$('#eMsg').textContent='請填中文姓名（2～6 個字），老師才認得出你。';return}
+    CLOUD.me={name};close();meChip();then();
+  };
+}
+const KINDS=['段考模擬題','快問快答','分類挑戰','配對'];
+/* 交卷：rec={code,type,title,total,correct,blank,wrong:[{q,my,a}]} */
+function submitToTeacher(rec,btn){
+  const go=()=>{
+    const ok=CLOUD.upload({round:rec.code*10+rec.type,score:Math.round(rec.correct/rec.total*100),total:rec.total,correct:rec.correct,blank:rec.blank||0,
+      ans:[`【交卷】${rec.title}｜${KINDS[rec.type]}｜答對 ${rec.correct}/${rec.total}`,
+        ...rec.wrong.map(w=>`✗ 題目：${String(w.q).replace(/｜/g,'/')}｜學生答：${w.my}｜正解：${w.a}${w.u?'｜單元：'+w.u:''}`)]});
+    if(btn){btn.disabled=true;btn.textContent=ok?'✅ 已交給老師':'⚠️ 送出失敗，請再試一次';if(!ok)btn.disabled=false}
+  };
+  if(!CLOUD.me)return enroll(go);
+  go();
+}
+
+/* ================= 快問快答（交卷版） ================= */
+function renderQuick(el,items,d,code,title){
+  let order,i,score,combo,best,wrong,timer,left,round=0;
+  const TIME=10;
+  function start(list){order=shuf(list||items);i=0;score=0;combo=0;best=0;wrong=[];round++;next()}
+  function next(){
+    clearInterval(timer);
+    if(i>=order.length) return end();
+    const [q,a,ds,hot,ask0]=order[i];
+    const opts=shuf([a,...ds]);
+    const ask=ask0||(d&&d.quickAsk)||(isZY(a)?'選出「」內字的正確讀音':'選出「」內注音的正確國字');
+    el.innerHTML=`<div class="card">
+      <div class="qz-top"><b>第 ${i+1} / ${order.length} 題</b><span>得分 <b>${score}</b>　<span class="combo">${combo>=2?'🔥 連對 '+combo:''}</span></span></div>
+      <div class="timer"><i id="tb"></i></div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">${ask} ${hot?`<span class="star">★${hot} 校考過</span>`:''}</p>
+      <div class="qword">${esc(q)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`;
+    left=TIME;const tb=$('#tb',el);
+    timer=setInterval(()=>{left-=.1;tb.style.width=Math.max(0,left/TIME*100)+'%';if(left<=0){clearInterval(timer);pick(null)}},100);
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));
+    function pick(b){
+      clearInterval(timer);
+      el.querySelectorAll('.opt').forEach(x=>{x.onclick=null;if(x.dataset.v===a)x.classList.add('ok')});
+      if(b&&b.dataset.v===a){sOK();window.WB&&WB.hit('q',order[i]);combo++;best=Math.max(best,combo);score+=10+Math.round(left)+(combo>=3?5:0)}
+      else{sBAD();if(b)b.classList.add('bad');combo=0;wrong.push({item:order[i],my:b?b.dataset.v:'（超時）'});window.WB&&WB.miss('q',order[i],title,(d&&d.quickAsk)||'')}
+      i++;setTimeout(next,b&&b.dataset.v===a?650:1400);
+    }
+  }
+  function end(){
+    const n=order.length,acc=Math.round((n-wrong.length)/n*100),full=true,retry=order.length!==items.length;
+    el.innerHTML=`<div class="card" style="text-align:center">
+      <div style="font-size:3rem">${acc>=90?'🏆':acc>=70?'👍':'💪'}</div>
+      <h3>完成！正確率 ${acc}%</h3><p>總分 <b>${score}</b>　最高連對 <b>${best}</b></p>
+      ${wrong.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>要再加強的：</b><br>${wrong.map(w=>`${esc(w.item[0])} → <b>${esc(w.item[1])}</b>（你選：${esc(w.my)}）`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">
+        ${full?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}
+        ${wrong.length?'<button class="btn ghost" id="rw">只練錯的題目</button>':''}<button class="btn" id="ra">全部重來</button></div>
+      ${full?'<p class="muted" style="margin-top:8px">交卷會把你的姓名、分數和錯的題目傳給老師。</p>':''}</div>`;
+    $('#ra',el).onclick=()=>start();
+    const rw=$('#rw',el); if(rw) rw.onclick=()=>start(wrong.map(w=>w.item));
+    const sb=$('#sub',el); if(sb) sb.onclick=()=>submitToTeacher({code,type:1,title:title+(retry?'（只練錯題）':''),total:n,correct:n-wrong.length,
+      wrong:wrong.map(w=>({q:w.item[0],my:w.my,a:w.item[1]}))},sb);
+  }
+  el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">⚡</div><h3>名詞快問快答</h3>
+  <p>每題 10 秒，越快答對分數越高，連對 3 題以上有加分！<br>做完可以按「交卷給老師」。</p><button class="btn alt" id="go">開始挑戰（${items.length} 題）</button></div>`;
+  $('#go',el).onclick=()=>start();
+}
+
+/* ================= 選擇題（交卷版） ================= */
+function renderMCQ(el,qs,code,title,opt={}){
+  let got=0,done=0;
+  const list=qs.map(q=>{const idx=shuf(q.o.map((_,k)=>k));return{...q,idx,my:null}});
+  el.innerHTML=`<div class="score" id="sc">已作答 0 / ${qs.length}　答對 0</div><div class="card">${list.map((q,n)=>`
+    <div class="mq" data-n="${n}"><div class="stem">${n+1}. ${esc(q.q)}${q.src?`<span class="src">${esc(q.src)}</span>`:''}</div>
+    ${q.idx.map((k,j)=>`<button class="o" data-k="${k}">(${'ABCD'[j]}) ${esc(q.o[k])}</button>`).join('')}
+    <div class="ex">💡 <b>解析：</b>${esc(q.ex)}</div></div>`).join('')}
+    <div class="row" style="margin-top:14px">${code!=null?'<button class="btn alt" id="sub">📤 交卷給老師</button>':''}<button class="btn ghost" id="rs">${opt.rsLabel||((opt.redraw||/總測驗/.test(title))?'🔀 換一批新題目':'重新作答（選項重新洗牌）')}</button></div>
+    ${code!=null?'<p class="muted" id="subtip">全部作答完再交卷；沒作答的題目會算成空白。</p>':''}</div>`;
+  el.querySelectorAll('.mq').forEach(box=>{
+    const q=list[+box.dataset.n];
+    box.querySelectorAll('.o').forEach(b=>b.onclick=()=>{
+      if(box.classList.contains('done'))return;box.classList.add('done');done++;
+      q.my=+b.dataset.k;
+      box.querySelector(`.o[data-k="${q.a}"]`).classList.add('ok');
+      if(q.my===q.a){got++;sOK();window.WB&&WB.hit('m',q)}else{b.classList.add('bad');sBAD();window.WB&&WB.miss('m',q,title)}
+      $('#sc',el).textContent=`已作答 ${done} / ${qs.length}　答對 ${got}`+(done===qs.length?`　🎯 得分 ${Math.round(got/qs.length*100)}`:'');
+    });
+  });
+  $('#rs',el).onclick=()=>opt.redraw?opt.redraw():(/總測驗/.test(title)&&typeof render==='function')?render():renderMCQ(el,qs,code,title,opt);
+  const sb=$('#sub',el);
+  if(sb) sb.onclick=()=>{
+    const blank=list.filter(q=>q.my===null).length;
+    if(blank&&!confirm(`還有 ${blank} 題沒作答，確定要交卷嗎？`))return;
+    submitToTeacher({code,type:0,title,total:list.length,correct:got,blank,
+      wrong:list.filter(q=>q.my!==q.a).map(q=>({q:q.q,my:q.my===null?'（空白）':q.o[q.my],a:q.o[q.a],u:q.unit||undefined}))},sb);
+  };
+}
+
+
+/* ================= 分類挑戰（交卷版，覆蓋模板版本） ================= */
+let SORTCTX=null;   /* {code,title}：由 render() 在單元分類頁設定 */
+function renderSort(el,so){
+  const ctx=SORTCTX;
+  let order=shuf(so.items),i=0,ok=0,wrongs=[];
+  function draw(){
+    if(i>=order.length){
+      el.innerHTML=`<h3>${so.title}</h3><div style="text-align:center"><div style="font-size:2.6rem">${ok===order.length?'🏆':'👍'}</div><p><b>${ok} / ${order.length}</b> 題正確</p>
+      ${wrongs.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:10px 14px">${wrongs.map(w=>`「${esc(w.it[0])}」→ <b>${so.buckets[w.it[1]]}</b>（你選：${esc(so.buckets[w.my])}）${w.it[2]?'：'+esc(w.it[2]):''}`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center;margin-top:12px">${ctx?'<button class="btn alt" data-sub>📤 交卷給老師</button>':''}<button class="btn" data-again>再玩一次</button></div></div>`;
+      el.querySelector('[data-again]').onclick=()=>{SORTCTX=ctx;renderSort(el,so)};
+      const sb=el.querySelector('[data-sub]');
+      if(sb) sb.onclick=()=>submitToTeacher({code:ctx.code,type:2,title:`${ctx.title}｜${so.title}`.replace(/｜/g,' ／ '),total:order.length,correct:ok,
+        wrong:wrongs.map(w=>({q:`「${w.it[0]}」屬於哪一類？`,my:so.buckets[w.my],a:so.buckets[w.it[1]]}))},sb);
+      return;
+    }
+    const it=order[i];
+    el.innerHTML=`<div class="qz-top"><h3 style="margin:0">${so.title}</h3><span class="muted">${i+1} / ${order.length}</span></div>
+      <p class="muted" style="margin:4px 0 0">💡 ${so.tip}</p>
+      <div class="sortcard">${esc(it[0])}</div>
+      <div class="buckets" style="grid-template-columns:repeat(${Math.min(so.buckets.length,5)},1fr)">${so.buckets.map((b,k)=>`<button class="bk" data-k="${k}">${b}</button>`).join('')}</div>
+      <div class="fb"></div>`;
+    if(window.innerWidth<560&&so.buckets.length>3) el.querySelector('.buckets').style.gridTemplateColumns='1fr 1fr';
+    el.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{
+      el.querySelectorAll('.bk').forEach(x=>x.onclick=null);
+      const right=+b.dataset.k===it[1];
+      el.querySelector(`.bk[data-k="${it[1]}"]`).classList.add('ok');
+      if(right){sOK();ok++}else{sBAD();b.classList.add('bad');wrongs.push({it,my:+b.dataset.k})}
+      el.querySelector('.fb').innerHTML=(right?'✅ 正確！':'❌ 應該是「'+so.buckets[it[1]]+'」')+(it[2]?'　'+esc(it[2]):'');
+      i++;setTimeout(draw,right?800:1900);
+    });
+  }
+  draw();
+}
+
+
+/* ================= 配對（交卷版，覆蓋模板版本） ================= */
+function renderMatch(el,pairs,code,title){
+  const rounds=[];const sp=shuf(pairs);for(let k=0;k<sp.length;k+=5)rounds.push(sp.slice(k,k+5));
+  let r=0;const missed=new Map();   /* 詞 → {a:正解, my:[配錯的解釋]} */
+  function draw(){
+    const set=rounds[r];const rights=shuf(set);let sel=null,done=0;
+    el.innerHTML=`<div class="card"><div class="qz-top"><h3 style="margin:0">🔗 配對　第 ${r+1} / ${rounds.length} 回</h3><span class="muted">先點左邊的詞，再點右邊的解釋</span></div>
+      <div class="mcols" style="margin-top:14px"><div>${set.map((p,k)=>`<button class="mi w" data-w="${k}">${esc(p[0])}</button>`).join('')}</div>
+      <div>${rights.map(p=>`<button class="mi" data-m="${set.indexOf(p)}">${esc(p[1])}</button>`).join('')}</div></div></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('[data-w]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      if(!sel||b.classList.contains('done'))return;
+      if(sel.dataset.w===b.dataset.m){sOK();sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;done++;
+        if(done===set.length)setTimeout(()=>{r++;if(r<rounds.length)draw();else fin()},600)}
+      else{sBAD();const w=set[+sel.dataset.w],m=missed.get(w[0])||{a:w[1],my:[]};m.my.push(set[+b.dataset.m][1]);missed.set(w[0],m);
+        b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400)}
+    });
+  }
+  function fin(){
+    const n=pairs.length,bad=[...missed.entries()];
+    el.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:3rem">${bad.length<=2?'🏆':'👍'}</div><h3>全部配對完成！</h3>
+      <p>一次就配對成功 <b>${n-bad.length} / ${n}</b> 個</p>
+      ${bad.length?`<div style="text-align:left;background:#fffaf0;border-radius:12px;padding:12px 16px;margin:12px 0"><b>曾經配錯的：</b><br>${bad.map(([w,m])=>`${esc(w)} → <b>${esc(m.a)}</b>`).join('<br>')}</div>`:''}
+      <div class="row" style="justify-content:center">${code!=null?'<button class="btn alt" id="msub">📤 交卷給老師</button>':''}<button class="btn" id="ag">再玩一次（題目重新洗牌）</button></div></div>`;
+    $('#ag',el).onclick=()=>renderMatch(el,pairs,code,title);
+    const sb=$('#msub',el);
+    if(sb) sb.onclick=()=>submitToTeacher({code,type:3,title,total:n,correct:n-bad.length,
+      wrong:bad.map(([w,m])=>({q:`「${w}」的意思`,my:[...new Set(m.my)].join(' / '),a:m.a}))},sb);
+  }
+  draw();
+}
+
+
+/* ================= 導覽 ================= */
+const UNITS=['u1','u2','u3','u4','u5','u6'];
+const TABS=[['home','🏠 考點雷達'],['u1','🧪 酵素'],['u2','🌿 光合作用'],['u3','🍚 消化與吸收'],['u4','🌳 植物的運輸'],['u5','❤️ 心臟血管血液'],['u6','🔄 循環＋淋巴＋防禦'],['mix','📊 圖表＋實驗題'],['final','📝 總測驗']];
+let cur='home', curSub={};
+function drawTabs(){
+  $('#tabs').innerHTML=TABS.map(([k,t])=>`<button class="tab ${k===cur?'on':''}" data-k="${k}">${t}</button>`).join('');
+  $('#tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>go(b.dataset.k));
+}
+function go(k,sub){cur=k;if(sub)curSub[k]=sub;drawTabs();render();window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})}
+function isAnim(){return cur in L && (curSub[cur]||'anim')==='anim'}
+function render(){
+  const app=$('#app');
+  clearInterval(__cyc);
+  if(isAnim()) BGM.start(); else BGM.stop();
+  if(cur==='home') return renderHome(app);
+  if(cur==='mix') return renderMix(app);
+  if(cur==='final') return renderFinal(app);
+  const d=L[cur];
+  const subs=[['anim','🎬 動畫導覽'],['quick','⚡ 名詞快問快答'],['match','🔗 名詞↔說明配對'],['sort','🎯 分類挑戰'],['mcq','📝 段考模擬題']];
+  const s=curSub[cur]||'anim';
+  app.innerHTML=`<h2>${d.no}｜${d.title} <span class="muted">${d.author}</span></h2>
+  <div class="subtabs">${subs.map(([k,t])=>`<button class="sub ${k===s?'on':''}" data-s="${k}">${t}</button>`).join('')}</div>
+  <div id="panel"></div>`;
+  app.querySelectorAll('.sub').forEach(b=>b.onclick=()=>{curSub[cur]=b.dataset.s;render()});
+  const p=$('#panel'),title=`${d.no} ${d.title}`;
+  if(s==='anim') ANIM[cur](p);
+  if(s==='quick') renderQuick(p,d.quick,d,d.code,title);
+  if(s==='match') renderMatch(p,d.words,d.code,title);
+  if(s==='sort'){p.innerHTML=d.sorts.map((_,i)=>`<div class="card" id="so${i}"></div>`).join('');d.sorts.forEach((so,i)=>{SORTCTX={code:d.code,title};renderSort($('#so'+i),so)});SORTCTX=null}
+  if(s==='mcq'){p.innerHTML=`<p class="muted">共 ${d.mcq.length} 題，全部依段考命題方向原創改寫；點選答案後才會出現解析，選項每次重新洗牌。</p><div id="mq"></div>`;renderMCQ($('#mq'),d.mcq,d.code,title)}
+}
+
+/* ================= 綜合：圖表判讀與實驗題 ================= */
+function tableHTML(t){
+  return `<div class="card"><h3>${t.title}</h3><div class="tbwrap"><table class="dt"><thead><tr>${t.head.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
+  <tbody>${t.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`;
+}
+function renderMix(app){
+  app.innerHTML=`<h2>📊 圖表判讀與實驗題</h2>
+  <p class="muted">${MIXNOTE}</p>
+  ${TABLES.map(tableHTML).join('')}
+  <h2>📝 圖表判讀題</h2><div id="cq"></div>
+  ${STEPSORTS.map((_,i)=>`<div class="card" id="ss${i}"></div>`).join('')}`;
+  renderMCQ($('#cq'),CHARTQ,7,'圖表判讀＋實驗題');
+  STEPSORTS.forEach((so,i)=>{SORTCTX={code:7,title:'圖表判讀＋實驗題'};renderSort($('#ss'+i),so)});SORTCTX=null;
+}
+
+/* ================= 總測驗：各章抽題 ================= */
+function renderFinal(app){
+  app.innerHTML=`<h2>📝 第二次段考總測驗</h2>
+  <div class="card"><p>從各單元的段考模擬題與圖表題隨機抽題，模擬真正段考。做完按 <b>📤 交卷給老師</b>，老師就能看到你的分數和錯題。</p>
+  <p class="muted">選擇範圍（可多選）：學校沒考淋巴與防禦的，把最後一個單元取消勾選。</p>
+  <div class="row" id="fu">${UNITS.map(k=>`<label class="chk"><input type="checkbox" value="${k}" checked> ${L[k].no} ${L[k].title}</label>`).join('')}
+  <label class="chk"><input type="checkbox" value="mix" checked> 圖表判讀題</label></div>
+  <div class="row" style="margin-top:12px"><span>題數：</span>${[20,30].map(n=>`<button class="btn ${n===20?'':'ghost'}" data-n="${n}">${n} 題</button>`).join('')}</div></div>
+  <div id="fq"></div>`;
+  app.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{
+    const us=[...app.querySelectorAll('#fu input:checked')].map(x=>x.value);
+    if(!us.length)return alert('至少選一個範圍喔！');
+    const ok=shuf(us.flatMap(k=>k==='mix'?CHARTQ.map(q=>({...q,unit:'圖表題'})):L[k].mcq.map(q=>({...q,src:L[k].title,unit:L[k].no})))).filter(q=>!/^承|^依表|^依圖/.test(q.q));
+    renderMCQ($('#fq'),ok.slice(0,+b.dataset.n),9,'總測驗');
+    $('#fq').scrollIntoView({behavior:'smooth'});
+  });
+}
+
+/* ================= 首頁 ================= */
+function renderHome(app){
+  const R=RADAR,N=R.n;
+  const bar=(arr,n)=>`<div class="bars">${arr.map(([t,v])=>`<div class="b"><span>${t}</span><div class="track"><div class="fill" data-w="${v/n*100}"></div></div><b>${v}/${n}</b></div>`).join('')}</div>`;
+  app.innerHTML=`
+  <h2>📡 第二次段考考點雷達</h2>
+  <p class="muted">${R.intro}</p>
+  <div class="lessoncards" style="margin:16px 0 24px">
+    ${UNITS.map(k=>`<div class="lc" style="background:${L[k].color}" data-k="${k}"><div><div class="n">${L[k].no}｜${L[k].author}</div><div class="t">${L[k].title}</div></div><div class="d">${L[k].desc}</div></div>`).join('')}
+  </div>
+  <div class="card"><h3>選擇題最常考的主題（${N} 校中幾校考過）</h3>${bar(R.topics,N)}
+    <p class="muted" style="margin-top:10px">${R.topicNote}</p></div>
+  <div class="grid2">
+    <div class="card"><h3>⭐ 高頻基本分</h3><div class="chips">${R.basics.map(([w,n])=>`<span>${w} <b>×${n}</b></span>`).join('')}</div></div>
+    <div class="card"><h3>🔁 各校最愛的圖表題</h3><div class="chips">${R.repeat.map(([w,n])=>`<span>${w} <b>${n} 校</b></span>`).join('')}</div>
+    <p class="muted" style="margin-top:10px">${R.repeatNote}</p></div>
+  </div>
+  <div class="card"><h3>⚠️ 最常錯的陷阱</h3>
+    ${R.traps.map(([t,s],i)=>`<p class="trap"><b>${i+1}.</b> ${t}<br><span class="muted">${s}</span></p>`).join('')}</div>
+  <div class="card"><h3>📚 他版共通考點（康軒、南一，僅供對照）</h3>
+    <p class="muted">另外 ${R.other.n} 校康軒、南一或未標版本的卷子，只看和翰林範圍重疊的考點。</p>
+    ${bar(R.other.topics,R.other.n)}
+    <p class="muted" style="margin-top:10px">${R.other.note}</p></div>
+  <div class="card"><h3>🧭 建議闖關順序</h3>
+  <p>① 每單元先看 <b>🎬 動畫導覽</b>（下面有「三版補充」）→ ② <b>⚡ 名詞快問快答</b>、<b>🔗 配對</b>，練熟基本分 → ③ <b>🎯 分類挑戰</b> → ④ <b>📝 段考模擬題</b>，做完按 <b>📤 交卷給老師</b>。</p>
+  <p>再到 <b>📊 圖表＋實驗題</b> 練曲線、表格與實驗步驟，最後到 <b>📝 總測驗</b> 抽題。</p>
+  <p class="muted">${R.scopeNote}<br>校數與題數為依考卷文字分類統計、再人工校正的估計值。</p></div>`;
+  app.querySelectorAll('.lc').forEach(c=>c.onclick=()=>go(c.dataset.k,'anim'));
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'),60));
+}
+
+/* ================= 動畫 ================= */
+function stage(extra){return `<div class="card">${photoStage()}<div class="steps"></div><div class="caption"></div></div>${extra||''}`}
+function extraCard(d){
+  return `<div class="card"><h3>🗺️ 結構一張圖</h3>${d.map.map(([a,b])=>`<p><span class="pill">${a}</span>${b}</p>`).join('')}</div>
+  <div class="card"><h3>📚 三版補充（康軒、南一課本有、翰林沒寫的）</h3>${d.extra.map(t=>`<p class="trap">• ${t}</p>`).join('')}
+  <p class="muted">翰林課本沒寫的部分不是必考，但他版學校常考、閱讀題也可能出現，知道了比較安全。</p></div>`;
+}
+function animUnit(p){
+  const d=L[cur];
+  p.innerHTML=stage(extraCard(d));
+  const steps=d.steps.filter(s=>(s.imgs||s.split||[]).every(x=>!window.IMGOK||IMGOK.has(x.img)));
+  stepper(p,steps,i=>showPhoto(steps[i]),7500);
+}
+const ANIM={u1:animUnit,u2:animUnit,u3:animUnit,u4:animUnit,u5:animUnit,u6:animUnit};
+
+meChip();drawTabs();render();
+if(!CLOUD.me)enroll(()=>{},true);
+
+/* ================= ✏️ 老師手寫 =================
+   畫在網頁上的筆跡記在「整頁座標」，會跟著畫面捲動；白板的筆跡另外存、不捲動。
+   書寫時：一指／觸控筆寫字、兩指捲動＋縮放（不鎖畫面）。✋ 捲動模式：筆跡照樣顯示，可以點題目。
+   縮放：把頁面內容包進 #penZoom 再用 transform:scale；筆跡存「內容座標」，縮放後仍黏在原來的字上。
+   用固定大小的畫布＋捲動時重畫（平板瀏覽器對超大畫布有尺寸限制）。 */
+(function(){
+  const css=`
+  #penBtn{position:fixed;left:14px;bottom:14px;z-index:60;border:none;background:#fff;color:#2b4c7e;border-radius:99px;padding:8px 16px;box-shadow:0 4px 18px rgba(30,45,70,.18);font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #penCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:57;pointer-events:none;display:none}
+  #penHit{position:fixed;inset:0;z-index:58;display:none;touch-action:none;cursor:crosshair}
+  #penBoard{position:fixed;inset:0;z-index:56;background:#fff;display:none}
+  body.pen-on #penCv{display:block}
+  body.pen-on.pen-draw #penHit{display:block}
+  body.pen-board #penBoard{display:block}
+  #penBar{position:fixed;left:0;right:0;margin:0 auto;width:fit-content;bottom:12px;z-index:61;display:none;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    background:rgba(255,255,255,.97);border-radius:16px;padding:8px 10px;box-shadow:0 6px 24px rgba(30,45,70,.22);max-width:calc(100vw - 24px)}
+  body.pen-top #penBar{bottom:auto;top:12px}
+  body.pen-on #penBar{display:flex}
+  #penBar button{border:2px solid #e3e0d8;background:#fff;border-radius:10px;min-width:44px;height:44px;font-size:1rem;font-family:inherit;font-weight:700;cursor:pointer;color:#23303f;padding:0 10px}
+  #penBar button.on{border-color:#2b4c7e;background:#e8effa}
+  #penBar button.mode{background:#2b4c7e;color:#fff;border-color:#2b4c7e}
+  #penBar .dot{width:44px;padding:0}
+  #penBar .dot i{display:block;width:22px;height:22px;border-radius:50%;margin:auto}
+  #penBar .sep{width:1px;height:30px;background:#e3e0d8;margin:0 2px}
+  body.pen-on #penBtn{display:none}
+  #penZoom{transform-origin:0 0}
+  html.pen-lock,html.pen-lock body{touch-action:manipulation;touch-action:pan-x pan-y}
+  #penBar,#penBar *,#penBtn{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  @media(max-width:640px){#penBar .t,#penBar .sep{display:none}#penBar{gap:4px;padding:6px}#penBar button{min-width:40px;height:40px;padding:0 6px}#penBar .dot{width:40px}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const COLORS=['#d9342b','#1f5fbf','#1d1d1d','#1f9a55'];
+  const SIZES=[[3,'細'],[6,'中'],[12,'粗']];
+  let color=COLORS[0],size=6,erase=false,page=[],board=[],cur=null,boardOn=false;
+  document.body.insertAdjacentHTML('beforeend',`<button id="penBtn" title="老師手寫">✏️ 手寫</button>
+    <div id="penBoard"></div><canvas id="penCv"></canvas><div id="penHit"></div>
+    <div id="penBar">
+      <button class="mode" data-a="mode">✋<span class="t"> 捲動</span></button>
+      <span class="sep"></span>
+      ${COLORS.map((c,i)=>`<button class="dot${i?'':' on'}" data-c="${c}" title="顏色"><i style="background:${c}"></i></button>`).join('')}
+      <span class="sep"></span>
+      ${SIZES.map(([s,n])=>`<button data-s="${s}" class="${s===6?'on':''}">${n}</button>`).join('')}
+      <span class="sep"></span>
+      <button data-a="erase" title="橡皮擦">🧽<span class="t"> 橡皮擦</span></button><button data-a="undo" title="復原">↩️<span class="t"> 復原</span></button><button data-a="clear" title="清除">🗑️<span class="t"> 清除</span></button>
+      <button data-a="zout" title="縮小">－</button><button data-a="zoom" title="回到 1 倍">🔍<span class="z">1.0×</span></button><button data-a="zin" title="放大">＋</button><button data-a="board" title="白板">⬜<span class="t"> 白板</span></button><button data-a="move" title="移位">⇅<span class="t"> 移位</span></button><button data-a="close" title="關閉">✖<span class="t"> 關閉</span></button>
+    </div>`);
+  const Z=document.createElement('div');Z.id='penZoom';
+  const flow=[...document.body.children].filter(e=>/^(HEADER|NAV|MAIN|FOOTER)$/.test(e.tagName));
+  if(flow.length){flow[0].before(Z);flow.forEach(e=>Z.appendChild(e))}
+  let zoom=1;
+  const B=document.body,cv=document.getElementById('penCv'),hit=document.getElementById('penHit'),bar=document.getElementById('penBar'),ctx=cv.getContext('2d');
+  const list=()=>boardOn?board:page;
+  /* 螢幕座標＝內容座標×z＋(x,y)。白板不捲動不縮放；網頁筆跡跟著捲動與縮放 */
+  const off=()=>{if(boardOn)return{z:1,x:0,y:0};const r=Z.getBoundingClientRect();return{z:zoom,x:r.left,y:r.top}};
+  function fit(){const r=devicePixelRatio||1;cv.width=innerWidth*r;cv.height=innerHeight*r;ctx.setTransform(r,0,0,r,0,0);redraw()}
+  function seg(s,a,b,o){
+    ctx.globalCompositeOperation=s.erase?'destination-out':'source-over';
+    ctx.strokeStyle=s.color;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=(s.erase?s.size*4:s.size*(0.55+(b.p||0.5)*0.9))*o.z;
+    ctx.beginPath();ctx.moveTo(a.x*o.z+o.x,a.y*o.z+o.y);ctx.lineTo(b.x*o.z+o.x,b.y*o.z+o.y);ctx.stroke();
+  }
+  function draw(s,o){const P=s.pts;if(P.length===1)seg(s,P[0],{...P[0],x:P[0].x+.01},o);for(let i=1;i<P.length;i++)seg(s,P[i-1],P[i],o)}
+  function redraw(){ctx.clearRect(0,0,innerWidth,innerHeight);const o=off();
+    list().forEach(s=>{const ys=s.pts.map(p=>p.y*o.z+o.y);if(Math.max(...ys)<-50||Math.min(...ys)>innerHeight+50)return;draw(s,o)});
+    ctx.globalCompositeOperation='source-over'}
+  let raf=0;addEventListener('scroll',()=>{if(!B.classList.contains('pen-on')||boardOn||raf)return;raf=requestAnimationFrame(()=>{raf=0;redraw()})},{passive:true});
+  addEventListener('resize',()=>{if(B.classList.contains('pen-on')){fit();pad()}});
+  const pt=e=>{const o=off();return{x:(e.clientX-o.x)/o.z,y:(e.clientY-o.y)/o.z,p:e.pressure&&e.pointerType==='pen'?e.pressure:0.5}};
+  /* 以螢幕上的 at 點為中心縮放，讓內容點 c 落在 at（c 省略＝at 底下的內容點） */
+  const zBtn=()=>bar.querySelector('[data-a="zoom"] .z');
+  function setZoom(nz,at,c){
+    nz=Math.min(3,Math.max(1,nz));const o=off();c=c||{x:(at.x-o.x)/o.z,y:(at.y-o.y)/o.z};
+    zoom=nz;Z.style.transform=nz===1?'':`scale(${nz})`;
+    const r=Z.getBoundingClientRect(),ox=r.left+scrollX,oy=r.top+scrollY;
+    window.scrollTo(ox+c.x*nz-at.x,oy+c.y*nz-at.y);
+    zBtn().textContent=nz.toFixed(1)+'×';bar.querySelector('[data-a="zoom"]').classList.toggle('on',nz>1.01);redraw();
+  }
+  /* 一指／觸控筆＝寫字；兩指＝捲動＋縮放（書寫中不鎖畫面） */
+  const ptrs=new Map();let pan=null,hold=false;
+  const mid=()=>{const v=[...ptrs.values()];return{x:(v[0].x+v[1].x)/2,y:(v[0].y+v[1].y)/2}};
+  const dist=()=>{const v=[...ptrs.values()];return Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y)||1};
+  function startPan(){const m=mid(),o=off();pan={d0:dist(),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z},m}}
+  hit.addEventListener('pointerdown',e=>{e.preventDefault();hit.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(ptrs.size>=2){if(cur){const L=list(),i=L.indexOf(cur);if(i>=0)L.splice(i,1);cur=null;redraw()}startPan();hold=true;return}
+    if(hold)return;
+    cur={color,size,erase,pts:[pt(e)]};list().push(cur);draw(cur,off());ctx.globalCompositeOperation='source-over'});
+  hit.addEventListener('pointermove',e=>{
+    if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pan&&ptrs.size>=2){e.preventDefault();const m=mid();
+      if(boardOn)return;
+      setZoom(pan.z0*dist()/pan.d0,m,pan.c);return}
+    if(!cur)return;e.preventDefault();const o=off();
+    (e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>{const p=pt(ev),q=cur.pts[cur.pts.length-1];cur.pts.push(p);seg(cur,q,p,o)});ctx.globalCompositeOperation='source-over'});
+  const up=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pan=null;else startPan();if(ptrs.size===0)hold=false;cur=null};
+  hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+  /* 滑鼠滾輪／觸控板在書寫層上也能捲動 */
+  /* 觸控板捏合／Ctrl＋滾輪＝縮放 */
+  hit.addEventListener('wheel',e=>{e.preventDefault();
+    if(e.ctrlKey&&!boardOn)setZoom(zoom*Math.exp(-e.deltaY*0.01),{x:e.clientX,y:e.clientY});else window.scrollBy(e.deltaX,e.deltaY)},{passive:false});
+  const modeBtn=bar.querySelector('[data-a="mode"]');
+  function setDraw(on){B.classList.toggle('pen-draw',on);modeBtn.innerHTML=on?'✋<span class="t"> 捲動</span>':'✏️<span class="t"> 書寫</span>';modeBtn.title=on?'切換成捲動畫面（筆跡保留）':'切換回寫字'}
+  /* 依工具列實際高度在頁面上／下留白，最後一題不會被擋住 */
+  function pad(){const on=B.classList.contains('pen-on'),top=B.classList.contains('pen-top'),h=on?bar.offsetHeight+24+'px':'';
+    B.style.paddingBottom=on&&!top?h:'';B.style.paddingTop=on&&top?h:''}
+  const VP=document.querySelector('meta[name=viewport]'),VP0=VP?VP.content:'';
+  function lockVP(on){if(VP)VP.content=on?'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no':VP0}
+  function resetNative(){if(!VP||!window.visualViewport||visualViewport.scale<=1.01)return;lockVP(true);setTimeout(()=>{VP.content='width=device-width, initial-scale=1, maximum-scale=1';setTimeout(()=>lockVP(B.classList.contains('pen-on')),300)},50)}
+  let kb=0;
+  function open(){lockVP(true);clearInterval(kb);kb=setInterval(keepBar,250);document.documentElement.classList.add('pen-lock');B.classList.add('pen-on');setDraw(true);fit();pad()}
+  function close(){clearInterval(kb);lockVP(false);if(zoom!==1)setZoom(1,{x:innerWidth/2,y:innerHeight/2});document.documentElement.classList.remove('pen-lock');bar.style.transform='';B.classList.remove('pen-on','pen-draw','pen-board');B.style.paddingBottom=B.style.paddingTop='';boardOn=false;bar.querySelector('[data-a="board"]').classList.remove('on')}
+  document.getElementById('penBtn').onclick=open;
+  modeBtn.onclick=()=>setDraw(!B.classList.contains('pen-draw'));
+  bar.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{color=b.dataset.c;erase=false;setDraw(true);
+    bar.querySelectorAll('[data-c]').forEach(x=>x.classList.toggle('on',x===b));bar.querySelector('[data-a="erase"]').classList.remove('on')});
+  bar.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{size=+b.dataset.s;setDraw(true);bar.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b))});
+  bar.querySelector('[data-a="erase"]').onclick=function(){erase=!erase;setDraw(true);this.classList.toggle('on',erase)};
+  bar.querySelector('[data-a="undo"]').onclick=()=>{list().pop();redraw()};
+  bar.querySelector('[data-a="clear"]').onclick=()=>{list().length=0;redraw()};
+  bar.querySelector('[data-a="board"]').onclick=function(){boardOn=!boardOn;B.classList.toggle('pen-board',boardOn);this.classList.toggle('on',boardOn);if(boardOn)setDraw(true);redraw()};
+  /* ✋ 捲動模式：兩指捏合一樣交給自己的縮放（瀏覽器原生縮放已關閉，工具列不會被推出畫面） */
+  let tp=null;
+  const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1;
+  const tMid=t=>({x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2});
+  document.addEventListener('touchstart',e=>{if(!B.classList.contains('pen-on')||B.classList.contains('pen-draw')||boardOn||e.touches.length!==2)return;
+    const m=tMid(e.touches),o=off();tp={d0:tDist(e.touches),z0:zoom,c:{x:(m.x-o.x)/o.z,y:(m.y-o.y)/o.z}}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!tp||e.touches.length!==2)return;e.preventDefault();setZoom(tp.z0*tDist(e.touches)/tp.d0,tMid(e.touches),tp.c)},{passive:false});
+  document.addEventListener('touchend',e=>{if(e.touches.length<2)tp=null},{passive:true});
+  /* 保險：萬一瀏覽器還是放大了整頁，把工具列擺回看得到的地方並維持原本大小 */
+  function keepBar(){const v=window.visualViewport;if(!v)return;
+    if(v.scale<=1.01||!B.classList.contains('pen-on')){bar.style.transform='';bar.style.transformOrigin='';return}
+    const top=B.classList.contains('pen-top');
+    bar.style.transformOrigin=top?'center top':'center bottom';
+    const dx=v.offsetLeft+v.width/2-innerWidth/2,dy=top?v.offsetTop:v.offsetTop+v.height-innerHeight;
+    bar.style.transform=`translate(${dx}px,${dy}px) scale(${1/v.scale})`}
+  if(window.visualViewport){visualViewport.addEventListener('resize',keepBar);visualViewport.addEventListener('scroll',keepBar)}
+  const ctr=()=>({x:innerWidth/2,y:innerHeight/2});
+  bar.querySelector('[data-a="zoom"]').onclick=()=>{setZoom(1,ctr());resetNative();keepBar()};
+  bar.querySelector('[data-a="zin"]').onclick=()=>{if(!boardOn)setZoom(zoom*1.25,ctr())};
+  bar.querySelector('[data-a="zout"]').onclick=()=>{if(!boardOn)setZoom(zoom/1.25,ctr())};
+  bar.querySelector('[data-a="move"]').onclick=()=>{B.classList.toggle('pen-top');pad()};
+  bar.querySelector('[data-a="close"]').onclick=close;
+})();
+
+/* ================= 注音不斷行：把「注音＋聲調」（連同前後「」）包成不換行的一塊 ================= */
+(function(){
+  const st=document.createElement('style');st.textContent='.zy{white-space:nowrap}';document.head.appendChild(st);
+  const SYL='˙?[ㄅ-ㄩ]+[ˊˇˋ˙]?';
+  const RE=new RegExp('[「『（(]?'+SYL+'(?:[ 　]'+SYL+')*[」』）)]?[，。、；：！？]?','g');
+  const TEST=/[ㄅ-ㄩ]/;
+  function wrap(root){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+      if(!TEST.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+      const p=n.parentNode;if(!p||p.closest&&p.closest('.zy,script,style,textarea,input'))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    const list=[];while(w.nextNode())list.push(w.currentNode);
+    list.forEach(n=>{
+      const t=n.nodeValue;RE.lastIndex=0;let m,last=0;const frag=document.createDocumentFragment();
+      while((m=RE.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+        const s=document.createElement('span');s.className='zy';s.textContent=m[0];frag.appendChild(s);last=m.index+m[0].length}
+      if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(frag,n);
+    });
+  }
+  let busy=false;
+  const ob=new MutationObserver(()=>{if(busy)return;busy=true;ob.disconnect();wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});busy=false});
+  wrap(document.body);ob.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+
+</script>
+<!--wrongbook--><script>
+/* ================= 📒 錯題本＋🎲 隨機總測驗（段考闖關共用） =================
+   需要頁面已有交卷引擎：CLOUD、renderQuick、renderMCQ、shuf、esc、$、L（各課資料）。
+   引擎裡答錯／答對時會呼叫 WB.miss()／WB.hit()（由 scripts/addwrongbook.py 就地補上那兩行）。
+   - 錯題本：快問快答與選擇題答錯就收進來；之後在任何地方答對，就從錯題本拿掉。資料記在這台裝置、跟著姓名走（換人就清空）。
+   - 隨機總測驗：從這一站全部選擇題（不含要看表格／承上題的題目）每次抽 25 題，沒抽過的優先，全部輪過一遍才重來。 */
+(function(){
+  if(typeof CLOUD==='undefined'||typeof renderMCQ!=='function')return;
+  const SUB=CLOUD.subject,KEY=SUB+'_wrongbook',SEEN=SUB+'_rtseen',N=25;
+  const who=()=>(CLOUD.me&&CLOUD.me.name)||'';
+  const load=()=>{try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.owner===who())return o}catch(e){}return{owner:who(),q:[],m:[]}};
+  const save=o=>{try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}paint()};
+  const kq=it=>'q|'+it[0]+'|'+it[1];
+  const km=q=>'m|'+q.q+'|'+q.o[q.a];
+  window.WB={
+    miss(kind,it,title,ask){
+      const o=load();
+      if(kind==='q'){if(!o.q.some(x=>kq(x.it)===kq(it)))o.q.push({it:[it[0],it[1],it[2],it[3]||0,it[4]||ask||''],t:title||''})}
+      else{const q={q:it.q,o:it.o,a:it.a,src:it.src||title||'',ex:it.ex||'',unit:it.unit};if(!o.m.some(x=>km(x)===km(q)))o.m.push(q)}
+      save(o);
+    },
+    hit(kind,it){
+      const o=load(),n=o.q.length+o.m.length;
+      if(kind==='q')o.q=o.q.filter(x=>kq(x.it)!==kq(it));else o.m=o.m.filter(x=>km(x)!==km(it));
+      if(o.q.length+o.m.length!==n)save(o);
+    },
+    count(){const o=load();return o.q.length+o.m.length}
+  };
+  /* 登出時一起清掉 */
+  if(typeof efetlMe!=='undefined'&&efetlMe.out){const out=efetlMe.out;efetlMe.out=function(sub){out.call(this,sub);try{localStorage.removeItem(KEY);localStorage.removeItem(SEEN)}catch(e){}}}
+
+  /* 題庫：各課的 mcq／gmcq；要看表格、圖或「承上」的題目不抽（總測驗沒附圖表） */
+  const CTX=/^\s*[(（]?承上|依表|依圖|上表|下表|附表|附圖|上圖|下圖|右圖|左圖|此圖|圖中|表中|如圖|如表|閱讀下文|根據下文|題組/;
+  function pool(){
+    const out=[],seen=new Set();
+    if(typeof L!=='object')return out;
+    for(const k of Object.keys(L)){
+      const d=L[k];if(!d||typeof d!=='object')continue;
+      for(const arr of [d.mcq,d.gmcq]){
+        if(!Array.isArray(arr))continue;
+        for(const q of arr){
+          if(!q||!q.q||!Array.isArray(q.o)||q.a==null||CTX.test(q.q))continue;
+          const id=q.q+'|'+q.o[q.a];if(seen.has(id))continue;seen.add(id);
+          out.push({...q,src:q.src||d.title||'',unit:q.unit||((d.no||'')+' '+(d.title||'')).trim()});
+        }
+      }
+    }
+    return out;
+  }
+  function draw(){
+    const all=pool();if(!all.length)return[];
+    let seen=[];try{seen=JSON.parse(localStorage.getItem(SEEN)||'[]')}catch(e){}
+    let fresh=shuf(all.filter(q=>!seen.includes(q.q)));
+    if(fresh.length<Math.min(N,all.length)){seen=[];fresh=shuf(all)}
+    const pick=fresh.slice(0,N);
+    try{localStorage.setItem(SEEN,JSON.stringify(seen.concat(pick.map(q=>q.q)).slice(-2000)))}catch(e){}
+    return pick;
+  }
+
+  /* 介面：姓名下面兩顆按鈕＋全螢幕面板 */
+  const css=`
+  #wbBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #wbBar button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  #wbBar b{display:inline-block;min-width:1.4em;margin-left:4px;background:#e0533f;color:#fff;border-radius:99px;padding:0 6px;font-size:1rem}
+  #wbPanel{position:fixed;inset:0;z-index:48;background:var(--bg,#f6f3ec);overflow:auto;-webkit-overflow-scrolling:touch;display:none}
+  body.wb-open{overflow:hidden}
+  body.wb-open #wbPanel{display:block}
+  #wbHead{position:sticky;top:0;z-index:2;background:var(--main,#2b4c7e);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  #wbHead h2{flex:1;margin:0;font-size:1.2rem;color:#fff}
+  #wbHead button{border:none;background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  #wbTabs button{border:2px solid var(--main,#2b4c7e);background:#fff;color:var(--main,#2b4c7e);border-radius:99px;padding:5px 14px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer}
+  #wbTabs button.on{background:var(--main,#2b4c7e);color:#fff}
+  #wbPanel .wbwrap{max-width:960px;margin:0 auto;padding:0 16px 120px}
+  @media print{#wbBar,#wbPanel{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const P=document.createElement('div');P.id='wbPanel';
+  P.innerHTML=`<div id="wbHead"><h2 id="wbTitle"></h2><button id="wbClose">✕ 關閉</button></div><div class="wbwrap"><div id="wbTop"></div><div id="wbBody"></div></div>`;
+  document.body.appendChild(P);
+  const close=()=>{document.body.classList.remove('wb-open');P.querySelector('#wbBody').innerHTML='';paint()};
+  P.querySelector('#wbClose').onclick=close;
+
+  function openBook(tab){
+    const o=load(),top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody');
+    P.querySelector('#wbTitle').textContent='📒 錯題本';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!o.q.length&&!o.m.length){
+      top.innerHTML='';body.innerHTML=`<div class="card" style="text-align:center;margin-top:16px"><div style="font-size:3rem">🎉</div><h3>錯題本是空的</h3>
+        <p>快問快答和段考模擬題答錯的題目會自動收進來；之後答對就會拿掉。</p></div>`;return;
+    }
+    tab=tab||(o.m.length?'m':'q');
+    top.innerHTML=`<p class="muted" style="margin-top:14px">答錯的題目都在這裡。再答對一次就會從錯題本拿掉。</p>
+      <div id="wbTabs"><button data-t="m" class="${tab==='m'?'on':''}">📝 選擇題（${o.m.length}）</button><button data-t="q" class="${tab==='q'?'on':''}">⚡ 快問快答（${o.q.length}）</button>
+      <button data-t="x">🗑 清空</button></div>`;
+    top.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.t==='x'){if(confirm('確定要清空錯題本嗎？')){save({owner:who(),q:[],m:[]});openBook()}return}
+      openBook(b.dataset.t)});
+    if(tab==='m'){
+      if(!o.m.length){body.innerHTML='<div class="card"><p>選擇題沒有錯題 👍</p></div>';return}
+      renderMCQ(body,shuf(o.m.slice()),0,'📒 錯題本（選擇題）',{redraw:()=>openBook('m'),rsLabel:'🔁 再練一次（答對的已拿掉）'});
+    }else{
+      if(!o.q.length){body.innerHTML='<div class="card"><p>快問快答沒有錯題 👍</p></div>';return}
+      renderQuick(body,o.q.map(x=>x.it),{quickAsk:'選出正確的答案'},0,'📒 錯題本（快問快答）');
+      const h=body.querySelector('h3');if(h)h.textContent='📒 錯題快問快答';
+    }
+  }
+  function openTest(){
+    const top=P.querySelector('#wbTop'),body=P.querySelector('#wbBody'),pick=draw();
+    P.querySelector('#wbTitle').textContent='🎲 隨機總測驗';
+    document.body.classList.add('wb-open');P.scrollTop=0;
+    if(!pick.length){top.innerHTML='';body.innerHTML='<div class="card"><p>這一站沒有可以抽的選擇題。</p></div>';return}
+    const total=pool().length;
+    top.innerHTML=`<div class="card" style="margin-top:14px"><b>從這一站 ${total} 題段考模擬題隨機抽 ${pick.length} 題。</b>
+      <p class="muted" style="margin:6px 0 0">沒抽過的題目會優先出現，全部輪過一遍才會重複。做完可以交卷給老師；按「🔀 換一批新題目」再抽一份。</p></div>`;
+    renderMCQ(body,pick,9,'🎲 隨機總測驗',{redraw:openTest});
+  }
+  function paint(){
+    const me=document.getElementById('me');if(!me)return;
+    let bar=document.getElementById('wbBar');
+    if(!bar){bar=document.createElement('div');bar.id='wbBar';me.insertAdjacentElement('afterend',bar)}
+    const n=WB.count();
+    bar.innerHTML=`<button id="wbOpen">📒 錯題本${n?`<b>${n}</b>`:''}</button><button id="wbTest">🎲 隨機總測驗</button>`;
+    bar.querySelector('#wbOpen').onclick=()=>openBook();
+    bar.querySelector('#wbTest').onclick=openTest;
+  }
+  paint();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')paint()});
+})();
+
+</script><!--/wrongbook-->
+<!--subjbar--><script>
+/* ================= 段考闖關（quiz.efetl.com/exam/）頁面共用：📚 換科目列＋開放檢查 =================
+   網址：<ROOT>/<學段>/<科目>/<冊別資料夾>/ ，ROOT 例 https://quiz.efetl.com/exam/。
+   讀 ROOT/catalog.json：
+   - 這一頁的學段／科目／冊別只要有一個不是 open，就蓋上「目前暫停開放」並提供回首頁按鈕。
+   - 國中頁頂放「🏠 首頁＋各科」按鈕：按別科直接到同年級同版本（catalog 的 key 相同、而且開放），沒有就到該科選單。 */
+(function(){
+  const p=location.pathname, m=p.match(/^(.*?\/)(jh|es|hs)\/([^/]+)\/([^/]+)\//);
+  if(!m)return;
+  const ROOT=m[1], LV=m[2], SUB=m[3], DIR=m[4];
+  const css=`
+  #subjBar{background:#fff;border-bottom:1px solid #e6e2d8;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:center;
+    overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;position:relative;z-index:5}
+  #subjBar::-webkit-scrollbar{display:none}
+  #subjBar .lab{font-size:20px;color:#66707c;font-weight:700;flex:none}
+  #subjBar a{flex:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-size:20px;font-weight:700;line-height:1.2;
+    padding:5px 12px;border-radius:99px;border:2px solid var(--sc);color:var(--sc);background:#fff;transition:transform .12s}
+  #subjBar a:hover{transform:translateY(-2px)}
+  #subjBar a.cur{background:var(--sc);color:#fff;pointer-events:none}
+  @media(max-width:640px){#subjBar{justify-content:flex-start}#subjBar .lab{display:none}}
+  #gateX{position:fixed;inset:0;z-index:70;background:rgba(243,241,234,.97);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Noto Sans TC",system-ui,sans-serif}
+  #gateX div{background:#fff;border-radius:18px;padding:28px 24px;max-width:420px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.15);font-size:20px}
+  #gateX a{display:inline-block;margin-top:14px;background:#2b4c7e;color:#fff;text-decoration:none;border-radius:99px;padding:6px 18px;font-weight:700}
+  @media print{#subjBar{display:none!important}}`;
+  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  const GN={vol1:'七上',vol3:'八上',vol5:'九上'},VN={hanlin:'翰林',kangxuan:'康軒',nanyi:'南一'};
+  fetch(ROOT+'catalog.json',{cache:'no-cache'}).then(r=>r.json()).then(cat=>{
+    const L=cat.levels.find(l=>l.id===LV), S=L&&L.subjects.find(s=>s.id===SUB), B=S&&S.books.find(b=>b.path===DIR);
+    if(!L||!S||!B||L.status!=='open'||S.status!=='open'||B.status!=='open'){
+      const g=document.createElement('div');g.id='gateX';
+      g.innerHTML=`<div><div style="font-size:3rem">🔒</div><b>這個單元目前暫停開放</b><p style="margin-top:6px;color:#666">請回首頁選其他科目。</p><a href="${ROOT}">🏠 回段考闖關首頁</a></div>`;
+      document.body.appendChild(g);return;
+    }
+    if(LV!=='jh')return;
+    const key=B.key,[g,v]=key.split('-');
+    const links=[`<a href="${ROOT}" style="--sc:#555" title="段考闖關首頁">🏠 首頁</a>`].concat(L.subjects.filter(s=>s.status==='open').map(s=>{
+      const t=s.books.find(b=>b.key===key&&b.status==='open');
+      const href=ROOT+LV+'/'+s.id+'/'+(t?t.path+'/':'');
+      return `<a href="${href}" style="--sc:${s.color}" class="${s.id===SUB?'cur':''}" title="${t?`到${s.name}・${GN[g]||''}${VN[v]||''}`:`到${s.name}選單`}">${s.emoji} ${s.name}</a>`;
+    }));
+    const bar=document.createElement('div');bar.id='subjBar';
+    bar.innerHTML=`<span class="lab">📚 換科目${GN[g]?`（${GN[g]}・${VN[v]}）`:''}</span>${links.join('')}`;
+    document.body.prepend(bar);
+    const c=bar.querySelector('a.cur');if(c)requestAnimationFrame(()=>{bar.scrollLeft=c.offsetLeft-(bar.clientWidth-c.offsetWidth)/2});
+  }).catch(()=>{});
+})();
+
+</script><!--/subjbar-->
+</body>
+</html>
