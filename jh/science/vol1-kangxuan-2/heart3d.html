@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>3D 心臟與血液循環</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--main:#a8332f;--ink:#1f2a37;--line:#e6e2dc;--bg:#f7f4ef}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0f1724;font-family:"Noto Sans TC",sans-serif;font-size:20px;color:var(--ink);overflow:hidden;-webkit-text-size-adjust:100%}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+.top{position:fixed;top:0;left:0;right:0;display:flex;gap:8px;align-items:center;padding:10px 12px;background:linear-gradient(#0f1724ee,#0f172400);flex-wrap:wrap;z-index:5}
+.top a.back{color:#fff;text-decoration:none;font-size:1rem;opacity:.85;margin-right:4px}
+.tab{border:none;border-radius:99px;padding:8px 16px;font-size:1rem;font-weight:700;background:#ffffff22;color:#fff;font-family:inherit;cursor:pointer}
+.tab.on{background:#fff;color:var(--main)}
+.tools{position:fixed;right:10px;top:64px;display:flex;flex-direction:column;gap:8px;z-index:5}
+.tools button{width:48px;height:48px;border-radius:14px;border:none;background:#ffffffe8;font-size:1.3rem;font-weight:900;color:var(--ink);cursor:pointer;box-shadow:0 2px 8px #0005}
+.panel{position:fixed;left:10px;right:10px;bottom:10px;max-width:760px;margin:0 auto;background:#fffffff2;border-radius:18px;padding:12px 16px;box-shadow:0 6px 24px #0006;z-index:5}
+.panel h3{margin:0 0 4px;font-size:1.1rem;color:var(--main)}
+.panel p{margin:4px 0;line-height:1.6;font-size:1rem}
+.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.row button{border:2px solid var(--line);background:#fff;border-radius:99px;padding:6px 12px;font-size:1rem;font-family:inherit;cursor:pointer;color:var(--ink)}
+.row button.on{background:var(--main);border-color:var(--main);color:#fff}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:1rem;margin-top:4px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:4px;vertical-align:-2px}
+.phase{display:flex;gap:6px;margin:6px 0}
+.phase span{flex:1;text-align:center;padding:4px 2px;border-radius:10px;background:#f1ece6;font-size:1rem;transition:background .2s,color .2s}
+.phase span.on{background:var(--main);color:#fff}
+.hint{position:fixed;max-width:90vw;overflow:hidden;left:50%;top:64px;transform:translateX(-50%);color:#fff;background:#0008;border-radius:99px;padding:4px 14px;font-size:1rem;z-index:4;pointer-events:none;transition:opacity 1s;white-space:nowrap}
+.min{display:none}
+@media (max-width:560px){.panel{padding:8px 12px;left:6px;right:6px;bottom:6px}.panel h3{display:none}.row{margin-top:4px}.row button{padding:4px 10px}.legend{gap:8px}.tab{padding:6px 10px}.hint{display:none}.tools{top:auto;bottom:auto;top:104px}.tools button{width:44px;height:44px}}
+#dbg{position:fixed;left:6px;top:60px;color:#9f9;font:12px monospace;z-index:9}
+</style>
+<script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="top">
+  <a class="back" id="back" href="./">← 回闖關</a>
+  <button class="tab on" data-s="0">🫀 心臟構造與跳動</button>
+  <button class="tab" data-s="1">🔄 體循環與肺循環</button>
+</div>
+<div class="tools">
+  <button id="zin" title="放大">＋</button>
+  <button id="zout" title="縮小">－</button>
+  <button id="reset" title="回到原本角度">⟲</button>
+  <button id="pause" title="暫停／播放">⏸</button>
+  <button id="fold" title="收合／顯示說明">ℹ︎</button>
+</div>
+<div class="hint" id="hint">單指拖曳旋轉・兩指縮放・點構造看說明</div>
+<div class="panel" id="panel"></div>
+<div id="dbg"></div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const $=s=>document.querySelector(s);
+if(document.referrer && !/heart3d/.test(document.referrer)) $('#back').href=document.referrer;
+const LOW = matchMedia('(max-width:820px)').matches || (navigator.hardwareConcurrency||8)<=4;
+const DEBUG = /debug/.test(location.search);
+const RED=new THREE.Color('#e0322c'), BLUE=new THREE.Color('#3567d6');
+
+const canvas=$('#c');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:!LOW,alpha:false});
+renderer.setPixelRatio(Math.min(devicePixelRatio, LOW?1.5:2));
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+
+/* ---------- 共用工具 ---------- */
+function label(text,color='#1f2a37',h=0.05){
+  const f=46, pad=16, c=document.createElement('canvas'), g=c.getContext('2d');
+  g.font=`900 ${f}px "Noto Sans TC",sans-serif`;
+  const w=Math.ceil(g.measureText(text).width)+pad*2; c.width=w; c.height=f+pad*1.4;
+  g.font=`900 ${f}px "Noto Sans TC",sans-serif`;
+  g.fillStyle='rgba(255,255,255,.93)'; const r=20;
+  g.beginPath();g.moveTo(r,0);g.arcTo(w,0,w,c.height,r);g.arcTo(w,c.height,0,c.height,r);g.arcTo(0,c.height,0,0,r);g.arcTo(0,0,w,0,r);g.fill();
+  g.fillStyle=color; g.textBaseline='middle'; g.fillText(text,pad,c.height/2+2);
+  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace;
+  const s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,depthTest:false,sizeAttenuation:false,transparent:true}));
+  s.scale.set(h*w/c.height,h,1); s.renderOrder=20; s.center.set(0.5,0.5);
+  return s;
+}
+function tube(pts,r,color,opts={}){
+  const curve=new THREE.CatmullRomCurve3(pts.map(p=>new THREE.Vector3(...p)));
+  const m=new THREE.Mesh(new THREE.TubeGeometry(curve,LOW?40:80,r,LOW?10:16,false),
+    new THREE.MeshStandardMaterial({color,roughness:.45,metalness:.05,transparent:!!opts.opacity,opacity:opts.opacity??1}));
+  m.userData.curve=curve; return m;
+}
+function lights(scene){
+  scene.add(new THREE.HemisphereLight(0xffffff,0x334466,1.1));
+  const d=new THREE.DirectionalLight(0xffffff,1.6); d.position.set(3,5,6); scene.add(d);
+  const d2=new THREE.DirectionalLight(0xffe0e0,.5); d2.position.set(-4,-2,-3); scene.add(d2);
+}
+function mkView(camPos,target,minD,maxD){
+  const scene=new THREE.Scene(); scene.background=new THREE.Color('#0f1724');
+  const cam=new THREE.PerspectiveCamera(42,1,0.05,100); cam.position.set(...camPos);
+  const ctl=new OrbitControls(cam,canvas); ctl.target.set(...target); ctl.enableDamping=true; ctl.dampingFactor=.08;
+  ctl.minDistance=minD; ctl.maxDistance=maxD; ctl.enablePan=true; ctl.enabled=false; ctl.update();
+  lights(scene);
+  return {scene,cam,ctl,home:{p:new THREE.Vector3(...camPos),t:new THREE.Vector3(...target)},pick:[]};
+}
+
+/* =========================================================
+   場景一：心臟構造與跳動
+   ========================================================= */
+const V1=mkView([0,0.3,8.2],[0,0.3,0],1.6,14);
+const H=new THREE.Group(); V1.scene.add(H);
+const INFO={
+  '右心房':'接收上、下大靜脈送回來的<b>缺氧血</b>，是<b>體循環的終點</b>。血液接著流入右心室。',
+  '右心室':'收縮時把缺氧血送進<b>肺動脈</b>，是<b>肺循環的起點</b>。',
+  '左心房':'接收<b>肺靜脈</b>送回來的<b>充氧血</b>，是<b>肺循環的終點</b>。血液接著流入左心室。',
+  '左心室':'心臟中<b>管壁最厚</b>的腔室，收縮時把充氧血送進<b>主動脈</b>到全身，是<b>體循環的起點</b>。',
+  '房室間瓣膜':'位在心房與心室之間。<b>心室收縮時關閉</b>，防止血液逆流回心房。',
+  '動脈瓣膜':'位在心室與動脈之間。<b>心室舒張時關閉</b>，防止血液倒流回心室。',
+  '主動脈':'全身最粗的<b>動脈</b>，由左心室出發，管壁厚、彈性好、血壓最大，把<b>充氧血</b>送到全身。',
+  '肺動脈':'由右心室出發、通往肺。雖然叫「動脈」，裡面流的卻是<b>缺氧血</b>！（動脈＝離開心臟）',
+  '肺靜脈':'由肺回到左心房。雖然叫「靜脈」，裡面流的卻是<b>充氧血</b>！（靜脈＝回到心臟）',
+  '上大靜脈':'收集頭部、上肢的<b>缺氧血</b>，送回右心房。',
+  '下大靜脈':'收集下半身的<b>缺氧血</b>，送回右心房。',
+  '心肌':'心臟由肌肉（心肌）構成，會規律的<b>收縮與舒張</b>，稱為<b>心搏</b>，是血液流動的動力來源。',
+};
+// 注意：畫面是「面對面」看心臟，心臟的右側在畫面左邊
+const CH={
+  '右心房':{p:[-0.62,0.58,0.08],s:[0.46,0.4,0.4],c:BLUE,atrium:true},
+  '右心室':{p:[-0.32,-0.36,0.24],s:[0.5,0.68,0.4],c:BLUE},
+  '左心房':{p:[0.58,0.64,-0.28],s:[0.44,0.36,0.38],c:RED,atrium:true},
+  '左心室':{p:[0.4,-0.46,-0.08],s:[0.46,0.76,0.44],c:RED,thick:true},
+};
+const shellMat=new THREE.MeshStandardMaterial({color:'#b8454d',roughness:.6,transparent:true,opacity:1,depthWrite:true});
+const sph=new THREE.SphereGeometry(1,LOW?24:40,LOW?18:30);
+for(const [k,o] of Object.entries(CH)){
+  const blood=new THREE.Mesh(sph,new THREE.MeshStandardMaterial({color:o.c,roughness:.35,emissive:o.c,emissiveIntensity:.15}));
+  blood.position.set(...o.p); blood.scale.set(...o.s); blood.userData={name:k,base:o.s.slice()}; H.add(blood); V1.pick.push(blood);
+  const f=o.thick?1.42:1.16;
+  const shell=new THREE.Mesh(sph,shellMat); shell.position.set(...o.p); shell.scale.set(o.s[0]*f,o.s[1]*f*(o.thick?1.04:1.04),o.s[2]*f);
+  shell.userData={name:'心肌',base:[o.s[0]*f,o.s[1]*f*1.04,o.s[2]*f],of:k}; H.add(shell); V1.pick.push(shell);
+  o.blood=blood; o.shell=shell;
+  const l=label(k,o.c===RED?'#c0261f':'#2852b8',0.036); l.position.set(o.p[0]+(o.p[0]<0?-0.12:0.12),o.p[1]+(o.atrium?0.08:-0.1),o.p[2]+0.55); H.add(l); o.label=l;
+}
+// 血管
+const VES={
+  '上大靜脈':{pts:[[-0.78,2.0,0.02],[-0.74,1.3,0.04],[-0.66,0.82,0.06]],r:.13,c:BLUE,lp:[-1.05,1.75,0.1]},
+  '下大靜脈':{pts:[[-0.82,-1.75,-0.1],[-0.8,-0.7,-0.05],[-0.72,0.25,0.02]],r:.14,c:BLUE,lp:[-1.15,-1.4,0]},
+  '肺動脈':{pts:[[-0.22,0.15,0.4],[-0.14,0.65,0.46],[-0.04,1.15,0.34],[0.02,1.38,0.12]],r:.13,c:BLUE,lp:[-0.45,1.05,0.6]},
+  '肺動脈R':{pts:[[0.02,1.38,0.12],[-0.6,1.48,-0.25],[-1.35,1.38,-0.45]],r:.1,c:BLUE},
+  '肺動脈L':{pts:[[0.02,1.38,0.12],[0.6,1.42,-0.05],[1.35,1.32,-0.25]],r:.1,c:BLUE},
+  '主動脈':{pts:[[0.18,0.05,0.02],[0.24,0.8,0.08],[0.22,1.55,-0.02],[0.42,1.92,-0.32],[0.76,1.62,-0.62],[0.82,0.5,-0.82],[0.82,-1.75,-0.82]],r:.15,c:RED,lp:[0.55,2.15,-0.2]},
+  '主動脈分支':{pts:[[0.38,1.9,-0.25],[0.34,2.35,-0.25]],r:.06,c:RED},
+  '肺靜脈':{pts:[[1.42,0.88,-0.55],[1.05,0.72,-0.45],[0.78,0.64,-0.34]],r:.08,c:RED,lp:[1.65,0.6,-0.4]},
+  '肺靜脈R':{pts:[[-1.3,0.78,-0.62],[-0.4,0.72,-0.6],[0.36,0.64,-0.38]],r:.08,c:RED},
+};
+for(const [k,o] of Object.entries(VES)){
+  const m=tube(o.pts,o.r,o.c); m.userData={name:k.replace(/[RL]$|分支$/,'')}; H.add(m); V1.pick.push(m); o.mesh=m;
+  if(o.lp){const l=label(k,o.c===RED?'#c0261f':'#2852b8',0.032); l.position.set(...o.lp); H.add(l);}
+}
+// 瓣膜
+const valveMat=()=>new THREE.MeshStandardMaterial({color:'#fff8e8',roughness:.4,transparent:true,opacity:1,side:THREE.DoubleSide});
+const VALV={
+  av:[{p:[-0.5,0.16,0.16],r:[0.2,0,-0.3]},{p:[0.5,0.2,-0.18],r:[0.15,0,0.3]}],
+  sl:[{p:[-0.2,0.32,0.42],r:[0.2,0,0]},{p:[0.2,0.32,0.03],r:[0,0,0]}],
+};
+const valves={av:[],sl:[]};
+const vgeo=new THREE.CylinderGeometry(0.15,0.15,0.035,LOW?20:32);
+for(const t of ['av','sl']) for(const v of VALV[t]){
+  const m=new THREE.Mesh(vgeo,valveMat()); m.position.set(...v.p); m.rotation.set(...v.r);
+  m.userData={name:t==='av'?'房室間瓣膜':'動脈瓣膜'}; H.add(m); V1.pick.push(m); valves[t].push(m);
+}
+function lead(text,lp,tp){const l=label(text,'#7a5a00',0.03); l.position.set(...lp); H.add(l);
+  const g=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(...lp),new THREE.Vector3(...tp)]);
+  const ln=new THREE.Line(g,new THREE.LineBasicMaterial({color:0xffe9a8,depthTest:false,transparent:true})); ln.renderOrder=19; H.add(ln);}
+lead('房室間瓣膜',[-1.75,0.05,0.4],[-0.5,0.16,0.16]); lead('房室間瓣膜',[1.75,0.0,0.3],[0.5,0.2,-0.18]);
+lead('動脈瓣膜',[-1.6,0.95,0.5],[-0.2,0.32,0.42]); lead('動脈瓣膜',[1.6,1.05,0.3],[0.2,0.32,0.03]);
+
+// 血流粒子（場景一）
+const FLOWS=[
+  {c:BLUE,pts:[[-0.78,2.0,0.02],[-0.7,0.9,0.06],[-0.62,0.58,0.08],[-0.45,0.1,0.18],[-0.32,-0.4,0.24],[-0.22,0.15,0.4],[-0.1,0.9,0.42],[0.02,1.38,0.12],[-0.6,1.48,-0.25],[-1.35,1.38,-0.45]]},
+  {c:BLUE,pts:[[-0.82,-1.75,-0.1],[-0.78,-0.5,-0.04],[-0.62,0.5,0.08],[-0.45,0.1,0.18],[-0.3,-0.45,0.24],[-0.22,0.15,0.4],[-0.06,1.1,0.36],[0.02,1.38,0.12],[0.6,1.42,-0.05],[1.35,1.32,-0.25]]},
+  {c:RED,pts:[[1.42,0.88,-0.55],[0.9,0.68,-0.38],[0.58,0.64,-0.28],[0.48,0.15,-0.15],[0.4,-0.5,-0.08],[0.18,0.05,0.02],[0.24,0.9,0.08],[0.22,1.55,-0.02],[0.45,1.9,-0.34],[0.78,1.55,-0.64],[0.82,0.3,-0.82],[0.82,-1.75,-0.82]]},
+  {c:RED,pts:[[-1.3,0.78,-0.62],[-0.3,0.72,-0.58],[0.55,0.62,-0.3],[0.46,0.1,-0.14],[0.38,-0.55,-0.08],[0.18,0.05,0.02],[0.24,0.9,0.08],[0.22,1.55,-0.02],[0.45,1.9,-0.34],[0.78,1.55,-0.64],[0.82,0.3,-0.82],[0.82,-1.75,-0.82]]},
+].map(f=>({...f,curve:new THREE.CatmullRomCurve3(f.pts.map(p=>new THREE.Vector3(...p)))}));
+const bgeo=new THREE.SphereGeometry(0.045,8,6);
+const dots=[];
+const NPER=LOW?14:22;
+for(const f of FLOWS){
+  const mat=new THREE.MeshBasicMaterial({color:f.c});
+  const im=new THREE.InstancedMesh(bgeo,mat,NPER); H.add(im);
+  const ts=[...Array(NPER)].map((_,i)=>i/NPER); dots.push({f,im,ts});
+}
+const tmpM=new THREE.Matrix4();
+const PH=[
+  {k:'心房收縮',t:'<b>心房收縮</b>：血液由心房擠進心室，<b>房室間瓣膜打開</b>、動脈瓣膜關閉。'},
+  {k:'心室收縮',t:'<b>心室收縮</b>：<b>房室間瓣膜關閉</b>（發出「撲」）、動脈瓣膜打開，血液由心室擠進<b>動脈</b>。同時動脈管壁擴張，摸得到<b>脈搏</b>。'},
+  {k:'全部舒張',t:'<b>心房、心室舒張</b>：<b>動脈瓣膜關閉</b>（發出「通」），血液由<b>靜脈</b>流回心房，再流進心室。'},
+];
+let beatT=0, BEAT=2.6, paused=false, curPhase=-1, sel1=null;
+function phaseOf(u){return u<0.22?0:u<0.58?1:2}
+function updateHeart(dt){
+  if(!paused) beatT=(beatT+dt/BEAT)%1;
+  const u=beatT, ph=phaseOf(u);
+  const aS = ph===0 ? Math.sin(u/0.22*Math.PI) : 0;
+  const vS = ph===1 ? Math.sin((u-0.22)/0.36*Math.PI) : 0;
+  for(const o of Object.values(CH)){
+    const k=o.atrium? 1-0.16*aS : 1-0.15*vS;
+    o.blood.scale.set(...o.blood.userData.base.map(v=>v*k));
+    o.shell.scale.set(...o.shell.userData.base.map(v=>v*(o.atrium?1-0.12*aS:1-0.12*vS)));
+  }
+  const avOpen = ph!==1, slOpen = ph===1;
+  for(const m of valves.av){m.material.opacity+=( (avOpen?0.18:1)-m.material.opacity)*0.25; m.scale.setScalar(avOpen?0.55:1)}
+  for(const m of valves.sl){m.material.opacity+=( (slOpen?0.18:1)-m.material.opacity)*0.25; m.scale.setScalar(slOpen?0.55:1)}
+  const sp=(paused?0:dt)*(0.05+0.22*vS+0.08*aS);
+  for(const d of dots){
+    for(let i=0;i<d.ts.length;i++){
+      d.ts[i]=(d.ts[i]+sp)%1; const p=d.f.curve.getPoint(d.ts[i]);
+      tmpM.makeTranslation(p.x,p.y,p.z); d.im.setMatrixAt(i,tmpM);
+    }
+    d.im.instanceMatrix.needsUpdate=true;
+  }
+  if(ph!==curPhase){curPhase=ph; document.querySelectorAll('#phase span').forEach((s,i)=>s.classList.toggle('on',i===ph)); const pt=$('#phtxt'); if(pt&&!sel1) pt.innerHTML=PH[ph].t;}
+}
+let cut=false;
+function setCut(v){cut=v; shellMat.opacity=v?0.22:1; shellMat.depthWrite=!v; shellMat.needsUpdate=true;
+  for(const o of Object.values(CH)) o.label.visible=v;
+  document.querySelectorAll('[data-cut]').forEach(b=>b.classList.toggle('on',(b.dataset.cut==='1')===v));}
+function panel1(){
+  $('#panel').innerHTML=`<h3>🫀 心臟的構造與跳動</h3>
+  <div class="phase" id="phase">${PH.map(p=>`<span>${p.k}</span>`).join('')}</div>
+  <p id="phtxt">${PH[Math.max(curPhase,0)].t}</p>
+  <div class="legend"><span><i style="background:#e0322c"></i>充氧血（鮮紅）</span><span><i style="background:#3567d6"></i>缺氧血（實際為暗紅色）</span></div>
+  <div class="row"><button data-cut="0">外觀</button><button data-cut="1">透視內部</button><button id="slow">🐢 慢速</button><button id="norm">正常速度</button></div>`;
+  document.querySelectorAll('[data-cut]').forEach(b=>b.onclick=()=>setCut(b.dataset.cut==='1')); setCut(cut);
+  $('#slow').onclick=()=>{BEAT=5;mark()}; $('#norm').onclick=()=>{BEAT=2.6;mark()};
+  function mark(){$('#slow').classList.toggle('on',BEAT===5);$('#norm').classList.toggle('on',BEAT!==5)} mark();
+  curPhase=-1;
+}
+setCut(true);
+
+/* =========================================================
+   場景二：體循環與肺循環
+   ========================================================= */
+const V2=mkView([0,0.15,13.5],[0,0.15,0],3,22);
+const G=new THREE.Group(); G.scale.set(1,0.82,1); V2.scene.add(G);
+// 迴路控制點：[名稱, 座標, 含氧(1紅0藍)]
+const LOOPS=[
+ [ // 左肺（畫面左）＋下半身
+  ['右心房',[-0.55,0.4,0],0],['右心室',[-0.45,-0.42,0.1],0],['',[-0.2,0.55,0.35],0],['肺動脈',[-0.9,1.55,0.4],0],['',[-1.8,2.05,0.3],0],
+  ['肺部微血管',[-2.35,2.45,0.15],0.2],['',[-2.75,2.2,0],0.55],['',[-2.6,1.75,-0.15],0.85],['',[-2.1,1.5,-0.25],1],['肺靜脈',[-1.1,1.0,-0.45],1],
+  ['左心房',[0.55,0.42,-0.2],1],['左心室',[0.45,-0.42,0],1],['',[0.2,0.6,-0.05],1],['主動脈',[0.4,1.55,-0.3],1],['',[1.15,1.35,-0.55],1],
+  ['',[1.35,-0.5,-0.55],1],['',[1.2,-2.2,-0.3],1],['全身微血管',[0.8,-3.05,0.15],0.75],['',[0.25,-3.35,0.3],0.45],['',[-0.35,-3.3,0.3],0.2],
+  ['',[-0.9,-3.0,0.2],0],['下大靜脈',[-1.3,-1.8,0.2],0],['',[-1.15,-0.3,0.15],0],
+ ],
+ [ // 右肺（畫面右）＋頭部
+  ['右心房',[-0.55,0.4,0],0],['右心室',[-0.45,-0.42,0.1],0],['',[-0.1,0.6,0.4],0],['肺動脈',[0.9,1.6,0.45],0],['',[1.8,2.05,0.35],0],
+  ['肺部微血管',[2.35,2.45,0.15],0.2],['',[2.75,2.2,0],0.55],['',[2.6,1.75,-0.15],0.85],['',[2.1,1.5,-0.25],1],['肺靜脈',[1.2,1.0,-0.4],1],
+  ['左心房',[0.55,0.42,-0.2],1],['左心室',[0.45,-0.42,0],1],['',[0.2,0.6,-0.05],1],['主動脈',[0.3,1.6,-0.3],1],['',[0.25,2.6,-0.3],1],
+  ['全身微血管',[0.35,3.45,-0.1],0.75],['',[0,3.75,0],0.45],['',[-0.35,3.45,0.05],0.2],['',[-0.4,2.7,0.1],0],['上大靜脈',[-0.55,1.6,0.1],0],
+ ],
+];
+const loops=LOOPS.map(L=>{
+  const curve=new THREE.CatmullRomCurve3(L.map(x=>new THREE.Vector3(...x[1])),true,'catmullrom',0.4);
+  return {L,curve,n:L.length};
+});
+function oxyAt(lp,t){const f=t*lp.n, i=Math.floor(f)%lp.n, j=(i+1)%lp.n, a=f-Math.floor(f); return lp.L[i][2]*(1-a)+lp.L[j][2]*a}
+function nameAt(lp,t){let i=Math.floor(t*lp.n)%lp.n; for(let k=0;k<lp.n;k++){const n=lp.L[(i-k+lp.n)%lp.n][0]; if(n) return n} return ''}
+// 依 t 範圍切成肺循環、體循環兩組血管
+const tubes2={pul:[],sys:[]};
+function idx(lp,name){return lp.L.findIndex(x=>x[0]===name)}
+for(const lp of loops){
+  const iRV=idx(lp,'右心室'), iLA=idx(lp,'左心房'), iLV=idx(lp,'左心室');
+  const parts=[['pul',iRV,iLA],['sys',iLV,iRV+lp.n]];
+  for(const [kind,a,b] of parts){
+    const segs=(b-a)*(LOW?10:16), r=0.11;
+    const pts=[]; for(let s=0;s<=segs;s++){const t=((a+(b-a)*s/segs)/lp.n)%1; pts.push(lp.curve.getPoint(t))}
+    const c=new THREE.CatmullRomCurve3(pts);
+    const geo=new THREE.TubeGeometry(c,segs,r,LOW?8:12,false);
+    const col=[]; const ring=(LOW?8:12)+1;
+    for(let s=0;s<=segs;s++){const t=((a+(b-a)*s/segs)/lp.n)%1; const cc=BLUE.clone().lerp(RED,oxyAt(lp,t)); for(let k=0;k<ring;k++) col.push(cc.r,cc.g,cc.b)}
+    geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
+    const m=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({vertexColors:true,roughness:.45,transparent:true,opacity:.55,depthWrite:false}));
+    G.add(m); tubes2[kind].push(m);
+  }
+}
+// 心臟（簡化四格）
+const mini={};
+for(const [k,p,c] of [['右心房',[-0.55,0.4,0],BLUE],['右心室',[-0.45,-0.42,0.1],BLUE],['左心房',[0.55,0.42,-0.2],RED],['左心室',[0.45,-0.42,0],RED]]){
+  const m=new THREE.Mesh(sph,new THREE.MeshStandardMaterial({color:c,roughness:.4,transparent:true,opacity:.9}));
+  m.position.set(...p); m.scale.set(0.42,0.38,0.36); m.userData={name:k}; G.add(m); V2.pick.push(m); mini[k]=m;
+  const l=label(k,c===RED?'#c0261f':'#2852b8',0.034); const LP={'右心房':[-1.2,0.75,0.4],'左心房':[1.2,0.8,0.2],'右心室':[-1.05,-0.75,0.4],'左心室':[1.05,-0.75,0.4]}; l.position.set(...LP[k]); G.add(l);
+}
+// 肺、全身組織
+const lungMat=new THREE.MeshStandardMaterial({color:'#f2a7b6',roughness:.8,transparent:true,opacity:.35,depthWrite:false});
+for(const x of [-2.45,2.45]){const m=new THREE.Mesh(sph,lungMat); m.position.set(x,2.05,0); m.scale.set(0.85,1.15,0.6); m.userData={name:'肺'}; G.add(m); V2.pick.push(m);}
+const tisMat=new THREE.MeshStandardMaterial({color:'#e8c9a0',roughness:.9,transparent:true,opacity:.28,depthWrite:false});
+{const m=new THREE.Mesh(sph,tisMat); m.position.set(0,-3.2,0.2); m.scale.set(1.5,0.55,0.6); m.userData={name:'全身組織'}; G.add(m); V2.pick.push(m);}
+{const m=new THREE.Mesh(sph,tisMat); m.position.set(0,3.5,0); m.scale.set(0.75,0.6,0.5); m.userData={name:'頭部組織'}; G.add(m); V2.pick.push(m);}
+for(const [t,p,c] of [['肺',[-2.45,3.45,0],'#b03a5b'],['肺',[2.45,3.45,0],'#b03a5b'],['全身組織（下半身）',[0,-4.0,0.3],'#7a5520'],['頭部、上肢',[0,4.35,0],'#7a5520'],
+  ['肺動脈',[-1.5,1.55,0.7],'#2852b8'],['肺靜脈',[-2.15,1.0,-0.3],'#c0261f'],['主動脈',[2.0,0.25,-0.4],'#c0261f'],['下大靜脈',[-1.75,-1.6,0.3],'#2852b8'],['上大靜脈',[-0.8,2.75,0.2],'#2852b8']]){
+  const l=label(t,c,0.042); l.position.set(...p); G.add(l);
+}
+INFO['肺']='在<b>肺部微血管</b>：二氧化碳由血液擴散到肺泡、氧氣由肺泡擴散進血液 → <b>缺氧血變成充氧血</b>。';
+INFO['全身組織']='在<b>全身微血管</b>：氧氣由血液擴散到組織細胞、二氧化碳由細胞擴散進血液 → <b>充氧血變成缺氧血</b>。';
+INFO['頭部組織']=INFO['全身組織'];
+// 血液粒子
+const N2=LOW?60:110;
+const pgeo=new THREE.SphereGeometry(0.06,8,6);
+const pim=new THREE.InstancedMesh(pgeo,new THREE.MeshBasicMaterial({color:0xffffff}),N2); G.add(pim);
+const ps=[...Array(N2)].map((_,i)=>({lp:loops[i%2],t:(i/N2*7.3)%1}));
+const tcol=new THREE.Color();
+// 氣體交換小點
+const GAS=LOW?24:48;
+const gim=new THREE.InstancedMesh(new THREE.SphereGeometry(0.035,6,4),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.95}),GAS); G.add(gim);
+const gas=[...Array(GAS)].map(()=>({life:Math.random(),from:new THREE.Vector3(),to:new THREE.Vector3(),o2:true}));
+const BEDS=[{c:[-2.5,2.15,0],lung:true},{c:[2.5,2.15,0],lung:true},{c:[0,-3.2,0.2],lung:false},{c:[0,3.5,0],lung:false}];
+function respawn(g){const b=BEDS[Math.floor(Math.random()*BEDS.length)]; g.o2=Math.random()<.5; const c=new THREE.Vector3(...b.c);
+  const off=new THREE.Vector3((Math.random()-.5)*1.2,(Math.random()-.5)*0.7,(Math.random()-.5)*0.6);
+  const inV=c.clone().add(off.clone().multiplyScalar(0.35)), outV=c.clone().add(off);
+  // 肺：O2 由外（肺泡）→血；CO2 由血→外。組織：相反
+  const intoBlood = b.lung ? g.o2 : !g.o2;
+  g.from.copy(intoBlood?outV:inV); g.to.copy(intoBlood?inV:outV); g.life=0;}
+gas.forEach(g=>{respawn(g);g.life=Math.random()});
+let mode='all', follow=null, tour=false;
+const TXT={
+  '左心室':'<b>左心室</b>收縮，把鮮紅的<b>充氧血</b>打進主動脈——<b>體循環的起點</b>。',
+  '主動脈':'<b>主動脈</b>：最粗的動脈，管壁厚、血壓最大，把充氧血送往全身。',
+  '全身微血管':'<b>全身微血管</b>：氧氣擴散進組織細胞，二氧化碳擴散進血液 → 變成暗紅的<b>缺氧血</b>。血流在這裡最慢，方便交換。',
+  '下大靜脈':'<b>下大靜脈</b>：收集下半身的缺氧血送回心臟。',
+  '上大靜脈':'<b>上大靜脈</b>：收集頭部、上肢的缺氧血送回心臟。',
+  '右心房':'回到<b>右心房</b>——<b>體循環的終點</b>。接著流入右心室。',
+  '右心室':'<b>右心室</b>收縮，把缺氧血送進肺動脈——<b>肺循環的起點</b>。',
+  '肺動脈':'<b>肺動脈</b>：雖然叫動脈，裡面流的是<b>缺氧血</b>！',
+  '肺部微血管':'<b>肺部微血管</b>：二氧化碳擴散到肺泡，氧氣擴散進血液 → 變回鮮紅的<b>充氧血</b>。',
+  '肺靜脈':'<b>肺靜脈</b>：雖然叫靜脈，裡面流的是<b>充氧血</b>！送回左心房。',
+  '左心房':'回到<b>左心房</b>——<b>肺循環的終點</b>。接著流入左心室，再出發一次。',
+};
+function inMode(lp,t){
+  const i=Math.floor(t*lp.n)%lp.n, iRV=idx(lp,'右心室'), iLA=idx(lp,'左心房');
+  const pul = i>=iRV && i<iLA;
+  return mode==='all' || (mode==='pul'?pul:!pul);
+}
+function setMode(m){mode=m;
+  tubes2.pul.forEach(x=>x.material.opacity=(m==='sys'?0.08:0.55)); tubes2.sys.forEach(x=>x.material.opacity=(m==='pul'?0.08:0.55));
+  document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===m));
+  const t={all:'兩種循環<b>同時</b>進行：右心送血到肺（肺循環），左心送血到全身（體循環）。',
+    sys:'<b>體循環</b>：左心室 → 主動脈 → 全身微血管 → 上、下大靜脈 → 右心房。',
+    pul:'<b>肺循環</b>：右心室 → 肺動脈 → 肺部微血管 → 肺靜脈 → 左心房。'}[m];
+  if(!tour) $('#ctxt').innerHTML=t;
+}
+let lastName='';
+function updateCirc(dt){
+  const sp=paused?0:dt;
+  for(let i=0;i<N2;i++){
+    const p=ps[i]; p.t=(p.t+sp*0.045)%1;
+    const v=p.lp.curve.getPoint(p.t);
+    const show=inMode(p.lp,p.t);
+    tmpM.makeScale(show?1:0.001,show?1:0.001,show?1:0.001).setPosition(v.x,v.y,v.z); pim.setMatrixAt(i,tmpM);
+    tcol.copy(BLUE).lerp(RED,oxyAt(p.lp,p.t)); pim.setColorAt(i,tcol);
+  }
+  pim.instanceMatrix.needsUpdate=true; pim.instanceColor.needsUpdate=true;
+  for(let i=0;i<GAS;i++){const g=gas[i]; g.life+=sp*0.6; if(g.life>=1) respawn(g);
+    const v=g.from.clone().lerp(g.to,g.life); const s=Math.sin(g.life*Math.PI);
+    tmpM.makeScale(s,s,s).setPosition(v.x,v.y,v.z); gim.setMatrixAt(i,tmpM); gim.setColorAt(i,tcol.set(g.o2?'#ffffff':'#7d8590'));}
+  gim.instanceMatrix.needsUpdate=true; gim.instanceColor.needsUpdate=true;
+  const hb=1+0.05*Math.max(0,Math.sin(performance.now()/1000*Math.PI*2/1.3)); for(const m of Object.values(mini)) m.scale.set(0.42*hb,0.38*hb,0.36*hb);
+  if(follow){
+    follow.t=(follow.t+sp*0.03)%1; const v=follow.lp.curve.getPoint(follow.t);
+    follow.mesh.position.copy(v); follow.mesh.material.color.copy(BLUE).lerp(RED,oxyAt(follow.lp,follow.t));
+    V2.ctl.target.lerp(v,0.06);
+    const nm=nameAt(follow.lp,follow.t); if(nm!==lastName){lastName=nm; if(TXT[nm]) $('#ctxt').innerHTML='🔴 一滴血的旅行：'+TXT[nm];}
+  }
+}
+const star=new THREE.Mesh(new THREE.SphereGeometry(0.16,16,12),new THREE.MeshBasicMaterial({color:RED}));
+const halo=new THREE.Mesh(new THREE.SphereGeometry(0.26,16,12),new THREE.MeshBasicMaterial({color:0xffff66,transparent:true,opacity:.35,depthWrite:false}));
+star.add(halo); star.visible=false; G.add(star);
+function startTour(){
+  tour=!tour; const b=$('#tour');
+  if(tour){const lp=loops[0]; follow={lp,t:idx(lp,'左心室')/lp.n,mesh:star}; star.visible=true; lastName=''; b.textContent='⏹ 停止旅行'; b.classList.add('on');
+    V2.cam.position.lerp(new THREE.Vector3(0,0.5,6.5),1);}
+  else{follow=null; star.visible=false; b.textContent='🔴 一滴血的旅行'; b.classList.remove('on'); setMode(mode); V2.ctl.target.copy(V2.home.t);}
+}
+function panel2(){
+  $('#panel').innerHTML=`<h3>🔄 體循環與肺循環</h3>
+  <p id="ctxt"></p>
+  <div class="legend"><span><i style="background:#e0322c"></i>充氧血</span><span><i style="background:#3567d6"></i>缺氧血</span><span><i style="background:#fff;border:1px solid #999"></i>氧氣</span><span><i style="background:#7d8590"></i>二氧化碳</span></div>
+  <div class="row"><button data-mode="all">兩種一起看</button><button data-mode="sys">只看體循環</button><button data-mode="pul">只看肺循環</button><button id="tour">🔴 一滴血的旅行</button></div>`;
+  document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
+  $('#tour').onclick=startTour; tour=!tour; startTour(); setMode(mode);
+}
+
+/* ---------- 切換、點選、迴圈 ---------- */
+const VIEWS=[V1,V2]; let cur=0;
+function show(i){cur=i; VIEWS.forEach((v,k)=>v.ctl.enabled=k===i);
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',+b.dataset.s===i));
+  sel1=null; (i===0?panel1:panel2)(); resize();}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>show(+b.dataset.s));
+$('#zin').onclick=()=>zoom(0.8); $('#zout').onclick=()=>zoom(1.25);
+function zoom(f){const v=VIEWS[cur]; const d=v.cam.position.clone().sub(v.ctl.target); const L=THREE.MathUtils.clamp(d.length()*f,v.ctl.minDistance,v.ctl.maxDistance); v.cam.position.copy(v.ctl.target).add(d.setLength(L));}
+$('#reset').onclick=()=>{const v=VIEWS[cur]; v.cam.position.copy(v.home.p); v.ctl.target.copy(v.home.t); if(cur===1&&tour) startTour();};
+$('#fold').onclick=()=>{const p=$('#panel');const h=p.style.display==='none';p.style.display=h?'':'none';$('#fold').style.opacity=h?1:.6};
+$('#pause').onclick=()=>{paused=!paused; $('#pause').textContent=paused?'▶':'⏸'};
+const ray=new THREE.Raycaster(), ndc=new THREE.Vector2(); let down=null;
+canvas.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY]});
+canvas.addEventListener('pointerup',e=>{
+  if(!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>6) return;
+  const r=canvas.getBoundingClientRect(); ndc.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);
+  const v=VIEWS[cur]; ray.setFromCamera(ndc,v.cam);
+  const vis=v.pick.filter(m=>m.visible && !(cur===0 && !cut && m.userData.name!=='心肌' && CH[m.userData.name]));
+  const hit=ray.intersectObjects(vis,false)[0]; if(!hit) return;
+  const n=hit.object.userData.name; const info=INFO[n]; if(!info) return;
+  if(cur===0){sel1=n; $('#phtxt').innerHTML=`👉 <b>${n}</b>：${info}`; clearTimeout(sel1t); sel1t=setTimeout(()=>{sel1=null},6000);}
+  else $('#ctxt').innerHTML=`👉 <b>${n}</b>：${info}`;
+});
+let sel1t;
+function resize(){const w=innerWidth,h=innerHeight; renderer.setSize(w,h,false);
+  for(const v of VIEWS){v.cam.aspect=w/h; v.cam.fov=w<h?58:42; v.cam.updateProjectionMatrix();}}
+addEventListener('resize',resize);
+setTimeout(()=>$('#hint').style.opacity=0,5000);
+const clock=new THREE.Clock(); let fpsN=0,fpsT=0;
+function loop(){
+  const dt=Math.min(clock.getDelta(),0.05);
+  const v=VIEWS[cur];
+  if(cur===0) updateHeart(dt); else updateCirc(dt);
+  const pnl=$('#panel'), ph=pnl.style.display==='none'?0:pnl.offsetHeight, top=56, sh=Math.round((ph-top)/2);
+  if(v.cam.view==null||v.cam.view.offsetY!==sh||v.cam.view.fullWidth!==innerWidth||v.cam.view.fullHeight!==innerHeight){v.cam.setViewOffset(innerWidth,innerHeight,0,sh,innerWidth,innerHeight);}
+  v.ctl.update(); renderer.render(v.scene,v.cam);
+  if(DEBUG){fpsN++;fpsT+=dt;if(fpsT>1){$('#dbg').textContent=`fps ${fpsN} calls ${renderer.info.render.calls}`;fpsN=0;fpsT=0}}
+  requestAnimationFrame(loop);
+}
+show(/circ/.test(location.hash)?1:0); loop();
+</script>
+<noscript>這個頁面需要開啟 JavaScript。</noscript>
+</body>
+</html>
