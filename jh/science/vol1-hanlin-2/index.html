@@ -518,6 +518,7 @@ u4:{
   ]
 },
 u5:{
+  h3d:'',
   no:'4-3', title:'人體心血管系統的組成', author:'心臟、血管、血液、實驗4-2', color:'linear-gradient(135deg,#a8332f,#e2725b)',
   desc:'四腔室與瓣膜｜動脈、微血管、靜脈｜三種血球｜心音與脈搏', code:5, quickAsk:'選出正確答案',
   map:[['心臟','胸腔中央偏左；左右心房（上）、左右心室（下）；心房與心室、心室與動脈之間有瓣膜防逆流'],['心搏','收縮：心室→動脈；舒張：靜脈→心房→心室'],
@@ -584,6 +585,7 @@ u5:{
   ]
 },
 u6:{
+  h3d:'#circ',
   no:'4-4', title:'人體的循環系統', author:'體循環、肺循環、淋巴、三道防線', color:'linear-gradient(135deg,#2b4c7e,#5b84c4)',
   desc:'體循環 vs 肺循環｜充氧血與缺氧血｜組織液與淋巴｜三道防線與疫苗', code:6, quickAsk:'選出正確答案',
   map:[['體循環','左心室→主動脈→全身微血管（給氧、收二氧化碳）→大靜脈→右心房'],['肺循環','右心室→肺動脈→肺部微血管（放二氧化碳、收氧）→肺靜脈→左心房'],
@@ -1149,7 +1151,10 @@ function extraCard(d){
 }
 function animUnit(p){
   const d=L[cur];
-  p.innerHTML=stage(extraCard(d));
+  const h3=d.h3d===undefined?'':`<a class="card" href="heart3d.html${d.h3d}" style="display:block;text-decoration:none;background:linear-gradient(135deg,#7a1f2b,#c0392b);color:#fff;margin-bottom:16px">
+    <div style="font-size:1.4rem;font-weight:900">🫀 ${d.h3d?'3D 血液循環動畫':'3D 心臟動畫'}　→</div>
+    <div style="margin-top:6px;line-height:1.6">${d.h3d?'看體循環、肺循環的血液怎麼流，跟著「一滴血的旅行」逐站解說；可以旋轉、放大縮小。':'四個腔室、瓣膜怎麼開關、心臟怎麼跳；可以旋轉、放大縮小，點構造看說明。'}</div></a>`;
+  p.innerHTML=h3+stage(extraCard(d));
   const steps=d.steps.filter(s=>(s.imgs||s.split||[]).every(x=>!window.IMGOK||IMGOK.has(x.img)));
   stepper(p,steps,i=>showPhoto(steps[i]),7500);
 }
