@@ -8,7 +8,7 @@
 用法：python3 scripts/es-english/build.py            （產生全部開放的冊別）
 資料：scripts/es-english/books/<path>.py 裡的 BOOK 字典（題目全數自編，不含學校名稱）。
 """
-import hashlib, importlib.util, json, os, re, sys
+import hashlib, html, importlib.util, json, os, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
@@ -37,6 +37,36 @@ def load(path):
 
 # ---------- 國小專用：動畫（emoji 場景）、首頁、綜合頁 ----------
 ES_CSS = r"""
+/* ===== 可愛風格 ===== */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&display=swap');
+:root{--bg:#fff7fb;--line:#f6d9e6;--hi:#fff1c9;--ok:#38b07a;--bad:#f0647a;--shadow:0 6px 0 rgba(233,170,200,.35),0 10px 24px rgba(200,120,170,.12)}
+body{background-color:var(--bg);background-image:radial-gradient(#ffd6e8 1.4px,transparent 1.6px),radial-gradient(#d9ecff 1.4px,transparent 1.6px);background-size:34px 34px;background-position:0 0,17px 17px}
+.en,.qword,.ps,.etag{font-family:"Baloo 2",Nunito,"Noto Sans TC",sans-serif}
+header.hero{position:relative;overflow:hidden;border-radius:0 0 36px 36px;padding:34px 0 40px}
+header.hero::after{content:"⭐ 🌈 ☁️ 🍭 ⭐";position:absolute;right:18px;top:14px;font-size:1.6rem;letter-spacing:.3em;opacity:.85;animation:bob 3s ease-in-out infinite}
+.hero h1{text-shadow:0 3px 0 rgba(0,0,0,.12)}
+.mascot{position:absolute;right:22px;bottom:-6px;font-size:4.2rem;animation:bob 2.6s ease-in-out infinite;filter:drop-shadow(0 4px 4px rgba(0,0,0,.15))}
+.mascot b{position:absolute;right:70px;top:-6px;font-size:.95rem;background:#fff;color:#c2477e;border-radius:16px 16px 4px 16px;padding:4px 12px;white-space:nowrap;box-shadow:0 3px 8px rgba(0,0,0,.12)}
+@media(max-width:640px){.mascot{font-size:3rem}.mascot b{display:none}header.hero::after{display:none}}
+.card{border-radius:26px!important;border:3px solid #fde3ee;box-shadow:var(--shadow)!important}
+.tab{border-radius:99px!important;border:2px solid #fbd3e4!important;font-weight:700}
+.tab.on{box-shadow:0 4px 0 rgba(0,0,0,.15)}
+.sub{border-radius:18px!important;font-weight:700}
+.btn,.opt,.o{border-radius:18px!important;transition:transform .12s}
+.btn{box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.btn:active,.opt:active,.o:active{transform:translateY(3px) scale(.98)}
+.opt{border-width:3px!important;font-size:1.15rem}
+.opt.ok,.o.ok{animation:yay .5s ease}
+@keyframes yay{0%{transform:scale(1)}40%{transform:scale(1.08) rotate(-2deg)}100%{transform:scale(1)}}
+.lc{border-radius:24px!important;box-shadow:0 6px 0 rgba(0,0,0,.12)!important;position:relative;overflow:hidden}
+.lc::after{content:"";position:absolute;right:-20px;bottom:-20px;width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.18)}
+.chips span{border-radius:99px!important}
+.fill{background:linear-gradient(90deg,#ff9ac1,#ffd166)!important;border-radius:99px}
+.track{border-radius:99px!important}
+.estage{border-radius:28px!important;background:linear-gradient(160deg,#fff4fb,#ffe6f1 50%,#e6f3ff)!important;border:3px dashed #ffc2db}
+.estage img{max-height:78%;max-width:92%;border-radius:22px;box-shadow:0 6px 18px rgba(0,0,0,.12);animation:popin .5s ease both}
+.lc .cv{position:absolute;right:10px;bottom:8px;width:64px;height:64px;border-radius:16px;object-fit:cover;opacity:.95}
+.tagbadge{display:inline-block;font-size:.8rem;border-radius:99px;padding:0 8px;margin-left:6px;background:#ffe3ef;color:#b0306a;vertical-align:middle}
 /* 國小版：emoji 場景舞台 */
 .estage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:linear-gradient(160deg,#fff7e0,#ffe2c2 55%,#ffd0a8);display:flex;align-items:center;justify-content:center;flex-direction:column}
 .estage .emo{font-size:clamp(3.2rem,11vw,7rem);line-height:1.15;text-align:center;letter-spacing:.08em;animation:bob 2.4s ease-in-out infinite}
@@ -57,7 +87,7 @@ ES_JS = r"""
 function eStage(){return `<div class="estage" id="es"><button class="esay" id="esSay">🔊 聽一聽</button><div class="emo" id="esE"></div><div class="etag en" id="esT"></div></div>`}
 function showScene(st){
   const E=$('#esE'),T=$('#esT');if(!E)return;
-  E.innerHTML=[...st.emo].filter(c=>c.trim()).map((c,i)=>`<span style="animation-delay:${i*.12}s">${c}</span>`).join('');
+  E.innerHTML=st.img&&IMGS.has(st.img)?`<img src="img/${st.img}.png" alt="">`:[...st.emo].filter(c=>c.trim()).map((c,i)=>`<span style="animation-delay:${i*.12}s">${c}</span>`).join('');
   T.textContent=st.tag||'';
   $('#esSay').onclick=()=>say(st.tag||'');
 }
@@ -148,6 +178,100 @@ ASK = {'e': '選出正確的中文意思', 'c': '選出正確的英文', 's': '�
        'p': '選出正確的複數'}
 
 
+# ---------- 原卷題、挑戰題 ----------
+def merge_extra(book):
+    L = book['units']
+    hp = os.path.join(HERE, 'hard', book['path'] + '.py')
+    if os.path.exists(hp):
+        spec = importlib.util.spec_from_file_location('h', hp); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+        H = m.HARD
+        for k, qs in H.get('units', {}).items():
+            L[k]['hard'] = qs
+        for k, qs in H.get('quick', {}).items():
+            L[k]['quick'] = L[k]['quick'] + qs
+        book['cloze'] = book['cloze'] + H.get('cloze', [])
+        book['read'] = book['read'] + H.get('read', [])
+    key = book['path'].replace('-exam2', '')
+    orig = json.load(open(os.path.join(HERE, 'orig.json'), encoding='utf-8'))
+    for q in orig:
+        if q['book'] != key:
+            continue
+        u = q['unit'] if q['unit'] in L and q['unit'] != 'review' else 'gram'
+        L[u].setdefault('orig', []).append({'q': q['q'].replace('\n', '　'), 'o': q['o'], 'a': q['a'], 'src': '原卷題', 'ex': q['ex']})
+    for d in L.values():
+        if 'subs' in d:
+            d['subs'] = d['subs'] + ([['orig', '📄 原卷題']] if d.get('orig') else []) + ([['hard', '🔥 挑戰題']] if d.get('hard') else [])
+
+
+# ---------- 微軟 Neural 語音（edge-tts 預錄 mp3；檔名＝頁面 akey() 的 FNV-1a 雜湊） ----------
+VOICE = 'en-US-AnaNeural'
+IS_EN = re.compile(r"^[A-Za-z][A-Za-z0-9 '’\-/.…,?!\"]*$")
+
+
+def norm_say(t):
+    t = re.sub(r'<br\s*/?>', ' ', t, flags=re.I); t = re.sub(r'<[^>]+>', '', t); t = html.unescape(t)
+    t = t.replace('’', "'").replace('‘', "'").replace('“', '"').replace('”', '"').replace('…', ' ')
+    t = re.sub(r'___+', 'blank', t)
+    return re.sub(r'\s+', ' ', t).strip()
+
+
+def akey(t):
+    h = 0x811c9dc5
+    b = t.encode('utf-16-le')
+    for i in range(0, len(b), 2):
+        h ^= b[i] | (b[i + 1] << 8)
+        h = (h * 0x01000193) & 0xffffffff
+    return '%08x' % h
+
+
+def say_texts(book):
+    out = set()
+    add = lambda t: out.add(norm_say(t)) if t and norm_say(t) else None
+    for d in book['units'].values():
+        for it in d.get('quick', []):
+            q, a, typ = it[0], it[1], it[4]
+            if IS_EN.match(q.strip()) and typ not in 'su': add(q)
+            if IS_EN.match(a.strip()) and typ not in 'eu': add(a)
+        for sc in d.get('scenes', []): add(sc.get('tag', ''))
+        for w in d.get('vocab', []): add(w[0])
+        for mo in d.get('morph', []):
+            for v in mo['v']: add(v['t'])
+    for t in book['trans']: add(t[1])
+    for c in book['cloze'] + book['read']: add(re.sub(r'__\d__', 'blank', c['text']))
+    return out
+
+
+def make_audio(book, adir):
+    import asyncio
+    texts = {akey(t): t for t in say_texts(book)}
+    os.makedirs(adir, exist_ok=True)
+    have = {f[:-4] for f in os.listdir(adir) if f.endswith('.mp3')}
+    for k in have - set(texts):
+        os.remove(os.path.join(adir, k + '.mp3'))
+    todo = [(k, t) for k, t in texts.items() if k not in have]
+    if todo:
+        import edge_tts
+        proxy = os.environ.get('HTTPS_PROXY') or os.environ.get('https_proxy')
+        sem = asyncio.Semaphore(6)
+
+        async def one(k, t):
+            spoken = re.sub(r'[^\x20-\x7e]', ' ', t).replace('/', ' or ')
+            async with sem:
+                for _ in range(4):
+                    try:
+                        await edge_tts.Communicate(spoken, VOICE, rate='-8%', proxy=proxy).save(os.path.join(adir, k + '.mp3'))
+                        return
+                    except Exception as e:
+                        err = e; await asyncio.sleep(2)
+                print('  語音失敗', t[:40], err)
+
+        async def run():
+            await asyncio.gather(*(one(k, t) for k, t in todo))
+        asyncio.run(run())
+        print(f'  新增語音 {len(todo)} 個')
+    return {f[:-4] for f in os.listdir(adir) if f.endswith('.mp3') and os.path.getsize(os.path.join(adir, f)) > 0}
+
+
 def build(book):
     tpl = open(TPL, encoding='utf-8').read()
     subj = book['subject']
@@ -163,14 +287,21 @@ def build(book):
     <p>{book['lead']}</p>
     <div class="me" id="me"></div>
   </div>
+  <div class="mascot">{book.get('mascot','🐰')}<b>{book.get('cheer','一起闖關，加油！')}</b></div>
 </header>'''
     s = cut(s, '<header class="hero">', '</header>', hero, inclusive_end=True)
-    s = cut(s, '<footer>', '</footer>', '<footer><div class="wrap">全民補習班 ‧ 國小英文段考闖關 ‧ 題目全數自編　發音：瀏覽器英語語音</div></footer>', inclusive_end=True)
+    s = cut(s, '<footer>', '</footer>', '<footer><div class="wrap">全民補習班 ‧ 國小英文段考闖關 ‧ 自編題＋原卷題　發音：微軟 Neural 英語語音</div></footer>', inclusive_end=True)
     s = s.replace(':root{\n  --main:#8a3b12; --main-2:#c4682f;', ':root{\n  --main:%s; --main-2:%s;' % tuple(book['theme']), 1)
     s = s.replace('linear-gradient(135deg,#5e2709 0%,#b5652b 60%,#f2c14e 140%)', book['hero_bg'], 1)
 
     # 資料區
     L = book['units']
+    merge_extra(book)
+    imgs = sorted(f[:-4] for f in os.listdir(os.path.join(OUT, path, 'img')) if f.endswith('.png')) if os.path.isdir(os.path.join(OUT, path, 'img')) else []
+    for k, d in L.items():
+        for i, sc in enumerate(d.get('scenes', [])):
+            sc['img'] = f'{k}-{i}'
+    audio = make_audio(book, os.path.join(OUT, path, 'audio'))
     data = ['/* ================= 資料（國小版，題目全數自編） ================= */',
             'const ASK=' + js(ASK) + ';',
             'const L=' + js(L) + ';',
@@ -182,7 +313,8 @@ def build(book):
             'const RADAR=' + js(book['radar']) + ';',
             'const MIXNOTE=' + js(book['mixnote']) + ';',
             'const TABS=' + js(book['tabs']) + ';',
-            'const AUDIO=new Set([]);', '']
+            'const IMGS=new Set(' + js(imgs) + ');',
+            'const AUDIO=new Set(' + js(sorted(audio)) + ');', '']
     s = cut(s, '/* ================= 資料 ================= */', '/* ================= 注釋配對', '\n'.join(data) + '\n')
     # 交卷設定
     s = s.replace('eng7-kangxuan-1', subj)
@@ -194,6 +326,12 @@ def build(book):
     s = cut(s, '/* ================= 綜合：克漏字＋閱讀＋翻譯 ================= */', '/* ================= ✏️ 老師手寫', ES_JS + '\n')
     # 國小：配對的標題改「句子配對」
     s = s.replace("['match','🔗 片語配對']", "['match','🔗 句子配對']")
+    s = s.replace("['mcq','📝 段考模擬題']];", "['mcq','📝 段考模擬題'],...(d.orig&&d.orig.length?[['orig','📄 原卷題']]:[]),...(d.hard&&d.hard.length?[['hard','🔥 挑戰題']]:[])];", 1)
+    s = s.replace("  if(s==='mcq') renderMCQ(p,d.mcq,d.code,title);", "  if(s==='mcq') renderMCQ(p,d.mcq,d.code,title);\n  if(s==='orig') renderMCQ(p,d.orig,d.code,title+' 原卷題');\n  if(s==='hard') renderMCQ(p,d.hard,d.code,title+' 挑戰題');", 1)
+    s = s.replace("const isEN=s=>/^[A-Za-z][A-Za-z '’\\-\\/.…]*$/.test(s.trim());", "const isEN=s=>/^[A-Za-z][A-Za-z0-9 '’\\-\\/.…,?!\"]*$/.test(s.trim());", 1)
+    s = s.replace("for(const arr of [d.mcq,d.gmcq]){", "for(const arr of [d.mcq,d.gmcq,d.orig,d.hard]){", 1)
+    for chk in ["['orig','📄 原卷題']", "if(s==='hard')", "0-9 '", "d.orig,d.hard]"]:
+        assert chk in s, chk
     for bad in ['康軒課本', '19 校', 'Get Ready']:
         pass
     os.makedirs(os.path.join(OUT, path), exist_ok=True)
