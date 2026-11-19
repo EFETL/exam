@@ -7,7 +7,7 @@
   const seg=rel.split('/').filter(Boolean);
   const hub=document.getElementById('hub'), crumb=document.getElementById('crumb'), h1=document.getElementById('h1'), sub=document.getElementById('sub');
   const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const VC={翰林:['#2f6fb3','#4a97da'],康軒:['#e29a2e','#f2b350'],南一:['#2e9e6b','#48c08a'],龍騰:['#7a2f5c','#b04a86']};
+  const VC={翰林:['#2f6fb3','#4a97da'],康軒:['#e29a2e','#f2b350'],南一:['#2e9e6b','#48c08a'],何嘉仁:['#c0457a','#e06b9d'],龍騰:['#7a2f5c','#b04a86']};
   const card=(href,title,desc,emoji,c1,c2,badge,soon)=>`<${soon?'div':'a href="'+href+'"'} class="cardx${soon?' soon':''}" style="--c1:${c1};--c2:${c2}">
       <div class="top"><span class="emo">${emoji}</span>${badge?`<span class="badge">${esc(badge)}</span>`:''}</div>
       <div class="body"><h2>${esc(title)}</h2>${desc?`<p>${esc(desc)}</p>`:''}<span class="go">${soon?'敬請期待':'進入 →'}</span></div></${soon?'div':'a'}>`;
